@@ -1,0 +1,78 @@
+CONFIGURACIÓN INICIAL
+
+Registro datos institución
+
+Gestionar plan de estudios
+Gestión de planificación de clases
+Carga de temas dictados por clases por día
+
+Gestionar matriculación e inscripción de alumnos 
+
+Gestionar aulas
+Gestionar asistencias
+Gestionar docentes
+Gestionar celadores (o bedeles, o preceptores, o como joraca les llamen)
+Gestionar cuerpo directivo
+Seteo escalas de notas
+Carga de calendarios y materias por curso (asignación de docentes)
+Gestionar feriados y fechas especiales (Incluye paros)
+Gestionar cursos (asignación de alumnos)
+Gestion de roles y permisos
+Gestión de tablero de novedades (invitación a eventos, sugerencias)
+
+No vamos a hacer gestion de reservas de espacio fisico (lease talleres, salas de actos, etc.)
+
+REGISTRO DE NOVEDADES
+
+Gestión de amonestaciones (permite modificar según descargo)
+Carga de calificaciones en forma periódica
+Carga de novedades edilicias (roturas, refacciones, etc.)
+Carga de notificaciones del docente (avisos de ausencia, sugerencias, etc.)
+Gestión de encuestas anónimas de los alumnos (definición, carga y procesamiento)
+
+NOTIFICACIONES A PADRES O TUTORES LEGALES
+
+Envío vía SMS de inasistencia durante el día
+Envío vía email de inasistencias mensuales
+Envío vía email de novedades del docente
+Envío via email de calificaciones por período
+
+REPORTES E INFORMES
+
+Reporte de inasistencias alumnos
+Reporte de inasistencias docentes
+Constancia de alumno regular
+Constancia de finalización de curso
+Generación del analítico
+
+AUTOGESTIÓN ALUMNOS
+
+* Cantidad de inasistencias
+* Cantidad de amonestaciones
+* Listado de temas dictados por docente
+* Envío de consultas a un determinado docente
+* Envío de consultas a la dirección
+* Calificaciones
+
+* ACA VA EL DASHBOARD SOBRE CADA ALUMNO
+
+QUE COSA VA AL DASHBOARD????
+
+DE IMPORTANCIA PARA LA DIRECCIÓN
+>> Inasistencias por curso
+>> Promedio mensual de notas por asignatura y curso
+>> Evolución de notas por asignatura y curso (anual)
+>> Promedio mensual de notas globales por curso
+>> Evolución de notas globales por curso (anual)
+>> Desempeño histórico de docentes
+>> Cantidad de aplazados/aprobados por docente
+>> Cantidad de aplazados/aprobados por curso
+>> Listado de docentes que no han cargado los temas dictados
+>> 
+
+DE IMPORTANCIA PARA EL DOCENTE
+>> Desempeño de los alumnos por asignatura en relación con las demas del mismo curso
+
+DE IMPORTANCIA PARA EL ALUMNO
+>> Desempeño histórico de alumno por materia
+
