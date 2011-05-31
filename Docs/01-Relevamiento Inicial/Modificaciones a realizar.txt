@@ -1,0 +1,21 @@
+El porqué del nombre del proyecto
+El organigrama:
+	Descripción de funciones:
+	+Secretaría
+	+Ayudante Técnico
+Redacción
+Pantallas a las que se accedió
+Quitar solución a horas libres
+Modulo Encuentas --> Sistema en sí -- Piletas ahí
+Encriptación de información que no le compete
+	Ej: si no es mi curso, no puedo ver a los alumnos, pero si como grupo o curso de alumnos
+Todo por https - encriptación
+Firefox!!!!!
+
+
+24/5 Modelo de Negocio
+31/5 Modelo de Requerimientos
+	Entregar el informe preliminar corregido
+
+Justificar en la 2da carpeta porque no presentamos el modelo de negocio, ya que no agrega valor y tenemos identificados todos los casos de uso del sistema, basado también en que es un producto.
+Definir más el plan de actividades de soporte
