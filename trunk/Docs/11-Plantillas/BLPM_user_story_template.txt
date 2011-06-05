@@ -1,0 +1,37 @@
+User Story Template
+
+Narracion:
+
+Como <usuario final> necesito <algun objetivo>
+para <alguna razon>
+
+Prioridad: de acuerdo al valor de
+negocio y al riesgo inherente al
+ítem de producto.
+
+Estimacion: Usando Story Points (medida arbitraria de TAMAÑO RELATIVO de todas las historia respecto asi mismas).
+
+
+
+Supuestos:
+
+Reglas de Negocio: 
+
+Criterio de Aceptacion: casos de prueba de
+aceptación que determinan la satisfacción o no de la
+historia con los requerimientos iniciales.
+
+
+----------------------
+
+Precondicion:
+
+PostCondiciones:
+
+
+Discusiones:
+Registro de las decisiones que se van
+tomando (ej: de diseño), especificación más
+detallada de algún aspecto de la funcionalidad
+requerida, o cualquier otra discusión relacionada a la
+historia.
