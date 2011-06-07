@@ -1,0 +1,65 @@
+COMPROMISOS
+
+El profe quiere que le presentemos en una misma carpeta los planes de proyecto y de capacitación a fin de ir traceandolos ellos mismos.
+
+propuesta de FBS
+
+Replanificación
+
+
+
+PENDIENTES!!!!!
+
+El profe quiere que le presentemos en una misma carpeta los planes de proyecto y de capacitación a fin de ir traceandolos ellos mismos.
+
+Llevar un glosario bien actualizado de los terminos de las templates de versionOne. De ese modo nos ahorramos tener que traducir todo en cada sprint.
+
+Establecer un periodo quincenal para ir presentando los graficos de avance y velocidad.
+
+Ordenar los riesgos en base a la exposicion!!!!!!!!!!!!!!!!!!!!
+La mitigacion no solo es para nosotros, sino para el cliente, tratar de revisar ese aspecto.
+
+
+
+
+
+Tincho metio mano a hacer el plan de testing para establecer como desenvolvernos con la metodologia.
+
+
+
+
+SUGERENCIAS!!!!!!
+
+Analizar en profundidad los propositos de los foros y como se podrian ir parametrizando para poder establecer un set de permisos de acciones que el usuario puede llevar a cabo.
+
+La idea es que como minimo se aborden los requerimientos definidos en un principio.
+
+Definir vistas para acceso a datos??? como pasar esto del lado del usuario?
+
+
+
+No solo tener en cuenta el motor de extracción, sino manejar las transformaciones, las cuales recaen de nuestro lado.
+* Manejo de tipos heterogeneos
+* Manejo de cadenas (merging and splitting)
+* Valores calculados
+* etc.
+
+
+
+
+Analizar como matchear las directivas establecidas por el ministerio con el ideario de la institucion, es decir, las materias especificas (religion, investigacion cientifica, lenguas extranjeras, etc)
+
+Esto ultimo se aplica tanto a las escuelas de caracter religioso como a las de doble escolaridad con una fuerte orientacion tecnica que supera con creces los contenidos minimos.
+
+Como manejamos la gestion y planificacion de cambios. Analizar los costos, estimaciones y riesgos inherentes. 
+Asi podemos medir como un cambio impacta en la linea de tiempo del proyecto.
+
+
+
+PENSAMIENTOS HACIA MI MISMO!!!!!
+
+Si un docente falta, el eventual suplente puede acceder al plan del docente titular y continuar con lo planificado??? Consideramos eso????
+
+
+
+esta jugando al solitario yogui XD y los otros tampoco terminaron de alcanzar la pubertad, son como axolotes!!!
