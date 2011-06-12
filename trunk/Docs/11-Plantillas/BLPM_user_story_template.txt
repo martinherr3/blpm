@@ -1,19 +1,26 @@
 User Story Template
 
-Narracion:
+User Story ID: 
+
+NARRACION:
 
 Como <usuario final> necesito <algun objetivo>
 para <alguna razon>
 
-Prioridad: de acuerdo al valor de
+PRIORIDAD: de acuerdo al valor de
 negocio y al riesgo inherente al
 ítem de producto.
 
-Estimacion: Usando Story Points (medida arbitraria de TAMAÑO RELATIVO de todas las historia respecto asi mismas).
+ESTIMACION: Usando Story Points (medida arbitraria de TAMAÑO RELATIVO de todas las historia respecto asi mismas).
 
 
 
-Supuestos:
+SUPUESTOS:
+
+
+Precondicion:
+
+PostCondiciones:
 
 Reglas de Negocio: 
 
@@ -24,10 +31,6 @@ historia con los requerimientos iniciales.
 
 ----------------------
 
-Precondicion:
-
-PostCondiciones:
-
 
 Discusiones:
 Registro de las decisiones que se van
@@ -35,3 +38,15 @@ tomando (ej: de diseño), especificación más
 detallada de algún aspecto de la funcionalidad
 requerida, o cualquier otra discusión relacionada a la
 historia.
+
+
+/////////////
+
+Titulo: Como Administrador necesito obtener escala de calificaciones del SI transaccional para poder  trabajar con dichos datos y hacer una utilizacion correcta en nuestro SI
+Supuestos: BD transaccional disponible para desarrollo
+Precondicion: Conexion a BD del SI transaccional dispoble y funcionando.
+PostCondicion: Escala de calificaciones disponible para realizar calculos y sumarizaciones
+ Reglas de Negocio: N/A
+ 
+Criterio de Aceptacion: Comparar tablas de BD Transaccional y nuestra BD, que tengan la misma cantidad de registros y que tomando 5 registros al azar, tengan completitud de datos.
+Discusiones: N/A
