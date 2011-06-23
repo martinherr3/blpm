@@ -1,0 +1,11 @@
+D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR_SI\EDUAR_SI_BusinessLogic\obj\Debug\ResolveAssemblyReference.cache
+D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR_SI\EDUAR_SI_BusinessLogic\bin\Debug\EDUAR_SI_BusinessLogic.dll
+D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR_SI\EDUAR_SI_BusinessLogic\bin\Debug\EDUAR_SI_BusinessLogic.pdb
+D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR_SI\EDUAR_SI_BusinessLogic\bin\Debug\EDUAR_DataTransferObject.dll
+D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR_SI\EDUAR_SI_BusinessLogic\bin\Debug\EDUAR_SI_DataAccess.dll
+D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR_SI\EDUAR_SI_BusinessLogic\bin\Debug\EDUAR_Utilidades.dll
+D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR_SI\EDUAR_SI_BusinessLogic\bin\Debug\EDUAR_DataTransferObject.pdb
+D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR_SI\EDUAR_SI_BusinessLogic\bin\Debug\EDUAR_Utilidades.pdb
+D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR_SI\EDUAR_SI_BusinessLogic\bin\Debug\EDUAR_SI_DataAccess.pdb
+D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR_SI\EDUAR_SI_BusinessLogic\obj\Debug\EDUAR_SI_BusinessLogic.dll
+D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR_SI\EDUAR_SI_BusinessLogic\obj\Debug\EDUAR_SI_BusinessLogic.pdb

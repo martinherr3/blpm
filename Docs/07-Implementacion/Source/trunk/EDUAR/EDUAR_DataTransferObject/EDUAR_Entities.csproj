@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EDUAR_DataTransferObject</RootNamespace>
+    <AssemblyName>EDUAR_DataTransferObject</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Package Principales\CicloLectivo.cs" />
+    <Compile Include="Entities\Package Principales\Periodo.cs" />
+    <Compile Include="Entities\Package Usuarios\Alumno.cs" />
+    <Compile Include="Entities\Package Usuarios\CargoPersonal.cs" />
+    <Compile Include="Entities\Configuraciones.cs" />
+    <Compile Include="Entities\Package Usuarios\Docente.cs" />
+    <Compile Include="Entities\Package Principales\EscalaCalificacion.cs" />
+    <Compile Include="Entities\Localidades.cs" />
+    <Compile Include="Entities\Package Agenda\Citacion.cs" />
+    <Compile Include="Entities\Package Agenda\Evaluacion.cs" />
+    <Compile Include="Entities\Package Agenda\EventoInstitucional.cs" />
+    <Compile Include="Entities\Package Agenda\Excursion.cs" />
+    <Compile Include="Entities\Package Agenda\MotivoCitacion.cs" />
+    <Compile Include="Entities\Package Agenda\Reunion.cs" />
+    <Compile Include="Entities\Package Agenda\TipoEventoInstitucional.cs" />
+    <Compile Include="Entities\Package Comunicaciones\Foro.cs" />
+    <Compile Include="Entities\Package Comunicaciones\Mensaje.cs" />
+    <Compile Include="Entities\Package Comunicaciones\Post.cs" />
+    <Compile Include="Entities\Package Comunicaciones\Topico.cs" />
+    <Compile Include="Entities\Package Encuestas\Encuesta.cs" />
+    <Compile Include="Entities\Package Encuestas\Escala.cs" />
+    <Compile Include="Entities\Package Encuestas\Ponderacion.cs" />
+    <Compile Include="Entities\Package Encuestas\Pregunta.cs" />
+    <Compile Include="Entities\Package Novedades Aulicas\Novedad.cs" />
+    <Compile Include="Entities\Package Novedades Aulicas\TipoNovedad.cs" />
+    <Compile Include="Entities\Package Perfiles\Perfil.cs" />
+    <Compile Include="Entities\Package Perfiles\Permiso.cs" />
+    <Compile Include="Entities\Package Perfiles\Usuario.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\BibliografiaRecomendadaContenido.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\Contenido.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\DiasHorarios.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\Orientacion.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\Plan.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\PlanificacionAnualAsignatura.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\TemaContenido.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\TemasPlanificadosAsignatura.cs" />
+    <Compile Include="Entities\Package Principales\Asignatura.cs" />
+    <Compile Include="Entities\Package Principales\Calificacion.cs" />
+    <Compile Include="Entities\Package Principales\Curso.cs" />
+    <Compile Include="Entities\Package Principales\FeriadosYFechasEspeciales.cs" />
+    <Compile Include="Entities\Package Principales\Inasistencia.cs" />
+    <Compile Include="Entities\Package Principales\Institucion.cs" />
+    <Compile Include="Entities\Package Principales\MotivoAusencia.cs" />
+    <Compile Include="Entities\Package Principales\MotivoSancion.cs" />
+    <Compile Include="Entities\Package Principales\Nivel.cs" />
+    <Compile Include="Entities\Package Principales\Sancion.cs" />
+    <Compile Include="Entities\Package Principales\TipoSancion.cs" />
+    <Compile Include="Entities\Package Usuarios\Director.cs" />
+    <Compile Include="Entities\Package Usuarios\Preceptor.cs" />
+    <Compile Include="Entities\Package Usuarios\Psicopedagogo.cs" />
+    <Compile Include="Entities\Package Usuarios\Tutor.cs" />
+    <Compile Include="Entities\Paises.cs" />
+    <Compile Include="Entities\Package Usuarios\Personal.cs" />
+    <Compile Include="Entities\Package Usuarios\Persona.cs" />
+    <Compile Include="Entities\ProcesosAutomaticos.cs" />
+    <Compile Include="Entities\ProcesosEjecutados.cs" />
+    <Compile Include="Entities\Provincias.cs" />
+    <Compile Include="Entities\TipoDocumento.cs" />
+    <Compile Include="Entities\Package Principales\ValoresEscalaCalificacion.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Security\DTRol.cs" />
+    <Compile Include="Security\DTSeguridad.cs" />
+    <Compile Include="Security\DTUsuario.cs" />
+    <Compile Include="Shared\DTBase.cs" />
+    <Compile Include="Shared\DTSessionDataUI.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Diagrama de Clases.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EDUAR\EDUAR_Utility\EDUAR_Utility.csproj">
+      <Project>{AD230A87-FE0F-4621-BC67-A035A22F9D3A}</Project>
+      <Name>EDUAR_Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
