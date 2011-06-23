@@ -1,5 +1,0 @@
-D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR\EDUAR_Utility\bin\Debug\EDUAR_Utilidades.dll
-D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR\EDUAR_Utility\bin\Debug\EDUAR_Utilidades.pdb
-D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR\EDUAR_Utility\obj\Debug\ResolveAssemblyReference.cache
-D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR\EDUAR_Utility\obj\Debug\EDUAR_Utilidades.dll
-D:\Documentos\Facu\2011\Proyecto\Repositorio\Docs\07-Implementacion\Source\trunk\EDUAR\EDUAR_Utility\obj\Debug\EDUAR_Utilidades.pdb
