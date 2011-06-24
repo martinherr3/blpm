@@ -904,7 +904,7 @@ namespace EDUAR_SI_DataAccess
         /// </summary>
         /// <param name="configuracion">The configuracion.</param>
         /// <returns></returns>
-        public List<Asignatura> obtenerAsignaturasCursoBDTransaccional(Configuraciones configuacion)
+        public List<Asignatura> obtenerAsignaturasCursoBDTransaccional(Configuraciones configuracion)
         {
             List<Asignatura> listaAsignaturas = null;
             try
@@ -988,31 +988,33 @@ namespace EDUAR_SI_DataAccess
                     {
                         periodo = new Periodo()
                         {
-                            idPais = 0,
-                            idPaisTransaccional = (int)reader["id"],
-                            nombre = reader["nombre_corto"].ToString(),
-                            descripcion = reader["nombre_largo"].ToString(),
-                            activo = true
+                            idPeriodo = 0,
+
+                            idPeriodoTransaccional = (int)reader["id"],
+                            nombre = reader["descripcion"].ToString(),
+                            fechaInicio = Convert.ToDateTime(reader["fecha_inicio"]),
+                            fechaFin = Convert.ToDateTime(reader["fecha_fin"]),
+                            cicloLectivo = new CicloLectivo() { idCicloLectivoTransaccional = (int)reader["fk_ciclolectivo_id"] }
                         };
-                        listaPaises.Add(pais);
+                        listaPeriodo.Add(periodo);
                     }
                     command.Connection.Close();
-                    return listaPaises;
+                    return listaPeriodo;
                 }
             }
             catch (MySqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerPaisesBDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerPeriodosBDTransaccional()", ClassName),
                                         ex, enuExceptionType.MySQLException);
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerPaisesBDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerPeriodosBDTransaccional()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerPaisesBDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerPeriodosBDTransaccional()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
             finally
