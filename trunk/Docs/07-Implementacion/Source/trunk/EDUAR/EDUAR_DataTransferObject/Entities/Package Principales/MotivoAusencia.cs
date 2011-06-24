@@ -13,8 +13,9 @@ namespace EDUAR_Entities
     public class MotivoAusencia
     {
 
-        private string _descripcion;
+        private string _nombre;
         private int _idMotivo;
+        private int _idMotivoTransaccional;
 
         public MotivoAusencia()
         {
@@ -31,15 +32,15 @@ namespace EDUAR_Entities
 
         }
 
-        public string descripcion
+        public string nombre
         {
             get
             {
-                return _descripcion;
+                return _nombre;
             }
             set
             {
-                _descripcion = value;
+                _nombre = value;
             }
         }
 
@@ -54,6 +55,16 @@ namespace EDUAR_Entities
                 _idMotivo = value;
             }
         }
-
+        public int idMotivoTransaccional
+        {
+            get
+            {
+                return _idMotivoTransaccional;
+            }
+            set
+            {
+                _idMotivoTransaccional = value;
+            }
+        }
     }//end MotivoAusencia
 }

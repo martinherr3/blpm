@@ -886,6 +886,57 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
+
+        /// <summary>
+        /// Grabars the motivo ausencia.
+        /// </summary>
+        /// <param name="listaMotivos">The lista motivos.</param>
+        public void GrabarMotivoAusencia(List<MotivoAusencia> listaMotivos)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "MotivoAusencia_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    foreach (MotivoAusencia motivo in listaMotivos)
+                    {
+                        command.Parameters.AddWithValue("idMotivoAusencia", 0);
+                        command.Parameters.AddWithValue("idMotivoAusenciaTransaccional", motivo.idMotivoTransaccional);
+                        command.Parameters.AddWithValue("nombre", motivo.nombre);
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                    transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarMotivoAusencia()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarMotivoAusencia()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
         #endregion
 
 

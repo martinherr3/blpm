@@ -1023,6 +1023,59 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
+
+        public List<MotivoAusencia> obtenerMotivosAusenciaBDTransaccional(Configuraciones configuracion)
+        {
+            List<MotivoAusencia> listaMotivos = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT * 
+                                            FROM vw_motivosAusencia";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    MotivoAusencia motivo;
+                    listaMotivos = new List<MotivoAusencia>();
+                    while (reader.Read())
+                    {
+                        motivo = new MotivoAusencia()
+                        {
+                            idMotivo=0,
+                            idMotivoTransaccional = (int)reader["id"],
+                            nombre = reader["descripcion"].ToString(),
+                        };
+                        listaMotivos.Add(motivo);
+                    }
+                    command.Connection.Close();
+                    return listaMotivos;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
         #endregion
     }
 }
