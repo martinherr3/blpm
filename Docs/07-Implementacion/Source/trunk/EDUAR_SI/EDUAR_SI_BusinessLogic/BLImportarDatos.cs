@@ -95,6 +95,8 @@ namespace EDUAR_SI_BusinessLogic
                 objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
 
                 List<Periodo> lista = objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion);
+
+                objDAImportarDatos.GrabarMotivoAusencia(objDAObtenerDatos.obtenerMotivosAusenciaBDTransaccional(objConfiguracion));
             }
             catch (Exception ex)
             {
