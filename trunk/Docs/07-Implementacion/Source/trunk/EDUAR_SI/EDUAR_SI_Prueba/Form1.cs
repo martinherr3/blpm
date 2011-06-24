@@ -31,7 +31,7 @@ namespace EDUAR_SI_Prueba
         private void Form1_Load(object sender, EventArgs e)
         {
             ddlCadenaConexion.Items.Add(@"Data Source=LAURA-PORTATIL\SQLEXPRESS;Initial Catalog=EDUAR;Persist Security Info=True;User ID=sa;Password=tesis");
-            ddlCadenaConexion.SelectedIndex = 0;
+            ddlCadenaConexion.Items.Add(@"Data Source=alulau.redirectme.net,1433;Initial Catalog=EDUAR;Persist Security Info=True;User ID=sa;Password=tesis");
         }
     }
 }
