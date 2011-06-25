@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Iniciar sesión" Language="C#" MasterPageFile="~/EDUARMaster.master" AutoEventWireup="true"
-    CodeBehind="Login.aspx.cs" Inherits="EDUAR_UI.Account.Login" %>
+    CodeBehind="Login.aspx.cs" Inherits="EDUAR_UI.Login" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>

@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace EDUAR_UI.Account {
+namespace EDUAR_UI {
     
     
     public partial class ChangePasswordSuccess {

@@ -6,7 +6,7 @@ using EDUAR_Utility.Enumeraciones;
 namespace EDUAR_Utility.Excepciones
 {
     [DataContract]
-    public class GenericException
+    public class GenericException : Exception
     {
         /// <summary>
         /// Propiedad utilizada para mostrar un mensaje personalizado en el throw de la GenericException 

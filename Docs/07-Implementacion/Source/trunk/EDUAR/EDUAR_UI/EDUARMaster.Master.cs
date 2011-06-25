@@ -7,12 +7,21 @@ using System.Web.UI.WebControls;
 using EDUAR_UI.Shared;
 using EDUAR_Entities.Shared;
 using EDUAR_Entities.Security;
+using EDUAR_Utility.Excepciones;
+using EDUAR_Utility.Enumeraciones;
+using System.Web.Security;
 
 namespace EDUAR_UI
 {
     public partial class EDUARMaster : MasterPage
     {
         #region --[Propiedades]--
+        public Boolean EsExepcion
+        {
+            get { return (Boolean)ViewState["esExepcion"]; }
+            set { ViewState["esExepcion"] = value; }
+        }
+
         /// <summary>
         /// Mantiene los datos del usuario logueado.
         /// </summary>
@@ -31,9 +40,47 @@ namespace EDUAR_UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            CargarMenu();
+
+            try
+            {
+                //Llama a la funcionalidad que redirecciona a la pagina de Login cuando finaliza el tiempo de session
+                ((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
+
+                // Ocultar la ventana de información
+                ventanaInfoMaster.Visible = false;
+
+                //Suscribe los eventos de la ventana emergente. 
+                ventanaInfoMaster.VentanaAceptarClick += (Aceptar);
+                ventanaInfoMaster.VentanaCancelarClick += (Cancelar);
+                CargarMenu();
+            }
+            catch (Exception ex)
+            {
+                ManageExceptions((GenericException)ex);
+            }
         }
 
+
+        /// <summary>
+        /// Método que cierra la sesión del usuario logueado.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void HeadLoginStatus_LoggingOut(object sender, LoginCancelEventArgs e)
+        {
+            try
+            {
+                LoginStatus control = ((LoginStatus)Page.Master.FindControl("HeadLoginView").FindControl("HeadLoginStatus"));
+                control.LogoutPageUrl = "~/Account/Login.aspx";
+                control.LogoutAction = LogoutAction.RedirectToLoginPage;
+                Session.Clear();
+                FormsAuthentication.SignOut();
+            }
+            catch (Exception ex)
+            {
+                ManageExceptions((GenericException)ex);
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -67,7 +114,7 @@ namespace EDUAR_UI
                 TreeNode objTreeNode = new TreeNode(node.Title);
                 if (node.Url != String.Empty)
                     objTreeNode.NavigateUrl = node.Url;
-                
+
                 objTreeNode.SelectAction = TreeNodeSelectAction.Expand;
                 //Recorre los nodos hijos
                 foreach (SiteMapNode nodeChild in node.ChildNodes)
@@ -104,5 +151,165 @@ namespace EDUAR_UI
             }
             return false;
         }
+
+        #region --[Eventos]--
+        /// <summary>
+        /// Click en botón aceptar de ventana de información / confirmación / error
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Aceptar(object sender, EventArgs e)
+        {
+            if (!EsExepcion)
+                OnBotonClickAviso(BotonAvisoAceptar, e);
+        }
+
+        /// <summary>
+        /// Click en botón Cancelar de ventana de información / confirmación / error
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Cancelar(object sender, EventArgs e)
+        {
+            if (!EsExepcion)
+                OnBotonClickAviso(BotonAvisoCancelar, e);
+        }
+
+        #endregion
+
+        #region --[Métodos Públicos]--
+        /// <summary>
+        /// Método que permite tratar las excepciones de forma standard. 
+        /// </summary>
+        /// <param name="ex">Excepción a tratar</param>
+        public void ManageExceptions(Exception excepcion)
+        {
+            try
+            {
+                GenericException ex = (GenericException)excepcion;
+                string exceptionName = ex.GetType().FullName;
+
+                //Esta es una excepcion de tipo validacion que viene de UI.
+                if (exceptionName.Contains("CustomizedException") && (ex.ExceptionType == enuExceptionType.ValidationException))
+                    MostrarMensaje("Error de Validación", ex.Message, enumTipoVentanaInformacion.Advertencia);
+                //Esta es una excepcion de tipo validacion que viene de BL.
+                else if ((exceptionName.Contains("GenericException")))
+                {
+                    ///GenericException genericEx = ((GenericException)ex).Detail;
+                    if (ex.ExceptionType == enuExceptionType.ValidationException)
+                        MostrarMensaje("Error de Validación", ex.Message, enumTipoVentanaInformacion.Advertencia);
+                    else
+                        ventanaInfoMaster.GestionExcepciones(ex);
+                }
+                else
+                    ventanaInfoMaster.GestionExcepciones(ex);
+
+                // Refrescar updatepanel
+                updVentaneMensajes.Update();
+                EsExepcion = true;
+            }
+            catch (Exception exNew)
+            {
+                ventanaInfoMaster.GestionExcepciones((GenericException)exNew);
+            }
+        }
+
+        /// <summary>
+        /// Método que guardar un log
+        /// </summary>
+        /// <param name="exepcionControlada">Excepcion que se va a guardar</param>
+        public void ManageExceptionsLog(Exception exepcionControlada)
+        {
+            try
+            {
+                ventanaInfoMaster.GestionExcepcionesLog(exepcionControlada);
+            }
+            catch (Exception ex)
+            {
+                ManageExceptions(ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Metodo que se encarga de mostrar mensajes en la aplicacion.
+        /// </summary>
+        /// <param name="titulo"></param>
+        /// <param name="detalle"></param>
+        /// <param name="tipoventana"></param>
+        public void MostrarMensaje(String titulo, String detalle, enumTipoVentanaInformacion tipoventana)
+        {
+            try
+            {
+                EsExepcion = false;
+                ventanaInfoMaster.TipoVentana = tipoventana;
+                ventanaInfoMaster.Titulo = titulo;
+                ventanaInfoMaster.Detalle = detalle;
+                ventanaInfoMaster.MostrarMensaje();
+
+                // Refrescar updatepanel
+                updVentaneMensajes.Update();
+
+            }
+            catch (Exception ex)
+            {
+                ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Metodo que se encarga de ocultar los mensajes en la aplicacion.
+        /// </summary>
+        public void OcultarMensaje()
+        {
+            try
+            {
+                ventanaInfoMaster.OcultarMensaje();
+                // Refrescar updatepanel
+                updVentaneMensajes.Update();
+
+            }
+            catch (Exception ex)
+            {
+                ManageExceptions(ex);
+            }
+        }
+
+        #endregion
+
+        #region --[Delegados]--
+        /// <summary>
+        /// Delegado para capturar el evento de click sobre aceptar / cancelar en ventana de aviso
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public delegate void MasterPageAvisoClickHandler(object sender, EventArgs e);
+
+        /// <summary>
+        /// Evento click sobre botón aceptar de ventana de aviso
+        /// </summary>
+        public event MasterPageAvisoClickHandler BotonAvisoAceptar;
+
+        /// <summary>
+        /// Evento click sobre botón cancelar de ventana de aviso
+        /// </summary>
+        public event MasterPageAvisoClickHandler BotonAvisoCancelar;
+
+        /// <summary>
+        /// Invoca los delegados al evento de click al botón, para que los eventos de
+        /// aceptar / cancelar puedan ser controlados desde las páginas "hijas" al masterpage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">Argumentos del evento</param>
+        protected virtual void OnBotonClickAviso(MasterPageAvisoClickHandler sender, EventArgs e)
+        {
+            if (sender != null)
+            {
+                //Invoca los delegados
+                sender(this, e);
+            }
+        }
+
+        #endregion
     }
 }

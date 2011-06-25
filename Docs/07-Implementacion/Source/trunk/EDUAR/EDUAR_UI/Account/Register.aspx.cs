@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_UI.Shared;
 
-namespace EDUAR_UI.Account
+namespace EDUAR_UI
 {
     public partial class Register : EDUARBasePage
     {
@@ -29,5 +29,7 @@ namespace EDUAR_UI.Account
             Response.Redirect(continueUrl);
         }
 
+        protected void UserName_TextChanged(object sender, EventArgs e)
+        {}
     }
 }
