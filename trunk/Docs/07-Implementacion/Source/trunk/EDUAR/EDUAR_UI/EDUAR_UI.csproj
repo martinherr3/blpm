@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>DLL\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -55,13 +58,18 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
-    <Content Include="Private\ConsultarAlumnos.aspx" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\Logo.png" />
+    <Content Include="Images\Logo_chico.png" />
+    <Content Include="Alumnos\ConsultarAlumnos.aspx" />
+    <Content Include="Scripts\prototype-1.6.0.2.js" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="UserControls\VentanaInfo.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -118,11 +126,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Private\ConsultarAlumnos.aspx.cs">
+    <Compile Include="Alumnos\ConsultarAlumnos.aspx.cs">
       <DependentUpon>ConsultarAlumnos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Private\ConsultarAlumnos.aspx.designer.cs">
+    <Compile Include="Alumnos\ConsultarAlumnos.aspx.designer.cs">
       <DependentUpon>ConsultarAlumnos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,6 +143,13 @@
     </Compile>
     <Compile Include="EDUARMaster.Master.designer.cs">
       <DependentUpon>EDUARMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\VentanaInfo.ascx.cs">
+      <DependentUpon>VentanaInfo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\VentanaInfo.ascx.designer.cs">
+      <DependentUpon>VentanaInfo.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

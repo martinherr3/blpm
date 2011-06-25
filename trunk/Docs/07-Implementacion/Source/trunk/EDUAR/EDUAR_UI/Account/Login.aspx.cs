@@ -9,7 +9,7 @@ using EDUAR_Entities.Security;
 using EDUAR_BusinessLogic.Security;
 using System.Web.Security;
 
-namespace EDUAR_UI.Account
+namespace EDUAR_UI
 {
     public partial class Login : EDUARBasePage
     {

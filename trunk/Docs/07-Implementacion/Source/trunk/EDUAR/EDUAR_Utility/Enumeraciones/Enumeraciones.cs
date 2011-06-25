@@ -119,4 +119,32 @@ namespace EDUAR_Utility.Enumeraciones
         Administrativo = 120,
         Docente = 121
     }
+
+    /// <summary>
+    /// Enumeración que contiene los tipo de ventanas que se utilizan para los mensajes emergentes.
+    /// </summary>
+    public enum enumTipoVentanaInformacion
+    {
+        /// <summary>
+        /// Mostrara la ventana de color "Rojo" y un icono de Error.
+        /// </summary>
+        Error,
+        /// <summary>
+        /// Mostrara la ventana de color "Amarillo" y un icono de Advertencia.
+        /// </summary>
+        Advertencia,
+        /// <summary>
+        /// Mostrara la ventana de color "Verde" y un icono de Exito.
+        /// </summary>
+        Satisfactorio,
+        /// <summary>
+        /// Mostrará la ventana con el boton Aceptar y Cancelar y los mismos colores de la aplicacion.
+        /// </summary>
+        Confirmación,
+        /// <summary>
+        /// Mostrará la ventana con el boton Aceptar y Cancelar y los mismos colores de la aplicacion.
+        /// </summary>
+        Otro
+
+    }
 }

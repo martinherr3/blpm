@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Cambiar contraseña" Language="C#" MasterPageFile="~/EDUARMaster.master" AutoEventWireup="true"
-    CodeBehind="ChangePassword.aspx.cs" Inherits="EDUAR_UI.Account.ChangePassword" %>
+    CodeBehind="ChangePassword.aspx.cs" Inherits="EDUAR_UI.ChangePassword" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
