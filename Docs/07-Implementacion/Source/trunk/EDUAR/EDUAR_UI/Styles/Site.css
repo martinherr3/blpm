@@ -292,3 +292,102 @@ div.accountInfo
     text-align: right;
     padding-right: 10px;
 }
+
+/* Estilo Menu Navegación*/
+
+.contenedormenu
+{
+    padding-top:20px;
+    padding-left:10px;
+    width:250px;
+    float:left;
+    vertical-align:top;
+}
+
+.sitepath, .breadcrumb span
+{ 
+ font-family : Tahoma,Verdana, Arial, Helvetica, sans-serif;
+ font-size: 10px;	
+ font-weight: normal;	
+ color: #585858;	
+ text-decoration: none;
+ vertical-align: middle; 
+}    
+
+.sitepathSeparacion
+{ 
+ font-family : Tahoma,Verdana, Arial, Helvetica, sans-serif;
+ font-size: 11px;	
+ font-weight: bold;	
+ color: #585858;	
+ text-decoration: none;
+ vertical-align: middle; 
+} 
+
+	 
+.menu
+{
+ font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+ font-size: 11px;	
+ font-weight: bold;	
+ color: #23387A;	
+ text-decoration: none;
+ vertical-align: middle; 
+}
+
+
+.menuHover
+{
+ font-weight:  bold;	
+}          
+
+.menuRoot
+{
+ left : 10px;
+ font-size: 11px;	
+ font-weight: bold;	
+ color: #25385A;	
+ text-decoration:underline;
+ vertical-align: middle; 
+}
+
+
+.menuHijos
+{
+ font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+ font-size: 10px;	
+ font-weight: normal;	
+ color: #23387A;	
+ text-decoration: none;
+ vertical-align: middle; 
+}
+
+a.menuHijos:hover
+{
+	font-weight:  bold;
+}
+
+.menuNiv2Hover{
+	font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;    
+	font-size: 11px;	
+	font-weight: normal;	
+	color: #C8D2E8;	
+	text-decoration: none; 
+	vertical-align: middle; 
+}
+
+.menuNiv2 {     
+	font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;    
+	font-size: 11px;	
+	font-weight: normal;	
+	color: #E6E8F5;	
+	text-decoration: none;
+	vertical-align: middle; }
+
+.menuNiv20 {     
+	font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;    
+	font-size: 11px;	
+	font-weight: normal;	
+	color: #C8D2E8;	
+	text-decoration: none;
+	vertical-align: middle; }

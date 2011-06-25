@@ -148,6 +148,10 @@
       <Project>{3C565E7B-1BE2-4BD7-9927-1A5AF7C66E3C}</Project>
       <Name>EDUAR_BusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EDUAR_DataTransferObject\EDUAR_Entities.csproj">
+      <Project>{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}</Project>
+      <Name>EDUAR_Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EDUAR_Utility\EDUAR_Utility.csproj">
       <Project>{AD230A87-FE0F-4621-BC67-A035A22F9D3A}</Project>
       <Name>EDUAR_Utility</Name>

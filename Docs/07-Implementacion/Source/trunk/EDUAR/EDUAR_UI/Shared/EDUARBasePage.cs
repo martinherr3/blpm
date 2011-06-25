@@ -5,6 +5,7 @@ using EDUAR_Utility.Utilidades;
 using System.Text;
 using System.Web.Security;
 using System.Configuration;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_UI.Shared
 {
@@ -71,6 +72,21 @@ namespace EDUAR_UI.Shared
         /// </summary>
         public EDUARMaster MasterBase { get; set; }
 
+
+        /// <summary>
+        /// Mantiene los datos del usuario logueado.
+        /// </summary>
+        public DTSessionDataUI ObjDTSessionDataUI
+        {
+            get
+            {
+                if (Session["SessionObjDTODataPage"] == null)
+                    Session["SessionObjDTODataPage"] = new DTSessionDataUI();
+
+                return (DTSessionDataUI)Session["SessionObjDTODataPage"];
+            }
+            set { Session["SessionObjDTODataPage"] = value; }
+        }
         #endregion
 
         #region --[Eventos]--
