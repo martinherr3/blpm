@@ -937,8 +937,58 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
-        #endregion
 
+        public void GrabarPeriodo(List<Periodo> listaPeriodo)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
 
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Periodo_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    foreach (Periodo periodo in listaPeriodo)
+                    {
+                        command.Parameters.AddWithValue("idPeriodo", 0);
+                        command.Parameters.AddWithValue("idPeriodoTransaccional", periodo.idPeriodoTransaccional);
+                        command.Parameters.AddWithValue("nombre", periodo.nombre);
+                        command.Parameters.AddWithValue("idCicloLectivo", periodo.cicloLectivo.idCicloLectivoTransaccional);
+                        command.Parameters.AddWithValue("fechaInicio",  periodo.fechaInicio);
+                        command.Parameters.AddWithValue("fechaFin", periodo.fechaFin);
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                    transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarPeriodo()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarPeriodo()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+   #endregion
     }
+
 }

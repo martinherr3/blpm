@@ -93,8 +93,12 @@ namespace EDUAR_SI_BusinessLogic
                 objDAImportarDatos.GrabarOrientacion(objDAObtenerDatos.obtenerOrientacionesBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
+                
+                objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion));
 
-                List<Periodo> lista = objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion);
+
+
+                //List<Periodo> lista = objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion);
 
                 objDAImportarDatos.GrabarMotivoAusencia(objDAObtenerDatos.obtenerMotivosAusenciaBDTransaccional(objConfiguracion));
             }
