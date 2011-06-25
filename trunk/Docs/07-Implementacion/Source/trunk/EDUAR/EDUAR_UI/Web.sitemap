@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
-    <siteMapNode url="~/Private" title=""  description="">
-        <siteMapNode url="~/Private/ConsultarAlumnos.aspx" title="Consulta de Alumnos"  description="" roles="admin" />
+    <siteMapNode url="" title="EDUAR" description="Portal EDUAR" roles="*">
+        <siteMapNode url="~/Default.aspx" title="Inicio"  description="Inicio" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor" >
+            <siteMapNode></siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="" title="Alumnos"  description="Alumnos" roles="Administrador">
+            <siteMapNode url="~/Private/ConsultarAlumnos.aspx" title="Consulta de Alumnos"  description="" roles="Administrador" />
+        </siteMapNode>
     </siteMapNode>
 </siteMap>

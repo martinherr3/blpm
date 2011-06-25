@@ -11,7 +11,7 @@
         Especifique su nombre de usuario y contraseña.
         <asp:HyperLink ID="RegisterHyperLink" runat="server" EnableViewState="false">Registrarse</asp:HyperLink> si no tiene una cuenta.
     </p>
-    <asp:Login ID="LoginUser" runat="server" EnableViewState="false" RenderOuterTable="false">
+    <asp:Login ID="LoginUser" runat="server" EnableViewState="false" RenderOuterTable="false" OnAuthenticate="LoginUsuario_Authenticate">
         <LayoutTemplate>
             <span class="failureNotification">
                 <asp:Literal ID="FailureText" runat="server"></asp:Literal>

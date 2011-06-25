@@ -67,7 +67,13 @@ namespace EDUAR_Utility.Enumeraciones
 
     public enum enumRoles : int
     {
-        Administrador = 0
+        Administrador = 1,
+        Administrativo = 2,
+        Alumno = 3,
+        Director = 4,
+        Docente = 5,
+        Psicopedagogo = 6,
+        Tutor = 7
     }
 
     /// <summary>

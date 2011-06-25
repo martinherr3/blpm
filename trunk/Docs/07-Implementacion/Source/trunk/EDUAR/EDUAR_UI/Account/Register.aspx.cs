@@ -5,10 +5,11 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using EDUAR_UI.Shared;
 
 namespace EDUAR_UI.Account
 {
-    public partial class Register : System.Web.UI.Page
+    public partial class Register : EDUARBasePage
     {
 
         protected void Page_Load(object sender, EventArgs e)

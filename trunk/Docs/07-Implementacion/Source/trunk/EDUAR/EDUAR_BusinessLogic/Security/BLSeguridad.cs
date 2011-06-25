@@ -94,8 +94,8 @@ namespace EDUAR_BusinessLogic.Security
         {
             try
             {
-                //MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
-                //Data.Usuario.Password = user.GetPassword();
+                MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
+                Data.Usuario.Password = user.GetPassword();
                 ObtenerRolesUsuario();
             }
             catch (Exception ex)
