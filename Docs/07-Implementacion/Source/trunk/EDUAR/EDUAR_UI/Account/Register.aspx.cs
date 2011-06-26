@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using EDUAR_UI.Shared;
 
 namespace EDUAR_UI
@@ -28,8 +23,5 @@ namespace EDUAR_UI
             }
             Response.Redirect(continueUrl);
         }
-
-        protected void UserName_TextChanged(object sender, EventArgs e)
-        {}
     }
 }

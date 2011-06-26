@@ -1,10 +1,10 @@
 ﻿using System;
+using System.ServiceModel;
 using System.Text;
 using System.Web.UI;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
 using EDUAR_Utility.Utilidades;
-//using System.ServiceModel;
 
 
 namespace EDUAR_UI.UserControls
@@ -65,7 +65,7 @@ namespace EDUAR_UI.UserControls
         public void OcultarMensaje()
         {
             try { Visible = false; }
-            catch (GenericException ex) { GestionExcepciones(ex); }
+            catch (Exception ex) { GestionExcepciones(ex); }
         }
 
         /// <summary>
@@ -74,14 +74,14 @@ namespace EDUAR_UI.UserControls
         public void MostrarMensaje()
         {
             try { CargarPresentacion(); }
-            catch (GenericException ex) { GestionExcepciones(ex); }
+            catch (Exception ex) { GestionExcepciones(ex); }
         }
 
         /// <summary>
         /// Guarda un log con la Excepcion y luego levanta una ventana emergente. 
         /// </summary>
         /// <param name="ex"></param>
-        public void GestionExcepciones(GenericException ex)
+        public void GestionExcepciones(Exception ex)
         {
             try
             {
@@ -121,8 +121,8 @@ namespace EDUAR_UI.UserControls
                 if ((exceptionName.Contains("GenericException")))
                 {
                     #region "GenericException"
-                    GenericException genericEx = ex;
-                    switch (ex.ExceptionType)
+                    GenericException genericEx = ((FaultException<GenericException>)ex).Detail;
+                    switch (genericEx.ExceptionType)
                     {
                         case enuExceptionType.SqlException:
                             Titulo = "Error en Base de Datos";
@@ -244,7 +244,7 @@ namespace EDUAR_UI.UserControls
                 objLog.write(msgLog.ToString());
 
             }
-            catch (Exception ex) { GestionExcepciones((GenericException)ex); }
+            catch (Exception ex) { GestionExcepciones(ex); }
         }
         #endregion
 
@@ -299,7 +299,7 @@ namespace EDUAR_UI.UserControls
             }
             catch (Exception ex)
             {
-                GestionExcepciones((GenericException)ex);
+                GestionExcepciones(ex);
             }
         }
         #endregion

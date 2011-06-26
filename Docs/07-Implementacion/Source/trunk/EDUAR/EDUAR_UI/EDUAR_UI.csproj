@@ -40,6 +40,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -54,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Account\AsignRolesToUser.aspx" />
     <Content Include="Account\ChangePassword.aspx" />
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
@@ -62,7 +64,6 @@
     <Content Include="Images\Logo.png" />
     <Content Include="Images\Logo_chico.png" />
     <Content Include="Alumnos\ConsultarAlumnos.aspx" />
-    <Content Include="Scripts\prototype-1.6.0.2.js" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -87,6 +88,13 @@
     </Compile>
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\AsignRolesToUser.aspx.cs">
+      <DependentUpon>AsignRolesToUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\AsignRolesToUser.aspx.designer.cs">
+      <DependentUpon>AsignRolesToUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>

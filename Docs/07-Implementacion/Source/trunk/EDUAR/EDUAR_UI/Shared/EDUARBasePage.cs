@@ -108,6 +108,7 @@ namespace EDUAR_UI.Shared
 
         #endregion
 
+        #region --[Métodos Públicos]--
         /// <summary>
         /// Método que redirecciona a la pagina de loguin
         /// </summary>
@@ -125,7 +126,8 @@ namespace EDUAR_UI.Shared
             string loginPage = "";
             if (strScheme != "")
                 loginPage += strScheme + "://";
-            loginPage += Request.Url.Host;
+            loginPage += "/Account/Login.aspx";
+            //loginPage += Request.Url.Host;
             if (strPort != "")
                 loginPage += ":" + strPort;
             loginPage += strDefaultPage;
@@ -175,5 +177,6 @@ namespace EDUAR_UI.Shared
             EDUARLog objLog = new EDUARLog(oLogPath, true);
             objLog.write(msgLog.ToString());
         }
+        #endregion
     }
 }

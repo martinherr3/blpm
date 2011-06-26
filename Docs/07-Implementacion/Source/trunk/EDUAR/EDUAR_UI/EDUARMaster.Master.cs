@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using EDUAR_UI.Shared;
-using EDUAR_Entities.Shared;
 using EDUAR_Entities.Security;
-using EDUAR_Utility.Excepciones;
+using EDUAR_Entities.Shared;
+using EDUAR_UI.Shared;
 using EDUAR_Utility.Enumeraciones;
-using System.Web.Security;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_UI
 {
@@ -38,6 +36,7 @@ namespace EDUAR_UI
         }
         #endregion
 
+        #region --[Eventos]--
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -52,11 +51,12 @@ namespace EDUAR_UI
                 //Suscribe los eventos de la ventana emergente. 
                 ventanaInfoMaster.VentanaAceptarClick += (Aceptar);
                 ventanaInfoMaster.VentanaCancelarClick += (Cancelar);
-                CargarMenu();
+                if (!Page.IsPostBack)
+                    CargarMenu();
             }
             catch (Exception ex)
             {
-                ManageExceptions((GenericException)ex);
+                ManageExceptions(ex);
             }
         }
 
@@ -78,7 +78,7 @@ namespace EDUAR_UI
             }
             catch (Exception ex)
             {
-                ManageExceptions((GenericException)ex);
+                ManageExceptions(ex);
             }
         }
         /// <summary>
@@ -106,28 +106,31 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarMenu()
         {
-            foreach (SiteMapNode node in SiteMapEDUAR.Provider.RootNode.ChildNodes)
+            if (SiteMapEDUAR.Provider.RootNode != null)
             {
-                if (!ValidarNodo(node))
-                    continue;
-                trvMenu.Visible = true;
-                TreeNode objTreeNode = new TreeNode(node.Title);
-                if (node.Url != String.Empty)
-                    objTreeNode.NavigateUrl = node.Url;
-
-                objTreeNode.SelectAction = TreeNodeSelectAction.Expand;
-                //Recorre los nodos hijos
-                foreach (SiteMapNode nodeChild in node.ChildNodes)
+                foreach (SiteMapNode node in SiteMapEDUAR.Provider.RootNode.ChildNodes)
                 {
-                    if (!ValidarNodo(nodeChild))
+                    if (!ValidarNodo(node))
                         continue;
+                    trvMenu.Visible = true;
+                    TreeNode objTreeNode = new TreeNode(node.Title);
+                    if (node.Url != String.Empty)
+                        objTreeNode.NavigateUrl = node.Url;
 
-                    TreeNode objTreeNodeChild = new TreeNode(nodeChild.Title) { NavigateUrl = nodeChild.Url };
-                    objTreeNode.ChildNodes.Add(objTreeNodeChild);
+                    objTreeNode.SelectAction = TreeNodeSelectAction.Expand;
+                    //Recorre los nodos hijos
+                    foreach (SiteMapNode nodeChild in node.ChildNodes)
+                    {
+                        if (!ValidarNodo(nodeChild))
+                            continue;
+
+                        TreeNode objTreeNodeChild = new TreeNode(nodeChild.Title) { NavigateUrl = nodeChild.Url };
+                        objTreeNode.ChildNodes.Add(objTreeNodeChild);
+                    }
+                    trvMenu.Nodes.Add(objTreeNode);
                 }
-                trvMenu.Nodes.Add(objTreeNode);
+                trvMenu.ExpandAll();
             }
-            trvMenu.ExpandAll();
         }
 
         /// <summary>
@@ -152,7 +155,6 @@ namespace EDUAR_UI
             return false;
         }
 
-        #region --[Eventos]--
         /// <summary>
         /// Click en botón aceptar de ventana de información / confirmación / error
         /// </summary>
@@ -182,21 +184,20 @@ namespace EDUAR_UI
         /// Método que permite tratar las excepciones de forma standard. 
         /// </summary>
         /// <param name="ex">Excepción a tratar</param>
-        public void ManageExceptions(Exception excepcion)
+        public void ManageExceptions(Exception ex)
         {
             try
             {
-                GenericException ex = (GenericException)excepcion;
                 string exceptionName = ex.GetType().FullName;
 
                 //Esta es una excepcion de tipo validacion que viene de UI.
-                if (exceptionName.Contains("CustomizedException") && (ex.ExceptionType == enuExceptionType.ValidationException))
+                if (exceptionName.Contains("CustomizedException") && (((CustomizedException)ex).ExceptionType == enuExceptionType.ValidationException))
                     MostrarMensaje("Error de Validación", ex.Message, enumTipoVentanaInformacion.Advertencia);
                 //Esta es una excepcion de tipo validacion que viene de BL.
                 else if ((exceptionName.Contains("GenericException")))
                 {
                     ///GenericException genericEx = ((GenericException)ex).Detail;
-                    if (ex.ExceptionType == enuExceptionType.ValidationException)
+                    if (((CustomizedException)ex).ExceptionType == enuExceptionType.ValidationException)
                         MostrarMensaje("Error de Validación", ex.Message, enumTipoVentanaInformacion.Advertencia);
                     else
                         ventanaInfoMaster.GestionExcepciones(ex);
@@ -210,7 +211,7 @@ namespace EDUAR_UI
             }
             catch (Exception exNew)
             {
-                ventanaInfoMaster.GestionExcepciones((GenericException)exNew);
+                ventanaInfoMaster.GestionExcepciones(exNew);
             }
         }
 

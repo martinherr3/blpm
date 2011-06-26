@@ -19,7 +19,8 @@
     <div class="page">
         <div class="header">
             <div class="title">
-                <img src="Images/Logo_chico.png" alt="EDU@R 2.0" style="vertical-align: middle" /><br />
+                <img src="/Images/Logo_chico.png" alt="EDU@R 2.0" style="vertical-align: middle" />
+                <br />
                 <%-- <h1>
                     
                 </h1>--%>
