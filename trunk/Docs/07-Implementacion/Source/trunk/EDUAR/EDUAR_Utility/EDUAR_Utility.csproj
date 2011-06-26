@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constantes\UIConstantesGenerales.cs" />
     <Compile Include="Enumeraciones\Enumeraciones.cs" />
     <Compile Include="Excepciones\CustomizedException.cs" />
     <Compile Include="Excepciones\GenericException.cs" />

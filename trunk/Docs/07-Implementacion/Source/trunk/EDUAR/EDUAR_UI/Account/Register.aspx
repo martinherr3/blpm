@@ -1,14 +1,8 @@
 ﻿<%@ Page Title="Registrarse" Language="C#" MasterPageFile="~/EDUARMaster.master"
     AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="EDUAR_UI.Register" %>
 
+<%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
-    <%-- <script type="text/javascript" language="javascript">
-        function autentica() {
-            usuario = document.getElementById("usuario").value;
-            url = "/Account/ExisteUsuario.aspx?usuario=" + usuario;
-            leer_doc(url);
-        }
-    </script>--%>
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <asp:CreateUserWizard ID="RegisterUser" runat="server" EnableViewState="false" OnCreatedUser="RegisterUser_CreatedUser">
@@ -25,11 +19,11 @@
                     <p>
                         Use el formulario siguiente para crear una cuenta nueva.
                     </p>
-                    <p>
+                    <%--<p>
                         Las contraseñas deben tener una longitud mínima de
                         <%= Membership.MinRequiredPasswordLength %>
                         caracteres.
-                    </p>
+                    </p>--%>
                     <span class="failureNotification">
                         <asp:Literal ID="ErrorMessage" runat="server"></asp:Literal>
                     </span>
@@ -40,14 +34,7 @@
                             <legend>Información de cuenta</legend>
                             <p>
                                 <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Nombre de usuario:</asp:Label>
-                                <asp:UpdatePanel ID="updUserName" runat="server" UpdateMode="Conditional">
-                                    <ContentTemplate>
-                                        <asp:TextBox ID="UserName" runat="server" CssClass="textEntry" OnTextChanged="UserName_TextChanged">
-                                        </asp:TextBox></ContentTemplate>
-                                    <Triggers>
-                                        <asp:AsyncPostBackTrigger ControlID="UserName" EventName="UserName_TextChanged" />
-                                    </Triggers>
-                                </asp:UpdatePanel>
+                                <asp:TextBox ID="UserName" runat="server" CssClass="textEntry"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName"
                                     CssClass="failureNotification" ErrorMessage="El nombre de usuario es obligatorio."
                                     ToolTip="El nombre de usuario es obligatorio." ValidationGroup="RegisterUserValidationGroup">*</asp:RequiredFieldValidator>

@@ -1,18 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using EDUAR_UI.Shared;
-using EDUAR_Entities.Security;
-using EDUAR_BusinessLogic.Security;
 using System.Web.Security;
+using System.Web.UI.WebControls;
+using EDUAR_BusinessLogic.Security;
+using EDUAR_Entities.Security;
+using EDUAR_UI.Shared;
+using EDUAR_Utility.Constantes;
 
 namespace EDUAR_UI
 {
     public partial class Login : EDUARBasePage
     {
+        /// <summary>
+        /// Método que se ejecuta al dibujar los controles de la página.
+        /// Se utiliza para gestionar las excepciones del método Page_Load().
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
+            if (AvisoMostrar)
+            {
+                AvisoMostrar = false;
+
+                try
+                {
+                    Master.ManageExceptions(AvisoExcepcion);
+                }
+                catch (Exception ex) { Master.ManageExceptions(ex); }
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             RegisterHyperLink.NavigateUrl = "Register.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
@@ -50,13 +68,14 @@ namespace EDUAR_UI
                 else
                 {
                     e.Authenticated = false;
-                    LoginUser.FailureText = "Error de login";//UIConstantesGenerales.MensajeLoginFallido;
+                    LoginUser.FailureText = UIConstantesGenerales.MensajeLoginFallido;
                 }
             }
             catch (Exception ex)
             {
                 try
                 {
+                    Master.ManageExceptions(ex);
                     //ventanaInfoLogin.GestionExcepciones(ex);
                     //updVentaneMensajes.Update();
                 }

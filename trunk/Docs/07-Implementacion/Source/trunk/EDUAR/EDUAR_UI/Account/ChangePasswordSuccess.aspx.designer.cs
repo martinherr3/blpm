@@ -11,5 +11,17 @@ namespace EDUAR_UI {
     
     
     public partial class ChangePasswordSuccess {
+        
+        /// <summary>
+        /// Propiedad Master.
+        /// </summary>
+        /// <remarks>
+        /// Propiedad generada automáticamente.
+        /// </remarks>
+        public new EDUAR_UI.EDUARMaster Master {
+            get {
+                return ((EDUAR_UI.EDUARMaster)(base.Master));
+            }
+        }
     }
 }
