@@ -156,6 +156,7 @@ namespace EDUAR_SI_DataAccess
                     if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
 
                     command.Connection = sqlConnectionConfig;
+
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.CommandText = "Alumnos_Insert";
                     command.CommandTimeout = 10;
@@ -979,6 +980,106 @@ namespace EDUAR_SI_DataAccess
             {
                 if (transaccion != null) transaccion.Rollback();
                 throw new CustomizedException(String.Format("Fallo en {0} - GrabarPeriodo()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+
+        //TODO: Primero hacer GrabarTipoAsistencia()
+        public void GrabarTipoAsistencia(List<TipoAsistencia> listadoTipoAsistencia)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "TipoAsistencia_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    foreach (TipoAsistencia unTipoAsistencia in listadoTipoAsistencia)
+                    {
+                        command.Parameters.AddWithValue("idTipoAsistencia", 0);
+                        command.Parameters.AddWithValue("idTipoAsistenciaTransaccional", unTipoAsistencia.idTipoAsistenciaTransaccional);
+                        command.Parameters.AddWithValue("valor", unTipoAsistencia.valor);
+                        command.Parameters.AddWithValue("descripcion", unTipoAsistencia.descripcion);
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                    transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarTipoAsistenica()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarTipoAsistencia()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+ 
+        }
+
+        public void GrabarAsistencia(List<Asistencia> listadoAsistencia)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Asistencia_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    foreach (Asistencia unaAsistencia in listadoAsistencia)
+                    {
+                        command.Parameters.AddWithValue("idAsistencia", 0);
+                        command.Parameters.AddWithValue("idAsistenciaTransaccional", unaAsistencia.idAsistenciaTransaccional);
+                        command.Parameters.AddWithValue("fecha", unaAsistencia.fecha);
+                        command.Parameters.AddWithValue("idTipoAsistencia", unaAsistencia.tipoAsistencia.idTipoAsistenciaTransaccional);
+                        command.Parameters.AddWithValue("idAlumno", unaAsistencia.tipoAsistencia.idTipoAsistenciaTransaccional);
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                    transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsistenica()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsistencia()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
             finally

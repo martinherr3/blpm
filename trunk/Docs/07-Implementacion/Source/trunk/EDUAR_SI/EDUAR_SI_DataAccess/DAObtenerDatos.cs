@@ -1024,9 +1024,62 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
-        public List<MotivoAusencia> obtenerMotivosAusenciaBDTransaccional(Configuraciones configuracion)
-        {
-            List<MotivoAusencia> listaMotivos = null;
+//        public List<MotivoAusencia> obtenerMotivosAusenciaBDTransaccional(Configuraciones configuracion)
+//        {
+//            List<MotivoAusencia> listaMotivos = null;
+//            try
+//            {
+//                using (MySqlCommand command = new MySqlCommand())
+//                {
+//                    conMySQL = new MySqlConnection(configuracion.valor);
+//                    command.Connection = conMySQL;
+
+//                    command.CommandText = @"SELECT * 
+//                                            FROM vw_motivosAusencia";
+//                    conMySQL.Open();
+
+//                    MySqlDataReader reader = command.ExecuteReader();
+//                    Asistencia unaAsistencia;
+//                    listaMotivos = new List<MotivoAusencia>();
+//                    while (reader.Read())
+//                    {
+//                        unaAsistencia = new Asistencia()
+//                        {
+//                            idAsistencia = 0,
+//                            idAsistenciaTransaccional = (int)reader["id"],
+//                            fecha = Convert.ToDateTime(reader["fecha"]),
+//                        };
+//                        listadoAsistencia.Add(unaAsistencia);
+//                    }
+//                    command.Connection.Close();
+//                    return listaMotivos;
+//                }
+//            }
+//            catch (MySqlException ex)
+//            {
+//                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+//                                        ex, enuExceptionType.MySQLException);
+//            }
+//            catch (SqlException ex)
+//            {
+//                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+//                                    ex, enuExceptionType.SqlException);
+//            }
+//            catch (Exception ex)
+//            {
+//                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+//                                    ex, enuExceptionType.DataAccesException);
+//            }
+//            finally
+//            {
+//                //if (sqlConnectionConfig.State == ConnectionState.Open)
+//                //    sqlConnectionConfig.Close();
+//            }
+//        }
+
+        public List<Asistencia> obtenerAsistenciaBDTransaccional(Configuraciones configuracion)
+        {                      //obtenerAsistenciaBDTransaccional
+            List<Asistencia> listadoAsistencia = null;
             try
             {
                 using (MySqlCommand command = new MySqlCommand())
@@ -1035,39 +1088,98 @@ namespace EDUAR_SI_DataAccess
                     command.Connection = conMySQL;
 
                     command.CommandText = @"SELECT * 
-                                            FROM vw_motivosAusencia";
+                                            FROM Asistencia";
                     conMySQL.Open();
 
                     MySqlDataReader reader = command.ExecuteReader();
-                    MotivoAusencia motivo;
-                    listaMotivos = new List<MotivoAusencia>();
+                    Asistencia unaAsistencia;
+                    listadoAsistencia = new List<Asistencia>();
                     while (reader.Read())
                     {
-                        motivo = new MotivoAusencia()
-                        {
-                            idMotivo=0,
-                            idMotivoTransaccional = (int)reader["id"],
-                            nombre = reader["descripcion"].ToString(),
-                        };
-                        listaMotivos.Add(motivo);
+                        unaAsistencia = new Asistencia();
+                       
+                        unaAsistencia.idAsistencia = 0;
+                        unaAsistencia.idAsistenciaTransaccional = (int)reader["id"];
+                        unaAsistencia.fecha = Convert.ToDateTime(reader["fecha"]);
+                        unaAsistencia.tipoAsistencia = new TipoAsistencia();
+                        unaAsistencia.tipoAsistencia.idTipoAsistenciaTransaccional = (int)reader["fk_tipoasistencia_id"];
+                        unaAsistencia.unAlumno = new Alumno();
+                        unaAsistencia.unAlumno.idAlumno = (int)reader["fk_alumno_id"];
+                        
+                        listadoAsistencia.Add(unaAsistencia);
                     }
                     command.Connection.Close();
-                    return listaMotivos;
+                    return listadoAsistencia;
                 }
             }
             catch (MySqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsistenciaBDTransaccional()", ClassName),
                                         ex, enuExceptionType.MySQLException);
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsistenciaBDTransaccional()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsistenciaBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+
+        public List<TipoAsistencia> obtenerTipoAsistenciaBDTransaccional(Configuraciones configuracion)
+        {
+            List<TipoAsistencia> listadoTipoAsistencia = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT * 
+                                            FROM tipoasistencia";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    TipoAsistencia unTipoAsistencia;
+                    listadoTipoAsistencia = new List<TipoAsistencia>();
+                    while (reader.Read())
+                    {
+                        unTipoAsistencia = new TipoAsistencia();
+                       
+                        unTipoAsistencia.idTipoAsistencia = 0;
+                        unTipoAsistencia.idTipoAsistenciaTransaccional = (int)reader["id"];
+                        unTipoAsistencia.descripcion = reader["descripcion"].ToString();
+                        unTipoAsistencia.valor = (decimal)reader["valor"];
+                        
+                        listadoTipoAsistencia.Add(unTipoAsistencia);
+                    }
+                    command.Connection.Close();
+                    return listadoTipoAsistencia;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsistenciaBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsistenciaBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsistenciaBDTransaccional()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
             finally
