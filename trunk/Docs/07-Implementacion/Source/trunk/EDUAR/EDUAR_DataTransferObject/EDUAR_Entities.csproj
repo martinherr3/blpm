@@ -44,7 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Package Principales\CicloLectivo.cs" />
+    <Compile Include="Entities\Package Principales\Asistencia.cs" />
     <Compile Include="Entities\Package Principales\Periodo.cs" />
+    <Compile Include="Entities\Package Principales\TipoAsistencia.cs" />
     <Compile Include="Entities\Package Usuarios\Alumno.cs" />
     <Compile Include="Entities\Package Usuarios\CargoPersonal.cs" />
     <Compile Include="Entities\Configuraciones.cs" />
