@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_UI.Shared;
 
-namespace EDUAR_UI.Private
+namespace EDUAR_UI
 {
     public partial class ConsultarAlumnos : EDUARBasePage
     {
