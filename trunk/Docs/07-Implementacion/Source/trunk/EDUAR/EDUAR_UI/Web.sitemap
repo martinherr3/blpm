@@ -10,7 +10,7 @@
             <siteMapNode url="~/Account/ChangePassword.aspx" title="Cambiar Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"/>
         </siteMapNode>
         <siteMapNode url="" title="Usuarios" roles="Administrador">
-            <siteMapNode url="~/Account/Register.aspx" title="Registrar Usuario" roles="Administrador"/>
+            <siteMapNode url="~/Account/RegisterUser.aspx" title="Registrar Usuario" roles="Administrador"/>
             <siteMapNode url="~/Account/ChangeUser.aspx" title="Modificar Usuario" roles="Administrador" />
         </siteMapNode>
     </siteMapNode>

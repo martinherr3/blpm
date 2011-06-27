@@ -10,7 +10,7 @@
 namespace EDUAR_UI {
     
     
-    public partial class ConsultarAlumnos {
+    public partial class RegisterUser {
         
         /// <summary>
         /// Propiedad Master.

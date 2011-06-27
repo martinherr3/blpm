@@ -8,7 +8,7 @@ using EDUAR_UI.Shared;
 
 namespace EDUAR_UI
 {
-    public partial class ConsultarAlumnos : EDUARBasePage
+    public partial class RegisterUser : EDUARBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
