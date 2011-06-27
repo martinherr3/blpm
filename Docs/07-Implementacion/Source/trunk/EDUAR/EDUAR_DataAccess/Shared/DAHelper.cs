@@ -5,23 +5,23 @@ using Microsoft.Practices.EnterpriseLibrary.Data;
 namespace EDUAR_DataAccess.Shared
 {
     /// <summary>
-    /// Clase que ofrece funcionalidad común al proyecto NotificacionesTutores.DataEntities
+    /// Clase que ofrece funcionalidad común al proyecto
     /// </summary>
     public class DAHelper
     {
         #region Métodos Públicos
 
         /// <summary>
-        /// Método estático que obtiene un objeto DataBase en función del connectionstring con name "SGDActividades"
+        /// Método estático que obtiene un objeto DataBase en función del connectionstring con name "EDUAR_ConnectionString"
         /// </summary>
         /// <returns>Objeto de tipo DataBase</returns>
         public static Database GetDataBaseFromWebConfig()
         {
-            return DatabaseFactory.CreateDatabase("NOTUConnectionString.DataEntities");
+            return DatabaseFactory.CreateDatabase("EDUAR_ConnectionString");
         }
 
         /// <summary>
-        /// Método estático que obtiene un objeto DataBase en función del connectionstring con name "SGDActividades"
+        /// Método estático que obtiene un objeto DataBase en función del connectionstring de acuerdo al parametro
         /// </summary>
         /// <returns>Objeto de tipo DataBase</returns>
         public static Database GetDataBaseFromWebConfig(String cadenaConexion)

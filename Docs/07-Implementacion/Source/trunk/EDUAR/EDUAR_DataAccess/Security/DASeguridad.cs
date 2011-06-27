@@ -190,22 +190,19 @@ namespace EDUAR_DataAccess.Security
                 // Añadir parámetros
                 transaction.DataBase.AddInParameter(transaction.DBcomand, "@ApplicationName", DbType.String, objDTSeguridad.Aplicacion);
 
-                DataSet ds = transaction.DataBase.ExecuteDataSet(transaction.DBcomand);
-
-                List<DTRol> listaDTRol = new List<DTRol>();
-                DTRol objDTRol;
-
-                foreach (DataRow row in ds.Tables[0].Rows)
+                IDataReader reader = transaction.DataBase.ExecuteReader(transaction.DBcomand);
+                List<DTRol> listaRoles = new List<DTRol>();
+                DTRol rol;
+                while (reader.Read())
                 {
-                    objDTRol = new DTRol { Nombre = (row["RoleName"]).ToString(), NombreCorto = (row["LoweredRoleName"]).ToString() };
-
-                    if (row["Description"] != null)
-                        objDTRol.Descripcion = (row["Description"]).ToString();
-
-                    listaDTRol.Add(objDTRol);
+                    rol = new DTRol()
+                    {
+                        Nombre = reader["RoleName"].ToString(),
+                        NombreCorto = reader["LoweredRoleName"].ToString()
+                    };
+                    listaRoles.Add(rol);
                 }
-
-                return listaDTRol;
+                return listaRoles;
             }
             catch (SqlException ex)
             {
@@ -225,123 +222,82 @@ namespace EDUAR_DataAccess.Security
         /// <param name="objDTSeguridad">DTO con los parametros dentro</param>
         /// <param name="paginar"></param>
         /// <returns>Lista de usuarios.</returns>
-//        public DTSeguridad GetUsuarios(DTSeguridad objDTSeguridad, Boolean paginar)
-//        {
-//            DSUsuarios.UsersDataTable dt = new DSUsuarios.UsersDataTable();
-//            String rolesParam = String.Empty;
-//            try
-//            {
+        public DTSeguridad GetUsuarios(DTSeguridad objDTSeguridad, Boolean paginar)
+        {
+            // DSUsuarios.UsersDataTable dt = new DSUsuarios.UsersDataTable();
+            String rolesParam = String.Empty;
+            try
+            {
+                String query = @"SELECT DISTINCT
+                                            US.ApplicationId
+                                            ,US.UserId
+                                            ,US.UserName
+                                            ,US.LoweredUserName
+                                            ,US.MobileAlias
+                                            ,US.IsAnonymous
+                                            ,US.LastActivityDate
+                                            ,MEM.IsApproved
+                                        FROM 
+	                                        aspnet_Users AS US 
+	                                        INNER JOIN 
+	                                        aspnet_Applications AS APP
+	                                        ON US.ApplicationId = APP.ApplicationId
+	                                        INNER JOIN aspnet_Membership AS MEM
+	                                        ON US.UserId = MEM.UserId
+                                            LEFT JOIN aspnet_UsersInRoles AS USR
+	                                        ON US.UserId = USR.UserId
+	                                        LEFT JOIN aspnet_Roles AS R
+	                                        ON USR.RoleId = R.RoleId
+                                        WHERE
+	                                        APP.ApplicationName = @ApplicationName
+                                            AND
+                                            (@UserName IS NULL OR @UserName = '' OR UserName LIKE @UserName )
+                                            AND
+                                            (@IsApproved IS NULL OR @IsApproved = IsApproved )";
 
-//                String query = @"SELECT DISTINCT
-//                                            US.ApplicationId
-//                                            ,US.UserId
-//                                            ,US.UserName
-//                                            ,US.LoweredUserName
-//                                            ,US.MobileAlias
-//                                            ,US.IsAnonymous
-//                                            ,US.LastActivityDate
-//                                        FROM 
-//	                                        aspnet_Users AS US 
-//	                                        INNER JOIN 
-//	                                        aspnet_Applications AS APP
-//	                                        ON US.ApplicationId = APP.ApplicationId
-//                                            LEFT JOIN aspnet_UsersInRoles AS USR
-//	                                        ON US.UserId = USR.UserId
-//	                                        LEFT JOIN aspnet_Roles AS R
-//	                                        ON USR.RoleId = R.RoleId
-//
-//                                        WHERE
-//	                                        APP.ApplicationName = @ApplicationName
-//                                            AND
-//                                            (@UserName IS NULL OR @UserName = '' OR UserName LIKE @UserName )";
+                if (objDTSeguridad.ListaRoles.Count != 0)
+                {
+                    foreach (DTRol rol in objDTSeguridad.ListaRoles)
+                        rolesParam += String.Format("'{0}',", rol.Nombre);
 
+                    rolesParam = rolesParam.Substring(0, rolesParam.Length - 1);
+                    query = String.Format("{0} AND R.RoleName IN ({1})", query, rolesParam);
+                }
 
+                transaction.DBcomand = transaction.DataBase.GetSqlStringCommand(query);
 
-//                if (objDTSeguridad.ListaRoles.Count != 0)
-//                {
-//                    foreach (DTRol rol in objDTSeguridad.ListaRoles)
-//                        rolesParam += String.Format("'{0}',", rol.Nombre);
+                // Añadir parámetros
+                transaction.DataBase.AddInParameter(transaction.DBcomand, "@ApplicationName", DbType.String, objDTSeguridad.Aplicacion);
+                transaction.DataBase.AddInParameter(transaction.DBcomand, "@UserName", DbType.String, objDTSeguridad.Usuario.Nombre);
+                transaction.DataBase.AddInParameter(transaction.DBcomand, "@IsApproved", DbType.Boolean, objDTSeguridad.Usuario.Aprobado);
+                IDataReader reader = transaction.DataBase.ExecuteReader(transaction.DBcomand);
+                objDTSeguridad = new DTSeguridad();
+                DTUsuario usuario;
+                while (reader.Read())
+                {
+                    usuario = new DTUsuario()
+                    {
+                        Nombre = reader["UserName"].ToString(),
+                        Aprobado = (bool)reader["IsApproved"]
+                    };
+                    objDTSeguridad.ListaUsuarios.Add(usuario);
+                }
+                return objDTSeguridad;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarios()", ClassName),
+                                                       ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarios()", ClassName),
+                                                       ex, enuExceptionType.DataAccesException);
+            }
+        }
 
-//                    rolesParam = rolesParam.Substring(0, rolesParam.Length - 1);
-//                    query = String.Format("{0} AND R.RoleName IN ({1})", query, rolesParam);
-//                }
-
-//                transaction.DBcomand = transaction.DataBase.GetSqlStringCommand(query);
-
-//                // Añadir parámetros
-//                transaction.DataBase.AddInParameter(transaction.DBcomand, "@ApplicationName", DbType.String, objDTSeguridad.Aplicacion);
-//                transaction.DataBase.AddInParameter(transaction.DBcomand, "@UserName", DbType.String, objDTSeguridad.Usuario.Nombre);
-
-//                DataSet ds = transaction.DataBase.ExecuteDataSet(transaction.DBcomand);
-
-
-//                DataTable dtResultado = paginar
-//                                           ? DAHelper.ObtenerTablaPaginada(ds.Tables[0], objDTSeguridad.PagPaginaActual,
-//                                                                           objDTSeguridad.PagSize, "UserId DESC")
-//                                           : ds.Tables[0];
-
-//                dt.Merge(dtResultado, true, MissingSchemaAction.Ignore);
-//                objDTSeguridad = new DTSeguridad { UsersDT = dt, PagCantidadTotalReg = ds.Tables[0].Rows.Count };
-
-//            }
-//            catch (SqlException ex)
-//            {
-//                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarios()", ClassName),
-//                                                       ex, enuExceptionType.SqlException);
-//            }
-//            catch (Exception ex)
-//            {
-//                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarios()", ClassName),
-//                                                       ex, enuExceptionType.DataAccesException);
-//            }
-
-//            return objDTSeguridad;
-//        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="listaDTRol"></param>
-        /// <returns></returns>
-//        public DSUsuarios.UsersDataTable GetTutores()
-//        {
-//            DSUsuarios.UsersDataTable dt = new DSUsuarios.UsersDataTable();
-//            String rolesParam = String.Empty;
-//            try
-//            {
-
-//                String query = @"SELECT			DISTINCT
-//                                                Usuario.ApplicationId, 
-//				                                Usuario.UserId, 
-//				                                Usuario.UserName, 
-//				                                Usuario.LoweredUserName, 
-//				                                Usuario.MobileAlias, 
-//				                                Usuario.IsAnonymous, 
-//                                                Usuario.LastActivityDate
-//                                FROM			aspnet_Users AS Usuario 
-//                                INNER JOIN		aspnet_UsersInRoles AS UsuarioRol ON Usuario.UserId = UsuarioRol.UserId 
-//                                INNER JOIN		aspnet_Roles AS Rol ON UsuarioRol.RoleId = Rol.RoleId
-//                                WHERE			Rol.RoleName IN ('TUAD', 'TUTO')";
-
-//                transaction.DBcomand = transaction.DataBase.GetSqlStringCommand(query);
-
-//                DataSet ds = transaction.DataBase.ExecuteDataSet(transaction.DBcomand);
-//                dt.Merge(ds.Tables[0], true, MissingSchemaAction.Ignore);
-//            }
-//            catch (SqlException ex)
-//            {
-//                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarios()", ClassName),
-//                                                       ex, enuExceptionType.SqlException);
-//            }
-//            catch (Exception ex)
-//            {
-//                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarios()", ClassName),
-//                                                       ex, enuExceptionType.DataAccesException);
-//            }
-
-//            return dt;
-//        }
         #endregion
+
         /// <summary>
         /// Método que desencripta un texto.
         /// </summary>

@@ -70,7 +70,7 @@
                     <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" />
                     <!-- FIN MENU -->
                 </td>
-                <td>
+                <td style="width: 700px">
                     <div class="main">
                         <asp:ContentPlaceHolder ID="MainContent" runat="server">
                         </asp:ContentPlaceHolder>

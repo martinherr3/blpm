@@ -14,7 +14,7 @@ namespace EDUAR_UI
 
         protected void RegisterUser_CreatedUser(object sender, EventArgs e)
         {
-            FormsAuthentication.SetAuthCookie(RegisterUser.UserName, false /* createPersistentCookie */);
+            FormsAuthentication.SetAuthCookie(RegisterUser.UserName, true /* createPersistentCookie */);
 
             string continueUrl = RegisterUser.ContinueDestinationPageUrl;
             if (String.IsNullOrEmpty(continueUrl))

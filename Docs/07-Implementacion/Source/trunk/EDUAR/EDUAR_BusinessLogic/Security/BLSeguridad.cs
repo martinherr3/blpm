@@ -59,7 +59,7 @@ namespace EDUAR_BusinessLogic.Security
 
             foreach (String rolUsuario in arrRoles)
             {
-                DTRol objDTRol = new DTRol { Nombre = rolUsuario };
+                DTRol objDTRol = new DTRol { Nombre = rolUsuario, NombreCorto = rolUsuario.ToLower() };
                 //Obtiene el IDRol desde la enumeracion enumRoles
                 objDTRol.ID = Enum.Parse(typeof(enumRoles), rolUsuario).GetHashCode();
                 Data.Usuario.ListaRoles.Add(objDTRol);
@@ -96,6 +96,7 @@ namespace EDUAR_BusinessLogic.Security
             {
                 MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
                 Data.Usuario.Password = user.GetPassword();
+                Data.Usuario.Aprobado = user.IsApproved;
                 ObtenerRolesUsuario();
             }
             catch (Exception ex)
@@ -134,7 +135,7 @@ namespace EDUAR_BusinessLogic.Security
             try
             {
                 DASeguridad dataAcces = new DASeguridad();
-                //Data = dataAcces.GetUsuarios(Data, true);
+                Data = dataAcces.GetUsuarios(Data, true);
             }
             catch (CustomizedException ex)
             {
@@ -277,7 +278,7 @@ namespace EDUAR_BusinessLogic.Security
             DASeguridad dataAcces = new DASeguridad();
             try
             {
-               
+
                 //Abre la transaccion que se va a utilizar
                 //dataAcces.transaction.OpenTransaction();
                 dataAcces.CrearUsuarios(objDTSeguridad);
@@ -346,6 +347,12 @@ namespace EDUAR_BusinessLogic.Security
                 //Inicia la transaccion.
                 //using (TransactionScope txScope = new TransactionScope())
                 //{
+                #region Habilita o Bloquea un usuario
+                MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
+                user.IsApproved = Data.Usuario.Aprobado;
+
+                Membership.UpdateUser(user);
+                #endregion
 
                 #region Elimina la asignacion de roles al usuario
                 String[] rolesAplicacion = Roles.GetAllRoles();
@@ -363,7 +370,7 @@ namespace EDUAR_BusinessLogic.Security
                 foreach (DTRol rolUsuario in Data.Usuario.ListaRoles)
                     Roles.AddUserToRole(Data.Usuario.Nombre, rolUsuario.Nombre);
 
-
+                
                 //    //Completa la transaccion.
                 //    txScope.Complete();
                 //}
