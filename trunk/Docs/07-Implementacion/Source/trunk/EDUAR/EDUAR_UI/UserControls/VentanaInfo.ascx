@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="VentanaInfo.ascx.cs"
     Inherits="EDUAR_UI.UserControls.VentanaInfo" %>
-<%--<%@ Register src="BotonPersonalizado.ascx" tagname="BotonPersonalizado" tagprefix="uc1" %>--%>
+
 <style type="text/css">
     html, body, div, iframe { margin:0; padding:0; height:100%; }
     .pol  
@@ -52,8 +52,8 @@
                     </tr>
                     <tr>
                         <td id="TDEtiquetas3" runat="server" align="right" colspan="2">
-                            <asp:Button ID="btnAceptar" runat="server" TabIndex="1" />
-                            <asp:Button ID="btnCancelar" runat="server" TabIndex="2" Visible="false" />
+                            <asp:Button ID="btnAceptar" runat="server" TabIndex="1" Text="Aceptar" />
+                            <asp:Button ID="btnCancelar" runat="server" TabIndex="2" Text="Cancelar" Visible="false" />
                             <%--<uc1:BotonPersonalizado ID="btnAceptar" runat="server" TipoBoton="Aceptar" TabIndex="1"/>--%>
                             <%--<uc1:BotonPersonalizado ID="btnCancelar" runat="server" TipoBoton="Cancelar" TabIndex="2" Visible="false"/>--%>
                         </td>

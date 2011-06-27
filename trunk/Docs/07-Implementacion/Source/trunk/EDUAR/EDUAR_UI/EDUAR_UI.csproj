@@ -55,15 +55,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="Account\AsignRolesToUser.aspx" />
+    <Content Include="Account\ChangeUser.aspx" />
     <Content Include="Account\ChangePassword.aspx" />
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="Images\botonBuscar.png" />
+    <Content Include="Images\botonGuardar.png" />
+    <Content Include="Images\Grillas\action_edit.png" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\Logo.png" />
     <Content Include="Images\Logo_chico.png" />
     <Content Include="Alumnos\ConsultarAlumnos.aspx" />
+    <Content Include="Images\ventanaAdvertencia.png" />
+    <Content Include="Images\ventanaError.png" />
+    <Content Include="Images\ventanaSatisfactorio.png" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -89,12 +95,12 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Account\AsignRolesToUser.aspx.cs">
-      <DependentUpon>AsignRolesToUser.aspx</DependentUpon>
+    <Compile Include="Account\ChangeUser.aspx.cs">
+      <DependentUpon>ChangeUser.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Account\AsignRolesToUser.aspx.designer.cs">
-      <DependentUpon>AsignRolesToUser.aspx</DependentUpon>
+    <Compile Include="Account\ChangeUser.aspx.designer.cs">
+      <DependentUpon>ChangeUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
@@ -159,6 +165,7 @@
     <Compile Include="UserControls\VentanaInfo.ascx.designer.cs">
       <DependentUpon>VentanaInfo.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades\UIUtilidades.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

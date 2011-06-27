@@ -1,11 +1,11 @@
 ﻿/* DEFAULTS
 ----------------------------------------------------------*/
 
-body   
+body
 {
     background: #b6b7bc;
     font-size: .80em;
-    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+    font-family: "Helvetica Neue" , "Lucida Grande" , "Segoe UI" , Arial, Helvetica, Verdana, sans-serif;
     margin: 0px;
     padding: 0px;
     color: #696969;
@@ -119,6 +119,7 @@ first child of the left and right table columns */
     padding: 0px 12px;
     margin: 12px 8px 8px 8px;
     min-height: 420px;
+    width: 100%;
 }
 
 .leftCol
@@ -144,8 +145,8 @@ first child of the left and right table columns */
 
 div.hideSkiplink
 {
-    background-color:#3a4f63;
-    width:100%;
+    background-color: #3a4f63;
+    width: 100%;
 }
 
 div.menu
@@ -197,7 +198,7 @@ fieldset
     border: 1px solid #ccc;
 }
 
-fieldset p 
+fieldset p
 {
     margin: 2px 12px 10px 10px;
 }
@@ -207,25 +208,25 @@ fieldset.login label, fieldset.register label, fieldset.changePassword label
     display: block;
 }
 
-fieldset label.inline 
+fieldset label.inline
 {
     display: inline;
 }
 
-legend 
+legend
 {
     font-size: 1.1em;
     font-weight: 600;
     padding: 2px 4px 8px 4px;
 }
 
-input.textEntry 
+input.textEntry
 {
     width: 320px;
     border: 1px solid #ccc;
 }
 
-input.passwordEntry 
+input.passwordEntry
 {
     width: 320px;
     border: 1px solid #ccc;
@@ -297,98 +298,329 @@ div.accountInfo
 
 .contenedormenu
 {
-    padding-top:20px;
-    padding-left:10px;
-    width:250px;
-    float:left;
-    vertical-align:top;
+    padding-top: 20px;
+    padding-left: 10px;
+    width: 250px;
+    float: left;
+    vertical-align: top;
 }
 
 .sitepath, .breadcrumb span
-{ 
- font-family : Tahoma,Verdana, Arial, Helvetica, sans-serif;
- font-size: 10px;	
- font-weight: normal;	
- /*color: #585858;	*/
- color: #FFFFFF;	
- text-decoration: none;
- vertical-align: middle; 
-}    
+{
+    font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: normal; /*color: #585858;	*/
+    color: #FFFFFF;
+    text-decoration: none;
+    vertical-align: middle;
+}
 
 .sitepathSeparacion
-{ 
- font-family : Tahoma,Verdana, Arial, Helvetica, sans-serif;
- font-size: 11px;	
- font-weight: bold;	
- color: #FFFFFF;	
- text-decoration: none;
- vertical-align: middle; 
-} 
+{
+    font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-decoration: none;
+    vertical-align: middle;
+}
 
-	 
+
 .menu
 {
- font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
- font-size: 11px;	
- font-weight: bold;	
- color: #23387A;	
- text-decoration: none;
- vertical-align: middle; 
+    font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #23387A;
+    text-decoration: none;
+    vertical-align: middle;
 }
 
 
 .menuHover
 {
- font-weight:  bold;	
-}          
+    font-weight: bold;
+}
 
 .menuRoot
 {
- left : 10px;
- font-size: 11px;	
- font-weight: bold;	
- color: #25385A;	
- text-decoration:underline;
- vertical-align: middle; 
+    left: 10px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #25385A;
+    text-decoration: underline;
+    vertical-align: middle;
 }
 
 
 .menuHijos
 {
- font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
- font-size: 10px;	
- font-weight: normal;	
- color: #23387A;	
- text-decoration: none;
- vertical-align: middle; 
+    font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    color: #23387A;
+    text-decoration: none;
+    vertical-align: middle;
 }
 
 a.menuHijos:hover
 {
-	font-weight:  bold;
+    font-weight: bold;
 }
 
-.menuNiv2Hover{
-	font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;    
-	font-size: 11px;	
-	font-weight: normal;	
-	color: #C8D2E8;	
-	text-decoration: none; 
-	vertical-align: middle; 
+.menuNiv2Hover
+{
+    font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    color: #C8D2E8;
+    text-decoration: none;
+    vertical-align: middle;
 }
 
-.menuNiv2 {     
-	font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;    
-	font-size: 11px;	
-	font-weight: normal;	
-	color: #E6E8F5;	
-	text-decoration: none;
-	vertical-align: middle; }
+.menuNiv2
+{
+    font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    color: #E6E8F5;
+    text-decoration: none;
+    vertical-align: middle;
+}
 
-.menuNiv20 {     
-	font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;    
-	font-size: 11px;	
-	font-weight: normal;	
-	color: #C8D2E8;	
-	text-decoration: none;
-	vertical-align: middle; }
+.menuNiv20
+{
+    font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    color: #C8D2E8;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+
+/* --- ventanas --- */
+.TabContainerCliente .ajax__tab_header
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+}
+
+.TabContainerCliente .ajax__tab_header .ajax__tab_outer
+{
+    border-color: #222;
+    color: #222;
+    padding-left: 10px;
+    margin-right: 3px;
+    border: solid 1px #d7d7d7;
+}
+
+.TabContainerCliente .ajax__tab_header .ajax__tab_inner
+{
+    border-color: #666;
+    color: #666;
+    padding: 3px 10px 2px 0px;
+    cursor: hand;
+}
+.TabContainerCliente .ajax__tab_hover .ajax__tab_outer
+{
+    background-color: #d7d7d7;
+}
+
+.TabContainerCliente .ajax__tab_hover .ajax__tab_inner
+{
+    color: #fff;
+}
+
+.TabContainerCliente .ajax__tab_active .ajax__tab_outer
+{
+    border-bottom-color: #ffffff;
+    background-color: #ACCBE0;
+}
+
+.TabContainerCliente .ajax__tab_active .ajax__tab_inner
+{
+    color: #376185;
+    border-color: #333;
+    cursor: hand;
+}
+.TabContainerCliente .ajax__tab_body
+{
+    font-family: verdana,tahoma,helvetica;
+    font-size: 10pt;
+    background-color: #fff;
+    border-top-width: 0;
+    border: solid 1px #d7d7d7;
+    border-top-color: #d7d7d7;
+}
+.FondoNegroVentana
+{
+    background: #000000;
+    background-color: Gray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #cecece;
+    z-index: 990;
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5; /*opacity: 0.5;*/
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50); /*filter: alpha(opacity=50);*/
+    visibility: inherit;
+}
+
+.DivVentana
+{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    z-index: 999;
+}
+
+/***********************************************/
+/********** VENTANA EMERGENTE ******************/
+/**********************************************/
+/***** ERROR *****/
+TD.EncabezadoError
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: none;
+    color: #E2380B;
+    background-color: #F4D5D5;
+    text-align: left;
+    text-indent: 5px;
+}
+.EtiError
+{
+    font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 10px;
+    font-weight: normal;
+    color: #464545;
+    background-color: #FFF4F0;
+}
+.tablaInternaError
+{
+    left: 0;
+    top: 5;
+    visibility: inherit;
+    border: solid #F4D5D5 1px;
+    width: 820; /*height:130;*/
+    background-color: #FFF4F0;
+    clip: rect(0,820,150,0);
+}
+
+
+/***** SATISFACTORIO *****/
+TD.EncabezadoSatisfactorio
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: none;
+    color: #6EA214;
+    background-color: #BEE386;
+    text-align: left;
+    text-indent: 5px;
+}
+.EtiSatisfactorio
+{
+    font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 10px;
+    font-weight: normal;
+    color: #464545;
+    background-color: #E0F2C6;
+}
+.tablaInternaSatisfactorio
+{
+    left: 0;
+    top: 5;
+    visibility: inherit;
+    border: solid #BEE386 1px;
+    width: 820; /*height:130;*/
+    background-color: #E0F2C6;
+    clip: rect(0,820,150,0);
+}
+
+/***** ADVERTENCIA *****/
+TD.EncabezadoAdvertencia
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: none;
+    color: #FFA12D;
+    background-color: #FAEAAC;
+    text-align: left;
+    text-indent: 5px;
+}
+.EtiAdvertencia
+{
+    font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 10px;
+    font-weight: normal;
+    color: #464545;
+    background-color: #FFFFBB;
+}
+.tablaInternaAdvertencia
+{
+    left: 0;
+    top: 5;
+    visibility: inherit;
+    border: solid #FAEAAC 1px;
+    width: 820; /*height:130;*/
+    background-color: #FFFFBB;
+    clip: rect(0,820,150,0);
+}
+
+/***** CONFIRMACION *****/
+
+TD.EncabezadoConfirmación
+{
+    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: none;
+    color: #376185;
+    background-color: #ACCBE0;
+    text-align: left;
+    text-indent: 5px;
+}
+.EtiConfirmación
+{
+    font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 10px;
+    font-weight: normal;
+    color: #8B908C;
+    background-color: #F7F8FB;
+}
+.tablaInternaConfirmación
+{
+    left: 0;
+    top: 5;
+    visibility: inherit;
+    border: solid #ACCBE0 2px;
+    width: 820; /*height:130;*/
+    background-color: #F7F8FB;
+    clip: rect(0,820,150,0);
+}
+
+/***********************************************/
+/********** FIN VENTANA EMERGENTE *************/
+/**********************************************/
+
+.tablaInterna
+{
+    width: 100%;
+    border: 0;
+}
+
