@@ -961,6 +961,72 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+        /// <summary>
+        /// Obteners the tutores BD transaccional.
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
+        public List<Tutor> obtenerTutoresBDTransaccional(Configuraciones configuracion)
+        {
+            List<Tutor> listaTutores = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT * FROM vw_tutores";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    Tutor tutor;
+                    listaTutores = new List<Tutor>();
+                    while (reader.Read())
+                    {
+                        tutor = new Tutor()
+                        {
+                            idPersona = 0,
+                            idTutorTransaccional = Convert.ToInt32(reader["id"]),
+                            nombre = reader["nombre"].ToString(),
+                            apellido = reader["apellido"].ToString(),
+                            numeroDocumento = Convert.ToInt32(reader["nro_documento"].ToString().Replace("M", "")),
+                            idTipoDocumento = Convert.ToInt32(reader["fk_tipodocumento_id"]),
+                            domicilio = reader["direccion"].ToString(),
+                            sexo = reader["sexo"].ToString(),
+                            telefonoFijo = reader["telefono"].ToString(),
+                            telefonoCelular = reader["telefono_movil"].ToString(),
+                            email = reader["email"].ToString(),
+                            activo = Convert.ToBoolean(reader["activo"]),
+                            localidad = new Localidades() { nombre = reader["ciudad"].ToString() }
+                        };
+                        listaTutores.Add(tutor);
+                    }
+                    command.Connection.Close();
+                    return listaTutores;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTutoresBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTutoresBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTutoresBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
 
         /// <summary>
         /// Obteners the periodos BD transaccional.
