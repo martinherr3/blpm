@@ -989,6 +989,59 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+<<<<<<< .mine
+        /// <summary>
+        /// Grabars the Tutor.
+        /// </summary>
+        /// <param name="tutor">The tutor.</param>
+        /// <param name="transaccion">The transaccion.</param>
+        public void GrabarTutor(Tutor tutor, ref SqlTransaction transaccion)
+        {
+            //SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Tutor_Insert";
+                    command.CommandTimeout = 10;
+                    if (transaccion == null)
+                        transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    command.Parameters.AddWithValue("idTutor", tutor.IdTutor).Direction = ParameterDirection.Output;
+                    command.Parameters.AddWithValue("idTutorTransaccional", tutor.idTutorTransaccional);
+                    command.Parameters.AddWithValue("idPersona", tutor.idPersona);
+                    command.Parameters.AddWithValue("telefonoTrabajo", tutor.telefonoCelularAlternativo);
+
+                    command.ExecuteNonQuery();
+                    command.Parameters.Clear();
+                    //transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                //if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarTutor()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                //if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarTutor()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+=======
 
         //TODO: Primero hacer GrabarTipoAsistencia()
         public void GrabarTipoAsistencia(List<TipoAsistencia> listadoTipoAsistencia)
@@ -1089,6 +1142,7 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+>>>>>>> .r246
    #endregion
     }
 
