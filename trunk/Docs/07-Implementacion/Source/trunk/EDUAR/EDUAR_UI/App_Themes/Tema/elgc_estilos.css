@@ -1,0 +1,4355 @@
+﻿body
+{
+    margin-top: 0px;
+    margin-left: 0px;
+    margin: 0;
+    overflow:hidden;
+}
+
+.UpdateProgress1 {
+   background-color:#CF4342;
+   color:#fff;	  
+	position: absolute;   
+	right: 50%; 
+	float:right; 
+	top: 50%; 
+
+} 
+
+.UpdateProgress1 img {
+   vertical-align:middle;
+   margin:2px;
+ }
+  
+.ajaxCargandoWhitePopUp
+{
+    filter: alpha(opacity=60);
+    z-index: 995;
+    background-color: White;
+    height: 400px;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    margin: 0;
+    padding: 0;
+    display:block;
+}
+
+.ajaxCargandoWhite
+{
+    filter: alpha(opacity=60);
+    z-index: 995;
+    background-color: White;
+    height: 768px;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    margin: 0;
+    padding: 0;
+    display:block;
+}
+
+.ajaxCargando
+{
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    right:50%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+.loginName
+{ 
+	 font-family : Tahoma,Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 10px;	
+	 font-weight: normal;	
+	 color: #FFFFFF;	
+	 text-decoration: none;
+	 vertical-align: middle;
+	 z-index: 1;
+	 left: 290px;
+	 top: 27px;
+	 position: absolute;
+	 height: 18px;
+	 width: 300px 
+} 
+
+.BotonAtras
+{ 
+	 font-family : Tahoma,Verdana, Arial, Helvetica, sans-serif;
+	 font-size: 10px;	
+	 font-weight: normal;	
+	 color: #FFFFFF;	
+	 text-decoration: none;
+	 vertical-align: middle;
+	 z-index: 1;
+	 left: 290px;
+	 top: 63px;
+	 position: absolute;
+	 height: 18px;
+	 width: 300px 
+} 
+
+a
+{ 
+ font-family : Tahoma,Verdana, Arial, Helvetica, sans-serif;
+ font-size: 10px;	
+ font-weight: normal;	
+} 
+
+img {
+text-decoration: none;
+border:0;
+}
+
+img:link {
+text-decoration: none;
+border:0;
+}
+img:visited {
+text-decoration: none;
+border:0;
+}
+img:hover {
+text-decoration: none;
+border:0;
+
+}
+img:active {
+text-decoration: none;
+border:0;
+}
+.breadcrumb
+{
+    z-index: 1;
+    left: 290px;
+    top: 80px;
+    position: absolute;
+    height: 25px;
+    width: 404px;
+}
+
+.contenedormayor
+{
+    width:1000px;
+}
+
+.contenedormayorPopUp
+{
+	width: 100%;
+	height: 100%;
+}
+.contenedormenu
+{
+    padding-top:20px;
+    padding-left:10px;
+    width:250px;
+    float:left;
+    vertical-align:top;
+}
+
+.sitepath, .breadcrumb span
+{ 
+ font-family : Tahoma,Verdana, Arial, Helvetica, sans-serif;
+ font-size: 10px;	
+ font-weight: normal;	
+ color: #585858;	
+ text-decoration: none;
+ vertical-align: middle; 
+}    
+
+.sitepathSeparacion
+{ 
+ font-family : Tahoma,Verdana, Arial, Helvetica, sans-serif;
+ font-size: 11px;	
+ font-weight: bold;	
+ color: #585858;	
+ text-decoration: none;
+ vertical-align: middle; 
+} 
+
+	 
+.menu
+{
+ font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+ font-size: 11px;	
+ font-weight: bold;	
+ color: #23387A;	
+ text-decoration: none;
+ vertical-align: middle; 
+}
+
+
+.menuHover
+{
+ font-weight:  bold;	
+}          
+
+.menuRoot
+{
+ left : 10px;
+ font-size: 11px;	
+ font-weight: bold;	
+ color: #25385A;	
+ text-decoration:underline;
+ vertical-align: middle; 
+}
+
+
+.menuHijos
+{
+ font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+ font-size: 10px;	
+ font-weight: normal;	
+ color: #23387A;	
+ text-decoration: none;
+ vertical-align: middle; 
+}
+
+a.menuHijos:hover
+{
+	font-weight:  bold;
+}
+
+.menuNiv2Hover{
+	font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;    
+	font-size: 11px;	
+	font-weight: normal;	
+	color: #C8D2E8;	
+	text-decoration: none; 
+	vertical-align: middle; 
+}
+
+.menuNiv2 {     
+	font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;    
+	font-size: 11px;	
+	font-weight: normal;	
+	color: #E6E8F5;	
+	text-decoration: none;
+	vertical-align: middle; }
+
+.menuNiv20 {     
+	font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;    
+	font-size: 11px;	
+	font-weight: normal;	
+	color: #C8D2E8;	
+	text-decoration: none;
+	vertical-align: middle; }
+
+
+.tablaExterna{
+	padding:8px;
+
+}
+.ModalPopup {
+    text-align: center;
+    width: 444px;
+    border: 1px solid black;
+    padding: 10px;
+    background-color: #eee;
+    z-index: 998;
+    filter:alpha(opacity=100);
+    -moz-opacity:1.00;
+}
+
+.tablaInterna{
+	left:0; top:5;
+	visibility:inherit;
+	border:solid #ACCBE0 1px;
+	
+	/*width:684px;*/
+	width:100%;
+	/*height:130;*/
+	background-color:#F7F8FB;
+	clip:rect(0,820,150,0);
+    /*height: 509px;*/
+}
+
+.tablaSinBorde100{
+	left:0; top:5;
+	visibility:inherit;
+	border:0px;
+	
+	/*width:684px;*/
+	width:100%;
+	/*height:130;*/
+	background-color:#F7F8FB;
+	clip:rect(0,820,150,0);
+    /*height: 509px;*/
+}
+
+
+.tablaInterna100{
+	left:0; top:5;
+	visibility:inherit;
+	border:solid #ACCBE0 1px;
+	
+	
+	/*width:684px;*/
+	width:100%;
+	background-color:#F7F8FB;
+	clip:rect(0,820,150,0);
+    /*height: 509px;*/
+}
+
+.tablaInterna100{
+	left:0; top:5;
+	visibility:inherit;
+	border:solid #ACCBE0 1px;
+	
+	/*width:684px;*/
+	width:100%;
+	/*height:130;*/
+	background-color:#F7F8FB;
+	clip:rect(0,820,150,0);
+    /*height: 509px;*/
+}
+
+.tablaInterna50{
+	left:0; top:5;
+	visibility:inherit;
+	border:solid #ACCBE0 1px;
+	
+	/*width:684px;*/
+	width:50%;
+	/*height:130;*/
+	background-color:#F7F8FB;
+	clip:rect(0,820,150,0);
+    /*height: 509px;*/
+}
+
+.tablaInternaSmall{
+	left:0; top:5;
+	visibility:inherit;
+	border:solid #ACCBE0 1px;
+	
+	width:330;
+	/*height:130;*/
+	background-color:#F7F8FB;
+	clip:rect(0,330,150,0);
+}
+.tablaInternaSinBorde{
+	left:0; top:5;
+	visibility:inherit;
+	
+	
+	width:820;
+	/*height:130;*/
+	background-color:#F7F8FB;
+	clip:rect(0,820,150,0);
+}
+
+.tablaInternaBotonera{
+	left:0; top:5;
+	visibility:inherit;	
+	width:100%;
+	/*height:130;*/
+	background-color:#FFFFFF;
+	clip:rect(0, 100%,150,0);
+}
+
+.tablaInternaLogin{
+	left:0; top:5;
+	visibility:inherit;
+	border:solid #ACCBE0 1px;
+	
+	width:400;
+	/*height:130;*/
+	background-color:#F7F8FB;
+	clip:rect(0,820,150,0);
+}
+
+.tablaInterna2
+{
+border: 1px solid #dbdddc;
+table-layout: fixed;
+	/*
+	left:0;top:5;
+	visibility:inherit;
+	border:solid #ACCBE0 1px;
+	width:820;
+	height:130;
+	background-color:#F7F8FB;
+*/
+	
+	}
+.modalBackground
+
+{
+background-color: Gray;
+
+filter: alpha(opacity=70);
+opacity: 0.7;
+
+}
+	
+.DatosListaPopUp { 
+			font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; 
+			font-size: 11px; 
+			font-style: normal; 
+			font-weight: normal; 
+			color: #8B908C;
+			border: 1px solid #dbdddc;
+			text-decoration: none;  
+			overflow: hidden;
+
+  
+  }
+	
+.DatosListaNormal { 
+font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; 
+font-size: 11px; 
+font-style: normal; 
+font-weight: normal; 
+color: #8B908C;
+  border: 1px solid #dbdddc;
+  text-decoration: none;
+  
+  
+  overflow: hidden;
+ /* text-overflow: ellipsis;*/
+  white-space: wrap;
+  height:33px;
+  
+  }
+  
+  .DatosListaNormalVerde { 
+	font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; 
+	font-size: 11px; 
+	font-style: normal; 
+	font-weight: bold; 
+	color: green;
+	text-decoration: none;
+	overflow: hidden;
+	/* text-overflow: ellipsis;*/
+	white-space: wrap;
+	height:33px;
+  }
+  
+  
+  .DatosListaNormalRojo { 
+	font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; 
+	font-size: 11px; 
+	font-style: normal; 
+	font-weight: bold; 
+	color: red;
+	text-decoration: none;
+	overflow: hidden;
+	/* text-overflow: ellipsis;*/
+	white-space: wrap;
+	height:33px;
+  }
+  
+  .DatosListaDescuento { 
+	font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; 
+	font-size: 11px; 
+	font-style: normal; 
+	font-weight: normal; 
+	color: #8B908C;
+	border: 1px solid #dbdddc;
+	text-decoration: none;  
+	overflow: hidden;
+	/* text-overflow: ellipsis;*/
+	white-space: wrap;	  
+	padding:0px;
+	margin:0px;
+  }
+          
+	.grid-header th a 
+{ 
+	font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; 
+  	font-size: 11px; 
+	font-style: normal; 
+	font-weight: normal; 
+	color: #10508E;
+  	text-decoration:none;
+} 	 
+
+			 .headListaNormal { 
+			font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; 
+		  	font-size: 11px; 
+			font-style: normal; 
+			font-weight: normal; 
+			color: #10508E;
+		  	text-decoration:none;
+			background-color: #8BB7D8;
+			
+		
+			border-right: 1px solid #10508E;
+			border-bottom-color: #10508E;
+			border-bottom-style: solid;
+			border-bottom-width: 2px;
+ }
+ .headListaDescuento { 
+			font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; 
+		  	font-size: 11px; 
+			font-style: normal; 
+			font-weight: normal; 
+			color: #10508E;
+		  	text-decoration:none;
+			background-color: #8BB7D8;
+			border-right: 1px solid #10508E;
+			border-bottom-color: #10508E;
+			border-bottom-style: solid;
+			border-bottom-width: 2px;
+			padding:0px;
+			margin:0px;
+ }
+			 
+			 .lineaBotonesPaginacion{
+			background: url('../../Images/elgc_btnPagFondo.gif') repeat-x;
+			    width: 100%;
+}
+
+.lineaBotonesPaginacionConceptosSubsegmentos
+{
+			background: url('../../Images/elgc_btnPagFondo.gif') repeat-x;	
+			width: 400px;
+}
+			 .lineaBotonesPaginacion1{
+			background: url('../../Images/elgc_btnPagFondo.gif') repeat-x;
+			    width: 95%;
+}
+.lineaBotonesPaginacionTerminales{
+			background: url('../../Images/elgc_btnPagFondo.gif') repeat-x;
+			    width: 97%;
+}
+			 .lineaBotonesPaginacion2{
+			background: url('../../Images/elgc_btnPagFondo.gif') repeat-x;
+			    width: 100%;
+}
+.lineaBotonesPaginacionAnexarArchivos{
+			background: url('../../Images/elgc_btnPagFondo.gif') repeat-x;
+			    width: 95%;
+}
+			 
+			 
+			 
+			 .CArbol {
+			 /*position:absolute;*/
+			 left:0;
+			 top:42;
+			 visibility:inherit;
+			 width:132;
+			 height:1300;
+			 background-color:white;
+			 clip:rect(0,132,1300,0);
+			 
+          	 left:0;
+			 top:42;
+			 visibility:inherit;
+			 width:132;
+			 height:1300;
+			 background-color:white;
+			 clip:rect(0,132,1300,0);
+			 }
+			 
+          .CabeceraListaClave { font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; font-size: 11px; font-style: normal; font-weight: bold; color: #10508E;text-decoration:none;  }
+          .CabeceraListaNormal { 
+			font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; 
+		  	font-size: 11px; 
+			font-style: normal; 
+			font-weight: normal; 
+			color: #10508E;
+		  	text-decoration:none;
+			background-color: #8BB7D8; ;  
+			 /*
+			border-bottom-color: #10508E;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+*/
+ }
+          .CabeceraListaNormalDcha { font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; 
+		  font-size: 11px; 
+		  font-style: normal; 
+		  font-weight: normal; 
+		  color: #10508E;
+		  text-decoration:none; 
+		  text-align: right
+		  }
+          
+          .CabeceraListaSinFondo     { font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; font-size: 11px; font-style: normal; font-weight: bold; color: #10508E; text-decoration:none;  }
+          .CabeceraListaSinFondoDcha { font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; font-size: 11px; font-style: normal; font-weight: bold; color: #10508E; text-decoration:none; text-align: right}
+          
+          
+          .DatosListaClave { font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; font-size: 11px; font-style: normal; font-weight: bold; color: #075C9C;  }
+          
+          .DatosListaNormalDcha2 { font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; font-size: 11px; font-style: normal; font-weight: normal; color: #8B908C;  border: #4E93C8; border-style: solid; border-top-width: 0px; border-right-width: 2px; border-bottom-width: 0px; border-left-width: 0px; padding-left: 0px}
+          .DatosListaNormalDcha { font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; font-size: 11px; font-style: normal; font-weight: normal; color: #8B908C;  padding-left: 0px; text-align: right}
+          .DatosListaNormalNegr { font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol; font-size: 11px; font-style: normal; font-weight: bold; color: #8B908C;  }
+           
+           .RutaPrincipal {  
+                      font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+                      font-size: 11px; 
+                      font-style: normal; 
+                      font-weight: bold; 
+                      text-transform: uppercase; 
+                      color: #CE6100; 
+                      text-align: left; 
+                      text-indent: 5px;
+                      background-image: url(../../Images/cf_si_cm_WATitFondo.gif);
+           }
+           
+           .RutaSecundaria {  
+                      font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+                      font-size: 11px; 
+                      font-style: normal; 
+                      font-weight: bold; 
+                      text-transform: none; 
+                      color: #CE6100; 
+                      text-align: left; 
+                      text-indent: 5px;
+                      background-image: url(../../Images/cf_si_cm_WASubTitFondo.gif);
+           }
+		   
+		   /*ESTE SE USA*/
+           .RutaFinal {
+				font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+				font-size: 11px;
+				font-style: normal;
+				font-weight: bold;
+				text-transform: none;
+				color: #000000;
+				text-align: left;
+				text-indent: 5px;
+				background-image: url(../../Images/cf_si_cm_WASubTitFondo.gif);
+				height: 23;
+				}
+
+          A.linkNavegacion {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 11px;
+            font-weight: bold;
+            color: #CE6100;
+            text-decoration: none;
+          }
+          A.linkEnvio {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 12px;
+            font-weight: bold;
+            color: #505D92;
+            background-color: white;            
+            text-decoration: none;            
+          }
+          .TitFormulario
+          {            
+          font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+          background-image: url(../img/es/Cabecera/solTitF.gif);
+	  font-size: 11px;
+	  font-weight: normal;
+	  color: #114C8B;
+          }
+          #TitFormulario
+          {          
+          background-image: url(../img/es/Cabecera/solTitF.gif);
+          font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	  font-size: 11px;
+	  font-weight: normal;
+	  color: #114C8B;
+          }
+          .SubTitFormulario
+          {
+            background-image: url(../img/cf_si_cm_WCTitFondo1.gif);
+            background-color: #FFB71C;
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            color: #FFFFFF;
+            font-size: 10px;
+          }
+          .fecha
+          {
+            font-family: tahoma, Verdana, Arial, Helvetica, sans-serif;
+            font-size: 11px;
+	    font-weight: normal;
+	    color: #8E9AC4;
+	    padding-right: 7px;	    
+	    padding-bottom: 4px;	     
+          }
+          #fecha
+          {
+            font-family: tahoma, Verdana, Arial, Helvetica, sans-serif;
+	    font-size: 11px;
+	    font-weight: normal;
+	    color: #8E9AC4;
+	    padding-right: 7px;	    
+	    padding-bottom: 4px;	     
+          }
+		  
+		  /*ESTE SE USA*/
+          .TablaBloque {
+			background-color: #F7F8FB;
+            border: 1px;
+            border-color: #C0C9E1;
+            width:100%;
+		  }
+		  
+		   .TablaBloqueNueva 
+		   {
+			background-color: #F7F8FB;
+            border-color: #C0C9E1;
+            width:100%;
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            vertical-align:top;
+            border: 1px;
+		  }
+
+     
+          TD.TituloTabla
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 12px;
+            font-weight: bold;
+            color: black;
+          } 
+		  
+		  /*ESTE SE USA*/
+		  .EtiCriteriosLabel40
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:40%;
+            /*
+            margin-top:auto;
+            padding:top;
+			*/
+            vertical-align:top;
+          }  
+
+		  .TDFija
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            vertical-align:top;
+            text-align:left;
+           /*border: solid 1px black*/
+          }
+          
+		  .autocomplete_completionListElement 
+		  {  
+			font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+			font-size: 10px;
+			font-weight: normal;
+			color: #000000;
+			background-color: #F7F8FB;
+			margin : 0px!important;
+			border : buttonshadow;
+			border-width : 1px;
+			border-style : solid;
+			cursor : 'default';
+			overflow : auto;
+			text-align : left; 
+			list-style-type : none;
+		  }
+
+		.TD
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+          }  
+          
+		.TD8
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:8%;
+            vertical-align:top;
+            
+           /*border: solid 1px black*/
+          }  
+          
+           .TD05
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:5%;
+            vertical-align:top;
+            
+           /*border: solid 1px black*/
+          }  
+          
+          .TD10
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:10%;
+            vertical-align:top;
+            
+           /*border: solid 1px black*/
+          }  
+          .TD13
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:13%;
+            vertical-align:top;
+            
+           /*border: solid 1px black*/
+          }  
+          
+            .TD15
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:15%;
+            vertical-align:top;
+            
+           /*border: solid 1px black*/
+          }  
+          
+            .TD20
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:20%;
+            vertical-align:top;
+            
+           /*border: solid 1px black*/
+          }  
+          
+             .TD22
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:22%;
+            vertical-align:top;
+            
+           /*border: solid 1px black*/
+          }  
+          
+          .TD25
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:25%;
+            vertical-align:top;
+            
+           /*border: solid 1px black*/
+          }  
+          
+          .TD30
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:30%;
+            vertical-align:top;
+            
+           /*border: solid 1px black*/
+          }  
+          
+            .TD35
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:35%;
+            vertical-align:top;
+            
+           /*border: solid 1px black*/
+          }  
+          
+          .TD40
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:40%;
+            vertical-align:top;
+             
+           /*border: solid 1px black*/
+          }  
+          
+           .TD45
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:45%;
+            vertical-align:top;
+             
+           /*border: solid 1px black*/
+          }  
+          
+          .TD50
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:50%;
+            vertical-align:top;
+             
+           /*border: solid 1px black*/
+          }  
+          
+          .TD60
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:60%;
+            vertical-align:top;
+            
+            /*border: solid 1px black*/
+          }  
+          
+		  .TD70
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:70%;
+            vertical-align:top;
+            
+            /*border: solid 1px black*/
+          } 
+		  
+           .TD80
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:80%;
+            vertical-align:top;
+            
+            /*border: solid 1px black*/
+          }  
+          
+           .TD85
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:85%;
+            vertical-align:top;
+            
+            /*border: solid 1px black*/
+          }  
+          
+          .TD90
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:90%;
+            vertical-align:top;
+            
+            /*border: solid 1px black*/
+          }  
+          
+           .TD95
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:95%;
+            vertical-align:top;
+            
+            /*border: solid 1px black*/
+          }  
+          
+          .TD100
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:100%;
+            vertical-align:top;
+            
+            /*border: solid 1px black*/
+          }  
+          
+           .EtiCriteriosLabel20
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:20%;
+            vertical-align:top;
+          }  
+          /*   */
+           .EtiCriteriosLabel10
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:10%;
+            vertical-align:top;
+          }  
+          
+          .EtiCriteriosText60
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:60%;
+            vertical-align:top;
+          } 
+          
+          .EtiCriteriosText30
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:30%;
+            vertical-align:top;
+          } 
+          
+           .EtiCriteriosText15
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:15%;
+            vertical-align:top;
+          } 
+          
+          .EtiCriteriosLabel
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #DDE7F3;
+            width:40%;
+          }  
+          
+          
+          .EtiCriterios125
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            width: 125px;
+            background-color: #F7F8FB;
+           }
+           .EtiCriterios155
+           {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            width: 155px;
+            background-color: #F7F8FB;
+           }
+		  .EtiCriterios51
+		   {
+		    font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            width: 51px;
+            background-color: #F7F8FB;		      
+		   }
+		   
+		  .EtiCriterios59
+		  {
+		    font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            width: 59px;
+            background-color: #F7F8FB;		  
+		  }
+		  .EtiCriterios170
+		  {
+		    font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            width: 170px;
+            background-color: #F7F8FB;  		   
+		  }
+		   
+		  .EtiCriteriosTab
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            width:840px;
+          } 
+          
+		 
+		  
+		  .EtiCriteriosGrila
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #8E9AC4;
+            background-color: #F7F8FB;
+          } 
+           .TD.EtiCriterios2
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: bold;
+            color: #000000;
+            background-color: #F7F8FB;
+          } 
+           .TD.EtiCriterios3
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 12px;
+            font-weight: bold;
+            color: #000000;
+            background-color: #F7F8FB;
+          } 
+           TD.EtiCriterios4
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #FFFFFF;
+          }
+          TD.EtiCriterios5
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000000;
+            background-color: #F7F8FB;
+          } 
+          TD.EtiCriterios22
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+	    text-decoration:underline;            
+          } 
+
+            TD.EtiCriteriosDcha
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            text-align: right;
+          } 
+          TD.Padding12
+          {
+              padding: 12px 12px 12px 12px;
+          }
+          
+          TD.Menu
+          {
+          width: 110px;
+          vertical-align:top;
+          /*padding-top:13px     */
+          } 
+          Legend.Font
+          {
+              padding-left: 8px; 
+              padding-right: 8px;
+              font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+              font-size: 11px; 
+              font-style: normal;
+              font-weight: bold;               
+              text-transform: none; 
+              color: #376185; 
+          }         
+          
+          #LabelEtiCriterios
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+          } 
+          #LabelEtiCriterios2
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: bold;
+            color: #000000;
+            background-color: #F7F8FB;
+          } 
+          TD.EtiCriteriosPadding
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+            padding-top: 6px;
+          }           
+          TD.EtiInformacion
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 13px;
+            font-weight: bold;
+            color: #000000;
+            background-color: #F7F8FB;
+          }
+          TD.EtiInformacionDetalle
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 11px;
+            font-weight: bold;
+            color:#505D92;
+            background-color: #F7F8FB;
+          }
+          #LabelEtiInformacion
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 13px;
+            font-weight: bold;
+            color: #000000;
+            background-color: #F7F8FB;
+          }
+          TD.EtiInformacion2
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+          }
+          TD.EtiInformacion3
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+            background-color: #F7F8FB;
+          }
+          #LabelEtiInformacion2
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: bold;
+            color: #000000;
+            background-color: #F7F8FB;
+          }
+          #LabelEtiInformacion3
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 11px;
+            font-weight: bold;
+            color: #000000;
+            background-color: #F7F8FB;
+          }
+          TD.EtiNavegacionLink
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 12px;
+            font-weight: bold;
+            color: #505D92;
+            background-color: #D4D8E6;
+          }
+          TD.EtiNavegacionFin
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 12px;
+            font-weight: bold;
+            color: black;
+            background-color: #D4D8E6;
+          }
+          TD.TitBloque
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 12px;
+            font-weight: bold;
+            color: #505D92;
+            background-color: #DDE1E8;
+          }
+          #TitBloque2
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 12px;
+            font-weight: bold;
+            color: #505D92;
+            background-color: #DDE1E8;
+          }
+          TD.TitBloque3
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: black;
+            background-color: #DDE1E8;
+          }
+          #IdCheck
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: bold;
+            color: black;
+            background-color: #F7F8FB;
+          }
+          TD.EtiCriterios
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+            background-color: #F7F8FB;
+
+          } 
+          TD.EtiCriteriosSinFondo
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 10px;
+            font-weight: normal;
+            color: #000000;
+           
+          } 
+
+          TD.TitSeccion
+          {
+            font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 12px;
+            font-weight: bold;
+            color: #505D92;
+          }
+          TD.EncabezadoNivel1
+          {
+            font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+            font-size: 11px; 
+            font-style: normal; 
+            font-weight: bold; 
+            text-transform: none; 
+            color: #376185; 
+            background-color: #ACCBE0; 
+            text-align: left; 
+            text-indent: 5px
+         }
+         
+         TD.EncabezadoImportes
+          {
+            font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+            font-size: 11px; 
+            font-style: normal; 
+            font-weight: bold; 
+            text-transform: none; 
+            color: #376185;
+            background-color: #ACCBE0;
+            text-align: center; 
+            text-indent: 5px;
+            border-style: solid;
+            border-width: 2px;
+            border-color: #ACCBE0;
+         }
+         
+         TD.Importes
+          {
+            font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+            font-size: 11px; 
+            font-style: normal; 
+            font-weight: normal; 
+            text-align: center; 
+            border-style: solid;
+            border-width: 1px;
+            border-color: #ACCBE0;
+         }
+         
+         #IdCabeceraLista
+          {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            background-color: #C1C9DD;
+            border: 1px;
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+                    border-color: white;
+            padding-left: 4px;
+            padding-top: 4px;
+          } 
+
+
+         #IdColumnaLista
+          {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+            color: #8490A0;
+            background-color: #F7F8FB;
+            border: 1px;
+            border-left: 1px solid;
+            border-bottom: 1px solid; 
+            border-color: white;
+            padding-left: 4px;
+            padding-top: 2px;
+          } 
+
+         #IdColumnaLista2
+          {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            font-weight: normal;
+            color: black;
+            background-color: #F1F3F7;
+            border: 1px;
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+            border-color: white;
+            border-color: white;
+            border: 1px;
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+            padding-left: 4px;
+            padding-top: 2px;
+          }
+          #IdColumnaLista2Dcha
+          {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            font-weight: normal;
+            color: black;
+            background-color: #F1F3F7;
+            border: 1px;
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+            border-color: white;
+            border-color: white;
+            border: 1px;
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+            padding-left: 4px;
+            padding-top: 2px;
+            text-align: right;
+          } 
+         #CARGANDODATOS
+         {
+           /*position:absolute;*/
+           left:18px;
+           top:10px;
+           width:69px;
+           height:56px;
+           z-index:1001;
+         }
+          #textoFiltroF
+          {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: #F5F4DD;
+          }
+
+          #EstiloDefecto
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+           }
+           
+		    /*ESTE SE USA*/
+          .EstiloDefectoF
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color:white;
+           }
+           .EstiloDefectoLabel
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color:#F7F8FB;
+           }
+           .EstiloDefectoFDisabled
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: #EEEEEE;
+           }
+           
+           .EstiloDefectoFTxtMultilinea
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:98%;
+             height:40px;
+           }
+           
+           .EstiloDefectoFTxtMultilinea60
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:98%;
+             height:60px;
+           }
+          
+           .EstiloDefectoFTxtExtraLargo
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:320px;
+           }   
+           
+           .EstiloDefectoFTxtExtraLargo2
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:460px;
+           }         
+                   
+           .EstiloDefectoFTxtLargo
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:220px;
+           }
+           .EstiloDefectoFTxtMediano
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:150px;
+           }
+           .EstiloDefectoFTxtCorto60px
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:60px;
+           } 
+           
+           .EstiloDefectoFTxtCorto
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:80px;
+             text-align:right;
+           } 
+           
+           .EstiloDefectoFTxtCorto2
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:100px;
+           } 
+           
+           .Disabled
+			{
+				background-color: #EBEBEB;
+			}
+			
+			.ColorNaranja
+			{
+				background-color: #FFCC99;
+			}
+           
+           	 .EstiloDefectoFDdlCorto
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:100px;
+           }
+           
+           .EstiloDefectoFDdllMediano
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:130px;
+           }
+			  
+			  .EstiloDefectoFDdllMedianoLargo
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:180px;
+           }
+			  
+           .EstiloDefectoFDdllLargo
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:220px;
+           }
+           
+           .EstiloDefectoFDdll90
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width: 90%;
+           }
+           
+           .EstiloDefectoFDdllXExtraLargo
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:250px;
+           }
+           
+           .EstiloDefectoFDdllExtraLargo
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:250px;
+           }
+           
+           .EstiloDefectoControl100
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:99%;
+           }
+
+
+			.EstiloDefectoControl70
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 11px;
+             font-weight: normal;
+             color: black;
+             background-color: white;
+             width:81%;
+           }
+
+          .EstiloFichero
+           {
+             font-family: Verdana, Arial, Helvetica, sans-serif;
+             font-size: 10px;
+             font-weight: normal;
+             color: black;
+             background-color: grey;
+           }
+           
+           .EstiloEncabezadoGrilla
+        {
+            font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 11px;
+            font-style: normal;
+            font-weight: bold;
+            text-transform: none;
+            color: #376185;
+            text-align: left;
+            text-indent: 5px;
+            height: 1px;
+            background-color: #ACCBE0;
+        }
+
+.EncabezadoNivel1 {  font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; font-size: 11px; font-style: normal; font-weight: bold; text-transform: none; color: #376185; background-color: #ACCBE0; text-align: left; text-indent: 5px}
+.EncabezadoNivel2 {  font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; font-size: 11px; font-style: normal; font-weight: normal; text-transform: none; color: #376185; background-color: #ACCBE0;; text-align: left; text-indent: 5px}
+.EncabezadoNivel3 {  font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; font-size: 11px; font-style: normal; font-weight: bold; text-transform: none; color: #4E86B4; background-color: #D3E3ED; text-align: left; text-indent: 5px}
+#ColTitulo {  
+            font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 11px; 
+            font-style: normal; 
+            font-weight: bold; 
+            text-transform: none; 
+            color: #6D92B2; 
+            background-color: #C0D7E5; 
+            text-align: left;      
+            border: 1px;            
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+                    border-color: white;
+            padding-left: 4px;
+            padding-top: 1px;
+}
+
+      #Literal
+      {  
+          font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+          font-size: 11px;
+          font-style: normal;
+          font-weight: bold;
+          color: #000000;
+          text-align: left
+      }
+
+         A.menuNiv1 {     font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;    font-size: 11px;	font-weight: normal;	color: #C8D2E8;	text-decoration: none;vertical-align: middle; }
+         A.menuNiv1:hover {         font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;   font-size: 11px;	font-weight: normal;	color: white;text-decoration: none;vertical-align: middle; }
+         
+         A.menuNiv2:hover {         font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;   font-size: 11px;	font-weight: normal;	color: white;text-decoration: none;vertical-align: middle; }
+         
+
+#Aviso {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: bold;
+          text-decoration: none;
+          color: #000000;
+}
+
+#Error {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: bold;
+          text-decoration: none;
+          color: red;
+}
+
+.txtLogin {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: bold;
+          text-decoration: none;
+          color: #FF6000;         
+}
+
+.cajasTxt {     
+          padding: 0px 0px 0px 4px;
+          height: 16px;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          border: 1px solid #CED0CE;
+}
+.pest_activ { 
+	 font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif; 
+	 font-size: 12px; 
+	 font-weight: bold; 
+	 color: #2284CF; 
+	 text-decoration: none
+ }
+.pest_desactiv {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #3B6A80;
+	text-decoration: none;
+	cursor: hand;
+}
+.texto-iframe {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+        font-weight: bold; 
+	color: #2284CF;
+	background-color: #FFFFFF;
+	text-indent: 2px;
+	padding-right: 1px;
+	padding-left: 1px;
+	margin-right: 1px;
+	margin-left: 1px;
+	height: 10px;
+
+}
+.texto-iframe2 {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+        font-weight: bold; 
+	color: #808B99;
+	background-color: #FFFFFF;
+	text-indent: 2px;
+	padding-right: 1px;
+	padding-left: 1px;
+	margin-right: 1px;
+	margin-left: 1px;
+	height: 10px;
+
+}
+
+.fondo-iframe {
+	border-top: none;
+	border-right: none;
+	border-bottom: none;
+	border-left: none;
+	background-color: #F7F8FB;
+}
+.borde-iframe {
+	border: 2px solid #ACCBE0;
+}
+.tabla-iframe {
+	border-top: 1px none #E0E6E9;
+	border-right: 1px none #E0E6E9;
+	border-bottom: 1px solid #E0E6E9;
+	border-left: 1px none #E0E6E9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ .DRUIDA
+        {
+            /*position: absolute;*/
+            left: 0;
+            top: 0;
+            visibility: hidden;
+        }
+		
+		/*ESTE SE USA*/
+        .capNavegacion
+        {
+            /*position: absolute;*/
+            left: 0;
+            top: 0;
+            visibility: visible;
+            width: 800;
+            height: 545;
+            /*background-image: URL(../../Images/cf_si_cm_WAFondoMain.gif);*/
+            background-repeat: ;;clip:rect(0,872,545,0);
+				layer-background-image: URL();
+				}
+				
+			
+			
+		/*ESTE SE USA*/
+        .capPrincipal
+        {
+            /*position: absolute;*/
+            left: 8;
+            top: 40;
+            visibility: inherit;
+            width: 820;
+            height: 500;
+            clip: rect(0,820,500,0);
+        }
+
+		/*ESTE SE USA*/		
+        n: absolute;*/
+            left: 11118;
+            top: 5;
+            /*visibility: inherit;*/
+            border: solid #ACCBE0 1px;
+            padding: 0px;
+            width: 820;
+            height: 130;
+            background-color: #F7F8FB;
+            /*layer-background-color: #F7F8FB;*/
+            clip: rect(0,820,150,0);
+        }
+        
+		/*ESTE SE USA*/		
+		.capTitCriterios
+        {
+            /*position: absolute;*/
+            left: 0;
+            top: 0;
+            visibility: inherit;
+            width: 820;
+            height: 30;
+            clip: rect(0,820,30,0);
+        }
+        
+        .capTitCriteriosSmall
+        {
+            /*position: absolute;*/
+            left: 0;
+            top: 0;
+            visibility: inherit;
+            width: 330;
+            height: 30;
+            clip: rect(0,330,30,0);
+        }
+
+        .capTitCriteriosLogin
+        {
+            position: absolute;
+            left: 0;
+            top: 0;
+            visibility: inherit;
+            width: 400;
+            height: 30;
+            clip: rect(0,820,30,0);
+        }
+        
+        .capTitCriteriosLogin
+        {
+            /*position: absolute;*/
+            left: 0;
+            top: 0;
+            visibility: inherit;
+            width: 400;
+            height: 30;
+            clip: rect(0,820,30,0);
+        }
+        .btnBuscarDiv
+        {
+            position: absolute;
+            left: 680;
+            top: 95;
+        }
+        #capLista1
+        {
+            /*position: absolute;*/
+            left: 0;
+            top: 150;
+            visibility: visible;
+            width: 820;
+            height: 275;
+            clip: rect(0,820,275,0);
+        }
+		
+		/*ESTE SE USA*/		
+        .Cplistado1
+        {
+            /*position: absolute;*/
+            width: 820;
+            height: 235;
+            left: 0;
+            top: 20;
+            background-color: #F7F8FB;
+            layer-background-color: #F7F8FB;
+        }
+        
+		.CpCablistado1
+        {
+            /*position: absolute;*/
+            width: 818;
+            height: 23;
+            left: 1;
+            top: 1; ;}
+			
+        .CpFCablistado1
+        {
+            /*position: absolute;*/
+            width: 820;
+            height: 22;
+            left: 0;
+            top: 1;
+            /*layer-background-color: #8BB7D8;*/
+            background-color: #8BB7D8; ;}
+        .CpLCablistado1
+        {
+            border: 2px solid #4E93C8;
+            /*position: absolute;*/
+            width: 820;
+            height: 2;
+            left: 0;
+            top: 21;
+            overflow: hidden;
+        }
+        .CpScrolllistado1
+        {
+            /*position: absolute;*/
+            left: 1;
+            top: 23;
+            width: 818;
+            height: 211;
+            overflow: auto;
+            background-color: #F7F8FB;
+            visibility: inherit;
+            scrollbar-face-color: #D6DFEF;
+            scrollbar-shadow-color: #A6ADEC;
+            scrollbar-highlight-color: white;
+            scrollbar-3dlight-color: #7F99DA;
+            scrollbar-darkshadow-color: #7F99DA;
+            scrollbar-track-color: #ABBBE0;
+            scrollbar-arrow-color: black;
+        }
+        .CpLin1listado1
+        {
+            border: 1px solid #E0E5E2;
+            /*position: absolute;*/
+            width: 820;
+            height: 1;
+            left: 0;
+            top: 20;
+            overflow: hidden;
+        }
+        .CpLin3listado1
+        {
+            border: 1px solid #E0E5E2;
+            /*position: absolute;*/
+            width: 820;
+            height: 1;
+            left: 0;
+            top: 254;
+            overflow: hidden;
+        }
+        .CpLin2listado1
+        {
+            /*position: absolute;*/
+            width: 1;
+            height: 235;
+            left: 0;
+            top: 20;
+            overflow: hidden;
+            background-color: #E0E5E2;
+            layer-background-color: #E0E5E2;
+            clip: rect(0,1,235,0);
+        }
+        .CpLin4listado1
+        {
+            /*position: absolute;*/
+            width: 1;
+            height: 235;
+            left: 819;
+            top: 20;
+            overflow: hidden;
+            background-color: #E0E5E2;
+            layer-background-color: #E0E5E2;
+            clip: rect(0,1,235,0);
+        }
+        .retDiv
+        {
+            /*position: absolute;*/
+            left: 540;
+            top: 255;
+        }
+        #avaDiv
+        {
+            position: absolute;
+            left: 685;
+            top: 255;
+        }
+        #capBordeListaAtrIzda
+        {
+            position: absolute;
+            left: 0;
+            top: 0;
+            visibility: inherit;
+            border: solid #ACCBE0 1px;
+            width: 1;
+            height: 255;
+            background-color: #ACCBE0;
+            layer-background-color: #ACCBE0;
+            clip: rect(0,1,255,0);
+        }
+        .capBordeListaAtrDcha
+        {
+            /*position: absolute;*/
+            left: 819;
+            top: 0;
+            visibility: inherit;
+            border: solid #ACCBE0 1px;
+            width: 1;
+            height: 255;
+            background-color: #ACCBE0;
+            layer-background-color: #ACCBE0;
+            clip: rect(0,1,255,0);
+        }
+        .capLineaBotonAtr
+        {
+            position: absolute;
+            left: 0;
+            top: 255;
+            visibility: inherit;
+            border: solid #899CC2 1px;
+            width: 830;
+            height: 3;
+            background-color: #899CC2;
+            
+            clip: rect(0,830,3,0);
+				layer-background-color: #899CC2;
+        }
+        .capLista2
+        {
+            /*position: absolute;*/
+            left: 0;
+            top: 150;
+            visibility: hidden;
+            width: 820;
+            height: 275;
+            clip: rect(0,820,275,0);
+        }
+        .Cplistado2
+        {
+            /*position: absolute;*/
+            width: 820;
+            height: 235;
+            left: 0;
+            top: 20;
+            background-color: #F7F8FB;
+            layer-background-color: #F7F8FB;
+        }
+        #CpCablistado2
+        {
+           /*position: absolute;*/
+            width: 818;
+            height: 23;
+            left: 1;
+            top: 1; ;}
+        #CpFCablistado2
+        {
+            /*position: absolute;*/
+            width: 820;
+            height: 22;
+            left: 0;
+            top: 1;
+            layer-background-color: #8BB7D8;
+            background-color: #8BB7D8; ;}
+        #CpLCablistado2
+        {
+            /*border: 2px solid #4E93C8;*/
+            position: absolute;
+            width: 820;
+            height: 2;
+            left: 0;
+            top: 21;
+            overflow: hidden;
+        }
+        #CpScrolllistado2
+        {
+            /*position: absolute;*/
+            left: 1;
+            top: 23;
+            width: 818;
+            height: 211;
+            overflow: auto;
+            background-color: #F7F8FB;
+            visibility: inherit;
+            scrollbar-face-color: #D6DFEF;
+            scrollbar-shadow-color: #A6ADEC;
+            scrollbar-highlight-color: white;
+            scrollbar-3dlight-color: #7F99DA;
+            scrollbar-darkshadow-color: #7F99DA;
+            scrollbar-track-color: #ABBBE0;
+            scrollbar-arrow-color: black;
+        }
+        #CpLin1listado2
+        {
+            border: 1px solid #E0E5E2;
+            position: absolute;
+            width: 820;
+            height: 1;
+            left: 0;
+            top: 20;
+            overflow: hidden;
+        }
+        #CpLin3listado2
+        {
+            border: 1px solid #E0E5E2;
+            position: absolute;
+            width: 820;
+            height: 1;
+            left: 0;
+            top: 254;
+            overflow: hidden;
+        }
+        .CpLin2listado2
+        {
+            /*position: absolute;*/
+            width: 1;
+            height: 235;
+            left: 0;
+            top: 20;
+            overflow: hidden;
+            background-color: #E0E5E2;
+            layer-background-color: #E0E5E2;
+            clip: rect(0,1,235,0);
+        }
+        #CpLin4listado2
+        {
+            position: absolute;
+            width: 1;
+            height: 235;
+            left: 819;
+            top: 20;
+            overflow: hidden;
+            background-color: #E0E5E2;
+            layer-background-color: #E0E5E2;
+            clip: rect(0,1,235,0);
+        }
+        #retDiv
+        {
+            position: absolute;
+            left: 540;
+            top: 255;
+        }
+        #avaDiv
+        {
+            position: absolute;
+            left: 685;
+            top: 255;
+        }
+        .capBordeListaAtrIzda2
+        {
+            /*position: absolute;*/
+            left: 0;
+            top: 0;
+            visibility: hidden;
+            border: solid #ACCBE0 1px;
+            width: 1;
+            height: 255;
+            background-color: #ACCBE0;
+            layer-background-color: #ACCBE0;
+            clip: rect(0,1,255,0);
+        }
+        .capBordeListaAtrDcha2
+        {
+            /*position: absolute;*/
+            left: 819;
+            top: 0;
+            visibility: hidden;
+            border: solid #ACCBE0 1px;
+            width: 1;
+            height: 255;
+            background-color: #ACCBE0;
+            
+            clip: rect(0,1,255,0);
+				layer-background-color: #ACCBE0;
+        }
+        .capLineaBotonAtr2
+        {
+            /*position: absolute;*/
+            left: 0;
+            top: 255;
+            visibility: hidden;
+            border: solid #899CC2 1px;
+            width: 830;
+            height: 3;
+            background-color: #899CC2;
+            clip: rect(0,830,3,0);
+				layer-background-color: #899CC2;
+        }
+        #capBoton
+        {
+            position: absolute;
+            left: 0;
+            top: 445;
+            visibility: inherit;
+            width: 820;
+            height: 30;
+            clip: rect(0,820,30,0);
+        }
+        .btnImprimirDiv
+        {
+            position: absolute;
+            left: 630;
+            top: 0;
+        }
+        .btnExcelDiv
+        {
+            position: absolute;
+            left: 730;
+            top: 0;
+        }
+            
+
+		
+		
+		
+		
+		
+		
+		
+		
+/***********************************************/
+/***************** BOTONES *********************/
+/**********************************************/
+	
+	/***** NUEVO *****/
+	.styleButtonNuevo
+	{    	    	
+		background:url(../../Images/elgc_btnNuevo1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+	}
+
+	.styleButtonNuevoOver
+	{
+		background:url(../../Images/elgc_btnNuevo2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	.styleButtonNuevoDisabled
+    {    	    	
+	    background:url(../../Images/elgc_btnNuevo0.gif);    	
+	    background-repeat:no-repeat; 
+	    background-position:center; 
+	    width:70px;
+	    height:25px;
+	    border-style:none;		
+	    cursor:pointer;   	       
+    }
+	/***** FIN NUEVO *****/
+	
+	/***** AYUDA*****/
+	.styleButtonAyuda
+    {    	    	
+    	background:url(../../Images/Cabecera/btnAyuda1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px;
+		border-style:none;	
+		cursor:pointer;	      
+    }
+	
+	.styleButtonAyudaOver
+	{
+		background:url(../../Images/Cabecera/btnAyuda2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	/***** FIN AYUDA*****/
+	
+	/***** ACEPTAR *****/
+	.styleButtonAceptar
+	{
+		background:url(../../Images/elgc_btnAceptar1.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:80px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonAceptarOver
+	{
+		background:url(../../Images/elgc_btnAceptar2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:80px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	.styleButtonAceptarDisabled
+	{
+		background:url(../../Images/elgc_btnAceptar0.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:80px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	/***** FIN ACEPTAR *****/
+	
+	/***** ELIMINAR *****/
+	.styleButtonEliminar
+	{
+		background:url(../../Images/elgc_btnEliminar1.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:73px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonEliminarOver
+	{
+		background:url(../../Images/elgc_btnEliminar2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:73px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonEliminarDisabled
+	{
+		background:url(../../Images/elgc_btnEliminar0.gif);      
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:73px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	/***** FIN ELIMINAR *****/
+	
+	/***** GUARDAR *****/
+	.styleButtonGuardar
+    {    	    	
+    	background:url(../../Images/elgc_btnGuardar1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonGuardarOver
+	{
+		background:url(../../Images/elgc_btnGuardar2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonGuardarDisabled
+    {    	    	
+    	background:url(../../Images/elgc_btnGuardar0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	/***** FIN *****/
+	
+	
+	.styleButtonModificar
+    {    	    	
+    	background:url(../../Images/NOTU_btnModificar1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonModificarOver
+	{
+		background:url(../../Images/NOTU_btnModificar2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonModificarDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnModificar0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	
+	.styleButtonLimpiar
+	{
+		background:url(../../Images/elgc_btnLimpiar1.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:75px;
+		height:25px;	
+		border-style:none;	 
+		cursor:pointer;
+	}
+	
+	.styleButtonLimpiarOver
+	{
+		background:url(../../Images/elgc_btnLimpiar2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:75px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonLimpiarDisabled
+	{
+		background:url(../../Images/elgc_btnLimpiar0.gif);      
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:75px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	} 
+	
+	.styleButtonActualizar
+	{
+		background:url(../../Images/refresh_icon.png);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:24px;
+		height:25px;	
+		border-style:none;	 
+		cursor:pointer;
+	}
+	
+	.styleButtonActualizarOver
+	{
+		background:url(../../Images/refresh_icon.png);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:24px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	 
+	
+	.styleButtonAnadir
+	{
+		background:url(../../Images/elgc_btnHAnadir2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:79px;
+		height:25px;
+		border-style:none;	
+		cursor:pointer;
+	}
+	
+	.styleButtonAnadirOver
+	{
+		background:url(../../Images/elgc_btnHAnadir1.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:79px;
+		height:25px;
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonAnadirDisabled
+	{
+		background:url(../../Images/elgc_btnHAnadir1.gif);      
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:79px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+		filter:alpha(opacity: 30);
+	} 
+	
+	.styleButtonCrearNotificacion
+	{
+		background:url(../../Images/NOTU_btnCrearNotificacion1.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:113px;
+		height:25px;
+		border-style:none;	
+		cursor:pointer;
+	}
+	
+	.styleButtonCrearNotificacionOver
+	{
+		background:url(../../Images/NOTU_btnCrearNotificacion2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:113px;
+		height:25px;
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonCrearNotificacionDisabled
+	{
+		background:url(../../Images/NOTU_btnCrearNotificacion0.gif);      
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:113px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+		filter:alpha(opacity: 30);
+	} 
+	
+	.styleButtonQuitar
+	{
+		background:url(../../Images/elgc_btnHQuitar2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:25px;
+		height:25px;
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonQuitarOver
+	{
+		background:url(../../Images/elgc_btnHQuitar1.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:25px;
+		height:25px;
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonQuitarIzq
+	{
+		background:url(../../Images/elgc_btnHQuitar2Izq.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:25px;
+		height:25px;
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonQuitarIzqOver
+	{
+		background:url(../../Images/elgc_btnHQuitar1Izq.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:25px;
+		height:25px;
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonEditar
+	{
+		background:url('../../Images/elgc_btnModificar1.gif') no-repeat center;  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:80px;
+		height:25px;	
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonEditarOver
+	{
+		background:url('../../Images/elgc_btnModificar2.gif') no-repeat center;  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:80px;
+		height:25px;
+		border-style:none;	
+		cursor:pointer;
+	}
+	
+	.styleButtonDetalle
+	{
+		background:url('../../Images/elgc_btnDetalle1.gif') no-repeat center;  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:80px;
+		height:25px;
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonDetalleOver
+	{
+		background:url('../../Images/elgc_btnDetalle2.gif') no-repeat center;  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:80px;
+		height:25px;
+		border-style:none;
+		cursor:pointer;
+	}	
+	
+	
+	.styleButtonAniadirFichero
+	{
+		background:url('../../Images/elgc_btnAniadirFichero1.gif') no-repeat center;  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:113px;
+		height:25px;
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonAniadirFicheroOver
+	{
+		background:url('../../Images/elgc_btnAniadirFichero2.gif') no-repeat center;  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:113px;
+		height:25px;
+		border-style:none;
+		cursor:pointer;
+	}	
+    
+    .styleButtonCambiarClave
+    {    	    	
+	    background:url(../../Images/elgc_btnCambiarClave1.gif);    	
+	    background-repeat:no-repeat; 
+	    background-position:center; 
+	    width:113px;
+	    height:25px;
+	    border-style:none;		
+	    cursor:pointer;      
+    }
+    .styleButtonCambiarClaveDisabled
+    {    	    	
+	    background:url(../../Images/elgc_btnCambiarClave0.gif);    	
+	    background-repeat:no-repeat; 
+	    background-position:center; 
+	    width:113px;
+	    height:25px;
+	    border-style:none;		
+	    cursor:pointer;   	       
+    }
+    .styleButtonCambiarClaveOver
+    {
+	    background:url(../../Images/elgc_btnCambiarClave2.gif);  
+	    background-repeat:no-repeat; 
+	    background-position:center; 
+	    width:113px;
+	    height:25px; 
+	    border-style:none;
+	    cursor:pointer;
+    }
+	
+	.styleButtonExcel
+    {    	    	
+    	background:url(../../Images/elgc_btnExcel1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px;
+		border-style:none;		
+		cursor:pointer;      
+    }
+	
+	.styleButtonExcelOver
+	{
+		background:url(../../Images/elgc_btnExcel2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonExcelDisabled
+	{
+		background:url(../../Images/elgc_btnExcel0.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonWord
+    {    	    	
+    	background:url(../../Images/elgc_btnWord1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px;
+		border-style:none;		
+		cursor:pointer;      
+    }
+	
+	.styleButtonWordOver
+	{
+		background:url(../../Images/elgc_btnWord2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonWordDisabled
+	{
+		background:url(../../Images/elgc_btnWord0.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonAccess
+    {    	    	
+    	background:url(../../Images/NOTU_btnAccess1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px;
+		border-style:none;		
+		cursor:pointer;      
+    }
+	
+	.styleButtonAccessOver
+	{
+		background:url(../../Images/NOTU_btnAccess2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonAccessDisabled
+	{
+		background:url(../../Images/NOTU_btnAccess0.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonVolver
+    {    	    	
+	    background:url('../../Images/elgc_btnVolver1.gif') no-repeat center;    	
+	    width:113px;
+	    height:25px;
+	    border-style:none;		
+	    cursor:pointer;
+    }
+    
+    .styleButtonVolverOver
+    {    	    	
+	    background:url('../../Images/elgc_btnVolver2.gif') no-repeat center;    	
+	    width:113px;
+	    height:25px;
+	    border-style:none;		
+	    cursor:pointer;
+    }
+    
+    .styleButtonVolverDisabled
+    {    	    	
+	    background:url(../../Images/elgc_btnVolver0.gif);    	
+	    background-repeat:no-repeat; 
+	    background-position:center; 
+	    width:113px;
+	    height:25px;
+	    border-style:none;		
+	    cursor:pointer;   	       
+    }
+    /******* CANCELAR ******/
+	.styleButtonCancelar
+	{
+		background:url(../../Images/elgc_btnCancelar1.png);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:23px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	.styleButtonCancelarOver
+	{
+		background:url(../../Images/elgc_btnCancelar2.png);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:23px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	.styleButtonCancelarDisabled
+	{
+		background:url(../../Images/elgc_btnCancelar0.png);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:70px;
+		height:23px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	/******* FIN CANCELAR ******/
+	
+	
+	
+	
+	.styleButtonHistoriaApunte
+    {    	    	
+    	background:url(../../Images/NOTU_btnHistoriaApunte1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonHistoriaApunteOver
+	{
+		background:url(../../Images/NOTU_btnHistoriaApunte2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonHistoriaApunteDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnHistoriaApunte0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	
+	.styleButtonHistoriaFiniquito
+    {    	    	
+    	background:url(../../Images/NOTU_btnHistoriaFiniquitos1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonHistoriaFiniquitoOver
+	{
+		background:url(../../Images/NOTU_btnHistoriaFiniquitos2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonHistoriaFiniquitoDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnHistoriaFiniquitos0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+    
+    .styleButtonCargarFichero
+    {    	    	
+    	background:url(../../Images/NOTU_btnCargarFichero1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonCargarFicheroOver
+	{
+		background:url(../../Images/NOTU_btnCargarFichero2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonCargarFicheroDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnCargarFichero0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+    
+    .styleButtonDescargarPlantilla
+    {    	    	
+    	background:url(../../Images/NOTU_btnDescargarPlantilla1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonDescargarPlantillaOver
+	{
+		background:url(../../Images/NOTU_btnDescargarPlantilla2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonDescargarPlantillaDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnDescargarPlantilla0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	
+	.styleButtonDetalleFiniquito
+    {    	    	
+    	background:url(../../Images/NOTU_btnDetalleFiniquitos1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonDetalleFiniquitoOver
+	{
+		background:url(../../Images/NOTU_btnDetalleFiniquitos2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonDetalleFiniquitoDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnDetalleFiniquitos0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	
+	.styleButtonConsultaISML
+    {    	    	
+    	background:url(../../Images/NOTU_btnConsultaISML1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonConsultaISMLOver
+	{
+		background:url(../../Images/NOTU_btnConsultaISML2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonConsultaISMLDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnConsultaISML0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 
+	 .styleButtonTexto
+    {    	    	
+    	background:url(../../Images/NOTU_btnTexto1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonTextoOver
+	{
+		background:url(../../Images/NOTU_btnTexto2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonTextoDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnTexto0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 .styleButtonDetalleNotificacion
+    {    	    	
+    	background:url(../../Images/NOTU_btnDetalleNotificacion1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonDetalleNotificacionOver
+	{
+		background:url(../../Images/NOTU_btnDetalleNotificacion2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonDetalleNotificacionDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnDetalleNotificacion0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 .styleButtonAsignarRevision
+    {    	    	
+    	background:url(../../Images/NOTU_btnAsignarRevision1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonAsignarRevisionOver
+	{
+		background:url(../../Images/NOTU_btnAsignarRevision2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonAsignarRevisionDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnAsignarRevision0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 
+	 .styleButtonAsignarImporte
+    {    	    	
+    	background:url(../../Images/NOTU_btnAsignarImporte1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonAsignarImporteOver
+	{
+		background:url(../../Images/NOTU_btnAsignarImporte2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonAsignarImporteDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnAsignarImporte0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	
+	
+	.styleButtonAsignarAP
+    {    	    	
+    	background:url(../../Images/NOTU_btnAsignarAP1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonAsignarAPOver
+	{
+		background:url(../../Images/NOTU_btnAsignarAP2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonAsignarAPDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnAsignarAP0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 .styleButtonAsignarAT
+    {    	    	
+    	background:url(../../Images/NOTU_btnAsignarAT1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonAsignarATOver
+	{
+		background:url(../../Images/NOTU_btnAsignarAT2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonAsignarATDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnAsignarAT0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 .styleButtonExportar
+    {    	    	
+    	background:url(../../Images/NOTU_btnExportar1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonExportarOver
+	{
+		background:url(../../Images/NOTU_btnExportar2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonExportarDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnExportar0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 .styleButtonSalir
+    {    	    	
+    	background:url(../../Images/NOTU_btnSalir1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonSalirOver
+	{
+		background:url(../../Images/NOTU_btnSalir2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonSalirDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnSalir0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 .styleButtonAniadir
+    {    	    	
+    	background:url(../../Images/NOTU_btnAniadir1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonAniadirOver
+	{
+		background:url(../../Images/NOTU_btnAniadir2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonAniadirDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnAniadir0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 .styleButtonMostrarIncidencias
+    {    	    	
+    	background:url(../../Images/NOTU_btnMostrarIncidencias1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonMostrarIncidenciasOver
+	{
+		background:url(../../Images/NOTU_btnMostrarIncidencias2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonMostrarIncidenciasDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnMostrarIncidencias0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 
+	 .styleButtonCargar
+    {    	    	
+    	background:url(../../Images/NOTU_btnCargar1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonCargarOver
+	{
+		background:url(../../Images/NOTU_btnCargar2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonCargarDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnCargar0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 
+	 
+	 .styleButtonRealizarCambios
+    {    	    	
+    	background:url(../../Images/NOTU_btnRealizarCambios1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonRealizarCambiosOver
+	{
+		background:url(../../Images/NOTU_btnRealizarCambios2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonRealizarCambiosDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnRealizarCambios0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 .styleButtonSinSustituir
+    {    	    	
+    	background:url(../../Images/NOTU_btnSinSustituir1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonSinSustituirOver
+	{
+		background:url(../../Images/NOTU_btnSinSustituir2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonSinSustituirDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnSinSustituir0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:120px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	 
+	 .styleButtonValidar
+    {    	    	
+    	background:url(../../Images/NOTU_btnValidar1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+
+	.styleButtonValidarOver
+	{
+		background:url(../../Images/NOTU_btnValidar2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonValidarDisabled
+    {    	    	
+    	background:url(../../Images/NOTU_btnValidar0.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:77px;
+		height:25px;
+		border-style:none;		    
+		cursor:pointer;  
+    }
+	
+	/******* PAGINACION GRILLA ******/
+	.styleButtonPaginaAnterior
+    {    	    	
+    	width:145px;
+		height:18px;
+		border-style:none;	
+		cursor:pointer;
+		background: url(../../Images/elgc_btnPagAnt1.gif) no-repeat left;
+		background-color: #899cc2;
+ 	}
+ 	.styleButtonPaginaAnteriorOver
+	{
+		background:url(../../Images/elgc_btnPagAnt2.gif) no-repeat left;  
+		width:145px;
+		height:18px; 
+		border-style:none;
+		cursor:pointer;
+		background-color: #899cc2;
+	}
+	.styleButtonPaginaAnteriorDisbled
+	{
+		background:url(../../Images/elgc_btnPagAnt0.gif) no-repeat left;  
+		width:145px;
+		height:18px; 
+		border-style:none;
+		cursor:default;
+		background-color: #899cc2;
+	}
+	 
+	.styleButtonPaginaSiguiente
+    {    	    	
+		width:145px;
+		height:18px;
+		border-style:none;	
+		cursor:pointer;
+		background: url(../../Images/elgc_btnPagSig1.gif) no-repeat right;
+		background-color: #899cc2;
+    }
+    .styleButtonPaginaSiguienteOver
+	{
+		background:url(../../Images/elgc_btnPagSig2.gif) no-repeat right;  
+		width:145px;
+		height:18px; 
+		border-style:none;
+		cursor:pointer;
+		background-color: #899cc2;
+	}
+    .styleButtonPaginaSiguienteDisbled
+	{
+		background:url(../../Images/elgc_btnPagSig0.gif) no-repeat right;  
+		width:145px;
+		height:18px; 
+		border-style:none;
+		cursor:default;
+		background-color: #899cc2;
+	}
+    /******* FIN PAGINACION GRILLA ******/
+   
+	.ayudaonline
+	{
+	    position: absolute;
+	    top: 15px;
+	    left: 780px;    
+	}
+	
+	.styleButtonAyudaOnLine
+    {    	    	
+    	background:url(../../Images/Cabecera/vere_btnAyuda0.gif);
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:29px;
+		height:29px;
+		border-style:none;	
+		cursor:pointer;	      
+    }
+    .stylePopUpButtonAyudaOnLine
+    {    	    	
+    	background:url(../../Images/Cabecera/popup_btnAyuda0.gif);
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:45px;
+		height:29px;
+		border-style:none;	
+		cursor:pointer;	      
+    }
+	.styleButtonAyudaOnLineOver
+	{
+		background:url(../../Images/Cabecera/vere_btnAyuda1.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:29px;
+		height:29px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	.stylePopUpButtonAyudaOnLineOver
+	{
+		background:url(../../Images/Cabecera/popup_btnAyuda1.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:45px;
+		height:29px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	.styleButtonAyudaOnLinePopUp
+    {    	    	
+    	background:url(../../Images/Cabecera/vere_btnBarraAyuda0.gif);
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:29px;
+		height:29px;
+		border-style:none;	
+		cursor:pointer;	      
+    }
+	
+	.styleButtonAyudaOnLinePopUpOver
+	{
+		background:url(../../Images/Cabecera/vere_btnBarraAyuda1.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:29px;
+		height:29px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonSeleccione
+    {    	    	
+    	background:url(../../Images/vere_btnSeleccionar1.gif);    	
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:150px;
+		height:25px;
+		border-style:none;		
+		cursor:pointer;      
+    }
+
+	.styleButtonSelectRow
+	{
+		background:url(../../Images/elgc_btnSelecRow.png);  
+		background-repeat:no-repeat; 
+		width:46px;
+		height:15px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	.styleButtonSelectRowOver
+	{
+		background:url(../../Images/elgc_btnSelecRow2.png);  
+		background-repeat:no-repeat; 
+		
+		width:46px;
+		height:15px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	.styleButtonSelectRowDisabled
+	{
+		background:url(../../Images/elgc_btnSelecRow0.png);  
+		background-repeat:no-repeat; 
+		
+		width:46px;
+		height:15px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	.styleButtonSeleccioneOver
+	{
+		background:url(../../Images/vere_btnSeleccionar2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:150px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	
+	/***** BUSCAR *****/
+	.styleButtonBuscar
+	{
+		background:url(../../Images/elgc_btnBuscar1.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:75px;
+		height:25px;	
+		border-style:none;	 
+		cursor:pointer;
+	}
+	.styleButtonBuscarOver
+	{
+		background:url(../../Images/elgc_btnBuscar2.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:75px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	
+	.styleButtonBuscarDisabled
+	{
+		background:url(../../Images/elgc_btnBuscar0.gif);  
+		background-repeat:no-repeat; 
+		background-position:center; 
+		width:75px;
+		height:25px; 
+		border-style:none;
+		cursor:pointer;
+	}
+	/* FALTA EL BUSCAR DESHABILIATADO */
+	/***** FIN BUSCAR *****/
+	
+/***********************************************/
+/*************** FIN BOTONES ******************/
+/**********************************************/
+    
+    
+/***********************************************/
+/********** VENTANA EMERGENTE ******************/
+/**********************************************/
+		/***** ERROR *****/
+		TD.EncabezadoError
+		{
+			font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+			font-size: 11px; 
+			font-style: normal; 
+			font-weight: bold; 
+			text-transform: none; 
+			color: #E2380B; 
+			background-color: #F4D5D5; 
+			text-align: left; 
+			text-indent: 5px
+		}
+		.EtiError
+		{
+			font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+			font-size: 10px;
+			font-weight: normal;
+			color: #464545;
+			background-color: #FFF4F0;
+		} 
+		.tablaInternaError
+		{
+			left:0; top:5;
+			visibility:inherit;
+			border:solid #F4D5D5 1px;
+
+			width:820;
+			/*height:130;*/
+			background-color:#FFF4F0;
+			clip:rect(0,820,150,0);
+		}
+
+		/*
+		.SubTituloError
+		{
+			font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+			font-size: 10px;
+			font-weight: bold;
+			color: #E2380B;
+		}*/
+
+		/***** SATISFACTORIO *****/
+		TD.EncabezadoSatisfactorio
+		{
+			font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+			font-size: 11px; 
+			font-style: normal; 
+			font-weight: bold; 
+			text-transform: none; 
+			color: #6EA214; 
+			background-color: #BEE386; 
+			text-align: left; 
+			text-indent: 5px
+		}
+		.EtiSatisfactorio
+		{
+			font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+			font-size: 10px;
+			font-weight: normal;
+			color: #464545;
+			background-color: #E0F2C6;
+		}
+		.tablaInternaSatisfactorio
+		{
+			left:0; top:5;
+			visibility:inherit;
+			border:solid #BEE386 1px;
+
+			width:820;
+			/*height:130;*/
+			background-color:#E0F2C6;
+			clip:rect(0,820,150,0);
+		}
+
+		/***** ADVERTENCIA *****/
+		TD.EncabezadoAdvertencia
+		{
+			font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+			font-size: 11px; 
+			font-style: normal; 
+			font-weight: bold; 
+			text-transform: none; 
+			color: #FFA12D; 
+			background-color: #FAEAAC; 
+			text-align: left; 
+			text-indent: 5px
+		}
+		.EtiAdvertencia
+		{           
+			font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+			font-size: 10px;
+			font-weight: normal;
+			color: #464545;
+			background-color: #FFFFBB;
+		}
+		.tablaInternaAdvertencia
+		{
+			left:0; top:5;
+			visibility:inherit;
+			border:solid #FAEAAC 1px;
+
+			width:820;
+			/*height:130;*/
+			background-color:#FFFFBB;
+			clip:rect(0,820,150,0);
+		}
+		
+		/***** CONFIRMACION *****/
+		/*
+			font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+            font-size: 11px;
+            font-style: normal;
+            font-weight: bold;
+            text-transform: none;
+            color: #376185;
+            text-align: left;
+            text-indent: 5px;
+            height: 1px;
+            background-color: #ACCBE0;
+*/
+		
+		TD.EncabezadoConfirmación
+		{
+			font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+			font-size: 11px; 
+			font-style: normal; 
+			font-weight: bold; 
+			text-transform: none; 
+			color: #376185; 
+			background-color: #ACCBE0; 
+			text-align: left; 
+			text-indent: 5px
+			
+		}
+		.EtiConfirmación
+		{
+			font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+			font-size: 10px;
+			font-weight: normal;
+			color: #8B908C;
+			background-color: #F7F8FB;
+		} 
+		.tablaInternaConfirmación
+		{
+			left:0; top:5;
+			visibility:inherit;
+			border:solid #ACCBE0 2px;
+
+			width:820;
+			/*height:130;*/
+			background-color:#F7F8FB;
+			clip:rect(0,820,150,0);
+		}
+
+/***********************************************/
+/********** FIN VENTANA EMERGENTE *************/
+/**********************************************/		
+    
+    
+    
+    
+    
+    
+    
+    
+	div.fileinputs {
+	position: relative;
+	}
+
+	div.fakefile {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		z-index: 1;
+	}
+	
+	div.ExcepcionesCenter
+	{
+	 text-align:center;   
+	}
+	
+	
+	
+	input.file {
+		position: relative;
+		text-align: right;
+		-moz-opacity:0 ;
+		/*filter:alpha(opacity: 0);
+		opacity :0;*/
+		z-index: 2;
+	}
+	
+	.menuHijos 
+	{
+	 padding-top: 5px;
+	 padding-bottom: 5px;
+	 padding-left: 5px;
+	}
+	.menu 
+	{
+		padding-bottom: 5px;
+		padding-top: 5px;
+	}
+
+	.colocaMenu
+	{
+		/*position:relative;*/
+		left:10px;
+		padding-left:10px;
+		top:-10px;
+	}
+
+	.PnlContenidoMaster
+	{
+	    /*padding-left:10px;*/
+	    width:1000px;
+	    float:left;
+	}
+	
+	.PnlContenidoPopup
+{
+	/*padding-left:10px;*/
+	width: 610px;
+}	
+	
+	div.falso { position: absolute; top: -2px; left: 0px; z-index: 0; }
+    
+    input.file { position: relative; z-index: 1; }
+	
+	
+#Login1, #ChangePassword1
+{
+    margin: 0px auto 0px auto;    
+}
+
+.capTitCriteriosLogin
+{
+    margin: 10px auto 0px auto;    
+}
+
+/* Bienvenido.aspx */
+#PnlBienvenido
+{
+	float: left;
+	width: 750px;
+}
+#PnlTareas
+{
+	float:left;
+	width: 220px;
+	height: 347px;
+	text-align: center;	
+}
+#PnlImg
+{
+	float: left;
+	width: 530px;
+	height: 346px;
+}
+.capTitTareas
+{
+    width: 210px;
+    margin: 30px auto 0px auto;
+}
+TD.EncabezadoTareas
+{    
+    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+    font-size: 11px; 
+    font-style: normal; 
+    font-weight: bold; 
+    text-transform: none; 
+    color: #376185; 
+    background-color: #D9D5FF; 
+    text-align: left; 
+    text-indent: 5px
+}
+.PnlCuerpoTareas
+{
+    border-color: #D9D5FF;
+    border-style: solid;
+    border-width: 1px;
+    width: 210px;    
+}
+.HomeTextoDerechos
+{
+    border-top: solid 1px #ACCBE0;
+    text-align:right;
+    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+    font-size: 9px; 
+    font-style: normal; 
+    font-weight: bold;
+    color: #23387A;
+}
+
+.HomeDerecho
+{
+	text-align:right;
+    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+    font-size: 9px; 
+    font-style: normal; 
+    font-weight: bold;
+    color: #23387A;
+}
+
+
+.HomeImagen
+{
+    width: 397px;
+    height: 310px;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ImgTareas
+{
+    text-align: left;
+}
+.ImgTareas_img
+{
+    width: 33px;
+    height: 35px;
+    position: absolute;
+    margin: 17px 0px 0px 5px;    
+}
+
+.gridviewTerminalesFooterStyle
+{
+    color: #376185; 
+    background-color: #ACCBE0;     
+    text-align: right;
+}
+
+.ajax__calendar_container { z-index : 1000 ; }
+
+.TabContainerCliente .ajax__tab_header
+{           
+     font-family: Verdana, Arial, Helvetica, sans-serif, Symbol; 
+     font-size: 12px; 
+     font-weight:bold;           
+     display: block;
+}
+
+.TabContainerCliente .ajax__tab_header .ajax__tab_outer
+{
+     border-color: #222;
+     color: #222;
+     padding-left: 10px;
+     margin-right: 3px;
+     border:solid 1px #d7d7d7;
+ }
+ 
+ .TabContainerCliente .ajax__tab_header .ajax__tab_inner
+ {
+     border-color: #666;
+     color: #666;
+     padding: 3px 10px 2px 0px;
+     cursor: hand;
+ }
+ .TabContainerCliente .ajax__tab_hover .ajax__tab_outer
+ {
+    background-color:#d7d7d7;
+ }
+ 
+ .TabContainerCliente .ajax__tab_hover .ajax__tab_inner
+ {
+     color: #fff;
+ }
+   
+ .TabContainerCliente .ajax__tab_active .ajax__tab_outer
+ {
+    border-bottom-color: #ffffff;
+    background-color: #ACCBE0;
+ }
+ 
+ .TabContainerCliente .ajax__tab_active .ajax__tab_inner
+ {
+    color:#376185;
+    border-color: #333;
+    cursor: hand;
+ }
+ .TabContainerCliente .ajax__tab_body
+ {
+    font-family: verdana,tahoma,helvetica;
+    font-size: 10pt;
+    background-color: #fff;
+    border-top-width: 0;
+    border: solid 1px #d7d7d7;
+    border-top-color: #d7d7d7;
+ }
+.FondoNegroVentana
+{
+	background:#000000; 
+	background-color:Gray;
+	position: fixed; 
+	/*position: absolute; */
+	
+	top:0; 
+	left:0; 
+	width:100%; 
+	height: 768px; 
+
+	border:1px solid #cecece; 
+	z-index:990;   
+	
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	/*opacity: 0.5;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50); 
+	filter: alpha(opacity=50);*/
+	visibility: inherit;
+	
+}
+
+.FondoNegroVentanaPopUp
+{
+	background:#000000; 
+	background-color:red;
+	position: fixed; 
+	/*position: absolute; */
+	
+	top:0; 
+	left:0; 
+	width:96%; 
+	height: 168px; 
+
+	border:1px solid #cecece; 
+	z-index:990;   
+	
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	/*opacity: 0.5;
+	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50); 
+	filter: alpha(opacity=50);*/
+	visibility: inherit;
+	
+}
+.DivVentana
+{
+	position: fixed; 
+	/*position: absolute; */
+	left: 0px; 
+	top: 0px;
+	width: 100%;
+
+	z-index: 999;
+}
+
+.divCheckBoxList
+{
+	height:150px; 
+	width:200px;  
+	overflow: auto;
+	border-style:solid;
+}
+
+.TablaExternaVentana
+{
+	position: fixed; 
+	/*position: absolute; */
+	left: 15%; 
+	top: 230px;
+	width: 75%;
+	z-index: 998; 
+	padding:8px;
+}

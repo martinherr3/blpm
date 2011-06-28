@@ -51,6 +51,7 @@ namespace EDUAR_UI
                 //Suscribe los eventos de la ventana emergente. 
                 ventanaInfoMaster.VentanaAceptarClick += (Aceptar);
                 ventanaInfoMaster.VentanaCancelarClick += (Cancelar);
+
                 if (!Page.IsPostBack)
                     CargarMenu();
             }

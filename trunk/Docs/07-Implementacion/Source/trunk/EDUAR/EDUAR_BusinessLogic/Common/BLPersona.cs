@@ -1,0 +1,156 @@
+﻿using System;
+using EDUAR_BusinessLogic.Shared;
+using EDUAR_DataAccess.Common;
+using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
+using EDUAR_Entities.Shared;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Excepciones;
+using System.Collections.Generic;
+
+namespace EDUAR_BusinessLogic.Common
+{
+    public class BLPersona : BusinessLogicBase<Persona, DAPersona>
+    {
+        #region --[Constante]--
+        private const String ClassName = "BLPersona";
+        #endregion
+
+        #region --[Constructores]--
+        /// <summary>
+        /// Constructor con DTO como parámetro.
+        /// </summary>
+        public BLPersona(DTBase objPersona)
+        {
+            Data = (Persona)objPersona;
+        }
+        /// <summary>
+        /// Constructor vacio
+        /// </summary>
+        public BLPersona()
+        {
+            Data = new Persona();
+        }
+        #endregion
+
+        #region --[Propiedades Override]--
+        protected override sealed DAPersona DataAcces
+        {
+            get { return dataAcces; }
+            set { dataAcces = value; }
+        }
+
+        public override sealed Persona Data
+        {
+            get { return data; }
+            set { data = value; }
+        }
+
+        public override string FieldId
+        {
+            get { return DataAcces.FieldID; }
+        }
+
+        public override string FieldDescription
+        {
+            get { return DataAcces.FieldDescription; }
+        }
+
+        /// <summary>
+        /// Gets the by id.
+        /// </summary>
+        public override void GetById()
+        {
+            try
+            {
+                Data = DataAcces.GetById(Data);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetById", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        public override void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Save(DATransaction objDATransaction)
+        {
+            try
+            {
+                //Si no viene el Id es porque se esta creando la entidad
+                DataAcces = new DAPersona(objDATransaction);
+                if (Data.idPersona == 0)
+                    DataAcces.Create(Data);
+                else
+                {
+                    DataAcces.Update(Data);
+                }
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - Save()", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        public override void Delete()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Delete(DATransaction objDATransaction)
+        {
+            try
+            {
+                DataAcces = new DAPersona(objDATransaction);
+                DataAcces.Delete(Data);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+        #endregion
+
+        #region --[Métodos publicos]--
+        /// <summary>
+        /// Gets the personas.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Persona> GetPersonas(Persona entidad)
+        {
+            try
+            {
+                return DataAcces.GetPersonas(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonas", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+        #endregion
+    }
+}

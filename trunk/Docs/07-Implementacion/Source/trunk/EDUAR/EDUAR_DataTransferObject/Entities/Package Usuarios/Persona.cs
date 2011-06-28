@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Persona
+    public class Persona : DTBase
     {
-        private Decimal _IdPersona;
-        public Decimal idPersona
+        private int _IdPersona;
+        public int idPersona
         {
             get { return _IdPersona; }
             set { _IdPersona = value; }
@@ -92,8 +93,8 @@ namespace EDUAR_Entities
             get { return _Email; }
             set { _Email = value; }
         }
-        private Boolean _Activo;
-        public Boolean activo
+        private Boolean? _Activo;
+        public Boolean? activo
         {
             get { return _Activo; }
             set { _Activo = value; }
