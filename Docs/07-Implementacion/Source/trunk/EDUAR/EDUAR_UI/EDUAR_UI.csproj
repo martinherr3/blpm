@@ -60,6 +60,7 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\RegisterUser.aspx" />
+    <Content Include="App_Themes\Tema\elgc_estilos.css" />
     <Content Include="Public\Register.aspx" />
     <Content Include="Images\botonBuscar.png" />
     <Content Include="Images\botonGuardar.png" />
@@ -71,7 +72,7 @@
     <Content Include="Images\ventanaAdvertencia.png" />
     <Content Include="Images\ventanaError.png" />
     <Content Include="Images\ventanaSatisfactorio.png" />
-    <Content Include="Styles\Site.css" />
+    <Content Include="App_Themes\Tema\Estilo.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
@@ -186,6 +187,10 @@
       <Project>{3C565E7B-1BE2-4BD7-9927-1A5AF7C66E3C}</Project>
       <Name>EDUAR_BusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EDUAR_DataAccess\EDUAR_DataAccess.csproj">
+      <Project>{BDD87C31-320A-4D62-8DDA-09071CFBC405}</Project>
+      <Name>EDUAR_DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EDUAR_DataTransferObject\EDUAR_Entities.csproj">
       <Project>{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}</Project>
       <Name>EDUAR_Entities</Name>
@@ -205,6 +210,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Alumnos\web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Themes\Tema\Skin.skin" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

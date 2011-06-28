@@ -201,9 +201,10 @@ namespace EDUAR_BusinessLogic.Security
             {
                 //Obtener el password por defecto
                 BLConfiguracionGlobal objBLConfiguracionGlobal = new BLConfiguracionGlobal();
-                String passwordEncriptado = objBLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial);
-                Data.Usuario.Password = Desencriptar(passwordEncriptado);
-                Data.Usuario.Aprobado = true;
+                //String passwordEncriptado = objBLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial);
+                Data.Usuario.Password = objBLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial);
+                //Data.Usuario.Password = Desencriptar(passwordEncriptado);
+                Data.Usuario.Aprobado = Data.Usuario.Aprobado;
 
                 //Inicia la transaccion.
                 //using (TransactionScope txScope = new TransactionScope())
@@ -370,7 +371,7 @@ namespace EDUAR_BusinessLogic.Security
                 foreach (DTRol rolUsuario in Data.Usuario.ListaRoles)
                     Roles.AddUserToRole(Data.Usuario.Nombre, rolUsuario.Nombre);
 
-                
+
                 //    //Completa la transaccion.
                 //    txScope.Complete();
                 //}

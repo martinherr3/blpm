@@ -43,19 +43,19 @@ namespace EDUAR_DataAccess.Shared
                 String valor = String.Empty;
                 const String query = @"SELECT 
                                             IdConfiguracion
-                                            ,NombreVariable
+                                            ,Nombre
                                             ,Descripcion
                                             ,Valor
                                         FROM
-                                            NOTU_CONF_GLOBALES
+                                            Configuraciones
                                         WHERE 
-	                                        NombreVariable = @NombreVariable";
+	                                        Nombre = @Nombre";
 
 
                 ObjDATransaction.DBcomand = ObjDATransaction.DataBase.GetSqlStringCommand(query);
 
                 // Añadir parámetros
-                ObjDATransaction.DataBase.AddInParameter(ObjDATransaction.DBcomand, "@NombreVariable", DbType.String, configuracion.ToString());
+                ObjDATransaction.DataBase.AddInParameter(ObjDATransaction.DBcomand, "@Nombre", DbType.String, configuracion.ToString());
                 DataSet ds = ObjDATransaction.Transaction != null
                                  ? ObjDATransaction.DataBase.ExecuteDataSet(ObjDATransaction.DBcomand,ObjDATransaction.Transaction)
                                  : ObjDATransaction.DataBase.ExecuteDataSet(ObjDATransaction.DBcomand);

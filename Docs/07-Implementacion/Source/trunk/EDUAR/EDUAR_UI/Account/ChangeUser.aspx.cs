@@ -8,6 +8,7 @@ using EDUAR_UI.Shared;
 using EDUAR_BusinessLogic.Security;
 using EDUAR_Entities.Security;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Constantes;
 
 namespace EDUAR_UI
 {
@@ -21,16 +22,16 @@ namespace EDUAR_UI
         /// <summary>
         /// Propiedad que contiene el objeto seguridad que devuelve la consulta a la Capa de Negocio.
         /// </summary>
-        public DTSeguridad objSeguridad
+        public DTSeguridad propSeguridad
         {
             get
             {
-                if (ViewState["objSeguridad"] == null)
+                if (ViewState["propSeguridad"] == null)
                     return null;
 
-                return (DTSeguridad)ViewState["objSeguridad"];
+                return (DTSeguridad)ViewState["propSeguridad"];
             }
-            set { ViewState["objSeguridad"] = value; }
+            set { ViewState["propSeguridad"] = value; }
         }
 
         /// <summary>
@@ -39,16 +40,16 @@ namespace EDUAR_UI
         /// <value>
         /// The obj usuario.
         /// </value>
-        public DTUsuario objUsuario
+        public DTUsuario propUsuario
         {
             get
             {
-                if (ViewState["objUsuario"] == null)
+                if (ViewState["propUsuario"] == null)
                     return new DTUsuario();
 
-                return (DTUsuario)ViewState["objUsuario"];
+                return (DTUsuario)ViewState["propUsuario"];
             }
-            set { ViewState["objUsuario"] = value; }
+            set { ViewState["propUsuario"] = value; }
         }
         #endregion
 
@@ -85,11 +86,11 @@ namespace EDUAR_UI
             {
                 if (!Page.IsPostBack)
                 {
-                    objSeguridad = new DTSeguridad();
-                    objSeguridad.Usuario.Aprobado = chkHabilitadoBusqueda.Checked;
-                    objBLSeguridad = new BLSeguridad(objSeguridad);
+                    propSeguridad = new DTSeguridad();
+                    propSeguridad.Usuario.Aprobado = chkHabilitadoBusqueda.Checked;
+                    objBLSeguridad = new BLSeguridad(propSeguridad);
                     CargarCamposFiltros();
-                    BuscarUsuarios(objSeguridad.Usuario);
+                    BuscarUsuarios(propSeguridad.Usuario);
                 }
             }
             catch (Exception ex)
@@ -110,11 +111,8 @@ namespace EDUAR_UI
             {
                 switch (AccionPagina)
                 {
-                    case enumAcciones.Eliminar:
-                        // EliminarUsuario();
-                        break;
-                    case enumAcciones.Modificar:
-                        // GuardarUsuario();
+                    case enumAcciones.Guardar:
+                        GuardarUsuario();
                         break;
                 }
             }
@@ -150,28 +148,9 @@ namespace EDUAR_UI
         {
             try
             {
-                List<DTRol> listaRoles = new List<DTRol>();
-                foreach (ListItem item in chkListRoles.Items)
-                {
-                    if (item.Selected)
-                    {
-                        item.Selected = false;
-                        DTRol objDTRol = new DTRol { Nombre = item.Value };
-                        listaRoles.Add(objDTRol);
-                    }
-                }
-
-                DTSeguridad objDTSeguridad = new DTSeguridad { Usuario = { Nombre = lblUserName.Text.Trim(), ListaRoles = listaRoles, Aprobado = chkHabilitado.Checked } };
-                objBLSeguridad = new BLSeguridad();
-                objBLSeguridad.Data = objDTSeguridad;
-                objBLSeguridad.ActualizarUsuario();
-
-                //BuscarUsuarios(objSeguridad.ListaRoles);
-                BuscarFiltrando();
-                LimpiarCampos();
-
-                udpRoles.Visible = false;
-                udpRoles.Update();
+                AccionPagina = enumAcciones.Guardar;
+                Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(),
+                    UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
             }
             catch (Exception ex)
             {
@@ -189,8 +168,8 @@ namespace EDUAR_UI
         {
             try
             {
-                objUsuario = new DTUsuario();
-                objUsuario.Nombre = e.CommandArgument.ToString();
+                propUsuario = new DTUsuario();
+                propUsuario.Nombre = e.CommandArgument.ToString();
 
                 switch (e.CommandName)
                 {
@@ -234,7 +213,7 @@ namespace EDUAR_UI
             DTUsuario usuario = new DTUsuario();
             usuario.Nombre = txtUsernameBusqueda.Text;
             usuario.Aprobado = chkHabilitadoBusqueda.Checked;
-            
+
             List<DTRol> ListaRoles = new List<DTRol>();
             foreach (ListItem item in chkListRolesBusqueda.Items)
             {
@@ -258,7 +237,7 @@ namespace EDUAR_UI
             objBLSeguridad = new BLSeguridad(seguridad);
             objBLSeguridad.Data = seguridad;
             objBLSeguridad.GetUsuarios();
-            objSeguridad = objBLSeguridad.Data;
+            propSeguridad = objBLSeguridad.Data;
             CargarGrilla();
         }
 
@@ -267,7 +246,7 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarGrilla()
         {
-            gvwUsuarios.DataSource = objSeguridad.ListaUsuarios;
+            gvwUsuarios.DataSource = propSeguridad.ListaUsuarios;
             gvwUsuarios.DataBind();
             gvwUsuarios.SelectedIndex = -1;
             udpRoles.Visible = false;
@@ -283,14 +262,14 @@ namespace EDUAR_UI
 
             objBLSeguridad = new BLSeguridad();
             objBLSeguridad.Data.Usuario = new DTUsuario();
-            objBLSeguridad.Data.Usuario = objUsuario;
+            objBLSeguridad.Data.Usuario = propUsuario;
             objBLSeguridad.GetUsuario();
-            objUsuario = objBLSeguridad.Data.Usuario;
-            lblUserName.Text = objUsuario.Nombre;
-            chkHabilitado.Checked = objUsuario.Aprobado;
+            propUsuario = objBLSeguridad.Data.Usuario;
+            lblUserName.Text = propUsuario.Nombre;
+            chkHabilitado.Checked = propUsuario.Aprobado;
 
             #region Carga los roles
-            foreach (DTRol rol in objUsuario.ListaRoles)
+            foreach (DTRol rol in propUsuario.ListaRoles)
             {
                 foreach (ListItem item in chkListRoles.Items)
                 {
@@ -305,11 +284,43 @@ namespace EDUAR_UI
             #endregion
         }
 
+        /// <summary>
+        /// Limpiars the campos.
+        /// </summary>
         private void LimpiarCampos()
         {
             lblUserName.Text = string.Empty;
             foreach (ListItem item in chkListRoles.Items)
             { item.Selected = false; }
+        }
+
+
+        /// <summary>
+        /// Guardars the usuario.
+        /// </summary>
+        private void GuardarUsuario()
+        {
+            List<DTRol> listaRoles = new List<DTRol>();
+            foreach (ListItem item in chkListRoles.Items)
+            {
+                if (item.Selected)
+                {
+                    item.Selected = false;
+                    DTRol objDTRol = new DTRol { Nombre = item.Value };
+                    listaRoles.Add(objDTRol);
+                }
+            }
+
+            DTSeguridad objDTSeguridad = new DTSeguridad { Usuario = { Nombre = lblUserName.Text.Trim(), ListaRoles = listaRoles, Aprobado = chkHabilitado.Checked } };
+            objBLSeguridad = new BLSeguridad();
+            objBLSeguridad.Data = objDTSeguridad;
+            objBLSeguridad.ActualizarUsuario();
+
+            BuscarFiltrando();
+            LimpiarCampos();
+
+            udpRoles.Visible = false;
+            udpRoles.Update();
         }
         #endregion
     }

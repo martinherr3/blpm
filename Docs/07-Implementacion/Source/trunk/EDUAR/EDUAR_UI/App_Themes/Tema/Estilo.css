@@ -455,26 +455,24 @@ a.menuHijos:hover
     border: solid 1px #d7d7d7;
     border-top-color: #d7d7d7;
 }
+
 .FondoNegroVentana
 {
-    background: #000000;
-    background-color: Gray;
+    /*background: #LightGray;     background-color: LightGray;     position: fixed;     top: 0;     left: 0;     width: 100%;     height: 100%;     border: 1px solid #cecece;     z-index: 995;     -moz-opacity: 0.5;     -khtml-opacity: 0.5; /*opacity: 0.5; 	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);  	filter: alpha(opacity=50);     visibility: inherit;     */
+    background: none repeat scroll 0 0 LightGray;
+    border: 1px solid #CECECE;
+    height: 768px;
+    left: 0;
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 1px solid #cecece;
-    z-index: 990;
-    -moz-opacity: 0.5;
-    -khtml-opacity: 0.5; /*opacity: 0.5;*/
-    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50); /*filter: alpha(opacity=50);*/
     visibility: inherit;
+    width: 100%;
+    z-index: 995;
 }
 
 .DivVentana
 {
-    position: fixed;
+    position: fixed; /*position: absolute; */
     left: 0px;
     top: 0px;
     width: 100%;
@@ -511,11 +509,10 @@ TD.EncabezadoError
     top: 5;
     visibility: inherit;
     border: solid #F4D5D5 1px;
-    width: 820; /*height:130;*/
+    width: 600; /*height:130;*/
     background-color: #FFF4F0;
-    clip: rect(0,820,150,0);
+    clip: rect(0,600,150,0);
 }
-
 
 /***** SATISFACTORIO *****/
 TD.EncabezadoSatisfactorio
@@ -544,9 +541,9 @@ TD.EncabezadoSatisfactorio
     top: 5;
     visibility: inherit;
     border: solid #BEE386 1px;
-    width: 820; /*height:130;*/
+    width: 600; /*height:130;*/
     background-color: #E0F2C6;
-    clip: rect(0,820,150,0);
+    clip: rect(0,600,150,0);
 }
 
 /***** ADVERTENCIA *****/
@@ -576,13 +573,12 @@ TD.EncabezadoAdvertencia
     top: 5;
     visibility: inherit;
     border: solid #FAEAAC 1px;
-    width: 820; /*height:130;*/
+    width: 600; /*height:130;*/
     background-color: #FFFFBB;
-    clip: rect(0,820,150,0);
+    clip: rect(0,600,150,0);
 }
 
 /***** CONFIRMACION *****/
-
 TD.EncabezadoConfirmación
 {
     font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
@@ -609,18 +605,39 @@ TD.EncabezadoConfirmación
     top: 5;
     visibility: inherit;
     border: solid #ACCBE0 2px;
-    width: 820; /*height:130;*/
+    width: 600; /*height:130;*/
     background-color: #F7F8FB;
-    clip: rect(0,820,150,0);
+    clip: rect(0,600,150,0);
 }
 
 /***********************************************/
 /********** FIN VENTANA EMERGENTE *************/
 /**********************************************/
 
+.TablaExternaVentana
+{
+    position: fixed;
+    left: 30%;
+    top: 230px;
+    width: 600px;
+    z-index: 999;
+    padding: 8px;
+}
+
+.capTitCriterios
+{
+    /*position: absolute;*/
+    left: 0;
+    top: 0;
+    visibility: inherit;
+    width: 600;
+    height: 30;
+    clip: rect(0,600,30,0);
+}
+
+
 .tablaInterna
 {
     width: 100%;
     border: 0;
 }
-

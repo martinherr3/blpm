@@ -277,7 +277,7 @@ namespace EDUAR_UI.UserControls
                         TDEtiquetas.Attributes.Add("class", String.Format("Eti{0}", TipoVentana));
                         TDEtiquetas2.Attributes.Add("class", String.Format("Eti{0}", TipoVentana));
                         TDEtiquetas3.Attributes.Add("class", String.Format("Eti{0}", TipoVentana));
-                        imgIconoVentana.ImageUrl = "~/Images/ventanaAdvertencia.png";
+                        imgIconoVentana.ImageUrl = "~/Images/ventanaConfirmacion.png";
                         btnCancelar.Visible = true;
                         btnAceptar.Visible = true;
                         imgIconoVentana.Visible = true;

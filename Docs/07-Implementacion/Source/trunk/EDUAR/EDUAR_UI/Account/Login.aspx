@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Iniciar sesión" Language="C#" MasterPageFile="~/EDUARMaster.master"
-    AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="EDUAR_UI.Login" EnableSessionState="True" %>
+    AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="EDUAR_UI.Login" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/VentanaInfo.ascx" TagName="VentanaInfo" TagPrefix="uc1" %>

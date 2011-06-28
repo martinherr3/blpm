@@ -1,13 +1,12 @@
 ﻿<%@ Page Title="Modificar Usuario" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="ChangeUser.aspx.cs" Inherits="EDUAR_UI.ChangeUser"
-    EnableSessionState="True" %>
+    AutoEventWireup="true" CodeBehind="ChangeUser.aspx.cs" Inherits="EDUAR_UI.ChangeUser" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h1>
-        Modificar Usuario</h1>
+    <h2>
+        Modificar Usuario</h2>
     <br />
     <table class="tablaInterna" cellpadding="0" cellspacing="0">
         <tr>
@@ -43,7 +42,7 @@
                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                     <tr>
                         <td valign="top">
-                            <asp:Label ID="Label1" runat="server" Text="Roles:"></asp:Label>
+                            <asp:Label ID="lblRolesBusqueda" runat="server" Text="Roles:"></asp:Label>
                         </td>
                         <td rowspan="3">
                             <asp:CheckBoxList ID="chkListRolesBusqueda" TabIndex="2" runat="server">
@@ -86,9 +85,8 @@
                         padding-top: 5px">
                         <tr>
                             <td align="right">
-                            <asp:ImageButton ID="btnGuardar" ImageUrl="~/Images/botonGuardar.png" OnClick="btnGuardar_Click"
-                    runat="server" ToolTip="Guardar" />
-                                <%--<asp:Button ID="btnGuardar" runat="server" OnClick="btnGuardar_Click" Text="Guardar" />--%>
+                                <asp:ImageButton ID="btnGuardar" ImageUrl="~/Images/botonGuardar.png" OnClick="btnGuardar_Click"
+                                    runat="server" ToolTip="Guardar" />
                             </td>
                         </tr>
                     </table>
