@@ -12,6 +12,21 @@ namespace EDUAR_Entities
 
     public class TipoSancion
     {
+        private int _idTipoSancion;
+
+        public int idTipoSancion
+        {
+            get { return _idTipoSancion; }
+            set { _idTipoSancion = value; }
+        }
+
+        private int _idTipoSancionTransaccional;
+
+        public int idTipoSancionTransaccional
+        {
+            get { return _idTipoSancionTransaccional; }
+            set { _idTipoSancionTransaccional = value; }
+        }
 
         private string _descripcion;
         private string _nombre;

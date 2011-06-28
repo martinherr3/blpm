@@ -100,6 +100,14 @@ namespace EDUAR_SI_BusinessLogic
 
                 //List<Periodo> lista = objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion);
 
+                objDAImportarDatos.GrabarTipoAsistencia(objDAObtenerDatos.obtenerTipoAsistenciaBDTransaccional(objConfiguracion));
+                
+                objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));
+                
+                objDAImportarDatos.GrabarTipoSancion(objDAObtenerDatos.obtenerTipoSancionBDTransaccional(objConfiguracion));
+
+
+
             }
             catch (Exception ex)
             {

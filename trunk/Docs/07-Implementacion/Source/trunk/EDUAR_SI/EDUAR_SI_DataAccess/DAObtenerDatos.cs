@@ -1254,6 +1254,61 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
+
+        public List<TipoSancion> obtenerTipoSancionBDTransaccional(Configuraciones configuracion)
+        {
+            List<TipoSancion> listadoTipoSancion = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT * 
+                                            FROM vw_tipoSancion";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    TipoSancion unTipoSancion;
+                    listadoTipoSancion = new List<TipoSancion>();
+                    while (reader.Read())
+                    {
+                        unTipoSancion = new TipoSancion();
+
+                        unTipoSancion.idTipoSancion = 0;
+                        unTipoSancion.idTipoSancionTransaccional = (int)reader["id"];
+                        unTipoSancion.descripcion = reader["descripcion"].ToString();
+                        unTipoSancion.nombre = reader["nombre"].ToString();
+
+
+                        listadoTipoSancion.Add(unTipoSancion);
+                    }
+                    command.Connection.Close();
+                    return (listadoTipoSancion);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTipoAsistenciaBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTipoSancionBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obteneTipoSancionBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
         #endregion
     }
 }
