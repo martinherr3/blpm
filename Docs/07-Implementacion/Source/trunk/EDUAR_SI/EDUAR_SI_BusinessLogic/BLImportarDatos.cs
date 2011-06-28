@@ -76,6 +76,8 @@ namespace EDUAR_SI_BusinessLogic
                 //User Story 141
                 GrabarAlumno();
 
+                GrabarTutor();
+
                 //User Story 142
                 GrabarPersonal();
 
@@ -93,115 +95,10 @@ namespace EDUAR_SI_BusinessLogic
                 objDAImportarDatos.GrabarOrientacion(objDAObtenerDatos.obtenerOrientacionesBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
-                
+
                 objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion));
 
-
-
-using System;
-using System.Collections.Generic;
-using EDUAR_Entities;
-using EDUAR_SI_DataAccess;
-using EDUAR_Utility.Enumeraciones;
-using System.Data.SqlClient;
-
-namespace EDUAR_SI_BusinessLogic
-{
-    public class BLImportarDatos : BLProcesoBase
-    {
-        #region --[Atributos]--
-        Configuraciones objConfiguracion;
-
-        DAImportarDatos objDAImportarDatos;
-
-        DAObtenerDatos objDAObtenerDatos;
-
-        #endregion
-
-        #region --[Propiedades]--
-        #endregion
-
-        #region --[Constructores]--
-        /// <summary>
-        /// Constructor. LLama al constructor de la clase base BLProcesoBase.
-        /// </summary>
-        /// <param name="connectionString">Cadena de conexión a la base de datos.</param>
-        public BLImportarDatos(String connectionString)
-            : base(connectionString)
-        {
-
-        }
-        #endregion
-
-        #region --[Métodos Públicos]--
-        /// <summary>
-        /// Procedimientoes the importar datos.
-        /// </summary>
-        public void ProcedimientoImportarDatos()
-        {
-            try
-            {
-                objDAImportarDatos = new DAImportarDatos(ConnectionString);
-                objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigen);
-                ImportarDatos();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        #endregion
-
-        #region --[Métodos Privados]--
-        /// <summary>
-        /// Importars the datos.
-        /// </summary>
-        private void ImportarDatos()
-        {
-            try
-            {
-                objDAObtenerDatos = new DAObtenerDatos(objConfiguracion.valor);
-
-                //objDAImportarDatos.GrabarPais(objDAObtenerDatos.obtenerPaisesBDTransaccional(objConfiguracion));
-
-                //objDAImportarDatos.GrabarProvincia(objDAObtenerDatos.obtenerProvinciasBDTransaccional(objConfiguracion));
-
-                //objDAImportarDatos.GrabarLocalidad(objDAObtenerDatos.obtenerLocalidadesBDTransaccional(objConfiguracion));
-
-                //objDAImportarDatos.GrabarTipoDocumento(objDAObtenerDatos.obtenerTipoDocumentoBDTransaccional(objConfiguracion));
-
-                //User Story 140
-                //objDAImportarDatos.GrabarValoresEscalasCalificaciones(objDAObtenerDatos.obtenerValoresEscalaCalificacionBDTransaccional(objConfiguracion));
-
-                //User Story 141
-                //GrabarAlumno();
-
-                GrabarTutor();
-
-                //User Story 142
-                //GrabarPersonal();
-
-                //GrabarDocente();
-
-                //User Story 143
-                //objDAImportarDatos.GrabarAsignatura(objDAObtenerDatos.obtenerAsignaturaBDTransaccional(objConfiguracion));
-
-                //objDAImportarDatos.GrabarCicloLectivo(objDAObtenerDatos.obtenerCicloLectivoBDTransaccional(objConfiguracion));
-
-                //objDAImportarDatos.GrabarNivel(objDAObtenerDatos.obtenerNivelesBDTransaccional(objConfiguracion));
-
-                //objDAImportarDatos.GrabarCursos(objDAObtenerDatos.obtenerCursosBDTransaccional(objConfiguracion));
-
-                //objDAImportarDatos.GrabarOrientacion(objDAObtenerDatos.obtenerOrientacionesBDTransaccional(objConfiguracion));
-
-                //objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
-                
-                //objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion));
-
-
-
                 //List<Periodo> lista = objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion);
-
 
             }
             catch (Exception ex)
@@ -388,9 +285,6 @@ namespace EDUAR_SI_BusinessLogic
                 throw ex;
             }
         }
-       
-        
-        
         #endregion
     }
 }
