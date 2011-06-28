@@ -6,15 +6,43 @@
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
 
-
+using System;
+using System.Collections.Generic;
 
 namespace EDUAR_Entities
 {
     public class Tutor : Persona
     {
+        private Decimal _IdTutor;
 
-        private Alumno _alumnosASuCargo;
-        private string _telefonoFijoTrabajo;
+        public Decimal IdTutor
+        {
+            get { return _IdTutor; }
+            set { _IdTutor = value; }
+        }
+
+        private Decimal _idTutorTransaccional;
+
+        public Decimal idTutorTransaccional
+        {
+            get { return _idTutorTransaccional; }
+            set { _idTutorTransaccional = value; }
+        }
+
+        private Decimal _idPersona;
+        public Decimal idPersona
+        {
+            get { return _idPersona; }
+            set { _idPersona = value; }
+        }
+
+        private string _telefonoTrabajo;
+
+        public string TelefonoFijoTrabajo
+        {
+            get { return _telefonoTrabajo; }
+            set { _telefonoTrabajo = value; }
+        }
 
         public Tutor()
         {
@@ -31,29 +59,7 @@ namespace EDUAR_Entities
 
         //}
 
-        public Alumno alumnosASuCargo
-        {
-            get
-            {
-                return _alumnosASuCargo;
-            }
-            set
-            {
-                _alumnosASuCargo = value;
-            }
-        }
-
-        public string telefonoFijoTrabajo
-        {
-            get
-            {
-                return _telefonoFijoTrabajo;
-            }
-            set
-            {
-                _telefonoFijoTrabajo = value;
-            }
-        }
+       
 
     }//end Tutor
 }
