@@ -44,5 +44,13 @@ namespace EDUAR_Entities
             get { return _fechaBaja; }
             set { _fechaBaja = value; }
         }
+
+        private List<Tutor> _listaTutores = new List<Tutor>();
+
+        public List<Tutor> listaTutores
+        {
+            get { return _listaTutores; }
+            set { _listaTutores = value; }
+        }
     }
 }
