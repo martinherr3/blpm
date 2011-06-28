@@ -962,7 +962,7 @@ namespace EDUAR_SI_DataAccess
                         command.Parameters.AddWithValue("idPeriodoTransaccional", periodo.idPeriodoTransaccional);
                         command.Parameters.AddWithValue("nombre", periodo.nombre);
                         command.Parameters.AddWithValue("idCicloLectivo", periodo.cicloLectivo.idCicloLectivoTransaccional);
-                        command.Parameters.AddWithValue("fechaInicio",  periodo.fechaInicio);
+                        command.Parameters.AddWithValue("fechaInicio", periodo.fechaInicio);
                         command.Parameters.AddWithValue("fechaFin", periodo.fechaFin);
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();
@@ -989,7 +989,6 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
-<<<<<<< .mine
         /// <summary>
         /// Grabars the Tutor.
         /// </summary>
@@ -1041,9 +1040,12 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
-=======
 
         //TODO: Primero hacer GrabarTipoAsistencia()
+        /// <summary>
+        /// Grabars the tipo asistencia.
+        /// </summary>
+        /// <param name="listadoTipoAsistencia">The listado tipo asistencia.</param>
         public void GrabarTipoAsistencia(List<TipoAsistencia> listadoTipoAsistencia)
         {
             SqlTransaction transaccion = null;
@@ -1090,9 +1092,13 @@ namespace EDUAR_SI_DataAccess
                 //if (sqlConnectionConfig.State == ConnectionState.Open)
                 //    sqlConnectionConfig.Close();
             }
- 
+
         }
 
+        /// <summary>
+        /// Grabars the asistencia.
+        /// </summary>
+        /// <param name="listadoAsistencia">The listado asistencia.</param>
         public void GrabarAsistencia(List<Asistencia> listadoAsistencia)
         {
             SqlTransaction transaccion = null;
@@ -1141,9 +1147,7 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
-
->>>>>>> .r246
-   #endregion
+        #endregion
     }
 
 }
