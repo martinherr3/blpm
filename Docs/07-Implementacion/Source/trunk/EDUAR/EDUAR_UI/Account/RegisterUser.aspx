@@ -40,6 +40,15 @@
                 <asp:CheckBox ID="chkActivoBusqueda" runat="server" Checked="false" />
             </td>
         </tr>
+        <tr>
+            <td>
+                <asp:Label ID="lblTipoUsuario" runat="server" Text="Tipo de Usuario:"></asp:Label>
+            </td>
+            <td valign="top">
+                <asp:DropDownList ID="ddlTipoUsuario" runat="server" >
+                </asp:DropDownList>
+            </td>
+        </tr>
     </table>
     <br />
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
@@ -119,7 +128,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                     <td valign="top">
+                                        <td valign="top">
                                             <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
                                         </td>
                                         <td valign="top">

@@ -60,7 +60,6 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\RegisterUser.aspx" />
-    <Content Include="App_Themes\Tema\elgc_estilos.css" />
     <Content Include="Public\Register.aspx" />
     <Content Include="Images\botonBuscar.png" />
     <Content Include="Images\botonGuardar.png" />

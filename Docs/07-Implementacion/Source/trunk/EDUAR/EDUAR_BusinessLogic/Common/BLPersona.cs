@@ -76,11 +76,41 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
+        /// <summary>
+        /// Método que guarda el registro actualmente cargado en memoria. No importa si se trata de una alta o modificación.
+        /// </summary>
         public override void Save()
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Abre la transaccion que se va a utilizar
+                DataAcces.Transaction.OpenTransaction();
+                Int32 idPersona = 0;
+
+                if (Data.idPersona == 0)
+                    DataAcces.Create(Data, out idPersona);
+                else
+                    DataAcces.Update(Data);
+
+                //Se da el OK para la transaccion.
+                DataAcces.Transaction.CommitTransaction();
+            }
+            catch (CustomizedException ex)
+            {
+                DataAcces.Transaction.RollbackTransaction();
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                DataAcces.Transaction.RollbackTransaction();
+                throw new CustomizedException(String.Format("Fallo en {0} - Save()", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
         }
 
+        /// <summary>
+        /// Método que guarda el registro actualmente cargado en memoria. No importa si se trata de una alta o modificación.
+        /// </summary>
         public override void Save(DATransaction objDATransaction)
         {
             try

@@ -39,11 +39,13 @@ namespace EDUAR_UI
         #region --[Eventos]--
         protected void Page_Load(object sender, EventArgs e)
         {
-
             try
             {
                 //Llama a la funcionalidad que redirecciona a la pagina de Login cuando finaliza el tiempo de session
                 ((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
+
+                if (ObjDTSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty)
+                    HttpContext.Current.User = null;
 
                 // Ocultar la ventana de información
                 ventanaInfoMaster.Visible = false;
@@ -190,10 +192,56 @@ namespace EDUAR_UI
             try
             {
                 string exceptionName = ex.GetType().FullName;
+                string Titulo = string.Empty;
+                string Detalle = string.Empty;
+                enumTipoVentanaInformacion tipoVentana = enumTipoVentanaInformacion.Error;
+                Detalle = ex.Message;
 
-                //Esta es una excepcion de tipo validacion que viene de UI.
-                if (exceptionName.Contains("CustomizedException") && (((CustomizedException)ex).ExceptionType == enuExceptionType.ValidationException))
-                    MostrarMensaje("Error de Validación", ex.Message, enumTipoVentanaInformacion.Advertencia);
+                if (exceptionName.Contains("CustomizedException"))
+                {
+                    switch (((CustomizedException)ex).ExceptionType)
+                    {
+                        case enuExceptionType.BusinessLogicException:
+                            Titulo = "Error en Negocio";
+                            Detalle = "Se ha producido un error al realizar una acción en el negocio.";
+                            break;
+                        case enuExceptionType.SqlException:
+                        case enuExceptionType.MySQLException:
+                        case enuExceptionType.DataAccesException:
+                            Titulo = "Error en Base de Datos";
+                            Detalle = "Se ha producido un error al realizar una acción en la Base de Datos.";
+                            break;
+                        case enuExceptionType.ServicesException:
+                            Titulo = "Error en Servicio";
+                            Detalle = "Se ha producido un error al realizar la consulta al Servicio.";
+                            break;
+                        case enuExceptionType.IntegrityDataException:
+                            Titulo = "Error de Integridad de Datos";
+                            break;
+                        case enuExceptionType.ConcurrencyException:
+                            Titulo = "Error de Concurrencia";
+                            break;
+                        case enuExceptionType.ValidationException:
+                            //Esta es una excepcion de tipo validacion que viene de UI.
+                            Titulo = "Error de Validación";
+                            tipoVentana = enumTipoVentanaInformacion.Advertencia;
+                            //MostrarMensaje("Error de Validación", ex.Message, enumTipoVentanaInformacion.Advertencia);
+                            break;
+                        case enuExceptionType.SecurityException:
+                            Titulo = "Error de seguridad";
+                            tipoVentana = enumTipoVentanaInformacion.Advertencia;
+                            break;
+                        case enuExceptionType.WorkFlowException:
+                            break;
+                        case enuExceptionType.Exception:
+                            Titulo = "Error en la Aplicación";
+                            Detalle = "Se ha producido un error interno en la aplicación.";
+                            break;
+                        default:
+                            break;
+                    }
+                    MostrarMensaje(Titulo, Detalle, tipoVentana);
+                }
                 //Esta es una excepcion de tipo validacion que viene de BL.
                 else if ((exceptionName.Contains("GenericException")))
                 {

@@ -101,7 +101,8 @@ namespace EDUAR_Utility.Enumeraciones
     public enum enumConfiguraciones
     {
         BaseDeDatosOrigen,
-        PasswordInicial
+        PasswordInicial,
+        BaseDeDatosOrigenDesdeRemoto
     }
 
     public enum enumEscalasCalificaciones
@@ -146,5 +147,15 @@ namespace EDUAR_Utility.Enumeraciones
         /// </summary>
         Otro
 
+    }
+
+    /// <summary>
+    /// Contiene los tipos de personas para permitir el filtrado según tipo de usuario del sistema
+    /// </summary>
+    public enum enumTipoPersona
+    { 
+        Personal = 1,
+        Alumno = 2,
+        Tutor = 3
     }
 }

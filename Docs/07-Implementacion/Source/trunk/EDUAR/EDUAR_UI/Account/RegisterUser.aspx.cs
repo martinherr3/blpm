@@ -9,6 +9,7 @@ using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Constantes;
+using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -207,7 +208,7 @@ namespace EDUAR_UI
                 }
                 else
                 {
-                    AccionPagina = enumAcciones.Salir;
+                    AccionPagina = enumAcciones.Limpiar;
                     Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
                 }
                 //Master.MostrarMensaje("Errores", "email inválido", enumTipoVentanaInformacion.Error);
@@ -276,6 +277,8 @@ namespace EDUAR_UI
             {
                 chkListRoles.Items.Add(new ListItem(rol.Nombre, rol.NombreCorto));
             }
+
+            UIUtilidades.BindComboTipoPersona(ddlTipoUsuario);
         }
 
         /// <summary>
@@ -287,6 +290,8 @@ namespace EDUAR_UI
             objPersona.nombre = txtNombreBusqueda.Text;
             objPersona.apellido = txtApellidoBusqueda.Text;
             objPersona.activo = chkActivoBusqueda.Checked;
+            objPersona.username = string.Empty;
+            objPersona.idTipoPersona = Convert.ToInt32(ddlTipoUsuario.SelectedValue);
             BuscarPersona(objPersona);
         }
 
@@ -365,6 +370,13 @@ namespace EDUAR_UI
             objSeguridad.Usuario = objUsuario;
             atrBLSeguridad = new BLSeguridad(objSeguridad);
             atrBLSeguridad.CrearUsuario();
+
+            Persona objPersona = new Persona();
+            atrBLPersona = new BLPersona(propPersona);
+            atrBLPersona.GetById();
+            atrBLPersona.Data.username = objUsuario.Nombre;
+            atrBLPersona.Save();
+
         }
         #endregion
     }
