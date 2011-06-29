@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <h2>
-        EDUAR 2.0
+        EDU@R 2.0
     </h2>
     <p>
         Sistema de Explotación de Información Educativa.

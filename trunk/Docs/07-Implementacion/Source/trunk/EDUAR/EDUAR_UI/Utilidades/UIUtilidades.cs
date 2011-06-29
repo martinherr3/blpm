@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI.WebControls;
-using System.Collections;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI.Utilidades
 {
     public class UIUtilidades
     {
+        public static void BindComboTipoPersona(DropDownList ddlTipoUsuario)
+        {
+            foreach (enumTipoPersona tipoPersona in Enum.GetValues(typeof(enumTipoPersona)))
+            {
+                ddlTipoUsuario.Items.Add(new ListItem(tipoPersona.ToString(), ((int)tipoPersona).ToString()));
+            }
 
-       
+        }
     }
 }

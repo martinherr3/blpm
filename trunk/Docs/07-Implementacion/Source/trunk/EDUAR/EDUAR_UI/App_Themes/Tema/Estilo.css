@@ -468,6 +468,9 @@ a.menuHijos:hover
     visibility: inherit;
     width: 100%;
     z-index: 995;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+    -moz-opacity: 0.5;
 }
 
 .DivVentana
@@ -640,4 +643,37 @@ TD.EncabezadoConfirmación
 {
     width: 100%;
     border: 0;
+}
+
+
+/******************** PROCESANDO *********************/
+
+.ajaxCargandoWhite
+{
+    filter: alpha(opacity=60);
+    z-index: 995;
+    background-color: White;
+    height: 768px;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.ajaxCargando
+{
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    right: 50%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    vertical-align: middle;
+    text-align: center;
 }

@@ -76,8 +76,6 @@ namespace EDUAR_UI
                 try
                 {
                     Master.ManageExceptions(ex);
-                    //ventanaInfoLogin.GestionExcepciones(ex);
-                    //updVentaneMensajes.Update();
                 }
                 catch
                 {

@@ -66,7 +66,13 @@ namespace EDUAR_DataAccess.Common
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@email", DbType.String, entidad.email);
                 if (entidad.activo != null)
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.String, entidad.activo);
-
+                if (entidad.username != null)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
+                else
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, DBNull.Value);
+                if (entidad.idTipoPersona != null)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
+               
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
                 List<Persona> listaPersonas = new List<Persona>();
@@ -92,6 +98,7 @@ namespace EDUAR_DataAccess.Common
                     objPersona.telefonoCelularAlternativo = reader["telefonoCelularAlternativo"].ToString();
                     objPersona.email = reader["email"].ToString();
                     objPersona.activo = Convert.ToBoolean(reader["activo"]);
+                    objPersona.username = reader["username"].ToString();
 
                     listaPersonas.Add(objPersona);
                 }
@@ -129,7 +136,7 @@ namespace EDUAR_DataAccess.Common
 
                 if (entidad.idPersona > 0)
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersona", DbType.Int32, entidad.idPersona);
-                
+
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
                 Persona objPersona = new Persona();
@@ -152,6 +159,7 @@ namespace EDUAR_DataAccess.Common
                     objPersona.telefonoCelularAlternativo = reader["telefonoCelularAlternativo"].ToString();
                     objPersona.email = reader["email"].ToString();
                     objPersona.activo = Convert.ToBoolean(reader["activo"]);
+                    objPersona.username = reader["username"].ToString();
                 }
                 return objPersona;
             }
@@ -194,6 +202,7 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@telefonoCelularAlternativo", DbType.String, entidad.telefonoCelularAlternativo);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@email", DbType.String, entidad.email);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.String, entidad.activo);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
 
                 if (Transaction.Transaction != null)
                     Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -229,7 +238,7 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoDocumento", DbType.Int32, entidad.idTipoDocumento);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@domicilio", DbType.String, entidad.domicilio);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@barrio", DbType.String, entidad.barrio);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@localidad", DbType.String, entidad.localidad.nombre);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idLocalidad", DbType.String, entidad.localidad.idLocalidad);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@sexo", DbType.String, entidad.sexo);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaNacimiento", DbType.Date, entidad.fechaNacimiento);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@telefonoFijo", DbType.String, entidad.telefonoFijo);
@@ -237,6 +246,7 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@telefonoCelularAlternativo", DbType.String, entidad.telefonoCelularAlternativo);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@email", DbType.String, entidad.email);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.String, entidad.activo);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
 
                 if (Transaction.Transaction != null)
                     Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);

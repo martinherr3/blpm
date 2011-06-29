@@ -107,6 +107,20 @@ namespace EDUAR_Entities
             set { _Localidad = value; }
         }
 
+        private string _username;
+        public string username
+        {
+            get { return _username; }
+            set { _username = value; }
+        }
+
+        private int _idTipoPersona;
+        public int idTipoPersona
+        {
+            get { return _idTipoPersona; }
+            set { _idTipoPersona = value; }
+        }
+
         public Persona()
         {
 
