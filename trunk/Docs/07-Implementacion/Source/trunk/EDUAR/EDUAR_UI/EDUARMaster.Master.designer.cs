@@ -58,15 +58,6 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Menu NavigationMenu;
         
         /// <summary>
-        /// Control trvMenu.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView trvMenu;
-        
-        /// <summary>
         /// Control SiteMapEDUAR.
         /// </summary>
         /// <remarks>
@@ -74,6 +65,24 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SiteMapDataSource SiteMapEDUAR;
+        
+        /// <summary>
+        /// Control SiteMapAnonymusEDUAR.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SiteMapDataSource SiteMapAnonymusEDUAR;
+        
+        /// <summary>
+        /// Control trvMenu.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView trvMenu;
         
         /// <summary>
         /// Control MainContent.

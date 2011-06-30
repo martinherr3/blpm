@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode url="" title="EDUAR" description="Portal EDUAR" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor">
-        <siteMapNode url="~/Default.aspx" title="Inicio" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"  visible="false">
+        <siteMapNode url="~/Default.aspx" title="Inicio" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor">
         </siteMapNode>
         <siteMapNode url="" title="Alumnos" roles="Docente">
-            <siteMapNode url="~/Alumnos/ConsultarAlumnos.aspx" title="Consulta de Alumnos"  description="" roles="Docente" />
+            <siteMapNode url="~/Private/Alumnos/ConsultarAlumnos.aspx" title="Consulta de Alumnos"  description="" roles="Docente" />
         </siteMapNode>
         <siteMapNode url="" title="Mi Cuenta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor">
-            <siteMapNode url="~/Account/ChangePassword.aspx" title="Cambiar Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"/>
+            <siteMapNode url="~/Private/Account/ChangePassword.aspx" title="Cambiar Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"/>
         </siteMapNode>
         <siteMapNode url="" title="Usuarios" roles="Administrador">
-            <siteMapNode url="~/Account/RegisterUser.aspx" title="Registrar Usuario" roles="Administrador"/>
-            <siteMapNode url="~/Account/ChangeUser.aspx" title="Modificar Usuario" roles="Administrador" />
+            <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar Usuario" roles="Administrador"/>
+            <siteMapNode url="~/Private/Account/ChangeUser.aspx" title="Modificar Usuario" roles="Administrador" />
         </siteMapNode>
     </siteMapNode>
 </siteMap>

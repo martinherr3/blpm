@@ -33,14 +33,14 @@
             <div class="loginDisplay">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
                     <AnonymousTemplate>
-                        [ <a href="~/Account/Login.aspx" id="HeadLoginStatus" runat="server">Iniciar sesión</a>
-                        ]
+                        [ <a href="~/Public/Account/Login.aspx" id="HeadLoginStatus" runat="server">Iniciar
+                            sesión</a> ]
                     </AnonymousTemplate>
                     <LoggedInTemplate>
                         Pantalla de bienvenida <span class="bold">
                             <asp:LoginName ID="HeadLoginName" runat="server" />
                         </span>! [
-                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutText="Cerrar sesión" LogoutPageUrl="~/"
+                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutText="Cerrar sesión"
                             OnLoggingOut="HeadLoginStatus_LoggingOut" />
                         ]
                     </LoggedInTemplate>
@@ -48,12 +48,14 @@
             </div>
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
-                    IncludeStyleBlock="false" Orientation="Horizontal">
-                    <Items>
+                    IncludeStyleBlock="true" Orientation="Horizontal">
+                    <%--<Items>
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Página principal" />
                         <asp:MenuItem NavigateUrl="~/About.aspx" Text="Acerca de" />
-                    </Items>
+                    </Items>--%>
                 </asp:Menu>
+                <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" ShowStartingNode="false" SiteMapProvider="WebXmlSiteMapProvider" />
+                <asp:SiteMapDataSource ID="SiteMapAnonymusEDUAR" runat="server" ShowStartingNode="false" SiteMapProvider="AnonymusXmlSiteMapProvider" />
             </div>
         </div>
         <table>
@@ -67,7 +69,6 @@
                         <NodeStyle />
                         <LeafNodeStyle />
                     </asp:TreeView>
-                    <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" />
                     <!-- FIN MENU -->
                 </td>
                 <td style="width: 700px">
