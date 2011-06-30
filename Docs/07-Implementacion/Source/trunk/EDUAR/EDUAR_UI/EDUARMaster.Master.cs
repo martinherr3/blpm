@@ -8,6 +8,7 @@ using EDUAR_Entities.Shared;
 using EDUAR_UI.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using System.Configuration;
 
 namespace EDUAR_UI
 {
@@ -47,6 +48,18 @@ namespace EDUAR_UI
                 if (ObjDTSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty)
                     HttpContext.Current.User = null;
 
+                if (HttpContext.Current.User == null)
+                    NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
+                else if (HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    NavigationMenu.DataSource = SiteMapEDUAR;
+                }
+                else
+                {
+                    NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
+                }
+                NavigationMenu.DataBind();
+
                 // Ocultar la ventana de información
                 ventanaInfoMaster.Visible = false;
 
@@ -74,7 +87,7 @@ namespace EDUAR_UI
             try
             {
                 LoginStatus control = ((LoginStatus)Page.Master.FindControl("HeadLoginView").FindControl("HeadLoginStatus"));
-                control.LogoutPageUrl = "~/Account/Login.aspx";
+                control.LogoutPageUrl = "~/Public/Account/Login.aspx";
                 control.LogoutAction = LogoutAction.RedirectToLoginPage;
                 Session.Clear();
                 FormsAuthentication.SignOut();

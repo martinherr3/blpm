@@ -88,10 +88,11 @@ first child of the left and right table columns */
 
 .page
 {
-    width: 960px;
+    width: 1000px;
+    height: 700px;
     background-color: #fff;
     margin: 20px auto 0px auto;
-    border: 1px solid #496077;
+    
 }
 
 .header
@@ -159,7 +160,7 @@ div.menu ul
     list-style: none;
     margin: 0px;
     padding: 0px;
-    width: auto;
+    width: 50px;
 }
 
 div.menu ul li a, div.menu ul li a:visited
@@ -172,6 +173,8 @@ div.menu ul li a, div.menu ul li a:visited
     padding: 4px 20px;
     text-decoration: none;
     white-space: nowrap;
+    width: 100px;
+    text-align: center;
 }
 
 div.menu ul li a:hover
@@ -651,9 +654,9 @@ TD.EncabezadoConfirmación
 .ajaxCargandoWhite
 {
     filter: alpha(opacity=60);
-    z-index: 995;
+    z-index: 998;
     background-color: White;
-    height: 768px;
+    height: 100%;
     width: 100%;
     position: absolute;
     left: 0px;
@@ -673,7 +676,7 @@ TD.EncabezadoConfirmación
     padding: 0;
     height: 100%;
     width: 100%;
-    z-index: 1000;
+    z-index: 999;
     vertical-align: middle;
     text-align: center;
 }

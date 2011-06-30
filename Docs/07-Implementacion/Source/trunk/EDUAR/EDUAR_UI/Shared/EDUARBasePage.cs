@@ -126,7 +126,7 @@ namespace EDUAR_UI.Shared
             string loginPage = "";
             if (strScheme != "")
                 loginPage += strScheme + "://";
-            loginPage += "/Account/Login.aspx";
+            loginPage += "/Public/Account/Login.aspx";
             //loginPage += Request.Url.Host;
             if (strPort != "")
                 loginPage += ":" + strPort;
