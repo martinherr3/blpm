@@ -55,7 +55,7 @@ namespace EDUAR_UI
                 };
                 BLSeguridad objSeguridadBL = new BLSeguridad(objDTSeguridad);
                 objSeguridadBL.ValidarUsuario();
-                
+
 
                 if (objDTSeguridad.Usuario.UsuarioValido)
                 {
