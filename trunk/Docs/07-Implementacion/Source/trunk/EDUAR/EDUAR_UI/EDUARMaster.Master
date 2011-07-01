@@ -40,8 +40,7 @@
                         Pantalla de bienvenida <span class="bold">
                             <asp:LoginName ID="HeadLoginName" runat="server" />
                         </span>! [
-                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutText="Cerrar sesión"
-                            OnLoggingOut="HeadLoginStatus_LoggingOut" />
+                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutText="Cerrar sesión" OnLoggingOut="HeadLoginStatus_LoggingOut" />
                         ]
                     </LoggedInTemplate>
                 </asp:LoginView>
@@ -54,8 +53,10 @@
                         <asp:MenuItem NavigateUrl="~/About.aspx" Text="Acerca de" />
                     </Items>--%>
                 </asp:Menu>
-                <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" ShowStartingNode="false" SiteMapProvider="WebXmlSiteMapProvider" />
-                <asp:SiteMapDataSource ID="SiteMapAnonymusEDUAR" runat="server" ShowStartingNode="false" SiteMapProvider="AnonymusXmlSiteMapProvider" />
+                <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" ShowStartingNode="false"
+                    SiteMapProvider="WebXmlSiteMapProvider" />
+                <asp:SiteMapDataSource ID="SiteMapAnonymusEDUAR" runat="server" ShowStartingNode="false"
+                    SiteMapProvider="AnonymusXmlSiteMapProvider" />
             </div>
         </div>
         <table>
@@ -86,11 +87,12 @@
             <ProgressTemplate>
                 <iframe id="ParentDiv" class="ajaxCargandoWhite" frameborder="0" scrolling="no">
                 </iframe>
-                <div class="ajaxCargando" style="position: absolute; top: 0px;">
+                <div class="ajaxCargando" style="position: fixed; top: 0px; vertical-align: middle;
+                    text-align: center">
                     <table style="height: 100%" border="0">
                         <tr>
                             <td valign="middle">
-                                <asp:Image Style="position: absolute; top: 350px; left: 350px" ID="imgCargando" runat="server"
+                                <asp:Image Style="position: absolute; top: 300px; left: 650px" ID="imgCargando" runat="server"
                                     ToolTip="Cargando... por favor, espere unos instantes" ImageUrl="~/Images/loading.gif" />
                             </td>
                         </tr>

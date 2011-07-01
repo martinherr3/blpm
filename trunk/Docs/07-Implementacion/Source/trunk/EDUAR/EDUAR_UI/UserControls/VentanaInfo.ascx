@@ -55,8 +55,6 @@
                         <td id="TDEtiquetas3" runat="server" align="right" colspan="2">
                             <asp:Button ID="btnAceptar" Text="Aceptar" runat="server" TabIndex="1"/>
                             <asp:Button ID="btnCancelar" Text="Cancelar" runat="server" TabIndex="2" Visible="false"/>
-                            <%--<uc1:BotonPersonalizado ID="btnAceptar" runat="server" TipoBoton="Aceptar" TabIndex="1"/>
-                            <uc1:BotonPersonalizado ID="btnCancelar" runat="server" TipoBoton="Cancelar" TabIndex="2" Visible="false"/>--%>
                         </td>
                     </tr>
                 </table>
