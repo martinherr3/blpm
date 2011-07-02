@@ -38,9 +38,6 @@ namespace EDUAR_DataAccess.Security
         #endregion
 
         #region --[Métodos Publicos]--
-
-
-
         public void CrearUsuarios(DTSeguridad objDTSeguridad)
         {
             string Nombre = String.Empty;
@@ -48,12 +45,12 @@ namespace EDUAR_DataAccess.Security
             {
                 //Obtener el password por defecto
                 DAConfiguracionGlobal objDAConfiguracionGlobal = new DAConfiguracionGlobal();
-                String passwordEncriptado = objDAConfiguracionGlobal.GetConfiguracion(enumConfiguraciones.PasswordInicial);
+                String password = objDAConfiguracionGlobal.GetConfiguracion(enumConfiguraciones.PasswordInicial);
                 int i = 0;
 
                 foreach (DTUsuario objUsuarios in objDTSeguridad.ListaUsuarios)
                 {
-                    objDTSeguridad.ListaUsuarios[i].Password = Desencriptar(passwordEncriptado);
+                    objDTSeguridad.ListaUsuarios[i].Password = password;
                     objDTSeguridad.ListaUsuarios[i].Aprobado = true;
                     i++;
                 }
@@ -169,10 +166,12 @@ namespace EDUAR_DataAccess.Security
         /// <returns>Lista con los roles</returns>
         public List<DTRol> GetRoles(DTSeguridad objDTSeguridad)
         {
+            String rolesParam = String.Empty;
             try
             {
-                const String query = @"SELECT 
-                                            ROL.RoleName
+                string query = @"SELECT 
+                                             ROL.RoleId
+                                            ,ROL.RoleName
                                             ,ROL.LoweredRoleName
                                             ,ROL.Description
                                         FROM
@@ -184,6 +183,14 @@ namespace EDUAR_DataAccess.Security
                                         WHERE 
 	                                        APP.ApplicationName = @ApplicationName";
 
+                if (objDTSeguridad.ListaRoles.Count != 0)
+                {
+                    foreach (DTRol rol in objDTSeguridad.ListaRoles)
+                        rolesParam += string.Format("'{0}',", rol.Nombre);
+
+                    rolesParam = rolesParam.Substring(0, rolesParam.Length - 1);
+                    query = string.Format("{0} AND ROL.RoleName IN ({1})", query, rolesParam);
+                }
 
                 transaction.DBcomand = transaction.DataBase.GetSqlStringCommand(query);
 
@@ -192,11 +199,12 @@ namespace EDUAR_DataAccess.Security
 
                 IDataReader reader = transaction.DataBase.ExecuteReader(transaction.DBcomand);
                 List<DTRol> listaRoles = new List<DTRol>();
-                DTRol rol;
                 while (reader.Read())
                 {
-                    rol = new DTRol()
+                    DTRol rol = new DTRol()
                     {
+                        RoleId = reader["RoleId"].ToString(),
+                        Descripcion = reader["Description"].ToString(),
                         Nombre = reader["RoleName"].ToString(),
                         NombreCorto = reader["LoweredRoleName"].ToString()
                     };
@@ -296,6 +304,108 @@ namespace EDUAR_DataAccess.Security
             }
         }
 
+        /// <summary>
+        /// Método que obtiene un rol filtrado por el ID
+        /// </summary>  
+        /// <param name="objRol">DTO con los parametros dentro</param>
+        /// <returns>Rol</returns>
+        public DTRol GetRol(DTRol objRol)
+        {
+            try
+            {
+                const String query = @"SELECT 
+                                             ROL.RoleId
+                                            ,ROL.RoleName
+                                            ,ROL.LoweredRoleName
+                                            ,ROL.Description
+                                        FROM
+                                            aspnet_Roles AS ROL
+                                        WHERE 
+	                                        ROL.RoleId = @RoleId";
+
+                transaction.DBcomand = transaction.DataBase.GetSqlStringCommand(query);
+
+                // Añadir parámetros
+                transaction.DataBase.AddInParameter(transaction.DBcomand, "@RoleId", DbType.String, objRol.RoleId);
+
+                IDataReader reader = transaction.DataBase.ExecuteReader(transaction.DBcomand);
+
+                while (reader.Read())
+                {
+                    objRol.RoleId = reader["RoleId"].ToString();
+                    objRol.Nombre = reader["RoleName"].ToString();
+                    objRol.NombreCorto = reader["LoweredRoleName"].ToString();
+                    objRol.Descripcion = reader["Description"].ToString();
+                }
+                return objRol;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetRol()", ClassName),
+                                                       ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetRol()", ClassName),
+                                                       ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        public void CrearRol(DTSeguridad objSeguridad)
+        {
+
+            try
+            {
+                transaction.DBcomand = transaction.DataBase.GetStoredProcCommand("Roles_Insert");
+
+                // Añadir parámetros
+                transaction.DataBase.AddInParameter(transaction.DBcomand, "@ApplicationName", DbType.String, objSeguridad.Aplicacion);
+                transaction.DataBase.AddInParameter(transaction.DBcomand, "@RoleName", DbType.String, objSeguridad.Rol.Nombre);
+                transaction.DataBase.AddInParameter(transaction.DBcomand, "@LoweredRoleName", DbType.String, objSeguridad.Rol.Nombre.ToLower());
+                transaction.DataBase.AddInParameter(transaction.DBcomand, "@Description", DbType.String, objSeguridad.Rol.Descripcion);
+
+                transaction.DataBase.ExecuteNonQuery(transaction.DBcomand);
+
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - CrearRol()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - CrearRol()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        public void UpdateRol(DTRol objRol)
+        {
+            try
+            {
+                const String query = @"UPDATE aspnet_Roles
+                                        SET Description = @Descripcion
+                                        WHERE RoleId = @RoleId";
+
+                transaction.DBcomand = transaction.DataBase.GetSqlStringCommand(query);
+
+                // Añadir parámetros
+                transaction.DataBase.AddInParameter(transaction.DBcomand, "@RoleId", DbType.String, objRol.RoleId);
+                transaction.DataBase.AddInParameter(transaction.DBcomand, "@Descripcion", DbType.String, objRol.Descripcion);
+
+                transaction.DataBase.ExecuteNonQuery(transaction.DBcomand);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - UpdateRol()", ClassName),
+                                                       ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - UpdateRol()", ClassName),
+                                                       ex, enuExceptionType.DataAccesException);
+            }
+        }
         #endregion
 
         /// <summary>

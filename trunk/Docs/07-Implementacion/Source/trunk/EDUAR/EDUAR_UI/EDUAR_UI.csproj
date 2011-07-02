@@ -58,6 +58,7 @@
     <Content Include="Private\Account\ChangeUser.aspx" />
     <Content Include="Private\Account\ChangePassword.aspx" />
     <Content Include="Private\Account\ChangePasswordSuccess.aspx" />
+    <Content Include="Private\Account\Profiles.aspx" />
     <Content Include="Public\Account\Login.aspx" />
     <Content Include="Private\Account\RegisterUser.aspx" />
     <Content Include="Public\Account\Register.aspx" />
@@ -116,6 +117,13 @@
     </Compile>
     <Compile Include="Private\Account\ChangePasswordSuccess.aspx.designer.cs">
       <DependentUpon>ChangePasswordSuccess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Account\Profiles.aspx.cs">
+      <DependentUpon>Profiles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Account\Profiles.aspx.designer.cs">
+      <DependentUpon>Profiles.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\Account\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

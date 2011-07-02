@@ -52,7 +52,7 @@ namespace EDUAR_Entities.Security
         /// .
         /// </summary>
         //[DataMember]
-        //public DSUsuarios.UsersDataTable UsersDT { get; set; }
+        public DTRol Rol { get; set; }
 
         /// <summary>
         /// Tamaño de la paginacion.

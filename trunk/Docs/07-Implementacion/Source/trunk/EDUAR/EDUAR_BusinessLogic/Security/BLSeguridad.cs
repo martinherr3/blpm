@@ -2,6 +2,7 @@
 using System.Text;
 using System.Transactions;
 using System.Web.Security;
+using System.Configuration.Provider;
 using EDUAR_BusinessLogic.Shared;
 using EDUAR_DataAccess.Security;
 using EDUAR_Entities.Security;
@@ -299,6 +300,11 @@ namespace EDUAR_BusinessLogic.Security
             }
         }
 
+        /// <summary>
+        /// Agregars the roles.
+        /// </summary>
+        /// <param name="objUsuario">The obj usuario.</param>
+        /// <param name="txScope">The tx scope.</param>
         void AgregarRoles(DTUsuario objUsuario, TransactionScope txScope)
         {
             string sTodosRoles = String.Empty;
@@ -387,6 +393,114 @@ namespace EDUAR_BusinessLogic.Security
             }
         }
 
+        /// <summary>
+        /// Guardars the rol.
+        /// </summary>
+        public void GuardarRol()
+        {
+            try
+            {
+
+                DASeguridad dataAccess = new DASeguridad();
+                // si Data.Rol.RoleId = string.Empty, es un rol nuevo, sino, existe y debo actualizar la descripción
+                if (string.IsNullOrEmpty(Data.Rol.RoleId))
+                {
+                    if (!Roles.RoleExists(Data.Rol.Nombre))
+                    {
+                        Roles.CreateRole(Data.Rol.Nombre);
+                        Data.Rol = dataAccess.GetRol(Data.Rol);
+                    }
+                    else
+                    {
+                        throw new CustomizedException(String.Format("Fallo en {0} - GuardarRol - el rol {1} ya existe.", ClassName, Data.Rol.Nombre), null,
+                                                     enuExceptionType.BusinessLogicException);
+                    }
+                }
+                dataAccess.UpdateRol(Data.Rol);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GuardarRol", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        /// <summary>
+        /// Gets the rol.
+        /// </summary>
+        public void GetRol()
+        {
+            try
+            {
+                DASeguridad dataAcces = new DASeguridad();
+                Data.Rol = dataAcces.GetRol(Data.Rol);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetRol", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        /// <summary>
+        /// Método que crea un rol. 
+        /// </summary>
+        public void CrearRol()
+        {
+            try
+            {
+                //Inicia la transaccion.
+                using (TransactionScope txScope = new TransactionScope())
+                {
+                    DASeguridad dataAcces = new DASeguridad();
+                    if (Data.Rol.ID == 0)
+                        dataAcces.CrearRol(Data);
+                    //else
+                    //    dataAcces.Update(Data);
+
+                    //Completa la transaccion.
+                    txScope.Complete();
+                }
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - CrearRol()", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        /// <summary>
+        /// Eliminars the rol.
+        /// </summary>
+        public void EliminarRol()
+        {
+            try
+            {
+                Roles.DeleteRole(Data.Rol.Nombre, true);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (ProviderException ex)
+            {
+                throw new CustomizedException(string.Format("No puede elminarse el perfil {0} ya que tiene asociados usuarios.", Data.Rol.Nombre), ex,
+                                              enuExceptionType.BusinessLogicException); ;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - EliminarRol", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }

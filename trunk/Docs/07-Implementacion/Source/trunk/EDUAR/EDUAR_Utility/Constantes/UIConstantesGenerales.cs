@@ -17,6 +17,7 @@ namespace EDUAR_Utility.Constantes
         #region Confirmaciones
         public const string MensajeConfirmarCambios = "¿Desea guardar los cambios?";
         public const string MensajeGuardadoOk = "Los cambios se guardaron con éxito.";
+        public const string MensajeEliminar = "¿Desea eliminar el registro?";
         #endregion
     }
 }
