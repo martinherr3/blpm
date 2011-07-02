@@ -68,6 +68,15 @@ namespace EDUAR_UI.Shared
         }
 
         /// <summary>
+        /// Indica si un registro se está generando o modificando.
+        /// </summary>
+        public bool esNuevo
+        {
+            get { return (bool)ViewState["esNuevo"] == null ? true : (bool)ViewState["esNuevo"]; }
+            set { ViewState["esNuevo"] = value; }
+        }
+
+        /// <summary>
         /// Contiene la Master que se usa en paginas que no tienen una Master Page asociada.
         /// </summary>
         public EDUARMaster MasterBase { get; set; }

@@ -17,6 +17,12 @@ namespace EDUAR_Entities.Security
         public int ID { get; set; }
 
         /// <summary>
+        /// Id del rol como cadena.
+        /// </summary>
+        [DataMember]
+        public string RoleId { get; set; }
+
+        /// <summary>
         /// Nombre del rol.
         /// </summary>
         [DataMember]
