@@ -1310,6 +1310,59 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+        public List<TipoTutor> obtenerTipoTutorBDTransaccional(Configuraciones configuracion)
+        {
+            List<TipoTutor> listadoTipoTutor = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT * 
+                                            FROM vw_tipoTutor";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    TipoTutor unTipoTutor;
+                    listadoTipoTutor = new List<TipoTutor>();
+                    while (reader.Read())
+                    {
+                        unTipoTutor = new TipoTutor();
+
+                        unTipoTutor.idTipoTutor = 0;
+                        unTipoTutor.idTipoTutorTransaccional = (int)reader["id"];
+                        unTipoTutor.descripcion = reader["descripcion"].ToString();
+                        
+                        listadoTipoTutor.Add(unTipoTutor);
+                    }
+                    command.Connection.Close();
+                    return (listadoTipoTutor);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTipoTutorBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTipoTutorBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obteneTipoTutorBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
         public List<MotivoSancion> obtenerMotivoSancionBDTransaccional(Configuraciones configuracion)
         {
             List<MotivoSancion> listadoMotivoSancion = null;
@@ -1363,7 +1416,6 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
-
 
         public List<Sancion> obtenerSancionBDTransaccional(Configuraciones configuracion)
         {
@@ -1421,7 +1473,6 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
-
 
         #endregion
     }

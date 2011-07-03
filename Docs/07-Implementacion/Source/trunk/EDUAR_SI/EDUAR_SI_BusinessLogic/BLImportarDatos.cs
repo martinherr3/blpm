@@ -78,6 +78,8 @@ namespace EDUAR_SI_BusinessLogic
 
                 GrabarTutor();
 
+                objDAImportarDatos.GrabarTipoTutor(objDAObtenerDatos.obtenerTipoTutorBDTransaccional(objConfiguracion));
+
                 //User Story 142
                 GrabarPersonal();
 
