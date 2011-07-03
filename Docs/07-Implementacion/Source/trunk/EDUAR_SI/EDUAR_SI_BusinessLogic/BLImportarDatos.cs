@@ -106,7 +106,9 @@ namespace EDUAR_SI_BusinessLogic
                 
                 objDAImportarDatos.GrabarTipoSancion(objDAObtenerDatos.obtenerTipoSancionBDTransaccional(objConfiguracion));
 
+                objDAImportarDatos.GrabarMotivoSancion(objDAObtenerDatos.obtenerMotivoSancionBDTransaccional(objConfiguracion));
 
+                objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
 
             }
             catch (Exception ex)

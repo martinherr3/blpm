@@ -13,7 +13,8 @@ namespace EDUAR_Entities
 {
     public class Sancion
     {
-
+        private int _idSancion;
+        private int _idSancionTransaccional;
         private int _cantidad;
         private DateTime _fecha;
         private MotivoSancion _motivoSancion;
@@ -21,6 +22,13 @@ namespace EDUAR_Entities
 
         public Sancion()
         {
+            _idSancion = 0;
+            _idSancionTransaccional = 0;
+            _cantidad = 0;
+            _fecha = DateTime.Today;
+            _motivoSancion = new MotivoSancion();
+            _tipoSancion = new TipoSancion();
+
 
         }
 
@@ -79,6 +87,30 @@ namespace EDUAR_Entities
             set
             {
                 _tipoSancion = value;
+            }
+        }
+
+        public int idSancion
+        {
+            get
+            {
+                return _idSancion;
+            }
+            set
+            {
+                _idSancion = value;
+            }
+        }
+
+        public int idSancionTransaccional
+        {
+            get
+            {
+                return _idSancionTransaccional;
+            }
+            set
+            {
+                _idSancionTransaccional = value;
             }
         }
 

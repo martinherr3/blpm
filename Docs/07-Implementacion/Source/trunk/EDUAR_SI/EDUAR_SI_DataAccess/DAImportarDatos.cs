@@ -1196,6 +1196,110 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+        public void GrabarMotivoSancion(List<MotivoSancion> listadoMotivoSancion)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "MotivoSancion_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    foreach (MotivoSancion unMotivoSancion in listadoMotivoSancion)
+                    {
+                        command.Parameters.AddWithValue("idMotivoSancion", 0);
+                        command.Parameters.AddWithValue("idMotivoSancionTransaccional", unMotivoSancion.idMotivoSancionTransaccional);
+                        //command.Parameters.AddWithValue("nombre", unMotivoSancion.nombre);
+                        command.Parameters.AddWithValue("descripcion", unMotivoSancion.descripcion);
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                    transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarMotivoSancion()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarMotivoSancion()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+
+        public void GrabarSancion(List<Sancion> listadoSancion)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Sancion_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    foreach (Sancion unaSancion in listadoSancion)
+                    {
+                        command.Parameters.AddWithValue("idSancion", 0);
+                        command.Parameters.AddWithValue("idSancionTransaccional", unaSancion.idSancionTransaccional);
+                        command.Parameters.AddWithValue("cantidad", unaSancion.cantidad);
+                        command.Parameters.AddWithValue("fecha", unaSancion.fecha.Date);
+                        command.Parameters.AddWithValue("idMotivoSancion", unaSancion.motivoSancion.idMotivoSancionTransaccional);
+                        command.Parameters.AddWithValue("idTipoSancion", unaSancion.tipoSancion.idTipoSancionTransaccional);
+
+
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                    transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarSancion()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarSancion()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+
+
+        }
+ 
+
         #endregion
     }
 
