@@ -12,7 +12,8 @@ namespace EDUAR_Entities
     {
 
         private string _descripcion;
-        private int _idMotivo;
+        private int _idMotivoSancion;
+        private int _idMotivoSancionTransaccional;
 
         public MotivoSancion()
         {
@@ -41,16 +42,22 @@ namespace EDUAR_Entities
             }
         }
 
-        public int idMotivo
+        public int idMotivoSancion
         {
             get
             {
-                return _idMotivo;
+                return _idMotivoSancion;
             }
             set
             {
-                _idMotivo = value;
+                _idMotivoSancion = value;
             }
+        }
+
+        public int idMotivoSancionTransaccional
+        {
+            get { return _idMotivoSancionTransaccional; }
+            set { _idMotivoSancionTransaccional = value; }
         }
 
     }//end MotivoSancion

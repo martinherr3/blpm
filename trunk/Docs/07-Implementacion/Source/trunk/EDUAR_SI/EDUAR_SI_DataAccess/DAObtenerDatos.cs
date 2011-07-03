@@ -1309,6 +1309,120 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
+
+        public List<MotivoSancion> obtenerMotivoSancionBDTransaccional(Configuraciones configuracion)
+        {
+            List<MotivoSancion> listadoMotivoSancion = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT * 
+                                            FROM vw_motivosancion";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    MotivoSancion unMotivoSancion;
+                    listadoMotivoSancion = new List<MotivoSancion>();
+                    while (reader.Read())
+                    {
+                        unMotivoSancion = new MotivoSancion();
+
+                        unMotivoSancion.idMotivoSancion = 0;
+                        unMotivoSancion.idMotivoSancionTransaccional = (int)reader["id"];
+                        unMotivoSancion.descripcion = reader["descripcion"].ToString();
+
+
+                        listadoMotivoSancion.Add(unMotivoSancion);
+                    }
+                    command.Connection.Close();
+                    return (listadoMotivoSancion);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivoSancionBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivoSancionBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obteneMotivoSancionBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+
+        public List<Sancion> obtenerSancionBDTransaccional(Configuraciones configuracion)
+        {
+            List<Sancion> listadoSancion = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT * 
+                                            FROM vw_sancion";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    Sancion unaSancion;
+                    listadoSancion = new List<Sancion>();
+                    while (reader.Read())
+                    {
+                        unaSancion = new Sancion();
+
+                        unaSancion.idSancion = 0;
+                        unaSancion.idSancionTransaccional = (int)reader["id"];
+                        unaSancion.cantidad = (int)reader["cantidad"];
+                        unaSancion.fecha = Convert.ToDateTime(reader["fecha"]);
+                        unaSancion.motivoSancion.idMotivoSancionTransaccional = (int)reader["fk_motivosancion_id"];
+                        unaSancion.tipoSancion.idTipoSancionTransaccional = (int)reader["fk_tiposancion_id"];
+
+
+                        listadoSancion.Add(unaSancion);
+                    }
+                    command.Connection.Close();
+                    return (listadoSancion);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerSancionBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerSancionBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obteneSancionBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+
         #endregion
     }
 }
