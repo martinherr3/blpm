@@ -400,7 +400,6 @@ namespace EDUAR_BusinessLogic.Security
         {
             try
             {
-
                 DASeguridad dataAccess = new DASeguridad();
                 // si Data.Rol.RoleId = string.Empty, es un rol nuevo, sino, existe y debo actualizar la descripción
                 if (string.IsNullOrEmpty(Data.Rol.RoleId))
