@@ -1296,9 +1296,57 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
 
+        }
+
+
+        public void GrabarTipoTutor(List<TipoTutor> listadoTipoTutor)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "TipoTutor_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    foreach (TipoTutor unTipoTutor in listadoTipoTutor)
+                    {
+                        command.Parameters.AddWithValue("idTipoTutor", 0);
+                        command.Parameters.AddWithValue("idTipoTutorTransaccional", unTipoTutor.idTipoTutorTransaccional);
+                        command.Parameters.AddWithValue("descripcion", unTipoTutor.descripcion);
+
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                    transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarTipoTutor()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarTipoTutor()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
 
         }
- 
 
         #endregion
     }
