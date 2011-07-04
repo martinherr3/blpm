@@ -95,6 +95,7 @@
     <Compile Include="Entities\Package Usuarios\Director.cs" />
     <Compile Include="Entities\Package Usuarios\Preceptor.cs" />
     <Compile Include="Entities\Package Usuarios\Psicopedagogo.cs" />
+    <Compile Include="Entities\Package Usuarios\TipoTutor.cs" />
     <Compile Include="Entities\Package Usuarios\Tutor.cs" />
     <Compile Include="Entities\Paises.cs" />
     <Compile Include="Entities\Package Usuarios\Personal.cs" />
