@@ -1333,7 +1333,7 @@ namespace EDUAR_SI_DataAccess
 
                         unTipoTutor.idTipoTutor = 0;
                         unTipoTutor.idTipoTutorTransaccional = (int)reader["id"];
-                        unTipoTutor.descripcion = reader["descripcion"].ToString();
+                        unTipoTutor.descripcion = reader["nombre"].ToString();
                         
                         listadoTipoTutor.Add(unTipoTutor);
                     }

@@ -1319,8 +1319,8 @@ namespace EDUAR_SI_DataAccess
                     foreach (TipoTutor unTipoTutor in listadoTipoTutor)
                     {
                         command.Parameters.AddWithValue("idTipoTutor", 0);
-                        command.Parameters.AddWithValue("idTipoTutorTransaccional", unTipoTutor.idTipoTutorTransaccional);
                         command.Parameters.AddWithValue("descripcion", unTipoTutor.descripcion);
+                        command.Parameters.AddWithValue("idTipoTutorTransaccional", unTipoTutor.idTipoTutorTransaccional);
 
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();

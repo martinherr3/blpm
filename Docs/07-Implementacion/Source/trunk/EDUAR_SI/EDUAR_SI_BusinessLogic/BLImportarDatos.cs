@@ -42,7 +42,8 @@ namespace EDUAR_SI_BusinessLogic
             try
             {
                 objDAImportarDatos = new DAImportarDatos(ConnectionString);
-                objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigen);
+                //objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigen);
+                objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDesdeRemoto);
                 ImportarDatos();
             }
             catch (Exception ex)
@@ -62,21 +63,21 @@ namespace EDUAR_SI_BusinessLogic
             {
                 objDAObtenerDatos = new DAObtenerDatos(objConfiguracion.valor);
 
-                objDAImportarDatos.GrabarPais(objDAObtenerDatos.obtenerPaisesBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarPais(objDAObtenerDatos.obtenerPaisesBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarProvincia(objDAObtenerDatos.obtenerProvinciasBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarProvincia(objDAObtenerDatos.obtenerProvinciasBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarLocalidad(objDAObtenerDatos.obtenerLocalidadesBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarLocalidad(objDAObtenerDatos.obtenerLocalidadesBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarTipoDocumento(objDAObtenerDatos.obtenerTipoDocumentoBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarTipoDocumento(objDAObtenerDatos.obtenerTipoDocumentoBDTransaccional(objConfiguracion));
 
                 //User Story 140
-                objDAImportarDatos.GrabarValoresEscalasCalificaciones(objDAObtenerDatos.obtenerValoresEscalaCalificacionBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarValoresEscalasCalificaciones(objDAObtenerDatos.obtenerValoresEscalaCalificacionBDTransaccional(objConfiguracion));
 
                 //User Story 141
-                GrabarAlumno();
+                //GrabarAlumno();
 
-                GrabarTutor();
+                //GrabarTutor();
 
                 objDAImportarDatos.GrabarTipoTutor(objDAObtenerDatos.obtenerTipoTutorBDTransaccional(objConfiguracion));
 
