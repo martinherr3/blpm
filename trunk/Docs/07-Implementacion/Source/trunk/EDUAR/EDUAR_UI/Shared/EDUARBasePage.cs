@@ -135,17 +135,19 @@ namespace EDUAR_UI.Shared
             string loginPage = "";
             if (strScheme != "")
                 loginPage += strScheme + "://";
-            loginPage += "/Public/Account/Login.aspx";
-            //loginPage += Request.Url.Host;
+            //loginPage += "/Public/Account/Login.aspx";
+            loginPage += Request.Url.Host;
             if (strPort != "")
                 loginPage += ":" + strPort;
             loginPage += strDefaultPage;
+
+            ObjDTSessionDataUI.urlDefault = new Uri(loginPage);
 
             if (Session != null)
             {
                 int sessionTimeOut = Session.Timeout;
                 int redirectTimeOut = (sessionTimeOut * 60000) - 10;
-
+                
                 StringBuilder javascript = new StringBuilder();
                 javascript.Append("var redirectTimeout;");
                 javascript.Append("clearTimeout(redirectTimeout);");

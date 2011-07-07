@@ -102,7 +102,15 @@ namespace EDUAR_Utility.Enumeraciones
     {
         BaseDeDatosOrigen,
         PasswordInicial,
-        BaseDeDatosOrigenDesdeRemoto
+        BaseDeDatosOrigenDesdeRemoto,
+        emailFrom,
+        servidorSMTP,
+        displayName,
+        puertoSMTP,
+        enableSSL,
+        SendUserName,
+        SendUserPass,
+        PreguntaDefault
     }
 
     public enum enumEscalasCalificaciones

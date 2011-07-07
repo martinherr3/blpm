@@ -55,10 +55,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Images\botonEnviarMail.png" />
+    <Content Include="Images\botonNuevo.png" />
+    <Content Include="Images\botonSiguiente.png" />
+    <Content Include="Images\botonVolver.png" />
+    <Content Include="Images\calendario.png" />
+    <Content Include="Images\ventanaConfirmacion.png" />
     <Content Include="Private\Account\ChangeUser.aspx" />
     <Content Include="Private\Account\ChangePassword.aspx" />
     <Content Include="Private\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Private\Account\Profiles.aspx" />
+    <Content Include="Public\Account\ForgotPassword.aspx" />
     <Content Include="Public\Account\Login.aspx" />
     <Content Include="Private\Account\RegisterUser.aspx" />
     <Content Include="Public\Account\Register.aspx" />
@@ -75,9 +82,11 @@
     <Content Include="App_Themes\Tema\Estilo.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Public\Account\Validate.aspx" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="UserControls\Calendario.ascx" />
     <Content Include="UserControls\VentanaInfo.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -125,6 +134,13 @@
     <Compile Include="Private\Account\Profiles.aspx.designer.cs">
       <DependentUpon>Profiles.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Public\Account\ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Public\Account\ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Public\Account\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -164,6 +180,13 @@
       <DependentUpon>ConsultarAlumnos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Public\Account\Validate.aspx.cs">
+      <DependentUpon>Validate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Public\Account\Validate.aspx.designer.cs">
+      <DependentUpon>Validate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Shared\EDUARBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -173,6 +196,13 @@
     </Compile>
     <Compile Include="EDUARMaster.Master.designer.cs">
       <DependentUpon>EDUARMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Calendario.ascx.cs">
+      <DependentUpon>Calendario.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Calendario.ascx.designer.cs">
+      <DependentUpon>Calendario.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\VentanaInfo.ascx.cs">
       <DependentUpon>VentanaInfo.ascx</DependentUpon>
@@ -222,7 +252,6 @@
     <Content Include="Public\web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Private\Account\web.config" />
     <Content Include="Private\Alumnos\web.config" />
     <None Include="WebAnonymus.sitemap" />
   </ItemGroup>

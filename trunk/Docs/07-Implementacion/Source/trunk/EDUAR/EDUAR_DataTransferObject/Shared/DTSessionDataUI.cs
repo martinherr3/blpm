@@ -24,5 +24,8 @@ namespace EDUAR_Entities.Shared
         /// </summary>
         [DataMember]
         public DTUsuario ObjDTUsuario { get; set; }
+
+        [DataMember]
+        public Uri urlDefault { get; set; }
     }
 }

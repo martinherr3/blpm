@@ -3,11 +3,13 @@ using System.Text;
 using System.Transactions;
 using System.Web.Security;
 using System.Configuration.Provider;
+using System.Security.Cryptography;
 using EDUAR_BusinessLogic.Shared;
 using EDUAR_DataAccess.Security;
 using EDUAR_Entities.Security;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using EDUAR_Utility.Utilidades;
 
 namespace EDUAR_BusinessLogic.Security
 {
@@ -85,6 +87,8 @@ namespace EDUAR_BusinessLogic.Security
 
             return result;
         }
+
+
         #endregion
 
         #region --[Métodos Publicos]--
@@ -96,13 +100,41 @@ namespace EDUAR_BusinessLogic.Security
             try
             {
                 MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
-                Data.Usuario.Password = user.GetPassword();
+
+                //Data.Usuario.Password = user.GetPassword();
                 Data.Usuario.Aprobado = user.IsApproved;
+                Data.Usuario.PaswordPregunta = user.PasswordQuestion;
+
                 ObtenerRolesUsuario();
             }
             catch (Exception ex)
             {
                 throw new CustomizedException(String.Format("Fallo en {0} - GetUsuario", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void GetUsuarioByEmail()
+        {
+            try
+            {
+                DASeguridad dataAcces = new DASeguridad();
+                DTUsuario usuario = dataAcces.GetUsuarioByEmail(Data.Usuario.Email);
+                if (usuario == null)
+                    throw new CustomizedException(string.Format("El email {0} no se encuentra registrado.", Data.Usuario.Email), null,
+                                                         enuExceptionType.ValidationException);
+                Data.Usuario = usuario;
+
+                ObtenerRolesUsuario();
+            }
+            catch (CustomizedException ex)
+            { throw ex; }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarioByEmail", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -157,6 +189,7 @@ namespace EDUAR_BusinessLogic.Security
             try
             {
                 Data.Usuario.UsuarioValido = Membership.ValidateUser(Data.Usuario.Nombre, Data.Usuario.Password);
+                MembershipUser usuario = Membership.GetUser(Data.Usuario.Nombre);
 
                 if (Data.Usuario.UsuarioValido)
                 {
@@ -165,13 +198,35 @@ namespace EDUAR_BusinessLogic.Security
                     MembershipUser us = Membership.GetUser(Data.Usuario.Nombre);
 
                     if (us.CreationDate == us.LastPasswordChangedDate)
+                        // || us.GetPassword() == BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial))
                         Data.Usuario.EsUsuarioInicial = true;
                 }
-
             }
             catch (Exception ex)
             {
                 throw new CustomizedException(String.Format("Fallo en {0} - ValidarUsuario()", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        /// <summary>
+        /// Validars the respuesta.
+        /// </summary>
+        public void ValidarRespuesta()
+        {
+            try
+            {
+                MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
+                Data.Usuario.PaswordRespuesta = user.GetPassword(Data.Usuario.PaswordRespuesta);
+            }
+            catch (MembershipPasswordException ex)
+            {
+                throw new CustomizedException(String.Format("La respuesta proporcionada no es válida.", ClassName), ex,
+                                              enuExceptionType.SecurityException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - CambiarPassword", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -184,7 +239,7 @@ namespace EDUAR_BusinessLogic.Security
             try
             {
                 MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
-                user.ChangePassword(Data.Usuario.Password, Data.Usuario.PasswordNuevo);
+                user.ChangePassword(user.GetPassword(Data.Usuario.PaswordRespuesta), Data.Usuario.PasswordNuevo);
             }
             catch (Exception ex)
             {
@@ -201,9 +256,8 @@ namespace EDUAR_BusinessLogic.Security
             try
             {
                 //Obtener el password por defecto
-                BLConfiguracionGlobal objBLConfiguracionGlobal = new BLConfiguracionGlobal();
                 //String passwordEncriptado = objBLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial);
-                Data.Usuario.Password = objBLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial);
+                Data.Usuario.Password = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial);
                 //Data.Usuario.Password = Desencriptar(passwordEncriptado);
                 Data.Usuario.Aprobado = Data.Usuario.Aprobado;
 
@@ -240,8 +294,8 @@ namespace EDUAR_BusinessLogic.Security
                         //    throw new Exception("The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.");
                         //case MembershipCreateStatus.UserRejected:
                         //    throw new Exception("The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.");
-                        //case MembershipCreateStatus.DuplicateEmail:
-                        //    throw new Exception("A username for that e-mail address already exists. Please enter a different e-mail address.");
+                        case MembershipCreateStatus.DuplicateEmail:
+                            throw new CustomizedException("El email ya se encuentra registrado.", null, enuExceptionType.SecurityException);
 
                         #endregion
 
@@ -492,7 +546,7 @@ namespace EDUAR_BusinessLogic.Security
             catch (ProviderException ex)
             {
                 throw new CustomizedException(string.Format("No puede elminarse el perfil {0} ya que tiene asociados usuarios.", Data.Rol.Nombre), ex,
-                                              enuExceptionType.BusinessLogicException); ;
+                                              enuExceptionType.IntegrityDataException); ;
             }
             catch (Exception ex)
             {
@@ -501,5 +555,44 @@ namespace EDUAR_BusinessLogic.Security
             }
         }
         #endregion
+
+        public void RecuperarPassword(Uri urlHost)
+        {
+            try
+            {
+                string emailFrom = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.emailFrom);
+                string servidorSMTP = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.servidorSMTP);
+                string displayName = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.displayName);
+                Int32? puertoSMTP = Convert.ToInt32(BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.puertoSMTP));
+                Boolean? enableSSL = Convert.ToBoolean(BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.enableSSL));
+
+                EDUAREmail email = new EDUAREmail(emailFrom, servidorSMTP, puertoSMTP, true, displayName);
+
+                string usuario = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.SendUserName);
+                string password = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.SendUserPass);
+
+                email.CargarCredenciales(usuario, password);
+                email.AgregarDestinatario(Data.Usuario.Email);
+
+                StringBuilder mensaje = new StringBuilder();
+                mensaje.AppendLine("Gracias por utilizar EDU@R 2.0");
+                mensaje.AppendLine("<br /><br />");
+                mensaje.AppendLine("Hemos recibido un pedido solicitando tus datos de acceso, para restablecer tu contraseña, <br />");
+                mensaje.Append("haz click en el siguiente enlace, de lo contrario, ignora este correo.");
+                mensaje.AppendLine("<br /><br />");
+                mensaje.AppendLine("<a href='" + urlHost.ToString() + "?const=" + BLEncriptacion.Encrypt(Data.Usuario.Nombre.Trim()) + "'>Acceder</a>");
+                mensaje.AppendLine("<br /><br />");
+                mensaje.AppendLine("<br /><br />");
+                mensaje.AppendLine();
+                mensaje.AppendLine("EDU@R 2.0 - Educación Argentina del Nuevo Milenio");
+
+                email.EnviarMail("EDU@R 2.0 - Datos de Acceso - " + DateTime.Now.Date.ToShortDateString(), mensaje.ToString(), true);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - RecuperarPassword", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
     }
 }

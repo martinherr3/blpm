@@ -20,13 +20,12 @@ namespace EDUAR_BusinessLogic.Shared
         /// </summary>  
         /// <param name="configuracion">Enumeracion con la configuracion que se quiere buscar.</param>
         /// <returns>Valor de la configuracion</returns>
-        public String ObtenerConfiguracion(enumConfiguraciones configuracion)
+        public static String ObtenerConfiguracion(enumConfiguraciones configuracion)
         {
-            String valor;
             try
             {
                 DAConfiguracionGlobal dataAcces = new DAConfiguracionGlobal();
-                valor = dataAcces.GetConfiguracion(configuracion);
+                return dataAcces.GetConfiguracion(configuracion);
             }
             catch (CustomizedException ex)
             {
@@ -37,7 +36,6 @@ namespace EDUAR_BusinessLogic.Shared
                 throw new CustomizedException(String.Format("Fallo en {0} - ObtenerConfiguracion", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
-            return valor;
         }
 
         /// <summary>
