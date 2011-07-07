@@ -70,9 +70,9 @@ namespace EDUAR_DataAccess.Common
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
                 else
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, DBNull.Value);
-                if (entidad.idTipoPersona != null)
+                //if (entidad.idTipoPersona != null)
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
-               
+
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
                 List<Persona> listaPersonas = new List<Persona>();
@@ -136,6 +136,7 @@ namespace EDUAR_DataAccess.Common
 
                 if (entidad.idPersona > 0)
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersona", DbType.Int32, entidad.idPersona);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.email);
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -231,7 +232,7 @@ namespace EDUAR_DataAccess.Common
             {
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Personas_Update");
 
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersona", DbType.Int32, 0);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersona", DbType.Int32, entidad.idPersona);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@apellido", DbType.String, entidad.apellido);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@numeroDocumento", DbType.Int32, entidad.numeroDocumento);

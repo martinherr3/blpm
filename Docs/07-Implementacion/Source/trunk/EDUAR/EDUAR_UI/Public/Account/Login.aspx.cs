@@ -6,6 +6,8 @@ using EDUAR_BusinessLogic.Security;
 using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_Utility.Constantes;
+using EDUAR_BusinessLogic.Shared;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -33,7 +35,9 @@ namespace EDUAR_UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            RegisterHyperLink.NavigateUrl = "~/Public/Account/Register.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
+            RegisterHyperLink.NavigateUrl = "~/Public/Account/Validate.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
+
+            ForgotPasswordHyperLink.NavigateUrl = "~/Public/Account/ForgotPassword.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
         }
 
         /// <summary>
@@ -53,9 +57,9 @@ namespace EDUAR_UI
                         Password = LoginUser.Password.Trim()
                     }
                 };
+
                 BLSeguridad objSeguridadBL = new BLSeguridad(objDTSeguridad);
                 objSeguridadBL.ValidarUsuario();
-
 
                 if (objDTSeguridad.Usuario.UsuarioValido)
                 {
@@ -70,17 +74,13 @@ namespace EDUAR_UI
                     e.Authenticated = false;
                     LoginUser.FailureText = UIConstantesGenerales.MensajeLoginFallido;
                 }
+
+                //if (ObjDTSessionDataUI.ObjDTUsuario.EsUsuarioInicial)
+                //    Response.Redirect("~/Private/Account/ChangePassword.aspx", false);
             }
             catch (Exception ex)
             {
-                try
-                {
-                    Master.ManageExceptions(ex);
-                }
-                catch
-                {
-
-                }
+                Master.ManageExceptions(ex);
             }
         }
     }

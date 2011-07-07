@@ -304,6 +304,61 @@ namespace EDUAR_DataAccess.Security
             }
         }
 
+        public DTUsuario GetUsuarioByEmail(string email)
+        {
+            // DSUsuarios.UsersDataTable dt = new DSUsuarios.UsersDataTable();
+            String rolesParam = String.Empty;
+            try
+            {
+                String query = @"SELECT aspnet_Membership.UserId, 
+                                        aspnet_Membership.Password, 
+                                        aspnet_Membership.PasswordQuestion, 
+                                        aspnet_Membership.PasswordAnswer, 
+                                        aspnet_Membership.IsApproved, 
+                                        aspnet_Membership.IsLockedOut, 
+                                        aspnet_Membership.ApplicationId, 
+                                        aspnet_Membership.PasswordFormat, 
+                                        aspnet_Membership.PasswordSalt, 
+                                        aspnet_Membership.MobilePIN, 
+                                        aspnet_Membership.Email, 
+                                        aspnet_Membership.LoweredEmail, 
+                                        aspnet_Users.UserName
+                                        FROM aspnet_Membership 
+                                        INNER JOIN
+	                                        aspnet_Users ON aspnet_Membership.UserId = aspnet_Users.UserId
+                                        WHERE
+                                            (@Email IS NULL OR @Email = '' OR aspnet_Membership.Email LIKE @Email )";
+
+
+                transaction.DBcomand = transaction.DataBase.GetSqlStringCommand(query);
+
+                // Añadir parámetros
+                transaction.DataBase.AddInParameter(transaction.DBcomand, "@Email", DbType.String, email);
+                IDataReader reader = transaction.DataBase.ExecuteReader(transaction.DBcomand);
+                DTUsuario usuario = new DTUsuario();
+                while (reader.Read())
+                {
+                    usuario.Nombre = reader["UserName"].ToString();
+                    usuario.Aprobado = (bool)reader["IsApproved"];
+                    usuario.PaswordPregunta = reader["PasswordQuestion"].ToString();
+                    usuario.PaswordRespuesta = reader["PasswordAnswer"].ToString();
+                    usuario.Password = reader["Password"].ToString();
+                    usuario.Email = reader["Email"].ToString();
+                }
+                return usuario;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarioByEmail()", ClassName),
+                                                       ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarioByEmail()", ClassName),
+                                                       ex, enuExceptionType.DataAccesException);
+            }
+        }
+
         /// <summary>
         /// Método que obtiene un rol filtrado por el ID
         /// </summary>  

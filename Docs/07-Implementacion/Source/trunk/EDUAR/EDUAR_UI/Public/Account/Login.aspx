@@ -3,7 +3,6 @@
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/VentanaInfo.ascx" TagName="VentanaInfo" TagPrefix="uc1" %>
-
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
@@ -15,8 +14,12 @@
         <asp:HyperLink ID="RegisterHyperLink" runat="server" EnableViewState="false">Registrarse</asp:HyperLink>
         si no tiene una cuenta.
     </p>
+    <p>
+        Si ha olvidado su clave de ingreso haga click
+        <asp:HyperLink ID="ForgotPasswordHyperLink" runat="server" EnableViewState="false">Aquí</asp:HyperLink>
+    </p>
     <asp:Login ID="LoginUser" runat="server" EnableViewState="false" RenderOuterTable="false"
-        OnAuthenticate="LoginUsuario_Authenticate">
+        OnAuthenticate="LoginUsuario_Authenticate" PasswordRecoveryUrl="~/Public/Account/ForgotPassword.aspx">
         <LayoutTemplate>
             <span class="failureNotification">
                 <asp:Literal ID="FailureText" runat="server"></asp:Literal>

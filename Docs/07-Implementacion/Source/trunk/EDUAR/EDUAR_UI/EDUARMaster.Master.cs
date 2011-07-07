@@ -253,7 +253,7 @@ namespace EDUAR_UI
                         default:
                             break;
                     }
-                    Detalle += " " + ex.Message;
+                    if (Detalle != ex.Message) Detalle += " " + ex.Message;
                     MostrarMensaje(Titulo, Detalle, tipoVentana);
                 }
                 //Esta es una excepcion de tipo validacion que viene de BL.

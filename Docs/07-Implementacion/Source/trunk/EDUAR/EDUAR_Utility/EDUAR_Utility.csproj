@@ -48,7 +48,9 @@
     <Compile Include="Excepciones\CustomizedException.cs" />
     <Compile Include="Excepciones\GenericException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilidades\EDUAREmail.cs" />
     <Compile Include="Utilidades\EDUARLog.cs" />
+    <Compile Include="Utilidades\EDUARUtilidades.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
