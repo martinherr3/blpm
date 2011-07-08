@@ -370,7 +370,7 @@ namespace EDUAR_SI_DataAccess
 
                     command.Connection = sqlConnectionConfig;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = "TiposDocumentos_Insert";
+                    command.CommandText = "TipoDocumento_Insert";
                     command.CommandTimeout = 10;
 
                     transaccion = sqlConnectionConfig.BeginTransaction();
