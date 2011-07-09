@@ -1,46 +1,46 @@
 ﻿using System;
 using EDUAR_BusinessLogic.Shared;
 using EDUAR_DataAccess.Common;
-using EDUAR_DataAccess.Shared;
 using EDUAR_Entities;
 using EDUAR_Entities.Shared;
-using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_DataAccess.Shared;
 using System.Collections.Generic;
 
 namespace EDUAR_BusinessLogic.Common
 {
-    public class BLPersona : BusinessLogicBase<Persona, DAPersona>
+    public class BLTipoDocumento : BusinessLogicBase<TipoDocumento, DATipoDocumento>
     {
         #region --[Constante]--
-        private const String ClassName = "BLPersona";
+        private const String ClassName = "BLTipoDocumento";
         #endregion
 
         #region --[Constructores]--
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLPersona(DTBase objPersona)
+        public BLTipoDocumento(DTBase objTipoDocumento)
         {
-            Data = (Persona)objPersona;
+            Data = (TipoDocumento)objTipoDocumento;
         }
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public BLPersona()
+        public BLTipoDocumento()
         {
-            Data = new Persona();
+            Data = new TipoDocumento();
         }
         #endregion
 
         #region --[Propiedades Override]--
-        protected override sealed DAPersona DataAcces
+        protected override sealed DATipoDocumento DataAcces
         {
             get { return dataAcces; }
             set { dataAcces = value; }
         }
 
-        public override sealed Persona Data
+        public override sealed TipoDocumento Data
         {
             get { return data; }
             set { data = value; }
@@ -85,10 +85,10 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                Int32 idPersona = 0;
+                Int32 idTipoDocumento = 0;
 
-                if (Data.idPersona == 0)
-                    DataAcces.Create(Data, out idPersona);
+                if (Data.idTipoDocumento == 0)
+                    DataAcces.Create(Data, out idTipoDocumento);
                 else
                     DataAcces.Update(Data);
 
@@ -116,8 +116,8 @@ namespace EDUAR_BusinessLogic.Common
             try
             {
                 //Si no viene el Id es porque se esta creando la entidad
-                DataAcces = new DAPersona(objDATransaction);
-                if (Data.idPersona == 0)
+                DataAcces = new DATipoDocumento(objDATransaction);
+                if (Data.idTipoDocumento == 0)
                     DataAcces.Create(Data);
                 else
                 {
@@ -144,7 +144,7 @@ namespace EDUAR_BusinessLogic.Common
         {
             try
             {
-                DataAcces = new DAPersona(objDATransaction);
+                DataAcces = new DATipoDocumento(objDATransaction);
                 DataAcces.Delete(Data);
             }
             catch (CustomizedException ex)
@@ -165,11 +165,11 @@ namespace EDUAR_BusinessLogic.Common
         /// </summary>
         /// <param name="entidad">The entidad.</param>
         /// <returns></returns>
-        public List<Persona> GetPersonas(Persona entidad)
+        public List<TipoDocumento> GetTipoDocumento(TipoDocumento entidad)
         {
             try
             {
-                return DataAcces.GetPersonas(entidad);
+                return DataAcces.GetTipoDocumento(entidad);
             }
             catch (CustomizedException ex)
             {
@@ -178,25 +178,6 @@ namespace EDUAR_BusinessLogic.Common
             catch (Exception ex)
             {
                 throw new CustomizedException(String.Format("Fallo en {0} - GetPersonas", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
-        /// <summary>
-        /// Gets the by id.
-        /// </summary>
-        public void GetPersonaByEntidad()
-        {
-            try
-            {
-                Data = DataAcces.GetPersonaByEntidad(Data);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonaByEntidad", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }

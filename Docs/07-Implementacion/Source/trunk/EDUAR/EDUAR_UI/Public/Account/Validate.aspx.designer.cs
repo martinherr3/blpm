@@ -13,22 +13,22 @@ namespace EDUAR_UI {
     public partial class Validate {
         
         /// <summary>
-        /// Control udpForgotPassword.
+        /// Control udpValidate.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpForgotPassword;
+        protected global::System.Web.UI.UpdatePanel udpValidate;
         
         /// <summary>
-        /// Control udpEmail.
+        /// Control udpDatosValidar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpEmail;
+        protected global::System.Web.UI.UpdatePanel udpDatosValidar;
         
         /// <summary>
         /// Control lblTipoDocumento.
@@ -67,6 +67,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtNroDocumento;
         
         /// <summary>
+        /// Control filterTxtNroDocumento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender filterTxtNroDocumento;
+        
+        /// <summary>
+        /// Control maskEditNroDocumento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.MaskedEditExtender maskEditNroDocumento;
+        
+        /// <summary>
         /// Control lblFechaNacimiento.
         /// </summary>
         /// <remarks>
@@ -83,6 +101,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::EDUAR_UI.UserControls.Calendario calFechaNacimiento;
+        
+        /// <summary>
+        /// Control btnValidar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnValidar;
         
         /// <summary>
         /// Propiedad Master.
