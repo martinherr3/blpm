@@ -47,8 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Common\BLPersona.cs" />
+    <Compile Include="Common\BLTipoDocumento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\BLEncriptacion.cs" />
     <Compile Include="Security\BLSeguridad.cs" />

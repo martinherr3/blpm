@@ -8,11 +8,11 @@ namespace EDUAR_Entities
     [Serializable]
     public class Persona : DTBase
     {
-        private int _IdPersona;
+        private int _idPersona;
         public int idPersona
         {
-            get { return _IdPersona; }
-            set { _IdPersona = value; }
+            get { return _idPersona; }
+            set { _idPersona = value; }
         }
 
         private string _nombre;
@@ -21,90 +21,90 @@ namespace EDUAR_Entities
             get { return _nombre; }
             set { _nombre = value; }
         }
-        private string _Apellido;
+        private string _apellido;
         public string apellido
         {
-            get { return _Apellido; }
-            set { _Apellido = value; }
+            get { return _apellido; }
+            set { _apellido = value; }
         }
-        private Int32 _NumeroDocumento;
-        public Int32 numeroDocumento
+        private int _numeroDocumento;
+        public int numeroDocumento
         {
-            get { return _NumeroDocumento; }
-            set { _NumeroDocumento = value; }
+            get { return _numeroDocumento; }
+            set { _numeroDocumento = value; }
         }
-        private Decimal _IdTipoDocumento;
-        public Decimal idTipoDocumento
+        private int _idTipoDocumento;
+        public int idTipoDocumento
         {
-            get { return _IdTipoDocumento; }
-            set { _IdTipoDocumento = value; }
+            get { return _idTipoDocumento; }
+            set { _idTipoDocumento = value; }
         }
-        private string _Domicilio;
+        private string _domicilio;
         public string domicilio
         {
-            get { return _Domicilio; }
-            set { _Domicilio = value; }
+            get { return _domicilio; }
+            set { _domicilio = value; }
         }
-        private string _Barrio;
+        private string _barrio;
         public string barrio
         {
-            get { return _Barrio; }
-            set { _Barrio = value; }
+            get { return _barrio; }
+            set { _barrio = value; }
         }
-        private Decimal _IdLocalidad;
-        public Decimal idLocalidad
+        private int _idLocalidad;
+        public int idLocalidad
         {
-            get { return _IdLocalidad; }
-            set { _IdLocalidad = value; }
+            get { return _idLocalidad; }
+            set { _idLocalidad = value; }
         }
-        private string _Sexo;
+        private string _sexo;
         public string sexo
         {
-            get { return _Sexo; }
-            set { _Sexo = value; }
+            get { return _sexo; }
+            set { _sexo = value; }
         }
-        private DateTime? _FechaNacimiento;
+        private DateTime? _fechaNacimiento;
         public DateTime? fechaNacimiento
         {
-            get { return _FechaNacimiento; }
-            set { _FechaNacimiento = value; }
+            get { return _fechaNacimiento; }
+            set { _fechaNacimiento = value; }
         }
-        private string _TelefonoFijo;
+        private string _telefonoFijo;
         public string telefonoFijo
         {
-            get { return _TelefonoFijo; }
-            set { _TelefonoFijo = value; }
+            get { return _telefonoFijo; }
+            set { _telefonoFijo = value; }
         }
-        private string _TelefonoCelular;
+        private string _telefonoCelular;
         public string telefonoCelular
         {
-            get { return _TelefonoCelular; }
-            set { _TelefonoCelular = value; }
+            get { return _telefonoCelular; }
+            set { _telefonoCelular = value; }
         }
-        private string _TelefonoCelularAlternativo;
+        private string _telefonoCelularAlternativo;
         public string telefonoCelularAlternativo
         {
-            get { return _TelefonoCelularAlternativo; }
-            set { _TelefonoCelularAlternativo = value; }
+            get { return _telefonoCelularAlternativo; }
+            set { _telefonoCelularAlternativo = value; }
         }
-        private string _Email;
+        private string _email;
         public string email
         {
-            get { return _Email; }
-            set { _Email = value; }
+            get { return _email; }
+            set { _email = value; }
         }
-        private Boolean? _Activo;
-        public Boolean? activo
+        private bool? _activo;
+        public bool? activo
         {
-            get { return _Activo; }
-            set { _Activo = value; }
+            get { return _activo; }
+            set { _activo = value; }
         }
-        private Localidades _Localidad;
+        private Localidades _localidad;
 
         public Localidades localidad
         {
-            get { return _Localidad; }
-            set { _Localidad = value; }
+            get { return _localidad; }
+            set { _localidad = value; }
         }
 
         private string _username;

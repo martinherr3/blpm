@@ -7,9 +7,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:UpdatePanel ID="udpForgotPassword" runat="server" UpdateMode="Conditional">
+    <asp:UpdatePanel ID="udpValidate" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-            <asp:UpdatePanel ID="udpEmail" runat="server" UpdateMode="Conditional">
+            <asp:UpdatePanel ID="udpDatosValidar" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <h2>
                         Registrarme</h2>
@@ -18,35 +18,48 @@
                         las preguntas a continuación.</p>
                     <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td style="width: 50%">
+                            <td style="width: 25%">
                                 <asp:Label ID="lblTipoDocumento" Text="Tipo de Documento" runat="server" />
                             </td>
-                            <td style="width: 50%">
+                            <td style="width: 75%">
                                 <asp:DropDownList ID="ddlTipoDocumento" runat="server">
                                 </asp:DropDownList>
                             </td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">
+                            <td>
                                 <asp:Label ID="lblNroDocumento" Text="Número de Documento" runat="server" />
                             </td>
-                            <td style="width: 50%">
-                                <asp:TextBox ID="txtNroDocumento" runat="server" />
+                            <td>
+                                <asp:TextBox ID="txtNroDocumento" runat="server" MaxLength="10" /><asp:FilteredTextBoxExtender
+                                    ID="filterTxtNroDocumento" runat="server" TargetControlID="txtNroDocumento" FilterType="Numbers">
+                                </asp:FilteredTextBoxExtender>
+                                <asp:MaskedEditExtender ID="maskEditNroDocumento" runat="server" Mask="99999999"
+                                    TargetControlID="txtNroDocumento" MaskType="Number" InputDirection="RightToLeft"
+                                    AcceptNegative="None" DisplayMoney="None" ErrorTooltipEnabled="false" AutoComplete="false"
+                                    ClearMaskOnLostFocus="false" />
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblFechaNacimiento" Text="Fecha de Nacimiento" runat="server" />
+                            </td>
+                            <td>
+                                <cal:Calendario ID="calFechaNacimiento" runat="server" TipoCalendario="SoloFecha"
+                                    EtiquetaDesde="Fecha de Nacimiento" Habilitado="true" TipoAlineacion="Izquierda" />
                             </td>
                         </tr>
                         <tr>
-                            <td style="width: 50%">
-                                <asp:Label ID="lblFechaNacimiento" Text="Fecha de Nacimiento" runat="server" />
+                            <td>
                             </td>
-                            <td style="width: 50%">
-                                <cal:Calendario ID="calFechaNacimiento" runat="server" TipoCalendario="SoloFecha" EtiquetaDesde="Fecha de Nacimiento"
-                                    Habilitado="true" TipoAlineacion="Izquierda" />
+                            <td align="center">
+                                <asp:ImageButton ID="btnValidar" ImageUrl="~/Images/botonSiguiente.png" runat="server"
+                                    ToolTip="Siguiente" OnClick="btnValidar_Click" ImageAlign="AbsMiddle" />
                             </td>
                         </tr>
                     </table>
                 </ContentTemplate>
                 <Triggers>
-                    <%--<asp:AsyncPostBackTrigger ControlID="btnEnviarMail" EventName="Click" />--%>
+                    <asp:AsyncPostBackTrigger ControlID="btnValidar" EventName="Click" />
                 </Triggers>
             </asp:UpdatePanel>
             <%--            <asp:UpdatePanel ID="udpRecover" runat="server" UpdateMode="Conditional" Visible="false">

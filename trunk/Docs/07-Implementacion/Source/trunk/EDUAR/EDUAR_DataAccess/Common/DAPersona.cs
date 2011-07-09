@@ -71,7 +71,7 @@ namespace EDUAR_DataAccess.Common
                 else
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, DBNull.Value);
                 //if (entidad.idTipoPersona != null)
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -115,9 +115,97 @@ namespace EDUAR_DataAccess.Common
                                     ex, enuExceptionType.DataAccesException);
             }
         }
+
+        /// <summary>
+        /// Gets the persona by entidad.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public Persona GetPersonaByEntidad(Persona entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Personas_Select");
+
+                if (entidad.idPersona > 0)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersona", DbType.Int32, entidad.idPersona);
+                if (!string.IsNullOrEmpty(entidad.nombre))
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
+                if (!string.IsNullOrEmpty(entidad.apellido))
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@apellido", DbType.String, entidad.apellido);
+                if (entidad.numeroDocumento > 0)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@numeroDocumento", DbType.Int32, entidad.numeroDocumento);
+                if (entidad.idTipoDocumento > 0)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoDocumento", DbType.Int32, entidad.idTipoDocumento);
+                if (!string.IsNullOrEmpty(entidad.domicilio))
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@domicilio", DbType.String, entidad.domicilio);
+                if (!string.IsNullOrEmpty(entidad.barrio))
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@barrio", DbType.String, entidad.barrio);
+                //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idLocalidad", DbType.Int32, entidad.localidad.idLocalidad);
+                if (!string.IsNullOrEmpty(entidad.sexo))
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@sexo", DbType.String, entidad.sexo);
+                if (entidad.fechaNacimiento != null)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaNacimiento", DbType.Date, entidad.fechaNacimiento);
+                if (!string.IsNullOrEmpty(entidad.telefonoFijo))
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@telefonoFijo", DbType.String, entidad.telefonoFijo);
+                if (!string.IsNullOrEmpty(entidad.telefonoCelular))
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@telefonoCelular", DbType.String, entidad.telefonoCelular);
+                if (!string.IsNullOrEmpty(entidad.telefonoCelularAlternativo))
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@telefonoCelularAlternativo", DbType.String, entidad.telefonoCelularAlternativo);
+                if (!string.IsNullOrEmpty(entidad.email))
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@email", DbType.String, entidad.email);
+                if (entidad.activo != null)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.String, entidad.activo);
+                if (entidad.username != null)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
+                else
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, DBNull.Value);
+                //if (entidad.idTipoPersona != null)
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+                Persona objPersona;
+
+                while (reader.Read())
+                {
+                    objPersona = new Persona();
+
+                    objPersona.idPersona = Convert.ToInt32(reader["idPersona"]);
+                    objPersona.nombre = reader["nombre"].ToString();
+                    objPersona.apellido = reader["apellido"].ToString();
+                    objPersona.numeroDocumento = Convert.ToInt32(reader["numeroDocumento"]);
+                    objPersona.idTipoDocumento = Convert.ToInt32(reader["idTipoDocumento"]);
+                    objPersona.domicilio = reader["domicilio"].ToString();
+                    objPersona.barrio = reader["barrio"].ToString();
+                    if (!string.IsNullOrEmpty(reader["idLocalidad"].ToString()))
+                        objPersona.localidad = new Localidades() { idLocalidad = Convert.ToInt32(reader["idLocalidad"]) };
+                    objPersona.sexo = reader["sexo"].ToString();
+                    if (!string.IsNullOrEmpty(reader["fechaNacimiento"].ToString()))
+                        objPersona.fechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
+                    objPersona.telefonoFijo = reader["telefonoFijo"].ToString();
+                    objPersona.telefonoCelular = reader["telefonoCelular"].ToString();
+                    objPersona.telefonoCelularAlternativo = reader["telefonoCelularAlternativo"].ToString();
+                    objPersona.email = reader["email"].ToString();
+                    objPersona.activo = Convert.ToBoolean(reader["activo"]);
+                    objPersona.username = reader["username"].ToString();
+                    return objPersona;
+                }
+                return null;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonaByEntidad()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonaByEntidad()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
         #endregion
 
-        #region --Implementación métodos heredados--
+        #region --[Implementación métodos heredados]--
         public override string FieldID
         {
             get { throw new NotImplementedException(); }
@@ -136,7 +224,6 @@ namespace EDUAR_DataAccess.Common
 
                 if (entidad.idPersona > 0)
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersona", DbType.Int32, entidad.idPersona);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.email);
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

@@ -1,41 +1,48 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
-    public class TipoDocumento
+    public class TipoDocumento : DTBase
     {
-        private Decimal dIdTipoDocumento;
-        public Decimal idTipoDocumento
+        private int _idTipoDocumento;
+        public int idTipoDocumento
         {
-            get { return dIdTipoDocumento; }
-            set { dIdTipoDocumento = value; }
+            get { return _idTipoDocumento; }
+            set { _idTipoDocumento = value; }
         }
-        private Decimal dIdTipoDocumentoTransaccional;
-        public Decimal idTipoDocumentoTransaccional
+        private int _idTipoDocumentoTransaccional;
+        public int idTipoDocumentoTransaccional
         {
-            get { return dIdTipoDocumentoTransaccional; }
-            set { dIdTipoDocumentoTransaccional = value; }
+            get { return _idTipoDocumentoTransaccional; }
+            set { _idTipoDocumentoTransaccional = value; }
         }
-        private string szNombre;
+        private string _nombre;
         public string nombre
         {
-            get { return szNombre; }
-            set { szNombre = value; }
+            get { return _nombre; }
+            set { _nombre = value; }
         }
-        private string szDescripcion;
+        private string _descripcion;
         public string descripcion
         {
-            get { return szDescripcion; }
-            set { szDescripcion = value; }
+            get { return _descripcion; }
+            set { _descripcion = value; }
         }
-        private Boolean bActivo;
-        public Boolean activo
+        private bool? _activo;
+        public bool? activo
         {
-            get { return bActivo; }
-            set { bActivo = value; }
+            get { return _activo; }
+            set { _activo = value; }
+        }
+
+        public TipoDocumento()
+        {
+            activo = null;
+        }
+
+        ~TipoDocumento()
+        {
+
         }
     }
 }
