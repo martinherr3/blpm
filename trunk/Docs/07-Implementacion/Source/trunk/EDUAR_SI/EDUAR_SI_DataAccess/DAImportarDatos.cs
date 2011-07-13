@@ -117,6 +117,7 @@ namespace EDUAR_SI_DataAccess
                     command.Parameters.AddWithValue("telefonoCelularAlternativo", persona.telefonoCelularAlternativo);
                     command.Parameters.AddWithValue("email", persona.email);
                     command.Parameters.AddWithValue("activo", persona.activo);
+                    command.Parameters.AddWithValue("idTipoPersona", persona.idTipoPersona);
                     command.ExecuteNonQuery();
                     //transaccion.Commit();
                     return Convert.ToInt32(command.Parameters["idPersona"].Value);
@@ -1349,7 +1350,7 @@ namespace EDUAR_SI_DataAccess
 
         }
 
-        public void GrabarTutoresAlumno(List<Alumno> alumnos)
+        public void GrabarTutoresAlumno(List<Alumno> listaAlumnos)
         {
             SqlTransaction transaccion = null;
             try
@@ -1366,22 +1367,17 @@ namespace EDUAR_SI_DataAccess
                     transaccion = sqlConnectionConfig.BeginTransaction();
                     command.Transaction = transaccion;
 
-                    List<Tutor> tutores;
-
-                    foreach (Alumno unAlumno in alumnos)
+                    foreach (Alumno alumno in listaAlumnos)
                     {
-                        tutores = unAlumno.listaTutores;
-
-                        foreach (Tutor unTutor in tutores)
+                        foreach (Tutor tutor in alumno.listaTutores)
                         {
-                            command.Parameters.AddWithValue("idTutor", unTutor.idTutorTransaccional);
-                            command.Parameters.AddWithValue("idAlumno", unAlumno.idAlumnoTransaccional);
+                            command.Parameters.AddWithValue("idTutor", tutor.idTutorTransaccional);
+                            command.Parameters.AddWithValue("idAlumno", alumno.idAlumnoTransaccional);
 
                             command.ExecuteNonQuery();
                             command.Parameters.Clear();
                         }
                     }
-                    
                     transaccion.Commit();
                 }
             }

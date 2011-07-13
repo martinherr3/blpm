@@ -63,57 +63,55 @@ namespace EDUAR_SI_BusinessLogic
             {
                 objDAObtenerDatos = new DAObtenerDatos(objConfiguracion.valor);
 
-                //objDAImportarDatos.GrabarPais(objDAObtenerDatos.obtenerPaisesBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarPais(objDAObtenerDatos.obtenerPaisesBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarProvincia(objDAObtenerDatos.obtenerProvinciasBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarProvincia(objDAObtenerDatos.obtenerProvinciasBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarLocalidad(objDAObtenerDatos.obtenerLocalidadesBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarLocalidad(objDAObtenerDatos.obtenerLocalidadesBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarTipoDocumento(objDAObtenerDatos.obtenerTipoDocumentoBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarTipoDocumento(objDAObtenerDatos.obtenerTipoDocumentoBDTransaccional(objConfiguracion));
 
                 //User Story 140
-                //objDAImportarDatos.GrabarValoresEscalasCalificaciones(objDAObtenerDatos.obtenerValoresEscalaCalificacionBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarValoresEscalasCalificaciones(objDAObtenerDatos.obtenerValoresEscalaCalificacionBDTransaccional(objConfiguracion));
 
                 //User Story 141
                 GrabarAlumno();
 
-                //objDAImportarDatos.GrabarTipoTutor(objDAObtenerDatos.obtenerTipoTutorBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarTipoTutor(objDAObtenerDatos.obtenerTipoTutorBDTransaccional(objConfiguracion));
 
                 GrabarTutor();
 
                 //User Story 142
-                //GrabarPersonal();
+                GrabarPersonal();
 
-               // GrabarDocente();
+                GrabarDocente();
                 
-                objDAImportarDatos.GrabarTutoresAlumno(objDAObtenerDatos.obtenerAlumnoBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarTutoresAlumno(objDAObtenerDatos.obtenerTutoresAlumnoBDTransaccional(objConfiguracion));
 
                 //User Story 143
-                //objDAImportarDatos.GrabarAsignatura(objDAObtenerDatos.obtenerAsignaturaBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarAsignatura(objDAObtenerDatos.obtenerAsignaturaBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarCicloLectivo(objDAObtenerDatos.obtenerCicloLectivoBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarCicloLectivo(objDAObtenerDatos.obtenerCicloLectivoBDTransaccional(objConfiguracion));
 
-               // objDAImportarDatos.GrabarNivel(objDAObtenerDatos.obtenerNivelesBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarNivel(objDAObtenerDatos.obtenerNivelesBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarCursos(objDAObtenerDatos.obtenerCursosBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarCursos(objDAObtenerDatos.obtenerCursosBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarOrientacion(objDAObtenerDatos.obtenerOrientacionesBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarOrientacion(objDAObtenerDatos.obtenerOrientacionesBDTransaccional(objConfiguracion));
 
                 //objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion));
 
-                //List<Periodo> lista = objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion);
+                objDAImportarDatos.GrabarTipoAsistencia(objDAObtenerDatos.obtenerTipoAsistenciaBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarTipoAsistencia(objDAObtenerDatos.obtenerTipoAsistenciaBDTransaccional(objConfiguracion));
-                
-               // objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));
-                
-                //objDAImportarDatos.GrabarTipoSancion(objDAObtenerDatos.obtenerTipoSancionBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarMotivoSancion(objDAObtenerDatos.obtenerMotivoSancionBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarTipoSancion(objDAObtenerDatos.obtenerTipoSancionBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarMotivoSancion(objDAObtenerDatos.obtenerMotivoSancionBDTransaccional(objConfiguracion));
+
+                objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
 
             }
             catch (Exception ex)
@@ -150,6 +148,7 @@ namespace EDUAR_SI_BusinessLogic
                         telefonoFijo = docente.telefonoFijo,
                         localidad = new Localidades() { nombre = docente.localidad.nombre },
                         sexo = docente.sexo,
+                        idTipoPersona = (int)enumTipoPersona.Personal
                     };
                     docente.idPersona = objDAImportarDatos.GrabarPersona(persona, ref transaccion);
                     Personal personal = new Personal()
@@ -198,7 +197,8 @@ namespace EDUAR_SI_BusinessLogic
                         idTipoDocumento = personal.idTipoDocumento,
                         activo = personal.activo,
                         fechaNacimiento = null,
-                        localidad = new Localidades()
+                        localidad = new Localidades(),
+                        idTipoPersona = (int)enumTipoPersona.Personal
                     };
                     personal.idPersona = objDAImportarDatos.GrabarPersona(persona, ref transaccion);
                     objDAImportarDatos.GrabarPersonal(personal, ref transaccion);
@@ -241,7 +241,8 @@ namespace EDUAR_SI_BusinessLogic
                         telefonoCelularAlternativo = alumno.telefonoCelularAlternativo,
                         email = alumno.email,
                         activo = alumno.activo,
-                        barrio = alumno.barrio
+                        barrio = alumno.barrio,
+                        idTipoPersona = (int)enumTipoPersona.Alumno
                     };
                     if (string.IsNullOrEmpty(alumno.barrio)) persona.barrio = string.Empty;
                     alumno.idPersona = objDAImportarDatos.GrabarPersona(persona, ref transaccion);
@@ -288,7 +289,8 @@ namespace EDUAR_SI_BusinessLogic
                         telefonoCelularAlternativo = tutor.telefonoCelularAlternativo,
                         email = tutor.email,
                         activo = tutor.activo,
-                        barrio = tutor.barrio
+                        barrio = tutor.barrio,
+                        idTipoPersona = (int)enumTipoPersona.Tutor
                     };
                     if (string.IsNullOrEmpty(tutor.barrio)) persona.barrio = string.Empty;
                     tutor.idPersona = objDAImportarDatos.GrabarPersona(persona, ref transaccion);
