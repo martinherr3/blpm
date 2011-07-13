@@ -73,11 +73,7 @@ namespace EDUAR_SI_DataAccess
                             localidad = new Localidades() { nombre = reader["ciudad"].ToString()}
                         };
 
-                        //aca se intenta obtener la lista de tutores a cargo de este alumno en particular
-                        alumno.listaTutores = obtenerTutoresAlumnoBDTransaccional(configuracion);
-
                         listaAlumno.Add(alumno);
-
                     }
                     command.Connection.Close();
                     return listaAlumno;
@@ -1100,59 +1096,11 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
-        //        public List<MotivoAusencia> obtenerMotivosAusenciaBDTransaccional(Configuraciones configuracion)
-        //        {
-        //            List<MotivoAusencia> listaMotivos = null;
-        //            try
-        //            {
-        //                using (MySqlCommand command = new MySqlCommand())
-        //                {
-        //                    conMySQL = new MySqlConnection(configuracion.valor);
-        //                    command.Connection = conMySQL;
-
-        //                    command.CommandText = @"SELECT * 
-        //                                            FROM vw_motivosAusencia";
-        //                    conMySQL.Open();
-
-        //                    MySqlDataReader reader = command.ExecuteReader();
-        //                    Asistencia unaAsistencia;
-        //                    listaMotivos = new List<MotivoAusencia>();
-        //                    while (reader.Read())
-        //                    {
-        //                        unaAsistencia = new Asistencia()
-        //                        {
-        //                            idAsistencia = 0,
-        //                            idAsistenciaTransaccional = (int)reader["id"],
-        //                            fecha = Convert.ToDateTime(reader["fecha"]),
-        //                        };
-        //                        listadoAsistencia.Add(unaAsistencia);
-        //                    }
-        //                    command.Connection.Close();
-        //                    return listaMotivos;
-        //                }
-        //            }
-        //            catch (MySqlException ex)
-        //            {
-        //                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
-        //                                        ex, enuExceptionType.MySQLException);
-        //            }
-        //            catch (SqlException ex)
-        //            {
-        //                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
-        //                                    ex, enuExceptionType.SqlException);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
-        //                                    ex, enuExceptionType.DataAccesException);
-        //            }
-        //            finally
-        //            {
-        //                //if (sqlConnectionConfig.State == ConnectionState.Open)
-        //                //    sqlConnectionConfig.Close();
-        //            }
-        //        }
-
+        /// <summary>
+        /// Obteners the asistencia BD transaccional.
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
         public List<Asistencia> obtenerAsistenciaBDTransaccional(Configuraciones configuracion)
         {                      //obtenerAsistenciaBDTransaccional
             List<Asistencia> listadoAsistencia = null;
@@ -1211,6 +1159,11 @@ namespace EDUAR_SI_DataAccess
         }
 
 
+        /// <summary>
+        /// Obteners the tipo asistencia BD transaccional.
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
         public List<TipoAsistencia> obtenerTipoAsistenciaBDTransaccional(Configuraciones configuracion)
         {
             List<TipoAsistencia> listadoTipoAsistencia = null;
@@ -1265,6 +1218,11 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+        /// <summary>
+        /// Obteners the tipo sancion BD transaccional.
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
         public List<TipoSancion> obtenerTipoSancionBDTransaccional(Configuraciones configuracion)
         {
             List<TipoSancion> listadoTipoSancion = null;
@@ -1320,6 +1278,11 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+        /// <summary>
+        /// Obteners the tipo tutor BD transaccional.
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
         public List<TipoTutor> obtenerTipoTutorBDTransaccional(Configuraciones configuracion)
         {
             List<TipoTutor> listadoTipoTutor = null;
@@ -1373,6 +1336,11 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+        /// <summary>
+        /// Obteners the motivo sancion BD transaccional.
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
         public List<MotivoSancion> obtenerMotivoSancionBDTransaccional(Configuraciones configuracion)
         {
             List<MotivoSancion> listadoMotivoSancion = null;
@@ -1427,6 +1395,11 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+        /// <summary>
+        /// Obteners the sancion BD transaccional.
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
         public List<Sancion> obtenerSancionBDTransaccional(Configuraciones configuracion)
         {
             List<Sancion> listadoSancion = null;
@@ -1484,9 +1457,14 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
-        public List<Tutor> obtenerTutoresAlumnoBDTransaccional(Configuraciones configuracion)
+        /// <summary>
+        /// Obteners the tutores alumno BD transaccional.
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
+        public List<Alumno> obtenerTutoresAlumnoBDTransaccional(Configuraciones configuracion)
         {
-            List<Tutor> listadoTutores = null;
+            List<Alumno> listaAlumnos = null;
             try
             {
                 using (MySqlCommand command = new MySqlCommand())
@@ -1499,22 +1477,24 @@ namespace EDUAR_SI_DataAccess
                     conMySQL.Open();
 
                     MySqlDataReader reader = command.ExecuteReader();
-                    Tutor unTutor;
-                    Alumno unAlumno;
+                    Tutor tutor;
+                    Alumno alumno;
 
-                    listadoTutores = new List<Tutor>();
+                    listaAlumnos = new List<Alumno>();
                     while (reader.Read())
                     {
-                        unTutor = new Tutor();
-                        unTutor.idTutorTransaccional = (int)reader["fk_responsable_id"];
+                       
+                        tutor = new Tutor();
+                        tutor.idTutorTransaccional = (int)reader["fk_responsable_id"];
 
-                        unAlumno = new Alumno();
-                        unAlumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
+                        alumno = new Alumno();
+                        alumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
                         
-                        listadoTutores.Add(unTutor);
+                        alumno.listaTutores.Add(tutor);
+                        listaAlumnos.Add(alumno);
                     }
                     command.Connection.Close();
-                    return (listadoTutores);
+                    return listaAlumnos;
                 }
             }
             catch (MySqlException ex)
