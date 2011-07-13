@@ -39,6 +39,7 @@ namespace EDUAR_SI_DataAccess
         public List<Alumno> obtenerAlumnoBDTransaccional(Configuraciones configuracion)
         {
             List<Alumno> listaAlumno = null;
+            
             try
             {
                 using (MySqlCommand command = new MySqlCommand())
@@ -69,9 +70,14 @@ namespace EDUAR_SI_DataAccess
                             telefonoFijo = reader["telefono"].ToString(),
                             email = reader["email"].ToString(),
                             activo = Convert.ToBoolean(reader["activo"]),
-                            localidad = new Localidades() { nombre = reader["ciudad"].ToString() }
+                            localidad = new Localidades() { nombre = reader["ciudad"].ToString()}
                         };
+
+                        //aca se intenta obtener la lista de tutores a cargo de este alumno en particular
+                        alumno.listaTutores = obtenerTutoresAlumnoBDTransaccional(configuracion);
+
                         listaAlumno.Add(alumno);
+
                     }
                     command.Connection.Close();
                     return listaAlumno;
@@ -997,6 +1003,11 @@ namespace EDUAR_SI_DataAccess
                         tutor.telefonoCelular = reader["telefono_movil"].ToString();
                         tutor.email = reader["email"].ToString();
                         tutor.activo = true;
+
+                        // Aca tengo que obtener la instancia de Tipo Tutor que se corresponda a ese ID
+                        tutor.tipoTutor = new TipoTutor();
+                        tutor.tipoTutor.idTipoTutorTransaccional = Convert.ToInt32(reader["fk_rolresponsable_id"]);                        
+
                         tutor.localidad = new Localidades() { nombre = reader["ciudad"].ToString() };
 
                         listaTutores.Add(tutor);
@@ -1464,6 +1475,61 @@ namespace EDUAR_SI_DataAccess
             catch (Exception ex)
             {
                 throw new CustomizedException(String.Format("Fallo en {0} - obteneSancionBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+        public List<Tutor> obtenerTutoresAlumnoBDTransaccional(Configuraciones configuracion)
+        {
+            List<Tutor> listadoTutores = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT * 
+                                            FROM vw_tutores_alumnos";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    Tutor unTutor;
+                    Alumno unAlumno;
+
+                    listadoTutores = new List<Tutor>();
+                    while (reader.Read())
+                    {
+                        unTutor = new Tutor();
+                        unTutor.idTutorTransaccional = (int)reader["fk_responsable_id"];
+
+                        unAlumno = new Alumno();
+                        unAlumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
+                        
+                        listadoTutores.Add(unTutor);
+                    }
+                    command.Connection.Close();
+                    return (listadoTutores);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTutoresAlumnoBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTutoresAlumnoBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTutoresAlumnoBDTransaccional()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
             finally

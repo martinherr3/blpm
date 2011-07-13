@@ -75,43 +75,45 @@ namespace EDUAR_SI_BusinessLogic
                 //objDAImportarDatos.GrabarValoresEscalasCalificaciones(objDAObtenerDatos.obtenerValoresEscalaCalificacionBDTransaccional(objConfiguracion));
 
                 //User Story 141
-                //GrabarAlumno();
+                GrabarAlumno();
 
-                //GrabarTutor();
+                //objDAImportarDatos.GrabarTipoTutor(objDAObtenerDatos.obtenerTipoTutorBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarTipoTutor(objDAObtenerDatos.obtenerTipoTutorBDTransaccional(objConfiguracion));
+                GrabarTutor();
 
                 //User Story 142
-                GrabarPersonal();
+                //GrabarPersonal();
 
-                GrabarDocente();
+               // GrabarDocente();
+                
+                objDAImportarDatos.GrabarTutoresAlumno(objDAObtenerDatos.obtenerAlumnoBDTransaccional(objConfiguracion));
 
                 //User Story 143
-                objDAImportarDatos.GrabarAsignatura(objDAObtenerDatos.obtenerAsignaturaBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarAsignatura(objDAObtenerDatos.obtenerAsignaturaBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarCicloLectivo(objDAObtenerDatos.obtenerCicloLectivoBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarCicloLectivo(objDAObtenerDatos.obtenerCicloLectivoBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarNivel(objDAObtenerDatos.obtenerNivelesBDTransaccional(objConfiguracion));
+               // objDAImportarDatos.GrabarNivel(objDAObtenerDatos.obtenerNivelesBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarCursos(objDAObtenerDatos.obtenerCursosBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarCursos(objDAObtenerDatos.obtenerCursosBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarOrientacion(objDAObtenerDatos.obtenerOrientacionesBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarOrientacion(objDAObtenerDatos.obtenerOrientacionesBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion));
 
                 //List<Periodo> lista = objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion);
 
-                objDAImportarDatos.GrabarTipoAsistencia(objDAObtenerDatos.obtenerTipoAsistenciaBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarTipoAsistencia(objDAObtenerDatos.obtenerTipoAsistenciaBDTransaccional(objConfiguracion));
                 
-                objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));
+               // objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));
                 
-                objDAImportarDatos.GrabarTipoSancion(objDAObtenerDatos.obtenerTipoSancionBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarTipoSancion(objDAObtenerDatos.obtenerTipoSancionBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarMotivoSancion(objDAObtenerDatos.obtenerMotivoSancionBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarMotivoSancion(objDAObtenerDatos.obtenerMotivoSancionBDTransaccional(objConfiguracion));
 
-                objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
 
             }
             catch (Exception ex)
@@ -244,8 +246,11 @@ namespace EDUAR_SI_BusinessLogic
                     if (string.IsNullOrEmpty(alumno.barrio)) persona.barrio = string.Empty;
                     alumno.idPersona = objDAImportarDatos.GrabarPersona(persona, ref transaccion);
                     objDAImportarDatos.GrabarAlumno(alumno, ref transaccion);
+                    
                 }
                 transaccion.Commit();
+
+                
             }
             catch (Exception ex)
             {
@@ -298,6 +303,28 @@ namespace EDUAR_SI_BusinessLogic
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Grabar tutores a cargo de alumnos.
+        /// </summary>
+        //private void GrabarTutoresAlumnos() {
+        //
+        //    try
+        //    {
+                //List<Tutor> listaTutores = objDAObtenerDatos.obtenerTutoresBDTransaccional(objConfiguracion);
+        //        List<Alumno> listaAlumnos = objDAObtenerDatos.obtenerAlumnoBDTransaccional(objConfiguracion);
+
+        //        foreach (Alumno unAlumno in listaAlumnos)
+        //        {
+        //            objDAImportarDatos.GrabarTutoresAlumno(unAlumno);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
         #endregion
     }
 }
