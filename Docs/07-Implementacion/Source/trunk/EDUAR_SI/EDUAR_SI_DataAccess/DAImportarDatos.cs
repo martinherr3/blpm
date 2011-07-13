@@ -173,6 +173,7 @@ namespace EDUAR_SI_DataAccess
                     command.ExecuteNonQuery();
                     command.Parameters.Clear();
                     //transaccion.Commit();
+
                 }
             }
             catch (SqlException ex)
@@ -1013,9 +1014,9 @@ namespace EDUAR_SI_DataAccess
 
                     command.Parameters.AddWithValue("idTutor", tutor.IdTutor).Direction = ParameterDirection.Output;
                     command.Parameters.AddWithValue("idTutorTransaccional", tutor.idTutorTransaccional);
-                    command.Parameters.AddWithValue("idPersona", tutor.idPersona);
+                    command.Parameters.AddWithValue("idTipoTutor", tutor.tipoTutor.idTipoTutorTransaccional);
                     command.Parameters.AddWithValue("telefonoTrabajo", tutor.telefonoCelularAlternativo);
-
+                    command.Parameters.AddWithValue("idPersona", tutor.idPersona);
                     command.ExecuteNonQuery();
                     command.Parameters.Clear();
                     //transaccion.Commit();
@@ -1338,6 +1339,62 @@ namespace EDUAR_SI_DataAccess
             {
                 if (transaccion != null) transaccion.Rollback();
                 throw new CustomizedException(String.Format("Fallo en {0} - GrabarTipoTutor()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+
+        }
+
+        public void GrabarTutoresAlumno(List<Alumno> alumnos)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "TutorAlumno_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    List<Tutor> tutores;
+
+                    foreach (Alumno unAlumno in alumnos)
+                    {
+                        tutores = unAlumno.listaTutores;
+
+                        foreach (Tutor unTutor in tutores)
+                        {
+                            command.Parameters.AddWithValue("idTutor", unTutor.idTutorTransaccional);
+                            command.Parameters.AddWithValue("idAlumno", unAlumno.idAlumnoTransaccional);
+
+                            command.ExecuteNonQuery();
+                            command.Parameters.Clear();
+                        }
+                    }
+                    
+                    transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarTutoresAlumno()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarTutoresAlumno()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
             finally

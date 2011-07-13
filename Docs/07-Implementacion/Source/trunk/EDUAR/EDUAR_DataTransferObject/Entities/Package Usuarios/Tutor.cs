@@ -29,19 +29,20 @@ namespace EDUAR_Entities
             set { _idTutorTransaccional = value; }
         }
 
-        private Decimal _idPersona;
-        public Decimal idPersona
-        {
-            get { return _idPersona; }
-            set { _idPersona = value; }
-        }
-
         private string _telefonoTrabajo;
 
         public string TelefonoFijoTrabajo
         {
             get { return _telefonoTrabajo; }
             set { _telefonoTrabajo = value; }
+        }
+
+        private TipoTutor _tipoTutor;
+
+        public TipoTutor tipoTutor
+        {
+            get { return _tipoTutor; }
+            set { _tipoTutor = value; }
         }
 
         public Tutor()

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BLImportarDatos.cs" />
     <Compile Include="BLProcesoBase.cs" />
+    <Compile Include="BLObtenerDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
