@@ -63,6 +63,20 @@
                                     ControlToValidate="ConfirmPassword" CssClass="failureNotification" Display="Dynamic"
                                     ErrorMessage="Contraseña y Confirmar contraseña deben coincidir." ValidationGroup="RegisterUserValidationGroup">*</asp:CompareValidator>
                             </p>
+                            <p>
+                                <asp:Label runat="server" AssociatedControlID="Question" ID="QuestionLabel">Pregunta Secreta:</asp:Label>
+                                <asp:TextBox runat="server" ID="Question" CssClass="textEntry"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="Question" CssClass="failureNotification"
+                                    ToolTip="Pregunta Secreta requerida." ID="QuestionRequired" ValidationGroup="Createuserwizard1"
+                                    ErrorMessage="La Pregunta Secreta es Requerida.">*</asp:RequiredFieldValidator>
+                            </p>
+                            <p>
+                                <asp:Label runat="server" AssociatedControlID="Answer" ID="AnswerLabel">Respuesta Secreta:</asp:Label>
+                                <asp:TextBox runat="server" ID="Answer" CssClass="textEntry"></asp:TextBox>
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="Answer" CssClass="failureNotification"
+                                    ToolTip="Respuesta Secreta requerida." ID="AnswerRequired" ValidationGroup="Createuserwizard1"
+                                    ErrorMessage="La Respuesta Secreta es Requerida.">*</asp:RequiredFieldValidator>
+                            </p>
                         </fieldset>
                         <p class="submitButton">
                             <asp:Button ID="CreateUserButton" runat="server" CommandName="MoveNext" Text="Crear usuario"

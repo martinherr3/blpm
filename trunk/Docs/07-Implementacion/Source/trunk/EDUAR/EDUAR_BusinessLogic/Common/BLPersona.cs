@@ -200,6 +200,35 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+
+        /// <summary>
+        /// Validars the registro persona.
+        /// </summary>
+        public void ValidarRegistroPersona()
+        {
+            try
+            {
+                Persona objPersona = new Persona();
+                objPersona = DataAcces.GetPersonaByEntidad(Data);
+                if (objPersona == null)
+                {
+                    throw new CustomizedException("Los datos ingresados no han podido ser validados. <br />Por favor, póngase en contacto con el administrador del sistema.", null,
+                                                enuExceptionType.SecurityException);
+                }
+                //return objPersona;
+                Data = objPersona;
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - ValidarRegistroPersona", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }
