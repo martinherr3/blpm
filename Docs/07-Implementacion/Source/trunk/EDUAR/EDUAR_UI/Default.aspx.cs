@@ -60,6 +60,9 @@ namespace EDUAR_UI
             {
                 Master.BotonAvisoAceptar += (VentanaAceptar);
 
+                if (ObjDTSessionDataUI.ObjDTUsuario.EsUsuarioInicial)
+                    Response.Redirect("~/Private/Account/ChangePassword.aspx", false);
+
                 if (!Page.IsPostBack)
                 {
                     propSeguridad = new DTSeguridad();

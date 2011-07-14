@@ -6,8 +6,6 @@ using EDUAR_BusinessLogic.Security;
 using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_Utility.Constantes;
-using EDUAR_BusinessLogic.Shared;
-using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -33,6 +31,11 @@ namespace EDUAR_UI
             }
         }
 
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             RegisterHyperLink.NavigateUrl = "~/Public/Account/Validate.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
@@ -75,8 +78,7 @@ namespace EDUAR_UI
                     LoginUser.FailureText = UIConstantesGenerales.MensajeLoginFallido;
                 }
 
-                //if (ObjDTSessionDataUI.ObjDTUsuario.EsUsuarioInicial)
-                //    Response.Redirect("~/Private/Account/ChangePassword.aspx", false);
+                
             }
             catch (Exception ex)
             {

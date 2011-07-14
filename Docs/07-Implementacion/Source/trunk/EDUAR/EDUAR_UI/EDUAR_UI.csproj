@@ -253,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Private\Alumnos\web.config" />
+    <Content Include="Private\Account\web.config" />
     <None Include="WebAnonymus.sitemap" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

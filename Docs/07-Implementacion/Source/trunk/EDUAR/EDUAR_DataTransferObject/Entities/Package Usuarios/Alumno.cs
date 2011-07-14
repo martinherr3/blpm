@@ -7,6 +7,11 @@ namespace EDUAR_Entities
     [Serializable]
     public class Alumno : Persona
     {
+        public Alumno()
+        {
+            listaTutores = new List<Tutor>();
+        }
+
         private Decimal _IdAlumno;
         public Decimal idAlumno
         {
@@ -45,7 +50,7 @@ namespace EDUAR_Entities
             set { _fechaBaja = value; }
         }
 
-        private List<Tutor> _listaTutores = new List<Tutor>();
+        private List<Tutor> _listaTutores;
 
         public List<Tutor> listaTutores
         {

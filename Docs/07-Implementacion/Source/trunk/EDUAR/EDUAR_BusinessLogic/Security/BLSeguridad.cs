@@ -197,8 +197,8 @@ namespace EDUAR_BusinessLogic.Security
                     //ObtenerIntervalosActualizacionUsuario(Data.Usuario);
                     MembershipUser us = Membership.GetUser(Data.Usuario.Nombre);
 
-                    if (us.CreationDate == us.LastPasswordChangedDate)
-                        // || us.GetPassword() == BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial))
+                    if (us.CreationDate == us.LastPasswordChangedDate
+                         || us.GetPassword() == BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial))
                         Data.Usuario.EsUsuarioInicial = true;
                 }
             }
@@ -268,7 +268,7 @@ namespace EDUAR_BusinessLogic.Security
                 //Crea el nuevo usuario
                 MembershipCreateStatus status;
                 MembershipUser newUser = Membership.CreateUser(Data.Usuario.Nombre, Data.Usuario.Password, Data.Usuario.Email, Data.Usuario.PaswordPregunta, Data.Usuario.PaswordRespuesta, Data.Usuario.Aprobado, out status);
-
+                
                 //Valida el estado del usuario creado.
                 if (newUser == null)
                 {
@@ -411,7 +411,7 @@ namespace EDUAR_BusinessLogic.Security
                 #region Habilita o Bloquea un usuario
                 MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
                 user.IsApproved = Data.Usuario.Aprobado;
-
+                
                 Membership.UpdateUser(user);
                 #endregion
 

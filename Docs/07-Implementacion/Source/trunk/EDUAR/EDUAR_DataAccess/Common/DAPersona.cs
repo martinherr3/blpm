@@ -160,8 +160,8 @@ namespace EDUAR_DataAccess.Common
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
                 else
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, DBNull.Value);
-                //if (entidad.idTipoPersona != null)
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
+                if (entidad.idTipoPersona != null)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
                 Persona objPersona;
@@ -188,6 +188,7 @@ namespace EDUAR_DataAccess.Common
                     objPersona.email = reader["email"].ToString();
                     objPersona.activo = Convert.ToBoolean(reader["activo"]);
                     objPersona.username = reader["username"].ToString();
+                    objPersona.idTipoPersona = Convert.ToInt32(reader["idTipoPersona"]);
                     return objPersona;
                 }
                 return null;
@@ -248,6 +249,7 @@ namespace EDUAR_DataAccess.Common
                     objPersona.email = reader["email"].ToString();
                     objPersona.activo = Convert.ToBoolean(reader["activo"]);
                     objPersona.username = reader["username"].ToString();
+                    objPersona.idTipoPersona = Convert.ToInt32(reader["idTipoPersona"]);
                 }
                 return objPersona;
             }
@@ -335,6 +337,7 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@email", DbType.String, entidad.email);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.String, entidad.activo);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
 
                 if (Transaction.Transaction != null)
                     Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);

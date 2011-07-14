@@ -8,6 +8,7 @@ using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Constantes;
 
 namespace EDUAR_UI
 {
@@ -31,6 +32,21 @@ namespace EDUAR_UI
                 return (DTSeguridad)ViewState["propSeguridad"];
             }
             set { ViewState["propSeguridad"] = value; }
+        }
+
+        /// <summary>
+        /// Propiedad que contiene el objeto seguridad que devuelve la consulta a la Capa de Negocio.
+        /// </summary>
+        public Persona propPersona
+        {
+            get
+            {
+                if (Session["propPersona"] == null)
+                    return null;
+
+                return (Persona)Session["propPersona"];
+            }
+            set { Session["propPersona"] = value; }
         }
         #endregion
 
@@ -100,7 +116,16 @@ namespace EDUAR_UI
         {
             try
             {
-                Response.Redirect("~/Default.aspx", false);
+                switch (AccionPagina)
+                {
+
+                    case enumAcciones.Redirect:
+                        Response.Redirect("~/Public/Account/ForgotPassword.aspx", false);
+                        break;
+                    default:
+                        Response.Redirect("~/Default.aspx", false);
+                        break;
+                }
             }
             catch (Exception ex)
             {
@@ -122,16 +147,19 @@ namespace EDUAR_UI
                 persona.numeroDocumento = Convert.ToInt32(txtNroDocumento.Text);
                 persona.fechaNacimiento = Convert.ToDateTime(calFechaNacimiento.Fecha.Text);
                 BLPersona objBLPersona = new BLPersona(persona);
-                objBLPersona.GetPersonaByEntidad();
-                if (!(objBLPersona.Data == null))
+                objBLPersona.ValidarRegistroPersona();
+                if (objBLPersona.Data != null)
                 {
-                    int id = objBLPersona.Data.idPersona;
-                }
-
-                else
-                {
-                    string error = "El {0} número {1} no se encuentra registrado. <br />Por favor, póngase en contacto con el administrador del sistema.";
-                    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), string.Format(error, ddlTipoDocumento.SelectedItem.Text, txtNroDocumento.Text), enumTipoVentanaInformacion.Advertencia);
+                    propPersona = new Persona();
+                    propPersona = objBLPersona.Data;
+                    // Ya tiene usuario registrado
+                    if (objBLPersona.Data.username != string.Empty)
+                    {
+                        AccionPagina = enumAcciones.Redirect;
+                        Master.MostrarMensaje("Ya posee usuario", UIConstantesGenerales.MensajeUsuarioExiste, enumTipoVentanaInformacion.Advertencia);
+                    }
+                    else
+                        Response.Redirect("~/Public/Account/Register.aspx", false);
                 }
             }
             catch (Exception ex)
