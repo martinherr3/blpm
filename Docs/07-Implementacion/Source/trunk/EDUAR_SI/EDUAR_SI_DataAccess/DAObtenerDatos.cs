@@ -1238,6 +1238,11 @@ namespace EDUAR_SI_DataAccess
 
 
 
+        /// <summary>
+        /// Obteners the calificacion BD transaccional.
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
         public List<Calificacion> obtenerCalificacionBDTransaccional(Configuraciones configuracion)
         {
             List<Calificacion> listaCalificacion = null;
@@ -1270,10 +1275,8 @@ namespace EDUAR_SI_DataAccess
                         calificacion.observacion = reader["observacion"].ToString();
                         calificacion.fecha = Convert.ToDateTime(reader["fecha"]);
                         calificacion.escala = new ValoresEscalaCalificacion() { idValorEscalaCalificacionTransaccional = (int)reader["fk_escalanota_id"] };
-                        // alumno = new Alumno() { idAlumnoTransaccional = (int)reader["fk_alumno_id"] },
                         calificacion.asignatura = new Asignatura() { idAsignaturaTransaccional = (int)reader["fk_actividad_id"] };
                         calificacion.periodo = new Periodo() { idPeriodoTransaccional = (int)reader["fk_periodo_id"] };
-
                         calificacion.alumno = new Alumno();
                         calificacion.alumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
                         listaCalificacion.Add(calificacion);

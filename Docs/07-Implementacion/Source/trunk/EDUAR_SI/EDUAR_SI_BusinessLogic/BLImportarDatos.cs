@@ -85,12 +85,12 @@ namespace EDUAR_SI_BusinessLogic
 
                 GrabarTutor();
 
+                objDAImportarDatos.GrabarTutoresAlumno(objDAObtenerDatos.obtenerTutoresAlumnoBDTransaccional(objConfiguracion));
+
                 //User Story 142
                 GrabarPersonal();
 
                 GrabarDocente();
-                
-                //objDAImportarDatos.GrabarTutoresAlumno(objDAObtenerDatos.obtenerTutoresAlumnoBDTransaccional(objConfiguracion));
 
                 //User Story 143
                 objDAImportarDatos.GrabarAsignatura(objDAObtenerDatos.obtenerAsignaturaBDTransaccional(objConfiguracion));
@@ -107,27 +107,21 @@ namespace EDUAR_SI_BusinessLogic
 
                 objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion));
 
-
-               objDAImportarDatos.GrabarCalificacion(objDAObtenerDatos.obtenerCalificacionBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarCalificacion(objDAObtenerDatos.obtenerCalificacionBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarTipoAsistencia(objDAObtenerDatos.obtenerTipoAsistenciaBDTransaccional(objConfiguracion));
 
-                
-                List<Periodo> lista = objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion);
-
                 //objDAImportarDatos.GrabarMotivoAusencia(objDAObtenerDatos.obtenerMotivosAusenciaBDTransaccional(objConfiguracion));
 
-               
                 objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarTipoSancion(objDAObtenerDatos.obtenerTipoSancionBDTransaccional(objConfiguracion));
-                
+
                 objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarMotivoSancion(objDAObtenerDatos.obtenerMotivoSancionBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
-
 
             }
             catch (Exception ex)

@@ -944,6 +944,10 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+        /// <summary>
+        /// Grabars the periodo.
+        /// </summary>
+        /// <param name="listaPeriodo">The lista periodo.</param>
         public void GrabarPeriodo(List<Periodo> listaPeriodo)
         {
             SqlTransaction transaccion = null;
@@ -994,7 +998,10 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
-
+        /// <summary>
+        /// Grabars the calificacion.
+        /// </summary>
+        /// <param name="listaCalificacion">The lista calificacion.</param>
         public void GrabarCalificacion(List<Calificacion> listaCalificacion)
         {
             SqlTransaction transaccion = null;
@@ -1003,8 +1010,6 @@ namespace EDUAR_SI_DataAccess
                 using (SqlCommand command = new SqlCommand())
                 {
                     if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-           
-
 
                     command.Connection = sqlConnectionConfig;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -1017,11 +1022,10 @@ namespace EDUAR_SI_DataAccess
                     foreach (Calificacion calificacion in listaCalificacion)
                     {
                         command.Parameters.AddWithValue("idCalificacion", 0);
-                        command.Parameters.AddWithValue("idCalificacionTransaccional",calificacion.idCalificacionTransaccional);
+                        command.Parameters.AddWithValue("idCalificacionTransaccional", calificacion.idCalificacionTransaccional);
                         command.Parameters.AddWithValue("observaciones", calificacion.observacion);
                         command.Parameters.AddWithValue("fecha", calificacion.fecha);
                         command.Parameters.AddWithValue("idValorCalificacion", calificacion.escala.idValorEscalaCalificacionTransaccional);
-                        //command.Parameters.AddWithValue("idValorCalificacion", 1);
                         command.Parameters.AddWithValue("idAlumno", calificacion.alumno.idAlumnoTransaccional);
                         command.Parameters.AddWithValue("idAsignatura", calificacion.asignatura.idAsignaturaTransaccional);
                         command.Parameters.AddWithValue("idPeriodo", calificacion.periodo.idPeriodoTransaccional);
@@ -1049,9 +1053,7 @@ namespace EDUAR_SI_DataAccess
                 //if (sqlConnectionConfig.State == ConnectionState.Open)
                 //    sqlConnectionConfig.Close();
             }
-        }     
-            
-        
+        }
 
         /// <summary>
         /// Grabars the Tutor.
@@ -1060,10 +1062,6 @@ namespace EDUAR_SI_DataAccess
         /// <param name="transaccion">The transaccion.</param>
         public void GrabarTutor(Tutor tutor, ref SqlTransaction transaccion)
         {
-            //SqlTransaction transaccion = null;
-        //    
-
-            //SqlTransaction transaccion = null;
             try
             {
                 using (SqlCommand command = new SqlCommand())
@@ -1084,18 +1082,15 @@ namespace EDUAR_SI_DataAccess
                     command.Parameters.AddWithValue("idPersona", tutor.idPersona);
                     command.ExecuteNonQuery();
                     command.Parameters.Clear();
-                    //transaccion.Commit();
                 }
             }
             catch (SqlException ex)
             {
-                //if (transaccion != null) transaccion.Rollback();
                 throw new CustomizedException(String.Format("Fallo en {0} - GrabarTutor()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                //if (transaccion != null) transaccion.Rollback();
                 throw new CustomizedException(String.Format("Fallo en {0} - GrabarTutor()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
@@ -1105,8 +1100,6 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
-
-
 
         //TODO: Primero hacer GrabarTipoAsistencia()
         /// <summary>
@@ -1215,9 +1208,10 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
-
-   
-
+        /// <summary>
+        /// Grabars the tipo sancion.
+        /// </summary>
+        /// <param name="listadoTipoSancion">The listado tipo sancion.</param>
         public void GrabarTipoSancion(List<TipoSancion> listadoTipoSancion)
         {
             SqlTransaction transaccion = null;
@@ -1266,10 +1260,10 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
-
-       // #endregion
-
-
+        /// <summary>
+        /// Grabars the motivo sancion.
+        /// </summary>
+        /// <param name="listadoMotivoSancion">The listado motivo sancion.</param>
         public void GrabarMotivoSancion(List<MotivoSancion> listadoMotivoSancion)
         {
             SqlTransaction transaccion = null;
@@ -1318,7 +1312,10 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
-
+        /// <summary>
+        /// Grabars the sancion.
+        /// </summary>
+        /// <param name="listadoSancion">The listado sancion.</param>
         public void GrabarSancion(List<Sancion> listadoSancion)
         {
             SqlTransaction transaccion = null;
@@ -1372,7 +1369,10 @@ namespace EDUAR_SI_DataAccess
 
         }
 
-
+        /// <summary>
+        /// Grabars the tipo tutor.
+        /// </summary>
+        /// <param name="listadoTipoTutor">The listado tipo tutor.</param>
         public void GrabarTipoTutor(List<TipoTutor> listadoTipoTutor)
         {
             SqlTransaction transaccion = null;
@@ -1422,12 +1422,11 @@ namespace EDUAR_SI_DataAccess
 
         }
 
-
-
-       // public void GrabarTutoresAlumno(List<Alumno> alumnos)
-
+        /// <summary>
+        /// Grabars the tutores alumno.
+        /// </summary>
+        /// <param name="listaAlumnos">The lista alumnos.</param>
         public void GrabarTutoresAlumno(List<Alumno> listaAlumnos)
-
         {
             SqlTransaction transaccion = null;
             try
@@ -1478,8 +1477,7 @@ namespace EDUAR_SI_DataAccess
 
         }
 
-       #endregion
+        #endregion
 
     }
-
 }
