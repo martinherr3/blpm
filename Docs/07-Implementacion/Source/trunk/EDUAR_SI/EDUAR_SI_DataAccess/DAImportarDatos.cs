@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Data.SqlClient;
 using EDUAR_Entities;
 using EDUAR_Utility.Enumeraciones;
@@ -21,7 +21,7 @@ namespace EDUAR_SI_DataAccess
         /// <summary>
         /// Constructor. LLama al constructor de la clase base DABase.
         /// </summary>
-        /// <param name="connectionString">Cadena de conexiÃ³n a la base de datos</param>
+        /// <param name="connectionString">Cadena de conexión a la base de datos</param>
         public DAImportarDatos(String connectionString)
             : base(connectionString)
         {
@@ -29,7 +29,7 @@ namespace EDUAR_SI_DataAccess
         }
         #endregion
 
-        #region --[MÃ©todos PÃºblicos]--
+        #region --[Métodos Públicos]--
         /// <summary>
         /// Obteners the configuracion.
         /// </summary>
@@ -82,9 +82,9 @@ namespace EDUAR_SI_DataAccess
         }
 
         /// <summary>
-        /// Guarda una colecciÃ³n de personas en base de datos
+        /// Guarda una colección de personas en base de datos
         /// </summary>
-        /// <param name="objeto">ColecciÃ³n de Persona</param>
+        /// <param name="objeto">Colección de Persona</param>
         public int GrabarPersona(Persona persona, ref SqlTransaction transaccion)
         {
             //SqlTransaction transaccion = null;
@@ -862,9 +862,12 @@ namespace EDUAR_SI_DataAccess
                     {
                         actual = asignatura;
                         command.Parameters.AddWithValue("idAsignaturaCurso", 0);
-                        command.Parameters.AddWithValue("idNivel", asignatura.curso.nivel.idNivel);
-                        command.Parameters.AddWithValue("idAsignatura", asignatura.idAsignatura);
-                        command.Parameters.AddWithValue("idDocente", asignatura.docente.idDocente);
+                        command.Parameters.AddWithValue("idCurso", asignatura.curso.idCursoTransaccional);
+                        command.Parameters.AddWithValue("idAsignatura", asignatura.idAsignaturaTransaccional);
+                        command.Parameters.AddWithValue("idDocente", asignatura.docente.IdPersonalTransaccional);
+                        command.Parameters.AddWithValue("idOrientacion", asignatura.curso.orientacion.idOrientacionTransaccional);
+                        command.Parameters.AddWithValue("idCicloLectivo", asignatura.curso.cicloLectivo.idCicloLectivoTransaccional);
+
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();
                     }
@@ -991,6 +994,65 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+
+        public void GrabarCalificacion(List<Calificacion> listaCalificacion)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+           
+
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Calificacion_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    foreach (Calificacion calificacion in listaCalificacion)
+                    {
+                        command.Parameters.AddWithValue("idCalificacion", 0);
+                        command.Parameters.AddWithValue("idCalificacionTransaccional",calificacion.idCalificacionTransaccional);
+                        command.Parameters.AddWithValue("observaciones", calificacion.observacion);
+                        command.Parameters.AddWithValue("fecha", calificacion.fecha);
+                        command.Parameters.AddWithValue("idValorCalificacion", calificacion.escala.idValorEscalaCalificacionTransaccional);
+                        //command.Parameters.AddWithValue("idValorCalificacion", 1);
+                        command.Parameters.AddWithValue("idAlumno", calificacion.alumno.idAlumnoTransaccional);
+                        command.Parameters.AddWithValue("idAsignatura", calificacion.asignatura.idAsignaturaTransaccional);
+                        command.Parameters.AddWithValue("idPeriodo", calificacion.periodo.idPeriodoTransaccional);
+
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                    transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarCalificacion()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarCalificacion()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }     
+            
+        
+
         /// <summary>
         /// Grabars the Tutor.
         /// </summary>
@@ -999,12 +1061,14 @@ namespace EDUAR_SI_DataAccess
         public void GrabarTutor(Tutor tutor, ref SqlTransaction transaccion)
         {
             //SqlTransaction transaccion = null;
+        //    
+
+            //SqlTransaction transaccion = null;
             try
             {
                 using (SqlCommand command = new SqlCommand())
                 {
                     if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
                     command.Connection = sqlConnectionConfig;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.CommandText = "Tutor_Insert";
@@ -1041,6 +1105,7 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
+
 
 
         //TODO: Primero hacer GrabarTipoAsistencia()
@@ -1150,6 +1215,9 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+
+   
+
         public void GrabarTipoSancion(List<TipoSancion> listadoTipoSancion)
         {
             SqlTransaction transaccion = null;
@@ -1197,6 +1265,10 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
+
+
+       // #endregion
+
 
         public void GrabarMotivoSancion(List<MotivoSancion> listadoMotivoSancion)
         {
@@ -1350,7 +1422,12 @@ namespace EDUAR_SI_DataAccess
 
         }
 
+
+
+       // public void GrabarTutoresAlumno(List<Alumno> alumnos)
+
         public void GrabarTutoresAlumno(List<Alumno> listaAlumnos)
+
         {
             SqlTransaction transaccion = null;
             try
@@ -1401,7 +1478,8 @@ namespace EDUAR_SI_DataAccess
 
         }
 
-        #endregion
+       #endregion
+
     }
 
 }

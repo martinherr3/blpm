@@ -914,13 +914,16 @@ namespace EDUAR_SI_DataAccess
                 {
                     conMySQL = new MySqlConnection(configuracion.valor);
                     command.Connection = conMySQL;
+                                                //fk_actividad_id as 'idAsignatura',
+                                                //fk_docente_id as 'idDocente',
+                                                //fk_division_id as 'idCurso'
+                                                //fk_ciclolectivo_id as 'idCicloLectivo'
+                                                                   
 
-                    command.CommandText = @"SELECT 
-                                                fk_anio_id as 'idNivel',
-                                                fk_actividad_id as 'idAsignatura',
-                                                fk_docente_id as 'idDocente',
-                                                fk_orientacion_id as 'idOrientacion'
-                                             FROM vw_asignatura_curso";
+                    command.CommandText = @"SELECT *
+                                                
+                                                                                                                                            
+                                             FROM vw_asignaturacurso";
                     conMySQL.Open();
 
                     MySqlDataReader reader = command.ExecuteReader();
@@ -928,12 +931,20 @@ namespace EDUAR_SI_DataAccess
                     listaAsignaturas = new List<Asignatura>();
                     while (reader.Read())
                     {
-                        asignatura = new Asignatura()
-                        {
-                            idAsignatura = (int)reader["idAsignatura"],
-                            docente = new Docente() { idDocente = (int)reader["idDocente"] },
-                            curso = new Curso() { nivel = new Nivel() { idNivel = (int)reader["idNivel"] } }
-                        };
+                        asignatura = new Asignatura();
+
+                        asignatura.idAsignaturaTransaccional = (int)reader["fk_actividad_id"];
+                        asignatura.docente = new Docente() { IdPersonalTransaccional= (int)reader["fk_docente_id"] };
+                            asignatura.curso = new Curso();
+                            
+                            asignatura.curso.idCursoTransaccional = (int)reader["fk_division_id"];
+                            asignatura.curso.orientacion = new Orientacion();
+                            asignatura.curso.orientacion.idOrientacionTransaccional = (int)reader["fk_orientacion_id"];
+                            asignatura.curso.cicloLectivo = new CicloLectivo();
+                                  
+                            asignatura.curso.cicloLectivo.idCicloLectivoTransaccional = (int)reader["fk_ciclolectivo_id"];
+                                    
+                        
                         listaAsignaturas.Add(asignatura);
                     }
                     command.Connection.Close();
@@ -1183,6 +1194,13 @@ namespace EDUAR_SI_DataAccess
                     listadoTipoAsistencia = new List<TipoAsistencia>();
                     while (reader.Read())
                     {
+                        //motivo = new MotivoAusencia()
+                        //{
+                        //    idMotivo = 0,
+                        //    idMotivoTransaccional = (int)reader["id"],
+                        //    nombre = reader["descripcion"].ToString(),
+                        //};
+                        //listaMotivos.Add(motivo)
                         unTipoAsistencia = new TipoAsistencia();
 
                         unTipoAsistencia.idTipoAsistencia = 0;
@@ -1218,11 +1236,81 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+
+
+        public List<Calificacion> obtenerCalificacionBDTransaccional(Configuraciones configuracion)
+        {
+            List<Calificacion> listaCalificacion = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT id as 'idCalificacionTransaccional',
+                                                fk_escalanota_id,
+                                                fk_alumno_id,
+                                                fk_actividad_id,
+                                                fk_periodo_id,
+                                                observacion,
+                                                fecha
+                                            FROM vw_calificaciones";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    Calificacion calificacion;
+                    listaCalificacion = new List<Calificacion>();
+                    while (reader.Read())
+                    {
+                        calificacion = new Calificacion();
+                        calificacion.idCalificacion = 0;
+                        calificacion.idCalificacionTransaccional = (int)reader["idCalificacionTransaccional"];
+                        calificacion.idCalificacion = 0;
+                        calificacion.observacion = reader["observacion"].ToString();
+                        calificacion.fecha = Convert.ToDateTime(reader["fecha"]);
+                        calificacion.escala = new ValoresEscalaCalificacion() { idValorEscalaCalificacionTransaccional = (int)reader["fk_escalanota_id"] };
+                        // alumno = new Alumno() { idAlumnoTransaccional = (int)reader["fk_alumno_id"] },
+                        calificacion.asignatura = new Asignatura() { idAsignaturaTransaccional = (int)reader["fk_actividad_id"] };
+                        calificacion.periodo = new Periodo() { idPeriodoTransaccional = (int)reader["fk_periodo_id"] };
+
+                        calificacion.alumno = new Alumno();
+                        calificacion.alumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
+                        listaCalificacion.Add(calificacion);
+                    }
+                    command.Connection.Close();
+                    return listaCalificacion;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerCalificacion1BDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerCalificacion2BDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerCalificacion3BDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+
         /// <summary>
         /// Obteners the tipo sancion BD transaccional.
         /// </summary>
         /// <param name="configuracion">The configuracion.</param>
         /// <returns></returns>
+
         public List<TipoSancion> obtenerTipoSancionBDTransaccional(Configuraciones configuracion)
         {
             List<TipoSancion> listadoTipoSancion = null;
@@ -1278,11 +1366,13 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+
         /// <summary>
         /// Obteners the tipo tutor BD transaccional.
         /// </summary>
         /// <param name="configuracion">The configuracion.</param>
         /// <returns></returns>
+
         public List<TipoTutor> obtenerTipoTutorBDTransaccional(Configuraciones configuracion)
         {
             List<TipoTutor> listadoTipoTutor = null;
@@ -1457,12 +1547,17 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+
+
+        //public List<Tutor> obtenerTutoresAlumnoBDTransaccional(Configuraciones configuracion);
+
         /// <summary>
         /// Obteners the tutores alumno BD transaccional.
         /// </summary>
         /// <param name="configuracion">The configuracion.</param>
         /// <returns></returns>
         public List<Alumno> obtenerTutoresAlumnoBDTransaccional(Configuraciones configuracion)
+
         {
             List<Alumno> listaAlumnos = null;
             try
@@ -1519,6 +1614,8 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+
         #endregion
     }
 }
+

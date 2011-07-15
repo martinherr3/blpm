@@ -13,6 +13,7 @@ namespace EDUAR_Entities
         }
 
         private Decimal _IdAlumno;
+
         public Decimal idAlumno
         {
             get { return _IdAlumno; }
@@ -25,12 +26,7 @@ namespace EDUAR_Entities
             get { return _IdAlumnoTransaccional; }
             set { _IdAlumnoTransaccional = value; }
         }
-        private Decimal _idPersona;
-        public Decimal idPersona
-        {
-            get { return _idPersona; }
-            set { _idPersona = value; }
-        }
+
         private string _IdLegajo;
         public string legajo
         {
@@ -50,7 +46,18 @@ namespace EDUAR_Entities
             set { _fechaBaja = value; }
         }
 
-        private List<Tutor> _listaTutores;
+
+        
+
+        public virtual void Dispose()
+        {
+
+        }
+
+        private List<Tutor> _listaTutores = new List<Tutor>();
+
+        //private List<Tutor> _listaTutores;
+
 
         public List<Tutor> listaTutores
         {

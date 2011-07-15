@@ -15,13 +15,20 @@ namespace EDUAR_Entities
     {
 
         private Asignatura _asignatura;
-        private EscalaCalificacion _escala;
+        private ValoresEscalaCalificacion _escala;
         private DateTime _fecha;
         /// <summary>
         /// Por ahora es string, pero dependería de la escala a ser utilizada y luego ser
         /// parseada
         /// </summary>
-        private string _nota;
+        private string _observacion;
+        private int _idCalificacion;
+        private int _idCalificacionTransaccional;
+        private Periodo _periodo;
+        private Alumno _alumno;
+
+
+        
 
         public Calificacion()
         {
@@ -50,7 +57,7 @@ namespace EDUAR_Entities
             }
         }
 
-        public EscalaCalificacion escala
+        public ValoresEscalaCalificacion escala
         {
             get
             {
@@ -73,19 +80,59 @@ namespace EDUAR_Entities
                 _fecha = value;
             }
         }
-
-        /// <summary>
-        /// Por ahora es decimal, pero dependería de la escala a ser utilizada
-        /// </summary>
-        public string nota
+        public int idCalificacion
+        {
+            get { 
+                return _idCalificacion;
+            }
+            set {
+                _idCalificacion = value;
+            }
+        }
+        public int idCalificacionTransaccional
         {
             get
             {
-                return _nota;
+                return _idCalificacionTransaccional;
             }
             set
             {
-                _nota = value;
+                _idCalificacionTransaccional = value;
+            }
+        }
+        public Periodo periodo
+        {
+            get {
+                return _periodo;
+            }
+            set {
+                _periodo = value; 
+            }
+        }
+        public Alumno alumno
+        {
+            get
+            {
+                if (_alumno == null)
+                    _alumno = new Alumno();
+                return _alumno;
+            }
+            set {
+                _alumno = alumno;
+            }
+        }
+        /// <summary>
+        /// Por ahora es decimal, pero dependería de la escala a ser utilizada
+        /// </summary>
+        public string observacion
+        {
+            get
+            {
+                return _observacion;
+            }
+            set
+            {
+                _observacion = value;
             }
         }
 
