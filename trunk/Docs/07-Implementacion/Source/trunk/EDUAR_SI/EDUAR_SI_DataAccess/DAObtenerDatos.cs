@@ -39,7 +39,7 @@ namespace EDUAR_SI_DataAccess
         public List<Alumno> obtenerAlumnoBDTransaccional(Configuraciones configuracion)
         {
             List<Alumno> listaAlumno = null;
-            
+
             try
             {
                 using (MySqlCommand command = new MySqlCommand())
@@ -70,7 +70,7 @@ namespace EDUAR_SI_DataAccess
                             telefonoFijo = reader["telefono"].ToString(),
                             email = reader["email"].ToString(),
                             activo = Convert.ToBoolean(reader["activo"]),
-                            localidad = new Localidades() { nombre = reader["ciudad"].ToString()}
+                            localidad = new Localidades() { nombre = reader["ciudad"].ToString() }
                         };
 
                         listaAlumno.Add(alumno);
@@ -914,11 +914,11 @@ namespace EDUAR_SI_DataAccess
                 {
                     conMySQL = new MySqlConnection(configuracion.valor);
                     command.Connection = conMySQL;
-                                                //fk_actividad_id as 'idAsignatura',
-                                                //fk_docente_id as 'idDocente',
-                                                //fk_division_id as 'idCurso'
-                                                //fk_ciclolectivo_id as 'idCicloLectivo'
-                                                                   
+                    //fk_actividad_id as 'idAsignatura',
+                    //fk_docente_id as 'idDocente',
+                    //fk_division_id as 'idCurso'
+                    //fk_ciclolectivo_id as 'idCicloLectivo'
+
 
                     command.CommandText = @"SELECT *
                                                 
@@ -934,17 +934,17 @@ namespace EDUAR_SI_DataAccess
                         asignatura = new Asignatura();
 
                         asignatura.idAsignaturaTransaccional = (int)reader["fk_actividad_id"];
-                        asignatura.docente = new Docente() { IdPersonalTransaccional= (int)reader["fk_docente_id"] };
-                            asignatura.curso = new Curso();
-                            
-                            asignatura.curso.idCursoTransaccional = (int)reader["fk_division_id"];
-                            asignatura.curso.orientacion = new Orientacion();
-                            asignatura.curso.orientacion.idOrientacionTransaccional = (int)reader["fk_orientacion_id"];
-                            asignatura.curso.cicloLectivo = new CicloLectivo();
-                                  
-                            asignatura.curso.cicloLectivo.idCicloLectivoTransaccional = (int)reader["fk_ciclolectivo_id"];
-                                    
-                        
+                        asignatura.docente = new Docente() { IdPersonalTransaccional = (int)reader["fk_docente_id"] };
+                        asignatura.curso = new Curso();
+
+                        asignatura.curso.idCursoTransaccional = (int)reader["fk_division_id"];
+                        asignatura.curso.orientacion = new Orientacion();
+                        asignatura.curso.orientacion.idOrientacionTransaccional = (int)reader["fk_orientacion_id"];
+                        asignatura.curso.cicloLectivo = new CicloLectivo();
+
+                        asignatura.curso.cicloLectivo.idCicloLectivoTransaccional = (int)reader["fk_ciclolectivo_id"];
+
+
                         listaAsignaturas.Add(asignatura);
                     }
                     command.Connection.Close();
@@ -1002,7 +1002,7 @@ namespace EDUAR_SI_DataAccess
                         tutor.idTutorTransaccional = Convert.ToInt32(reader["id"]);
                         tutor.nombre = reader["nombre"].ToString();
                         tutor.apellido = reader["apellido"].ToString();
-                        tutor.numeroDocumento = Convert.ToInt32(reader["nro_documento"].ToString().Replace("M", "").Replace(".",""));
+                        tutor.numeroDocumento = Convert.ToInt32(reader["nro_documento"].ToString().Replace("M", "").Replace(".", ""));
                         tutor.idTipoDocumento = Convert.ToInt32(reader["fk_tipodocumento_id"]);
                         tutor.domicilio = reader["direccion"].ToString();
                         tutor.sexo = reader["sexo"].ToString();
@@ -1013,7 +1013,7 @@ namespace EDUAR_SI_DataAccess
 
                         // Aca tengo que obtener la instancia de Tipo Tutor que se corresponda a ese ID
                         tutor.tipoTutor = new TipoTutor();
-                        tutor.tipoTutor.idTipoTutorTransaccional = Convert.ToInt32(reader["fk_rolresponsable_id"]);                        
+                        tutor.tipoTutor.idTipoTutorTransaccional = Convert.ToInt32(reader["fk_rolresponsable_id"]);
 
                         tutor.localidad = new Localidades() { nombre = reader["ciudad"].ToString() };
 
@@ -1169,6 +1169,63 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+        /// <summary>
+        /// Obteners the motivos ausencia BD transaccional.
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
+        public List<MotivoAusencia> obtenerMotivosAusenciaBDTransaccional(Configuraciones configuracion)
+        {
+            List<MotivoAusencia> listaMotivos = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT * 
+                                                FROM vw_motivosAusencia";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    MotivoAusencia ausencia;
+                    listaMotivos = new List<MotivoAusencia>();
+                    while (reader.Read())
+                    {
+                        ausencia = new MotivoAusencia()
+                        {
+                            idMotivo = 0,
+                            idMotivoTransaccional = (int)reader["id"],
+                            nombre = reader["descripcion"].ToString()
+                        };
+                        listaMotivos.Add(ausencia);
+                    }
+                    command.Connection.Close();
+                    return listaMotivos;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
 
         /// <summary>
         /// Obteners the tipo asistencia BD transaccional.
@@ -1400,7 +1457,7 @@ namespace EDUAR_SI_DataAccess
                         unTipoTutor.idTipoTutor = 0;
                         unTipoTutor.idTipoTutorTransaccional = (int)reader["id"];
                         unTipoTutor.descripcion = reader["nombre"].ToString();
-                        
+
                         listadoTipoTutor.Add(unTipoTutor);
                     }
                     command.Connection.Close();
@@ -1560,7 +1617,6 @@ namespace EDUAR_SI_DataAccess
         /// <param name="configuracion">The configuracion.</param>
         /// <returns></returns>
         public List<Alumno> obtenerTutoresAlumnoBDTransaccional(Configuraciones configuracion)
-
         {
             List<Alumno> listaAlumnos = null;
             try
@@ -1581,13 +1637,13 @@ namespace EDUAR_SI_DataAccess
                     listaAlumnos = new List<Alumno>();
                     while (reader.Read())
                     {
-                       
+
                         tutor = new Tutor();
                         tutor.idTutorTransaccional = (int)reader["fk_responsable_id"];
 
                         alumno = new Alumno();
                         alumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
-                        
+
                         alumno.listaTutores.Add(tutor);
                         listaAlumnos.Add(alumno);
                     }

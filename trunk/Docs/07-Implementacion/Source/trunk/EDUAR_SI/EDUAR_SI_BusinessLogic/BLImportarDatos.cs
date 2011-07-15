@@ -111,7 +111,7 @@ namespace EDUAR_SI_BusinessLogic
 
                 objDAImportarDatos.GrabarTipoAsistencia(objDAObtenerDatos.obtenerTipoAsistenciaBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarMotivoAusencia(objDAObtenerDatos.obtenerMotivosAusenciaBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarMotivoAusencia(objDAObtenerDatos.obtenerMotivosAusenciaBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));
 
