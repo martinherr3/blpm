@@ -31,6 +31,8 @@ namespace EDUAR_Entities
         private Nivel _nivel;
         private string _nombre;
         private Preceptor _preceptor;
+        private Orientacion _orientacion;
+        private CicloLectivo _cicloLectivo;
 
         public Curso()
         {
@@ -118,6 +120,27 @@ namespace EDUAR_Entities
                 _preceptor = value;
             }
         }
+        public CicloLectivo cicloLectivo
+        {
+            get
+            {
+                return _cicloLectivo;
+            }
+            set
+            {
+                _cicloLectivo = value;
+            }
+        }
+            public Orientacion orientacion
+            {
+                get{
+                return _orientacion;
+                }
+                set{
+                    _orientacion= value;
+                }
+            }
 
+        
     }//end Curso
 }

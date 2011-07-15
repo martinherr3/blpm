@@ -42,8 +42,12 @@ namespace EDUAR_SI_BusinessLogic
             try
             {
                 objDAImportarDatos = new DAImportarDatos(ConnectionString);
+
+                objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDesdeRemoto);
+
                 //objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigen);
                 objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDesdeRemoto);
+
                 ImportarDatos();
             }
             catch (Exception ex)
@@ -86,7 +90,7 @@ namespace EDUAR_SI_BusinessLogic
 
                 GrabarDocente();
                 
-                objDAImportarDatos.GrabarTutoresAlumno(objDAObtenerDatos.obtenerTutoresAlumnoBDTransaccional(objConfiguracion));
+                //objDAImportarDatos.GrabarTutoresAlumno(objDAObtenerDatos.obtenerTutoresAlumnoBDTransaccional(objConfiguracion));
 
                 //User Story 143
                 objDAImportarDatos.GrabarAsignatura(objDAObtenerDatos.obtenerAsignaturaBDTransaccional(objConfiguracion));
@@ -99,26 +103,38 @@ namespace EDUAR_SI_BusinessLogic
 
                 objDAImportarDatos.GrabarOrientacion(objDAObtenerDatos.obtenerOrientacionesBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion));
 
+
+               objDAImportarDatos.GrabarCalificacion(objDAObtenerDatos.obtenerCalificacionBDTransaccional(objConfiguracion));
+
                 objDAImportarDatos.GrabarTipoAsistencia(objDAObtenerDatos.obtenerTipoAsistenciaBDTransaccional(objConfiguracion));
 
+                
+                List<Periodo> lista = objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion);
+
+                //objDAImportarDatos.GrabarMotivoAusencia(objDAObtenerDatos.obtenerMotivosAusenciaBDTransaccional(objConfiguracion));
+
+               
                 objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarTipoSancion(objDAObtenerDatos.obtenerTipoSancionBDTransaccional(objConfiguracion));
+                
+                objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarMotivoSancion(objDAObtenerDatos.obtenerMotivoSancionBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
 
+
             }
             catch (Exception ex)
             {
                 throw ex;
-            }
-        }
+          }
+       }
 
         /// <summary>
         /// Grabars the docente.
@@ -269,6 +285,35 @@ namespace EDUAR_SI_BusinessLogic
             SqlTransaction transaccion = null;
             try
             {
+
+                //List<Tutor> listaTutores = objDAObtenerDatos.obtenerTutoresBDTransaccional(objConfiguracion);
+                //Persona persona = null;
+                //foreach (Tutor tutor in listaTutores)
+                //{
+                //    persona = new Persona()
+                //    {
+                //        idPersona = 0,
+                //        nombre = tutor.nombre,
+                //        apellido = tutor.apellido,
+                //        numeroDocumento = tutor.numeroDocumento,
+                //        idTipoDocumento = tutor.idTipoDocumento,
+                //        domicilio = tutor.domicilio,
+                //        localidad = new Localidades() { nombre = tutor.localidad.nombre },
+                //        sexo = tutor.sexo,
+                //        fechaNacimiento = tutor.fechaNacimiento,
+                //        telefonoFijo = tutor.telefonoFijo,
+                //        telefonoCelular = tutor.telefonoCelular,
+                //        telefonoCelularAlternativo = tutor.telefonoCelularAlternativo,
+                //        email = tutor.email,
+                //        activo = tutor.activo,
+                //        barrio = tutor.barrio
+                //    };
+                //    if (string.IsNullOrEmpty(tutor.barrio)) persona.barrio = string.Empty;
+                //    tutor.idPersona = objDAImportarDatos.GrabarPersona(persona, ref transaccion);
+                //    objDAImportarDatos.GrabarTutor(tutor, ref transaccion);
+                //}
+                //transaccion.Commit();
+
                 List<Tutor> listaTutores = objDAObtenerDatos.obtenerTutoresBDTransaccional(objConfiguracion);
                 Persona persona = null;
                 foreach (Tutor tutor in listaTutores)
@@ -297,6 +342,7 @@ namespace EDUAR_SI_BusinessLogic
                     objDAImportarDatos.GrabarTutor(tutor, ref transaccion);
                 }
                 transaccion.Commit();
+
             }
             catch (Exception ex)
             {

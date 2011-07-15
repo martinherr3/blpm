@@ -19,7 +19,7 @@ namespace EDUAR_Entities
         private Docente _docente;
         private string _nombre;
         private int _idAsignatura;
-
+        
         public int idAsignatura
         {
             get { return _idAsignatura; }
@@ -83,6 +83,7 @@ namespace EDUAR_Entities
                 _diasHorarios = value;
             }
         }
+       
 
         public Docente docente
         {
