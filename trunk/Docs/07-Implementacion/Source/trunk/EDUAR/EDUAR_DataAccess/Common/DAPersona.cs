@@ -160,7 +160,7 @@ namespace EDUAR_DataAccess.Common
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
                 else
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, DBNull.Value);
-                if (entidad.idTipoPersona != null)
+                //if (entidad.idTipoPersona != null)
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
