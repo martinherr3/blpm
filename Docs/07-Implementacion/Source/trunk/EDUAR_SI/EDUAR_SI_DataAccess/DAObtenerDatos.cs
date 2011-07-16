@@ -1122,8 +1122,12 @@ namespace EDUAR_SI_DataAccess
                     conMySQL = new MySqlConnection(configuracion.valor);
                     command.Connection = conMySQL;
 
-                    command.CommandText = @"SELECT * 
-                                            FROM Asistencia";
+                    command.CommandText = @"SELECT 
+                                                 id
+                                                ,fk_alumno_id
+                                                ,fk_tipoasistencia_id
+                                                ,fecha 
+                                            FROM vw_asistencia";
                     conMySQL.Open();
 
                     MySqlDataReader reader = command.ExecuteReader();
@@ -1139,7 +1143,7 @@ namespace EDUAR_SI_DataAccess
                         unaAsistencia.tipoAsistencia = new TipoAsistencia();
                         unaAsistencia.tipoAsistencia.idTipoAsistenciaTransaccional = (int)reader["fk_tipoasistencia_id"];
                         unaAsistencia.unAlumno = new Alumno();
-                        unaAsistencia.unAlumno.idAlumno = (int)reader["fk_alumno_id"];
+                        unaAsistencia.unAlumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
 
                         listadoAsistencia.Add(unaAsistencia);
                     }
@@ -1170,64 +1174,6 @@ namespace EDUAR_SI_DataAccess
         }
 
         /// <summary>
-        /// Obteners the motivos ausencia BD transaccional.
-        /// </summary>
-        /// <param name="configuracion">The configuracion.</param>
-        /// <returns></returns>
-        public List<MotivoAusencia> obtenerMotivosAusenciaBDTransaccional(Configuraciones configuracion)
-        {
-            List<MotivoAusencia> listaMotivos = null;
-            try
-            {
-                using (MySqlCommand command = new MySqlCommand())
-                {
-                    conMySQL = new MySqlConnection(configuracion.valor);
-                    command.Connection = conMySQL;
-
-                    command.CommandText = @"SELECT * 
-                                                FROM vw_motivosAusencia";
-                    conMySQL.Open();
-
-                    MySqlDataReader reader = command.ExecuteReader();
-                    MotivoAusencia ausencia;
-                    listaMotivos = new List<MotivoAusencia>();
-                    while (reader.Read())
-                    {
-                        ausencia = new MotivoAusencia()
-                        {
-                            idMotivo = 0,
-                            idMotivoTransaccional = (int)reader["id"],
-                            nombre = reader["descripcion"].ToString()
-                        };
-                        listaMotivos.Add(ausencia);
-                    }
-                    command.Connection.Close();
-                    return listaMotivos;
-                }
-            }
-            catch (MySqlException ex)
-            {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
-                                        ex, enuExceptionType.MySQLException);
-            }
-            catch (SqlException ex)
-            {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerMotivosAusenciaBDTransaccional()", ClassName),
-                                    ex, enuExceptionType.DataAccesException);
-            }
-            finally
-            {
-                //if (sqlConnectionConfig.State == ConnectionState.Open)
-                //    sqlConnectionConfig.Close();
-            }
-        }
-
-        /// <summary>
         /// Obteners the tipo asistencia BD transaccional.
         /// </summary>
         /// <param name="configuracion">The configuracion.</param>
@@ -1243,7 +1189,7 @@ namespace EDUAR_SI_DataAccess
                     command.Connection = conMySQL;
 
                     command.CommandText = @"SELECT * 
-                                            FROM tipoasistencia";
+                                            FROM vw_tipoAsistencia";
                     conMySQL.Open();
 
                     MySqlDataReader reader = command.ExecuteReader();
@@ -1251,13 +1197,6 @@ namespace EDUAR_SI_DataAccess
                     listadoTipoAsistencia = new List<TipoAsistencia>();
                     while (reader.Read())
                     {
-                        //motivo = new MotivoAusencia()
-                        //{
-                        //    idMotivo = 0,
-                        //    idMotivoTransaccional = (int)reader["id"],
-                        //    nombre = reader["descripcion"].ToString(),
-                        //};
-                        //listaMotivos.Add(motivo)
                         unTipoAsistencia = new TipoAsistencia();
 
                         unTipoAsistencia.idTipoAsistencia = 0;
@@ -1273,17 +1212,17 @@ namespace EDUAR_SI_DataAccess
             }
             catch (MySqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsistenciaBDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTipoAsistenciaBDTransaccional()", ClassName),
                                         ex, enuExceptionType.MySQLException);
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsistenciaBDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTipoAsistenciaBDTransaccional()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsistenciaBDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTipoAsistenciaBDTransaccional()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
             finally
@@ -1370,7 +1309,6 @@ namespace EDUAR_SI_DataAccess
         /// </summary>
         /// <param name="configuracion">The configuracion.</param>
         /// <returns></returns>
-
         public List<TipoSancion> obtenerTipoSancionBDTransaccional(Configuraciones configuracion)
         {
             List<TipoSancion> listadoTipoSancion = null;
@@ -1397,7 +1335,6 @@ namespace EDUAR_SI_DataAccess
                         unTipoSancion.descripcion = reader["descripcion"].ToString();
                         unTipoSancion.nombre = reader["nombre"].ToString();
 
-
                         listadoTipoSancion.Add(unTipoSancion);
                     }
                     command.Connection.Close();
@@ -1406,7 +1343,7 @@ namespace EDUAR_SI_DataAccess
             }
             catch (MySqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTipoAsistenciaBDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTipoSancionBDTransaccional()", ClassName),
                                         ex, enuExceptionType.MySQLException);
             }
             catch (SqlException ex)
@@ -1416,7 +1353,7 @@ namespace EDUAR_SI_DataAccess
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obteneTipoSancionBDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerTipoSancionBDTransaccional()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
             finally
@@ -1516,7 +1453,6 @@ namespace EDUAR_SI_DataAccess
                         unMotivoSancion.idMotivoSancionTransaccional = (int)reader["id"];
                         unMotivoSancion.descripcion = reader["descripcion"].ToString();
 
-
                         listadoMotivoSancion.Add(unMotivoSancion);
                     }
                     command.Connection.Close();
@@ -1560,7 +1496,12 @@ namespace EDUAR_SI_DataAccess
                     conMySQL = new MySqlConnection(configuracion.valor);
                     command.Connection = conMySQL;
 
-                    command.CommandText = @"SELECT * 
+                    command.CommandText = @"SELECT 
+                                                 id
+                                                ,fecha
+                                                ,cantidad
+                                                ,fk_tiposancion_id
+                                                ,fk_motivosancion_id 
                                             FROM vw_sancion";
                     conMySQL.Open();
 
@@ -1577,7 +1518,6 @@ namespace EDUAR_SI_DataAccess
                         unaSancion.fecha = Convert.ToDateTime(reader["fecha"]);
                         unaSancion.motivoSancion.idMotivoSancionTransaccional = (int)reader["fk_motivosancion_id"];
                         unaSancion.tipoSancion.idTipoSancionTransaccional = (int)reader["fk_tiposancion_id"];
-
 
                         listadoSancion.Add(unaSancion);
                     }
@@ -1606,10 +1546,6 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
-
-
-
-        //public List<Tutor> obtenerTutoresAlumnoBDTransaccional(Configuraciones configuracion);
 
         /// <summary>
         /// Obteners the tutores alumno BD transaccional.

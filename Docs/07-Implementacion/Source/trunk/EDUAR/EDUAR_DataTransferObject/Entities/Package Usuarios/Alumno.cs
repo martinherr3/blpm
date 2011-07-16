@@ -12,16 +12,16 @@ namespace EDUAR_Entities
             listaTutores = new List<Tutor>();
         }
 
-        private Decimal _IdAlumno;
+        private int _IdAlumno;
 
-        public Decimal idAlumno
+        public int idAlumno
         {
             get { return _IdAlumno; }
             set { _IdAlumno = value; }
         }
 
-        private Decimal _IdAlumnoTransaccional;
-        public Decimal idAlumnoTransaccional
+        private int _IdAlumnoTransaccional;
+        public int idAlumnoTransaccional
         {
             get { return _IdAlumnoTransaccional; }
             set { _IdAlumnoTransaccional = value; }
