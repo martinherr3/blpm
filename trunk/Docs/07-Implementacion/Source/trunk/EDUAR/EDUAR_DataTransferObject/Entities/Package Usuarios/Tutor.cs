@@ -13,17 +13,17 @@ namespace EDUAR_Entities
 {
     public class Tutor : Persona
     {
-        private Decimal _IdTutor;
+        private int _IdTutor;
 
-        public Decimal IdTutor
+        public int IdTutor
         {
             get { return _IdTutor; }
             set { _IdTutor = value; }
         }
 
-        private Decimal _idTutorTransaccional;
+        private int _idTutorTransaccional;
 
-        public Decimal idTutorTransaccional
+        public int idTutorTransaccional
         {
             get { return _idTutorTransaccional; }
             set { _idTutorTransaccional = value; }

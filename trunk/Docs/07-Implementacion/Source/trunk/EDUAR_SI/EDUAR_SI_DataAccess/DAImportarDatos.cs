@@ -85,7 +85,7 @@ namespace EDUAR_SI_DataAccess
         /// Guarda una colección de personas en base de datos
         /// </summary>
         /// <param name="objeto">Colección de Persona</param>
-        public int GrabarPersona(Persona persona, ref SqlTransaction transaccion)
+        public int GrabarPersona(Persona persona, ref SqlTransaction transaccion, int? idCargoPersonal, int idPersonaTransaccional)
         {
             //SqlTransaction transaccion = null;
             try
@@ -118,6 +118,9 @@ namespace EDUAR_SI_DataAccess
                     command.Parameters.AddWithValue("email", persona.email);
                     command.Parameters.AddWithValue("activo", persona.activo);
                     command.Parameters.AddWithValue("idTipoPersona", persona.idTipoPersona);
+                    command.Parameters.AddWithValue("idCargoPersonal", idCargoPersonal);
+                    command.Parameters.AddWithValue("idPersonaTransaccional", idPersonaTransaccional);
+
                     command.ExecuteNonQuery();
                     //transaccion.Commit();
                     return Convert.ToInt32(command.Parameters["idPersona"].Value);
@@ -894,57 +897,6 @@ namespace EDUAR_SI_DataAccess
         }
 
         /// <summary>
-        /// Grabars the motivo ausencia.
-        /// </summary>
-        /// <param name="listaMotivos">The lista motivos.</param>
-        public void GrabarMotivoAusencia(List<MotivoAusencia> listaMotivos)
-        {
-            SqlTransaction transaccion = null;
-            try
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-                    command.Connection = sqlConnectionConfig;
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = "MotivoAusencia_Insert";
-                    command.CommandTimeout = 10;
-
-                    transaccion = sqlConnectionConfig.BeginTransaction();
-                    command.Transaction = transaccion;
-
-                    foreach (MotivoAusencia motivo in listaMotivos)
-                    {
-                        command.Parameters.AddWithValue("idMotivoAusencia", 0);
-                        command.Parameters.AddWithValue("idMotivoAusenciaTransaccional", motivo.idMotivoTransaccional);
-                        command.Parameters.AddWithValue("nombre", motivo.nombre);
-                        command.ExecuteNonQuery();
-                        command.Parameters.Clear();
-                    }
-                    transaccion.Commit();
-                }
-            }
-            catch (SqlException ex)
-            {
-                if (transaccion != null) transaccion.Rollback();
-                throw new CustomizedException(String.Format("Fallo en {0} - GrabarMotivoAusencia()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                if (transaccion != null) transaccion.Rollback();
-                throw new CustomizedException(String.Format("Fallo en {0} - GrabarMotivoAusencia()", ClassName),
-                                    ex, enuExceptionType.DataAccesException);
-            }
-            finally
-            {
-                //if (sqlConnectionConfig.State == ConnectionState.Open)
-                //    sqlConnectionConfig.Close();
-            }
-        }
-
-        /// <summary>
         /// Grabars the periodo.
         /// </summary>
         /// <param name="listaPeriodo">The lista periodo.</param>
@@ -1162,6 +1114,7 @@ namespace EDUAR_SI_DataAccess
         public void GrabarAsistencia(List<Asistencia> listadoAsistencia)
         {
             SqlTransaction transaccion = null;
+            Asistencia ASISTENCIA = new Asistencia();
             try
             {
                 using (SqlCommand command = new SqlCommand())
@@ -1178,11 +1131,12 @@ namespace EDUAR_SI_DataAccess
 
                     foreach (Asistencia unaAsistencia in listadoAsistencia)
                     {
+                        ASISTENCIA = unaAsistencia;
                         command.Parameters.AddWithValue("idAsistencia", 0);
                         command.Parameters.AddWithValue("idAsistenciaTransaccional", unaAsistencia.idAsistenciaTransaccional);
                         command.Parameters.AddWithValue("fecha", unaAsistencia.fecha);
                         command.Parameters.AddWithValue("idTipoAsistencia", unaAsistencia.tipoAsistencia.idTipoAsistenciaTransaccional);
-                        command.Parameters.AddWithValue("idAlumno", unaAsistencia.tipoAsistencia.idTipoAsistenciaTransaccional);
+                        command.Parameters.AddWithValue("idAlumno", unaAsistencia.unAlumno.idAlumnoTransaccional);
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();
                     }
@@ -1285,7 +1239,6 @@ namespace EDUAR_SI_DataAccess
                     {
                         command.Parameters.AddWithValue("idMotivoSancion", 0);
                         command.Parameters.AddWithValue("idMotivoSancionTransaccional", unMotivoSancion.idMotivoSancionTransaccional);
-                        //command.Parameters.AddWithValue("nombre", unMotivoSancion.nombre);
                         command.Parameters.AddWithValue("descripcion", unMotivoSancion.descripcion);
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();
@@ -1341,7 +1294,6 @@ namespace EDUAR_SI_DataAccess
                         command.Parameters.AddWithValue("fecha", unaSancion.fecha.Date);
                         command.Parameters.AddWithValue("idMotivoSancion", unaSancion.motivoSancion.idMotivoSancionTransaccional);
                         command.Parameters.AddWithValue("idTipoSancion", unaSancion.tipoSancion.idTipoSancionTransaccional);
-
 
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();

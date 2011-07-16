@@ -8,17 +8,17 @@ namespace EDUAR_Entities
 {
     public class TipoTutor : DTBase
     {
-        private Decimal _idTipoTutor;
+        private int _idTipoTutor;
 
-        public Decimal idTipoTutor
+        public int idTipoTutor
         {
             get { return _idTipoTutor; }
             set { _idTipoTutor = value; }
         }
 
-        private Decimal _idTipoTutorTransaccional;
+        private int _idTipoTutorTransaccional;
 
-        public Decimal idTipoTutorTransaccional
+        public int idTipoTutorTransaccional
         {
             get { return _idTipoTutorTransaccional; }
             set { _idTipoTutorTransaccional = value; }
