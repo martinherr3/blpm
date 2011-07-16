@@ -1,7 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
-    <siteMapNode url="" title="EDUAR" description="Portal EDUAR">
-        <siteMapNode url="~/Default.aspx" title="Inicio" />
-        <siteMapNode url="~/About.aspx" title="Acerca De" />
+  <siteMapNode url="" title="EDUAR" description="Portal EDUAR">
+    <siteMapNode url="~/Default.aspx" title="Inicio" />
+    <siteMapNode url="~/About.aspx" title="Acerca De" />
+    <!--<siteMapNode url="~/Public/General/Novedades.aspx" title="Lau">
+      <siteMapNode url="~/Public/General/Historia.aspx" title="Belu"/>
+      <siteMapNode url="" title="Belu 2"/>
+    </siteMapNode>-->
+    <siteMapNode url="" title="Institucional" >
+      <siteMapNode url="~/Public/General/Historia.aspx" title="Historia"/>
+      <siteMapNode url="~/Public/General/Ideario.aspx" title="Ideario"/>
+      <siteMapNode url="~/Public/General/Localizacion.aspx" title="Localizacion"/>
     </siteMapNode>
+    <siteMapNode url="" title="Equipo Educativo" >
+      <siteMapNode url="~/Public/General/Organizacion.aspx" title="Organizacion"/>
+      <siteMapNode url="~/Public/General/Docentes.aspx" title="Docentes"/>
+    </siteMapNode>
+    <siteMapNode url="~/Public/General/Novedades.aspx" title="Novedades" />
+    <siteMapNode url="~/Public/General/Contactos.aspx" title="Contactos" />
+  </siteMapNode>
 </siteMap>
