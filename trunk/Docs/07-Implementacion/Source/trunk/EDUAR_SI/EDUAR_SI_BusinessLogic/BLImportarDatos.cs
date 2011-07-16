@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using EDUAR_Entities;
 using EDUAR_SI_DataAccess;
 using EDUAR_Utility.Enumeraciones;
-using System.Data.SqlClient;
 
 namespace EDUAR_SI_BusinessLogic
 {
