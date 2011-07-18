@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Web.Security;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using EDUAR_UI.Shared;
-using EDUAR_Entities;
-using EDUAR_Entities.Security;
 using EDUAR_BusinessLogic.Security;
-using EDUAR_Utility.Enumeraciones;
-using EDUAR_BusinessLogic.Common;
+using EDUAR_Entities.Security;
+using EDUAR_Entities;
 
 namespace EDUAR_UI
 {
-    public partial class Register : EDUARBasePage
+    public partial class ChangeQuestion : EDUARBasePage
     {
         #region --[Atributos]--
         private BLSeguridad objBLSeguridad;
@@ -77,7 +79,7 @@ namespace EDUAR_UI
         {
             try
             {
-                RegisterUser.ContinueDestinationPageUrl = Request.QueryString["ReturnUrl"];
+
             }
             catch (Exception ex)
             {
@@ -85,54 +87,16 @@ namespace EDUAR_UI
             }
         }
 
-        /// <summary>
-        /// Handles the CreatedUser event of the RegisterUser control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void RegisterUser_CreatedUser(object sender, EventArgs e)
+        protected void btnChangeQuestion_Click(object sender, EventArgs e)
         {
-            propSeguridad = new DTSeguridad();
-            propSeguridad.Usuario.Nombre = RegisterUser.UserName;
-            //Personal = 1,
-            //Alumno = 2,
-            //Tutor = 3
-            DTRol rol = new DTRol();
-
-            switch (propPersona.idTipoPersona)
+            try
             {
-                case 1:
-                    rol.Nombre = enumRoles.Administrativo.ToString();
-                    break;
-                case 2:
-                    rol.Nombre = enumRoles.Alumno.ToString();
-                    break;
-                case 3:
-                    rol.Nombre = enumRoles.Tutor.ToString();
-                    break;
+
             }
-            //asigna un rol por defecto, en función de la persona
-            propSeguridad.Usuario.ListaRoles.Add(rol);
-            propSeguridad.Usuario.Aprobado = true;
-            propSeguridad.Usuario.EsUsuarioInicial = false;
-            objBLSeguridad = new BLSeguridad(propSeguridad);
-            objBLSeguridad.ActualizarUsuario();
-
-            //actualiza el nombre de usuario en la persona
-            propPersona.username = propSeguridad.Usuario.Nombre;
-            BLPersona objBLPersona = new BLPersona(propPersona);
-            objBLPersona.Save();
-
-
-            ObjDTSessionDataUI.ObjDTUsuario.Nombre = propSeguridad.Usuario.Nombre;
-            FormsAuthentication.SetAuthCookie(RegisterUser.UserName, true /* createPersistentCookie */);
-
-            string continueUrl = RegisterUser.ContinueDestinationPageUrl;
-            if (String.IsNullOrEmpty(continueUrl))
+            catch (Exception ex)
             {
-                continueUrl = "~/";
+                Master.ManageExceptions(ex);
             }
-            Response.Redirect(continueUrl, false);
         }
         #endregion
     }
