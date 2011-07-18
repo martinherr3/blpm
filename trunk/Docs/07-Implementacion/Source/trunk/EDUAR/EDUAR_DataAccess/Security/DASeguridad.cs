@@ -327,7 +327,7 @@ namespace EDUAR_DataAccess.Security
                                         INNER JOIN
 	                                        aspnet_Users ON aspnet_Membership.UserId = aspnet_Users.UserId
                                         WHERE
-                                            (@Email IS NULL OR @Email = '' OR aspnet_Membership.Email LIKE @Email )";
+                                           aspnet_Membership.Email LIKE @Email";
 
 
                 transaction.DBcomand = transaction.DataBase.GetSqlStringCommand(query);
@@ -335,9 +335,10 @@ namespace EDUAR_DataAccess.Security
                 // Añadir parámetros
                 transaction.DataBase.AddInParameter(transaction.DBcomand, "@Email", DbType.String, email);
                 IDataReader reader = transaction.DataBase.ExecuteReader(transaction.DBcomand);
-                DTUsuario usuario = new DTUsuario();
+                DTUsuario usuario = null;
                 while (reader.Read())
                 {
+                    usuario = new DTUsuario();
                     usuario.Nombre = reader["UserName"].ToString();
                     usuario.Aprobado = (bool)reader["IsApproved"];
                     usuario.PaswordPregunta = reader["PasswordQuestion"].ToString();

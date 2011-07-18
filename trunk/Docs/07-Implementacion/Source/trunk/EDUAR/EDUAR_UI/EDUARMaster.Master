@@ -48,10 +48,6 @@
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
                     IncludeStyleBlock="true" Orientation="Horizontal">
-                    <%--<Items>
-                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Página principal" />
-                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="Acerca de" />
-                    </Items>--%>
                 </asp:Menu>
                 <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" ShowStartingNode="false"
                     SiteMapProvider="WebXmlSiteMapProvider" />
