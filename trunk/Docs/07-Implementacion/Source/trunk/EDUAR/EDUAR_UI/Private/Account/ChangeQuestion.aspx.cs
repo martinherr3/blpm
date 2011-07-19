@@ -8,6 +8,8 @@ using EDUAR_UI.Shared;
 using EDUAR_BusinessLogic.Security;
 using EDUAR_Entities.Security;
 using EDUAR_Entities;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Constantes;
 
 namespace EDUAR_UI
 {
@@ -79,7 +81,7 @@ namespace EDUAR_UI
         {
             try
             {
-
+                Master.BotonAvisoAceptar += (VentanaAceptar);
             }
             catch (Exception ex)
             {
@@ -87,16 +89,62 @@ namespace EDUAR_UI
             }
         }
 
-        protected void btnChangeQuestion_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Ventanas the aceptar.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        void VentanaAceptar(object sender, EventArgs e)
         {
             try
             {
-
+                if (AccionPagina == enumAcciones.Modificar)
+                {
+                    CambiarPregunta();
+                    Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
+                    AccionPagina = enumAcciones.Salir;
+                }
+                else
+                    if (AccionPagina == enumAcciones.Salir)
+                        Response.Redirect("~/Default.aspx", false);
             }
             catch (Exception ex)
             {
                 Master.ManageExceptions(ex);
             }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnChangeQuestion control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void btnChangeQuestion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AccionPagina = EDUAR_Utility.Enumeraciones.enumAcciones.Modificar;
+                Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+        #endregion
+
+        #region --[Métodos Privados]--
+        /// <summary>
+        /// Cambiars the pregunta.
+        /// </summary>
+        private void CambiarPregunta()
+        {
+            ObjDTSessionDataUI.ObjDTUsuario.PaswordPregunta = Question.Text.Trim();
+            ObjDTSessionDataUI.ObjDTUsuario.PaswordRespuesta = Answer.Text.Trim();
+            propSeguridad = new DTSeguridad();
+            propSeguridad.Usuario = ObjDTSessionDataUI.ObjDTUsuario;
+            objBLSeguridad = new BLSeguridad(propSeguridad);
+            objBLSeguridad.CambiarPregunta();
         }
         #endregion
     }

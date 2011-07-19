@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Package Perfiles\Seccion.cs" />
     <Compile Include="Entities\Package Principales\CicloLectivo.cs" />
     <Compile Include="Entities\Package Principales\Asistencia.cs" />
     <Compile Include="Entities\Package Principales\Periodo.cs" />
