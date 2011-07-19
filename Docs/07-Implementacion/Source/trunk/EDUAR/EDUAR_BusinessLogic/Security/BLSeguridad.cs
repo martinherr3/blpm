@@ -88,7 +88,6 @@ namespace EDUAR_BusinessLogic.Security
             return result;
         }
 
-
         #endregion
 
         #region --[Métodos Publicos]--
@@ -268,7 +267,7 @@ namespace EDUAR_BusinessLogic.Security
                 //Crea el nuevo usuario
                 MembershipCreateStatus status;
                 MembershipUser newUser = Membership.CreateUser(Data.Usuario.Nombre, Data.Usuario.Password, Data.Usuario.Email, Data.Usuario.PaswordPregunta, Data.Usuario.PaswordRespuesta, Data.Usuario.Aprobado, out status);
-                
+
                 //Valida el estado del usuario creado.
                 if (newUser == null)
                 {
@@ -315,10 +314,6 @@ namespace EDUAR_BusinessLogic.Security
                 //    txScope.Complete();
                 //}
             }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
             catch (Exception ex)
             {
                 throw new CustomizedException(String.Format("Fallo en {0} - CrearUsuario", ClassName), ex,
@@ -361,20 +356,28 @@ namespace EDUAR_BusinessLogic.Security
         /// <param name="txScope">The tx scope.</param>
         void AgregarRoles(DTUsuario objUsuario, TransactionScope txScope)
         {
-            string sTodosRoles = String.Empty;
-            string[] sRoles = new string[objUsuario.ListaRoles.Count];
-            int i = 0;
-            using (TransactionScope txScope1 = txScope)
+            try
             {
-                //Agrega el usuario a los Roles que se le definieron.
-                foreach (DTRol rolUsuario in objUsuario.ListaRoles)
+                string sTodosRoles = String.Empty;
+                string[] sRoles = new string[objUsuario.ListaRoles.Count];
+                int i = 0;
+                using (TransactionScope txScope1 = txScope)
                 {
-                    sRoles[i] = rolUsuario.Nombre;
-                    i++;
-                }
+                    //Agrega el usuario a los Roles que se le definieron.
+                    foreach (DTRol rolUsuario in objUsuario.ListaRoles)
+                    {
+                        sRoles[i] = rolUsuario.Nombre;
+                        i++;
+                    }
 
-                Roles.AddUserToRoles(objUsuario.Nombre, sRoles);
-                //txScope1.Complete();
+                    Roles.AddUserToRoles(objUsuario.Nombre, sRoles);
+                    //txScope1.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - AgregarRoles", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
             }
         }
 
@@ -386,10 +389,6 @@ namespace EDUAR_BusinessLogic.Security
             try
             {
                 Membership.DeleteUser(Data.Usuario.Nombre);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
             }
             catch (Exception ex)
             {
@@ -411,7 +410,7 @@ namespace EDUAR_BusinessLogic.Security
                 #region Habilita o Bloquea un usuario
                 MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
                 user.IsApproved = Data.Usuario.Aprobado;
-                
+
                 Membership.UpdateUser(user);
                 #endregion
 
@@ -435,10 +434,6 @@ namespace EDUAR_BusinessLogic.Security
                 //    //Completa la transaccion.
                 //    txScope.Complete();
                 //}
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
             }
             catch (Exception ex)
             {
@@ -491,6 +486,10 @@ namespace EDUAR_BusinessLogic.Security
             {
                 DASeguridad dataAcces = new DASeguridad();
                 Data.Rol = dataAcces.GetRol(Data.Rol);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -554,8 +553,11 @@ namespace EDUAR_BusinessLogic.Security
                                               enuExceptionType.BusinessLogicException);
             }
         }
-        #endregion
 
+        /// <summary>
+        /// Recuperars the password.
+        /// </summary>
+        /// <param name="urlHost">The URL host.</param>
         public void RecuperarPassword(Uri urlHost)
         {
             try
@@ -588,11 +590,37 @@ namespace EDUAR_BusinessLogic.Security
 
                 email.EnviarMail("EDU@R 2.0 - Datos de Acceso - " + DateTime.Now.Date.ToShortDateString(), mensaje.ToString(), true);
             }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw new CustomizedException(String.Format("Fallo en {0} - RecuperarPassword", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+        /// <summary>
+        /// Changes the question.
+        /// </summary>
+        public void CambiarPregunta()
+        {
+            try
+            {
+                MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
+                user.ChangePasswordQuestionAndAnswer(user.GetPassword(), Data.Usuario.PaswordPregunta, Data.Usuario.PaswordRespuesta);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - RecuperarPassword", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+        #endregion
     }
 }

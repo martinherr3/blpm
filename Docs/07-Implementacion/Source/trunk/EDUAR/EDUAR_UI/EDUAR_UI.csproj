@@ -63,6 +63,7 @@
     <Content Include="Images\calendario.png" />
     <Content Include="Images\ventanaConfirmacion.png" />
     <Content Include="Private\Account\ChangeQuestion.aspx" />
+    <Content Include="Private\Account\ChangeRolAccess.aspx" />
     <Content Include="Private\Account\ChangeUser.aspx" />
     <Content Include="Private\Account\ChangePassword.aspx" />
     <Content Include="Private\Account\ChangePasswordSuccess.aspx" />
@@ -120,6 +121,13 @@
     </Compile>
     <Compile Include="Private\Account\ChangeQuestion.aspx.designer.cs">
       <DependentUpon>ChangeQuestion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Account\ChangeRolAccess.aspx.cs">
+      <DependentUpon>ChangeRolAccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Account\ChangeRolAccess.aspx.designer.cs">
+      <DependentUpon>ChangeRolAccess.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Account\ChangeUser.aspx.cs">
       <DependentUpon>ChangeUser.aspx</DependentUpon>
