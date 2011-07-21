@@ -8,13 +8,8 @@
     <h2>
         Datos Docente
     </h2>
-    <table border= >
-<tr bgcolor=red> <th>Titulo</th> <th>Autor</th>
-</tr>
-    <p>
-        Nombre y Apellido
-    </p>
-    <p>
-        email
-    </p>
+    <ul>
+        <li>Apellido y Nombre 1 </li>
+        <li>Apellido y Nombre 2 </li>
+    </ul>
 </asp:Content>
