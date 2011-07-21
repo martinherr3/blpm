@@ -6,8 +6,24 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        EDU@R 2.0
+        Novedades
     </h2>
     <p>
-        hyjijijiuhuygygyguhjiuh0uh'j'ji0ji'</p>
+        <small>[En esta sesión se publicara las actividades realizadas en la institución, actividades
+        próximas a realizar y toda noticias que involucren a la comunidad dela Institución
+        educativa]</small>
+    </p>
+    <hr />
+    <h3>
+        [Titulo de la Noticia]<small>[Fecha de publicacion]</small></h3>
+       
+    <p>[Este espacio será dedicado al contenido de la noticia.]
+    </p>
+    <hr />
+    <h3>
+        [Titulo de la Noticia]<small>[Fecha de publicacion]</small></h3>
+       
+    <p>[Este espacio será dedicado al contenido de la noticia.]
+    </p>
+    <hr />
 </asp:Content>

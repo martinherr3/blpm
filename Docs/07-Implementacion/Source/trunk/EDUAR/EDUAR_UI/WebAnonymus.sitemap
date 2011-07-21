@@ -4,7 +4,7 @@
         <siteMapNode url="~/Default.aspx" title="Inicio" />
         <siteMapNode url="" title="Institucional" >
             <siteMapNode url="~/Public/General/Historia.aspx" title="Historia"/>
-            <siteMapNode url="~/Public/General/Ideario.aspx" title="Ideario"/>
+            <siteMapNode url="~/Public/General/Ideario.aspx" title="Vision"/>
             <siteMapNode url="~/Public/General/Localizacion.aspx" title="Localizacion"/>
         </siteMapNode>
         <siteMapNode url="" title="Equipo Educativo" >
