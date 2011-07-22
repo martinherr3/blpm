@@ -4,35 +4,10 @@ namespace EDUAR_Entities
 {
     public class Paises
     {
-        private decimal dIdPais;
-        public decimal idPais
-        {
-            get { return dIdPais; }
-            set { dIdPais = value; }
-        }
-        private decimal dIdPaisTransaccional;
-        public decimal idPaisTransaccional
-        {
-            get { return dIdPaisTransaccional; }
-            set { dIdPaisTransaccional = value; }
-        }
-        private string szNombre;
-        public string nombre
-        {
-            get { return szNombre; }
-            set { szNombre = value; }
-        }
-        private string szDescripcion;
-        public string descripcion
-        {
-            get { return szDescripcion; }
-            set { szDescripcion = value; }
-        }
-        private Boolean bActivo;
-        public Boolean activo
-        {
-            get { return bActivo; }
-            set { bActivo = value; }
-        }
+        public decimal idPais { get; set; }
+        public decimal idPaisTransaccional { get; set; }
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
+        public bool activo { get; set; }
     }
 }
