@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EDUAR_BusinessLogic.Shared;
 using EDUAR_DataAccess.Common;
 using EDUAR_DataAccess.Shared;
@@ -6,14 +7,13 @@ using EDUAR_Entities;
 using EDUAR_Entities.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
-using System.Collections.Generic;
 
 namespace EDUAR_BusinessLogic.Common
 {
     public class BLPersona : BusinessLogicBase<Persona, DAPersona>
     {
         #region --[Constante]--
-        private const String ClassName = "BLPersona";
+        private const string ClassName = "BLPersona";
         #endregion
 
         #region --[Constructores]--
@@ -71,7 +71,7 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetById", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetById", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -103,7 +103,7 @@ namespace EDUAR_BusinessLogic.Common
             catch (Exception ex)
             {
                 DataAcces.Transaction.RollbackTransaction();
-                throw new CustomizedException(String.Format("Fallo en {0} - Save()", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -130,7 +130,7 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - Save()", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -153,7 +153,7 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -177,7 +177,7 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonas", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPersonas", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -196,7 +196,7 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonaByEntidad", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPersonaByEntidad", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -225,7 +225,7 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - ValidarRegistroPersona", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - ValidarRegistroPersona", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }

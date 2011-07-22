@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
     public class ProcesosEjecutados
     {
-        private Decimal dIdProcesoEjecutado;
-        public Decimal idProcesoEjecutado
+        private decimal dIdProcesoEjecutado;
+        public decimal idProcesoEjecutado
         {
             get { return dIdProcesoEjecutado; }
             set { dIdProcesoEjecutado = value; }
@@ -31,8 +28,8 @@ namespace EDUAR_Entities
             get { return szDescripcionError; }
             set { szDescripcionError = value; }
         }
-        private Decimal dIdProcesoAutomatico;
-        public Decimal idProcesoAutomatico
+        private decimal dIdProcesoAutomatico;
+        public decimal idProcesoAutomatico
         {
             get { return dIdProcesoAutomatico; }
             set { dIdProcesoAutomatico = value; }

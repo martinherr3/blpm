@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Common;
 using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.SqlServer.Management;
 
 namespace EDUAR_DataAccess.Shared
 {
@@ -33,7 +32,7 @@ namespace EDUAR_DataAccess.Shared
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public DATransaction(String cadenaConexion)
+        public DATransaction(string cadenaConexion)
         {
             DataBase = DAHelper.GetDataBaseFromWebConfig(cadenaConexion);
             Conection = DataBase.CreateConnection();

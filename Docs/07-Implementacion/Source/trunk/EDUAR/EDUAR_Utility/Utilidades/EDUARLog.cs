@@ -12,7 +12,7 @@ namespace EDUAR_Utility.Utilidades
         ///<summary>
         ///Ruta donde se guardará el log. 
         ///</summary>
-        private String oPath;
+        private string oPath;
         ///<summary>
         ///Permite activar/desactivar el registro de sucesos.
         ///</summary>
@@ -24,7 +24,7 @@ namespace EDUAR_Utility.Utilidades
         /// Constructor con la ruta donde se guardarán los logs.
         ///</summary>
         /// <param name="path">No tiene ninguna función. Se ha dejado por temas de compatibilidad.</param>
-        public EDUARLog(String path)
+        public EDUARLog(string path)
         {
             new EDUARLog(path, true);
         }
@@ -34,7 +34,7 @@ namespace EDUAR_Utility.Utilidades
         /// </summary>
         /// <param name="path">Ubicación donde se grabará el log.</param>
         /// <param name="grabaLog">Permite activar/desactivar el Log.</param>
-        public EDUARLog(String path, Boolean grabaLog)
+        public EDUARLog(string path, Boolean grabaLog)
         {
             oPath = path;
             grabacionActivada = grabaLog;
@@ -46,7 +46,7 @@ namespace EDUAR_Utility.Utilidades
         /// </summary>
         /// <param name="cadena">Cadena que vamos a guardar en el log.</param>
         /// <remarks></remarks>
-        public void write(String cadena)
+        public void write(string cadena)
         {
             write(cadena, FileMode.Append);
         }

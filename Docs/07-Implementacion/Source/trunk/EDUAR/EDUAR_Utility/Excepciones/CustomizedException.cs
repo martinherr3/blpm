@@ -8,7 +8,7 @@ namespace EDUAR_Utility.Excepciones
     /// reemplaza la excepción origen por UnknowExeption, que permite definir el mensaje genérico.
     /// (Configuración en EntLib)
     /// </summary>
-    [Serializable]
+    
     public class CustomizedException : Exception
     {
         public enuExceptionType ExceptionType { get; set; }

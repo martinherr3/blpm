@@ -2,8 +2,8 @@
 using System.IO;
 using System.Net;
 using System.Net.Mail;
-using EDUAR_Utility.Excepciones;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_Utility.Utilidades
 {
@@ -22,7 +22,7 @@ namespace EDUAR_Utility.Utilidades
         /// <summary>
         /// nombre clase
         /// </summary>
-        private const String ClassName = "EDUAREmail";
+        private const string ClassName = "EDUAREmail";
         #endregion
 
         #region --[Constructor]--
@@ -35,11 +35,11 @@ namespace EDUAR_Utility.Utilidades
         /// <param name="puertoSMTP">Número de puerto para la conexión al servidor SMTP. Por default contiene el puerto 25. </param>
         /// <param name="enableSSL">Boolean que contiene verdadero si se utiliza SSL. Por default es falso. </param>
         /// <param name="displayName">Nombre que se mostrará en el From al enviarse el correo.</param>
-        public EDUAREmail(String emailFrom, String servidorSMTP, Int32? puertoSMTP, Boolean? enableSSL, String displayName)
+        public EDUAREmail(string emailFrom, string servidorSMTP, Int32? puertoSMTP, Boolean? enableSSL, string displayName)
         {
             ObjMailMessage = new MailMessage
                                  {
-                                     From = displayName.Trim() != String.Empty
+                                     From = displayName.Trim() != string.Empty
                                              ? new MailAddress(emailFrom, displayName)
                                              : new MailAddress(emailFrom)
                                  };
@@ -68,7 +68,7 @@ namespace EDUAR_Utility.Utilidades
         /// </summary>
         /// <param name="cuerpo">Cuerpo del mail</param>
         /// <param name="asunto">Asunto del Mail</param>
-        public void EnviarMail(String asunto, String cuerpo, bool isBodyHtml)
+        public void EnviarMail(string asunto, string cuerpo, bool isBodyHtml)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace EDUAR_Utility.Utilidades
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - EnviarMail()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - EnviarMail()", ClassName),
                                                         ex, enuExceptionType.Exception);
             }
 
@@ -95,7 +95,7 @@ namespace EDUAR_Utility.Utilidades
         /// método Add(new Attachment(string pathArchivo))
         /// </summary>
         /// <param name="pathAdjunto">Path del fichero a adjuntar</param>
-        public void AdjuntarArchivo(String pathAdjunto)
+        public void AdjuntarArchivo(string pathAdjunto)
         {
             ObjMailMessage.Attachments.Add(new Attachment(pathAdjunto));
         }
@@ -106,7 +106,7 @@ namespace EDUAR_Utility.Utilidades
         /// </summary>
         /// <param name="contentetStream">Contenido del Fichero.</param>
         /// <param name="nombreArchivo">Path del fichero a adjuntar</param>
-        public void AdjuntarArchivo(Stream contentetStream, String nombreArchivo)
+        public void AdjuntarArchivo(Stream contentetStream, string nombreArchivo)
         {
             ObjMailMessage.Attachments.Add(new Attachment(contentetStream, nombreArchivo));
         }
@@ -116,7 +116,7 @@ namespace EDUAR_Utility.Utilidades
         /// MailAddress(string destinatario)).
         /// </summary>
         /// <param name="email"></param>
-        public void AgregarDestinatario(String email)
+        public void AgregarDestinatario(string email)
         {
             ObjMailMessage.To.Add(new MailAddress(email));
         }
@@ -129,7 +129,7 @@ namespace EDUAR_Utility.Utilidades
         /// SMTP.</param>
         /// <param name="usuarioSMTP">Nombre de usuario para conectarse al servidor SMTP.
         /// </param>
-        public void CargarCredenciales(String usuarioSMTP, String passwordSMTP)
+        public void CargarCredenciales(string usuarioSMTP, string passwordSMTP)
         {
             ObjClienteSmtp.Credentials = new NetworkCredential(usuarioSMTP, passwordSMTP);
         }

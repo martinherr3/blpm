@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
     public class Persona : DTBase
     {
         private int _idPersona;

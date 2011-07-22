@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Web.UI;
-using EDUAR_Utility.Enumeraciones;
-using EDUAR_Utility.Utilidades;
+using System.Configuration;
 using System.Text;
 using System.Web.Security;
-using System.Configuration;
+using System.Web.UI;
 using EDUAR_Entities.Shared;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Utilidades;
 
 namespace EDUAR_UI.Shared
 {
@@ -41,9 +41,9 @@ namespace EDUAR_UI.Shared
         /// Indica el texto que se mostrara.
         /// Se utiliza para gestionar los mensajes en el preRender.
         /// </summary>
-        public String AvisoTexto
+        public string AvisoTexto
         {
-            get { return ViewState["AvisoTexto"] == null ? String.Empty : ViewState["AvisoTexto"].ToString(); }
+            get { return ViewState["AvisoTexto"] == null ? string.Empty : ViewState["AvisoTexto"].ToString(); }
             set { ViewState["AvisoTexto"] = value; }
         }
 
@@ -99,9 +99,26 @@ namespace EDUAR_UI.Shared
         #endregion
 
         #region --[Eventos]--
+        /// <summary>
+        /// Provoca el evento <see cref="E:System.Web.UI.Page.LoadComplete"/> al final de la fase de carga de la página.
+        /// </summary>
+        /// <param name="e"><see cref="T:System.EventArgs"/> que contiene los datos del evento.</param>
+        protected override void OnLoadComplete(EventArgs e)
+        {
+            try
+            {
+                base.OnLoadComplete(e);
+                if (!string.IsNullOrEmpty(ObjDTSessionDataUI.ObjDTUsuario.Nombre))
+                { }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         /// <summary>
-        /// 
+        /// Habilita un control de servidor para que realice la limpieza final antes de que se libere de la memoria.
         /// </summary>
         public override void Dispose()
         {
@@ -147,11 +164,11 @@ namespace EDUAR_UI.Shared
             {
                 int sessionTimeOut = Session.Timeout;
                 int redirectTimeOut = (sessionTimeOut * 60000) - 10;
-                
+
                 StringBuilder javascript = new StringBuilder();
                 javascript.Append("var redirectTimeout;");
                 javascript.Append("clearTimeout(redirectTimeout);");
-                javascript.Append(String.Format("setTimeout(\"window.location='{0}'\",{1});", loginPage, redirectTimeOut));
+                javascript.Append(string.Format("setTimeout(\"window.location='{0}'\",{1});", loginPage, redirectTimeOut));
                 /// Register JavaScript Code on WebPage        
                 page.ClientScript.RegisterStartupScript(page.GetType(), "RegisterRedirectOnSessionEndScript", javascript.ToString(), true);
             }
@@ -161,28 +178,28 @@ namespace EDUAR_UI.Shared
         /// Loguea un mensaje Particular
         /// </summary>
         /// <param name="mensaje"></param>
-        public void LogMensaje(String mensaje)
+        public void LogMensaje(string mensaje)
         {
             Boolean oLogActivo = Boolean.Parse(ConfigurationManager.AppSettings["oLogActivo"]);
 
             if (!oLogActivo)
                 return;
 
-            String logPath = ConfigurationManager.AppSettings["oLogPath"];
-            String logNombre = ConfigurationManager.AppSettings["oLogNombre"];
+            string logPath = ConfigurationManager.AppSettings["oLogPath"];
+            string logNombre = ConfigurationManager.AppSettings["oLogNombre"];
 
             //Crea el directorio.
             if (!System.IO.Directory.Exists(logPath))
                 System.IO.Directory.CreateDirectory(logPath);
 
-            String oLogPath = String.Format("{0}\\{1}", logPath, logNombre);
+            string oLogPath = string.Format("{0}\\{1}", logPath, logNombre);
 
             //Crea el archivo.
             if (!System.IO.File.Exists(oLogPath))
                 System.IO.File.CreateText(oLogPath);
 
             StringBuilder msgLog = new StringBuilder();
-            msgLog.Append(String.Format("Message: {0} -  {1}", DateTime.Now, mensaje));
+            msgLog.Append(string.Format("Message: {0} -  {1}", DateTime.Now, mensaje));
             msgLog.AppendLine();
 
             EDUARLog objLog = new EDUARLog(oLogPath, true);

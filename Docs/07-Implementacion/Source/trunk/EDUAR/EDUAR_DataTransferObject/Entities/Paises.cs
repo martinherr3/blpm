@@ -1,20 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
     public class Paises
     {
-        private Decimal dIdPais;
-        public Decimal idPais
+        private decimal dIdPais;
+        public decimal idPais
         {
             get { return dIdPais; }
             set { dIdPais = value; }
         }
-        private Decimal dIdPaisTransaccional;
-        public Decimal idPaisTransaccional
+        private decimal dIdPaisTransaccional;
+        public decimal idPaisTransaccional
         {
             get { return dIdPaisTransaccional; }
             set { dIdPaisTransaccional = value; }

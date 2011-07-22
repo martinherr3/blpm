@@ -7,12 +7,10 @@
 ///////////////////////////////////////////////////////////
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
+    
     public class Personal : Persona
     {
         private int _idPersonal;

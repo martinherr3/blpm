@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using EDUAR_Entities.Shared;
-using EDUAR_Entities.Security;
 
 namespace EDUAR_Entities.Security
 {
-    [Serializable]
-    [DataContract]
     public class DTSeguridad : DTBase
     {
         #region --[Constructores]--
@@ -28,7 +25,7 @@ namespace EDUAR_Entities.Security
         /// Nombre de la aplicacion.
         /// </summary>
         [DataMember]
-        public String Aplicacion { get; set; }
+        public string Aplicacion { get; set; }
 
         /// <summary>
         /// Usuario.

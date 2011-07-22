@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
-using System.Web;
 using System.Web.Security;
 using EDUAR_DataAccess.Shared;
 using EDUAR_Entities.Security;
@@ -19,7 +18,7 @@ namespace EDUAR_DataAccess.Security
     {
         #region --[Atributos]--
         public DATransaction transaction;
-        private const String ClassName = "DASeguridad";
+        private const string ClassName = "DASeguridad";
         #endregion
 
         #region --[Constructores]--
@@ -40,12 +39,12 @@ namespace EDUAR_DataAccess.Security
         #region --[Métodos Publicos]--
         public void CrearUsuarios(DTSeguridad objDTSeguridad)
         {
-            string Nombre = String.Empty;
+            string Nombre = string.Empty;
             try
             {
                 //Obtener el password por defecto
                 DAConfiguracionGlobal objDAConfiguracionGlobal = new DAConfiguracionGlobal();
-                String password = objDAConfiguracionGlobal.GetConfiguracion(enumConfiguraciones.PasswordInicial);
+                string password = objDAConfiguracionGlobal.GetConfiguracion(enumConfiguraciones.PasswordInicial);
                 int i = 0;
 
                 foreach (DTUsuario objUsuarios in objDTSeguridad.ListaUsuarios)
@@ -94,14 +93,14 @@ namespace EDUAR_DataAccess.Security
                         Nombre = objUsuario.Nombre.ToString();
 
                         #region [Roles]
-                        string sTodosRoles = String.Empty;
+                        string sTodosRoles = string.Empty;
                         string[] sRoles = new string[objUsuario.ListaRoles.Count];
                         try
                         {
                             //Agrega el usuario a los Roles que se le definieron.
                             foreach (DTRol rolUsuario in objUsuario.ListaRoles)
                             {
-                                if (rolUsuario.Nombre.ToString() != String.Empty && Roles.RoleExists(rolUsuario.Nombre.ToString()))
+                                if (rolUsuario.Nombre.ToString() != string.Empty && Roles.RoleExists(rolUsuario.Nombre.ToString()))
                                     Roles.AddUserToRole(objUsuario.Nombre, rolUsuario.Nombre);
                                 else
                                 {
@@ -134,18 +133,18 @@ namespace EDUAR_DataAccess.Security
             }
         }
 
-        private void EliminarUsaurios(DTSeguridad objDTSeguridad, String Nombre)
+        private void EliminarUsaurios(DTSeguridad objDTSeguridad, string Nombre)
         {
             try
             {
                 foreach (DTUsuario objUsuarioDelete in objDTSeguridad.ListaUsuarios)
                 {
 
-                    if (objUsuarioDelete.Nombre.ToString() != String.Empty && Membership.FindUsersByName(objUsuarioDelete.Nombre.ToString()).Count > 0)
+                    if (objUsuarioDelete.Nombre.ToString() != string.Empty && Membership.FindUsersByName(objUsuarioDelete.Nombre.ToString()).Count > 0)
                     {
                         foreach (DTRol rolUsuario in objUsuarioDelete.ListaRoles)
                         {
-                            if (rolUsuario.Nombre.ToString() != String.Empty && Roles.RoleExists(rolUsuario.Nombre.ToString()))
+                            if (rolUsuario.Nombre.ToString() != string.Empty && Roles.RoleExists(rolUsuario.Nombre.ToString()))
                                 Roles.RemoveUserFromRole(objUsuarioDelete.Nombre, rolUsuario.Nombre);
                         }
                         Membership.DeleteUser(objUsuarioDelete.Nombre, true);
@@ -166,7 +165,7 @@ namespace EDUAR_DataAccess.Security
         /// <returns>Lista con los roles</returns>
         public List<DTRol> GetRoles(DTSeguridad objDTSeguridad)
         {
-            String rolesParam = String.Empty;
+            string rolesParam = string.Empty;
             try
             {
                 string query = @"SELECT 
@@ -214,12 +213,12 @@ namespace EDUAR_DataAccess.Security
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetRoles()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRoles()", ClassName),
                                                        ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetRoles()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRoles()", ClassName),
                                                        ex, enuExceptionType.DataAccesException);
             }
         }
@@ -233,10 +232,10 @@ namespace EDUAR_DataAccess.Security
         public DTSeguridad GetUsuarios(DTSeguridad objDTSeguridad, Boolean paginar)
         {
             // DSUsuarios.UsersDataTable dt = new DSUsuarios.UsersDataTable();
-            String rolesParam = String.Empty;
+            string rolesParam = string.Empty;
             try
             {
-                String query = @"SELECT DISTINCT
+                string query = @"SELECT DISTINCT
                                             US.ApplicationId
                                             ,US.UserId
                                             ,US.UserName
@@ -266,10 +265,10 @@ namespace EDUAR_DataAccess.Security
                 if (objDTSeguridad.ListaRoles.Count != 0)
                 {
                     foreach (DTRol rol in objDTSeguridad.ListaRoles)
-                        rolesParam += String.Format("'{0}',", rol.Nombre);
+                        rolesParam += string.Format("'{0}',", rol.Nombre);
 
                     rolesParam = rolesParam.Substring(0, rolesParam.Length - 1);
-                    query = String.Format("{0} AND R.RoleName IN ({1})", query, rolesParam);
+                    query = string.Format("{0} AND R.RoleName IN ({1})", query, rolesParam);
                 }
 
                 transaction.DBcomand = transaction.DataBase.GetSqlStringCommand(query);
@@ -294,12 +293,12 @@ namespace EDUAR_DataAccess.Security
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarios()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetUsuarios()", ClassName),
                                                        ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarios()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetUsuarios()", ClassName),
                                                        ex, enuExceptionType.DataAccesException);
             }
         }
@@ -307,10 +306,10 @@ namespace EDUAR_DataAccess.Security
         public DTUsuario GetUsuarioByEmail(string email)
         {
             // DSUsuarios.UsersDataTable dt = new DSUsuarios.UsersDataTable();
-            String rolesParam = String.Empty;
+            string rolesParam = string.Empty;
             try
             {
-                String query = @"SELECT aspnet_Membership.UserId, 
+                string query = @"SELECT aspnet_Membership.UserId, 
                                         aspnet_Membership.Password, 
                                         aspnet_Membership.PasswordQuestion, 
                                         aspnet_Membership.PasswordAnswer, 
@@ -350,12 +349,12 @@ namespace EDUAR_DataAccess.Security
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarioByEmail()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetUsuarioByEmail()", ClassName),
                                                        ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarioByEmail()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetUsuarioByEmail()", ClassName),
                                                        ex, enuExceptionType.DataAccesException);
             }
         }
@@ -369,7 +368,7 @@ namespace EDUAR_DataAccess.Security
         {
             try
             {
-                const String query = @"SELECT 
+                const string query = @"SELECT 
                                              ROL.RoleId
                                             ,ROL.RoleName
                                             ,ROL.LoweredRoleName
@@ -397,12 +396,12 @@ namespace EDUAR_DataAccess.Security
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetRol()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRol()", ClassName),
                                                        ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetRol()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRol()", ClassName),
                                                        ex, enuExceptionType.DataAccesException);
             }
         }
@@ -425,12 +424,12 @@ namespace EDUAR_DataAccess.Security
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - CrearRol()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - CrearRol()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - CrearRol()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - CrearRol()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
@@ -439,7 +438,7 @@ namespace EDUAR_DataAccess.Security
         {
             try
             {
-                const String query = @"UPDATE aspnet_Roles
+                const string query = @"UPDATE aspnet_Roles
                                         SET Description = @Descripcion
                                         WHERE RoleId = @RoleId";
 
@@ -453,12 +452,12 @@ namespace EDUAR_DataAccess.Security
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - UpdateRol()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - UpdateRol()", ClassName),
                                                        ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - UpdateRol()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - UpdateRol()", ClassName),
                                                        ex, enuExceptionType.DataAccesException);
             }
         }
@@ -469,7 +468,7 @@ namespace EDUAR_DataAccess.Security
         /// </summary>
         /// <param name="textEncripted"></param>
         /// <returns></returns>
-        private static String Desencriptar(String textEncripted)
+        private static string Desencriptar(string textEncripted)
         {
             UTF8Encoding encoder = new UTF8Encoding();
             Decoder utf8Decode = encoder.GetDecoder();
@@ -478,7 +477,7 @@ namespace EDUAR_DataAccess.Security
             int charCount = utf8Decode.GetCharCount(todecodeByte, 0, todecodeByte.Length);
             char[] decodedChar = new char[charCount];
             utf8Decode.GetChars(todecodeByte, 0, todecodeByte.Length, decodedChar, 0);
-            String result = new String(decodedChar);
+            string result = new string(decodedChar);
 
             return result;
         }

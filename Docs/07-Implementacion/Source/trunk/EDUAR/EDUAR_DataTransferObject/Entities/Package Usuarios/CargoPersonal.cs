@@ -6,12 +6,8 @@
 //  Original author: Laura Pastorino
 ///////////////////////////////////////////////////////////
 
-
-
-using System;
 namespace EDUAR_Entities
 {
-    [Serializable]
     public class CargoPersonal
     {
         private string _descripcion;

@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
     public class ProcesosAutomaticos
     {
-        private Decimal dIdProcesoAutomatico;
-        public Decimal idProcesoAutomatico
+        private decimal dIdProcesoAutomatico;
+        public decimal idProcesoAutomatico
         {
             get { return dIdProcesoAutomatico; }
             set { dIdProcesoAutomatico = value; }

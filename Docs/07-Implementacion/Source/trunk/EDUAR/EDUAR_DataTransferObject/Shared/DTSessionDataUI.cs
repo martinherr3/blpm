@@ -7,7 +7,6 @@ namespace EDUAR_Entities.Shared
     /// <summary>
     /// Este objeto se utilizará para mantener datos en session.
     /// </summary>
-    [DataContract]
     public class DTSessionDataUI : DTBase
     {
 

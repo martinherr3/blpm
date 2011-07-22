@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.SqlClient;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
-using Microsoft.Practices.EnterpriseLibrary.Data;
 
 namespace EDUAR_DataAccess.Shared
 {
@@ -14,7 +13,7 @@ namespace EDUAR_DataAccess.Shared
     {
         #region --[Atributos]--
         private readonly DATransaction ObjDATransaction;
-        private const String ClassName = "DAConfiguracionGlobal";
+        private const string ClassName = "DAConfiguracionGlobal";
         #endregion
 
         #region --[Constructores]--
@@ -36,12 +35,12 @@ namespace EDUAR_DataAccess.Shared
         /// </summary>  
         /// <param name="configuracion">Enumeracion con la configuracion que se quiere buscar.</param>
         /// <returns>Valor de la configuracion</returns>
-        public String GetConfiguracion(enumConfiguraciones configuracion)
+        public string GetConfiguracion(enumConfiguraciones configuracion)
         {
             try
             {
-                String valor = String.Empty;
-                const String query = @"SELECT 
+                string valor = string.Empty;
+                const string query = @"SELECT 
                                             IdConfiguracion
                                             ,Nombre
                                             ,Descripcion
@@ -66,12 +65,12 @@ namespace EDUAR_DataAccess.Shared
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetConfiguracion()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetConfiguracion()", ClassName),
                                                        ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetConfiguracion()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetConfiguracion()", ClassName),
                                                        ex, enuExceptionType.DataAccesException);
             }
         }

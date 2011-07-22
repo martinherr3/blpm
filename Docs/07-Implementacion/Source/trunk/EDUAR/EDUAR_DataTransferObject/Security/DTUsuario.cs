@@ -5,15 +5,13 @@ using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities.Security
 {
-    [Serializable]
-    [DataContract]
     public class DTUsuario : DTBase
     {
         #region --[Constructores]--
         /// <summary>
         /// Constructor con parametros.
         /// </summary>
-        public DTUsuario(String nombre, String password)
+        public DTUsuario(string nombre, string password)
         {
              Nombre = nombre;
              Password = password;
@@ -34,37 +32,37 @@ namespace EDUAR_Entities.Security
         /// Nombre Usuario
         /// </summary>
         [DataMember]
-        public String Nombre { get; set; }
+        public string Nombre { get; set; }
 
         /// <summary>
         /// Nombre nuevo del usuario
         /// </summary>
         [DataMember]
-        public String NombreNuevo { get; set; }
+        public string NombreNuevo { get; set; }
 
         /// <summary>
         /// Password Usuario.
         /// </summary>
         [DataMember]
-        public String Password { get; set; }
+        public string Password { get; set; }
 
         /// <summary>
         /// Nuevo Password del Usario.
         /// </summary>
         [DataMember]
-        public String PasswordNuevo { get; set; }
+        public string PasswordNuevo { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [DataMember]
-        public String PaswordPregunta { get; set; }
+        public string PaswordPregunta { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [DataMember]
-        public String PaswordRespuesta { get; set; }
+        public string PaswordRespuesta { get; set; }
 
         /// <summary>
         /// Indica si el usuario fue validado para entrar en la aplicacion.
@@ -88,7 +86,7 @@ namespace EDUAR_Entities.Security
         /// 
         /// </summary>
         [DataMember]
-        public String Email { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Indica si el usuario esta habilitado para iniciar session. 
