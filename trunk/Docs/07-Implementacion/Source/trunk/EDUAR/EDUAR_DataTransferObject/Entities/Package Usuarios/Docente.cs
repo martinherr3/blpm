@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
     public class Docente : Personal
     {
         private int _IdDocente;

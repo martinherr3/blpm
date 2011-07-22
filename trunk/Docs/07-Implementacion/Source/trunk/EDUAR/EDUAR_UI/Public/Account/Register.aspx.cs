@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Web.Security;
-using EDUAR_UI.Shared;
+using EDUAR_BusinessLogic.Common;
+using EDUAR_BusinessLogic.Security;
 using EDUAR_Entities;
 using EDUAR_Entities.Security;
-using EDUAR_BusinessLogic.Security;
+using EDUAR_UI.Shared;
 using EDUAR_Utility.Enumeraciones;
-using EDUAR_BusinessLogic.Common;
 
 namespace EDUAR_UI
 {
@@ -128,7 +128,7 @@ namespace EDUAR_UI
             FormsAuthentication.SetAuthCookie(RegisterUser.UserName, true /* createPersistentCookie */);
 
             string continueUrl = RegisterUser.ContinueDestinationPageUrl;
-            if (String.IsNullOrEmpty(continueUrl))
+            if (string.IsNullOrEmpty(continueUrl))
             {
                 continueUrl = "~/";
             }

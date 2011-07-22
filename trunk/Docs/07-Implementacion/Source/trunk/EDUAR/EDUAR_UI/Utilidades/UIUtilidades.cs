@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Web.UI.WebControls;
 using EDUAR_Utility.Enumeraciones;
-using System.ComponentModel;
-using System.Reflection;
-using System.Collections;
 
 namespace EDUAR_UI.Utilidades
 {
@@ -19,12 +17,11 @@ namespace EDUAR_UI.Utilidades
             }
 
         }
-
-
+        
         /// <summary>
         /// Método que realiza el Bind de un ListBox.
         /// </summary>
-        public static void BindCombo<T>(ListBox ListBox, IList<T> lista, String fieldId, String fieldDescription, Boolean addDefaultValue)
+        public static void BindCombo<T>(ListBox ListBox, IList<T> lista, string fieldId, string fieldDescription, Boolean addDefaultValue)
         {
             DataView dataView = new DataView((DataTable)lista);
             ListBox.Items.Clear();
@@ -44,7 +41,7 @@ namespace EDUAR_UI.Utilidades
         /// <summary>
         /// Método que realiza el Bind de un DropDownList.
         /// </summary>
-        public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, String fieldId, String fieldDescription, Boolean addDefaultValue)
+        public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescription, Boolean addDefaultValue)
         {
             DataView dataView = new DataView(BuildDataTable(lista));
             dropDownList.Items.Clear();

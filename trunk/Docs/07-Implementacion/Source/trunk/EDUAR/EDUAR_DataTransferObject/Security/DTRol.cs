@@ -1,11 +1,8 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities.Security
 {
-    [Serializable]
-    [DataContract]
     public class DTRol : DTBase
     {
         #region --[Propiedades]--
@@ -26,19 +23,19 @@ namespace EDUAR_Entities.Security
         /// Nombre del rol.
         /// </summary>
         [DataMember]
-        public String Nombre { get; set; }
+        public string Nombre { get; set; }
 
         /// <summary>
         /// Nombre corto.
         /// </summary>
         [DataMember]
-        public String NombreCorto { get; set; }
+        public string NombreCorto { get; set; }
 
         /// <summary>
         /// Descripcion del rol.
         /// </summary>
         [DataMember]
-        public String Descripcion { get; set; }
+        public string Descripcion { get; set; }
 
         #endregion
     }

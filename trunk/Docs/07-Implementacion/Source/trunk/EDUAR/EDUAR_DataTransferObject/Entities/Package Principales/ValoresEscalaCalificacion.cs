@@ -1,20 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
     public class ValoresEscalaCalificacion
     {
-        private Decimal dIdValorEscalaCalificacion;
-        public Decimal idValorEscalaCalificacion
+        private decimal dIdValorEscalaCalificacion;
+        public decimal idValorEscalaCalificacion
         {
             get { return dIdValorEscalaCalificacion; }
             set { dIdValorEscalaCalificacion = value; }
         }
-        private Decimal dIdValorEscalaCalificacionTransaccional;
-        public Decimal idValorEscalaCalificacionTransaccional
+        private decimal dIdValorEscalaCalificacionTransaccional;
+        public decimal idValorEscalaCalificacionTransaccional
         {
             get { return dIdValorEscalaCalificacionTransaccional; }
             set { dIdValorEscalaCalificacionTransaccional = value; }
@@ -49,8 +46,8 @@ namespace EDUAR_Entities
             get { return bAprobado; }
             set { bAprobado = value; }
         }
-        private Decimal dIdEscalaCalificacion;
-        public Decimal idEscalaCalificacion
+        private decimal dIdEscalaCalificacion;
+        public decimal idEscalaCalificacion
         {
             get { return dIdEscalaCalificacion; }
             set { dIdEscalaCalificacion = value; }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace EDUAR_Utility.Utilidades
 {
@@ -12,7 +11,7 @@ namespace EDUAR_Utility.Utilidades
         /// <returns></returns>
         public static bool EsEmailValido(string email)
         {
-            String expresion;
+            string expresion;
             expresion = @"^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$";
             if (Regex.IsMatch(email, expresion))
             {

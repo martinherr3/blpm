@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EDUAR_DataAccess.Shared;
-using EDUAR_Entities;
 using System.Data;
 using System.Data.SqlClient;
-using EDUAR_Utility.Excepciones;
-using EDUAR_Utility.Enumeraciones;
+using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
 using EDUAR_Utility.Constantes;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_DataAccess.Common
 {
     public class DATipoDocumento : DataAccesBase<TipoDocumento>
     {
         #region --[Atributos]--
-        private const String ClassName = "DATipoDocumento";
+        private const string ClassName = "DATipoDocumento";
         #endregion
 
         #region --[Constructor]--
@@ -65,12 +63,12 @@ namespace EDUAR_DataAccess.Common
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetTipoDocumento()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTipoDocumento()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetTipoDocumento()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTipoDocumento()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
@@ -110,12 +108,12 @@ namespace EDUAR_DataAccess.Common
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetById()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetById()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
@@ -149,12 +147,12 @@ namespace EDUAR_DataAccess.Common
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - Create()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - Create()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
@@ -179,16 +177,16 @@ namespace EDUAR_DataAccess.Common
             catch (SqlException ex)
             {
                 if (ex.Number == BLConstantesGenerales.ConcurrencyErrorNumber)
-                    throw new CustomizedException(String.Format(
+                    throw new CustomizedException(string.Format(
                            "No se puede modificar el Tipo de Documento {0}, debido a que otro usuario lo ha modificado.",
                            entidad.nombre), ex, enuExceptionType.ConcurrencyException);
 
-                throw new CustomizedException(String.Format("Fallo en {0} - Update()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
                                                       ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - Update()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
                                                       ex, enuExceptionType.DataAccesException);
             }
         }
@@ -211,20 +209,20 @@ namespace EDUAR_DataAccess.Common
             catch (SqlException ex)
             {
                 if (ex.Number == BLConstantesGenerales.ConcurrencyErrorNumber)
-                    throw new CustomizedException(String.Format(
+                    throw new CustomizedException(string.Format(
                            "No se puede eliminar el Tipo de Documento {0}, debido a que otro usuario lo ha modificado.",
                            entidad.nombre), ex, enuExceptionType.ConcurrencyException);
                 if (ex.Number == BLConstantesGenerales.IntegrityErrorNumber)
-                    throw new CustomizedException(String.Format("No se puede eliminar el Tipo de Documento {0}, debido a que tiene registros asociados.",
+                    throw new CustomizedException(string.Format("No se puede eliminar el Tipo de Documento {0}, debido a que tiene registros asociados.",
                                        entidad.nombre), ex, enuExceptionType.IntegrityDataException);
 
 
-                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
                                                        ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
                                                        ex, enuExceptionType.DataAccesException);
             }
         }

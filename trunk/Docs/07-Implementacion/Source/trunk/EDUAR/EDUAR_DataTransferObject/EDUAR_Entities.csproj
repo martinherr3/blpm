@@ -112,6 +112,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Security\DTAcceso.cs" />
     <Compile Include="Security\DTRol.cs" />
     <Compile Include="Security\DTSeguridad.cs" />
     <Compile Include="Security\DTUsuario.cs" />

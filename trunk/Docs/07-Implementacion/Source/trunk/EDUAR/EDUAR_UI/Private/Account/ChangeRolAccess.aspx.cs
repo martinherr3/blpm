@@ -22,16 +22,19 @@ namespace EDUAR_UI
         {
             try
             {
-                SiteMapNode currentNode = SiteMap.RootNode;
-                List<Seccion> listaSecciones = new List<Seccion>();
-                Seccion objSeccion = new Seccion();
-                foreach (SiteMapNode nodo in currentNode.ChildNodes)
+                if (!Page.IsPostBack)
                 {
-                    listaSecciones.Add(recorrerColeccion(nodo));
+                    SiteMapNode currentNode = SiteMap.RootNode;
+                    List<Seccion> listaSecciones = new List<Seccion>();
+                    Seccion objSeccion = new Seccion();
+                    foreach (SiteMapNode nodo in currentNode.ChildNodes)
+                    {
+                        listaSecciones.Add(recorrerColeccion(nodo));
+                    }
+                    gvwSecciones.DataSource = listaSecciones;
+                    gvwSecciones.DataBind();
+                    udpGrilla.Update();
                 }
-                gvwSecciones.DataSource = listaSecciones;
-                gvwSecciones.DataBind();
-                udpGrilla.Update();
             }
             catch (Exception ex)
             {
@@ -39,6 +42,11 @@ namespace EDUAR_UI
             }
         }
 
+        /// <summary>
+        /// Recorrers the coleccion.
+        /// </summary>
+        /// <param name="nodo">The nodo.</param>
+        /// <returns></returns>
         private Seccion recorrerColeccion(SiteMapNode nodo)
         {
             List<DTRol> listaRoles;
@@ -65,6 +73,28 @@ namespace EDUAR_UI
         }
 
         protected void gvwSecciones_RowCommand(object sender, GridViewCommandEventArgs e)
-        { }
+        {
+            try
+            {
+                if (e.CommandName == "Editar")
+                {
+                    SiteMapNode currentNode = SiteMap.Provider.FindSiteMapNodeFromKey(e.CommandArgument.ToString());
+                    //SiteMapNode currentNode = SiteMap.RootNode;
+                    List<Seccion> listaSecciones = new List<Seccion>();
+                    Seccion objSeccion = new Seccion();
+                    foreach (SiteMapNode nodo in currentNode.ChildNodes)
+                    {
+                        listaSecciones.Add(recorrerColeccion(nodo));
+                    }
+                    gvwSecciones.DataSource = listaSecciones;
+                    gvwSecciones.DataBind();
+                    udpGrilla.Update();
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
     }
 }

@@ -6,7 +6,6 @@ using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
 using EDUAR_Utility.Utilidades;
 
-
 namespace EDUAR_UI.UserControls
 {
     public partial class VentanaInfo : UserControl
@@ -20,7 +19,7 @@ namespace EDUAR_UI.UserControls
         /// <summary>
         /// Mensaje que se mostrará en la ventana emergente.
         /// </summary>
-        public String Detalle
+        public string Detalle
         {
             set { lblDetalleSys.Text = value; }
         }
@@ -28,7 +27,7 @@ namespace EDUAR_UI.UserControls
         /// <summary>
         /// Titulo que tendrá la ventana emergente. 
         /// </summary>
-        public String Titulo
+        public string Titulo
         {
             set { lblTitulo.Text = value; }
         }
@@ -91,14 +90,14 @@ namespace EDUAR_UI.UserControls
                 if (!oLogActivo)
                     return;
 
-                String logPath = System.Configuration.ConfigurationManager.AppSettings["oLogPath"];
-                String logNombre = System.Configuration.ConfigurationManager.AppSettings["oLogNombre"];
+                string logPath = System.Configuration.ConfigurationManager.AppSettings["oLogPath"];
+                string logNombre = System.Configuration.ConfigurationManager.AppSettings["oLogNombre"];
 
                 //Crea el directorio.
                 if (!System.IO.Directory.Exists(logPath))
                     System.IO.Directory.CreateDirectory(logPath);
 
-                String oLogPath = String.Format("{0}\\{1}", logPath, logNombre);
+                string oLogPath = string.Format("{0}\\{1}", logPath, logNombre);
 
                 //Crea el archivo.
                 if (!System.IO.File.Exists(oLogPath))
@@ -107,7 +106,7 @@ namespace EDUAR_UI.UserControls
                 #endregion
 
                 //Variables
-                string informacion = String.Empty;
+                string informacion = string.Empty;
                 string message;
                 string source;
                 string stackTrace;
@@ -142,7 +141,7 @@ namespace EDUAR_UI.UserControls
                             break;
                     }
 
-                    informacion = String.Format("{0} {1}", genericEx.Message, genericEx.Informacion);
+                    informacion = string.Format("{0} {1}", genericEx.Message, genericEx.Informacion);
                     message = genericEx.Message;
                     source = genericEx.Source;
                     stackTrace = genericEx.StackTrace;
@@ -170,16 +169,16 @@ namespace EDUAR_UI.UserControls
                 #region Guarda la Info en el Log
                 //Informacion
                 msgLog.AppendLine();
-                msgLog.Append(String.Format("Informacion: {0}", informacion));
+                msgLog.Append(string.Format("Informacion: {0}", informacion));
                 msgLog.AppendLine();
                 //Message
-                msgLog.Append(String.Format("Message: {0}", message));
+                msgLog.Append(string.Format("Message: {0}", message));
                 msgLog.AppendLine();
                 //Source
-                msgLog.Append(String.Format("Source: {0}", source));
+                msgLog.Append(string.Format("Source: {0}", source));
                 msgLog.AppendLine();
                 //StackTrace
-                msgLog.Append(String.Format("StackTrace: {0}", stackTrace));
+                msgLog.Append(string.Format("StackTrace: {0}", stackTrace));
                 msgLog.AppendLine();
 
                 msgLog.AppendLine();
@@ -208,14 +207,14 @@ namespace EDUAR_UI.UserControls
                 if (!oLogActivo)
                     return;
 
-                String logPath = System.Configuration.ConfigurationManager.AppSettings["oLogPath"];
-                String logNombre = System.Configuration.ConfigurationManager.AppSettings["oLogNombre"];
+                string logPath = System.Configuration.ConfigurationManager.AppSettings["oLogPath"];
+                string logNombre = System.Configuration.ConfigurationManager.AppSettings["oLogNombre"];
 
                 //Crea el directorio.
                 if (!System.IO.Directory.Exists(logPath))
                     System.IO.Directory.CreateDirectory(logPath);
 
-                String oLogPath = String.Format("{0}\\{1}", logPath, logNombre);
+                string oLogPath = string.Format("{0}\\{1}", logPath, logNombre);
 
                 //Crea el archivo.
                 if (!System.IO.File.Exists(oLogPath))
@@ -228,13 +227,13 @@ namespace EDUAR_UI.UserControls
                 msgLog.AppendLine("*********************************************************************************");
                 msgLog.AppendFormat("{0} - {1}", DateTime.Now, enuExceptionType.Exception);
                 //Message
-                msgLog.Append(String.Format("Message: {0}", exepcionControlada.Message));
+                msgLog.Append(string.Format("Message: {0}", exepcionControlada.Message));
                 msgLog.AppendLine();
                 //Source
-                msgLog.Append(String.Format("Source: {0}", exepcionControlada.Source));
+                msgLog.Append(string.Format("Source: {0}", exepcionControlada.Source));
                 msgLog.AppendLine();
                 //StackTrace
-                msgLog.Append(String.Format("StackTrace: {0}", exepcionControlada.StackTrace));
+                msgLog.Append(string.Format("StackTrace: {0}", exepcionControlada.StackTrace));
                 msgLog.AppendLine();
 
                 msgLog.AppendLine();
@@ -261,22 +260,22 @@ namespace EDUAR_UI.UserControls
                     case enumTipoVentanaInformacion.Satisfactorio:
                     case enumTipoVentanaInformacion.Advertencia:
                     case enumTipoVentanaInformacion.Error:
-                        TDEncabezado.Attributes.Add("class", String.Format("Encabezado{0}", TipoVentana));
-                        TablaInterna.Attributes.Add("class", String.Format("tablaInterna{0}", TipoVentana));
-                        TDEtiquetas.Attributes.Add("class", String.Format("Eti{0}", TipoVentana));
-                        TDEtiquetas2.Attributes.Add("class", String.Format("Eti{0}", TipoVentana));
-                        TDEtiquetas3.Attributes.Add("class", String.Format("Eti{0}", TipoVentana));
-                        imgIconoVentana.ImageUrl = String.Format("~/Images/ventana{0}.png", TipoVentana);
+                        TDEncabezado.Attributes.Add("class", string.Format("Encabezado{0}", TipoVentana));
+                        TablaInterna.Attributes.Add("class", string.Format("tablaInterna{0}", TipoVentana));
+                        TDEtiquetas.Attributes.Add("class", string.Format("Eti{0}", TipoVentana));
+                        TDEtiquetas2.Attributes.Add("class", string.Format("Eti{0}", TipoVentana));
+                        TDEtiquetas3.Attributes.Add("class", string.Format("Eti{0}", TipoVentana));
+                        imgIconoVentana.ImageUrl = string.Format("~/Images/ventana{0}.png", TipoVentana);
                         btnCancelar.Visible = false;
                         btnAceptar.Visible = true;
                         imgIconoVentana.Visible = true;
                         break;
                     case enumTipoVentanaInformacion.Confirmación:
-                        TDEncabezado.Attributes.Add("class", String.Format("Encabezado{0}", TipoVentana));
-                        TablaInterna.Attributes.Add("class", String.Format("tablaInterna{0}", TipoVentana));
-                        TDEtiquetas.Attributes.Add("class", String.Format("Eti{0}", TipoVentana));
-                        TDEtiquetas2.Attributes.Add("class", String.Format("Eti{0}", TipoVentana));
-                        TDEtiquetas3.Attributes.Add("class", String.Format("Eti{0}", TipoVentana));
+                        TDEncabezado.Attributes.Add("class", string.Format("Encabezado{0}", TipoVentana));
+                        TablaInterna.Attributes.Add("class", string.Format("tablaInterna{0}", TipoVentana));
+                        TDEtiquetas.Attributes.Add("class", string.Format("Eti{0}", TipoVentana));
+                        TDEtiquetas2.Attributes.Add("class", string.Format("Eti{0}", TipoVentana));
+                        TDEtiquetas3.Attributes.Add("class", string.Format("Eti{0}", TipoVentana));
                         imgIconoVentana.ImageUrl = "~/Images/ventanaConfirmacion.png";
                         btnCancelar.Visible = true;
                         btnAceptar.Visible = true;

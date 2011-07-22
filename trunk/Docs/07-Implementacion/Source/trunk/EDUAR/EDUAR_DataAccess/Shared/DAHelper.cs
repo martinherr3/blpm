@@ -12,19 +12,19 @@ namespace EDUAR_DataAccess.Shared
         #region Métodos Públicos
 
         /// <summary>
-        /// Método estático que obtiene un objeto DataBase en función del connectionstring con name "EDUAR_ConnectionString"
+        /// Método estático que obtiene un objeto DataBase en función del connectionstring con name "EDUAR_Connectionstring"
         /// </summary>
         /// <returns>Objeto de tipo DataBase</returns>
         public static Database GetDataBaseFromWebConfig()
         {
-            return DatabaseFactory.CreateDatabase("EDUAR_ConnectionString");
+            return DatabaseFactory.CreateDatabase("EDUAR_Connectionstring");
         }
 
         /// <summary>
         /// Método estático que obtiene un objeto DataBase en función del connectionstring de acuerdo al parametro
         /// </summary>
         /// <returns>Objeto de tipo DataBase</returns>
-        public static Database GetDataBaseFromWebConfig(String cadenaConexion)
+        public static Database GetDataBaseFromWebConfig(string cadenaConexion)
         {
             return DatabaseFactory.CreateDatabase(cadenaConexion);
         }
@@ -34,7 +34,7 @@ namespace EDUAR_DataAccess.Shared
         /// Método estático que obtiene un objeto DataTable paginado segun los  parametros
         /// </summary>
         /// <returns>Objeto de tipo DataBase</returns>
-        public static DataTable ObtenerTablaPaginada(DataTable tablaSinPaginar, Int32 paginaActual, Int32 paginacionTamaño, String ordenamiento)
+        public static DataTable ObtenerTablaPaginada(DataTable tablaSinPaginar, Int32 paginaActual, Int32 paginacionTamaño, string ordenamiento)
         {
             DataTable dtFiltrada = tablaSinPaginar.Clone();
 

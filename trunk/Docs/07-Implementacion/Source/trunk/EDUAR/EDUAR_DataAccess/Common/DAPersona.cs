@@ -15,7 +15,7 @@ namespace EDUAR_DataAccess.Common
     public class DAPersona : DataAccesBase<Persona>
     {
         #region --[Atributos]--
-        private const String ClassName = "DAPersona";
+        private const string ClassName = "DAPersona";
         #endregion
 
         #region --[Constructor]--
@@ -106,12 +106,12 @@ namespace EDUAR_DataAccess.Common
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonas()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPersonas()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonas()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPersonas()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
@@ -195,12 +195,12 @@ namespace EDUAR_DataAccess.Common
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonaByEntidad()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPersonaByEntidad()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonaByEntidad()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPersonaByEntidad()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
@@ -255,12 +255,12 @@ namespace EDUAR_DataAccess.Common
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonas()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPersonas()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetPersonas()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPersonas()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
@@ -305,12 +305,12 @@ namespace EDUAR_DataAccess.Common
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - Create()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - Create()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
@@ -347,16 +347,16 @@ namespace EDUAR_DataAccess.Common
             catch (SqlException ex)
             {
                 if (ex.Number == BLConstantesGenerales.ConcurrencyErrorNumber)
-                    throw new CustomizedException(String.Format(
+                    throw new CustomizedException(string.Format(
                            "No se puede modificar la Persona {0}, debido a que otro usuario lo ha modificado.",
                            entidad.nombre + " " + entidad.apellido), ex, enuExceptionType.ConcurrencyException);
 
-                throw new CustomizedException(String.Format("Fallo en {0} - Update()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
                                                       ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - Update()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
                                                       ex, enuExceptionType.DataAccesException);
             }
         }
@@ -379,20 +379,20 @@ namespace EDUAR_DataAccess.Common
             catch (SqlException ex)
             {
                 if (ex.Number == BLConstantesGenerales.ConcurrencyErrorNumber)
-                    throw new CustomizedException(String.Format(
+                    throw new CustomizedException(string.Format(
                            "No se puede eliminar la Persona {0}, debido a que otro usuario lo ha modificado.",
                            entidad.nombre + " " + entidad.apellido), ex, enuExceptionType.ConcurrencyException);
                 if (ex.Number == BLConstantesGenerales.IntegrityErrorNumber)
-                    throw new CustomizedException(String.Format("No se puede eliminar la Persona {0}, debido a que tiene registros asociados.",
+                    throw new CustomizedException(string.Format("No se puede eliminar la Persona {0}, debido a que tiene registros asociados.",
                                        entidad.nombre + " " + entidad.apellido), ex, enuExceptionType.IntegrityDataException);
 
 
-                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
                                                        ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
                                                        ex, enuExceptionType.DataAccesException);
             }
         }

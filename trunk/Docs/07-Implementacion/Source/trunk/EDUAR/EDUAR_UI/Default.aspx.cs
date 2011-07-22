@@ -1,7 +1,7 @@
 ﻿using System;
-using EDUAR_UI.Shared;
 using EDUAR_BusinessLogic.Security;
 using EDUAR_Entities.Security;
+using EDUAR_UI.Shared;
 
 namespace EDUAR_UI
 {

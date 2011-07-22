@@ -40,7 +40,7 @@ namespace EDUAR_BusinessLogic.Security
         #endregion
 
         #region --[Constante]--
-        private const String ClassName = "BLSeguridad";
+        private const string ClassName = "BLSeguridad";
         #endregion
 
         #region --[Propiedades]--
@@ -58,9 +58,9 @@ namespace EDUAR_BusinessLogic.Security
         private void ObtenerRolesUsuario()
         {
             //Obtengo todos los roles del usuario y los cargo en el Data.
-            String[] arrRoles = Roles.GetRolesForUser(Data.Usuario.Nombre);
+            string[] arrRoles = Roles.GetRolesForUser(Data.Usuario.Nombre);
 
-            foreach (String rolUsuario in arrRoles)
+            foreach (string rolUsuario in arrRoles)
             {
                 DTRol objDTRol = new DTRol { Nombre = rolUsuario, NombreCorto = rolUsuario.ToLower() };
                 //Obtiene el IDRol desde la enumeracion enumRoles
@@ -74,7 +74,7 @@ namespace EDUAR_BusinessLogic.Security
         /// </summary>
         /// <param name="textEncripted"></param>
         /// <returns></returns>
-        private static String Desencriptar(String textEncripted)
+        private static string Desencriptar(string textEncripted)
         {
             UTF8Encoding encoder = new UTF8Encoding();
             Decoder utf8Decode = encoder.GetDecoder();
@@ -83,7 +83,7 @@ namespace EDUAR_BusinessLogic.Security
             int charCount = utf8Decode.GetCharCount(todecodeByte, 0, todecodeByte.Length);
             char[] decodedChar = new char[charCount];
             utf8Decode.GetChars(todecodeByte, 0, todecodeByte.Length, decodedChar, 0);
-            String result = new String(decodedChar);
+            string result = new string(decodedChar);
 
             return result;
         }
@@ -108,7 +108,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuario", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetUsuario", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -133,7 +133,7 @@ namespace EDUAR_BusinessLogic.Security
             { throw ex; }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarioByEmail", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetUsuarioByEmail", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -154,7 +154,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetRoles", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRoles", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -175,7 +175,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetUsuarios", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetUsuarios", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -203,7 +203,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - ValidarUsuario()", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - ValidarUsuario()", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -220,12 +220,12 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (MembershipPasswordException ex)
             {
-                throw new CustomizedException(String.Format("La respuesta proporcionada no es válida.", ClassName), ex,
+                throw new CustomizedException(string.Format("La respuesta proporcionada no es válida.", ClassName), ex,
                                               enuExceptionType.SecurityException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - CambiarPassword", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - CambiarPassword", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -242,7 +242,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - CambiarPassword", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - CambiarPassword", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -255,7 +255,7 @@ namespace EDUAR_BusinessLogic.Security
             try
             {
                 //Obtener el password por defecto
-                //String passwordEncriptado = objBLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial);
+                //string passwordEncriptado = objBLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial);
                 Data.Usuario.Password = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial);
                 //Data.Usuario.Password = Desencriptar(passwordEncriptado);
                 Data.Usuario.Aprobado = Data.Usuario.Aprobado;
@@ -316,7 +316,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - CrearUsuario", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - CrearUsuario", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -344,7 +344,7 @@ namespace EDUAR_BusinessLogic.Security
             catch (Exception ex)
             {
                 //dataAcces.transaction.RollbackTransaction();
-                throw new CustomizedException(String.Format("Fallo en {0} - CrearUsuarios()", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - CrearUsuarios()", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -358,7 +358,7 @@ namespace EDUAR_BusinessLogic.Security
         {
             try
             {
-                string sTodosRoles = String.Empty;
+                string sTodosRoles = string.Empty;
                 string[] sRoles = new string[objUsuario.ListaRoles.Count];
                 int i = 0;
                 using (TransactionScope txScope1 = txScope)
@@ -376,7 +376,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - AgregarRoles", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - AgregarRoles", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -392,7 +392,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - EliminarUsuario", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - EliminarUsuario", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -415,9 +415,9 @@ namespace EDUAR_BusinessLogic.Security
                 #endregion
 
                 #region Elimina la asignacion de roles al usuario
-                String[] rolesAplicacion = Roles.GetAllRoles();
+                string[] rolesAplicacion = Roles.GetAllRoles();
 
-                foreach (String rolActual in rolesAplicacion)
+                foreach (string rolActual in rolesAplicacion)
                 {
                     if (Roles.IsUserInRole(Data.Usuario.Nombre, rolActual))
                         Roles.RemoveUserFromRole(Data.Usuario.Nombre, rolActual);
@@ -437,7 +437,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - ActualizarUsuario", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - ActualizarUsuario", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -460,7 +460,7 @@ namespace EDUAR_BusinessLogic.Security
                     }
                     else
                     {
-                        throw new CustomizedException(String.Format("Fallo en {0} - GuardarRol - el rol {1} ya existe.", ClassName, Data.Rol.Nombre), null,
+                        throw new CustomizedException(string.Format("Fallo en {0} - GuardarRol - el rol {1} ya existe.", ClassName, Data.Rol.Nombre), null,
                                                      enuExceptionType.BusinessLogicException);
                     }
                 }
@@ -472,7 +472,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GuardarRol", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GuardarRol", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -493,7 +493,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetRol", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRol", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -524,7 +524,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - CrearRol()", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - CrearRol()", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -549,7 +549,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - EliminarRol", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - EliminarRol", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -596,7 +596,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - RecuperarPassword", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - RecuperarPassword", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -617,7 +617,7 @@ namespace EDUAR_BusinessLogic.Security
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - RecuperarPassword", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - RecuperarPassword", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }

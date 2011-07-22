@@ -7,7 +7,6 @@ namespace EDUAR_DataAccess.Shared
     /// Clase abstracta que sirve de base para los objetos comunes de DataAccesBase
     /// </summary>
     /// <typeparam name="TDataTransferObject">DTO de la entidad</typeparam>
-    [DataContract]
     public abstract class DataAccesBase<TDataTransferObject>
     {
         #region --[Propiedades]--

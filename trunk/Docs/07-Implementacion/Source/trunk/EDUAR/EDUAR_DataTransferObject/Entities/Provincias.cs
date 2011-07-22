@@ -1,20 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
     public class Provincias
     {
-        private Decimal dIdProvincia;
-        public Decimal idProvincia
+        private decimal dIdProvincia;
+        public decimal idProvincia
         {
             get { return dIdProvincia; }
             set { dIdProvincia = value; }
         }
-        private Decimal dIdProvinciaTransaccional;
-        public Decimal idProvinciaTransaccional
+        private decimal dIdProvinciaTransaccional;
+        public decimal idProvinciaTransaccional
         {
             get { return dIdProvinciaTransaccional; }
             set { dIdProvinciaTransaccional = value; }
@@ -31,8 +28,8 @@ namespace EDUAR_Entities
             get { return szDescripcion; }
             set { szDescripcion = value; }
         }
-        private Decimal dIdPais;
-        public Decimal idPais
+        private decimal dIdPais;
+        public decimal idPais
         {
             get { return dIdPais; }
             set { dIdPais = value; }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using EDUAR_Utility.Excepciones;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_UI.UserControls
 {
@@ -72,7 +72,7 @@ namespace EDUAR_UI.UserControls
         /// <summary>
         /// Etiqueta que tendra el label desde.
         /// </summary>
-        public String EtiquetaDesde
+        public string EtiquetaDesde
         {
             set
             {
@@ -84,7 +84,7 @@ namespace EDUAR_UI.UserControls
         /// <summary>
         /// Etiqueta que tendra el label Hasta.
         /// </summary>
-        public String EtiquetaHasta
+        public string EtiquetaHasta
         {
             set { lblFechaHasta_DA.Text = value; }
         }
@@ -92,7 +92,7 @@ namespace EDUAR_UI.UserControls
         /// <summary>
         /// Valor a mostrar asociado al mensaje de error de validación.
         /// </summary>
-        public String MensajeErrorValidacion
+        public string MensajeErrorValidacion
         {
             set { hndMensajeErrorValidacion.Value = value; }
         }
@@ -372,10 +372,10 @@ namespace EDUAR_UI.UserControls
         /// </summary>
         public void LimpiarControles()
         {
-            txtFechaDesde.Text = String.Empty;
-            txtFechaDesde_DA.Text = String.Empty;
-            txtFechaHasta_DA.Text = String.Empty;
-            txtFecha.Text = String.Empty;
+            txtFechaDesde.Text = string.Empty;
+            txtFechaDesde_DA.Text = string.Empty;
+            txtFechaHasta_DA.Text = string.Empty;
+            txtFecha.Text = string.Empty;
         }
 
         /// <summary>
@@ -387,7 +387,7 @@ namespace EDUAR_UI.UserControls
         private void ValidarFormatoDesdeEx()
         {
             if (!ValidarFormatoDesde())
-                throw new CustomizedException(String.Format("El campo {0} tiene un formato incorrecto", lblFechaDesde.Text), null, enuExceptionType.ValidationException);
+                throw new CustomizedException(string.Format("El campo {0} tiene un formato incorrecto", lblFechaDesde.Text), null, enuExceptionType.ValidationException);
 
 
             DateTime fechaDesde;
@@ -403,7 +403,7 @@ namespace EDUAR_UI.UserControls
             {
                 int anio = fechaDesde.Year;
                 if (anio < 1753 || anio > 9999)
-                    throw new CustomizedException(String.Format("El campo {0} tiene un formato incorrecto. El año debe estar entre 1753 y 9999", lblFechaDesde_DA.Text), null, enuExceptionType.ValidationException);
+                    throw new CustomizedException(string.Format("El campo {0} tiene un formato incorrecto. El año debe estar entre 1753 y 9999", lblFechaDesde_DA.Text), null, enuExceptionType.ValidationException);
             }
         }
 
@@ -418,15 +418,15 @@ namespace EDUAR_UI.UserControls
             DateTime fechaDesde;
             if (TipoCalendario == enumTipoCalendario.Desde)
             {
-                return txtFechaDesde.Text.Trim() == String.Empty ||
+                return txtFechaDesde.Text.Trim() == string.Empty ||
                        (DateTime.TryParse(txtFechaDesde.Text.Trim(), out fechaDesde));
             }
             if (TipoCalendario == enumTipoCalendario.SoloFecha)
             {
-                return txtFecha.Text.Trim() == String.Empty ||
+                return txtFecha.Text.Trim() == string.Empty ||
                        (DateTime.TryParse(txtFecha.Text.Trim(), out fechaDesde));
             }
-            return txtFechaDesde_DA.Text.Trim() == String.Empty ||
+            return txtFechaDesde_DA.Text.Trim() == string.Empty ||
                    (DateTime.TryParse(txtFechaDesde_DA.Text.Trim(), out fechaDesde));
         }
 
@@ -439,14 +439,14 @@ namespace EDUAR_UI.UserControls
         private void ValidarFormatoHastaEx()
         {
             if (!ValidarFormatoHasta())
-                throw new CustomizedException(String.Format("El campo {0} tiene un formato incorrecto", lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
+                throw new CustomizedException(string.Format("El campo {0} tiene un formato incorrecto", lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
 
             DateTime fechaHasta;
             if (DateTime.TryParse(txtFechaHasta_DA.Text.Trim(), out fechaHasta))
             {
                 int anio = fechaHasta.Year;
                 if (anio < 1753 || anio > 9999)
-                    throw new CustomizedException(String.Format("El campo {0} tiene un formato incorrecto. El año debe estar entre 1753 y 9999", lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
+                    throw new CustomizedException(string.Format("El campo {0} tiene un formato incorrecto. El año debe estar entre 1753 y 9999", lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
             }
         }
 
@@ -458,7 +458,7 @@ namespace EDUAR_UI.UserControls
         /// FALSE en caso de ser incorrecto</returns>
         private Boolean ValidarFormatoHasta()
         {
-            if (txtFechaHasta_DA.Text.Trim() == String.Empty)
+            if (txtFechaHasta_DA.Text.Trim() == string.Empty)
                 return true;
 
             DateTime fechaDesde;
@@ -491,14 +491,14 @@ namespace EDUAR_UI.UserControls
                 fechaHasta = DateTime.Now;
             }
 
-            if ((txtFechaDesde_DA.Text.Trim() == String.Empty || boolFechaDesdeCorrecta)
-                && (txtFechaHasta_DA.Text.Trim() == String.Empty || boolFechaHastaCorrecta))
+            if ((txtFechaDesde_DA.Text.Trim() == string.Empty || boolFechaDesdeCorrecta)
+                && (txtFechaHasta_DA.Text.Trim() == string.Empty || boolFechaHastaCorrecta))
                 fechasValidas = true;
 
             if (fechasValidas)
             {
-                if (!txtFechaDesde_DA.Text.Trim().Equals(String.Empty)
-                    && !txtFechaHasta_DA.Text.Trim().Equals(String.Empty))
+                if (!txtFechaDesde_DA.Text.Trim().Equals(string.Empty)
+                    && !txtFechaHasta_DA.Text.Trim().Equals(string.Empty))
                 {
                     if (fechaDesde.Date <= fechaHasta.Date)
                         retorno = true;
@@ -524,7 +524,7 @@ namespace EDUAR_UI.UserControls
             ValidarFormatoDesdeEx();
 
             if (!ValidarFormatoDesdeHasta(fechaHastaHoy))
-                throw new CustomizedException(String.Format("Período incorrecto en {0}. La fecha inicial debe ser menor o igual a la fecha final.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
+                throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha inicial debe ser menor o igual a la fecha final.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
         }
 
 
@@ -577,12 +577,12 @@ namespace EDUAR_UI.UserControls
             //Valida que la fecha final no sea superior a la fecha del día
             if (boolFechaHastaCorrecta)
                 if (fechaHasta.Date > DateTime.Now.Date)
-                    throw new CustomizedException(String.Format("Período incorrecto en {0}. La fecha final no puede ser superior a la fecha actual.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
+                    throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha final no puede ser superior a la fecha actual.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
 
             //Valida que la fecha inicial no sea superior a la fecha final
             if (boolFechaDesdeCorrecta && boolFechaHastaCorrecta)
                 if (fechaDesde.Date > fechaHasta.Date)
-                    throw new CustomizedException(String.Format("Período incorrecto en {0}. La fecha inicial debe ser menor o igual a la fecha final.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
+                    throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha inicial debe ser menor o igual a la fecha final.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
         }
 
         private void ComprobarRangosDesde(bool comprobarFechaHoy)
@@ -597,7 +597,7 @@ namespace EDUAR_UI.UserControls
                 //Valida que la fecha final no sea superior a la fecha del día
                 if (boolFechaDesdeCorrecta)
                     if (fechaDesde.Date > DateTime.Now.Date)
-                        throw new CustomizedException(String.Format("Período incorrecto en {0}. La fecha no puede ser superior a la fecha actual.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
+                        throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha no puede ser superior a la fecha actual.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
             }
         }
 

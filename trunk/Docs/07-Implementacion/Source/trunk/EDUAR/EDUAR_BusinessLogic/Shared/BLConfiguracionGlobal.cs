@@ -1,6 +1,6 @@
 ﻿using System;
-using EDUAR_Utility.Enumeraciones;
 using EDUAR_DataAccess.Shared;
+using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_BusinessLogic.Shared
@@ -11,7 +11,7 @@ namespace EDUAR_BusinessLogic.Shared
     public class BLConfiguracionGlobal
     {
         #region --[Constante]--
-        private const String ClassName = "BLConfiguracionGlobal";
+        private const string ClassName = "BLConfiguracionGlobal";
         #endregion
 
         #region --[Métodos Publicos]--
@@ -20,7 +20,7 @@ namespace EDUAR_BusinessLogic.Shared
         /// </summary>  
         /// <param name="configuracion">Enumeracion con la configuracion que se quiere buscar.</param>
         /// <returns>Valor de la configuracion</returns>
-        public static String ObtenerConfiguracion(enumConfiguraciones configuracion)
+        public static string ObtenerConfiguracion(enumConfiguraciones configuracion)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace EDUAR_BusinessLogic.Shared
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - ObtenerConfiguracion", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - ObtenerConfiguracion", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -44,9 +44,9 @@ namespace EDUAR_BusinessLogic.Shared
         /// <param name="objDATransaction"></param>
         /// <param name="configuracion">Enumeracion con la configuracion que se quiere buscar.</param>
         /// <returns>Valor de la configuracion</returns>
-        public String ObtenerConfiguracion(DATransaction objDATransaction, enumConfiguraciones configuracion)
+        public string ObtenerConfiguracion(DATransaction objDATransaction, enumConfiguraciones configuracion)
         {
-            String valor;
+            string valor;
             try
             {
                 DAConfiguracionGlobal dataAcces = new DAConfiguracionGlobal(objDATransaction);
@@ -58,7 +58,7 @@ namespace EDUAR_BusinessLogic.Shared
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - ObtenerConfiguracion", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - ObtenerConfiguracion", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
             return valor;

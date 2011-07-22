@@ -8,7 +8,6 @@ using EDUAR_Entities.Shared;
 using EDUAR_UI.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
-using System.Configuration;
 
 namespace EDUAR_UI
 {
@@ -130,7 +129,7 @@ namespace EDUAR_UI
                         continue;
                     trvMenu.Visible = true;
                     TreeNode objTreeNode = new TreeNode(node.Title);
-                    if (node.Url != String.Empty)
+                    if (node.Url != string.Empty)
                         objTreeNode.NavigateUrl = node.Url;
 
                     objTreeNode.SelectAction = TreeNodeSelectAction.Expand;
@@ -301,7 +300,7 @@ namespace EDUAR_UI
         /// <param name="titulo"></param>
         /// <param name="detalle"></param>
         /// <param name="tipoventana"></param>
-        public void MostrarMensaje(String titulo, String detalle, enumTipoVentanaInformacion tipoventana)
+        public void MostrarMensaje(string titulo, string detalle, enumTipoVentanaInformacion tipoventana)
         {
             try
             {
