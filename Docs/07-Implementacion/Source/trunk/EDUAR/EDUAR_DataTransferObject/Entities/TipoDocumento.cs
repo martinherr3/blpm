@@ -4,37 +4,11 @@ namespace EDUAR_Entities
 {
     public class TipoDocumento : DTBase
     {
-        private int _idTipoDocumento;
-        public int idTipoDocumento
-        {
-            get { return _idTipoDocumento; }
-            set { _idTipoDocumento = value; }
-        }
-        private int _idTipoDocumentoTransaccional;
-        public int idTipoDocumentoTransaccional
-        {
-            get { return _idTipoDocumentoTransaccional; }
-            set { _idTipoDocumentoTransaccional = value; }
-        }
-        private string _nombre;
-        public string nombre
-        {
-            get { return _nombre; }
-            set { _nombre = value; }
-        }
-        private string _descripcion;
-        public string descripcion
-        {
-            get { return _descripcion; }
-            set { _descripcion = value; }
-        }
-        private bool? _activo;
-        public bool? activo
-        {
-            get { return _activo; }
-            set { _activo = value; }
-        }
-
+        public int idTipoDocumento { get; set; }
+        public int idTipoDocumentoTransaccional { get; set; }
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
+        public bool? activo { get; set; }
         public TipoDocumento()
         {
             activo = null;
