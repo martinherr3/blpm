@@ -13,6 +13,7 @@ namespace EDUAR_SI_DataAccess
         #region --[Atributos]--
         private const string ClassName = "DAObtenerDatos";
         private MySqlConnection conMySQL;
+        private const int DURACION_MODULO = 40;
         #endregion
 
         #region --[Propiedades]--
@@ -1608,6 +1609,101 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
         }
+
+        public List<DiasHorarios> obtenerHorarios(Configuraciones configuracion)
+        {
+            List<DiasHorarios> listadoDiasHorarios = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT * 
+                                            FROM vw_diashorarios";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    DiasHorarios unDiasHorarios;
+                    listadoDiasHorarios = new List<DiasHorarios>();
+                    while (reader.Read())
+                    {
+                        unDiasHorarios = new DiasHorarios();
+
+                        unDiasHorarios.idDiaHorario = 0;
+                        unDiasHorarios.idDiaHorarioTransaccional = (int)reader["idRelDivActDocAnio"];
+                        unDiasHorarios.unDia = (Dia)reader["idDiaSemana"];
+                        unDiasHorarios.modulos = getModulos(Convert.ToDateTime(reader["fecha_inicio"]), Convert.ToDateTime(reader["fecha_fin"]));
+                        unDiasHorarios.idAsignatura = (int)reader["fk_actividad_id"]; // Asignatura
+                        unDiasHorarios.idCurso = (int)reader["fk_division_id"]; // Curso (SQL Server) = Divsion (MySQL)
+                        unDiasHorarios.idNivel = (int)reader["fk_anio_id"]; // Nivel (SQL Server) = Anio (MySQL)
+
+
+
+
+                        //unDiasHorarios.motivoDiasHorario.idMotivoDiasHorarioTransaccional = (int)reader["fk_motivoDiasHorario_id"];
+                        //unDiasHorarios.tipoDiasHorario.idTipoDiasHorarioTransaccional = (int)reader["fk_tipoDiasHorario_id"];
+
+
+                        listadoDiasHorarios.Add(unDiasHorarios);
+                    }
+                    command.Connection.Close();
+                    return (listadoDiasHorarios);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerDiasHorarioBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerDiasHorarioBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerDiasHorarioBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+        private List<Modulo> getModulos(DateTime hora_inicio, DateTime hora_fin)
+        {
+            bool aux = true;
+            List<Modulo> ListaModulos = new List<Modulo>();
+            Modulo unModulo = new Modulo();
+
+
+            while (aux)
+            {
+                unModulo.horaInicio = hora_inicio;
+
+                TimeSpan dif = hora_fin - hora_inicio;
+
+                if ((dif.Minutes) <= DURACION_MODULO)
+                {
+                    aux = false;
+                    unModulo.horaFinalizacion = hora_fin;
+                }
+                else
+                {
+                    unModulo.horaFinalizacion = hora_inicio.AddMinutes(DURACION_MODULO);
+                    hora_inicio = unModulo.horaFinalizacion;
+                }
+
+                ListaModulos.Add(unModulo);
+            }
+
+            return (ListaModulos);
+        }
+
 
 
         #endregion
