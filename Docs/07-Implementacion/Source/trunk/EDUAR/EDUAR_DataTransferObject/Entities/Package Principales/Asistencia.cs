@@ -5,6 +5,7 @@ using System.Text;
 
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class Asistencia
     {
         private int _idAsistencia;

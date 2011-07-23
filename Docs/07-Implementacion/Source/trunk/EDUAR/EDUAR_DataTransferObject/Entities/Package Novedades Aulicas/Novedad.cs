@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System;
 namespace EDUAR_Entities
 {
-
+    [Serializable]
     public class Novedad
     {
 

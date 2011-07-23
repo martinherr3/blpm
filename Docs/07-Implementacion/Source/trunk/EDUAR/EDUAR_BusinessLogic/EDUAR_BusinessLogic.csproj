@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\BLAcceso.cs" />
     <Compile Include="Common\BLPersona.cs" />
     <Compile Include="Common\BLTipoDocumento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

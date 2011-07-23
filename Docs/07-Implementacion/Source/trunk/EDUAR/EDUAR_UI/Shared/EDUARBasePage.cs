@@ -3,9 +3,11 @@ using System.Configuration;
 using System.Text;
 using System.Web.Security;
 using System.Web.UI;
+using EDUAR_Entities;
 using EDUAR_Entities.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Utilidades;
+using EDUAR_BusinessLogic.Common;
 
 namespace EDUAR_UI.Shared
 {
@@ -107,9 +109,22 @@ namespace EDUAR_UI.Shared
         {
             try
             {
-                base.OnLoadComplete(e);
-                if (!string.IsNullOrEmpty(ObjDTSessionDataUI.ObjDTUsuario.Nombre))
-                { }
+                if (!Page.IsPostBack)
+                {
+                    base.OnLoadComplete(e);
+                    Acceso nuevoAcceso = new Acceso();
+                    nuevoAcceso.pagina.url = Page.Request.Path;
+                    nuevoAcceso.pagina.titulo = Page.Title;
+                    nuevoAcceso.fecha = DateTime.Now.Date;
+                    nuevoAcceso.hora = DateTime.Now;
+                    nuevoAcceso.usuario = "Anonimo";
+                    if (!string.IsNullOrEmpty(ObjDTSessionDataUI.ObjDTUsuario.Nombre))
+                    {
+                        nuevoAcceso.usuario = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+                    }
+                    BLAcceso objBLAcceso = new BLAcceso(nuevoAcceso);
+                    objBLAcceso.Save();
+                }
             }
             catch (Exception)
             {

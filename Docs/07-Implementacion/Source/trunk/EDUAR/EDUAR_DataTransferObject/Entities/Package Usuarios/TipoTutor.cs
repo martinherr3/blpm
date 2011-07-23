@@ -6,6 +6,7 @@ using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class TipoTutor : DTBase
     {
         private int _idTipoTutor;

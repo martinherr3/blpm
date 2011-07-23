@@ -5,6 +5,7 @@ using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities.Security
 {
+    [Serializable]
     public class DTSeguridad : DTBase
     {
         #region --[Constructores]--

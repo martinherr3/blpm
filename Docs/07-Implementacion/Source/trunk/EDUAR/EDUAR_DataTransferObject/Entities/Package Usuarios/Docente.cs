@@ -1,6 +1,8 @@
 
+using System;
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class Docente : Personal
     {
         private int _IdDocente;

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
+﻿<%@ Page Title="Cambiar Pregunta Secreta" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
     CodeBehind="ChangeQuestion.aspx.cs" Inherits="EDUAR_UI.ChangeQuestion" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>

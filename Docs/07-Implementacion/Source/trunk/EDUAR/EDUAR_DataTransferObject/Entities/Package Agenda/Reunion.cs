@@ -10,7 +10,7 @@
 using System;
 namespace EDUAR_Entities
 {
-
+    [Serializable]
     public class Reunion
     {
         private Curso _curso;

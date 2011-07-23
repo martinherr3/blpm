@@ -12,6 +12,7 @@
 using System;
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class Permiso
     {
         private Object _elemento;

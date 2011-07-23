@@ -17,7 +17,7 @@ namespace EDUAR_DataAccess.Shared
         /// <returns>Objeto de tipo DataBase</returns>
         public static Database GetDataBaseFromWebConfig()
         {
-            return DatabaseFactory.CreateDatabase("EDUAR_Connectionstring");
+            return DatabaseFactory.CreateDatabase("EDUAR_ConnectionString");
         }
 
         /// <summary>

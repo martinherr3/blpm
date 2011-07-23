@@ -7,9 +7,10 @@
 ///////////////////////////////////////////////////////////
 
 
+using System;
 namespace EDUAR_Entities
 {
-
+    [Serializable]
     public class TipoSancion
     {
         private int _idTipoSancion;

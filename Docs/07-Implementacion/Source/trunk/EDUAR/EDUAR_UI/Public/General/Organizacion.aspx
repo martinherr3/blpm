@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
+﻿<%@ Page Title="Organización Interna" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
     CodeBehind="Organizacion.aspx.cs" Inherits="EDUAR_UI.Organizacion" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>

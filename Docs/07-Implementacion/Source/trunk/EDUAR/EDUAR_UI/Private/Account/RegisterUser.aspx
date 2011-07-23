@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
+﻿<%@ Page Title="Registrar Usuario" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
     CodeBehind="RegisterUser.aspx.cs" Inherits="EDUAR_UI.RegisterUser" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>

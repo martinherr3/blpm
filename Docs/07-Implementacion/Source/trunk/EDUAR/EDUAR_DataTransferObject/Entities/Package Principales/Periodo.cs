@@ -10,6 +10,7 @@
 using System;
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class Periodo
     {
         private int _idPeriodo;

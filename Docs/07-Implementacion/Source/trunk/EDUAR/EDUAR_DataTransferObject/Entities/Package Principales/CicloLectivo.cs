@@ -2,6 +2,7 @@
 using System;
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class CicloLectivo
     {
         private int _idCicloLectivo;

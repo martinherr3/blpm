@@ -9,6 +9,7 @@
 using System;
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class Evaluacion
     {
         private Asignatura _asignatura;
