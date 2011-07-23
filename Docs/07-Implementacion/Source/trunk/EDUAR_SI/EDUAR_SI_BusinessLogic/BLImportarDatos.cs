@@ -111,6 +111,8 @@ namespace EDUAR_SI_BusinessLogic
 
                 objDAImportarDatos.GrabarCalificacion(objDAObtenerDatos.obtenerCalificacionBDTransaccional(objConfiguracion));
 
+                objDAImportarDatos.GrabarCalificacion(objDAObtenerDatos.obtenerExamenBDTransaccional(objConfiguracion));
+
                 objDAImportarDatos.GrabarTipoAsistencia(objDAObtenerDatos.obtenerTipoAsistenciaBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));

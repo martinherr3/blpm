@@ -161,9 +161,18 @@ namespace EDUAR_Utility.Enumeraciones
     /// Contiene los tipos de personas para permitir el filtrado según tipo de usuario del sistema
     /// </summary>
     public enum enumTipoPersona
-    { 
+    {
         Personal = 1,
         Alumno = 2,
         Tutor = 3
+    }
+
+    /// <summary>
+    /// Contiene los tipos de instancia de calificacion existentes
+    /// </summary>
+    public enum enumInstanciaCalificacion
+    {
+        Evaluacion = 1,
+        Examen = 2
     }
 }

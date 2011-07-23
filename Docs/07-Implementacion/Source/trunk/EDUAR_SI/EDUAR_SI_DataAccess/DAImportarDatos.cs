@@ -981,7 +981,7 @@ namespace EDUAR_SI_DataAccess
                         command.Parameters.AddWithValue("idAlumno", calificacion.alumno.idAlumnoTransaccional);
                         command.Parameters.AddWithValue("idAsignatura", calificacion.asignatura.idAsignaturaTransaccional);
                         command.Parameters.AddWithValue("idPeriodo", calificacion.periodo.idPeriodoTransaccional);
-
+                        command.Parameters.AddWithValue("idInstanciaCalificacion", calificacion.instanciaCalificacion.idInstanciaCalificacion);
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();
                     }

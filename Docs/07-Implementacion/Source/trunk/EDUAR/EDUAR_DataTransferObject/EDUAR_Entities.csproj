@@ -49,6 +49,7 @@
     <Compile Include="Entities\Package Principales\AlumnoCurso.cs" />
     <Compile Include="Entities\Package Principales\CicloLectivo.cs" />
     <Compile Include="Entities\Package Principales\Asistencia.cs" />
+    <Compile Include="Entities\Package Principales\InstanciaCalificacion.cs" />
     <Compile Include="Entities\Package Principales\Periodo.cs" />
     <Compile Include="Entities\Package Principales\TipoAsistencia.cs" />
     <Compile Include="Entities\Package Usuarios\Alumno.cs" />
