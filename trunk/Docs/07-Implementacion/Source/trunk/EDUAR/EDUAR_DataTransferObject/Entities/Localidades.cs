@@ -2,6 +2,7 @@ using System;
 
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class Localidades
     {
         public decimal idLocalidad { get; set; }
