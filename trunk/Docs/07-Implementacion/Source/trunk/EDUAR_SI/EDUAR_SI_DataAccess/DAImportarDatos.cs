@@ -1429,6 +1429,150 @@ namespace EDUAR_SI_DataAccess
 
         }
 
+
+        /// <summary>
+        /// Grabars the tipo asistencia.
+        /// </summary>
+        /// <param name="listadoTipoAsistencia">The listado tipo asistencia.</param>
+        public void GrabarDiasHorarios(List<DiasHorarios> listadoDiasHorarios)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                //foreach (DiasHorarios unDiasHorarios in listadoDiasHorarios)
+                //    {
+                //        GrabarModulos(unDiasHorarios.modulos);
+                //    }
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "DiaHorario_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    foreach (DiasHorarios unDiasHorarios in listadoDiasHorarios)
+                    {
+                        command.Parameters.AddWithValue("idDiaHorario", 0).Direction = ParameterDirection.Output;
+                        command.Parameters.AddWithValue("idDiaHorarioTransaccional", unDiasHorarios.idDiaHorarioTransaccional);
+                        command.Parameters.AddWithValue("idCurso", unDiasHorarios.idCurso);
+                        command.Parameters.AddWithValue("idAsignatura", unDiasHorarios.idAsignatura);
+                        command.Parameters.AddWithValue("idDiaSemana", (int)unDiasHorarios.unDia);
+                        command.Parameters.AddWithValue("idNivel", (int)unDiasHorarios.idNivel);
+                        //command.Parameters.AddWithValue("idModulo", 1);
+                        //GrabarModulos(unDiasHorarios.modulos);
+                        command.ExecuteNonQuery();
+                        unDiasHorarios.idDiaHorario = Convert.ToInt32(command.Parameters["idDiaHorario"].Value);
+                        command.Parameters.Clear();
+
+                      
+
+                        //command.CommandText = "Modulo_Insert";
+                        //command.CommandTimeout = 10;
+
+                        //transaccion = sqlConnectionConfig.BeginTransaction();
+                        //command.Transaction = transaccion;
+
+                        //foreach (Modulo unModulo in unDiasHorarios.modulos)
+                        //{
+                        //    command.Parameters.AddWithValue("idModulo", 0);
+                        //    command.Parameters.AddWithValue("horaInicio", unModulo.horaInicio);
+                        //    command.Parameters.AddWithValue("horaFinalizacion", unModulo.horaFinalizacion);
+                        //    command.Parameters.AddWithValue("idDiaHorario", unDiasHorarios.idDiaHorario);
+                        //    command.ExecuteNonQuery();
+                        //    command.Parameters.Clear();
+                        //}
+
+                    }
+                    transaccion.Commit();
+
+                    
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarDiasHorarios()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarDiasHorarios()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                if (sqlConnectionConfig.State == ConnectionState.Open)
+                    sqlConnectionConfig.Close();
+
+                    GrabarModulos(listadoDiasHorarios);
+                
+            }
+
+        }
+
+        /// <summary>
+        /// Grabars the tipo asistencia.
+        /// </summary>
+        /// <param name="listadoTipoAsistencia">The listado tipo asistencia.</param>
+        public void GrabarModulos(List<DiasHorarios> listadoDiasHorarios)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Modulo_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    foreach (DiasHorarios unDiasHorarios in listadoDiasHorarios)
+                    {
+                        foreach (Modulo unModulo in unDiasHorarios.modulos)
+                        {
+                            command.Parameters.AddWithValue("idModulo", 0);
+                            command.Parameters.AddWithValue("horaInicio", unModulo.horaInicio);
+                            command.Parameters.AddWithValue("horaFinalizacion", unModulo.horaFinalizacion);
+                            command.Parameters.AddWithValue("idDiaHorario", unDiasHorarios.idDiaHorario);
+                            command.ExecuteNonQuery();
+                            command.Parameters.Clear();
+                        }
+                    }
+                    transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarModulo()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarModulo()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+
+        }
+
+
         #endregion
 
     }
