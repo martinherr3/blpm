@@ -974,6 +974,7 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+
         /// <summary>
         /// Obteners the tutores BD transaccional.
         /// </summary>
@@ -1539,6 +1540,68 @@ namespace EDUAR_SI_DataAccess
             catch (Exception ex)
             {
                 throw new CustomizedException(String.Format("Fallo en {0} - obteneSancionBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+        public List<AlumnoCurso> obtenerAlumnoCursoBDTransaccional(Configuraciones configuracion)
+        {
+            List<AlumnoCurso> listaAlumnoCurso = null;
+
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+                    command.CommandText = @"SELECT *
+                                                                                                                                                                           
+                                             FROM vw_alumno_curso";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    AlumnoCurso alumnoCurso;
+                    listaAlumnoCurso = new List<AlumnoCurso>();
+
+                    while (reader.Read())
+                    {
+                        alumnoCurso = new AlumnoCurso();
+
+                        alumnoCurso.idAlumnoCurso = 0;
+                        alumnoCurso.idAlumnoCursoTransaccional = (int)reader["id"];
+
+                        alumnoCurso.curso = new Curso();
+                        alumnoCurso.curso.idCurso = (int)reader["curso_id"];
+                        alumnoCurso.alumno = new Alumno();
+                        alumnoCurso.alumno.idAlumno = (int)reader["alumno_id"];
+
+
+                        listaAlumnoCurso.Add(alumnoCurso);
+                    }
+
+                    command.Connection.Close();
+
+                    return (listaAlumnoCurso);
+                }  
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAlumnoCursoBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAlumnoCursoBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAlumnoCursoBDTransaccional()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
             finally

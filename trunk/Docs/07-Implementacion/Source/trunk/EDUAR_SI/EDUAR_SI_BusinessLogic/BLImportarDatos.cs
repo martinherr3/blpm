@@ -43,9 +43,9 @@ namespace EDUAR_SI_BusinessLogic
             {
                 objDAImportarDatos = new DAImportarDatos(ConnectionString);
 
-                objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDesdeRemoto);
+                objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigen);
 
-                //objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigen);
+              //  objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigen);
                 objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDesdeRemoto);
 
                 ImportarDatos();
@@ -67,61 +67,66 @@ namespace EDUAR_SI_BusinessLogic
             {
                 objDAObtenerDatos = new DAObtenerDatos(objConfiguracion.valor);
 
-                //objDAImportarDatos.GrabarPais(objDAObtenerDatos.obtenerPaisesBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarPais(objDAObtenerDatos.obtenerPaisesBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarProvincia(objDAObtenerDatos.obtenerProvinciasBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarProvincia(objDAObtenerDatos.obtenerProvinciasBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarLocalidad(objDAObtenerDatos.obtenerLocalidadesBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarLocalidad(objDAObtenerDatos.obtenerLocalidadesBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarTipoDocumento(objDAObtenerDatos.obtenerTipoDocumentoBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarTipoDocumento(objDAObtenerDatos.obtenerTipoDocumentoBDTransaccional(objConfiguracion));
 
-                ////User Story 140
-                //objDAImportarDatos.GrabarValoresEscalasCalificaciones(objDAObtenerDatos.obtenerValoresEscalaCalificacionBDTransaccional(objConfiguracion));
+                //User Story 140
+                objDAImportarDatos.GrabarValoresEscalasCalificaciones(objDAObtenerDatos.obtenerValoresEscalaCalificacionBDTransaccional(objConfiguracion));
 
-                ////User Story 141
-                //GrabarAlumno();
+                //User Story 141
+                GrabarAlumno();
 
-                //objDAImportarDatos.GrabarTipoTutor(objDAObtenerDatos.obtenerTipoTutorBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarTipoTutor(objDAObtenerDatos.obtenerTipoTutorBDTransaccional(objConfiguracion));
 
-                //GrabarTutor();
+                GrabarTutor();
 
-                //objDAImportarDatos.GrabarTutoresAlumno(objDAObtenerDatos.obtenerTutoresAlumnoBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarTutoresAlumno(objDAObtenerDatos.obtenerTutoresAlumnoBDTransaccional(objConfiguracion));
 
-                ////User Story 142
-                //GrabarPersonal();
+                //User Story 142
+                GrabarPersonal();
 
-                //GrabarDocente();
+                GrabarDocente();
 
-                ////User Story 143
-                //objDAImportarDatos.GrabarAsignatura(objDAObtenerDatos.obtenerAsignaturaBDTransaccional(objConfiguracion));
+                //User Story 143
+                objDAImportarDatos.GrabarAsignatura(objDAObtenerDatos.obtenerAsignaturaBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarCicloLectivo(objDAObtenerDatos.obtenerCicloLectivoBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarCicloLectivo(objDAObtenerDatos.obtenerCicloLectivoBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarNivel(objDAObtenerDatos.obtenerNivelesBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarNivel(objDAObtenerDatos.obtenerNivelesBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarCursos(objDAObtenerDatos.obtenerCursosBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarCursos(objDAObtenerDatos.obtenerCursosBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarOrientacion(objDAObtenerDatos.obtenerOrientacionesBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarOrientacion(objDAObtenerDatos.obtenerOrientacionesBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarCalificacion(objDAObtenerDatos.obtenerCalificacionBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarCalificacion(objDAObtenerDatos.obtenerCalificacionBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarTipoAsistencia(objDAObtenerDatos.obtenerTipoAsistenciaBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarTipoAsistencia(objDAObtenerDatos.obtenerTipoAsistenciaBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarMotivoSancion(objDAObtenerDatos.obtenerMotivoSancionBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarTipoSancion(objDAObtenerDatos.obtenerTipoSancionBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarMotivoSancion(objDAObtenerDatos.obtenerMotivoSancionBDTransaccional(objConfiguracion));
 
-                //objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
+                objDAImportarDatos.GrabarTipoSancion(objDAObtenerDatos.obtenerTipoSancionBDTransaccional(objConfiguracion));
 
-                //objDAObtenerDatos.obtenerHorarios(objConfiguracion);
+                objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
+
+                objDAObtenerDatos.obtenerHorarios(objConfiguracion);
 
                 objDAImportarDatos.GrabarDiasHorarios(objDAObtenerDatos.obtenerHorarios(objConfiguracion));
+
+
+
+                objDAImportarDatos.GrabarAlumnoCurso(objDAObtenerDatos.obtenerAlumnoCursoBDTransaccional(objConfiguracion));
 
             }
             catch (Exception ex)

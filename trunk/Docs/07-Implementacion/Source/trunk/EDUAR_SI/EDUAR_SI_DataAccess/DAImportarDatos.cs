@@ -1516,6 +1516,7 @@ namespace EDUAR_SI_DataAccess
 
         }
 
+
         /// <summary>
         /// Grabars the tipo asistencia.
         /// </summary>
@@ -1570,6 +1571,54 @@ namespace EDUAR_SI_DataAccess
                 //    sqlConnectionConfig.Close();
             }
 
+        }
+
+        public void GrabarAlumnoCurso(List<AlumnoCurso> listaAlumnoCurso)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
+
+                    command.Connection = sqlConnectionConfig;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "AlumnoCurso_Insert";
+                    command.CommandTimeout = 10;
+
+                    transaccion = sqlConnectionConfig.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    foreach (AlumnoCurso alumnoCurso in listaAlumnoCurso)
+                    {
+                        command.Parameters.AddWithValue("idAlumnoCurso", 0);
+                        command.Parameters.AddWithValue("idAlumnoCursoTransaccional", alumnoCurso.idAlumnoCursoTransaccional);
+                        command.Parameters.AddWithValue("alumno", alumnoCurso.alumno);
+                        command.Parameters.AddWithValue("curso", alumnoCurso.curso);
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                    transaccion.Commit();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarAlumnoCurso()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null) transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarAlumnoCurso()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
         }
 
 
