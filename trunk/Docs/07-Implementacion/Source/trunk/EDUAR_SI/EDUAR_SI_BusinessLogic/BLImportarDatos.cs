@@ -101,6 +101,8 @@ namespace EDUAR_SI_BusinessLogic
 
                 objDAImportarDatos.GrabarCursos(objDAObtenerDatos.obtenerCursosBDTransaccional(objConfiguracion));
 
+                objDAImportarDatos.GrabarAlumnoCurso(objDAObtenerDatos.obtenerAlumnoCursoBDTransaccional(objConfiguracion));
+
                 objDAImportarDatos.GrabarOrientacion(objDAObtenerDatos.obtenerOrientacionesBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion));
@@ -113,20 +115,13 @@ namespace EDUAR_SI_BusinessLogic
 
                 objDAImportarDatos.GrabarAsistencia(objDAObtenerDatos.obtenerAsistenciaBDTransaccional(objConfiguracion));
 
-
                 objDAImportarDatos.GrabarMotivoSancion(objDAObtenerDatos.obtenerMotivoSancionBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarTipoSancion(objDAObtenerDatos.obtenerTipoSancionBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarSancion(objDAObtenerDatos.obtenerSancionBDTransaccional(objConfiguracion));
 
-                objDAObtenerDatos.obtenerHorarios(objConfiguracion);
-
                 objDAImportarDatos.GrabarDiasHorarios(objDAObtenerDatos.obtenerHorarios(objConfiguracion));
-
-
-
-                objDAImportarDatos.GrabarAlumnoCurso(objDAObtenerDatos.obtenerAlumnoCursoBDTransaccional(objConfiguracion));
 
             }
             catch (Exception ex)

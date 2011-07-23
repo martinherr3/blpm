@@ -1552,7 +1552,6 @@ namespace EDUAR_SI_DataAccess
         public List<AlumnoCurso> obtenerAlumnoCursoBDTransaccional(Configuraciones configuracion)
         {
             List<AlumnoCurso> listaAlumnoCurso = null;
-
             try
             {
                 using (MySqlCommand command = new MySqlCommand())
@@ -1560,8 +1559,7 @@ namespace EDUAR_SI_DataAccess
                     conMySQL = new MySqlConnection(configuracion.valor);
                     command.Connection = conMySQL;
                     command.CommandText = @"SELECT *
-                                                                                                                                                                           
-                                             FROM vw_alumno_curso";
+                                            FROM vw_alumno_curso";
                     conMySQL.Open();
 
                     MySqlDataReader reader = command.ExecuteReader();
@@ -1571,22 +1569,13 @@ namespace EDUAR_SI_DataAccess
                     while (reader.Read())
                     {
                         alumnoCurso = new AlumnoCurso();
-
                         alumnoCurso.idAlumnoCurso = 0;
                         alumnoCurso.idAlumnoCursoTransaccional = (int)reader["id"];
-
-                        alumnoCurso.curso = new Curso();
-                        alumnoCurso.curso.idCurso = (int)reader["curso_id"];
-                        alumnoCurso.alumno = new Alumno();
-                        alumnoCurso.alumno.idAlumno = (int)reader["alumno_id"];
-
-
+                        alumnoCurso.curso.idCursoTransaccional = (int)reader["curso_id"];
+                        alumnoCurso.alumno.idAlumnoTransaccional = (int)reader["alumno_id"];
                         listaAlumnoCurso.Add(alumnoCurso);
                     }
-
-                    command.Connection.Close();
-
-                    return (listaAlumnoCurso);
+                    return listaAlumnoCurso;
                 }  
             }
             catch (MySqlException ex)
