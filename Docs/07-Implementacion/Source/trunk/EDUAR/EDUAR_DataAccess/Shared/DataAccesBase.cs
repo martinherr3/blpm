@@ -69,5 +69,19 @@ namespace EDUAR_DataAccess.Shared
         public abstract void Delete(TDataTransferObject entidad);
 
         #endregion
+
+        #region --[Métodos Públicos]--
+        /// <summary>
+        /// Validars the fecha SQL.
+        /// </summary>
+        /// <param name="fecha">The fecha.</param>
+        /// <returns></returns>
+        public static bool ValidarFechaSQL(DateTime fecha)
+        {
+            if (fecha.Year < 1753 || fecha.Year > 9999)
+                return false;
+            return true;
+        }
+        #endregion
     }
 }

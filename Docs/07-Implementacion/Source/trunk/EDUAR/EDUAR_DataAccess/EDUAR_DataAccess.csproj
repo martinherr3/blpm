@@ -51,6 +51,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DAPagina.cs" />
     <Compile Include="Common\DAAcceso.cs" />
     <Compile Include="Common\DAPersona.cs" />
     <Compile Include="Common\DATipoDocumento.cs" />

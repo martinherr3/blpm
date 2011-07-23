@@ -12,37 +12,37 @@ using EDUAR_DataAccess.Shared;
 
 namespace EDUAR_BusinessLogic.Common
 {
-    public class BLAcceso : BusinessLogicBase<Acceso, DAAcceso>
+    public class BLPagina : BusinessLogicBase<Pagina, DAPagina>
     {
         #region --[Constante]--
-        private const string ClassName = "BLAcceso";
+        private const string ClassName = "BLPagina";
         #endregion
 
         #region --[Constructores]--
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLAcceso(DTBase objAcceso)
+        public BLPagina(DTBase objPagina)
         {
-            Data = (Acceso)objAcceso;
+            Data = (Pagina)objPagina;
         }
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public BLAcceso()
+        public BLPagina()
         {
-            Data = new Acceso();
+            Data = new Pagina();
         }
         #endregion
 
         #region --[Propiedades Override]--
-        protected override sealed DAAcceso DataAcces
+        protected override sealed DAPagina DataAcces
         {
             get { return dataAcces; }
             set { dataAcces = value; }
         }
 
-        public override sealed Acceso Data
+        public override sealed Pagina Data
         {
             get { return data; }
             set { data = value; }
@@ -87,10 +87,10 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                int idAcceso = 0;
+                int idPagina = 0;
 
-                if (Data.idAcceso == 0)
-                    DataAcces.Create(Data, out idAcceso);
+                if (Data.idPagina == 0)
+                    DataAcces.Create(Data, out idPagina);
                 else
                     DataAcces.Update(Data);
 
@@ -118,8 +118,8 @@ namespace EDUAR_BusinessLogic.Common
             try
             {
                 //Si no viene el Id es porque se esta creando la entidad
-                DataAcces = new DAAcceso(objDATransaction);
-                if (Data.idAcceso == 0)
+                DataAcces = new DAPagina(objDATransaction);
+                if (Data.idPagina == 0)
                     DataAcces.Create(Data);
                 else
                 {
@@ -146,7 +146,7 @@ namespace EDUAR_BusinessLogic.Common
         {
             try
             {
-                DataAcces = new DAAcceso(objDATransaction);
+                DataAcces = new DAPagina(objDATransaction);
                 DataAcces.Delete(Data);
             }
             catch (CustomizedException ex)
@@ -162,11 +162,11 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        public List<Acceso> GetAccesos(Acceso entidad)
+        public List<Pagina> GetPaginas(Pagina entidad)
         {
             try
             {
-                return DataAcces.GetAccesos(entidad);
+                return DataAcces.GetPaginas(entidad);
             }
             catch (CustomizedException ex)
             {
@@ -174,7 +174,7 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetAccesos", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPaginas", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }

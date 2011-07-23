@@ -118,6 +118,12 @@ namespace EDUAR_UI.Shared
                     nuevoAcceso.fecha = DateTime.Now.Date;
                     nuevoAcceso.hora = DateTime.Now;
                     nuevoAcceso.usuario = "Anonimo";
+                    if (string.IsNullOrEmpty(Page.Title))
+                    {
+                        string[] path = Page.Request.Path.Split('/');
+                        string[] file = path[path.Length -1].Split('.');
+                        string title = file[0].ToString();
+                    }
                     if (!string.IsNullOrEmpty(ObjDTSessionDataUI.ObjDTUsuario.Nombre))
                     {
                         nuevoAcceso.usuario = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
@@ -192,7 +198,7 @@ namespace EDUAR_UI.Shared
         /// <summary>
         /// Loguea un mensaje Particular
         /// </summary>
-        /// <param name="mensaje"></param>
+        /// <param name="mensaje">The mensaje.</param>
         public void LogMensaje(string mensaje)
         {
             Boolean oLogActivo = Boolean.Parse(ConfigurationManager.AppSettings["oLogActivo"]);
