@@ -48,10 +48,11 @@ namespace EDUAR_UI
             {
                 if (!Page.IsPostBack)
                 {
+                    CargarComboPagina();
+
                     BLAcceso objBLAcceso = new BLAcceso();
                     objBLAcceso.GetAccesos(null);
                 }
-                CargarComboPagina();
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }

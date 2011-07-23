@@ -1234,8 +1234,6 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
-
-
         /// <summary>
         /// Obteners the calificacion BD transaccional.
         /// </summary>
@@ -1272,11 +1270,12 @@ namespace EDUAR_SI_DataAccess
                         calificacion.idCalificacion = 0;
                         calificacion.observacion = reader["observacion"].ToString();
                         calificacion.fecha = Convert.ToDateTime(reader["fecha"]);
-                        calificacion.escala = new ValoresEscalaCalificacion() { idValorEscalaCalificacionTransaccional = (int)reader["fk_escalanota_id"] };
-                        calificacion.asignatura = new Asignatura() { idAsignaturaTransaccional = (int)reader["fk_actividad_id"] };
-                        calificacion.periodo = new Periodo() { idPeriodoTransaccional = (int)reader["fk_periodo_id"] };
-                        calificacion.alumno = new Alumno();
+                        calificacion.escala.idValorEscalaCalificacionTransaccional = (int)reader["fk_escalanota_id"] ;
+                        calificacion.asignatura.idAsignaturaTransaccional = (int)reader["fk_actividad_id"] ;
+                        calificacion.periodo.idPeriodoTransaccional = (int)reader["fk_periodo_id"];
                         calificacion.alumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
+                        calificacion.instanciaCalificacion.idInstanciaCalificacion = (int)enumInstanciaCalificacion.Evaluacion;
+
                         listaCalificacion.Add(calificacion);
                     }
                     command.Connection.Close();
@@ -1285,17 +1284,17 @@ namespace EDUAR_SI_DataAccess
             }
             catch (MySqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerCalificacion1BDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerCalificacionBDTransaccional()", ClassName),
                                         ex, enuExceptionType.MySQLException);
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerCalificacion2BDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerCalificacionBDTransaccional()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - obtenerCalificacion3BDTransaccional()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerCalificacionBDTransaccional()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
             finally
@@ -1305,6 +1304,75 @@ namespace EDUAR_SI_DataAccess
             }
         }
 
+        /// <summary>
+        /// Obtiene los examenes y los carga en la tabla de calificaciones
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
+        public List<Calificacion> obtenerExamenBDTransaccional(Configuraciones configuracion)
+        {
+            List<Calificacion> listaCalificacion = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT id as 'idCalificacionTransaccional',
+                                                fk_escalanota_id,
+                                                fk_alumno_id,
+                                                fk_actividad_id,
+                                                fk_periodo_id,
+                                                observacion,
+                                                fecha
+                                            FROM vw_examen";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    Calificacion calificacion;
+                    listaCalificacion = new List<Calificacion>();
+                    while (reader.Read())
+                    {
+                        calificacion = new Calificacion();
+                        calificacion.idCalificacion = 0;
+                        calificacion.idCalificacionTransaccional = (int)reader["idCalificacionTransaccional"];
+                        calificacion.idCalificacion = 0;
+                        calificacion.observacion = reader["observacion"].ToString();
+                        calificacion.fecha = Convert.ToDateTime(reader["fecha"]);
+                        calificacion.escala.idValorEscalaCalificacionTransaccional = (int)reader["fk_escalanota_id"];
+                        calificacion.asignatura.idAsignaturaTransaccional = (int)reader["fk_actividad_id"];
+                        calificacion.periodo.idPeriodoTransaccional = (int)reader["fk_periodo_id"];
+                        calificacion.alumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
+                        calificacion.instanciaCalificacion.idInstanciaCalificacion = (int)enumInstanciaCalificacion.Examen;
+
+                        listaCalificacion.Add(calificacion);
+                    }
+                    command.Connection.Close();
+                    return listaCalificacion;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerExamenBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerExamenBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerExamenBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
 
         /// <summary>
         /// Obteners the tipo sancion BD transaccional.

@@ -13,26 +13,23 @@ namespace EDUAR_Entities
     [Serializable]
     public class Calificacion
     {
-
-        private Asignatura _asignatura;
-        private ValoresEscalaCalificacion _escala;
-        private DateTime _fecha;
-        /// <summary>
-        /// Por ahora es string, pero dependería de la escala a ser utilizada y luego ser
-        /// parseada
-        /// </summary>
-        private string _observacion;
-        private int _idCalificacion;
-        private int _idCalificacionTransaccional;
-        private Periodo _periodo;
-        private Alumno _alumno;
-
-
-        
+        public string observacion { get; set; }
+        public int idCalificacion { get; set; }
+        public int idCalificacionTransaccional { get; set; }
+        public Asignatura asignatura { get; set; }
+        public ValoresEscalaCalificacion escala { get; set; }
+        public DateTime fecha { get; set; }
+        public Periodo periodo { get; set; }
+        public Alumno alumno { get; set; }
+        public InstanciaCalificacion instanciaCalificacion { get; set; }
 
         public Calificacion()
         {
-
+            asignatura = new Asignatura();
+            escala = new ValoresEscalaCalificacion();
+            periodo = new Periodo();
+            alumno = new Alumno();
+            instanciaCalificacion = new InstanciaCalificacion();
         }
 
         ~Calificacion()
@@ -44,97 +41,5 @@ namespace EDUAR_Entities
         {
 
         }
-
-        public Asignatura asignatura
-        {
-            get
-            {
-                return _asignatura;
-            }
-            set
-            {
-                _asignatura = value;
-            }
-        }
-
-        public ValoresEscalaCalificacion escala
-        {
-            get
-            {
-                return _escala;
-            }
-            set
-            {
-                _escala = value;
-            }
-        }
-
-        public DateTime fecha
-        {
-            get
-            {
-                return _fecha;
-            }
-            set
-            {
-                _fecha = value;
-            }
-        }
-        public int idCalificacion
-        {
-            get { 
-                return _idCalificacion;
-            }
-            set {
-                _idCalificacion = value;
-            }
-        }
-        public int idCalificacionTransaccional
-        {
-            get
-            {
-                return _idCalificacionTransaccional;
-            }
-            set
-            {
-                _idCalificacionTransaccional = value;
-            }
-        }
-        public Periodo periodo
-        {
-            get {
-                return _periodo;
-            }
-            set {
-                _periodo = value; 
-            }
-        }
-        public Alumno alumno
-        {
-            get
-            {
-                if (_alumno == null)
-                    _alumno = new Alumno();
-                return _alumno;
-            }
-            set {
-                _alumno = alumno;
-            }
-        }
-        /// <summary>
-        /// Por ahora es decimal, pero dependería de la escala a ser utilizada
-        /// </summary>
-        public string observacion
-        {
-            get
-            {
-                return _observacion;
-            }
-            set
-            {
-                _observacion = value;
-            }
-        }
-
     }//end Calificacion
 }
