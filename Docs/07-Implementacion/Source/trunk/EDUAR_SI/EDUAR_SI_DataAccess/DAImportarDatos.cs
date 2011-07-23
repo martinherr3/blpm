@@ -1573,6 +1573,10 @@ namespace EDUAR_SI_DataAccess
 
         }
 
+        /// <summary>
+        /// Grabars the alumno curso.
+        /// </summary>
+        /// <param name="listaAlumnoCurso">The lista alumno curso.</param>
         public void GrabarAlumnoCurso(List<AlumnoCurso> listaAlumnoCurso)
         {
             SqlTransaction transaccion = null;
@@ -1594,8 +1598,8 @@ namespace EDUAR_SI_DataAccess
                     {
                         command.Parameters.AddWithValue("idAlumnoCurso", 0);
                         command.Parameters.AddWithValue("idAlumnoCursoTransaccional", alumnoCurso.idAlumnoCursoTransaccional);
-                        command.Parameters.AddWithValue("alumno", alumnoCurso.alumno);
-                        command.Parameters.AddWithValue("curso", alumnoCurso.curso);
+                        command.Parameters.AddWithValue("idAlumno", alumnoCurso.alumno.idAlumnoTransaccional);
+                        command.Parameters.AddWithValue("idCurso", alumnoCurso.curso.idCursoTransaccional);
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();
                     }
