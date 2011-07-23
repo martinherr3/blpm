@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Package Administracion\Pagina.cs" />
     <Compile Include="Entities\Package Perfiles\Seccion.cs" />
     <Compile Include="Entities\Package Principales\CicloLectivo.cs" />
     <Compile Include="Entities\Package Principales\Asistencia.cs" />
@@ -112,7 +113,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Security\DTAcceso.cs" />
+    <Compile Include="Entities\Package Administracion\Acceso.cs" />
     <Compile Include="Security\DTRol.cs" />
     <Compile Include="Security\DTSeguridad.cs" />
     <Compile Include="Security\DTUsuario.cs" />

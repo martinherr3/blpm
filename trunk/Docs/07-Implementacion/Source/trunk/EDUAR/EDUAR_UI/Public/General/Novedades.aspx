@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
+﻿<%@ Page Title="Novedades" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
     CodeBehind="Novedades.aspx.cs" Inherits="EDUAR_UI.Novedades" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>

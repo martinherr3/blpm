@@ -6,8 +6,10 @@
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 
+using System;
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class MotivoSancion
     {
 

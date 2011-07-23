@@ -11,6 +11,7 @@
 using System;
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class Sancion
     {
         private int _idSancion;

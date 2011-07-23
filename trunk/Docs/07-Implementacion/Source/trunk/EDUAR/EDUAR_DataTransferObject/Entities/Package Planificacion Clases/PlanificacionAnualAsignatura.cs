@@ -6,8 +6,10 @@
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
 
+using System;
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class PlanificacionAnualAsignatura
     {
         private Asignatura _asignatura;

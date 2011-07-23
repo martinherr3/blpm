@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 namespace EDUAR_Entities
 {
-
+    [Serializable]
     public class Plan
     {
 

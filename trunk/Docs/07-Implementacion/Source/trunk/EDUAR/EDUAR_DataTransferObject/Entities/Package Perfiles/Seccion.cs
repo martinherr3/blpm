@@ -7,6 +7,7 @@ using EDUAR_Entities.Security;
 
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class Seccion : DTBase
     {
         private string _title;

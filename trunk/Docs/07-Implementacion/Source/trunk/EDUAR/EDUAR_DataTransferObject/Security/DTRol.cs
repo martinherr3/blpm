@@ -1,8 +1,10 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities.Security
 {
+    [Serializable]
     public class DTRol : DTBase
     {
         #region --[Propiedades]--

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
+﻿<%@ Page Title="Validar Usuario" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
     CodeBehind="Validate.aspx.cs" Inherits="EDUAR_UI.Validate" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class Tutor : Persona
     {
         private int _IdTutor;

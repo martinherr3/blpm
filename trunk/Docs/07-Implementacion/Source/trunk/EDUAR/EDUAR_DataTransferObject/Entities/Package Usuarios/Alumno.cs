@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class Alumno : Persona
     {
         public Alumno()
