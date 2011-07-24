@@ -85,18 +85,6 @@ namespace EDUAR_UI
                 if (!Page.IsPostBack)
                 {
                     propSeguridad = new DTSeguridad();
-                    //if (ObjDTSessionDataUI.ObjDTUsuario.EsUsuarioInicial == true)
-                    //{
-                    //    ObjDTSessionDataUI.ObjDTUsuario.EsUsuarioInicial = false;
-                    //    CargarDatosUsuario();
-                    //    CargarPresentacionRecover();
-                    //}
-                    //else
-                    //{
-                    //    udpEmail.Visible = true;
-                    //    udpRecover.Visible = false;
-                    //}
-                    //udpForgotPassword.Update();
                     CargarPresentacionValidacion();
                 }
             }
