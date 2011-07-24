@@ -82,6 +82,8 @@ namespace EDUAR_UI
         {
             try
             {
+                Master.BotonAvisoAceptar += (VentanaAceptar);
+
                 if (!Page.IsPostBack)
                 {
                     propSeguridad = new DTSeguridad();

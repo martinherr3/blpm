@@ -577,12 +577,12 @@ namespace EDUAR_UI.UserControls
             //Valida que la fecha final no sea superior a la fecha del día
             if (boolFechaHastaCorrecta)
                 if (fechaHasta.Date > DateTime.Now.Date)
-                    throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha final no puede ser superior a la fecha actual.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
+                    throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha final no puede ser superior a la fecha actual.", this.lblFechaDesde_DA.Text.Replace(":", "") + " " + this.lblFechaHasta_DA.Text.Replace(":", "")), null, enuExceptionType.ValidationException);
 
             //Valida que la fecha inicial no sea superior a la fecha final
             if (boolFechaDesdeCorrecta && boolFechaHastaCorrecta)
                 if (fechaDesde.Date > fechaHasta.Date)
-                    throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha inicial debe ser menor o igual a la fecha final.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
+                    throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha inicial debe ser menor o igual a la fecha final.", this.lblFechaDesde_DA.Text.Replace(":", "") + " " + this.lblFechaHasta_DA.Text.Replace(":", "")), null, enuExceptionType.ValidationException);
         }
 
         private void ComprobarRangosDesde(bool comprobarFechaHoy)

@@ -8,6 +8,9 @@ using Microsoft.Reporting.WebForms;
 using System.Collections.Generic;
 using EDUAR_Entities.Reports;
 using EDUAR_BusinessLogic.Reports;
+using EDUAR_Entities.Security;
+using EDUAR_BusinessLogic.Security;
+using System.Web.UI.WebControls;
 
 namespace EDUAR_UI
 {
@@ -50,6 +53,7 @@ namespace EDUAR_UI
             {
                 if (!Page.IsPostBack)
                 {
+                    CargarPresentacion();
                     CargarComboPagina();
 
                     BLRptAccesos objBLAcceso = new BLRptAccesos();
@@ -69,14 +73,16 @@ namespace EDUAR_UI
         {
             try
             {
+                fechas.ValidarRangoDesdeHasta();
                 BuscarAccesos();
+
                 udpReporte.Update();
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
         }
 
-        protected void rptAccesos_OnDrillthrough(object sender, DrillthroughEventArgs e)
+        protected void rptAccesos_Drillthrough(object sender, DrillthroughEventArgs e)
         {
             udpReporte.Update();
         }
@@ -97,8 +103,23 @@ namespace EDUAR_UI
         /// </summary>
         private void BuscarAccesos()
         {
-            Acceso filtroAcceso = new Acceso();
-            filtroAcceso.pagina.idPagina = Convert.ToInt32(ddlPagina.SelectedValue);
+            RptAccesos filtroAcceso = new RptAccesos();
+            filtroAcceso.idPagina = Convert.ToInt32(ddlPagina.SelectedValue);
+            if (fechas.ValorFechaDesde != null)
+                filtroAcceso.fechaDesde = (DateTime)fechas.ValorFechaDesde;
+            if (fechas.ValorFechaHasta != null)
+                filtroAcceso.fechaHasta = (DateTime)fechas.ValorFechaHasta;
+
+            List<DTRol> ListaRoles = new List<DTRol>();
+            foreach (ListItem item in chkListRolesBusqueda.Items)
+            {
+                if (item.Selected)
+                {
+                    ListaRoles.Add(new DTRol() { Nombre = item.Value });
+                }
+            }
+            filtroAcceso.listaRoles = ListaRoles;
+
             BLRptAccesos objBLAcceso = new BLRptAccesos();
             Reportes("rptAccesos.rdlc", objBLAcceso.GetRptAccesos(filtroAcceso));
 
@@ -116,10 +137,33 @@ namespace EDUAR_UI
         #endregion
 
         #region --[Métodos Privados]--
+        /// <summary>
+        /// Reporteses the specified reporte.
+        /// </summary>
+        /// <param name="reporte">The reporte.</param>
+        /// <param name="lista">The lista.</param>
         private void Reportes(string reporte, List<RptAccesos> lista)
         {
             rutaReporte = Server.MapPath("~/Private/Reports/" + reporte);
             listaReporte = lista;
+        }
+
+        private void CargarPresentacion()
+        {
+            CargarComboPagina();
+            CargarListRoles();
+        }
+
+        private void CargarListRoles()
+        {
+            DTSeguridad objSeguridad = new DTSeguridad();
+            BLSeguridad objBLSeguridad = new BLSeguridad(objSeguridad);
+
+            objBLSeguridad.GetRoles();
+            foreach (DTRol rol in objBLSeguridad.Data.ListaRoles)
+            {
+                chkListRolesBusqueda.Items.Add(new ListItem(rol.Nombre, rol.NombreCorto));
+            }
         }
         #endregion
     }
