@@ -81,7 +81,8 @@ namespace EDUAR_UI
             }
             catch (Exception ex)
             {
-                Master.ManageExceptions(ex);
+                AvisoMostrar = true;
+                AvisoExcepcion = ex;
             }
         }
 
