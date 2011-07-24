@@ -54,7 +54,7 @@ namespace EDUAR_DataAccess.Reports
                     if (entidad.listaRoles.Count != 0)
                     {
                         foreach (DTRol rol in entidad.listaRoles)
-                            rolesParam += string.Format("'{0}',", rol.Nombre);
+                            rolesParam += string.Format("{0},", rol.Nombre);
 
                         rolesParam = rolesParam.Substring(0, rolesParam.Length - 1);
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaRoles", DbType.String, rolesParam);
@@ -73,7 +73,7 @@ namespace EDUAR_DataAccess.Reports
                     objAcceso.fecha = Convert.ToDateTime(reader["fecha"].ToString());
                     objAcceso.hora = Convert.ToDateTime(reader["hora"].ToString());
                     objAcceso.username = reader["username"].ToString();
-
+                    objAcceso.rol = reader["RoleName"].ToString();
                     listaAccesos.Add(objAcceso);
                 }
                 return listaAccesos;

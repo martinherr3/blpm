@@ -64,7 +64,9 @@
     <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <rsweb:ReportViewer ID="rptAccesos" runat="server" Width="100%" Height="100%" Style="overflow: visible;"
-                WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" OnDrillthrough="rptAccesos_Drillthrough">
+                WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" 
+                OnDrillthrough="rptAccesos_Drillthrough" 
+                InteractivityPostBackMode="SynchronousOnDrillthrough">
             </rsweb:ReportViewer>
         </ContentTemplate>
         <Triggers>

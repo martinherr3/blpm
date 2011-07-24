@@ -54,8 +54,6 @@ namespace EDUAR_UI
                 if (!Page.IsPostBack)
                 {
                     CargarPresentacion();
-                    CargarComboPagina();
-
                     BLRptAccesos objBLAcceso = new BLRptAccesos();
                     objBLAcceso.GetRptAccesos(null);
                 }
