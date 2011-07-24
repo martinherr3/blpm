@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="Reporte de Accesos" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="reportAccesos.aspx.cs" Inherits="EDUAR_UI.reportAccesos" %>
 
+<%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+    Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
@@ -35,7 +37,15 @@
             </td>
         </tr>
     </table>
-    <rsweb:ReportViewer ID="rptAccesos" runat="server" Font-Names="Verdana" Font-Size="8pt"
-        WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%">
-    </rsweb:ReportViewer>
+    <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <rsweb:ReportViewer ID="rptAccesos" runat="server" Font-Names="Verdana" Font-Size="8pt"
+                WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="100%" Height="100%" OnDrillthrough="rptAccesos_OnDrillthrough" Style="overflow:visible">
+            </rsweb:ReportViewer>
+        </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
+            <asp:PostBackTrigger ControlID="rptAccesos" />
+        </Triggers>
+    </asp:UpdatePanel>
 </asp:Content>

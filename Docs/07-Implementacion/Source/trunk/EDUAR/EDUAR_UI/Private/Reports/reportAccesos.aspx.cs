@@ -6,6 +6,8 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using Microsoft.Reporting.WebForms;
 using System.Collections.Generic;
+using EDUAR_Entities.Reports;
+using EDUAR_BusinessLogic.Reports;
 
 namespace EDUAR_UI
 {
@@ -13,7 +15,7 @@ namespace EDUAR_UI
     {
         #region --[Propiedades]--
         public string rutaReporte { get; set; }
-        public List<Acceso> listaReporte { get; set; }
+        public List<RptAccesos> listaReporte { get; set; }
         #endregion
 
         #region --[Eventos]--
@@ -50,8 +52,8 @@ namespace EDUAR_UI
                 {
                     CargarComboPagina();
 
-                    BLAcceso objBLAcceso = new BLAcceso();
-                    objBLAcceso.GetAccesos(null);
+                    BLRptAccesos objBLAcceso = new BLRptAccesos();
+                    objBLAcceso.GetRptAccesos(null);
                 }
             }
             catch (Exception ex)
@@ -68,9 +70,15 @@ namespace EDUAR_UI
             try
             {
                 BuscarAccesos();
+                udpReporte.Update();
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
+        }
+
+        protected void rptAccesos_OnDrillthrough(object sender, DrillthroughEventArgs e)
+        {
+            udpReporte.Update();
         }
         #endregion
 
@@ -91,8 +99,8 @@ namespace EDUAR_UI
         {
             Acceso filtroAcceso = new Acceso();
             filtroAcceso.pagina.idPagina = Convert.ToInt32(ddlPagina.SelectedValue);
-            BLAcceso objBLAcceso = new BLAcceso();
-            Reportes("rptAccesos.rdlc", objBLAcceso.GetAccesos(filtroAcceso));
+            BLRptAccesos objBLAcceso = new BLRptAccesos();
+            Reportes("rptAccesos.rdlc", objBLAcceso.GetRptAccesos(filtroAcceso));
 
             this.rptAccesos.ProcessingMode = ProcessingMode.Local;
             this.rptAccesos.LocalReport.ReportPath = rutaReporte;
@@ -107,8 +115,8 @@ namespace EDUAR_UI
         }
         #endregion
 
-        #region --[Métodos Públicos]--
-        public void Reportes(string reporte, List<Acceso> lista)
+        #region --[Métodos Privados]--
+        private void Reportes(string reporte, List<RptAccesos> lista)
         {
             rutaReporte = Server.MapPath("~/Private/Reports/" + reporte);
             listaReporte = lista;
