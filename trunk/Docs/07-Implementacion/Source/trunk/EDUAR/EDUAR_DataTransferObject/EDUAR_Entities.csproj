@@ -120,6 +120,7 @@
     <Compile Include="Reports\InasistenciasAlumnoPeriodo.cs" />
     <Compile Include="Reports\SancionesAlumnoPeriodo.cs" />
     <Compile Include="Entities\Package Administracion\Acceso.cs" />
+    <Compile Include="Reports\RptAccesos.cs" />
     <Compile Include="Security\DTRol.cs" />
     <Compile Include="Security\DTSeguridad.cs" />
     <Compile Include="Security\DTUsuario.cs" />

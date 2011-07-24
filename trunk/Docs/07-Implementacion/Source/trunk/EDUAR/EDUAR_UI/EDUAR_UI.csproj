@@ -293,7 +293,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Private\Alumnos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EDUARMaster.Master" />
@@ -332,6 +331,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Private\Account\web.config" />
+    <Content Include="Private\Reports\web.config" />
+    <Content Include="Private\Alumnos\web.config" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>
     </None>
