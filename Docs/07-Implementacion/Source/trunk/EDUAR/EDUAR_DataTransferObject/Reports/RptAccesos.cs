@@ -16,6 +16,7 @@ namespace EDUAR_Entities.Reports
         public DateTime fechaDesde { get; set; }
         public DateTime fechaHasta { get; set; }
         public List<DTRol> listaRoles { get; set; }
+        public string rol { get; set; }
 
         public RptAccesos()
         {
@@ -24,7 +25,5 @@ namespace EDUAR_Entities.Reports
 
         ~RptAccesos()
         { }
-
-
     }
 }

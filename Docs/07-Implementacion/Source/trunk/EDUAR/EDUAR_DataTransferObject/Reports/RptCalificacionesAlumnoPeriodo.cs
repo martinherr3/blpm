@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EDUAR_Entities.Reports
 {
-    public class CalificacionesAlumnoPeriodo
+    public class RptCalificacionesAlumnoPeriodo
     {
 
         public string nombreAlumno { get; set; }
@@ -15,7 +15,7 @@ namespace EDUAR_Entities.Reports
         public string calificacion { get; set; }
         public string instancia { get; set; }
 
-        public CalificacionesAlumnoPeriodo()
+        public RptCalificacionesAlumnoPeriodo()
         {
             nombreAlumno = string.Empty;
             curso = string.Empty;

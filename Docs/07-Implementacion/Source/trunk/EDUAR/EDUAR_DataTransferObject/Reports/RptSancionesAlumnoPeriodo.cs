@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EDUAR_Entities.Reports
 {
-    public class SancionesAlumnoPeriodo
+    public class RptSancionesAlumnoPeriodo
     {
 
         public string nombreAlumno { get; set; }
@@ -14,7 +14,7 @@ namespace EDUAR_Entities.Reports
         public string tipoSancion { get; set; }
         public string motivoSancion { get; set; }
 
-        public SancionesAlumnoPeriodo()
+        public RptSancionesAlumnoPeriodo()
         {
             nombreAlumno = string.Empty;
             fechaSancion = System.DateTime.Now;

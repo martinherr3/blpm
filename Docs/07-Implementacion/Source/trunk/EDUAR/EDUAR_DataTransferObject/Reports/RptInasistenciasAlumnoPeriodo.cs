@@ -2,14 +2,14 @@
 
 namespace EDUAR_Entities.Reports
 {
-    public class InasistenciasAlumnoPeriodo
+    public class RptInasistenciasAlumnoPeriodo
     {
 
         public string nombreAlumno { get; set; }
         public DateTime fechaInasistencia { get; set; }
         public string motivoInasistencia { get; set; }
 
-        public InasistenciasAlumnoPeriodo()
+        public RptInasistenciasAlumnoPeriodo()
         {
             nombreAlumno = string.Empty;
             fechaInasistencia = System.DateTime.Now;
