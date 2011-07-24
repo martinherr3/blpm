@@ -45,6 +45,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -119,11 +120,6 @@
     </Compile>
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="dsAccesos.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsAccesos.xsd</DependentUpon>
     </Compile>
     <Compile Include="Private\Account\ChangeQuestion.aspx.cs">
       <DependentUpon>ChangeQuestion.aspx</DependentUpon>
@@ -336,17 +332,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Private\Account\web.config" />
-    <None Include="dsAccesos.xsc">
-      <DependentUpon>dsAccesos.xsd</DependentUpon>
-    </None>
-    <None Include="dsAccesos.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsAccesos.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="dsAccesos.xss">
-      <DependentUpon>dsAccesos.xsd</DependentUpon>
-    </None>
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>
     </None>
