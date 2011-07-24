@@ -1571,7 +1571,8 @@ namespace EDUAR_SI_DataAccess
                                                 ,fecha
                                                 ,cantidad
                                                 ,fk_tiposancion_id
-                                                ,fk_motivosancion_id 
+                                                ,fk_motivosancion_id
+                                                ,fk_alumno_id 
                                             FROM vw_sancion";
                     conMySQL.Open();
 
@@ -1588,6 +1589,7 @@ namespace EDUAR_SI_DataAccess
                         unaSancion.fecha = Convert.ToDateTime(reader["fecha"]);
                         unaSancion.motivoSancion.idMotivoSancionTransaccional = (int)reader["fk_motivosancion_id"];
                         unaSancion.tipoSancion.idTipoSancionTransaccional = (int)reader["fk_tiposancion_id"];
+                        unaSancion.alumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
 
                         listadoSancion.Add(unaSancion);
                     }
