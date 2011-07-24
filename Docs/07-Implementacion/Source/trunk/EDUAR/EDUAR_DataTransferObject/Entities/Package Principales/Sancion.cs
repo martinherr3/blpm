@@ -6,8 +6,6 @@
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 
-
-
 using System;
 namespace EDUAR_Entities
 {
@@ -20,6 +18,7 @@ namespace EDUAR_Entities
         private DateTime _fecha;
         private MotivoSancion _motivoSancion;
         private TipoSancion _tipoSancion;
+        private Alumno _alumno;
 
         public Sancion()
         {
@@ -29,8 +28,7 @@ namespace EDUAR_Entities
             _fecha = DateTime.Today;
             _motivoSancion = new MotivoSancion();
             _tipoSancion = new TipoSancion();
-
-
+            _alumno = new Alumno();
         }
 
         ~Sancion()
@@ -115,5 +113,10 @@ namespace EDUAR_Entities
             }
         }
 
+        public Alumno alumno
+        {
+            get { return _alumno; }
+            set { _alumno = value; }
+        }
     }//end Sancion
 }

@@ -1294,6 +1294,7 @@ namespace EDUAR_SI_DataAccess
                         command.Parameters.AddWithValue("fecha", unaSancion.fecha.Date);
                         command.Parameters.AddWithValue("idMotivoSancion", unaSancion.motivoSancion.idMotivoSancionTransaccional);
                         command.Parameters.AddWithValue("idTipoSancion", unaSancion.tipoSancion.idTipoSancionTransaccional);
+                        command.Parameters.AddWithValue("idAlumno", unaSancion.alumno.idAlumnoTransaccional);
 
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();

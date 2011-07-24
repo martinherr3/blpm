@@ -8,7 +8,7 @@
     <ProjectGuid>{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EDUAR_DataTransferObject</RootNamespace>
+    <RootNamespace>EDUAR_Entities</RootNamespace>
     <AssemblyName>EDUAR_DataTransferObject</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -116,6 +116,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reports\CalificacionesAlumnoPeriodo.cs" />
+    <Compile Include="Reports\InasistenciasAlumnoPeriodo.cs" />
+    <Compile Include="Reports\SancionesAlumnoPeriodo.cs" />
     <Compile Include="Entities\Package Administracion\Acceso.cs" />
     <Compile Include="Security\DTRol.cs" />
     <Compile Include="Security\DTSeguridad.cs" />
