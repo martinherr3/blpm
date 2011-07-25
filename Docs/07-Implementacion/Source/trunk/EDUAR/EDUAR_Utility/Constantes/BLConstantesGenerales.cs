@@ -5,6 +5,7 @@ using System.Text;
 
 namespace EDUAR_Utility.Constantes
 {
+    [Serializable]
     public class BLConstantesGenerales
     {
         #region Constantes/ReadOnly Excepciones

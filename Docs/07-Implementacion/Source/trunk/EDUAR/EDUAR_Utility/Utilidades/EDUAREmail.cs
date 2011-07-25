@@ -7,6 +7,7 @@ using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_Utility.Utilidades
 {
+    [Serializable]
     public class EDUAREmail
     {
         #region --[Atributos]--

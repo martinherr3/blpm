@@ -7,6 +7,7 @@ namespace EDUAR_Utility.Utilidades
     /// <summary>
     /// Clase encargada de manejar los logs de la Aplicacion.
     /// </summary>
+    [Serializable]
     public class EDUARLog
     {
         ///<summary>

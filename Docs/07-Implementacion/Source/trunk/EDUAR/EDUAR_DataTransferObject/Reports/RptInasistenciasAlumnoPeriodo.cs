@@ -1,10 +1,10 @@
 ﻿using System;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities.Reports
 {
-    public class RptInasistenciasAlumnoPeriodo
+    public class RptInasistenciasAlumnoPeriodo : DTBase
     {
-
         public string nombreAlumno { get; set; }
         public DateTime fechaInasistencia { get; set; }
         public string motivoInasistencia { get; set; }

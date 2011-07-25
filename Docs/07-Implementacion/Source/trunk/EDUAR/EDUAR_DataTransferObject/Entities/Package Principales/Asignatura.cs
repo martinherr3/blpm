@@ -6,38 +6,28 @@
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 
-
-
 using System;
+using System.Collections.Generic;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Asignatura
+    public class Asignatura : DTBase
     {
-
-        private Contenido _contenidos;
-        private Curso _curso;
-        private DiasHorarios _diasHorarios;
-        private Docente _docente;
-        private string _nombre;
-        private int _idAsignatura;
-        
-        public int idAsignatura
-        {
-            get { return _idAsignatura; }
-            set { _idAsignatura = value; }
-        }
-        private int _idAsignaturaTransaccional;
-
-        public int idAsignaturaTransaccional
-        {
-            get { return _idAsignaturaTransaccional; }
-            set { _idAsignaturaTransaccional = value; }
-        }
+        public List<Contenido> listaContenidos { get; set; }
+        public Curso curso { get; set; }
+        public DiasHorarios diasHorarios { get; set; }
+        public Docente docente { get; set; }
+        public string nombre { get; set; }
+        public int idAsignatura { get; set; }
+        public int idAsignaturaTransaccional { get; set; }
 
         public Asignatura()
         {
-
+            listaContenidos = new List<Contenido>();
+            curso = new Curso();
+            diasHorarios = new DiasHorarios();
+            docente = new Docente();
         }
 
         ~Asignatura()
@@ -48,67 +38,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public Contenido contenidos
-        {
-            get
-            {
-                return _contenidos;
-            }
-            set
-            {
-                _contenidos = value;
-            }
-        }
-
-        public Curso curso
-        {
-            get
-            {
-                return _curso;
-            }
-            set
-            {
-                _curso = value;
-            }
-        }
-
-        public DiasHorarios diasHorarios
-        {
-            get
-            {
-                return _diasHorarios;
-            }
-            set
-            {
-                _diasHorarios = value;
-            }
-        }
-       
-
-        public Docente docente
-        {
-            get
-            {
-                return _docente;
-            }
-            set
-            {
-                _docente = value;
-            }
-        }
-
-        public string nombre
-        {
-            get
-            {
-                return _nombre;
-            }
-            set
-            {
-                _nombre = value;
-            }
         }
 
     }//end Asignatura

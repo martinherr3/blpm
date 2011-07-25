@@ -149,12 +149,18 @@ namespace EDUAR_UI
             listaReporte = lista;
         }
 
+        /// <summary>
+        /// Cargars the presentacion.
+        /// </summary>
         private void CargarPresentacion()
         {
             CargarComboPagina();
             CargarListRoles();
         }
 
+        /// <summary>
+        /// Cargars the list roles.
+        /// </summary>
         private void CargarListRoles()
         {
             DTSeguridad objSeguridad = new DTSeguridad();

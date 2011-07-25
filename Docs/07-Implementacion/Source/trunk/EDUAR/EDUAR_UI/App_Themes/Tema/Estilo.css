@@ -706,6 +706,11 @@ TD.EncabezadoConfirmación
     width: 50%;
 }
 
+.TD75
+{
+    width: 75%;
+}
+
 .TD100
 {
     width: 100%;
@@ -716,6 +721,18 @@ TD.EncabezadoConfirmación
 .TDCriterios25
 {
     width: 25%;
+    text-align: left;
+}
+
+.TDCriterios50
+{
+    width: 50%;
+    text-align: left;
+}
+
+.TDCriterios75
+{
+    width: 75%;
     text-align: left;
 }
 
