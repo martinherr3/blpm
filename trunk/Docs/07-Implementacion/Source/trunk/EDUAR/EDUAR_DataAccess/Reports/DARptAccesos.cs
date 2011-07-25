@@ -62,30 +62,30 @@ namespace EDUAR_DataAccess.Reports
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-                List<RptAccesos> listaAccesos = new List<RptAccesos>();
-                RptAccesos objAcceso;
+                List<RptAccesos> listaReporte = new List<RptAccesos>();
+                RptAccesos objReporte;
                 while (reader.Read())
                 {
-                    objAcceso = new RptAccesos();
+                    objReporte = new RptAccesos();
 
-                    objAcceso.idAcceso = Convert.ToInt32(reader["idAcceso"]);
-                    objAcceso.titulo = reader["titulo"].ToString();
-                    objAcceso.fecha = Convert.ToDateTime(reader["fecha"].ToString());
-                    objAcceso.hora = Convert.ToDateTime(reader["hora"].ToString());
-                    objAcceso.username = reader["username"].ToString();
-                    objAcceso.rol = reader["RoleName"].ToString();
-                    listaAccesos.Add(objAcceso);
+                    objReporte.idAcceso = Convert.ToInt32(reader["idAcceso"]);
+                    objReporte.titulo = reader["titulo"].ToString();
+                    objReporte.fecha = Convert.ToDateTime(reader["fecha"].ToString());
+                    objReporte.hora = Convert.ToDateTime(reader["hora"].ToString());
+                    objReporte.username = reader["username"].ToString();
+                    objReporte.rol = reader["RoleName"].ToString();
+                    listaReporte.Add(objReporte);
                 }
-                return listaAccesos;
+                return listaReporte;
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetAccesos()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRptAccesos()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetAccesos()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRptAccesos()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }

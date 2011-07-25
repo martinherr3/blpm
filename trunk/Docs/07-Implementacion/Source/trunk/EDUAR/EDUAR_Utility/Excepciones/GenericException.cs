@@ -5,6 +5,7 @@ using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_Utility.Excepciones
 {
+    [Serializable]
     public class GenericException : Exception
     {
         /// <summary>

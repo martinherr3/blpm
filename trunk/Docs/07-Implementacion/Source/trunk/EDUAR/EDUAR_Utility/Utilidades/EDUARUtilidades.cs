@@ -1,7 +1,9 @@
 ﻿using System.Text.RegularExpressions;
+using System;
 
 namespace EDUAR_Utility.Utilidades
 {
+    [Serializable]
     public class EDUARUtilidades
     {
         /// <summary>

@@ -2,6 +2,7 @@
 
 namespace EDUAR_Utility.Constantes
 {
+    [Serializable]
     public class UIConstantesGenerales
     {
         #region Mensajes Login

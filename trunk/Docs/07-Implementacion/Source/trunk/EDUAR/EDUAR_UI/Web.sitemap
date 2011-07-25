@@ -18,8 +18,9 @@
             <siteMapNode url="~/Private/Account/Profiles.aspx" title="Administrar" roles="Administrador" />
             <siteMapNode url="~/Private/Account/ChangeRolAccess.aspx" title="Nivel Acceso" roles="Administrador" visible="false" />
         </siteMapNode>
-        <siteMapNode url="" title="Reportes" roles="Administrador" >
+        <siteMapNode url="" title="Reportes" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo,Tutor" >
             <siteMapNode url="~/Private/Reports/reportAccesos.aspx" title="Accesos" roles="Administrador" />
+            <siteMapNode url="~/Private/Reports/ReportCalificacionesAlumnoPeriodo.aspx" title="Calificaciones" roles="Administrador,Director,Docente,Psicopedagogo" />
         </siteMapNode>
     </siteMapNode>
 </siteMap>
