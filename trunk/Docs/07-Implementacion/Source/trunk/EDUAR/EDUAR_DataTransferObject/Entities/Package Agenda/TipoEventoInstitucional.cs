@@ -14,7 +14,8 @@ namespace EDUAR_Entities
     public class TipoEventoInstitucional
     {
 
-        private string _descripcion;
+        public int idTipoEventoInstitucional { get; set; }
+        public string descripcion { get; set; }
 
         public TipoEventoInstitucional()
         {
@@ -31,17 +32,6 @@ namespace EDUAR_Entities
 
         }
 
-        public string descripcion
-        {
-            get
-            {
-                return _descripcion;
-            }
-            set
-            {
-                _descripcion = value;
-            }
         }
 
-    }//end TipoEventoInstitucional
 }

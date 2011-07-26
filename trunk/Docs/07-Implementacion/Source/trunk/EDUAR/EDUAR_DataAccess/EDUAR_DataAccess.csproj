@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\DAAsignatura.cs" />
+    <Compile Include="Common\DAEventoInstitucional.cs" />
     <Compile Include="Common\DAPagina.cs" />
     <Compile Include="Common\DAAcceso.cs" />
     <Compile Include="Common\DAPersona.cs" />

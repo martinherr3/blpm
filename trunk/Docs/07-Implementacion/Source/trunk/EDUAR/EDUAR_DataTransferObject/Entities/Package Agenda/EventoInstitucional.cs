@@ -8,16 +8,20 @@
 
 
 using System;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class EventoInstitucional
+    public class EventoInstitucional: DTBase
     {
-        private DateTime _fecha;
-        private string _motivo;
-        private string _nombre;
-        private Usuario _organizador;
-        private TipoEventoInstitucional _tipoEventoInstitucional;
+        public int idEventoInstitucional { get; set; }
+        public DateTime fecha { get; set; }
+        public string detalle { get; set; }
+        public string lugar { get; set; }
+        public string descripcionBreve { get; set; }
+        public Usuario organizador { get; set; }
+        public TipoEventoInstitucional tipoEventoInstitucional { get; set; }
+        public bool activo { get; set; }
 
         public EventoInstitucional()
         {
@@ -32,66 +36,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public DateTime fecha
-        {
-            get
-            {
-                return _fecha;
-            }
-            set
-            {
-                _fecha = value;
-            }
-        }
-
-        public string motivo
-        {
-            get
-            {
-                return _motivo;
-            }
-            set
-            {
-                _motivo = value;
-            }
-        }
-
-        public string nombre
-        {
-            get
-            {
-                return _nombre;
-            }
-            set
-            {
-                _nombre = value;
-            }
-        }
-
-        public Usuario organizador
-        {
-            get
-            {
-                return _organizador;
-            }
-            set
-            {
-                _organizador = value;
-            }
-        }
-
-        public TipoEventoInstitucional tipoEventoInstitucional
-        {
-            get
-            {
-                return _tipoEventoInstitucional;
-            }
-            set
-            {
-                _tipoEventoInstitucional = value;
-            }
         }
 
     }//end EventoInstitucional

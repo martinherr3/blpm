@@ -8,22 +8,26 @@
     <h2>
         Novedades
     </h2>
-    <p>
+    <%--<p>
         <small>[En esta sesión se publicara las actividades realizadas en la institución, actividades
-        próximas a realizar y toda noticias que involucren a la comunidad dela Institución
-        educativa]</small>
+            próximas a realizar y toda noticias que involucren a la comunidad dela Institución
+            educativa]</small>
     </p>
     <hr />
     <h3>
         [Titulo de la Noticia]<small>[Fecha de publicacion]</small></h3>
-       
-    <p>[Este espacio será dedicado al contenido de la noticia.]
+    <p>
+        [Este espacio será dedicado al contenido de la noticia.]
     </p>
     <hr />
     <h3>
         [Titulo de la Noticia]<small>[Fecha de publicacion]</small></h3>
-       
-    <p>[Este espacio será dedicado al contenido de la noticia.]
+    <p>
+        [Este espacio será dedicado al contenido de la noticia.]
     </p>
-    <hr />
+    <hr />--%>
+    <asp:UpdatePanel ID="udpNovedades" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+        </ContentTemplate>
+    </asp:UpdatePanel>
 </asp:Content>
