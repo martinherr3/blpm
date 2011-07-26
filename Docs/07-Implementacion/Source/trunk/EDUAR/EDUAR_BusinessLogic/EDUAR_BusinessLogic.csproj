@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\BLAcceso.cs" />
+    <Compile Include="Common\BLEventoInstitucional.cs" />
     <Compile Include="Common\BLPersona.cs" />
     <Compile Include="Common\BLTipoDocumento.cs" />
     <Compile Include="Common\BLPagina.cs" />
