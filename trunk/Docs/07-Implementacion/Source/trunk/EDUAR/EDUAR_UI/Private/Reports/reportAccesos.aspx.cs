@@ -1,24 +1,49 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
+using EDUAR_BusinessLogic.Reports;
+using EDUAR_BusinessLogic.Security;
 using EDUAR_Entities;
+using EDUAR_Entities.Reports;
+using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
-using Microsoft.Reporting.WebForms;
-using System.Collections.Generic;
-using EDUAR_Entities.Reports;
-using EDUAR_BusinessLogic.Reports;
-using EDUAR_Entities.Security;
-using EDUAR_BusinessLogic.Security;
-using System.Web.UI.WebControls;
+using EDUAR_Utility.Utilidades;
 
 namespace EDUAR_UI
 {
     public partial class reportAccesos : EDUARBasePage
     {
         #region --[Propiedades]--
-        public string rutaReporte { get; set; }
-        public List<RptAccesos> listaReporte { get; set; }
+        public FilAccesos filtroAcceso
+        {
+            get
+            {
+                if (ViewState["filtroAcceso"] == null)
+                    ViewState["filtroAcceso"] = new FilAccesos();
+                return (FilAccesos)ViewState["filtroAcceso"];
+            }
+            set
+            {
+                ViewState["filtroAcceso"] = value;
+            }
+        }
+
+        public List<RptAccesos> listaAcceso
+        {
+            get
+            {
+                if (ViewState["listaAcceso"] == null)
+                    ViewState["listaAcceso"] = new List<RptAccesos>();
+                return (List<RptAccesos>)ViewState["listaAcceso"];
+            }
+            set
+            {
+                ViewState["listaAcceso"] = value;
+            }
+        }
         #endregion
 
         #region --[Eventos]--
@@ -77,16 +102,11 @@ namespace EDUAR_UI
                 fechas.ValidarRangoDesdeHasta();
                 BuscarAccesos();
 
-                udpReporte.Update();
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
         }
 
-        protected void rptAccesos_Drillthrough(object sender, DrillthroughEventArgs e)
-        {
-            udpReporte.Update();
-        }
         #endregion
 
         #region --[Métodos Privados]--
@@ -104,7 +124,6 @@ namespace EDUAR_UI
         /// </summary>
         private void BuscarAccesos()
         {
-            RptAccesos filtroAcceso = new RptAccesos();
             filtroAcceso.idPagina = Convert.ToInt32(ddlPagina.SelectedValue);
             if (fechas.ValorFechaDesde != null)
                 filtroAcceso.fechaDesde = (DateTime)fechas.ValorFechaDesde;
@@ -121,32 +140,10 @@ namespace EDUAR_UI
             }
             filtroAcceso.listaRoles = ListaRoles;
 
-            BLRptAccesos objBLAcceso = new BLRptAccesos();
-            Reportes("rptAccesos.rdlc", objBLAcceso.GetRptAccesos(filtroAcceso));
+            BLRptAccesos objBLReporte = new BLRptAccesos();
+            listaAcceso = objBLReporte.GetRptAccesos(filtroAcceso);
 
-            this.rptAccesos.ProcessingMode = ProcessingMode.Local;
-            this.rptAccesos.LocalReport.ReportPath = rutaReporte;
-
-            ReportDataSource datos = new ReportDataSource();
-            datos.Name = "dsAccesos";
-            datos.Value = this.listaReporte;
-
-            this.rptAccesos.LocalReport.DataSources.Clear();
-            this.rptAccesos.LocalReport.DataSources.Add(datos);
-            this.rptAccesos.LocalReport.Refresh();
-        }
-        #endregion
-
-        #region --[Métodos Privados]--
-        /// <summary>
-        /// Reporteses the specified reporte.
-        /// </summary>
-        /// <param name="reporte">The reporte.</param>
-        /// <param name="lista">The lista.</param>
-        private void Reportes(string reporte, List<RptAccesos> lista)
-        {
-            rutaReporte = Server.MapPath("~/Private/Reports/" + reporte);
-            listaReporte = lista;
+            CargarGrilla();
         }
 
         /// <summary>
@@ -171,6 +168,29 @@ namespace EDUAR_UI
             {
                 chkListRolesBusqueda.Items.Add(new ListItem(rol.Nombre, rol.NombreCorto));
             }
+        }
+
+        private void CargarGrilla()
+        {
+            //Eliminar Columnas Actuales(Opcional):
+            rptAccesos.GrillaReporte.Columns.Clear();
+
+            Dictionary<string, string> objeto = EDUARUtilidades.GetPropiedades(listaAcceso[0]);
+            foreach (var elemento in objeto)
+            {
+                TemplateField customField = new TemplateField();
+
+                // Create the dynamic templates and assign them to 
+                // the appropriate template property.
+                customField.ItemTemplate = new GridViewTemplate(DataControlRowType.DataRow, elemento.Key.ToString());
+                customField.HeaderTemplate = new GridViewTemplate(DataControlRowType.Header, elemento.Key.ToString().ToUpper());
+
+                // Add the field column to the Columns collection of the
+                // GridView control.
+                rptAccesos.GrillaReporte.Columns.Add(customField);
+            }
+
+            rptAccesos.CargarGrilla<RptAccesos>(listaAcceso);
         }
         #endregion
     }

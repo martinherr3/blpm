@@ -104,6 +104,7 @@
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="UserControls\Calendario.ascx" />
+    <Content Include="UserControls\Reporte.ascx" />
     <Content Include="UserControls\VentanaInfo.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -291,6 +292,13 @@
     <Compile Include="UserControls\Calendario.ascx.designer.cs">
       <DependentUpon>Calendario.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Reporte.ascx.cs">
+      <DependentUpon>Reporte.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Reporte.ascx.designer.cs">
+      <DependentUpon>Reporte.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\VentanaInfo.ascx.cs">
       <DependentUpon>VentanaInfo.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -346,10 +354,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Private\Reports\RptAccesos.rdlc" />
-    <EmbeddedResource Include="Private\Reports\RptCalificacionesAlumnoPeriodo.rdlc" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
@@ -358,7 +362,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>7507</DevelopmentServerPort>
+          <DevelopmentServerPort>1246</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

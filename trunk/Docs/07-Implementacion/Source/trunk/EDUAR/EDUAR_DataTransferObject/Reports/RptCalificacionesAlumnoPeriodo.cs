@@ -6,6 +6,7 @@ using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities.Reports
 {
+    [Serializable]
     public class RptCalificacionesAlumnoPeriodo : DTBase
     {
         public string nombreAlumno { get; set; }

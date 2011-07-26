@@ -5,6 +5,7 @@ using System.Text;
 
 namespace EDUAR_Entities.Reports
 {
+    [Serializable]
     public class RptSancionesAlumnoPeriodo
     {
 
