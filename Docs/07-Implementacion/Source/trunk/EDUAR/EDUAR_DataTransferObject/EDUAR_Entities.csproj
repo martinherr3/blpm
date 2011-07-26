@@ -116,6 +116,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reports\FilAccesos.cs" />
     <Compile Include="Reports\RptCalificacionesAlumnoPeriodo.cs" />
     <Compile Include="Reports\RptInasistenciasAlumnoPeriodo.cs" />
     <Compile Include="Reports\RptSancionesAlumnoPeriodo.cs" />

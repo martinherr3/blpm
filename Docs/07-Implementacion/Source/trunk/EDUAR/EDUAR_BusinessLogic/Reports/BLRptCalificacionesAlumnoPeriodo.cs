@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using EDUAR_BusinessLogic.Shared;
 using EDUAR_DataAccess.Reports;
 using EDUAR_DataAccess.Shared;
-using EDUAR_Entities;
 using EDUAR_Entities.Reports;
 using EDUAR_Entities.Shared;
 using EDUAR_Utility.Enumeraciones;
@@ -11,37 +10,37 @@ using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_BusinessLogic.Reports
 {
-    public class BLRptAccesos : BusinessLogicBase<RptAccesos, DARptAccesos>
+    public class BLRptCalificacionesAlumnoPeriodo : BusinessLogicBase<RptCalificacionesAlumnoPeriodo, DARptCalificacionesAlumnoPeriodo>
     {
         #region --[Constante]--
-        private const string ClassName = "BLRptAcceso";
+        private const string ClassName = "BLRptCalificacionesAlumnoPeriodo";
         #endregion
 
         #region --[Constructores]--
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLRptAccesos(DTBase objRptAcceso)
+        public BLRptCalificacionesAlumnoPeriodo(DTBase objRptCalificacionesAlumnoPeriodo)
         {
-            Data = (RptAccesos)objRptAcceso;
+            Data = (RptCalificacionesAlumnoPeriodo)objRptCalificacionesAlumnoPeriodo;
         }
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public BLRptAccesos()
+        public BLRptCalificacionesAlumnoPeriodo()
         {
-            Data = new RptAccesos();
+            Data = new RptCalificacionesAlumnoPeriodo();
         }
         #endregion
 
         #region --[Propiedades Override]--
-        protected override sealed DARptAccesos DataAcces
+        protected override sealed DARptCalificacionesAlumnoPeriodo DataAcces
         {
             get { return dataAcces; }
             set { dataAcces = value; }
         }
 
-        public override sealed RptAccesos Data
+        public override sealed RptCalificacionesAlumnoPeriodo Data
         {
             get { return data; }
             set { data = value; }
@@ -62,19 +61,7 @@ namespace EDUAR_BusinessLogic.Reports
         /// </summary>
         public override void GetById()
         {
-            try
-            {
-                Data = DataAcces.GetById(Data);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetById", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -105,11 +92,11 @@ namespace EDUAR_BusinessLogic.Reports
         #endregion
 
         #region --[Métodos publicos]--
-        public List<RptAccesos> GetRptAccesos(FilAccesos entidad)
+        public List<RptCalificacionesAlumnoPeriodo> GetRptCalificacionesAlumnoPeriodo(RptCalificacionesAlumnoPeriodo entidad)
         {
             try
             {
-                return DataAcces.GetRptAccesos(entidad);
+                return DataAcces.GetRptCalificacionesAlumnoPeriodo(entidad);
             }
             catch (CustomizedException ex)
             {
@@ -117,7 +104,7 @@ namespace EDUAR_BusinessLogic.Reports
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetRptAccesos", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRptCalificacionesAlumnoPeriodo", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }

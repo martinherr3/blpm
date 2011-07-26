@@ -30,21 +30,15 @@ namespace EDUAR_DataAccess.Reports
         #endregion
 
         #region --[Métodos Públicos]--
-        public List<RptAccesos> GetRptAccesos(RptAccesos entidad)
+        public List<RptAccesos> GetRptAccesos(FilAccesos entidad)
         {
             try
             {
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_Accesos");
                 if (entidad != null)
                 {
-                    if (entidad.idAcceso > 0)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAcceso", DbType.Int32, entidad.idAcceso);
                     if (entidad.idPagina > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.idPagina);
-                    if (ValidarFechaSQL(entidad.fecha))
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
-                    if (ValidarFechaSQL(entidad.hora))
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, entidad.hora);
                     if (ValidarFechaSQL(entidad.fechaDesde))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaDesde);
                     if (ValidarFechaSQL(entidad.fechaHasta))
@@ -68,10 +62,8 @@ namespace EDUAR_DataAccess.Reports
                 {
                     objReporte = new RptAccesos();
 
-                    objReporte.idAcceso = Convert.ToInt32(reader["idAcceso"]);
-                    objReporte.titulo = reader["titulo"].ToString();
+                    objReporte.pagina = reader["titulo"].ToString();
                     objReporte.fecha = Convert.ToDateTime(reader["fecha"].ToString());
-                    objReporte.hora = Convert.ToDateTime(reader["hora"].ToString());
                     objReporte.username = reader["username"].ToString();
                     objReporte.rol = reader["RoleName"].ToString();
                     listaReporte.Add(objReporte);

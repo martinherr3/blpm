@@ -7,9 +7,10 @@
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
+<%@ Register Src="~/UserControls/Reporte.ascx" TagName="Reporte" TagPrefix="rep" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:content id="Content2" contentplaceholderid="MainContent" runat="server">
     <h2>
         Consultar Accesos</h2>
     <br />
@@ -21,9 +22,6 @@
             </td>
         </tr>
     </table>
-    <%--<table class="tablaInterna" cellpadding="0" cellspacing="0">
-        <tr>
-            <td style="width: 100%; vertical-align: text-top">--%>
     <table class="tablaInterna" cellpadding="1" cellspacing="5">
         <tr>
             <td valign="top" class="TDCriterios25">
@@ -58,20 +56,5 @@
             </td>
         </tr>
     </table>
-    <%--</td>
-        </tr>
-    </table>--%>
-    <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>
-            <rsweb:ReportViewer ID="rptAccesos" runat="server" Width="100%" Height="100%" Style="overflow: visible;"
-                WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" 
-                OnDrillthrough="rptAccesos_Drillthrough" 
-                InteractivityPostBackMode="SynchronousOnDrillthrough">
-            </rsweb:ReportViewer>
-        </ContentTemplate>
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
-            <asp:AsyncPostBackTrigger ControlID="rptAccesos" EventName="Drillthrough" />
-        </Triggers>
-    </asp:UpdatePanel>
-</asp:Content>
+    <rep:Reporte ID="rptAccesos" runat="server"></rep:Reporte>
+</asp:content>
