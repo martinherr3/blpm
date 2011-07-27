@@ -175,4 +175,18 @@ namespace EDUAR_Utility.Enumeraciones
         Evaluacion = 1,
         Examen = 2
     }
+
+    /// <summary>
+    /// Contiene los días de la semana, empezando por Lunes = 1
+    /// </summary>
+    public enum enumDiasSemana
+    {
+        Lunes = 1,
+        Martes = 2,
+        Miercoles = 3,
+        Jueves = 4,
+        Viernes = 5,
+        Sabado = 6,
+        Domingo = 7
+    }
 }

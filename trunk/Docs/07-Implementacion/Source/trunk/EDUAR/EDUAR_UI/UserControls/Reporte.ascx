@@ -2,30 +2,20 @@
 <table class="tablaInterna" cellpadding="0" cellspacing="0">
     <tr>
         <td align="right">
-            <asp:imagebutton id="btnExcel" runat="server" tooltip="Exportar a Excel" imageurl="~/Images/botonBuscar.png" />
-            <asp:imagebutton id="btnPDF" runat="server" tooltip="Exportar a PDF" imageurl="~/Images/botonBuscar.png" />
-            <asp:imagebutton id="btnWord" runat="server" tooltip="Exportar a Word" imageurl="~/Images/botonBuscar.png" />
+            <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png" OnClick="btnPDF_Click" />
         </td>
     </tr>
 </table>
-<asp:updatepanel id="udpReporte" runat="server" updatemode="Conditional">
-        <ContentTemplate>
-            <asp:GridView ID="gvwReporte" runat="server" PagerSettings-Visible="true" BorderStyle="Solid"
-                Width="100%" AutoGenerateColumns="False"
-                AllowPaging="True" DataKeyNames="">
-                <EmptyDataRowStyle HorizontalAlign="Center" />
-                <Columns>
-                    <%--<asp:TemplateField HeaderText="Usuario">
-                        <HeaderStyle HorizontalAlign="left" Width="40%" />
-                        <ItemStyle HorizontalAlign="left" />
-                        <ItemTemplate>
-                            <asp:Label ID="columna1" runat="server" Text='<%# Bind("columna1") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>--%>
-                </Columns>
-            </asp:GridView>
-        </ContentTemplate>
-        <Triggers>
-            <%--<asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />--%>
-        </Triggers>
-    </asp:updatepanel>
+<asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
+    <ContentTemplate>
+        <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
+            AutoGenerateColumns="false" Width="100%">
+            <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="Center" />
+            <Columns>
+            </Columns>
+        </asp:GridView>
+    </ContentTemplate>
+    <Triggers>
+        <asp:AsyncPostBackTrigger ControlID="btnPDF" EventName="Click" />
+    </Triggers>
+</asp:UpdatePanel>

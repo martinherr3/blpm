@@ -766,4 +766,33 @@ TD.EncabezadoConfirmación
 {
     font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
     font-size: small;
-    }
+}
+
+.DatosListaNormal
+{
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: normal;
+    color: #8B908C;
+    border: 1px solid #dbdddc;
+    text-decoration: none;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 33px;
+}
+
+.DatosLista
+{
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: normal;
+    color: #8B908C;
+    border: 1px solid #dbdddc;
+    text-decoration: none;
+    overflow: hidden; /* text-overflow: ellipsis;*/
+    white-space: nowrap;
+    padding: 0px;
+    margin: 0px;
+}

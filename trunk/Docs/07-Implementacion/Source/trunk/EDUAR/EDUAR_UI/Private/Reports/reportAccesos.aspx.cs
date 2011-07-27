@@ -10,7 +10,11 @@ using EDUAR_Entities.Reports;
 using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
-using EDUAR_Utility.Utilidades;
+using System.Web;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
 
 namespace EDUAR_UI
 {
@@ -78,6 +82,7 @@ namespace EDUAR_UI
             {
                 if (!Page.IsPostBack)
                 {
+                    //rptAccesos.ExportarPDFClick += (ExportarPDF);
                     CargarPresentacion();
                     BLRptAccesos objBLAcceso = new BLRptAccesos();
                     objBLAcceso.GetRptAccesos(null);
@@ -107,6 +112,17 @@ namespace EDUAR_UI
             { Master.ManageExceptions(ex); }
         }
 
+        protected void ExportarPDF(object sender, EventArgs e)
+        {
+            try
+            {
+                
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
+        }
+
+       
         #endregion
 
         #region --[Métodos Privados]--
@@ -131,7 +147,7 @@ namespace EDUAR_UI
                 filtroAcceso.fechaHasta = (DateTime)fechas.ValorFechaHasta;
 
             List<DTRol> ListaRoles = new List<DTRol>();
-            foreach (ListItem item in chkListRolesBusqueda.Items)
+            foreach (System.Web.UI.WebControls.ListItem item in chkListRolesBusqueda.Items)
             {
                 if (item.Selected)
                 {
@@ -143,7 +159,7 @@ namespace EDUAR_UI
             BLRptAccesos objBLReporte = new BLRptAccesos();
             listaAcceso = objBLReporte.GetRptAccesos(filtroAcceso);
 
-            CargarGrilla();
+            rptAccesos.CargarReporte<RptAccesos>(listaAcceso);
         }
 
         /// <summary>
@@ -166,31 +182,8 @@ namespace EDUAR_UI
             objBLSeguridad.GetRoles();
             foreach (DTRol rol in objBLSeguridad.Data.ListaRoles)
             {
-                chkListRolesBusqueda.Items.Add(new ListItem(rol.Nombre, rol.NombreCorto));
+                chkListRolesBusqueda.Items.Add(new System.Web.UI.WebControls.ListItem(rol.Nombre, rol.NombreCorto));
             }
-        }
-
-        private void CargarGrilla()
-        {
-            //Eliminar Columnas Actuales(Opcional):
-            rptAccesos.GrillaReporte.Columns.Clear();
-
-            Dictionary<string, string> objeto = EDUARUtilidades.GetPropiedades(listaAcceso[0]);
-            foreach (var elemento in objeto)
-            {
-                TemplateField customField = new TemplateField();
-
-                // Create the dynamic templates and assign them to 
-                // the appropriate template property.
-                customField.ItemTemplate = new GridViewTemplate(DataControlRowType.DataRow, elemento.Key.ToString());
-                customField.HeaderTemplate = new GridViewTemplate(DataControlRowType.Header, elemento.Key.ToString().ToUpper());
-
-                // Add the field column to the Columns collection of the
-                // GridView control.
-                rptAccesos.GrillaReporte.Columns.Add(customField);
-            }
-
-            rptAccesos.CargarGrilla<RptAccesos>(listaAcceso);
         }
         #endregion
     }

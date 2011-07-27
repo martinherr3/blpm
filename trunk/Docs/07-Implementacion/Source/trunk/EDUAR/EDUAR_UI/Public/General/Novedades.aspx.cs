@@ -10,10 +10,6 @@ using EDUAR_Entities;
 
 namespace EDUAR_UI
 {
-
-
-
-
     public partial class Novedades : EDUARBasePage
     {
         #region --[Eventos]--

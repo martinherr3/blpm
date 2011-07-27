@@ -51,6 +51,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DACitacion.cs" />
     <Compile Include="Common\DAAsignatura.cs" />
     <Compile Include="Common\DAEventoInstitucional.cs" />
     <Compile Include="Common\DAPagina.cs" />

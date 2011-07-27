@@ -66,6 +66,7 @@ namespace EDUAR_DataAccess.Reports
                     objReporte.fecha = Convert.ToDateTime(reader["fecha"].ToString());
                     objReporte.username = reader["username"].ToString();
                     objReporte.rol = reader["RoleName"].ToString();
+                    objReporte.accesos = (int)reader["cantidadAccesos"];
                     listaReporte.Add(objReporte);
                 }
                 return listaReporte;
