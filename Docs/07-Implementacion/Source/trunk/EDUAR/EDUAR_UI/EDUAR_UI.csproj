@@ -35,6 +35,14 @@
     <Reference Include="AjaxControlToolkit">
       <HintPath>DLL\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xtra, Version=5.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\itextsharp.xtra.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -61,12 +69,15 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="DLL\AjaxControlToolkit.dll" />
+    <Content Include="DLL\itextsharp.dll" />
+    <Content Include="DLL\itextsharp.xtra.dll" />
     <Content Include="favicon.ico" />
     <Content Include="Images\botonEnviarMail.png" />
     <Content Include="Images\botonNuevo.png" />
     <Content Include="Images\botonSiguiente.png" />
     <Content Include="Images\botonVolver.png" />
     <Content Include="Images\calendario.png" />
+    <Content Include="Images\ExportarPDF.png" />
     <Content Include="Images\ventanaConfirmacion.png" />
     <Content Include="Private\Account\ChangeQuestion.aspx" />
     <Content Include="Private\Account\ChangeRolAccess.aspx" />

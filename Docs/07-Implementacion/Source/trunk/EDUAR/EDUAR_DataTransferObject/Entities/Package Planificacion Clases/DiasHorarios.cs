@@ -7,15 +7,13 @@
 ///////////////////////////////////////////////////////////
 
 using System.Collections.Generic;
+using EDUAR_Utility.Enumeraciones;
 
 
 namespace EDUAR_Entities
 {
-    public enum Dia { Lunes = 1, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo };
-
     public class DiasHorarios
     {
-		// private enum Dias { Lunes = 1, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo };
 		private int _idDiaHorario;
 	  
 	    public int idDiaHorario
@@ -64,10 +62,9 @@ namespace EDUAR_Entities
             set { _idDiaHorarioTransaccional = value; }
         }
 
-		
-	    private Dia _unDia;
+	    private enumDiasSemana _unDia;
 
-        public Dia unDia
+        public enumDiasSemana unDia
         {
             get { return _unDia; }
             set { _unDia = value; }

@@ -26,7 +26,10 @@ namespace EDUAR_Utility.Constantes
         #region Satisfactorio
         public const string MensajeCheckearCorreo = "Por favor, verifique su correo electrónico.";
         public const string MensajeGuardadoOk = "Los cambios se guardaron con éxito.";
+        #endregion
 
+        #region MensajesGenericos
+        public const string MensajeSinResultados = "La consulta no produjo resultados.";
         #endregion
     }
 }

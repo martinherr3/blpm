@@ -16,9 +16,8 @@ namespace EDUAR_UI.Utilidades
             {
                 ddlTipoUsuario.Items.Add(new ListItem(tipoPersona.ToString(), ((int)tipoPersona).ToString()));
             }
-
         }
-        
+
         /// <summary>
         /// Método que realiza el Bind de un ListBox.
         /// </summary>
@@ -81,6 +80,11 @@ namespace EDUAR_UI.Utilidades
             return tbl;
         }
 
+        /// <summary>
+        /// Creates the table.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         private static DataTable CreateTable<T>()
         {
             //T –> ClassName
@@ -106,20 +110,73 @@ namespace EDUAR_UI.Utilidades
             }
             return tbl;
         }
+
+        /// <summary>
+        /// Generars the grilla.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="lista">The lista.</param>
+        public static GridView GenerarGrilla<T>(List<T> lista, GridView grilla)
+        {
+            //Eliminar Columnas Actuales(Opcional):
+            grilla.Columns.Clear();
+
+            Type entType = typeof(T);
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(entType);
+            foreach (PropertyDescriptor prop in properties)
+            {
+                TemplateField customField = new TemplateField();
+
+                // Create the dynamic templates and assign them to 
+                // the appropriate template property.
+                customField.ItemTemplate = new GridViewTemplate(DataControlRowType.DataRow, prop.Name, prop.PropertyType.Name);
+
+                switch (prop.PropertyType.Name)
+                {
+                    case "DateTime":
+                    case "Int32":
+                        customField.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
+                        break;
+                    default:
+                        break;
+                }
+
+                customField.HeaderTemplate = new GridViewTemplate(DataControlRowType.Header, prop.Name.ToUpper(), prop.PropertyType.Name);
+
+                // Add the field column to the Columns collection of the
+                // GridView control.
+                grilla.Columns.Add(customField);
+            }
+            return grilla;
+        }
     }
 
-    // Create a template class to represent a dynamic template column.
-    public class GridViewTemplate : ITemplate
+    /// <summary>
+    /// Create a template class to represent a dynamic template column.
+    /// </summary>
+    class GridViewTemplate : ITemplate
     {
         private DataControlRowType templateType;
         private string columnName;
+        private string columnType;
 
-        public GridViewTemplate(DataControlRowType type, string colname)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GridViewTemplate"/> class.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="colname">The colname.</param>
+        /// <param name="colType">Type of the col.</param>
+        public GridViewTemplate(DataControlRowType type, string colname, string colType)
         {
             templateType = type;
             columnName = colname;
+            columnType = colType;
         }
 
+        /// <summary>
+        /// Cuando se implementa mediante una clase, define el objeto <see cref="T:System.Web.UI.Control"/> al que pertenecen los controles secundarios y las plantillas.Estos controles secundarios están a su vez definidos en una plantilla en línea.
+        /// </summary>
+        /// <param name="container">Objeto <see cref="T:System.Web.UI.Control"/> que contiene las instancias de los controles de la plantilla en línea.</param>
         public void InstantiateIn(System.Web.UI.Control container)
         {
             // Create the content for the different row types.
@@ -146,25 +203,26 @@ namespace EDUAR_UI.Utilidades
                     // To support data binding, register the event-handling methods
                     // to perform the data binding. Each control needs its own event
                     // handler.
-                    //firstName.DataBinding += new EventHandler(this.FirstName_DataBinding);
                     lblFila.DataBinding += new EventHandler(this.row_DataBinding);
 
                     // Add the controls to the Controls collection
                     // of the container.
                     container.Controls.Add(lblFila);
-                    //container.Controls.Add(spacer);
-                    //container.Controls.Add(lastName);
                     break;
 
                 // Insert cases to create the content for the other 
                 // row types, if desired.
-
                 default:
                     // Insert code to handle unexpected values.
                     break;
             }
         }
 
+        /// <summary>
+        /// Handles the DataBinding event of the row control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void row_DataBinding(Object sender, EventArgs e)
         {
             // Get the Label control to bind the value. The Label control
@@ -177,8 +235,16 @@ namespace EDUAR_UI.Utilidades
 
             // Get the field value from the GridViewRow object and 
             // assign it to the Text property of the Label control.
-            l.Text = DataBinder.Eval(row.DataItem, columnName).ToString();
-        }
 
+            switch (columnType)
+            {
+                case "DateTime":
+                    l.Text = DataBinder.Eval(row.DataItem, columnName, "{0:d}").ToString();
+                    break;
+                default:
+                    l.Text = DataBinder.Eval(row.DataItem, columnName).ToString();
+                    break;
+            }
+        }
     }
 }
