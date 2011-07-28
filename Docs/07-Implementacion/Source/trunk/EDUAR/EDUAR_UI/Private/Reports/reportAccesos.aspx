@@ -6,7 +6,7 @@
 <%@ Register Src="~/UserControls/Reporte.ascx" TagName="Reporte" TagPrefix="rep" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
-<asp:content id="Content2" contentplaceholderid="MainContent" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Consultar Accesos</h2>
     <br />
@@ -53,4 +53,4 @@
         </tr>
     </table>
     <rep:Reporte ID="rptAccesos" runat="server"></rep:Reporte>
-</asp:content>
+</asp:Content>

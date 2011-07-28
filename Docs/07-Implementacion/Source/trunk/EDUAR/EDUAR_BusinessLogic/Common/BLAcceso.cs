@@ -99,12 +99,14 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (CustomizedException ex)
             {
-                DataAcces.Transaction.RollbackTransaction();
+                if (DataAcces != null && DataAcces.Transaction != null)
+                    DataAcces.Transaction.RollbackTransaction();
                 throw ex;
             }
             catch (Exception ex)
             {
-                DataAcces.Transaction.RollbackTransaction();
+                if (DataAcces != null && DataAcces.Transaction != null)
+                    DataAcces.Transaction.RollbackTransaction();
                 throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }

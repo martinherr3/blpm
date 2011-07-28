@@ -57,7 +57,8 @@ namespace EDUAR_DataAccess.Shared
             }
             catch (Exception)
             {
-                Transaction.Rollback();
+                if (Transaction != null)
+                    Transaction.Rollback();
                 throw;
             }
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_BusinessLogic.Reports;
 using EDUAR_BusinessLogic.Security;
@@ -10,11 +10,10 @@ using EDUAR_Entities.Reports;
 using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
-using System.Web;
-using System.IO;
 using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
+using System.Data;
+using EDUAR_Utility.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -80,9 +79,11 @@ namespace EDUAR_UI
         {
             try
             {
+                rptAccesos.ExportarPDFClick += (ExportarPDF);
+                rptAccesos.VolverClick += (VolverReporte);
+
                 if (!Page.IsPostBack)
                 {
-                    //rptAccesos.ExportarPDFClick += (ExportarPDF);
                     CargarPresentacion();
                     BLRptAccesos objBLAcceso = new BLRptAccesos();
                     objBLAcceso.GetRptAccesos(null);
@@ -106,23 +107,48 @@ namespace EDUAR_UI
             {
                 fechas.ValidarRangoDesdeHasta();
                 BuscarAccesos();
+                //udpFiltros.Visible = false;
+                //udpReporte.Visible = true;
+                //udpPagina.Update();
 
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
         }
 
+        /// <summary>
+        /// Exportars the PDF.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ExportarPDF(object sender, EventArgs e)
         {
             try
             {
-                
+                EDUARExportPDF.ExportarPDF(Page.Title, rptAccesos.dtReporte);
+                //udpReporte.Update();
+                //udpPagina.Update();
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
         }
 
-       
+        /// <summary>
+        /// Volvers the reporte.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void VolverReporte(object sender, EventArgs e)
+        {
+            try
+            {
+                //udpFiltros.Visible = true;
+                //udpReporte.Visible = false;
+                //udpPagina.Update();
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
+        }
         #endregion
 
         #region --[Métodos Privados]--
