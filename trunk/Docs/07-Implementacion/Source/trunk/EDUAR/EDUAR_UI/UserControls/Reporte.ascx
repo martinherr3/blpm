@@ -2,20 +2,20 @@
 <table class="tablaInterna" cellpadding="0" cellspacing="0">
     <tr>
         <td align="right">
-            <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png" OnClick="btnPDF_Click" />
+            <asp:ImageButton ID="btnVolver" runat="server" ToolTip="Volver" ImageUrl="~/Images/botonVolver.png"
+                Visible="false" />
+            <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
+                Visible="false" />
         </td>
     </tr>
 </table>
 <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
         <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-            AutoGenerateColumns="false" Width="100%">
+            AutoGenerateColumns="false" Width="100%" AllowPaging="true" PageSize="20">
             <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="Center" />
             <Columns>
             </Columns>
         </asp:GridView>
     </ContentTemplate>
-    <Triggers>
-        <asp:AsyncPostBackTrigger ControlID="btnPDF" EventName="Click" />
-    </Triggers>
 </asp:UpdatePanel>
