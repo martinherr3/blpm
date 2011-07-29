@@ -27,12 +27,13 @@ namespace EDUAR_UI.UserControls
         {
             get
             {
-                if (ViewState["dtReporte"] == null)
-                    ViewState["dtReporte"] = new DataTable();
-                return (DataTable)ViewState["dtReporte"];
+                if (Session["dtReporte"] == null)
+                    Session["dtReporte"] = new DataTable();
+                return (DataTable)Session["dtReporte"];
             }
-            set { ViewState["dtReporte"] = value; }
+            set { Session["dtReporte"] = value; }
         }
+
         #endregion
 
         #region --[Eventos]--
@@ -41,6 +42,8 @@ namespace EDUAR_UI.UserControls
             btnPDF.Click += (ExportarPDF);
             btnVolver.Click += (Volver);
             gvwReporte.PageIndexChanging += (PaginandoGrilla);
+
+            btnImprimir.Attributes.Add("onClick", "abrir();");
 
             if (!Page.IsPostBack)
             {
@@ -51,26 +54,9 @@ namespace EDUAR_UI.UserControls
 
         protected void btnImprimir_Click(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            StringWriter salida = new StringWriter(sb);
-            HtmlTextWriter htw = new HtmlTextWriter(salida);
-            Page pag = new Page();
-            HtmlForm form = new HtmlForm();
-            this.GrillaReporte.EnableViewState = false;
-            pag.EnableEventValidation = false;
-            pag.DesignerInitialize();
-            pag.Controls.Add(form);
-            form.Controls.Add(this.GrillaReporte);
-            pag.RenderControl(htw);
-            Response.Clear();
-            Response.Buffer = true;
-            Response.ContentType = "application/text/HTML";
-            Response.AddHeader("Content-Type", "text/html");
-            Response.Charset = "MS-Windows";
-            Response.ContentEncoding = Encoding.Default;
-            Response.Write("<script language='JavaScript'>window.open('Print.aspx')</script>" + sb.ToString());
-            Response.End();
-        }
+          
+        }  
+ 
         #endregion
 
         #region --[Métodos Públicos]--
@@ -107,19 +93,19 @@ namespace EDUAR_UI.UserControls
         {
 
             OnExportarPDFClick(ExportarPDFClick, e);
-            udpReporte.Update();
+            //udpReporte.Update();
         }
 
         void Volver(object sender, EventArgs e)
         {
             OnVolverClick(VolverClick, e);
-            udpReporte.Update();
+            //udpReporte.Update();
         }
 
         void PaginandoGrilla(object sender, GridViewPageEventArgs e)
         {
             onPaginandoGrilla(PaginarGrilla, e);
-            udpReporte.Update();
+            //udpReporte.Update();
         }
 
         /// <summary>

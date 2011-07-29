@@ -7,37 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EDUAR_UI.UserControls {
+namespace EDUAR_UI {
     
     
-    public partial class Reporte {
+    public partial class PrintReport {
         
         /// <summary>
-        /// btnVolver control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnVolver;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// btnPDF control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnPDF;
-        
-        /// <summary>
-        /// btnImprimir control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnImprimir;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
         /// udpReporte control.
@@ -49,12 +40,12 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.UpdatePanel udpReporte;
         
         /// <summary>
-        /// gvwReporte control.
+        /// grdReporte control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvwReporte;
+        protected global::System.Web.UI.WebControls.GridView grdReporte;
     }
 }
