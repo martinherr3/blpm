@@ -8,12 +8,13 @@
 
 
 using System;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Excursion
+    public class Excursion:DTBase
     {
-
+        private int _idExcursion;
         private Curso _curso;
         private string _descripcion;
         private string _destino;
@@ -24,17 +25,25 @@ namespace EDUAR_Entities
 
         public Excursion()
         {
+            _curso = new Curso();
+            _organizador = new Usuario();
 
         }
 
         ~Excursion()
         {
-
         }
 
         public virtual void Dispose()
         {
 
+        }
+
+
+        public int idExcursion
+        {
+            get { return _idExcursion; }
+            set { _idExcursion = value; }
         }
 
         public Curso curso

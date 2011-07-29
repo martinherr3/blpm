@@ -53,6 +53,12 @@
     <Compile Include="Common\BLTipoDocumento.cs" />
     <Compile Include="Common\BLPagina.cs" />
     <Compile Include="Common\BLAsignatura.cs" />
+    <Compile Include="Common\BLEvaluacion.cs" />
+    <Compile Include="Common\BLCitacion.cs" />
+    <Compile Include="Common\BLExcursion.cs" />
+    <Compile Include="Common\BLMotivoCitacion.cs" />
+    <Compile Include="Common\BLReunion.cs" />
+    <Compile Include="Common\BLTipoEventoInstitucional.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\BLRptAccesos.cs" />
     <Compile Include="Reports\BLRptCalificacionesAlumnoPeriodo.cs" />

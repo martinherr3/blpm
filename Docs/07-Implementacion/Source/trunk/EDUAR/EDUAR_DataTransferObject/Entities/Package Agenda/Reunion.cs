@@ -6,13 +6,14 @@
 //  Original author: Belén
 ///////////////////////////////////////////////////////////
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Reunion
+    public class Reunion:DTBase
     {
+        private int _idReunion;
         private Curso _curso;
         private DateTime _fecha;
         private Usuario _gestorReunion;
@@ -32,6 +33,12 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
+        }
+
+        public int idReunion
+        {
+            get { return _idReunion; }
+            set { _idReunion = value; }
         }
 
         public Curso curso

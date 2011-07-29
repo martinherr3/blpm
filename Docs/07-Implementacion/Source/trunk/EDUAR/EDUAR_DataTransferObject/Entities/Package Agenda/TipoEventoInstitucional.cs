@@ -6,12 +6,12 @@
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class TipoEventoInstitucional
+    public class TipoEventoInstitucional:DTBase
     {
 
         public int idTipoEventoInstitucional { get; set; }

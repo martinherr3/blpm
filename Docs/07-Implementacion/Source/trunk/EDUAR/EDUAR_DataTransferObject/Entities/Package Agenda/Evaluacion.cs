@@ -7,17 +7,22 @@
 ///////////////////////////////////////////////////////////
 
 using System;
+using EDUAR_Entities.Shared;
+
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Evaluacion
+    public class Evaluacion : DTBase
     {
+        public int idEvaluacion { get; set; }
         private Asignatura _asignatura;
         private DateTime _fecha;
 
+       
+
         public Evaluacion()
         {
-
+            _asignatura = new Asignatura();
         }
 
         ~Evaluacion()
