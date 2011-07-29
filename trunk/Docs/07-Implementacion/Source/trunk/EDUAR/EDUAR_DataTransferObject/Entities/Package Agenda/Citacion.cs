@@ -1,4 +1,5 @@
 using System;
+using EDUAR_Entities.Shared;
 ///////////////////////////////////////////////////////////
 //  Citacion.cs
 //  Implementation of the Class Citacion
@@ -11,9 +12,9 @@ using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Citacion
+    public class Citacion:DTBase
     {
-
+        private int _idCitacion;
         private string _detalles;
         private DateTime _fecha;
         private Usuario _gestorEvento;
@@ -34,6 +35,12 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
+        }
+
+        public int idCitacion
+        {
+            get { return _idCitacion; }
+            set { _idCitacion = value; }
         }
 
         public string detalles

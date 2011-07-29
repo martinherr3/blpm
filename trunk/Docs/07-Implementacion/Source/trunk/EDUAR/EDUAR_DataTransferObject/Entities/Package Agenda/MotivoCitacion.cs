@@ -6,12 +6,12 @@
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class MotivoCitacion
+    public class MotivoCitacion:DTBase
     {
 
         private string _descripcion;
