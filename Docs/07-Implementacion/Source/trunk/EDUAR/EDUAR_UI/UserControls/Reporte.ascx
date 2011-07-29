@@ -6,13 +6,15 @@
                 Visible="false" />
             <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
                 Visible="false" />
+            <asp:ImageButton ID="btnImprimir" runat="server" ImageUrl="~/Images/ExportarPDF.png"
+                OnClick="btnImprimir_Click" />
         </td>
     </tr>
 </table>
 <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
         <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-            AutoGenerateColumns="false" Width="100%" AllowPaging="true" PageSize="20" ><%--OnPageIndexChanging="gvwReporte_PageIndexChanging"--%>
+            AutoGenerateColumns="false" Width="100%" AllowPaging="true" PageSize="20">
             <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="Center" />
             <Columns>
             </Columns>

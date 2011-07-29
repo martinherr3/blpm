@@ -5,6 +5,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
+using System.IO;
+using System.Text;
+using System.Web.UI.HtmlControls;
 
 namespace EDUAR_UI.UserControls
 {
@@ -38,12 +41,35 @@ namespace EDUAR_UI.UserControls
             btnPDF.Click += (ExportarPDF);
             btnVolver.Click += (Volver);
             gvwReporte.PageIndexChanging += (PaginandoGrilla);
-            
+
             if (!Page.IsPostBack)
             {
                 btnPDF.Visible = false;
                 btnVolver.Visible = false;
             }
+        }
+
+        protected void btnImprimir_Click(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            StringWriter salida = new StringWriter(sb);
+            HtmlTextWriter htw = new HtmlTextWriter(salida);
+            Page pag = new Page();
+            HtmlForm form = new HtmlForm();
+            this.GrillaReporte.EnableViewState = false;
+            pag.EnableEventValidation = false;
+            pag.DesignerInitialize();
+            pag.Controls.Add(form);
+            form.Controls.Add(this.GrillaReporte);
+            pag.RenderControl(htw);
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentType = "application/text/HTML";
+            Response.AddHeader("Content-Type", "text/html");
+            Response.Charset = "MS-Windows";
+            Response.ContentEncoding = Encoding.Default;
+            Response.Write("<script language='JavaScript'>window.open('Print.aspx')</script>" + sb.ToString());
+            Response.End();
         }
         #endregion
 
@@ -109,10 +135,6 @@ namespace EDUAR_UI.UserControls
             udpReporte.Update();
         }
 
-        #endregion
-
-        #region --[Métodos Privados]--
-        
         #endregion
 
         #region --[Delegados ]--

@@ -61,7 +61,7 @@ namespace EDUAR_Utility.Utilidades
             {
                 grdTable.AddCell(new PdfPCell(new Phrase(columna.ColumnName.ToUpperInvariant(), LetraTituloTabla)));
             }
-            
+
             Font LetraDefecto = FontFactory.GetFont(FontFactory.HELVETICA, 8, Font.NORMAL);
 
             grdTable.CompleteRow();
@@ -77,7 +77,7 @@ namespace EDUAR_Utility.Utilidades
                 }
                 grdTable.CompleteRow();
             }
-            
+
             //Cerramos el Documento 
             documento.Add(grdTable);
             documento.Close();
