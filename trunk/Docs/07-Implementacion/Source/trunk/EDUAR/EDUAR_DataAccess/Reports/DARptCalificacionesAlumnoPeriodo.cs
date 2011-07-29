@@ -30,7 +30,7 @@ namespace EDUAR_DataAccess.Reports
         #endregion
 
         #region --[Métodos Públicos]--
-        public List<RptCalificacionesAlumnoPeriodo> GetRptCalificacionesAlumnoPeriodo(RptCalificacionesAlumnoPeriodo entidad)
+        public List<RptCalificacionesAlumnoPeriodo> GetRptCalificacionesAlumnoPeriodo(FilCalificacionesAlumnoPeriodo entidad)
         {
             try
             {
@@ -45,8 +45,6 @@ namespace EDUAR_DataAccess.Reports
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.idCurso);
                     if (entidad.idInstanciaEvaluacion > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idInstanciaEvaluacion", DbType.Int32, entidad.idInstanciaEvaluacion);
-                    if (ValidarFechaSQL(entidad.fecha))
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
                     if (ValidarFechaSQL(entidad.fechaDesde))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaDesde);
                     if (ValidarFechaSQL(entidad.fechaHasta))
@@ -60,7 +58,7 @@ namespace EDUAR_DataAccess.Reports
                 {
                     objReporte = new RptCalificacionesAlumnoPeriodo();
 
-                    objReporte.nombreAlumno = reader["Nombre"].ToString();
+                    objReporte.alumno = reader["Nombre"].ToString();
                     objReporte.asignatura = reader["Asignatura"].ToString();
                     objReporte.curso = reader["Curso"].ToString();
                     objReporte.calificacion = reader["Calificacion"].ToString();

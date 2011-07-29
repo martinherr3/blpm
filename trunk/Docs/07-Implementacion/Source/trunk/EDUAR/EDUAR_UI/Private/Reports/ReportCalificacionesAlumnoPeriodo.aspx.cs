@@ -1,24 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using EDUAR_BusinessLogic.Common;
+using EDUAR_BusinessLogic.Reports;
+using EDUAR_Entities;
+using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
-using EDUAR_Entities;
-using EDUAR_BusinessLogic.Common;
-using EDUAR_Entities.Reports;
-using EDUAR_BusinessLogic.Reports;
-using Microsoft.Reporting.WebForms;
+using EDUAR_Utility.Utilidades;
 
 namespace EDUAR_UI
 {
     public partial class ReportCalificacionesAlumnoPeriodo : EDUARBasePage
     {
         #region --[Propiedades]--
-        public string rutaReporte { get; set; }
-        public List<RptCalificacionesAlumnoPeriodo> listaReporte { get; set; }
+        /// <summary>
+        /// Gets or sets the filtro calificaciones.
+        /// </summary>
+        /// <value>
+        /// The filtro calificaciones.
+        /// </value>
+        public FilCalificacionesAlumnoPeriodo filtroReporte
+        {
+            get
+            {
+                if (ViewState["filtroCalificaciones"] == null)
+                    ViewState["filtroCalificaciones"] = new FilCalificacionesAlumnoPeriodo();
+                return (FilCalificacionesAlumnoPeriodo)ViewState["filtroCalificaciones"];
+            }
+            set
+            {
+                ViewState["filtroCalificaciones"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the lista calificaciones.
+        /// </summary>
+        /// <value>
+        /// The lista calificaciones.
+        /// </value>
+        public List<RptCalificacionesAlumnoPeriodo> listaReporte
+        {
+            get
+            {
+                if (ViewState["listaCalificaciones"] == null)
+                    ViewState["listaCalificaciones"] = new List<RptCalificacionesAlumnoPeriodo>();
+                return (List<RptCalificacionesAlumnoPeriodo>)ViewState["listaCalificaciones"];
+            }
+            set
+            {
+                ViewState["listaCalificaciones"] = value;
+            }
+        }
         #endregion
 
         #region --[Eventos]--
@@ -51,9 +86,17 @@ namespace EDUAR_UI
         {
             try
             {
+                rptCalificaciones.ExportarPDFClick += (ExportarPDF);
+                rptCalificaciones.VolverClick += (VolverReporte);
+                rptCalificaciones.PaginarGrilla += (PaginarGrilla);
+
                 if (!Page.IsPostBack)
                 {
                     CargarPresentacion();
+                    BLRptCalificacionesAlumnoPeriodo objBLRptCalificaciones = new BLRptCalificacionesAlumnoPeriodo();
+                    objBLRptCalificaciones.GetRptCalificacionesAlumnoPeriodo(null);
+                    divFiltros.Visible = true;
+                    divReporte.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -74,12 +117,68 @@ namespace EDUAR_UI
             {
                 fechas.ValidarRangoDesdeHasta();
                 BuscarCalificaciones();
-
-                //udpReporte.Update();
+                divFiltros.Visible = false;
+                divReporte.Visible = true;
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
         }
+
+        /// <summary>
+        /// Exportars the PDF.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void ExportarPDF(object sender, EventArgs e)
+        {
+            try
+            {
+                EDUARExportPDF.ExportarPDF(Page.Title, rptCalificaciones.dtReporte);
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
+        }
+
+        /// <summary>
+        /// Volvers the reporte.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void VolverReporte(object sender, EventArgs e)
+        {
+            try
+            {
+                divFiltros.Visible = true;
+                divReporte.Visible = false;
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
+        }
+
+        /// <summary>
+        /// Paginars the grilla.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+        protected void PaginarGrilla(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                int pagina = e.NewPageIndex;
+
+                if (rptCalificaciones.GrillaReporte.PageCount > pagina)
+                {
+                    rptCalificaciones.GrillaReporte.PageIndex = pagina;
+
+                    rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
         #endregion
 
         #region --[Métodos Privados]--
@@ -92,37 +191,16 @@ namespace EDUAR_UI
 
         private void BuscarCalificaciones()
         {
-            RptCalificacionesAlumnoPeriodo filtroReporte = new RptCalificacionesAlumnoPeriodo();
-            filtroReporte.idAlumno = Convert.ToInt32(ddlAsignatura.SelectedValue);
+            filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
             if (fechas.ValorFechaDesde != null)
                 filtroReporte.fechaDesde = (DateTime)fechas.ValorFechaDesde;
             if (fechas.ValorFechaHasta != null)
                 filtroReporte.fechaHasta = (DateTime)fechas.ValorFechaHasta;
 
             BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
-            Reportes("RptCalificacionesAlumnoPeriodo.rdlc", objBLReporte.GetRptCalificacionesAlumnoPeriodo(filtroReporte));
+            listaReporte = objBLReporte.GetRptCalificacionesAlumnoPeriodo(filtroReporte);
 
-            this.rptReporte.ProcessingMode = ProcessingMode.Local;
-            this.rptReporte.LocalReport.ReportPath = rutaReporte;
-
-            ReportDataSource datos = new ReportDataSource();
-            datos.Name = "dsCalificaciones";
-            datos.Value = this.listaReporte;
-
-            this.rptReporte.LocalReport.DataSources.Clear();
-            this.rptReporte.LocalReport.DataSources.Add(datos);
-            this.rptReporte.LocalReport.Refresh();
-        }
-
-        /// <summary>
-        /// Reporteses the specified reporte.
-        /// </summary>
-        /// <param name="reporte">The reporte.</param>
-        /// <param name="lista">The lista.</param>
-        private void Reportes(string reporte, List<RptCalificacionesAlumnoPeriodo> lista)
-        {
-            rutaReporte = Server.MapPath("~/Private/Reports/" + reporte);
-            listaReporte = lista;
+            rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
         }
         #endregion
     }
