@@ -31,6 +31,15 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.WebControls.ImageButton btnPDF;
         
         /// <summary>
+        /// Control btnImprimir.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnImprimir;
+        
+        /// <summary>
         /// Control udpReporte.
         /// </summary>
         /// <remarks>
