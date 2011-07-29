@@ -92,7 +92,7 @@ namespace EDUAR_BusinessLogic.Reports
         #endregion
 
         #region --[Métodos publicos]--
-        public List<RptCalificacionesAlumnoPeriodo> GetRptCalificacionesAlumnoPeriodo(RptCalificacionesAlumnoPeriodo entidad)
+        public List<RptCalificacionesAlumnoPeriodo> GetRptCalificacionesAlumnoPeriodo(FilCalificacionesAlumnoPeriodo entidad)
         {
             try
             {

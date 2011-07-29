@@ -13,6 +13,15 @@ namespace EDUAR_UI {
     public partial class ReportCalificacionesAlumnoPeriodo {
         
         /// <summary>
+        /// Control divFiltros.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divFiltros;
+        
+        /// <summary>
         /// Control btnBuscar.
         /// </summary>
         /// <remarks>
@@ -49,13 +58,22 @@ namespace EDUAR_UI {
         protected global::EDUAR_UI.UserControls.Calendario fechas;
         
         /// <summary>
-        /// Control rptReporte.
+        /// Control divReporte.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer rptReporte;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divReporte;
+        
+        /// <summary>
+        /// Control rptCalificaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::EDUAR_UI.UserControls.Reporte rptCalificaciones;
         
         /// <summary>
         /// Propiedad Master.

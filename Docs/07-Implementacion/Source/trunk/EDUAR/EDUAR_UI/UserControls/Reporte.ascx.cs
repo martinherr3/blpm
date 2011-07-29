@@ -14,7 +14,7 @@ namespace EDUAR_UI.UserControls
         /// <summary>
         /// textbox que contiene una fecha
         /// </summary>
-        private GridView GrillaReporte
+        public GridView GrillaReporte
         {
             get { return gvwReporte; }
             set { gvwReporte = value; }
@@ -37,6 +37,8 @@ namespace EDUAR_UI.UserControls
         {
             btnPDF.Click += (ExportarPDF);
             btnVolver.Click += (Volver);
+            gvwReporte.PageIndexChanging += (PaginandoGrilla);
+            
             if (!Page.IsPostBack)
             {
                 btnPDF.Visible = false;
@@ -55,12 +57,14 @@ namespace EDUAR_UI.UserControls
                     GrillaReporte = UIUtilidades.GenerarGrilla(lista, GrillaReporte);
                     btnVolver.Visible = true;
                     btnPDF.Visible = true;
+                    gvwReporte.Visible = true;
                     CargarGrilla(lista);
                     udpReporte.Update();
                 }
                 else
                 {
                     udpReporte.ContentTemplateContainer.Controls.Add(new LiteralControl("<h3>" + UIConstantesGenerales.MensajeSinResultados + "</h3>"));
+                    gvwReporte.Visible = false;
                     btnVolver.Visible = true;
                     udpReporte.Update();
                 }
@@ -75,6 +79,7 @@ namespace EDUAR_UI.UserControls
         #region --[Métodos Privados]--
         void ExportarPDF(object sender, EventArgs e)
         {
+
             OnExportarPDFClick(ExportarPDFClick, e);
             udpReporte.Update();
         }
@@ -82,6 +87,12 @@ namespace EDUAR_UI.UserControls
         void Volver(object sender, EventArgs e)
         {
             OnVolverClick(VolverClick, e);
+            udpReporte.Update();
+        }
+
+        void PaginandoGrilla(object sender, GridViewPageEventArgs e)
+        {
+            onPaginandoGrilla(PaginarGrilla, e);
             udpReporte.Update();
         }
 
@@ -97,14 +108,21 @@ namespace EDUAR_UI.UserControls
             GrillaReporte.DataBind();
             udpReporte.Update();
         }
+
+        #endregion
+
+        #region --[Métodos Privados]--
+        
         #endregion
 
         #region --[Delegados ]--
 
         public delegate void VentanaBotonClickHandler(object sender, EventArgs e);
+        public delegate void PaginarGrillaHandler(object sender, GridViewPageEventArgs e);
 
         public event VentanaBotonClickHandler ExportarPDFClick;
         public event VentanaBotonClickHandler VolverClick;
+        public event PaginarGrillaHandler PaginarGrilla;
 
         public virtual void OnExportarPDFClick(VentanaBotonClickHandler sender, EventArgs e)
         {
@@ -123,13 +141,15 @@ namespace EDUAR_UI.UserControls
                 sender(this, e);
             }
         }
-        #endregion
 
-
-        protected void BindGridView()
+        public virtual void onPaginandoGrilla(PaginarGrillaHandler sender, GridViewPageEventArgs e)
         {
-            GrillaReporte.DataSource = dtReporte;
-            GrillaReporte.DataBind();
+            if (sender != null)
+            {
+                //Invoca el delegados
+                sender(this, e);
+            }
         }
+        #endregion
     }
 }

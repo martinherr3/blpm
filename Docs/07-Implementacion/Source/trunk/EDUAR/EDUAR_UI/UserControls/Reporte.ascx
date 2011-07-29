@@ -12,7 +12,7 @@
 <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
         <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-            AutoGenerateColumns="false" Width="100%" AllowPaging="true" PageSize="20">
+            AutoGenerateColumns="false" Width="100%" AllowPaging="true" PageSize="20" ><%--OnPageIndexChanging="gvwReporte_PageIndexChanging"--%>
             <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="Center" />
             <Columns>
             </Columns>

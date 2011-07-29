@@ -80,7 +80,7 @@
     <Content Include="Private\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Private\Account\Profiles.aspx" />
     <Content Include="Private\Reports\reportAccesos.aspx" />
-    <Content Include="Private\Reports\ReportCalificacionesAlumnoPeriodo.aspx" />
+    <Content Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx" />
     <Content Include="Public\Account\ForgotPassword.aspx" />
     <Content Include="Public\Account\Login.aspx" />
     <Content Include="Private\Account\RegisterUser.aspx" />
@@ -178,12 +178,12 @@
     <Compile Include="Private\Reports\reportAccesos.aspx.designer.cs">
       <DependentUpon>reportAccesos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Private\Reports\ReportCalificacionesAlumnoPeriodo.aspx.cs">
-      <DependentUpon>ReportCalificacionesAlumnoPeriodo.aspx</DependentUpon>
+    <Compile Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx.cs">
+      <DependentUpon>reportCalificacionesAlumnoPeriodo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Private\Reports\ReportCalificacionesAlumnoPeriodo.aspx.designer.cs">
-      <DependentUpon>ReportCalificacionesAlumnoPeriodo.aspx</DependentUpon>
+    <Compile Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx.designer.cs">
+      <DependentUpon>reportCalificacionesAlumnoPeriodo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\Account\ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>

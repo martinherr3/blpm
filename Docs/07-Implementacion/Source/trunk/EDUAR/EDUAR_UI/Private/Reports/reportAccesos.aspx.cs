@@ -14,12 +14,19 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Data;
 using EDUAR_Utility.Utilidades;
+using System.Web.UI.WebControls;
 
 namespace EDUAR_UI
 {
     public partial class reportAccesos : EDUARBasePage
     {
         #region --[Propiedades]--
+        /// <summary>
+        /// Gets or sets the filtro acceso.
+        /// </summary>
+        /// <value>
+        /// The filtro acceso.
+        /// </value>
         public FilAccesos filtroAcceso
         {
             get
@@ -34,6 +41,12 @@ namespace EDUAR_UI
             }
         }
 
+        /// <summary>
+        /// Gets or sets the lista acceso.
+        /// </summary>
+        /// <value>
+        /// The lista acceso.
+        /// </value>
         public List<RptAccesos> listaAcceso
         {
             get
@@ -81,12 +94,15 @@ namespace EDUAR_UI
             {
                 rptAccesos.ExportarPDFClick += (ExportarPDF);
                 rptAccesos.VolverClick += (VolverReporte);
+                rptAccesos.PaginarGrilla += (PaginarGrilla);
 
                 if (!Page.IsPostBack)
                 {
                     CargarPresentacion();
                     BLRptAccesos objBLAcceso = new BLRptAccesos();
                     objBLAcceso.GetRptAccesos(null);
+                    divFiltros.Visible = true;
+                    divReporte.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -107,10 +123,8 @@ namespace EDUAR_UI
             {
                 fechas.ValidarRangoDesdeHasta();
                 BuscarAccesos();
-                //udpFiltros.Visible = false;
-                //udpReporte.Visible = true;
-                //udpPagina.Update();
-
+                divFiltros.Visible = false;
+                divReporte.Visible = true;
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
@@ -126,8 +140,6 @@ namespace EDUAR_UI
             try
             {
                 EDUARExportPDF.ExportarPDF(Page.Title, rptAccesos.dtReporte);
-                //udpReporte.Update();
-                //udpPagina.Update();
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
@@ -142,12 +154,35 @@ namespace EDUAR_UI
         {
             try
             {
-                //udpFiltros.Visible = true;
-                //udpReporte.Visible = false;
-                //udpPagina.Update();
+                divFiltros.Visible = true;
+                divReporte.Visible = false;
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
+        }
+
+        /// <summary>
+        /// Paginars the grilla.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+        protected void PaginarGrilla(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                int pagina = e.NewPageIndex;
+
+                if (rptAccesos.GrillaReporte.PageCount > pagina)
+                {
+                    rptAccesos.GrillaReporte.PageIndex = pagina;
+
+                    rptAccesos.CargarReporte<RptAccesos>(listaAcceso);
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
         }
         #endregion
 
