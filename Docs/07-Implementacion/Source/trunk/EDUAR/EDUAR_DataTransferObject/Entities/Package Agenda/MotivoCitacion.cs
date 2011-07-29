@@ -13,7 +13,9 @@ namespace EDUAR_Entities
     [Serializable]
     public class MotivoCitacion:DTBase
     {
+        private int _idMotivoCitacion;
 
+       
         private string _descripcion;
         private string _nombre;
 
@@ -30,6 +32,12 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
+        }
+
+        public int idMotivoCitacion
+        {
+            get { return _idMotivoCitacion; }
+            set { _idMotivoCitacion = value; }
         }
 
         public string descripcion

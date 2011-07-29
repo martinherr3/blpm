@@ -164,22 +164,22 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        public List<Excursion> GetExcursions(Excursion entidad)
-        {
-            try
-            {
-                return DataAcces.GetExcursions(entidad);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetExcursions", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
-        #endregion
+    //    public List<Excursion> GetExcursiones(Excursion entidad)
+    //    {
+    //        try
+    //        {
+    //            return DataAcces.GetExcursiones(entidad);
+    //        }
+    //        catch (CustomizedException ex)
+    //        {
+    //            throw ex;
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            throw new CustomizedException(string.Format("Fallo en {0} - GetExcursiones", ClassName), ex,
+    //                                          enuExceptionType.BusinessLogicException);
+    //        }
+    //    }
+         #endregion
     }
 }
