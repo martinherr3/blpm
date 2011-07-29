@@ -79,7 +79,6 @@
     <Content Include="Private\Account\ChangePassword.aspx" />
     <Content Include="Private\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Private\Account\Profiles.aspx" />
-    <Content Include="Private\Reports\Print.aspx" />
     <Content Include="Private\Reports\reportAccesos.aspx" />
     <Content Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx" />
     <Content Include="Public\Account\ForgotPassword.aspx" />
@@ -171,13 +170,6 @@
     </Compile>
     <Compile Include="Private\Account\Profiles.aspx.designer.cs">
       <DependentUpon>Profiles.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Reports\Print.aspx.cs">
-      <DependentUpon>Print.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Reports\Print.aspx.designer.cs">
-      <DependentUpon>Print.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Reports\reportAccesos.aspx.cs">
       <DependentUpon>reportAccesos.aspx</DependentUpon>
