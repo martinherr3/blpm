@@ -53,11 +53,16 @@
   <ItemGroup>
     <Compile Include="Common\DACitacion.cs" />
     <Compile Include="Common\DAAsignatura.cs" />
+    <Compile Include="Common\DAEvaluacion.cs" />
     <Compile Include="Common\DAEventoInstitucional.cs" />
+    <Compile Include="Common\DAExcursion.cs" />
+    <Compile Include="Common\DAMotivoCitacion.cs" />
     <Compile Include="Common\DAPagina.cs" />
     <Compile Include="Common\DAAcceso.cs" />
     <Compile Include="Common\DAPersona.cs" />
+    <Compile Include="Common\DAReunion.cs" />
     <Compile Include="Common\DATipoDocumento.cs" />
+    <Compile Include="Common\DATipoEventoInstitucional.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\DARptCalificacionesAlumnoPeriodo.cs" />
     <Compile Include="Reports\DARptAccesos.cs" />
