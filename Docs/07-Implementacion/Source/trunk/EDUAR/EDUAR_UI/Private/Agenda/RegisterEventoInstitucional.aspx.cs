@@ -46,7 +46,7 @@ namespace EDUAR_UI
             {
                 //if (!Page.IsPostBack)
                 //{
-                    Hora.Text = DateTime.Now.ToString("HH:mm");
+                    //Hora.Text = DateTime.Now.ToString("HH:mm");
                     Master.BotonAvisoAceptar += (VentanaAceptar);
                 //}
             }
@@ -67,10 +67,10 @@ namespace EDUAR_UI
                     AccionPagina = enumAcciones.Limpiar;
                     evento = new EventoInstitucional();
 
-                    evento.lugar = Lugar.Text.Trim();
-                    evento.descripcionBreve = Titulo.Text.Trim();
-                    evento.detalle = Detalle.Text.Trim();
-                    evento.fecha = Convert.ToDateTime(Fecha.Text + " " + Hora.Text);
+                    //evento.lugar = Lugar.Text.Trim();
+                    //evento.descripcionBreve = Titulo.Text.Trim();
+                    //evento.detalle = Detalle.Text.Trim();
+                    //evento.fecha = Convert.ToDateTime(Fecha.Text + " " + Hora.Text);
                     evento.tipoEventoInstitucional = null;
                     evento.organizador = null;
 
@@ -93,7 +93,7 @@ namespace EDUAR_UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void btnRegisterEvent_Click(object sender, EventArgs e)
+        protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
