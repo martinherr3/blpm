@@ -1,76 +1,89 @@
-﻿<%@ Page Title="Registrar eventos institucionales" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true" 
-CodeBehind="RegisterEventoInstitucional.aspx.cs" Inherits="EDUAR_UI.RegisterEventoInstitucional" %>
+﻿<%@ Page Title="Registrar eventos institucionales" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+    AutoEventWireup="true" CodeBehind="RegisterEventoInstitucional.aspx.cs" Inherits="EDUAR_UI.RegisterEventoInstitucional" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
 <asp:Content ID="ContentHeader" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="ContentBody" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Registración de eventos institucionales
-    </h2>
-    
-    <div class="eventInfo">
-        <fieldset class="register">
-            <legend>Información del evento</legend>
-
-            <p>
-                <asp:Label runat="server" AssociatedControlID="Lugar" ID="LugarLabel">Lugar:</asp:Label>
-                <asp:TextBox runat="server" ID="Lugar" CssClass="textEntry"></asp:TextBox>
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="Lugar" CssClass="failureNotification" Display="Dynamic"
-                    ToolTip="Lugar del evento requerido." ID="LugarRequired" ValidationGroup="RegisterEventValidationGroup"
-                    ErrorMessage="El lugar del evento es Requerido.">*
-                </asp:RequiredFieldValidator>
-            </p>
-
- <%--           <p>
-                Fecha: <cal:Calendario ID="fechas" TipoCalendario="SoloFecha" runat="server" TipoAlineacion="Izquierda" />
-            </p>--%>
-            <p>
-                <asp:Label runat="server" AssociatedControlID="Fecha" ID="FechaLabel">Fecha:</asp:Label>
-                <asp:TextBox runat="server" ID="Fecha" CssClass="textEntry" MaxLength="10"></asp:TextBox>
-                <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="Fecha" Format="dd/MM/yyyy"/>
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="Fecha" CssClass="failureNotification" Display="Dynamic"
-                    ToolTip="Fecha del evento requerida." ID="FechaRequired" ValidationGroup="RegisterEventValidationGroup"
-                    ErrorMessage="La fecha del evento es Requerida.">*
-                </asp:RequiredFieldValidator>
-            </p>
-
-            <p>
-                <asp:Label runat="server" AssociatedControlID="Hora" ID="HoraLabel">Hora:</asp:Label>
-                <asp:TextBox runat="server" ID="Hora" CssClass="textEntry" MaxLength="5" ></asp:TextBox>
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="Hora" CssClass="failureNotification" Display="Dynamic"
-                    ToolTip="Hora del evento requerida." ID="HoraRequired" ValidationGroup="RegisterEventValidationGroup"
-                    ErrorMessage="La hora del evento es Requerida.">*
-                </asp:RequiredFieldValidator>
-            </p>
-
-            <p>
-                <asp:Label runat="server" AssociatedControlID="Titulo" ID="TituloLabel">Título:</asp:Label>
-                <asp:TextBox runat="server" ID="Titulo" CssClass="textEntry"></asp:TextBox>
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="Titulo" CssClass="failureNotification" Display="Dynamic"
-                    ToolTip="Título del evento requerido." ID="TituloRequired" ValidationGroup="RegisterEventValidationGroup"
-                    ErrorMessage="El título del evento es Requerido.">*
-                </asp:RequiredFieldValidator>
-            </p>
-
-            <p>
-                <asp:Label runat="server" AssociatedControlID="Detalle" ID="DetalleLabel">Detalle:</asp:Label>
-                <asp:TextBox runat="server" ID="Detalle" CssClass="textEntry" TextMode="MultiLine" Columns="80"></asp:TextBox>
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="Detalle" CssClass="failureNotification" Display="Dynamic"
-                    ToolTip="Detalle del evento requerido." ID="DetalleRequired" ValidationGroup="RegisterEventValidationGroup"
-                    ErrorMessage="El detalle del evento es Requerido.">*
-                </asp:RequiredFieldValidator>
-            </p>
-
-        </fieldset>
-
-        <p class="submitButton">
-            <asp:Button ID="btnRegisterEvent" runat="server" Text="Registrar Evento"
-                ValidationGroup="RegisterEventValidationGroup" OnClick="btnRegisterEvent_Click" />
-        </p>
+        Evento Institucional</h2>
+    <div id="divFiltros" runat="server">
+        <table class="tablaInterna" cellpadding="0" cellspacing="0">
+            <tr>
+                <td align="right">
+                    <asp:ImageButton ID="btnBuscar" runat="server" ToolTip="Buscar" ImageUrl="~/Images/botonBuscar.png" />
+                    <asp:ImageButton ID="btnGuardar" runat="server" ToolTip="Guardar" ImageUrl="~/Images/botonGuardar.png"
+                        Visible="false" OnClick="btnGuardar_Click" />
+                </td>
+            </tr>
+        </table>
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+            <tr>
+                <td>
+                    <h3>
+                        Buscar Evento</h3>
+                </td>
+            </tr>
+            <tr>
+                <td class="TD100">
+                    <asp:ValidationSummary ID="ValidarPagina" runat="server" />
+                </td>
+            </tr>
+        </table>
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+            <tr>
+                <td valign="top" class="TDCriterios25">
+                    <asp:Label ID="lblLugar" runat="server" Text="Lugar:"></asp:Label>
+                </td>
+                <td valign="top" class="TDCriterios25">
+                    <asp:TextBox runat="server" ID="txtLugar" CssClass="EstiloTxtLargo250"></asp:TextBox>
+                </td>
+                <td valign="top" class="TDCriterios25">
+                </td>
+                <td valign="top" class="TDCriterios25">
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" class="TD25">
+                    <asp:Label runat="server" ID="lblTitulo" Text="Título:"></asp:Label>
+                </td>
+                <td class="TD75" colspan="3">
+                    <asp:TextBox runat="server" ID="txtTitulo" CssClass="EstiloTxtLargo250"></asp:TextBox>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" cellpadding="1" cellspacing="5">
+            <tr>
+                <td valign="top" class="TDCriterios20">
+                    <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
+                </td>
+                <td valign="top" class="TDCriterios40">
+                    <cal:Calendario ID="calfecha" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
+                </td>
+                <td valign="top" class="TDCriterios10">
+                    <asp:Label runat="server" ID="lblHora" Text="Hora:"></asp:Label>
+                </td>
+                <td valign="top" class="TDCriterios25">
+                    <asp:TextBox runat="server" ID="txtHora" MaxLength="5" CssClass="EstiloTxtCorto80"></asp:TextBox>
+                    <cc1:MaskedEditExtender ID="MaskedEditExtender1" runat="server" AcceptAMPM="false"
+                        MaskType="Time" Mask="99:99" ErrorTooltipEnabled="true" InputDirection="RightToLeft"
+                        CultureName="es-ES" TargetControlID="txtHora" MessageValidatorTip="true">
+                    </cc1:MaskedEditExtender>
+                    <cc1:MaskedEditValidator ID="MaskedEditValidator1" runat="server" ToolTip="Hora Inválida"
+                        ErrorMessage="*" ControlExtender="MaskedEditExtender1" ControlToValidate="txtHora"
+                        InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="ValidarPagina">
+                    </cc1:MaskedEditValidator>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="divReporte" runat="server">
+        <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
+            AutoGenerateColumns="false" AllowPaging="false" Width="100%">
+            <HeaderStyle CssClass="gridheader" />
+            <RowStyle CssClass="gridrow" />
+        </asp:GridView>
     </div>
 </asp:Content>
-

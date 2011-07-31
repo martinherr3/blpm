@@ -113,10 +113,12 @@ namespace EDUAR_UI.Utilidades
         }
 
         /// <summary>
-        /// Generars the grilla.
+        /// Genera los campos de una grilla de forma dinámica, a partir de una Lista pasada por parametro
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Tipo de la Lista</typeparam>
         /// <param name="lista">The lista.</param>
+        /// <param name="grilla">The grilla.</param>
+        /// <returns>La Grilla modificada</returns>
         public static GridView GenerarGrilla<T>(List<T> lista, GridView grilla)
         {
             //Eliminar Columnas Actuales(Opcional):
@@ -143,6 +145,43 @@ namespace EDUAR_UI.Utilidades
                 }
 
                 customField.HeaderTemplate = new GridViewTemplate(DataControlRowType.Header, prop.Name.ToUpper(), prop.PropertyType.Name);
+
+                // Add the field column to the Columns collection of the
+                // GridView control.
+                grilla.Columns.Add(customField);
+            }
+            return grilla;
+        }
+
+        /// <summary>
+        /// Genera los campos de una grilla de forma dinámica, a partir de un datatable pasado por parametro
+        /// </summary>
+        /// <param name="grilla">The grilla.</param>
+        /// <param name="tablaGrilla">The tabla grilla.</param>
+        /// <returns>La Grilla modificada</returns>
+        public static GridView GenerarGrilla(GridView grilla, DataTable tablaGrilla)
+        {
+            grilla.Columns.Clear();
+
+            foreach (DataColumn columna in tablaGrilla.Columns)
+            {
+                TemplateField customField = new TemplateField();
+
+                // Create the dynamic templates and assign them to 
+                // the appropriate template property.
+                customField.ItemTemplate = new GridViewTemplate(DataControlRowType.DataRow, columna.ColumnName, columna.DataType.Name);
+
+                switch (columna.DataType.Name)
+                {
+                    case "DateTime":
+                    case "Int32":
+                        customField.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
+                        break;
+                    default:
+                        break;
+                }
+
+                customField.HeaderTemplate = new GridViewTemplate(DataControlRowType.Header, columna.ColumnName.ToUpper(), columna.DataType.Name);
 
                 // Add the field column to the Columns collection of the
                 // GridView control.

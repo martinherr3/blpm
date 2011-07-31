@@ -718,9 +718,39 @@ TD.EncabezadoConfirmación
 
 /* ESTILOS PARA TD's */
 
+.TDCriterios10
+{
+    width: 10%;
+    text-align: left;
+}
+
+.TDCriterios15
+{
+    width: 15%;
+    text-align: left;
+}
+
+.TDCriterios20
+{
+    width: 20%;
+    text-align: left;
+}
+
 .TDCriterios25
 {
     width: 25%;
+    text-align: left;
+}
+
+.TDCriterios30
+{
+    width: 30%;
+    text-align: left;
+}
+
+.TDCriterios40
+{
+    width: 40%;
     text-align: left;
 }
 
@@ -736,12 +766,17 @@ TD.EncabezadoConfirmación
     text-align: left;
 }
 
+.TDCriterios80
+{
+    width: 80%;
+    text-align: left;
+}
+
 .TDCriterios100
 {
     width: 100%;
     text-align: justify;
 }
-
 
 /* ESTILOS PARA TEXTBOX! */
 
@@ -758,6 +793,11 @@ TD.EncabezadoConfirmación
 .EstiloTxtCorto80
 {
     width: 80px;
+}
+
+.EstiloTxtLargo250
+{
+    width: 250px;
 }
 
 /* Estilo LABEL's */

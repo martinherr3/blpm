@@ -65,7 +65,7 @@ namespace EDUAR_UI
 
                 if (!Page.IsPostBack)
                 {
-                    BoundGrilla();
+                    gvwReporte = UIUtilidades.GenerarGrilla(gvwReporte, dtReporte);
                     lblTitulo.Text = "EDU@R 2.0";
                     lblInforme.Text = tituloReporte;
                     lblFecha.Text = DateTime.Now.ToShortDateString();
@@ -80,38 +80,7 @@ namespace EDUAR_UI
         #endregion
 
         #region --[Métodos Privados]--
-        /// <summary>
-        /// Bounds the grilla.
-        /// </summary>
-        private void BoundGrilla()
-        {
-            gvwReporte.Columns.Clear();
-
-            foreach (DataColumn columna in dtReporte.Columns)
-            {
-                TemplateField customField = new TemplateField();
-
-                // Create the dynamic templates and assign them to 
-                // the appropriate template property.
-                customField.ItemTemplate = new GridViewTemplate(DataControlRowType.DataRow, columna.ColumnName, columna.DataType.Name);
-
-                switch (columna.DataType.Name)
-                {
-                    case "DateTime":
-                    case "Int32":
-                        customField.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
-                        break;
-                    default:
-                        break;
-                }
-
-                customField.HeaderTemplate = new GridViewTemplate(DataControlRowType.Header, columna.ColumnName.ToUpper(), columna.DataType.Name);
-
-                // Add the field column to the Columns collection of the
-                // GridView control.
-                gvwReporte.Columns.Add(customField);
-            }
-        }
+        
         #endregion
     }
 }
