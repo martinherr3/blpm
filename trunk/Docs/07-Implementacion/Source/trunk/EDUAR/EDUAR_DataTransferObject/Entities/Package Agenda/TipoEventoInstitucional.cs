@@ -16,10 +16,12 @@ namespace EDUAR_Entities
 
         public int idTipoEventoInstitucional { get; set; }
         public string descripcion { get; set; }
+        public bool activo { get; set; }
 
         public TipoEventoInstitucional()
         {
-
+            descripcion = string.Empty;
+            activo = true;
         }
 
         ~TipoEventoInstitucional()
