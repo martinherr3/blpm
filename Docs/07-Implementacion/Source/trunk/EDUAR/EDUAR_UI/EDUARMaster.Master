@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="EDUARMaster.Master.cs"
+﻿<%@ Master Language="C#" AutoEventWireup="true  " CodeBehind="EDUARMaster.Master.cs"
     Inherits="EDUAR_UI.EDUARMaster" %>
 
 <%@ Register Src="UserControls/VentanaInfo.ascx" TagName="VentanaInfo" TagPrefix="uc1" %>

@@ -15,6 +15,8 @@ using iTextSharp.text.pdf;
 using System.Data;
 using EDUAR_Utility.Utilidades;
 using System.Web.UI.WebControls;
+using System.IO;
+using System.Text;
 
 namespace EDUAR_UI
 {
@@ -94,6 +96,7 @@ namespace EDUAR_UI
             {
                 rptAccesos.ExportarPDFClick += (ExportarPDF);
                 rptAccesos.VolverClick += (VolverReporte);
+                //rptAccesos.ImprimirClick += (Imprimir);
                 rptAccesos.PaginarGrilla += (PaginarGrilla);
 
                 if (!Page.IsPostBack)
@@ -104,6 +107,7 @@ namespace EDUAR_UI
                     divFiltros.Visible = true;
                     divReporte.Visible = false;
                 }
+                BuscarAccesos();
             }
             catch (Exception ex)
             {
@@ -160,6 +164,10 @@ namespace EDUAR_UI
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
         }
+
+        //protected void Imprimir(object sender, EventArgs e)
+        //{
+        //} 
 
         /// <summary>
         /// Paginars the grilla.
