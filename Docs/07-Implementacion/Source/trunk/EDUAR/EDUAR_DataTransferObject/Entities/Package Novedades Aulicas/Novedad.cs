@@ -5,16 +5,16 @@
 //  Created on:      20-jun-2011 16:21:51
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
-
+using EDUAR_Entities.Shared;
 
 using System.Collections.Generic;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Novedad
+    public class Novedad:DTBase
     {
-
+        public int idNovedad { get; set; }
         private Curso _curso;
         private DateTime _fecha;
         private Usuario _informante;

@@ -5,12 +5,12 @@
 //  Created on:      20-jun-2011 16:21:51
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class MotivoSancion
+    public class MotivoSancion: DTBase
     {
 
         private string _descripcion;

@@ -6,14 +6,14 @@
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Escala
+    public class Escala: DTBase
     {
-
+        public int idEscala { get; set; }
         private string _formula;
         private string _nombre;
 

@@ -1,10 +1,11 @@
-﻿
+﻿using EDUAR_Entities.Shared;
+
 namespace EDUAR_Entities
 {
     /// <summary>
     /// 
     /// </summary>
-    public class InstanciaCalificacion
+    public class InstanciaCalificacion: DTBase
     {
         public int idInstanciaCalificacion { get; set; }
         public string nombre { get; set; }

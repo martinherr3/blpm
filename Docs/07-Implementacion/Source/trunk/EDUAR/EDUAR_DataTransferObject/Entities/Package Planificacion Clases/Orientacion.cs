@@ -7,12 +7,12 @@
 ///////////////////////////////////////////////////////////
 
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Orientacion
+    public class Orientacion: DTBase
     {
 
         private string _definicionCompetencias;

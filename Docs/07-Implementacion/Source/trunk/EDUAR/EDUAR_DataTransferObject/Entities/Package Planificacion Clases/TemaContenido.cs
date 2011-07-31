@@ -6,14 +6,14 @@
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class TemaContenido
+    public class TemaContenido: DTBase
     {
-
+        public int idTemaContenido { get; set; }
         private string _tema;
 
         public TemaContenido()

@@ -5,12 +5,12 @@
 //  Created on:      20-jun-2011 16:21:55
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Sancion
+    public class Sancion: DTBase
     {
         private int _idSancion;
         private int _idSancionTransaccional;

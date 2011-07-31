@@ -9,10 +9,11 @@
 
 
 using System;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Nivel
+    public class Nivel: DTBase
     {
         private int _idNivel;
 

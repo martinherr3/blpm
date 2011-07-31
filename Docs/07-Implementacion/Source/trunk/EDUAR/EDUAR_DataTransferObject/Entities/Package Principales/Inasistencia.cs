@@ -8,14 +8,14 @@
 
 
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Inasistencia
+    public class Inasistencia: DTBase
     {
-
+        public int idInasistencia { get; set; }
         private DateTime _fecha;
         private MotivoAusencia _motivo;
 

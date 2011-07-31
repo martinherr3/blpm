@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {

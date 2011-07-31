@@ -1,8 +1,9 @@
 using System;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
-    public class Configuraciones
+    public class Configuraciones: DTBase
     {
         public int idConfiguracion { get; set; }
         public string nombre { get; set; }

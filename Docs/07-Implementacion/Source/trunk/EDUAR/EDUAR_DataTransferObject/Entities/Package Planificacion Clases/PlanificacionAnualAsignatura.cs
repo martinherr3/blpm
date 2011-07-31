@@ -5,14 +5,15 @@
 //  Created on:      20-jun-2011 16:21:54
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class PlanificacionAnualAsignatura
+    public class PlanificacionAnualAsignatura: DTBase
     {
-        private Asignatura _asignatura;
+        public int idPlanificacionAnualAsignatura { get; set; }
+        public Asignatura _asignatura;
         private Docente _docente;
 
         public PlanificacionAnualAsignatura()

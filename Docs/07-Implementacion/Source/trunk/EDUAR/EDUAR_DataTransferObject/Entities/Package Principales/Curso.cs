@@ -8,10 +8,11 @@
 
 using System.Collections.Generic;
 using System;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Curso
+    public class Curso: DTBase
     {
         private int _idCurso;
 

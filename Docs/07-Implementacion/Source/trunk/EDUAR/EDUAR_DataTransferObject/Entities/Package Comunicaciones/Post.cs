@@ -8,12 +8,13 @@
 
 
 using System;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Post
+    public class Post:DTBase
     {
-
+        public int idPost { get; set; }
         private DateTime _fechaPost;
         private string _textoPost;
         private Usuario _usuario;

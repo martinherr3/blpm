@@ -9,12 +9,14 @@
 
 using System;
 using System.Collections.Generic;
+using EDUAR_Entities.Shared;
+
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Plan
+    public class Plan:DTBase
     {
-
+        public int idPlan { get; set; }
         private List<Asignatura> _asignaturas;
         private List<Contenido> _contenidos;
         private Usuario _creador;

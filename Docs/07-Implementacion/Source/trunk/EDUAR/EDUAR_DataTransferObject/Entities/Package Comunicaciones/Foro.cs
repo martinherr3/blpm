@@ -8,12 +8,15 @@
 
 using System.Collections.Generic;
 using System;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Foro
+    public class Foro: DTBase
     {
+        private int _idForo;
 
+        
         private Usuario _destino;
         private List<Usuario> _moderadores;
         private string _nombreForo;
@@ -34,6 +37,11 @@ namespace EDUAR_Entities
 
         }
 
+        public int idForo
+        {
+            get { return _idForo; }
+            set { _idForo = value; }
+        }
         public Usuario destino
         {
             get

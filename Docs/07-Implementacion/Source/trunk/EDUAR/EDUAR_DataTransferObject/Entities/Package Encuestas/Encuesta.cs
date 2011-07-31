@@ -10,12 +10,13 @@
 
 using System.Collections.Generic;
 using System;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Encuesta
+    public class Encuesta: DTBase
     {
-
+        public int idEncuesta { get; set; }
         private string _ambito;
         private Usuario _creador;
         private DateTime _fechaCreacion;

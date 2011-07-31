@@ -6,12 +6,12 @@
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class MotivoAusencia
+    public class MotivoAusencia: DTBase
     {
 
         private string _nombre;

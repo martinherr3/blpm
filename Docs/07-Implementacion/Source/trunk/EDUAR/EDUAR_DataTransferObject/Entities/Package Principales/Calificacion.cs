@@ -6,12 +6,12 @@
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Calificacion
+    public class Calificacion: DTBase
     {
         public string observacion { get; set; }
         public int idCalificacion { get; set; }

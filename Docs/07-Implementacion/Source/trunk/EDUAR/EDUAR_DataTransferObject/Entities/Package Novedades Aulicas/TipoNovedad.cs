@@ -6,14 +6,14 @@
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class TipoNovedad
+    public class TipoNovedad:DTBase
     {
-
+        public int idTipoNovedad { get; set; }
         private string _descripcion;
 
         public TipoNovedad()

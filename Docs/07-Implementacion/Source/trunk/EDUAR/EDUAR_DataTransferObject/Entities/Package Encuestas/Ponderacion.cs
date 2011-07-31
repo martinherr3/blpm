@@ -7,14 +7,14 @@
 ///////////////////////////////////////////////////////////
 
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Ponderacion
+    public class Ponderacion:DTBase
     {
-
+        public int idPonderacion { get; set; }
         private string _descripcion;
         private int _peso;
 
