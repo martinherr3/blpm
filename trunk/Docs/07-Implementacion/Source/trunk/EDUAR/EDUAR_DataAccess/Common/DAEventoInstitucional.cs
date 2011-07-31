@@ -224,24 +224,25 @@ namespace EDUAR_DataAccess.Common
             try
             {
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoInstitucional_Select");
-
-                if (entidad.idEventoInstitucional > 0)
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@id_evento_institucional", DbType.Int32, entidad.idEventoInstitucional);
-                //if (entidad.tipoEventoInstitucional.idTipoEventoInstitucional > 0)
-                //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@tipo_ev_institucional", DbType.Int32, entidad.tipoEventoInstitucional.idTipoEventoInstitucional);
-                //if (entidad.organizador.Equals(null))
-                //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@organizador", DbType.String, entidad.organizador.);
-                //if (entidad.fecha.Year>0)
-                //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
-                if (!string.IsNullOrEmpty(entidad.lugar))
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@lugar", DbType.String, entidad.lugar);
-                if (!string.IsNullOrEmpty(entidad.descripcionBreve))
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcionBreve", DbType.String, entidad.descripcionBreve);
-                if (!string.IsNullOrEmpty(entidad.detalle))
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle);
-                if (entidad.activo)
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.String, entidad.activo);
-
+                if (entidad != null)
+                {
+                    if (entidad.idEventoInstitucional > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@id_evento_institucional", DbType.Int32, entidad.idEventoInstitucional);
+                    //if (entidad.tipoEventoInstitucional.idTipoEventoInstitucional > 0)
+                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@tipo_ev_institucional", DbType.Int32, entidad.tipoEventoInstitucional.idTipoEventoInstitucional);
+                    //if (entidad.organizador.Equals(null))
+                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@organizador", DbType.String, entidad.organizador.);
+                    //if (entidad.fecha.Year>0)
+                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
+                    if (!string.IsNullOrEmpty(entidad.lugar))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@lugar", DbType.String, entidad.lugar);
+                    if (!string.IsNullOrEmpty(entidad.descripcionBreve))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.descripcionBreve);
+                    if (!string.IsNullOrEmpty(entidad.detalle))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle);
+                    if (entidad.activo)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.String, entidad.activo);
+                }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
                 List<EventoInstitucional> listEventoInstitucional = new List<EventoInstitucional>();
@@ -257,17 +258,17 @@ namespace EDUAR_DataAccess.Common
                     objEventoInstitucional.tipoEventoInstitucional = tipoEv;
                     objEventoInstitucional.fecha = Convert.ToDateTime(reader["fecha"].ToString());
                     objEventoInstitucional.lugar = Convert.ToString(reader["lugar"]);
-                    objEventoInstitucional.descripcionBreve = Convert.ToString(reader["descripcionBreve"]);
+                    objEventoInstitucional.descripcionBreve = Convert.ToString(reader["titulo"]);
                     objEventoInstitucional.detalle = Convert.ToString(reader["detalle"]);
-
-                    bool activo = Convert.ToBoolean(reader["activo"]);
+                    objEventoInstitucional.activo  = (bool)(reader["activo"]);
+                    //bool activo = Convert.ToBoolean(reader["activo"]);
                     
-                    objEventoInstitucional.activo = activo;
+                    //objEventoInstitucional.activo = activo;
                     
                     //Provisoriamente lo manejo de este modo
                     //objEventoInstitucional.organizador = null;
-
-                    if(activo.Equals(true)) listEventoInstitucional.Add(objEventoInstitucional);
+                    //if(activo.Equals(true)) 
+                        listEventoInstitucional.Add(objEventoInstitucional);
                 }
                 return listEventoInstitucional;
             }
