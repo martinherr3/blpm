@@ -98,6 +98,7 @@ namespace EDUAR_UI
                     divFiltros.Visible = true;
                     divReporte.Visible = false;
                 }
+                BuscarCalificaciones();
             }
             catch (Exception ex)
             {
