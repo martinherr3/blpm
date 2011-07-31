@@ -6,6 +6,8 @@ using EDUAR_BusinessLogic.Common;
 using EDUAR_DataAccess.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Constantes;
+using System.Collections.Generic;
+using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -16,6 +18,23 @@ namespace EDUAR_UI
         #endregion
 
         #region --[Propiedades]--
+        /// <summary>
+        /// Gets or sets the lista evento.
+        /// </summary>
+        /// <value>
+        /// The lista evento.
+        /// </value>
+        public List<EventoInstitucional> listaEvento
+        {
+            get
+            {
+                if (ViewState["listaEvento"] == null)
+                    return new List<EventoInstitucional>();
+
+                return (List<EventoInstitucional>)ViewState["listaEvento"];
+            }
+            set { ViewState["listaEvento"] = value; }
+        }
         #endregion
 
         #region --[Eventos]--
@@ -38,17 +57,23 @@ namespace EDUAR_UI
                 catch (Exception ex) { Master.ManageExceptions(ex); }
             }
         }
-        
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-                       
+
             try
             {
-                //if (!Page.IsPostBack)
-                //{
+                Master.BotonAvisoAceptar += (VentanaAceptar);
+                if (!Page.IsPostBack)
+                {
                     //Hora.Text = DateTime.Now.ToString("HH:mm");
-                    Master.BotonAvisoAceptar += (VentanaAceptar);
-                //}
+
+                }
             }
             catch (Exception ex)
             {
@@ -57,6 +82,11 @@ namespace EDUAR_UI
             }
         }
 
+        /// <summary>
+        /// Ventanas the aceptar.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         void VentanaAceptar(object sender, EventArgs e)
         {
             EventoInstitucional evento;
@@ -67,10 +97,6 @@ namespace EDUAR_UI
                     AccionPagina = enumAcciones.Limpiar;
                     evento = new EventoInstitucional();
 
-                    //evento.lugar = Lugar.Text.Trim();
-                    //evento.descripcionBreve = Titulo.Text.Trim();
-                    //evento.detalle = Detalle.Text.Trim();
-                    //evento.fecha = Convert.ToDateTime(Fecha.Text + " " + Hora.Text);
                     evento.tipoEventoInstitucional = null;
                     evento.organizador = null;
 
@@ -81,6 +107,33 @@ namespace EDUAR_UI
                 else
                     if (AccionPagina == enumAcciones.Salir)
                         Response.Redirect("~/Default.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnBuscar control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                calfecha.ValidarRangoDesde();
+                EventoInstitucional evento = new EventoInstitucional();
+                evento.lugar = txtLugar.Text.Trim();
+                evento.descripcionBreve = txtTitulo.Text.Trim();
+                evento.fecha = Convert.ToDateTime(calfecha.ValorFecha);
+                objBLEvento = new BLEventoInstitucional(evento);
+                listaEvento = objBLEvento.GetEventoInstitucional(evento);
+
+                //gvwReporte = UIUtilidades.GenerarGrilla(listaEvento, gvwReporte);
+
+                CargarGrilla();
             }
             catch (Exception ex)
             {
@@ -108,16 +161,24 @@ namespace EDUAR_UI
         #endregion
 
         #region --[Métodos Privados]--
-
+        /// <summary>
+        /// Cargars the grilla.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="lista">The lista.</param>
+        private void CargarGrilla()
+        {
+            gvwReporte.DataSource = UIUtilidades.BuildDataTable<EventoInstitucional>(listaEvento).DefaultView;
+            gvwReporte.DataBind();
+            udpReporte.Update();
+        }
         /// <summary>
         /// Registrar el evento.
         /// </summary>
         private void registrarEvento(EventoInstitucional evento)
         {
-            String nombre = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
-
             objBLEvento = new BLEventoInstitucional(evento);
-                        
+
             objBLEvento.Save();
         }
 
