@@ -14,14 +14,7 @@ namespace EDUAR_Entities
     [Serializable]
     public class Tutor : Persona
     {
-        private int _IdTutor;
-
-        public int IdTutor
-        {
-            get { return _IdTutor; }
-            set { _IdTutor = value; }
-        }
-
+        public int idTutor { get; set; }
         private int _idTutorTransaccional;
 
         public int idTutorTransaccional

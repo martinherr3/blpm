@@ -8,10 +8,12 @@
 
 
 using System;
+using EDUAR_Entities.Shared;
+
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Periodo
+    public class Periodo: DTBase
     {
         private int _idPeriodo;
 

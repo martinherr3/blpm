@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Asistencia
+    public class Asistencia: DTBase
     {
         private int _idAsistencia;
 

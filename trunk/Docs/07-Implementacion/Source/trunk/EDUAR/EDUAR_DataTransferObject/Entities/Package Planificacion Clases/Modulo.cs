@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
-    public class Modulo
+    public class Modulo: DTBase
     {
         private int _idModulo;
 

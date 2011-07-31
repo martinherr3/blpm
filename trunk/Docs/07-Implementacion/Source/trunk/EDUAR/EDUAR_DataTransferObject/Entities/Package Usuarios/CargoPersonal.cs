@@ -7,10 +7,11 @@
 ///////////////////////////////////////////////////////////
 
 using System;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class CargoPersonal
+    public class CargoPersonal: DTBase
     {
         private string _descripcion;
         private string _nombre;

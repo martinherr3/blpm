@@ -9,12 +9,13 @@
 
 using System;
 using System.Collections.Generic;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Mensaje
+    public class Mensaje: DTBase
     {
-
+        private int _idMensaje;
         private List<Usuario> _destinatarios;
         private DateTime _fechaEnvio;
         private Usuario _remitente;
@@ -33,6 +34,12 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
+        }
+
+        public int idMensaje
+        {
+            get { return _idMensaje; }
+            set { _idMensaje = value; }
         }
 
         public List<Usuario> destinatarios

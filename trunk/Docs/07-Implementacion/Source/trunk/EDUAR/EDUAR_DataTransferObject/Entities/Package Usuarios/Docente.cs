@@ -1,15 +1,16 @@
 
 using System;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
     public class Docente : Personal
     {
-        private int _IdDocente;
+        private int _idDocente;
         public int idDocente
         {
-            get { return _IdDocente; }
-            set { _IdDocente = value; }
+            get { return _idDocente; }
+            set { _idDocente = value; }
         }
 
         private int _IdDocenteTransaccional;

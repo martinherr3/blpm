@@ -7,14 +7,14 @@
 ///////////////////////////////////////////////////////////
 
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class BibliografiaRecomendadaContenido
+    public class BibliografiaRecomendadaContenido: DTBase
     {
-
+        public int idBibliografiaRecomendadaContenido { get; set; }
         private string _clasificacion;
         private string _nombreLibro;
 

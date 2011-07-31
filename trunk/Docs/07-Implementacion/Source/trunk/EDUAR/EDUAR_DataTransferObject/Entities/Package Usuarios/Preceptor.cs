@@ -8,12 +8,14 @@
 
 
 using System;
+using EDUAR_Entities.Shared;
+
 namespace EDUAR_Entities
 {
     [Serializable]
     public class Preceptor : Personal
     {
-
+        public int idPreceptor { get; set; }
         private Curso _cursos;
 
         public Preceptor()

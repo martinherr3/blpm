@@ -1,8 +1,9 @@
 using System;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
-    public class Provincias
+    public class Provincias: DTBase
     {
         public decimal idProvincia { get; set; }
         public decimal idProvinciaTransaccional { get; set; }

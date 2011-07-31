@@ -9,12 +9,13 @@
 
 using System.Collections.Generic;
 using System;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Topico
+    public class Topico:DTBase
     {
-
+        public int idTopico { get; set; }
         private string _descripcionTopico;
         private string _nombreTopico;
         private List<Post> _posts;

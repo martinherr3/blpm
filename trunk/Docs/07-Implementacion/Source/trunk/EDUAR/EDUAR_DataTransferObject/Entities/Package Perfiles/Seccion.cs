@@ -10,6 +10,7 @@ namespace EDUAR_Entities
     [Serializable]
     public class Seccion : DTBase
     {
+        public int idSeccion { get; set; }
         private string _title;
 
         public string title

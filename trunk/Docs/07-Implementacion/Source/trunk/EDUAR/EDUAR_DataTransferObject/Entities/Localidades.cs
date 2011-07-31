@@ -1,9 +1,10 @@
 using System;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Localidades
+    public class Localidades: DTBase
     {
         public decimal idLocalidad { get; set; }
         public decimal idLocalidadTransaccional { get; set; }

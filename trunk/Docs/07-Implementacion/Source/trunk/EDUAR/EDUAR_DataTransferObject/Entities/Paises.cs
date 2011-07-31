@@ -1,8 +1,9 @@
 using System;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
-    public class Paises
+    public class Paises: DTBase
     {
         public decimal idPais { get; set; }
         public decimal idPaisTransaccional { get; set; }

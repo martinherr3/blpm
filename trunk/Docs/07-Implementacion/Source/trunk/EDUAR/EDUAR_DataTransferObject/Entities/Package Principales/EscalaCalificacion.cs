@@ -1,9 +1,9 @@
 using System;
-
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class EscalaCalificacion
+    public class EscalaCalificacion: DTBase
     {
         private decimal dIdEscalaCalificacion;
         public decimal idEscalaCalificacion

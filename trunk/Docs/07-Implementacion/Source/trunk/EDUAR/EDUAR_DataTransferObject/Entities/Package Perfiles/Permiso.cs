@@ -8,13 +8,14 @@
 
 
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Permiso
+    public class Permiso:DTBase
     {
+        public int idPermiso;
         private Object _elemento;
         private string _nombre;
         private string _privilegio;

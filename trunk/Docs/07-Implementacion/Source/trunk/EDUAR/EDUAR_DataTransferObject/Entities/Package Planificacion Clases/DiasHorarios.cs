@@ -5,14 +5,14 @@
 //  Created on:      20-jun-2011 16:21:47
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
-
+using EDUAR_Entities.Shared;
 using System.Collections.Generic;
 using EDUAR_Utility.Enumeraciones;
 
 
 namespace EDUAR_Entities
 {
-    public class DiasHorarios
+    public class DiasHorarios: DTBase
     {
 		private int _idDiaHorario;
 	  

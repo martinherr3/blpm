@@ -6,13 +6,14 @@
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Institucion
+    public class Institucion: DTBase
     {
-
+        public int idInstitucion {get; set;} 
         /// <summary>
         /// Formato: EI1234
         /// </summary>
@@ -27,7 +28,7 @@ namespace EDUAR_Entities
         private string _nombreInstitucion;
         private bool _publico;
         private Director _viceDirector;
-        private int _nivel;
+        private int _nivel; 
 
         public Institucion()
         {

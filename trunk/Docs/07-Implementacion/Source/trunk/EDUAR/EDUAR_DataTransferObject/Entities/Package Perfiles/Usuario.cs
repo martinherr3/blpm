@@ -6,14 +6,14 @@
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
 
-
+using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Usuario
+    public class Usuario: DTBase
     {
-
+        public int idUsuario { get; set; }
         private int _estadoCuenta;
         private DateTime _fechaAlta;
         private DateTime _fechaBaja;
