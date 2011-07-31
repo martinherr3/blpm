@@ -314,6 +314,8 @@ namespace EDUAR_BusinessLogic.Security
                 //    txScope.Complete();
                 //}
             }
+            catch (CustomizedException ex)
+            { throw ex; }
             catch (Exception ex)
             {
                 throw new CustomizedException(string.Format("Fallo en {0} - CrearUsuario", ClassName), ex,

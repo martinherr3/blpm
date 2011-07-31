@@ -16,6 +16,7 @@ namespace EDUAR_UI.Utilidades
             {
                 ddlTipoUsuario.Items.Add(new ListItem(tipoPersona.ToString(), ((int)tipoPersona).ToString()));
             }
+            ddlTipoUsuario.Items.Insert(0, new ListItem("Todos", "0"));
         }
 
         /// <summary>

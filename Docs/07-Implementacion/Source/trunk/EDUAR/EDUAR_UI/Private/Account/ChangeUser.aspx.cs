@@ -7,6 +7,7 @@ using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -72,7 +73,6 @@ namespace EDUAR_UI
             }
         }
 
-
         /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
@@ -89,6 +89,7 @@ namespace EDUAR_UI
                     propSeguridad = new DTSeguridad();
                     propSeguridad.Usuario.Aprobado = chkHabilitadoBusqueda.Checked;
                     objBLSeguridad = new BLSeguridad(propSeguridad);
+                    CargarPresentacion();
                     CargarCamposFiltros();
                     BuscarUsuarios(propSeguridad.Usuario);
                 }
@@ -113,8 +114,19 @@ namespace EDUAR_UI
                 {
                     case enumAcciones.Guardar:
                         GuardarUsuario();
+                        AccionPagina = enumAcciones.Limpiar;
+                        Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
+                        LimpiarCampos();
+                        udpRoles.Visible = false;
+                        break;
+                    case enumAcciones.Salir:
+                        Response.Redirect("~/Default.aspx", false);
+                        break;
+                    default:
                         break;
                 }
+                udpRoles.Update();
+                udpGrilla.Update();
             }
             catch (Exception ex)
             {
@@ -148,9 +160,19 @@ namespace EDUAR_UI
         {
             try
             {
-                AccionPagina = enumAcciones.Guardar;
-                Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(),
-                    UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+                if (ValidarPagina())
+                {
+                    if (Page.IsValid)
+                    {
+                        AccionPagina = enumAcciones.Guardar;
+                        Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+                    }
+                    else
+                    {
+                        AccionPagina = enumAcciones.Limpiar;
+                        Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -158,6 +180,22 @@ namespace EDUAR_UI
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnVolver control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CargarPresentacion();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
 
         /// <summary>
         /// Método que se llama al hacer click sobre las acciones de la grilla
@@ -173,13 +211,15 @@ namespace EDUAR_UI
 
                 switch (e.CommandName)
                 {
-                    //case "Eliminar":
-                    //    AccionPagina = enumAcciones.Eliminar;
-                    //    Master.MostrarMensaje(UIConstantesGenerales.NotuAdmu0000, UIConstantesGenerales.NotuAdmu0003.Replace("[Identificador]", UserName), enumTipoVentanaInformacion.Confirmación);
-                    //    break;
                     case "Editar":
                         AccionPagina = enumAcciones.Modificar;
                         CargarUsuario();
+                        btnGuardar.Visible = true;
+                        btnVolver.Visible = true;
+                        btnBuscar.Visible = false;
+                        udpRoles.Visible = true;
+                        udpFiltrosBusqueda.Visible = false;
+                        gvwUsuarios.Visible = false;
                         break;
                 }
                 udpRoles.Visible = true;
@@ -190,24 +230,37 @@ namespace EDUAR_UI
                 Master.ManageExceptions(ex);
             }
         }
-
-
         #endregion
 
         #region --[Métodos Privados]--
+        /// <summary>
+        /// Cargars the presentacion.
+        /// </summary>
+        private void CargarPresentacion()
+        {
+            btnBuscar.Visible = true;
+            btnGuardar.Visible = false;
+            btnVolver.Visible = false;
+            udpFiltrosBusqueda.Visible = true;
+            gvwUsuarios.Visible = true;
+            udpRoles.Visible = false;
+            udpGrilla.Update();
+            udpFiltros.Update();
+        }
+
         /// <summary>
         /// Cargars the campos filtros.
         /// </summary>
         private void CargarCamposFiltros()
         {
             objBLSeguridad.GetRoles();
-            foreach (DTRol rol in objBLSeguridad.Data.ListaRoles)
-            {
-                chkListRolesBusqueda.Items.Add(new ListItem(rol.Nombre, rol.NombreCorto));
-                chkListRoles.Items.Add(new ListItem(rol.Nombre, rol.NombreCorto));
-            }
+            UIUtilidades.BindCombo<DTRol>(ddlListRolesBusqueda, objBLSeguridad.Data.ListaRoles, "NombreCorto", "Nombre", true);
+            UIUtilidades.BindCombo<DTRol>(ddlListRoles, objBLSeguridad.Data.ListaRoles, "NombreCorto", "Nombre", true);
         }
 
+        /// <summary>
+        /// Buscars the filtrando.
+        /// </summary>
         private void BuscarFiltrando()
         {
             DTUsuario usuario = new DTUsuario();
@@ -215,13 +268,8 @@ namespace EDUAR_UI
             usuario.Aprobado = chkHabilitadoBusqueda.Checked;
 
             List<DTRol> ListaRoles = new List<DTRol>();
-            foreach (ListItem item in chkListRolesBusqueda.Items)
-            {
-                if (item.Selected)
-                {
-                    ListaRoles.Add(new DTRol() { Nombre = item.Value });
-                }
-            }
+            if (ddlListRolesBusqueda.SelectedValue != "-1" && ddlListRolesBusqueda.SelectedValue != "0")
+                ListaRoles.Add(new DTRol() { Nombre = ddlListRolesBusqueda.SelectedValue });
             usuario.ListaRoles = ListaRoles;
             BuscarUsuarios(usuario);
         }
@@ -269,16 +317,8 @@ namespace EDUAR_UI
             chkHabilitado.Checked = propUsuario.Aprobado;
 
             #region Carga los roles
-            foreach (DTRol rol in propUsuario.ListaRoles)
-            {
-                foreach (ListItem item in chkListRoles.Items)
-                {
-                    if (item.Value == rol.NombreCorto)
-                    {
-                        item.Selected = true;
-                    }
-                }
-            }
+            if (propUsuario.ListaRoles.Count > 0)
+                ddlListRoles.SelectedValue = propUsuario.ListaRoles[0].NombreCorto;
             udpRoles.Visible = true;
             udpRoles.Update();
             #endregion
@@ -290,10 +330,10 @@ namespace EDUAR_UI
         private void LimpiarCampos()
         {
             lblUserName.Text = string.Empty;
-            foreach (ListItem item in chkListRoles.Items)
-            { item.Selected = false; }
+            ddlListRolesBusqueda.SelectedValue = "-1";
+            //foreach (ListItem item in chkListRoles.Items)
+            //{ item.Selected = false; }
         }
-
 
         /// <summary>
         /// Guardars the usuario.
@@ -301,15 +341,7 @@ namespace EDUAR_UI
         private void GuardarUsuario()
         {
             List<DTRol> listaRoles = new List<DTRol>();
-            foreach (ListItem item in chkListRoles.Items)
-            {
-                if (item.Selected)
-                {
-                    item.Selected = false;
-                    DTRol objDTRol = new DTRol { Nombre = item.Value };
-                    listaRoles.Add(objDTRol);
-                }
-            }
+            listaRoles.Add(new DTRol() { NombreCorto = ddlListRoles.SelectedValue, Nombre = ddlListRoles.SelectedItem.Text });
 
             DTSeguridad objDTSeguridad = new DTSeguridad { Usuario = { Nombre = lblUserName.Text.Trim(), ListaRoles = listaRoles, Aprobado = chkHabilitado.Checked } };
             objBLSeguridad = new BLSeguridad();
@@ -321,6 +353,20 @@ namespace EDUAR_UI
 
             udpRoles.Visible = false;
             udpRoles.Update();
+        }
+
+        /// <summary>
+        /// Validars the pagina.
+        /// </summary>
+        private bool ValidarPagina()
+        {
+            if (ddlListRoles.SelectedValue == "0" || ddlListRoles.SelectedValue == "-1")
+            {
+                AccionPagina = enumAcciones.Limpiar;
+                Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
+                return false;
+            }
+            return true;
         }
         #endregion
     }

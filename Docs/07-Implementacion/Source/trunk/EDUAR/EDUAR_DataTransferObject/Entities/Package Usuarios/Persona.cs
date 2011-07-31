@@ -6,122 +6,28 @@ namespace EDUAR_Entities
     [Serializable]
     public class Persona : DTBase
     {
-        private int _idPersona;
-        public int idPersona
-        {
-            get { return _idPersona; }
-            set { _idPersona = value; }
-        }
-
-        private string _nombre;
-        public string nombre
-        {
-            get { return _nombre; }
-            set { _nombre = value; }
-        }
-        private string _apellido;
-        public string apellido
-        {
-            get { return _apellido; }
-            set { _apellido = value; }
-        }
-        private int _numeroDocumento;
-        public int numeroDocumento
-        {
-            get { return _numeroDocumento; }
-            set { _numeroDocumento = value; }
-        }
-        private int _idTipoDocumento;
-        public int idTipoDocumento
-        {
-            get { return _idTipoDocumento; }
-            set { _idTipoDocumento = value; }
-        }
-        private string _domicilio;
-        public string domicilio
-        {
-            get { return _domicilio; }
-            set { _domicilio = value; }
-        }
-        private string _barrio;
-        public string barrio
-        {
-            get { return _barrio; }
-            set { _barrio = value; }
-        }
-        private int _idLocalidad;
-        public int idLocalidad
-        {
-            get { return _idLocalidad; }
-            set { _idLocalidad = value; }
-        }
-        private string _sexo;
-        public string sexo
-        {
-            get { return _sexo; }
-            set { _sexo = value; }
-        }
-        private DateTime? _fechaNacimiento;
-        public DateTime? fechaNacimiento
-        {
-            get { return _fechaNacimiento; }
-            set { _fechaNacimiento = value; }
-        }
-        private string _telefonoFijo;
-        public string telefonoFijo
-        {
-            get { return _telefonoFijo; }
-            set { _telefonoFijo = value; }
-        }
-        private string _telefonoCelular;
-        public string telefonoCelular
-        {
-            get { return _telefonoCelular; }
-            set { _telefonoCelular = value; }
-        }
-        private string _telefonoCelularAlternativo;
-        public string telefonoCelularAlternativo
-        {
-            get { return _telefonoCelularAlternativo; }
-            set { _telefonoCelularAlternativo = value; }
-        }
-        private string _email;
-        public string email
-        {
-            get { return _email; }
-            set { _email = value; }
-        }
-        private bool? _activo;
-        public bool? activo
-        {
-            get { return _activo; }
-            set { _activo = value; }
-        }
-        private Localidades _localidad;
-
-        public Localidades localidad
-        {
-            get { return _localidad; }
-            set { _localidad = value; }
-        }
-
-        private string _username;
-        public string username
-        {
-            get { return _username; }
-            set { _username = value; }
-        }
-
-        private int _idTipoPersona;
-        public int idTipoPersona
-        {
-            get { return _idTipoPersona; }
-            set { _idTipoPersona = value; }
-        }
+        public int idPersona { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public int numeroDocumento { get; set; }
+        public int idTipoDocumento { get; set; }
+        public string domicilio { get; set; }
+        public string barrio { get; set; }
+        public int idLocalidad { get; set; }
+        public string sexo { get; set; }
+        public DateTime? fechaNacimiento { get; set; }
+        public string telefonoFijo { get; set; }
+        public string telefonoCelular { get; set; }
+        public string telefonoCelularAlternativo { get; set; }
+        public string email { get; set; }
+        public bool? activo { get; set; }
+        public Localidades localidad { get; set; }
+        public string username { get; set; }
+        public int idTipoPersona { get; set; }
 
         public Persona()
         {
-
+            localidad = new Localidades();
         }
 
         ~Persona()

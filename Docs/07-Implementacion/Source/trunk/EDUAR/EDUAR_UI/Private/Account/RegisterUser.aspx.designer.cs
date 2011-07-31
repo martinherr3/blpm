@@ -157,6 +157,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpRoles;
         
         /// <summary>
+        /// Control lblNombreApellido.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNombreApellido;
+        
+        /// <summary>
+        /// Control RegisterUserValidationGroup.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary RegisterUserValidationGroup;
+        
+        /// <summary>
         /// Control lblUsuario.
         /// </summary>
         /// <remarks>
@@ -175,6 +193,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtUserName;
         
         /// <summary>
+        /// Control UserNameRequired.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator UserNameRequired;
+        
+        /// <summary>
         /// Control lblEmail.
         /// </summary>
         /// <remarks>
@@ -184,13 +211,22 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblEmail;
         
         /// <summary>
-        /// Control lblEmailUsuario.
+        /// Control txtEmailUsuario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmailUsuario;
+        protected global::System.Web.UI.WebControls.TextBox txtEmailUsuario;
+        
+        /// <summary>
+        /// Control EmailRequired.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator EmailRequired;
         
         /// <summary>
         /// Control lblBloquear.
@@ -256,13 +292,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblRoles;
         
         /// <summary>
-        /// Control chkListRoles.
+        /// Control ddlListRoles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList chkListRoles;
+        protected global::System.Web.UI.WebControls.DropDownList ddlListRoles;
         
         /// <summary>
         /// Propiedad Master.

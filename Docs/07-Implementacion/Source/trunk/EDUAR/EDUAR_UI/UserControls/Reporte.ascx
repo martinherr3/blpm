@@ -17,12 +17,12 @@
 <table class="tablaInterna" cellpadding="0" cellspacing="0">
     <tr>
         <td align="right">
-            <asp:ImageButton ID="btnVolver" runat="server" ToolTip="Volver" ImageUrl="~/Images/botonVolver.png"
-                Visible="false" />
             <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
                 Visible="false" />
             <asp:ImageButton ID="btnImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/Images/botonImprimir.png"
                 Visible="false" OnClick="btnImprimir_Click" />
+            <asp:ImageButton ID="btnVolver" runat="server" ToolTip="Volver" ImageUrl="~/Images/botonVolver.png"
+                Visible="false" />
         </td>
     </tr>
 </table>

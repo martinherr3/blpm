@@ -134,6 +134,7 @@ namespace EDUAR_UI
                             objRol.Nombre = propRol.Nombre;
                         }
                         GuardarRol(objRol);
+                        Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
                         break;
                     case enumAcciones.Nuevo:
                         break;
@@ -172,7 +173,7 @@ namespace EDUAR_UI
                 esNuevo = true;
                 btnGuardar.Visible = true;
                 btnBuscar.Visible = false;
-                btnVolver.Visible = true;
+                btnVolver.Visible = false;
                 btnNuevo.Visible = false;
                 gvwPerfiles.Visible = false;
                 udpEditRoles.Visible = false;
@@ -196,9 +197,16 @@ namespace EDUAR_UI
         {
             try
             {
-                AccionPagina = enumAcciones.Guardar;
-                Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(),
-                    UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+                if (Page.IsValid)
+                {
+                    AccionPagina = enumAcciones.Guardar;
+                    Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+                }
+                else
+                {
+                    AccionPagina = enumAcciones.Limpiar;
+                    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
+                }
             }
             catch (Exception ex)
             {
@@ -272,7 +280,7 @@ namespace EDUAR_UI
             LimpiarCampos();
             udpEditRoles.Visible = false;
             udpNewRol.Visible = false;
-            btnVolver.Visible = false;
+            btnVolver.Visible = true;
             btnGuardar.Visible = false;
             udpControlesBusqueda.Visible = true;
             btnNuevo.Visible = true;

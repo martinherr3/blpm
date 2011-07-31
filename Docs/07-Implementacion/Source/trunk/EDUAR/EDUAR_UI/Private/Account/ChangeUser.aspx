@@ -7,52 +7,67 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         Modificar Usuario</h2>
-    <br />
-    <table class="tablaInterna" cellpadding="0" cellspacing="0">
-        <tr>
-            <td align="right">
-                <asp:ImageButton ID="btnBuscar"  OnClick="btnBuscar_Click" runat="server"
-                    ToolTip="Buscar" ImageUrl="~/Images/botonBuscar.png" />
-            </td>
-        </tr>
-    </table>
-    <table class="tablaInterna" cellpadding="0" cellspacing="0">
-        <tr>
-            <td style="width: 50%; vertical-align: text-top">
-                <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                    <tr>
-                        <td valign="top">
-                            <asp:Label ID="lblUserNameBusqeuda" runat="server" Text="Usuario:"></asp:Label>
-                        </td>
-                        <td valign="top">
-                            <asp:TextBox ID="txtUsernameBusqueda" runat="server" Text=""></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            <asp:Label ID="lblHabilitadoBusqueda" runat="server" Text="Habilitado:"></asp:Label>
-                        </td>
-                        <td valign="top">
-                            <asp:CheckBox ID="chkHabilitadoBusqueda" runat="server" Checked="true" />
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td style="width: 50%">
-                <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                    <tr>
-                        <td valign="top">
-                            <asp:Label ID="lblRolesBusqueda" runat="server" Text="Roles:"></asp:Label>
-                        </td>
-                        <td rowspan="3">
-                            <asp:CheckBoxList ID="chkListRolesBusqueda" TabIndex="2" runat="server">
-                            </asp:CheckBoxList>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+    <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="right">
+                        <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
+                            ImageUrl="~/Images/botonBuscar.png" />
+                        <asp:ImageButton ID="btnGuardar" ImageUrl="~/Images/botonGuardar.png" OnClick="btnGuardar_Click"
+                            runat="server" ToolTip="Guardar" />
+                        <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
+                            ImageUrl="~/Images/botonVolver.png" />
+                    </td>
+                </tr>
+            </table>
+            <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                        <tr>
+                            <td colspan="2">
+                                <h3>
+                                    Buscar</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;">
+                                <asp:Label ID="lblUserNameBusqeuda" runat="server" Text="Usuario:"></asp:Label>
+                            </td>
+                            <td valign="top">
+                                <asp:TextBox ID="txtUsernameBusqueda" runat="server" Text=""></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <asp:Label ID="lblHabilitadoBusqueda" runat="server" Text="Habilitado:"></asp:Label>
+                            </td>
+                            <td valign="top">
+                                <asp:CheckBox ID="chkHabilitadoBusqueda" runat="server" Checked="true" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <asp:Label ID="lblRolesBusqueda" runat="server" Text="Rol:"></asp:Label>
+                            </td>
+                            <td valign="top">
+                                <%--<asp:CheckBoxList ID="chkListRolesBusqueda" TabIndex="2" runat="server">
+                            </asp:CheckBoxList>--%>
+                                <asp:DropDownList ID="ddlListRolesBusqueda" runat="server" TabIndex="2">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
+                </Triggers>
+            </asp:UpdatePanel>
+        </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="gvwUsuarios" EventName="RowCommand" />
+        </Triggers>
+    </asp:UpdatePanel>
     <br />
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
@@ -80,16 +95,13 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpRoles" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <br />
-                    <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td align="right">
-                                <asp:ImageButton ID="btnGuardar" ImageUrl="~/Images/botonGuardar.png" OnClick="btnGuardar_Click"
-                                    runat="server" ToolTip="Guardar" />
+                            <td colspan="2">
+                                <h3>
+                                    Modificar Usuario</h3>
                             </td>
                         </tr>
-                    </table>
-                    <table class="tablaInterna" cellpadding="0" cellspacing="0">
                         <tr>
                             <td style="width: 50%; vertical-align: text-top">
                                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
@@ -109,17 +121,15 @@
                                             <asp:CheckBox ID="chkHabilitado" runat="server" />
                                         </td>
                                     </tr>
-                                </table>
-                            </td>
-                            <td style="width: 50%">
-                                <table class="tablaInterna" cellpadding="1" cellspacing="5">
                                     <tr>
                                         <td valign="top">
-                                            <asp:Label ID="lblRoles" runat="server" Text="Roles:"></asp:Label>
+                                            <asp:Label ID="lblRoles" runat="server" Text="Rol:"></asp:Label>
                                         </td>
-                                        <td rowspan="3">
-                                            <asp:CheckBoxList ID="chkListRoles" TabIndex="7" runat="server">
-                                            </asp:CheckBoxList>
+                                        <td valign="top">
+                                            <asp:DropDownList ID="ddlListRoles" runat="server" TabIndex="7">
+                                            </asp:DropDownList>
+                                            <%--<asp:CheckBoxList ID="chkListRoles" TabIndex="7" runat="server">
+                                            </asp:CheckBoxList>--%>
                                         </td>
                                     </tr>
                                 </table>

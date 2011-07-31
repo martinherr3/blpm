@@ -1,5 +1,5 @@
-﻿<%@ Page Title="Registrar Usuario" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
-    CodeBehind="RegisterUser.aspx.cs" Inherits="EDUAR_UI.RegisterUser" %>
+﻿<%@ Page Title="Registrar Usuario" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+    AutoEventWireup="true" CodeBehind="RegisterUser.aspx.cs" Inherits="EDUAR_UI.RegisterUser" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
@@ -134,11 +134,18 @@
                         <tr>
                             <td colspan="2">
                                 <h3>
-                                    Nuevo Usuario</h3>
+                                    Registrar Usuario</h3>
+                                <br />
+                                <asp:Label ID="lblNombreApellido" Text="" runat="server" Font-Bold="true" />
                             </td>
                         </tr>
                         <tr>
-                            <td style="width: 50%; vertical-align: text-top">
+                            <td colspan="2">
+                                <asp:ValidationSummary ID="RegisterUserValidationGroup" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;">
                                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                                     <tr>
                                         <td valign="top">
@@ -146,6 +153,9 @@
                                         </td>
                                         <td valign="top">
                                             <asp:TextBox ID="txtUserName" runat="server" Font-Bold="true"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="txtUserName"
+                                                CssClass="failureNotification" ErrorMessage="El nombre de usuario es obligatorio."
+                                                ToolTip="El nombre de usuario es obligatorio." ValidationGroup="RegisterUserValidationGroup">*</asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
                                     <tr>
@@ -153,7 +163,11 @@
                                             <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
                                         </td>
                                         <td valign="top">
-                                            <asp:Label ID="lblEmailUsuario" runat="server" Font-Bold="true"></asp:Label>
+                                            <%--<asp:Label ID="lblEmailUsuario" runat="server" Font-Bold="true"></asp:Label>--%>
+                                            <asp:TextBox ID="txtEmailUsuario" runat="server" Font-Bold="true" />
+                                            <asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="txtEmailUsuario"
+                                                CssClass="failureNotification" ErrorMessage="El correo electrónico es obligatorio."
+                                                ToolTip="El correo electrónico es obligatorio." ValidationGroup="RegisterUserValidationGroup">*</asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
                                     <tr>
@@ -182,15 +196,15 @@
                                     </tr>
                                 </table>
                             </td>
-                            <td style="width: 50%">
+                            <td style="width: 50%; vertical-align: text-top">
                                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                                     <tr>
                                         <td valign="top">
-                                            <asp:Label ID="lblRoles" runat="server" Text="Roles:"></asp:Label>
+                                            <asp:Label ID="lblRoles" runat="server" Text="Rol:"></asp:Label>
                                         </td>
-                                        <td rowspan="3">
-                                            <asp:CheckBoxList ID="chkListRoles" TabIndex="7" runat="server">
-                                            </asp:CheckBoxList>
+                                        <td valign="top">
+                                            <asp:DropDownList ID="ddlListRoles" runat="server" TabIndex="7">
+                                            </asp:DropDownList>
                                         </td>
                                     </tr>
                                 </table>
@@ -200,8 +214,6 @@
                 </ContentTemplate>
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
-                    <%--<asp:AsyncPostBackTrigger ControlID="gvwUsuarios" EventName="RowCommand" />
-                    <asp:AsyncPostBackTrigger ControlID="gvwUsuarios" EventName="PageIndexChanging" />--%>
                 </Triggers>
             </asp:UpdatePanel>
         </ContentTemplate>
@@ -209,7 +221,6 @@
             <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="gvwUsuarios" EventName="RowCommand" />
-            <%--<asp:AsyncPostBackTrigger ControlID="gvwUsuarios" EventName="PageIndexChanging" />--%>
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

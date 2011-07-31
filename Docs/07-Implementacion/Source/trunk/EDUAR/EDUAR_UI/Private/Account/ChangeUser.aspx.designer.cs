@@ -13,6 +13,15 @@ namespace EDUAR_UI {
     public partial class ChangeUser {
         
         /// <summary>
+        /// Control udpFiltros.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpFiltros;
+        
+        /// <summary>
         /// Control btnBuscar.
         /// </summary>
         /// <remarks>
@@ -20,6 +29,33 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnBuscar;
+        
+        /// <summary>
+        /// Control btnGuardar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnGuardar;
+        
+        /// <summary>
+        /// Control btnVolver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnVolver;
+        
+        /// <summary>
+        /// Control udpFiltrosBusqueda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpFiltrosBusqueda;
         
         /// <summary>
         /// Control lblUserNameBusqeuda.
@@ -67,13 +103,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblRolesBusqueda;
         
         /// <summary>
-        /// Control chkListRolesBusqueda.
+        /// Control ddlListRolesBusqueda.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList chkListRolesBusqueda;
+        protected global::System.Web.UI.WebControls.DropDownList ddlListRolesBusqueda;
         
         /// <summary>
         /// Control udpGrilla.
@@ -101,15 +137,6 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel udpRoles;
-        
-        /// <summary>
-        /// Control btnGuardar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnGuardar;
         
         /// <summary>
         /// Control lblUsuario.
@@ -157,13 +184,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblRoles;
         
         /// <summary>
-        /// Control chkListRoles.
+        /// Control ddlListRoles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList chkListRoles;
+        protected global::System.Web.UI.WebControls.DropDownList ddlListRoles;
         
         /// <summary>
         /// Propiedad Master.
