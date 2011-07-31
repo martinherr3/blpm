@@ -23,5 +23,8 @@
             <siteMapNode url="~/Private/Reports/ReportCalificacionesAlumnoPeriodo.aspx" title="Calificaciones" roles="Administrador,Director,Docente,Psicopedagogo" />
             <siteMapNode url="~/Private/Reports/PrintReport.aspx" title="Imprimir Informe" visible="false" roles="Administrador,Director,Docente,Psicopedagogo" />
         </siteMapNode>
+      <siteMapNode url="" title="Agenda" roles="Administrador" >
+          <siteMapNode url="~/Private/Agenda/RegisterEventoInstitucional.aspx" title="Evento" visible="false" roles="Administrador" />
+      </siteMapNode>
     </siteMapNode>
 </siteMap>
