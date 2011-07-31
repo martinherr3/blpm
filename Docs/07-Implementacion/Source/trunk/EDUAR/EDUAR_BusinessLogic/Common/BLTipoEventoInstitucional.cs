@@ -164,22 +164,22 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<TipoEventoInstitucional> GetTipoEventoInstitucionals(TipoEventoInstitucional entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetTipoEventoInstitucionals(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetTipoEventoInstitucionals", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+        public List<TipoEventoInstitucional> GetTipoEventoInstitucional(TipoEventoInstitucional entidad)
+        {
+            try
+            {
+                return DataAcces.GetTipoEventoInstitucional(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTipoEventoInstitucionals", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }
