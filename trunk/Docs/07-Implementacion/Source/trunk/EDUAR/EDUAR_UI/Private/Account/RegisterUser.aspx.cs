@@ -11,6 +11,7 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -141,17 +142,26 @@ namespace EDUAR_UI
                 {
                     case enumAcciones.Guardar:
                         GuardarUsuario();
-                        AccionPagina = enumAcciones.Salir;
+                        AccionPagina = enumAcciones.Limpiar;
                         Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
                         break;
                     case enumAcciones.Salir:
                         Response.Redirect("~/Default.aspx", false);
                         break;
+                    case enumAcciones.Limpiar:
+                        propSeguridad = new DTSeguridad();
+                        atrBLSeguridad = new BLSeguridad(propSeguridad);
+                        propPersona = new Persona();
+                        propListaPersonas = null;
+                        propPersona.idTipoPersona = 1;
+                        LimpiarCampos();
+                        CargarPresentacion();
+                        //CargarCamposFiltros();
+                        CargarGrilla();
+                        break;
                     default:
                         break;
                 }
-                LimpiarCampos();
-                udpRoles.Visible = false;
                 udpRoles.Update();
                 udpGrilla.Update();
             }
@@ -205,15 +215,18 @@ namespace EDUAR_UI
         {
             try
             {
-                if (Page.IsValid)
+                if (ValidarPagina())
                 {
-                    AccionPagina = enumAcciones.Guardar;
-                    Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
-                }
-                else
-                {
-                    AccionPagina = enumAcciones.Limpiar;
-                    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
+                    if (Page.IsValid)
+                    {
+                        AccionPagina = enumAcciones.Guardar;
+                        Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+                    }
+                    else
+                    {
+                        AccionPagina = enumAcciones.Limpiar;
+                        Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
+                    }
                 }
             }
             catch (Exception ex)
@@ -310,11 +323,7 @@ namespace EDUAR_UI
         private void CargarCamposFiltros()
         {
             atrBLSeguridad.GetRoles();
-            foreach (DTRol rol in atrBLSeguridad.Data.ListaRoles)
-            {
-                chkListRoles.Items.Add(new ListItem(rol.Nombre, rol.NombreCorto));
-            }
-
+            UIUtilidades.BindCombo<DTRol>(ddlListRoles, atrBLSeguridad.Data.ListaRoles, "NombreCorto", "Nombre", true);
             UIUtilidades.BindComboTipoPersona(ddlTipoUsuario);
         }
 
@@ -364,8 +373,9 @@ namespace EDUAR_UI
             atrBLPersona.Data = propPersona;
             atrBLPersona.GetById();
             Persona objPersona = atrBLPersona.Data;
+            lblNombreApellido.Text = objPersona.nombre + " " + objPersona.apellido;
             txtUserName.Text = string.Empty;
-            lblEmailUsuario.Text = objPersona.email;
+            txtEmailUsuario.Text = objPersona.email;
             lblPreguntaUsuario.Text = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PreguntaDefault);
             lblRespuestaUsuario.Text = objPersona.numeroDocumento.ToString();
             LimpiarCampos();
@@ -380,8 +390,11 @@ namespace EDUAR_UI
         private void LimpiarCampos()
         {
             txtUserName.Text = string.Empty;
-            foreach (ListItem item in chkListRoles.Items)
-            { item.Selected = false; }
+            txtNombreBusqueda.Text = string.Empty;
+            txtApellidoBusqueda.Text = string.Empty;
+            txtEmailUsuario.Text = string.Empty;
+            ddlListRoles.SelectedValue = "-1"; //SELECCIONE
+            ddlTipoUsuario.SelectedValue = "0"; //TODOS
         }
 
         /// <summary>
@@ -391,21 +404,13 @@ namespace EDUAR_UI
         {
             DTUsuario objUsuario = new DTUsuario();
             objUsuario.Nombre = txtUserName.Text;
-            objUsuario.Email = lblEmailUsuario.Text;
+            objUsuario.Email = txtEmailUsuario.Text;
             objUsuario.Aprobado = chkHabilitado.Checked;
             objUsuario.PaswordPregunta = lblPreguntaUsuario.Text;
             objUsuario.PaswordRespuesta = lblRespuestaUsuario.Text;
             objUsuario.EsUsuarioInicial = true;
             objUsuario.ListaRoles = new List<DTRol>();
-            foreach (ListItem item in chkListRoles.Items)
-            {
-                if (item.Selected)
-                {
-                    item.Selected = false;
-                    DTRol objDTRol = new DTRol { Nombre = item.Value };
-                    objUsuario.ListaRoles.Add(objDTRol);
-                }
-            }
+            objUsuario.ListaRoles.Add(new DTRol() { NombreCorto = ddlListRoles.SelectedValue, Nombre = ddlListRoles.SelectedItem.Text });
 
             DTSeguridad objSeguridad = new DTSeguridad();
             objSeguridad.Usuario = objUsuario;
@@ -418,6 +423,32 @@ namespace EDUAR_UI
             atrBLPersona.Data.username = objUsuario.Nombre;
             atrBLPersona.Save();
 
+        }
+
+        /// <summary>
+        /// Validars the pagina.
+        /// </summary>
+        private bool ValidarPagina()
+        {
+            if (txtUserName.Text.Trim().Length == 0)
+            {
+                AccionPagina = enumAcciones.Limpiar;
+                Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
+                return false;
+            }
+            if (!EDUARUtilidades.EsEmailValido(txtEmailUsuario.Text.Trim()))
+            {
+                AccionPagina = enumAcciones.Limpiar;
+                Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
+                return false;
+            }
+            if (ddlListRoles.SelectedValue == "0" || ddlListRoles.SelectedValue == "-1")
+            {
+                AccionPagina = enumAcciones.Limpiar;
+                Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
+                return false;
+            }
+            return true;
         }
         #endregion
     }

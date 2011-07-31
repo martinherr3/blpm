@@ -69,10 +69,10 @@
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td align="right">
-                    <asp:ImageButton ID="btnVolver" runat="server" ImageUrl="~/Images/botonVolver.png"
-                        ToolTip="Volver" />
                     <asp:ImageButton ID="btnImprimir" runat="server" ImageUrl="~/Images/botonImprimir.png"
                         ToolTip="Imprimir" />
+                    <asp:ImageButton ID="btnVolver" runat="server" ImageUrl="~/Images/botonVolver.png"
+                        ToolTip="Volver" />
                 </td>
             </tr>
         </table>
