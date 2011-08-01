@@ -134,7 +134,7 @@ namespace EDUAR_UI
         {
             try
             {
-                EDUARExportPDF.ExportarPDF(Page.Title, rptCalificaciones.dtReporte);
+                ExportPDF.ExportarPDF(Page.Title, rptCalificaciones.dtReporte);
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }

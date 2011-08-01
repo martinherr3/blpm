@@ -29,39 +29,5 @@ namespace EDUAR_Utility.Utilidades
             else
             { return false; }
         }
-
-        //public static bool esHoraValida(string cadena)
-        //{
-        //    string[] arr = cadena.Split(':');
-        //    if (arr.GetLength(0) < 2)
-        //    {
-        //        return false;
-        //    }
-        //    else if (!.IsNumeric(arr[0]))
-        //    {
-        //        return false;
-        //    }
-        //    else if (!Information.IsNumeric(arr[1]))
-        //    {
-        //        return false;
-        //    }
-        //    else if (!Information.IsNumeric(arr[2]))
-        //    {
-        //        return false;
-        //    }
-        //    else if (arr[0] < 0 | arr[0] > 23)
-        //    {
-        //        return false;
-        //    }
-        //    else if (arr[1] < 0 | arr[0] > 59)
-        //    {
-        //        return false;
-        //    }
-        //    else if (arr[2] < 0 | arr[0] > 59)
-        //    {
-        //        return false;
-        //    }
-        //    return true;
-        //}
     }
 }

@@ -1027,7 +1027,7 @@ namespace EDUAR_SI_DataAccess
                         transaccion = sqlConnectionConfig.BeginTransaction();
                     command.Transaction = transaccion;
 
-                    command.Parameters.AddWithValue("idTutor", tutor.IdTutor).Direction = ParameterDirection.Output;
+                    command.Parameters.AddWithValue("idTutor", tutor.idTutor).Direction = ParameterDirection.Output;
                     command.Parameters.AddWithValue("idTutorTransaccional", tutor.idTutorTransaccional);
                     command.Parameters.AddWithValue("idTipoTutor", tutor.tipoTutor.idTipoTutorTransaccional);
                     command.Parameters.AddWithValue("telefonoTrabajo", tutor.telefonoCelularAlternativo);

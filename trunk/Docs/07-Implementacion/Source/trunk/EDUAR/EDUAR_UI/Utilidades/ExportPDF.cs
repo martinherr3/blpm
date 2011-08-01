@@ -7,9 +7,9 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Web;
 
-namespace EDUAR_Utility.Utilidades
+namespace EDUAR_UI.Utilidades
 {
-    public class EDUARExportPDF
+    public class ExportPDF
     {
         public static void ExportarPDF(string TituloPagina, DataTable dtReporte)
         {

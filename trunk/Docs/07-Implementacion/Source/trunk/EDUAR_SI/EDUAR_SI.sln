@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUAR_Utility", "..\EDUAR\E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUAR_Entities", "..\EDUAR\EDUAR_DataTransferObject\EDUAR_Entities.csproj", "{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{A8D9B2CA-BA4A-4D63-A38E-FC919DFF79FC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,16 +71,6 @@ Global
 		{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}.Release|x86.ActiveCfg = Release|Any CPU
-		{A8D9B2CA-BA4A-4D63-A38E-FC919DFF79FC}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{A8D9B2CA-BA4A-4D63-A38E-FC919DFF79FC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{A8D9B2CA-BA4A-4D63-A38E-FC919DFF79FC}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{A8D9B2CA-BA4A-4D63-A38E-FC919DFF79FC}.Debug|x86.ActiveCfg = Debug|x86
-		{A8D9B2CA-BA4A-4D63-A38E-FC919DFF79FC}.Debug|x86.Build.0 = Debug|x86
-		{A8D9B2CA-BA4A-4D63-A38E-FC919DFF79FC}.Release|Any CPU.ActiveCfg = Release|x86
-		{A8D9B2CA-BA4A-4D63-A38E-FC919DFF79FC}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{A8D9B2CA-BA4A-4D63-A38E-FC919DFF79FC}.Release|Mixed Platforms.Build.0 = Release|x86
-		{A8D9B2CA-BA4A-4D63-A38E-FC919DFF79FC}.Release|x86.ActiveCfg = Release|x86
-		{A8D9B2CA-BA4A-4D63-A38E-FC919DFF79FC}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
