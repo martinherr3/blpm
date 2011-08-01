@@ -107,6 +107,7 @@
     <Content Include="Public\General\Localizacion.aspx" />
     <Content Include="Public\General\Novedades.aspx" />
     <Content Include="Public\General\Organizacion.aspx" />
+    <Content Include="Scripts\General.js" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
