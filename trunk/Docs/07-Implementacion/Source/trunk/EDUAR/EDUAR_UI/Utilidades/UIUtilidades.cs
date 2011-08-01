@@ -56,6 +56,9 @@ namespace EDUAR_UI.Utilidades
 
             if (addDefaultValue)
                 dropDownList.Items.Insert(0, new ListItem("Seleccione", "-1"));
+
+            if (addDefaultValue)
+                dropDownList.Items.Insert(1, new ListItem("Todos", "-2"));
         }
 
         // <T> is the type of data in the list.

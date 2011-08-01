@@ -800,6 +800,11 @@ TD.EncabezadoConfirmación
     width: 250px;
 }
 
+.EstiloTxtExtraLarge500
+{
+    width: 500px;
+}
+
 /* Estilo LABEL's */
 
 .lblCriterios

@@ -9,6 +9,7 @@
     <title>EDU@R 2.0</title>
     <link href="~/App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/png" href="~/favicon.ico">
+    <script language="javascript" src="~/Scripts/General.js" type="text/javascript"></script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>

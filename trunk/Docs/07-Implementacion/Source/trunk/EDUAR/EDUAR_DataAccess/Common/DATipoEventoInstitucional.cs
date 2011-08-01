@@ -98,7 +98,7 @@ namespace EDUAR_DataAccess.Common
         {
             try
             {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoInstitucional_Select");
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TipoEventoInstitucional_Select");
                 if (entidad != null)
                 {
                 }
@@ -113,11 +113,11 @@ namespace EDUAR_DataAccess.Common
                 {
                     objTipoEvento = new TipoEventoInstitucional();
 
-                    objTipoEvento.idTipoEventoInstitucional = (int)(reader["idTipoEvento"]);
-                    objTipoEvento.descripcion = (string)(reader["idTipoEvento"]);
+                    objTipoEvento.idTipoEventoInstitucional = Convert.ToInt32(reader["idTipoEventoInstitucional"]);
+                    objTipoEvento.descripcion = reader["descripcion"].ToString();
                     objTipoEvento.activo = (bool)(reader["activo"]);
 
-                    if (objTipoEvento.activo) listTipoEventos.Add(objTipoEvento);
+                    listTipoEventos.Add(objTipoEvento);
                 }
 
                 return listTipoEventos;
@@ -132,7 +132,7 @@ namespace EDUAR_DataAccess.Common
                 throw new CustomizedException(string.Format("Fallo en {0} - GetTipoEventoInstitucional()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
-            
+
         }
 
         #endregion

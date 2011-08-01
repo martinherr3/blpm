@@ -16,16 +16,18 @@ namespace EDUAR_Entities
     {
         public int idEventoInstitucional { get; set; }
         public DateTime fecha { get; set; }
+        public DateTime? hora { get; set; }
         public string detalle { get; set; }
         public string lugar { get; set; }
-        public string descripcionBreve { get; set; }
-        public Usuario organizador { get; set; }
+        public string titulo { get; set; }
+        public Persona organizador { get; set; }
         public TipoEventoInstitucional tipoEventoInstitucional { get; set; }
         public bool activo { get; set; }
 
         public EventoInstitucional()
         {
-
+            organizador = new Persona();
+            tipoEventoInstitucional = new TipoEventoInstitucional();
         }
 
         ~EventoInstitucional()
