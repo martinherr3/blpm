@@ -15,6 +15,7 @@ namespace EDUAR_Utility.Constantes
 
         #region Validaciones
         public const string MensajeEmailInvalido = "Por favor, ingrese un email válido.";
+        public const string MensajeDatosFaltantes = "Los siguientes datos no han sido ingresados:<br />";
         public const string MensajeDatosRequeridos = "Por favor, verifique los datos ingresados.";
         #endregion
 
