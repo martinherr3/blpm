@@ -107,7 +107,6 @@ namespace EDUAR_UI
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         void VentanaAceptar(object sender, EventArgs e)
         {
-            //
             try
             {
                 switch (AccionPagina)
@@ -144,13 +143,6 @@ namespace EDUAR_UI
                     default:
                         break;
                 }
-                //if (AccionPagina == enumAcciones.Guardar)
-                //{
-
-                //}
-                //else
-                //    if (AccionPagina == enumAcciones.Salir)
-                //        Response.Redirect("~/Default.aspx", false);
             }
             catch (Exception ex)
             {
@@ -315,6 +307,9 @@ namespace EDUAR_UI
             udpGrilla.Update();
         }
 
+        /// <summary>
+        /// Cargars the combos.
+        /// </summary>
         private void CargarCombos()
         {
             List<TipoEventoInstitucional> listaTipoEvento = new List<TipoEventoInstitucional>();
@@ -371,6 +366,10 @@ namespace EDUAR_UI
             CargarGrilla();
         }
 
+        /// <summary>
+        /// Obteners the valores pantalla.
+        /// </summary>
+        /// <returns></returns>
         private EventoInstitucional ObtenerValoresPantalla()
         {
             EventoInstitucional evento = new EventoInstitucional();
