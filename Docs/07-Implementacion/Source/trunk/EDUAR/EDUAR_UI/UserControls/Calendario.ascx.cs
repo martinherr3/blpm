@@ -259,16 +259,16 @@ namespace EDUAR_UI.UserControls
                 {
                     case enumTipoCalendario.Desde:
                         ViewState["Habilitado"] = value;
-                    if (Habilitado)
-                    {
-                        txtFechaDesde.Enabled = true;
-                        calExtDesde.Enabled = true;
-                    }
-                    else
-                    {
-                        txtFechaDesde.Enabled = false;
-                        calExtDesde.Enabled = false;
-                    }
+                        if (Habilitado)
+                        {
+                            txtFechaDesde.Enabled = true;
+                            calExtDesde.Enabled = true;
+                        }
+                        else
+                        {
+                            txtFechaDesde.Enabled = false;
+                            calExtDesde.Enabled = false;
+                        }
                         break;
                     case enumTipoCalendario.DesdeHasta:
                         Habilitado = true;
@@ -387,8 +387,12 @@ namespace EDUAR_UI.UserControls
         private void ValidarFormatoDesdeEx()
         {
             if (!ValidarFormatoDesde())
-                throw new CustomizedException(string.Format("El campo {0} tiene un formato incorrecto", lblFechaDesde.Text), null, enuExceptionType.ValidationException);
-
+            {
+                string campo = lblFechaDesde.Text;
+                if (lblFechaDesde.Text.Trim().Length == 0)
+                    campo = "Fecha";
+                throw new CustomizedException(string.Format("El campo {0} tiene un formato incorrecto", campo), null, enuExceptionType.ValidationException);
+            }
 
             DateTime fechaDesde;
             bool boolFechaDesde = false;
@@ -505,7 +509,6 @@ namespace EDUAR_UI.UserControls
                 }
                 else
                     retorno = true;
-
             }
             return retorno;
         }
@@ -524,7 +527,12 @@ namespace EDUAR_UI.UserControls
             ValidarFormatoDesdeEx();
 
             if (!ValidarFormatoDesdeHasta(fechaHastaHoy))
+            {
+                string campo = lblFechaDesde_DA.Text;
+                if (lblFechaDesde_DA.Text.Trim().Length == 0)
+                    campo = "Fecha";
                 throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha inicial debe ser menor o igual a la fecha final.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
+            }
         }
 
 
@@ -597,7 +605,12 @@ namespace EDUAR_UI.UserControls
                 //Valida que la fecha final no sea superior a la fecha del día
                 if (boolFechaDesdeCorrecta)
                     if (fechaDesde.Date > DateTime.Now.Date)
+                    {
+                        string campo = lblFechaDesde_DA.Text;
+                        if (lblFechaDesde_DA.Text.Trim().Length == 0)
+                            campo = "Fecha";
                         throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha no puede ser superior a la fecha actual.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
+                    }
             }
         }
 

@@ -35,6 +35,24 @@ namespace EDUAR_UI
             }
             set { ViewState["propEvento"] = value; }
         }
+
+        /// <summary>
+        /// Gets or sets the prop evento.
+        /// </summary>
+        /// <value>
+        /// The prop evento.
+        /// </value>
+        public EventoInstitucional propFiltroEvento
+        {
+            get
+            {
+                if (ViewState["propFiltroEvento"] == null)
+                    return new EventoInstitucional();
+
+                return (EventoInstitucional)ViewState["propFiltroEvento"];
+            }
+            set { ViewState["propFiltroEvento"] = value; }
+        }
         /// <summary>
         /// Gets or sets the lista evento.
         /// </summary>
@@ -133,7 +151,7 @@ namespace EDUAR_UI
                         break;
                     case enumAcciones.Guardar:
                         AccionPagina = enumAcciones.Limpiar;
-                        GuardarEvento(ObtenerValoresPantalla());
+                        GuardarEvento(ObtenerValoresDePantalla());
                         Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
                         break;
                     case enumAcciones.Ingresar:
@@ -177,15 +195,17 @@ namespace EDUAR_UI
             try
             {
                 AccionPagina = enumAcciones.Nuevo;
+                LimpiarCampos();
                 esNuevo = true;
                 btnGuardar.Visible = true;
                 btnBuscar.Visible = false;
                 btnVolver.Visible = true;
                 btnNuevo.Visible = false;
                 gvwReporte.Visible = false;
-                udpEdit.Visible = false;
+                litEditar.Visible = false;
+                litNuevo.Visible = true;
+                udpEdit.Visible = true;
                 udpFiltrosBusqueda.Visible = false;
-                udpNew.Visible = true;
                 udpFiltros.Update();
                 udpGrilla.Update();
             }
@@ -204,15 +224,18 @@ namespace EDUAR_UI
         {
             try
             {
-                if (Page.IsValid)
+                string mensaje = ValidarPagina();
+                if (mensaje  == string.Empty)
                 {
-                    AccionPagina = enumAcciones.Guardar;
-                    Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+                    if (Page.IsValid)
+                    {
+                        AccionPagina = enumAcciones.Guardar;
+                        Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+                    }
                 }
                 else
                 {
-                    AccionPagina = enumAcciones.Limpiar;
-                    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
+                    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
                 }
             }
             catch (Exception ex)
@@ -231,7 +254,7 @@ namespace EDUAR_UI
             try
             {
                 CargarPresentacion();
-                BuscarEventos(propEvento);
+                BuscarEventos(propFiltroEvento);
             }
             catch (Exception ex)
             {
@@ -256,6 +279,8 @@ namespace EDUAR_UI
                         AccionPagina = enumAcciones.Modificar;
                         esNuevo = false;
                         CargarValoresEnPantalla(Convert.ToInt32(e.CommandArgument.ToString()));
+                        litEditar.Visible = true;
+                        litNuevo.Visible = false;
                         btnBuscar.Visible = false;
                         btnNuevo.Visible = false;
                         btnVolver.Visible = true;
@@ -296,7 +321,6 @@ namespace EDUAR_UI
             LimpiarCampos();
             CargarCombos();
             udpEdit.Visible = false;
-            udpNew.Visible = false;
             btnVolver.Visible = false;
             btnGuardar.Visible = false;
             udpFiltrosBusqueda.Visible = true;
@@ -318,7 +342,6 @@ namespace EDUAR_UI
 
             UIUtilidades.BindCombo<TipoEventoInstitucional>(ddlTipoEvento, listaTipoEvento, "idTipoEventoInstitucional", "descripcion", true);
             UIUtilidades.BindCombo<TipoEventoInstitucional>(ddlTipoEventoEdit, listaTipoEvento, "idTipoEventoInstitucional", "descripcion", false);
-            UIUtilidades.BindCombo<TipoEventoInstitucional>(ddlTipoEventoNew, listaTipoEvento, "idTipoEventoInstitucional", "descripcion", false);
         }
 
         /// <summary>
@@ -330,6 +353,11 @@ namespace EDUAR_UI
             txtLugar.Text = string.Empty;
             txtTitulo.Text = string.Empty;
             calfecha.LimpiarControles();
+            txtHoraEdit.Text = string.Empty;
+            txtLugarEdit.Text = string.Empty;
+            txtTituloEdit.Text = string.Empty;
+            calFechaEdit.LimpiarControles();
+            txtDescripcionEdit.Text = string.Empty;
         }
 
         /// <summary>
@@ -344,14 +372,13 @@ namespace EDUAR_UI
             evento.fecha = Convert.ToDateTime(calfecha.ValorFecha);
             evento.activo = chkActivo.Checked;
             evento.tipoEventoInstitucional.idTipoEventoInstitucional = Convert.ToInt32(ddlTipoEvento.SelectedValue);
-            
+
             if (txtHora.Text.Trim().Length > 1)
                 evento.hora = Convert.ToDateTime(txtHora.Text);
             else
                 evento.hora = null;
-
+            propFiltroEvento = evento;
             BuscarEventos(evento);
-
         }
 
         /// <summary>
@@ -370,35 +397,22 @@ namespace EDUAR_UI
         /// Obteners the valores pantalla.
         /// </summary>
         /// <returns></returns>
-        private EventoInstitucional ObtenerValoresPantalla()
+        private EventoInstitucional ObtenerValoresDePantalla()
         {
             EventoInstitucional evento = new EventoInstitucional();
 
-            if (esNuevo)
-            {
-                evento.idEventoInstitucional = 0;
-                evento.lugar = txtLugarNew.Text.Trim();
-                evento.fecha = Convert.ToDateTime(calFechaNew.ValorFecha);
-                evento.hora = Convert.ToDateTime(txtHoraNew.Text.Trim());
-                evento.titulo = txtTituloNew.Text.Trim();
-                evento.detalle = txtDescripcionNew.Text.Trim();
-                evento.activo = chkActivoNew.Checked;
-                evento.tipoEventoInstitucional.idTipoEventoInstitucional = Convert.ToInt32(ddlTipoEventoNew.SelectedValue);
-                evento.organizador.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
-            }
-            else
+            if (!esNuevo)
             {
                 evento.idEventoInstitucional = propEvento.idEventoInstitucional;
-                evento.lugar = txtLugarEdit.Text.Trim();
-                evento.fecha = Convert.ToDateTime(calFechaEdit.ValorFecha);
-                evento.hora = Convert.ToDateTime(txtHoraEdit.Text.Trim());
-                evento.titulo = txtTituloEdit.Text.Trim();
-                evento.detalle = txtDescripcionEdit.Text.Trim();
-                evento.activo = chkActivoEdit.Checked;
-                evento.tipoEventoInstitucional.idTipoEventoInstitucional = Convert.ToInt32(ddlTipoEventoEdit.SelectedValue);
-                evento.organizador.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
             }
-            
+            evento.lugar = txtLugarEdit.Text.Trim();
+            evento.fecha = Convert.ToDateTime(calFechaEdit.ValorFecha);
+            evento.hora = Convert.ToDateTime(txtHoraEdit.Text.Trim());
+            evento.titulo = txtTituloEdit.Text.Trim();
+            evento.detalle = txtDescripcionEdit.Text.Trim();
+            evento.activo = chkActivoEdit.Checked;
+            evento.tipoEventoInstitucional.idTipoEventoInstitucional = Convert.ToInt32(ddlTipoEventoEdit.SelectedValue);
+            evento.organizador.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
             return evento;
         }
 
@@ -425,6 +439,26 @@ namespace EDUAR_UI
             txtLugarEdit.Text = evento.lugar;
             ddlTipoEventoEdit.SelectedValue = evento.tipoEventoInstitucional.idTipoEventoInstitucional.ToString();
             chkActivoEdit.Checked = evento.activo;
+        }
+
+        private string ValidarPagina()
+        {
+            calFechaEdit.ValidarRangoDesde(true);
+            string mensaje = string.Empty;
+            if (txtDescripcionEdit.Text.Trim().Length == 0)
+                mensaje = "- Descripcion<br />";
+            if (txtHoraEdit.Text.Trim().Length == 0)
+                mensaje += "- Hora<br />";
+            if (calFechaEdit.Fecha.Text.Trim().Length == 0)
+                mensaje += "- Fecha<br />";
+            if (txtTituloEdit.Text.Trim().Length == 0)
+                mensaje += "- Titulo<br />";
+            if (txtLugarEdit.Text.Trim().Length == 0)
+                mensaje += "- Lugar<br />";
+            if (!(Convert.ToInt32(ddlTipoEventoEdit.SelectedValue) > 0))
+                mensaje += "- Tipo de Evento";
+
+            return mensaje;
         }
         #endregion
     }

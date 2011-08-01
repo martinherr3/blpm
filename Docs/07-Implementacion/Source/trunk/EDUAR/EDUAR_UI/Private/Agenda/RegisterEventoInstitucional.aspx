@@ -20,7 +20,7 @@
                         <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
                             ImageUrl="~/Images/botonNuevo.png" />
                         <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
-                            ImageUrl="~/Images/botonGuardar.png" />
+                            ImageUrl="~/Images/botonGuardar.png" CausesValidation="true" ValidationGroup="validarEdit" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                             ImageUrl="~/Images/botonVolver.png" />
                     </td>
@@ -37,7 +37,7 @@
                         </tr>
                         <tr>
                             <td class="TD100">
-                                <asp:ValidationSummary ID="ValidarPagina" runat="server" />
+                                <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
                             </td>
                         </tr>
                     </table>
@@ -71,10 +71,10 @@
                                 </asp:DropDownList>
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="Label12" runat="server" Text="Activo:"></asp:Label>
+                                <asp:Label ID="Label12" runat="server" Text="Solo Activos:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
+                                <asp:CheckBox ID="chkActivo" runat="server" Checked="false" />
                             </td>
                         </tr>
                     </table>
@@ -97,7 +97,7 @@
                                 </cc1:MaskedEditExtender>
                                 <cc1:MaskedEditValidator ID="MaskedEditValidator1" runat="server" ToolTip="Hora Inválida"
                                     ErrorMessage="*" ControlExtender="MaskedEditExtender1" ControlToValidate="txtHora"
-                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="ValidarPagina">
+                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="ValidarBusqueda">
                                 </cc1:MaskedEditValidator>
                             </td>
                         </tr>
@@ -184,7 +184,9 @@
                         <tr>
                             <td colspan="2">
                                 <h3>
-                                    Editar Evento Institucional</h3>
+                                    <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
+                                    <asp:Literal ID="litNuevo" runat="server" Text="Nuevo "></asp:Literal>
+                                    Evento Institucional</h3>
                             </td>
                         </tr>
                         <tr>
@@ -199,7 +201,7 @@
                                 <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
-                                <cal:Calendario ID="calFechaEdit" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
+                                <cal:Calendario ID="calFechaEdit" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" MensajeErrorValidacion="Fecha Inválida" />
                             </td>
                             <td valign="top" class="TDCriterios10">
                                 <asp:Label runat="server" ID="Label4" Text="Hora:"></asp:Label>
@@ -229,7 +231,7 @@
                                 <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:CheckBox ID="chkActivoEdit" runat="server" />
+                                <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
                             </td>
                         </tr>
                         <tr>
@@ -255,92 +257,6 @@
                             </td>
                             <td class="TD75" colspan="3">
                                 <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="500px" TextMode="MultiLine"
-                                    Rows="5"></asp:TextBox>
-                            </td>
-                        </tr>
-                    </table>
-                </ContentTemplate>
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
-                </Triggers>
-            </asp:UpdatePanel>
-            <asp:UpdatePanel ID="udpNew" runat="server" UpdateMode="Conditional" Visible="false">
-                <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td colspan="2">
-                                <h3>
-                                    Nuevo Evento Institucional</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="validarNew" runat="server" />
-                            </td>
-                        </tr>
-                    </table>
-                    <table width="100%" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td valign="top" class="TDCriterios20">
-                                <asp:Label ID="Label7" runat="server" Text="Fecha:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios40">
-                                <cal:Calendario ID="calFechaNew" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
-                            </td>
-                            <td valign="top" class="TDCriterios10">
-                                <asp:Label runat="server" ID="Label8" Text="Hora:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:TextBox runat="server" ID="txtHoraNew" MaxLength="5" CssClass="EstiloTxtCorto80"></asp:TextBox>
-                                <cc1:MaskedEditExtender ID="MaskedEditExtender3" runat="server" AcceptAMPM="false"
-                                    MaskType="Time" Mask="99:99" ErrorTooltipEnabled="true" InputDirection="LeftToRight"
-                                    CultureName="es-ES" TargetControlID="txtHoraNew" MessageValidatorTip="true">
-                                </cc1:MaskedEditExtender>
-                                <cc1:MaskedEditValidator ID="MaskedEditValidator3" runat="server" ToolTip="Hora Inválida"
-                                    ErrorMessage="*" ControlExtender="MaskedEditExtender1" ControlToValidate="txtHoraNew"
-                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarNew">
-                                </cc1:MaskedEditValidator>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="Label5" runat="server" Text="Lugar:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:TextBox runat="server" ID="txtLugarNew" CssClass="EstiloTxtLargo250"></asp:TextBox>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="Label11" runat="server" Text="Activo:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:CheckBox ID="chkActivoNew" runat="server" Checked="false" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TD25">
-                                <asp:Label runat="server" ID="Label14" Text="Tipo de Evento:"></asp:Label>
-                            </td>
-                            <td class="TD75" colspan="3">
-                                <asp:DropDownList runat="server" ID="ddlTipoEventoNew">
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TD25">
-                                <asp:Label runat="server" ID="Label6" Text="Título:"></asp:Label>
-                            </td>
-                            <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtTituloNew" CssClass="EstiloTxtLargo250"></asp:TextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TD25">
-                                <asp:Label runat="server" ID="Label10" Text="Descripción:"></asp:Label>
-                            </td>
-                            <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtDescripcionNew" CssClass="EstiloTxtLargo250" TextMode="MultiLine"
                                     Rows="5"></asp:TextBox>
                             </td>
                         </tr>
