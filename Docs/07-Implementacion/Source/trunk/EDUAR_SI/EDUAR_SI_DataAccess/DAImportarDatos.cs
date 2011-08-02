@@ -874,6 +874,11 @@ namespace EDUAR_SI_DataAccess
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();
                     }
+
+                    command.CommandText = "Curso_Update_CicloLectivo";
+                    command.CommandTimeout = 10;
+                    command.ExecuteNonQuery();
+
                     transaccion.Commit();
                 }
             }
