@@ -3,28 +3,28 @@
     <siteMapNode url="" title="EDUAR" description="Portal EDUAR" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor">
         <siteMapNode url="~/Default.aspx" title="Inicio" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor">
         </siteMapNode>
+        <siteMapNode url="" title="Agenda" roles="Administrador" >
+            <siteMapNode url="~/Private/Agenda/RegisterEventoInstitucional.aspx" title="Eventos" roles="Administrador" />
+        </siteMapNode>
         <siteMapNode url="" title="Alumnos" roles="Docente">
-            <siteMapNode url="~/Private/Alumnos/ConsultarAlumnos.aspx" title="Consulta de Alumnos"  roles="Docente" />
+            <siteMapNode url="~/Private/Alumnos/ConsultarAlumnos.aspx" title="Consulta de Alumnos" roles="Docente" />
         </siteMapNode>
         <siteMapNode url="" title="Mi Cuenta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor">
             <siteMapNode url="~/Private/Account/ChangePassword.aspx" title="Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"/>
             <siteMapNode url="~/Private/Account/ChangeQuestion.aspx" title="Pregunta Secreta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"/>
-        </siteMapNode>
-        <siteMapNode url="" title="Usuarios" roles="Administrador">
-            <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar Usuario" roles="Administrador"/>
-            <siteMapNode url="~/Private/Account/ChangeUser.aspx" title="Modificar Usuario" roles="Administrador" />
-        </siteMapNode>
-        <siteMapNode url="" title="Roles" roles="Administrador" >
-            <siteMapNode url="~/Private/Account/Profiles.aspx" title="Administrar" roles="Administrador" />
-            <siteMapNode url="~/Private/Account/ChangeRolAccess.aspx" title="Nivel Acceso" roles="Administrador" visible="false" />
         </siteMapNode>
         <siteMapNode url="" title="Reportes" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo,Tutor" >
             <siteMapNode url="~/Private/Reports/reportAccesos.aspx" title="Accesos" roles="Administrador" />
             <siteMapNode url="~/Private/Reports/ReportCalificacionesAlumnoPeriodo.aspx" title="Calificaciones" roles="Administrador,Director,Docente,Psicopedagogo" />
             <siteMapNode url="~/Private/Reports/PrintReport.aspx" title="Imprimir Informe" visible="false" roles="Administrador,Director,Docente,Psicopedagogo" />
         </siteMapNode>
-      <siteMapNode url="" title="Agenda" roles="Administrador" >
-          <siteMapNode url="~/Private/Agenda/RegisterEventoInstitucional.aspx" title="Evento" roles="Administrador" />
-      </siteMapNode>
+        <siteMapNode url="" title="Roles" roles="Administrador" >
+            <siteMapNode url="~/Private/Account/Profiles.aspx" title="Administrar" roles="Administrador" />
+            <siteMapNode url="~/Private/Account/ChangeRolAccess.aspx" title="Nivel Acceso" roles="Administrador" visible="false" />
+        </siteMapNode>
+        <siteMapNode url="" title="Usuarios" roles="Administrador">
+            <siteMapNode url="~/Private/Account/ChangeUser.aspx" title="Editar" roles="Administrador" />
+            <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar" roles="Administrador"/>
+        </siteMapNode>
     </siteMapNode>
 </siteMap>
