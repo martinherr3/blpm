@@ -36,7 +36,8 @@
     <ContentTemplate>
         <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
             AutoGenerateColumns="false" Width="100%" AllowPaging="true" PageSize="20">
-            <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="Center" />
+            <%--<EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="Center" />--%>
         </asp:GridView>
+        <asp:Label ID="lblSinDatos" runat="server" Text="La consulta no produjo resultados." Visible="false"></asp:Label>
     </ContentTemplate>
 </asp:UpdatePanel>

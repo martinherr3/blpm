@@ -119,11 +119,13 @@ namespace EDUAR_UI.UserControls
                     btnPDF.Visible = true;
                     btnImprimir.Visible = true;
                     gvwReporte.Visible = true;
+                    lblSinDatos.Visible = false;
                     CargarGrilla(lista);
                 }
                 else
                 {
-                    udpReporte.ContentTemplateContainer.Controls.Add(new LiteralControl("<h3>" + UIConstantesGenerales.MensajeSinResultados + "</h3>"));
+                    //udpReporte.ContentTemplateContainer.Controls.Add(new LiteralControl("<h3>" + UIConstantesGenerales.MensajeSinResultados + "</h3>"));
+                    lblSinDatos.Visible = true;
                     gvwReporte.Visible = false;
                     btnVolver.Visible = true;
                     btnImprimir.Visible = false;
