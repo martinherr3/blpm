@@ -22,7 +22,13 @@ namespace EDUAR_UI.Utilidades
         /// <summary>
         /// Método que realiza el Bind de un ListBox.
         /// </summary>
-        public static void BindCombo<T>(ListBox ListBox, IList<T> lista, string fieldId, string fieldDescription, Boolean addDefaultValue)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ListBox">The list box.</param>
+        /// <param name="lista">The lista.</param>
+        /// <param name="fieldId">The field id.</param>
+        /// <param name="fieldDescription">The field description.</param>
+        /// <param name="addDefaultValue">if set to <c>true</c> [add default value].</param>
+        public static void BindCombo<T>(ListBox ListBox, IList<T> lista, string fieldId, string fieldDescription, bool addDefaultValue)
         {
             DataView dataView = new DataView((DataTable)lista);
             ListBox.Items.Clear();
@@ -42,7 +48,13 @@ namespace EDUAR_UI.Utilidades
         /// <summary>
         /// Método que realiza el Bind de un DropDownList.
         /// </summary>
-        public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescription, Boolean addDefaultValue)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dropDownList">The drop down list.</param>
+        /// <param name="lista">The lista.</param>
+        /// <param name="fieldId">The field id.</param>
+        /// <param name="fieldDescription">The field description.</param>
+        /// <param name="addDefaultValue">if set to <c>true</c> [add default value].</param>
+        public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescription, bool addDefaultValue)
         {
             DataView dataView = new DataView(BuildDataTable(lista));
             dropDownList.Items.Clear();
@@ -52,6 +64,35 @@ namespace EDUAR_UI.Utilidades
             {
                 foreach (DataRowView drv in dataView)
                     dropDownList.Items.Insert(dropDownList.Items.Count, new ListItem(drv.Row[fieldDescription].ToString(), drv.Row[fieldId].ToString()));
+            }
+
+            if (addDefaultValue)
+                dropDownList.Items.Insert(0, new ListItem("Seleccione", "-1"));
+
+            if (addDefaultValue)
+                dropDownList.Items.Insert(1, new ListItem("Todos", "-2"));
+        }
+
+        /// <summary>
+        /// Método que realiza el Bind de un DropDownList.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dropDownList">The drop down list.</param>
+        /// <param name="lista">The lista.</param>
+        /// <param name="fieldId">The field id.</param>
+        /// <param name="fieldDescriptionFirst">The field description first.</param>
+        /// <param name="fieldDescriptionSecond">The field description second.</param>
+        /// <param name="addDefaultValue">if set to <c>true</c> [add default value].</param>
+        public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescriptionFirst, string fieldDescriptionSecond, bool addDefaultValue)
+        {
+            DataView dataView = new DataView(BuildDataTable(lista));
+            dropDownList.Items.Clear();
+            dropDownList.DataSource = null;
+
+            if (dataView != null)
+            {
+                foreach (DataRowView drv in dataView)
+                    dropDownList.Items.Insert(dropDownList.Items.Count, new ListItem(drv.Row[fieldDescriptionFirst].ToString() + " " + drv.Row[fieldDescriptionSecond].ToString(), drv.Row[fieldId].ToString()));
             }
 
             if (addDefaultValue)
