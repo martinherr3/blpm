@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Cambiar contraseña" Language="C#" MasterPageFile="~/EDUARMaster.master"
+﻿<%@ Page Title="Contraseña Modificada" Language="C#" MasterPageFile="~/EDUARMaster.master"
     AutoEventWireup="true" CodeBehind="ChangePasswordSuccess.aspx.cs" Inherits="EDUAR_UI.ChangePasswordSuccess" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>

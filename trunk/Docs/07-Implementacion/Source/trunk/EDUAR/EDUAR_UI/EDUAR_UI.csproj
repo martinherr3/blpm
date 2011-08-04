@@ -73,6 +73,7 @@
     <Content Include="DLL\itextsharp.xtra.dll" />
     <Content Include="favicon.ico" />
     <Content Include="Images\botonEnviarMail.png" />
+    <Content Include="Images\botonImprimir.png" />
     <Content Include="Images\botonNuevo.png" />
     <Content Include="Images\botonSiguiente.png" />
     <Content Include="Images\botonVolver.png" />
@@ -389,12 +390,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1246</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost/EDUAR_UI</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
