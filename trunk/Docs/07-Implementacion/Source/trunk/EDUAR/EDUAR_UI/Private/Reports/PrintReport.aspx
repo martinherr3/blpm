@@ -99,6 +99,12 @@
                     Font-Bold="true" ForeColor="Black" Font-Size="Medium"></asp:Label>
             </td>
         </tr>
+        <tr>
+            <td align="left">
+                <asp:Label ID="lblUsuario" Text="" runat="server" Font-Names="Helvetica" Font-Bold="false"
+                    ForeColor="Black" Font-Size="Medium" />
+            </td>
+        </tr>
     </table>
     <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
