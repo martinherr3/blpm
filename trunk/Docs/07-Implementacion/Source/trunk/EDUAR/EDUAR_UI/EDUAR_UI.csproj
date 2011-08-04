@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxControlToolkit">
       <HintPath>DLL\AjaxControlToolkit.dll</HintPath>
@@ -67,11 +70,13 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Error\Error.htm" />
     <Content Include="About.aspx" />
     <Content Include="DLL\AjaxControlToolkit.dll" />
     <Content Include="DLL\itextsharp.dll" />
     <Content Include="DLL\itextsharp.xtra.dll" />
     <Content Include="favicon.ico" />
+    <Content Include="Images\404.png" />
     <Content Include="Images\botonEnviarMail.png" />
     <Content Include="Images\botonImprimir.png" />
     <Content Include="Images\botonNuevo.png" />
