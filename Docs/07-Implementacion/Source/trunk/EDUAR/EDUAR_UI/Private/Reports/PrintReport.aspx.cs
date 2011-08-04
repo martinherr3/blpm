@@ -9,6 +9,8 @@ using System.Data;
 using EDUAR_UI.Utilidades;
 using System.Text;
 using System.IO;
+using EDUAR_Entities;
+using EDUAR_BusinessLogic.Common;
 
 namespace EDUAR_UI
 {
@@ -65,10 +67,17 @@ namespace EDUAR_UI
 
                 if (!Page.IsPostBack)
                 {
+                    Persona usuario = new Persona();
+                    usuario.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+                    BLPersona objBLPersona = new BLPersona(usuario);
+                    objBLPersona.GetPersonaByEntidad();
+                    usuario = objBLPersona.Data;
+
                     gvwReporte = UIUtilidades.GenerarGrilla(gvwReporte, dtReporte);
                     lblTitulo.Text = "EDU@R 2.0";
                     lblInforme.Text = tituloReporte;
-                    lblFecha.Text = DateTime.Now.ToShortDateString();
+                    lblFecha.Text = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+                    lblUsuario.Text = "Usuario: " + usuario.apellido + " " + usuario.nombre + " - " + usuario.username;
                     gvwReporte.DataSource = dtReporte.DefaultView;
                     gvwReporte.DataBind();
                     udpReporte.Update();
@@ -80,7 +89,7 @@ namespace EDUAR_UI
         #endregion
 
         #region --[Métodos Privados]--
-        
+
         #endregion
     }
 }

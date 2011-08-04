@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("EDUAR_UI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("EDUAR_UI")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
+[assembly: AssemblyCompany("Proyecto Final")]
+[assembly: AssemblyProduct("EDUAR 2.0")]
+[assembly: AssemblyCopyright("Copyright © BLPM")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
