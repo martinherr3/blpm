@@ -74,7 +74,7 @@ namespace EDUAR_UI.Shared
         /// </summary>
         public bool esNuevo
         {
-            get { return (bool)ViewState["esNuevo"] == null ? true : (bool)ViewState["esNuevo"]; }
+            get { return (bool)ViewState["esNuevo"]; }
             set { ViewState["esNuevo"] = value; }
         }
 

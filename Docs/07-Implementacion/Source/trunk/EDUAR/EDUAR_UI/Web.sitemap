@@ -5,6 +5,7 @@
         </siteMapNode>
         <siteMapNode url="" title="Agenda" roles="Administrador" >
             <siteMapNode url="~/Private/Agenda/RegisterEventoInstitucional.aspx" title="Eventos" roles="Administrador" />
+            <siteMapNode url="~/Private/Agenda/ManageAgendaActividades.aspx" title="Actividades" roles="Administrador" />
         </siteMapNode>
         <siteMapNode url="" title="Alumnos" roles="Docente">
             <siteMapNode url="~/Private/Alumnos/ConsultarAlumnos.aspx" title="Consulta de Alumnos" roles="Docente" />

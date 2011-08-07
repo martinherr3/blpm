@@ -23,9 +23,6 @@
             <div class="title">
                 <img src="/EDUAR_UI/Images/Logo_chico.png" alt="EDU@R 2.0" style="vertical-align: middle" />
                 <br />
-                <%-- <h1>
-                    
-                </h1>--%>
                 <asp:SiteMapPath ID="siteMapPathEDUAR" runat="server" OnPreRender="siteMapPathEDUAR_PreRender"
                     BorderWidth="0">
                     <PathSeparatorStyle CssClass="sitepathSeparacion" />

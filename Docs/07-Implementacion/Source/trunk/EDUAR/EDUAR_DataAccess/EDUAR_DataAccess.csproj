@@ -51,6 +51,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DAAgendaActividades.cs" />
     <Compile Include="Common\DATopico.cs" />
     <Compile Include="Common\DATutor.cs" />
     <Compile Include="Common\DATipoTutor.cs" />

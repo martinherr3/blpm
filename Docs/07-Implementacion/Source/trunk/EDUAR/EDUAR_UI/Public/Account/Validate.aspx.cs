@@ -15,7 +15,6 @@ namespace EDUAR_UI
     public partial class Validate : EDUARBasePage
     {
         #region --[Atributos]--
-        private BLSeguridad objBLSeguridad;
         #endregion
 
         #region --[Propiedades]--

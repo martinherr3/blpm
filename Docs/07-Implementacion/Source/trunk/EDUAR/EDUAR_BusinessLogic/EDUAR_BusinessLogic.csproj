@@ -107,6 +107,7 @@
     <Compile Include="Common\BLPsicopedagogo.cs" />
     <Compile Include="Common\BLTipoTutor.cs" />
     <Compile Include="Common\BLTutor.cs" />
+    <Compile Include="Common\BLAgendaActividades.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\BLRptAccesos.cs" />
     <Compile Include="Reports\BLRptCalificacionesAlumnoPeriodo.cs" />
