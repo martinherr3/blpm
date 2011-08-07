@@ -6,144 +6,43 @@
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
-    [Serializable]
-    public class Curso: DTBase
-    {
-        private int _idCurso;
+	[Serializable]
+	public class Curso : DTBase
+	{
+		public int idCurso { get; set; }
+		public int idCursoTransaccional { get; set; }
+		public string nombre { get; set; }
+		public List<Alumno> listaAlumnos { get; set; }
+		public List<Asignatura> listaAsignaturas { get; set; }
+		public Nivel nivel { get; set; }
+		public Preceptor preceptor { get; set; }
+		public Orientacion orientacion { get; set; }
+		public CicloLectivo cicloLectivo { get; set; }
 
-        public int idCurso
-        {
-            get { return _idCurso; }
-            set { _idCurso = value; }
-        }
-        private int _idCursoTransaccional;
+		public Curso()
+		{
+			listaAlumnos = new List<Alumno>();
+			listaAsignaturas = new List<Asignatura>();
+			nivel = new Nivel();
+			preceptor = new Preceptor();
+			orientacion = new Orientacion();
+			cicloLectivo = new CicloLectivo();
+		}
 
-        public int idCursoTransaccional
-        {
-            get { return _idCursoTransaccional; }
-            set { _idCursoTransaccional = value; }
-        }
-        private List<Alumno> _alumnos;
-        private List<Asignatura> _asignaturas;
-        private string _division;
-        private Nivel _nivel;
-        private string _nombre;
-        private Preceptor _preceptor;
-        private Orientacion _orientacion;
-        private CicloLectivo _cicloLectivo;
+		~Curso()
+		{
 
-        public Curso()
-        {
+		}
 
-        }
+		public virtual void Dispose()
+		{
 
-        ~Curso()
-        {
+		}
 
-        }
-
-        public virtual void Dispose()
-        {
-
-        }
-
-        public List<Alumno> alumnos
-        {
-            get
-            {
-                return _alumnos;
-            }
-            set
-            {
-                _alumnos = value;
-            }
-        }
-
-        public List<Asignatura> asignaturas
-        {
-            get
-            {
-                return _asignaturas;
-            }
-            set
-            {
-                _asignaturas = value;
-            }
-        }
-
-        public string division
-        {
-            get
-            {
-                return _division;
-            }
-            set
-            {
-                _division = value;
-            }
-        }
-
-        public Nivel nivel
-        {
-            get
-            {
-                return _nivel;
-            }
-            set
-            {
-                _nivel = value;
-            }
-        }
-
-        public string nombre
-        {
-            get
-            {
-                return _nombre;
-            }
-            set
-            {
-                _nombre = value;
-            }
-        }
-
-        public Preceptor preceptor
-        {
-            get
-            {
-                return _preceptor;
-            }
-            set
-            {
-                _preceptor = value;
-            }
-        }
-        public CicloLectivo cicloLectivo
-        {
-            get
-            {
-                return _cicloLectivo;
-            }
-            set
-            {
-                _cicloLectivo = value;
-            }
-        }
-            public Orientacion orientacion
-            {
-                get{
-                return _orientacion;
-                }
-                set{
-                    _orientacion= value;
-                }
-            }
-
-        
-    }//end Curso
+	}//end Curso
 }

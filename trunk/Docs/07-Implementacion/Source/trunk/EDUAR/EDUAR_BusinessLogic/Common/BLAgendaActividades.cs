@@ -1,48 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EDUAR_DataAccess.Common;
-using EDUAR_Entities;
 using EDUAR_BusinessLogic.Shared;
-using EDUAR_Entities.Shared;
-using EDUAR_Utility.Excepciones;
-using EDUAR_Utility.Enumeraciones;
+using EDUAR_DataAccess.Common;
 using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
+using EDUAR_Entities.Shared;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_BusinessLogic.Common
 {
-    public class BLCicloLectivo : BusinessLogicBase<CicloLectivo, DACicloLectivo>
+    public class BLAgendaActividades : BusinessLogicBase<AgendaActividades, DAAgendaActividades>
     {
         #region --[Constante]--
-        private const string ClassName = "BLCicloLectivo";
+        private const string ClassName = "BLAgendaActividades";
         #endregion
 
         #region --[Constructores]--
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLCicloLectivo(DTBase objCicloLectivo)
+        public BLAgendaActividades(DTBase objAgendaActividades)
         {
-            Data = (CicloLectivo)objCicloLectivo;
+            Data = (AgendaActividades)objAgendaActividades;
         }
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public BLCicloLectivo()
+        public BLAgendaActividades()
         {
-            Data = new CicloLectivo();
+            Data = new AgendaActividades();
         }
         #endregion
 
         #region --[Propiedades Override]--
-        protected override sealed DACicloLectivo DataAcces
+        protected override sealed DAAgendaActividades DataAcces
         {
             get { return dataAcces; }
             set { dataAcces = value; }
         }
 
-        public override sealed CicloLectivo Data
+        public override sealed AgendaActividades Data
         {
             get { return data; }
             set { data = value; }
@@ -87,10 +85,10 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                int idCicloLectivo = 0;
+                int idAgendaActividad = 0;
 
-                if (Data.idCicloLectivo == 0)
-                    DataAcces.Create(Data, out idCicloLectivo);
+                if (Data.idAgendaActividad == 0)
+                    DataAcces.Create(Data, out idAgendaActividad);
                 else
                     DataAcces.Update(Data);
 
@@ -120,8 +118,8 @@ namespace EDUAR_BusinessLogic.Common
             try
             {
                 //Si no viene el Id es porque se esta creando la entidad
-                DataAcces = new DACicloLectivo(objDATransaction);
-                if (Data.idCicloLectivo == 0)
+                DataAcces = new DAAgendaActividades(objDATransaction);
+                if (Data.idAgendaActividad == 0)
                     DataAcces.Create(Data);
                 else
                 {
@@ -148,7 +146,7 @@ namespace EDUAR_BusinessLogic.Common
         {
             try
             {
-                DataAcces = new DACicloLectivo(objDATransaction);
+                DataAcces = new DAAgendaActividades(objDATransaction);
                 DataAcces.Delete(Data);
             }
             catch (CustomizedException ex)
@@ -164,49 +162,22 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-		/// <summary>
-		/// Gets the ciclo lectivos.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		/// <returns></returns>
-		public List<CicloLectivo> GetCicloLectivos(CicloLectivo entidad)
-		{
-			try
-			{
-				return DataAcces.GetCicloLectivos(entidad);
-			}
-			catch (CustomizedException ex)
-			{
-				throw ex;
-			}
-			catch (Exception ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetCicloLectivos", ClassName), ex,
-											  enuExceptionType.BusinessLogicException);
-			}
-		}
-
-		/// <summary>
-		/// Gets the ciclo lectivos.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		/// <returns></returns>
-		public List<Curso> GetCursosByCicloLectivo(int idCicloLectivo)
-		{
-			try
-			{
-				return DataAcces.GetCursosByCicloLectivo(idCicloLectivo);
-			}
-			catch (CustomizedException ex)
-			{
-				throw ex;
-			}
-			catch (Exception ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetCicloLectivos", ClassName), ex,
-											  enuExceptionType.BusinessLogicException);
-			}
-		}
+        public List<AgendaActividades> GetAgendaActividadess(AgendaActividades entidad)
+        {
+            try
+            {
+                return DataAcces.GetAgendaActividadess(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAgendaActividadess", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }

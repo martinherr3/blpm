@@ -1,53 +1,24 @@
-﻿
-using System;
+﻿using System;
 using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
-    [Serializable]
-    public class CicloLectivo: DTBase
-    {
-        private int _idCicloLectivo;
+	[Serializable]
+	public class CicloLectivo : DTBase
+	{
+		public int idCicloLectivo { get; set; }
+		public int idCicloLectivoTransaccional { get; set; }
+		public string nombre { get; set; }
+		public DateTime fechaInicio { get; set; }
+		public DateTime fechaFin { get; set; }
+		public bool activo { get; set; }
 
-        public int idCicloLectivo
-        {
-            get { return _idCicloLectivo; }
-            set { _idCicloLectivo = value; }
-        }
-        private int _idCicloLectivoTransaccional;
+		public CicloLectivo()
+		{ }
 
-        public int idCicloLectivoTransaccional
-        {
-            get { return _idCicloLectivoTransaccional; }
-            set { _idCicloLectivoTransaccional = value; }
-        }
-        private string _nombre;
+		~CicloLectivo()
+		{ }
 
-        public string nombre
-        {
-            get { return _nombre; }
-            set { _nombre = value; }
-        }
-        private DateTime _fechaInicio;
-
-        public DateTime fechaInicio
-        {
-            get { return _fechaInicio; }
-            set { _fechaInicio = value; }
-        }
-        private DateTime _fechaFin;
-
-        public DateTime fechaFin
-        {
-            get { return _fechaFin; }
-            set { _fechaFin = value; }
-        }
-        private bool _activo;
-
-        public bool activo
-        {
-            get { return _activo; }
-            set { _activo = value; }
-        }
-
-    }
+		public virtual void Dispose()
+		{ }
+	}
 }
