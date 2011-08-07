@@ -13,7 +13,7 @@ namespace EDUAR_Entities
         public string descripcion { get; set; }
         public bool activo { get; set; }
 		public DateTime fechaCreacion { get; set; }
-        public Curso curso { get; set; }
+        public CursoCicloLectivo cursoCicloLectivo { get; set; }
 
         //ToDo: Agregar LISTAS con eventos 
 
@@ -22,7 +22,7 @@ namespace EDUAR_Entities
         /// </summary>
         public AgendaActividades()
         {
-            curso = new Curso();
+			cursoCicloLectivo = new CursoCicloLectivo();
         }
 
         /// <summary>

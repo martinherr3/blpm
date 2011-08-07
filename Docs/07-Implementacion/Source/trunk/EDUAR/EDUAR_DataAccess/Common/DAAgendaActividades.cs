@@ -37,8 +37,10 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (entidad.idAgendaActividad > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
-					if (entidad.curso.idCurso > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.curso.idCurso);
+					if (entidad.cursoCicloLectivo.idCurso > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.cursoCicloLectivo.idCurso);
+					if (entidad.cursoCicloLectivo.idCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.idCicloLectivo);
 					if (!string.IsNullOrEmpty(entidad.descripcion))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
 					if (ValidarFechaSQL(entidad.fechaCreacion))
@@ -54,7 +56,8 @@ namespace EDUAR_DataAccess.Common
 					objAgendaActividades = new AgendaActividades();
 
 					objAgendaActividades.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividad"]);
-					objAgendaActividades.curso.idCurso = Convert.ToInt32(reader["idCurso"]);
+					objAgendaActividades.cursoCicloLectivo.idCurso = Convert.ToInt32(reader["idCurso"]);
+					objAgendaActividades.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCicloLectivo"]);
 					objAgendaActividades.descripcion = reader["descripcion"].ToString();
 					objAgendaActividades.activo = Convert.ToBoolean(reader["activo"].ToString());
 					objAgendaActividades.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"].ToString());
@@ -100,18 +103,18 @@ namespace EDUAR_DataAccess.Common
 		{
 			try
 			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AgendaActividadess_Insert");
+				//Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AgendaActividadess_Insert");
 
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, 0);
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.curso.idCurso);
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaCreacion);
+				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, 0);
+				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.curso.idCurso);
+				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
+				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaCreacion);
 
-				if (Transaction.Transaction != null)
-					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
-				else
-					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+				//if (Transaction.Transaction != null)
+				//    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				//else
+				//    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
 
 				identificador = Int32.Parse(Transaction.DBcomand.Parameters["@idAgendaActividad"].Value.ToString());
 
