@@ -189,4 +189,11 @@ namespace EDUAR_Utility.Enumeraciones
         Sabado = 6,
         Domingo = 7
     }
+
+    public enum enumEventoAgendaType : int
+    {
+        Evaluacion = 0,
+        Reunion = 1,
+        Excursion = 2
+    }
 }

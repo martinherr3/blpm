@@ -8,21 +8,19 @@
 
 using EDUAR_Entities.Shared;
 using System;
+
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Reunion:DTBase
+    public class Reunion : DTBase
     {
-        private int _idReunion;
-        private Curso _curso;
-        private DateTime _fecha;
-        private Usuario _gestorReunion;
-        private DateTime _horario;
-        private string _motivo;
+        public int idReunion { get; set; }
+        public DateTime horario { get; set; }
+        public EventoAgenda evento { get; set; }
 
         public Reunion()
         {
-
+            evento = new EventoAgenda();
         }
 
         ~Reunion()
@@ -34,72 +32,6 @@ namespace EDUAR_Entities
         {
 
         }
-
-        public int idReunion
-        {
-            get { return _idReunion; }
-            set { _idReunion = value; }
-        }
-
-        public Curso curso
-        {
-            get
-            {
-                return _curso;
-            }
-            set
-            {
-                _curso = value;
-            }
-        }
-
-        public DateTime fecha
-        {
-            get
-            {
-                return _fecha;
-            }
-            set
-            {
-                _fecha = value;
-            }
-        }
-
-        public Usuario gestorReunion
-        {
-            get
-            {
-                return _gestorReunion;
-            }
-            set
-            {
-                _gestorReunion = value;
-            }
-        }
-
-        public DateTime horario
-        {
-            get
-            {
-                return _horario;
-            }
-            set
-            {
-                _horario = value;
-            }
-        }
-
-        public string motivo
-        {
-            get
-            {
-                return _motivo;
-            }
-            set
-            {
-                _motivo = value;
-            }
-        }
-
+                
     }//end Reunion
 }
