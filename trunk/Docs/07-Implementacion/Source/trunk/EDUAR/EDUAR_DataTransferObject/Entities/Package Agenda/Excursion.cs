@@ -14,20 +14,15 @@ namespace EDUAR_Entities
     [Serializable]
     public class Excursion:DTBase
     {
-        private int _idExcursion;
-        private Curso _curso;
-        private string _descripcion;
-        private string _destino;
-        private DateTime _fecha;
-        private DateTime _horaDesde;
-        private DateTime _horaHasta;
-        private Usuario _organizador;
+        public int idExcursion { get; set; }
+        public string destino { get; set; }
+        public DateTime horaDesde { get; set; }
+        public DateTime horaHasta { get; set; }
+        public EventoAgenda evento { get; set; }
 
         public Excursion()
         {
-            _curso = new Curso();
-            _organizador = new Usuario();
-
+            evento = new EventoAgenda();
         }
 
         ~Excursion()
@@ -37,97 +32,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-
-        public int idExcursion
-        {
-            get { return _idExcursion; }
-            set { _idExcursion = value; }
-        }
-
-        public Curso curso
-        {
-            get
-            {
-                return _curso;
-            }
-            set
-            {
-                _curso = value;
-            }
-        }
-
-        public string descripcion
-        {
-            get
-            {
-                return _descripcion;
-            }
-            set
-            {
-                _descripcion = value;
-            }
-        }
-
-        public string destino
-        {
-            get
-            {
-                return _destino;
-            }
-            set
-            {
-                _destino = value;
-            }
-        }
-
-        public DateTime fecha
-        {
-            get
-            {
-                return _fecha;
-            }
-            set
-            {
-                _fecha = value;
-            }
-        }
-
-        public DateTime horaDesde
-        {
-            get
-            {
-                return _horaDesde;
-            }
-            set
-            {
-                _horaDesde = value;
-            }
-        }
-
-        public DateTime horaHasta
-        {
-            get
-            {
-                return _horaHasta;
-            }
-            set
-            {
-                _horaHasta = value;
-            }
-        }
-
-        public Usuario organizador
-        {
-            get
-            {
-                return _organizador;
-            }
-            set
-            {
-                _organizador = value;
-            }
         }
 
     }//end Excursion

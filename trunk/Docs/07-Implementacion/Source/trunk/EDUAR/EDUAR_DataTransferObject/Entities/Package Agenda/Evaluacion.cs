@@ -15,14 +15,14 @@ namespace EDUAR_Entities
     public class Evaluacion : DTBase
     {
         public int idEvaluacion { get; set; }
-        private Asignatura _asignatura;
-        private DateTime _fecha;
-
-       
+        public Asignatura asignatura;
+        public DateTime fecha { get; set; }
+        public EventoAgenda evento { get; set; }
 
         public Evaluacion()
         {
-            _asignatura = new Asignatura();
+            asignatura = new Asignatura();
+            evento = new EventoAgenda();
         }
 
         ~Evaluacion()
@@ -33,30 +33,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public Asignatura asignatura
-        {
-            get
-            {
-                return _asignatura;
-            }
-            set
-            {
-                _asignatura = value;
-            }
-        }
-
-        public DateTime fecha
-        {
-            get
-            {
-                return _fecha;
-            }
-            set
-            {
-                _fecha = value;
-            }
         }
 
     }//end Evaluacion
