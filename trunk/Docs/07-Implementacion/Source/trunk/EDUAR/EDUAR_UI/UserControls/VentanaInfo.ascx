@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="VentanaInfo.ascx.cs"
     Inherits="EDUAR_UI.UserControls.VentanaInfo" %>
 <div id="divPadre" runat="server">
-    <%--<iframe runat="server" id="divSysExceptionFrame" visible="true" class="FondoNegroVentana"
+    <iframe runat="server" id="divSysExceptionFrame" visible="true" class="FondoNegroVentana"
         frameborder="0" scrolling="no" width="100%" height="100%" />
-    <div id="div2" runat="server" class="FondoNegroVentana" />--%>
+    <div id="div2" runat="server" class="FondoNegroVentana" />
     <table class="TablaExternaVentana" border="0" cellpadding="0" cellspacing="0" width="100%"
         visible="true">
         <tr>

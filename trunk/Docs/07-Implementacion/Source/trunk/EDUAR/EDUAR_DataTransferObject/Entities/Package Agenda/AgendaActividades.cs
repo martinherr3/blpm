@@ -22,6 +22,7 @@ namespace EDUAR_Entities
         /// </summary>
         public AgendaActividades()
         {
+			idAgendaActividad = 0;
 			cursoCicloLectivo = new CursoCicloLectivo();
         }
 
