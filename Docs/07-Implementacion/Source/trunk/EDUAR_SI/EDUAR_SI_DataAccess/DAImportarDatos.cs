@@ -875,11 +875,10 @@ namespace EDUAR_SI_DataAccess
                         command.Parameters.Clear();
                     }
 
-                    command.CommandText = "Curso_Update_CicloLectivo";
-                    command.CommandTimeout = 10;
-                    command.ExecuteNonQuery();
-
-                    transaccion.Commit();
+					command.CommandText = "Curso_Update_CicloLectivo";
+					command.CommandTimeout = 10;
+					command.ExecuteNonQuery();
+					transaccion.Commit();
                 }
             }
             catch (SqlException ex)

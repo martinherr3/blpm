@@ -1264,19 +1264,24 @@ namespace EDUAR_SI_DataAccess
                     listaCalificacion = new List<Calificacion>();
                     while (reader.Read())
                     {
-                        calificacion = new Calificacion();
-                        calificacion.idCalificacion = 0;
-                        calificacion.idCalificacionTransaccional = (int)reader["idCalificacionTransaccional"];
-                        calificacion.idCalificacion = 0;
-                        calificacion.observacion = reader["observacion"].ToString();
-                        calificacion.fecha = Convert.ToDateTime(reader["fecha"]);
-                        calificacion.escala.idValorEscalaCalificacionTransaccional = (int)reader["fk_escalanota_id"] ;
-                        calificacion.asignatura.idAsignaturaTransaccional = (int)reader["fk_actividad_id"] ;
-                        calificacion.periodo.idPeriodoTransaccional = (int)reader["fk_periodo_id"];
-                        calificacion.alumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
-                        calificacion.instanciaCalificacion.idInstanciaCalificacion = (int)enumInstanciaCalificacion.Evaluacion;
+						DateTime fecha;
+						DateTime.TryParse(reader["fecha"].ToString(), out fecha);
+						if (fecha.Year > 1900)
+						{
+							calificacion = new Calificacion();
+							calificacion.idCalificacion = 0;
+							calificacion.idCalificacionTransaccional = (int)reader["idCalificacionTransaccional"];
+							calificacion.idCalificacion = 0;
+							calificacion.observacion = reader["observacion"].ToString();
+							calificacion.fecha = fecha;
+							calificacion.escala.idValorEscalaCalificacionTransaccional = (int)reader["fk_escalanota_id"];
+							calificacion.asignatura.idAsignaturaTransaccional = (int)reader["fk_actividad_id"];
+							calificacion.periodo.idPeriodoTransaccional = (int)reader["fk_periodo_id"];
+							calificacion.alumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
+							calificacion.instanciaCalificacion.idInstanciaCalificacion = (int)enumInstanciaCalificacion.Evaluacion;
 
-                        listaCalificacion.Add(calificacion);
+							listaCalificacion.Add(calificacion);
+						}
                     }
                     command.Connection.Close();
                     return listaCalificacion;
@@ -1334,19 +1339,24 @@ namespace EDUAR_SI_DataAccess
                     listaCalificacion = new List<Calificacion>();
                     while (reader.Read())
                     {
-                        calificacion = new Calificacion();
-                        calificacion.idCalificacion = 0;
-                        calificacion.idCalificacionTransaccional = (int)reader["idCalificacionTransaccional"];
-                        calificacion.idCalificacion = 0;
-                        calificacion.observacion = reader["observacion"].ToString();
-                        calificacion.fecha = Convert.ToDateTime(reader["fecha"]);
-                        calificacion.escala.idValorEscalaCalificacionTransaccional = (int)reader["fk_escalanota_id"];
-                        calificacion.asignatura.idAsignaturaTransaccional = (int)reader["fk_actividad_id"];
-                        calificacion.periodo.idPeriodoTransaccional = (int)reader["fk_periodo_id"];
-                        calificacion.alumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
-                        calificacion.instanciaCalificacion.idInstanciaCalificacion = (int)enumInstanciaCalificacion.Examen;
+						DateTime fecha;
+						DateTime.TryParse(reader["fecha"].ToString(), out fecha);
+						if (fecha.Year > 1900)
+						{
+							calificacion = new Calificacion();
+							calificacion.idCalificacion = 0;
+							calificacion.idCalificacionTransaccional = (int)reader["idCalificacionTransaccional"];
+							calificacion.idCalificacion = 0;
+							calificacion.observacion = reader["observacion"].ToString();
+							calificacion.fecha = fecha;
+							calificacion.escala.idValorEscalaCalificacionTransaccional = (int)reader["fk_escalanota_id"];
+							calificacion.asignatura.idAsignaturaTransaccional = (int)reader["fk_actividad_id"];
+							calificacion.periodo.idPeriodoTransaccional = (int)reader["fk_periodo_id"];
+							calificacion.alumno.idAlumnoTransaccional = (int)reader["fk_alumno_id"];
+							calificacion.instanciaCalificacion.idInstanciaCalificacion = (int)enumInstanciaCalificacion.Examen;
 
-                        listaCalificacion.Add(calificacion);
+							listaCalificacion.Add(calificacion);
+						}
                     }
                     command.Connection.Close();
                     return listaCalificacion;

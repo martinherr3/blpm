@@ -32,7 +32,7 @@ namespace EDUAR_SI_Prueba
         {
             ddlCadenaConexion.Items.Add(@"Data Source=SOFIA;Initial Catalog=EDUAR;Persist Security Info=True;User ID=sa;Password=tesis");
             ddlCadenaConexion.Items.Add(@"Data Source=alulau.redirectme.net,1433;Initial Catalog=EDUAR;Persist Security Info=True;User ID=sa;Password=tesis");
-            ddlCadenaConexion.SelectedIndex = 0;
+            ddlCadenaConexion.SelectedIndex = 1;
         }
     }
 }
