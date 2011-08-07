@@ -178,7 +178,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//BuscarFiltrando();
+				BuscarFiltrando();
 			}
 			catch (Exception ex)
 			{
@@ -317,6 +317,12 @@ namespace EDUAR_UI
 
 					listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(Convert.ToInt32(ddlCicloLectivo.SelectedValue));
 					UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
+					ddlCurso.Enabled = true;
+				}
+				else
+				{
+					ddlCurso.SelectedIndex = 0;
+					ddlCurso.Enabled = false;
 				}
 			}
 			catch (Exception ex)
@@ -370,8 +376,11 @@ namespace EDUAR_UI
 			//BLTipoAgendaActividades objBLTipoentidad = new BLTipoAgendaActividades();
 			//listaTipoentidad = objBLTipoentidad.GetTipoAgendaActividades(null);
 
+			List<Curso> listaCurso = new List<Curso>();
 			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
-			//UIUtilidades.BindCombo<TipoAgendaActividades>(ddlTipoentidadEdit, listaTipoentidad, "idTipoAgendaActividades", "descripcion", false);
+			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
+		
+			ddlCurso.Enabled = false;
 		}
 
 		/// <summary>
@@ -396,18 +405,13 @@ namespace EDUAR_UI
 		/// </summary>
 		private void BuscarFiltrando()
 		{
-			//calfecha.ValidarRangoDesde();
+			calfecha.ValidarRangoDesde();
 			AgendaActividades entidad = new AgendaActividades();
-			//entidad.lugar = txtLugar.Text.Trim();
-			//entidad.titulo = txtTitulo.Text.Trim();
-			//entidad.fecha = Convert.ToDateTime(calfecha.ValorFecha);
-			//entidad.activo = chkActivo.Checked;
-			//entidad.tipoAgendaActividades.idTipoAgendaActividades = Convert.ToInt32(ddlTipoentidad.SelectedValue);
+			entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+			entidad.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+			entidad.fechaCreacion = Convert.ToDateTime(calfecha.ValorFecha);
+			entidad.activo = chkActivo.Checked;
 
-			//if (txtHora.Text.Trim().Length > 1)
-			//    entidad.hora = Convert.ToDateTime(txtHora.Text);
-			//else
-			//    entidad.hora = null;
 			propFiltroAgenda = entidad;
 			BuscarAgenda(entidad);
 		}
