@@ -6,6 +6,7 @@ using EDUAR_DataAccess.Shared;
 using EDUAR_Entities;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using EDUAR_Utility.Constantes;
 
 namespace EDUAR_DataAccess.Common
 {
@@ -56,8 +57,9 @@ namespace EDUAR_DataAccess.Common
 					objAgendaActividades = new AgendaActividades();
 
 					objAgendaActividades.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividad"]);
+					objAgendaActividades.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(reader["idCicloLectivo"]);
 					objAgendaActividades.cursoCicloLectivo.idCurso = Convert.ToInt32(reader["idCurso"]);
-					objAgendaActividades.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCicloLectivo"]);
+					objAgendaActividades.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					objAgendaActividades.descripcion = reader["descripcion"].ToString();
 					objAgendaActividades.activo = Convert.ToBoolean(reader["activo"].ToString());
 					objAgendaActividades.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"].ToString());
@@ -103,18 +105,19 @@ namespace EDUAR_DataAccess.Common
 		{
 			try
 			{
-				//Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AgendaActividadess_Insert");
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AgendaActividades_Insert");
 
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, 0);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.curso.idCurso);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaCreacion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, 0);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.cursoCicloLectivo.idCurso);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.idCicloLectivo);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaCreacion);
 
-				//if (Transaction.Transaction != null)
-				//    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
-				//else
-				//    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
 
 				identificador = Int32.Parse(Transaction.DBcomand.Parameters["@idAgendaActividad"].Value.ToString());
 
@@ -131,9 +134,42 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
+		/// <summary>
+		/// Updates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
 		public override void Update(AgendaActividades entidad)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AgendaActividades_Update");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.idCursoCicloLectivo);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaCreacion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.String, entidad.activo);
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+			}
+			catch (SqlException ex)
+			{
+				if (ex.Number == BLConstantesGenerales.ConcurrencyErrorNumber)
+					throw new CustomizedException(string.Format(
+						   "No se puede modificar el Evento {0}, debido a que otro usuario lo ha modificado.",
+						   entidad.descripcion), ex, enuExceptionType.ConcurrencyException);
+
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+													  ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+													  ex, enuExceptionType.DataAccesException);
+			}
 		}
 
 		public override void Delete(AgendaActividades entidad)

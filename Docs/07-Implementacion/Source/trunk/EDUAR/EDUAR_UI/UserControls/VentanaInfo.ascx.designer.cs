@@ -22,6 +22,24 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPadre;
         
         /// <summary>
+        /// Control divSysExceptionFrame.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSysExceptionFrame;
+        
+        /// <summary>
+        /// Control div2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div2;
+        
+        /// <summary>
         /// Control TDEncabezado.
         /// </summary>
         /// <remarks>
