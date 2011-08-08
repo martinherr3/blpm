@@ -19,6 +19,12 @@
                             ImageUrl="~/Images/botonBuscar.png" />
                         <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
                             ImageUrl="~/Images/botonNuevo.png" />
+                        <asp:Image ID="btnEvaluacion" ImageUrl="~/Images/botonEvaluacion.png" runat="server"
+                            Visible="false" ToolTip="Evaluaciones" />
+                        <asp:Image ID="btnExcursion" ImageUrl="~/Images/botonExcursion.png" runat="server"
+                            Visible="false" ToolTip="Excursiones" />
+                        <asp:Image ID="btnReunion" ImageUrl="~/Images/botonReunion.png" runat="server" Visible="false"
+                            ToolTip="Reuniones" />
                         <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                             ImageUrl="~/Images/botonGuardar.png" CausesValidation="true" ValidationGroup="validarEdit" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
@@ -145,19 +151,19 @@
                                 <asp:Label ID="lblCicloLectivoEdit" runat="server" Text="Ciclo Lectivo:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlCicloLectivoEdit" runat="server" AutoPostBack="true" 
-                                OnSelectedIndexChanged="ddlCicloLectivoEdit_SelectedIndexChanged">
+                                <asp:DropDownList ID="ddlCicloLectivoEdit" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivoEdit_SelectedIndexChanged"
+                                    Enabled="false">
                                 </asp:DropDownList>
                             </td>
                             <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="lblCursoEdit" runat="server" Text="Curso:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlCursoEdit" runat="server">
+                                <asp:DropDownList ID="ddlCursoEdit" runat="server" Enabled="false">
                                 </asp:DropDownList>
                             </td>
                         </tr>
-                        <tr>
+                        <%--<tr>
                             <td valign="top" style="width: 17%; text-align: left">
                                 <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
                             </td>
@@ -169,9 +175,9 @@
                             </td>
                             <td valign="top" class="TDCriterios25">
                             </td>
-                        </tr>
-                    </table>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                        </tr>--%>
+                        <%-- </table>
+                    <table class="tablaInterna" cellpadding="1" cellspacing="5">--%>
                         <tr>
                             <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
@@ -179,8 +185,10 @@
                             <td valign="top" class="TDCriterios25">
                                 <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
                             </td>
-                             <td valign="top" class="TDCriterios25"></td>
-                             <td valign="top" class="TDCriterios25"></td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
                         </tr>
                         <tr>
                             <td valign="top" class="TD25">
