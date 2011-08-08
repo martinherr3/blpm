@@ -79,12 +79,17 @@
     <Content Include="favicon.ico" />
     <Content Include="Images\404.png" />
     <Content Include="Images\botonEnviarMail.png" />
+    <Content Include="Images\botonEvaluacion.png" />
+    <Content Include="Images\botonExcursion.png" />
     <Content Include="Images\botonImprimir.png" />
     <Content Include="Images\botonNuevo.png" />
+    <Content Include="Images\botonReunion.png" />
     <Content Include="Images\botonSiguiente.png" />
     <Content Include="Images\botonVolver.png" />
     <Content Include="Images\calendario.png" />
     <Content Include="Images\ExportarPDF.png" />
+    <Content Include="Images\Grillas\action_delete.png" />
+    <Content Include="Images\Grillas\action_new.png" />
     <Content Include="Images\ventanaConfirmacion.png" />
     <Content Include="Private\Account\ChangeQuestion.aspx" />
     <Content Include="Private\Account\ChangeRolAccess.aspx" />

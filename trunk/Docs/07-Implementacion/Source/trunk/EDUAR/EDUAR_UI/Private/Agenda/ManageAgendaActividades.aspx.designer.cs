@@ -40,6 +40,33 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnNuevo;
         
         /// <summary>
+        /// Control btnEvaluacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image btnEvaluacion;
+        
+        /// <summary>
+        /// Control btnExcursion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image btnExcursion;
+        
+        /// <summary>
+        /// Control btnReunion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image btnReunion;
+        
+        /// <summary>
         /// Control btnGuardar.
         /// </summary>
         /// <remarks>
@@ -236,24 +263,6 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCursoEdit;
-        
-        /// <summary>
-        /// Control Label3.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-        
-        /// <summary>
-        /// Control calFechaEdit.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::EDUAR_UI.UserControls.Calendario calFechaEdit;
         
         /// <summary>
         /// Control lblActivoBusqueda.

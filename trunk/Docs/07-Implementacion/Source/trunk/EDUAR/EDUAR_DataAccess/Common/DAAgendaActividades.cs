@@ -101,6 +101,11 @@ namespace EDUAR_DataAccess.Common
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Creates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <param name="identificador">The identificador.</param>
 		public override void Create(AgendaActividades entidad, out int identificador)
 		{
 			try

@@ -283,6 +283,7 @@ namespace EDUAR_UI
 						CargarValoresEnPantalla(propAgenda.idAgendaActividad);
 						litEditar.Visible = true;
 						litNuevo.Visible = false;
+						HabilitarBotonesDetalle(true);
 						btnBuscar.Visible = false;
 						btnNuevo.Visible = false;
 						btnVolver.Visible = true;
@@ -364,6 +365,13 @@ namespace EDUAR_UI
 			udpGrilla.Update();
 		}
 
+		private void HabilitarBotonesDetalle(bool habilitar)
+		{
+			btnExcursion.Visible = habilitar;
+			btnEvaluacion.Visible = habilitar;
+			btnReunion.Visible = habilitar;
+		}
+
 		/// <summary>
 		/// Cargars the combos.
 		/// </summary>
@@ -413,6 +421,7 @@ namespace EDUAR_UI
 			if (ddlCicloLectivoEdit.Items.Count > 0) ddlCicloLectivoEdit.SelectedIndex = 0;
 			if (ddlCurso.Items.Count > 0) ddlCurso.SelectedIndex = 0;
 			if (ddlCursoEdit.Items.Count > 0) ddlCursoEdit.SelectedIndex = 0;
+			HabilitarBotonesDetalle(false);
 			chkActivo.Checked = false;
 			chkActivoEdit.Checked = false;
 			txtDescripcionEdit.Text = string.Empty;
@@ -453,14 +462,14 @@ namespace EDUAR_UI
 		private AgendaActividades ObtenerValoresDePantalla()
 		{
 			AgendaActividades entidad = new AgendaActividades();
-
+			entidad = propAgenda;
 			if (!esNuevo)
 			{
 				entidad.idAgendaActividad = propAgenda.idAgendaActividad;
 				entidad.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
 			}
 			entidad.descripcion = txtDescripcionEdit.Text;
-			entidad.fechaCreacion = (DateTime)calFechaEdit.ValorFecha;
+			//entidad.fechaCreacion = (DateTime)calFechaEdit.ValorFecha;
 			entidad.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue);
 			entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCursoEdit.SelectedValue);
 			entidad.activo = chkActivoEdit.Checked;
@@ -483,12 +492,15 @@ namespace EDUAR_UI
 		private void CargarValoresEnPantalla(int idAgendaActividad)
 		{
 			AgendaActividades entidad = listaAgenda.Find(c => c.idAgendaActividad == idAgendaActividad);
-			propAgenda.cursoCicloLectivo.idCursoCicloLectivo = entidad.cursoCicloLectivo.idCursoCicloLectivo;
+			propAgenda = entidad;
+			//propAgenda.cursoCicloLectivo.idCursoCicloLectivo = entidad.cursoCicloLectivo.idCursoCicloLectivo;
 			txtDescripcionEdit.Text = entidad.descripcion;
-			calFechaEdit.Fecha.Text = entidad.fechaCreacion.ToString();
+			//calFechaEdit.Fecha.Text = entidad.fechaCreacion.ToString();
 			ddlCicloLectivoEdit.SelectedValue = entidad.cursoCicloLectivo.idCicloLectivo.ToString();
 			CargarComboCursos(entidad.cursoCicloLectivo.idCicloLectivo, ddlCursoEdit);
 			ddlCursoEdit.SelectedValue = entidad.cursoCicloLectivo.idCurso.ToString();
+			ddlCicloLectivoEdit.Enabled = false;
+			ddlCursoEdit.Enabled = false;
 			chkActivoEdit.Checked = entidad.activo;
 		}
 
@@ -501,8 +513,8 @@ namespace EDUAR_UI
 			string mensaje = string.Empty;
 			if (txtDescripcionEdit.Text.Trim().Length == 0)
 				mensaje = "- Descripcion<br />";
-			if (calFechaEdit.Fecha.Text.Trim().Length == 0)
-				mensaje += "- Fecha<br />";
+			//if (calFechaEdit.Fecha.Text.Trim().Length == 0)
+			//    mensaje += "- Fecha<br />";
 			if (!(Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue) > 0))
 				mensaje += "- Ciclo Lectivo";
 			if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
