@@ -29,7 +29,7 @@ namespace EDUAR_UI
 			get
 			{
 				if (ViewState["propAgenda"] == null)
-					return new AgendaActividades();
+					ViewState["propAgenda"] = new AgendaActividades();
 
 				return (AgendaActividades)ViewState["propAgenda"];
 			}
@@ -126,7 +126,14 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
-					BuscarAgenda(null);
+					if (idAgenda > 0)
+					{
+						propAgenda.idAgendaActividad = idAgenda;
+						CargarLista(propAgenda);
+						CargaAgenda();
+					}
+					else
+						BuscarAgenda(null);
 				}
 				this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
 			}
@@ -196,6 +203,8 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				idAgenda = propAgenda.idAgendaActividad;
+				Response.Redirect("ManageEvaluaciones.aspx", false);
 			}
 			catch (Exception ex)
 			{
@@ -343,23 +352,8 @@ namespace EDUAR_UI
 				switch (e.CommandName)
 				{
 					case "Editar":
-						propAgenda = new AgendaActividades();
-						propAgenda.idAgendaActividad = Convert.ToInt32(e.CommandArgument.ToString());
-						AccionPagina = enumAcciones.Modificar;
-						esNuevo = false;
-						CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
-						CargarValoresEnPantalla(propAgenda.idAgendaActividad);
-						litEditar.Visible = true;
-						litNuevo.Visible = false;
-						HabilitarBotonesDetalle(true);
-						btnBuscar.Visible = false;
-						//btnNuevo.Visible = false;
-						btnVolver.Visible = true;
-						btnGuardar.Visible = true;
-						gvwReporte.Visible = false;
-						udpFiltrosBusqueda.Visible = false;
-						udpEdit.Visible = true;
-						udpEdit.Update();
+						idAgenda = Convert.ToInt32(e.CommandArgument.ToString());
+						CargaAgenda();
 						break;
 				}
 			}
@@ -516,10 +510,19 @@ namespace EDUAR_UI
 		/// <param name="entidad">The entidad.</param>
 		private void BuscarAgenda(AgendaActividades entidad)
 		{
-			objBLAgenda = new BLAgendaActividades(entidad);
-			listaAgenda = objBLAgenda.GetAgendaActividadess(entidad);
+			CargarLista(entidad);
 
 			CargarGrilla();
+		}
+
+		/// <summary>
+		/// Cargars the lista.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		private void CargarLista(AgendaActividades entidad)
+		{
+			objBLAgenda = new BLAgendaActividades(entidad);
+			listaAgenda = objBLAgenda.GetAgendaActividadess(entidad);
 		}
 
 		/// <summary>
@@ -587,6 +590,30 @@ namespace EDUAR_UI
 			if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
 				mensaje += "- Curso";
 			return mensaje;
+		}
+
+		/// <summary>
+		/// Cargas the agenda.
+		/// </summary>
+		private void CargaAgenda()
+		{
+			//propAgenda = new AgendaActividades();
+			propAgenda.idAgendaActividad = idAgenda;
+			AccionPagina = enumAcciones.Modificar;
+			esNuevo = false;
+			CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
+			CargarValoresEnPantalla(propAgenda.idAgendaActividad);
+			litEditar.Visible = true;
+			litNuevo.Visible = false;
+			HabilitarBotonesDetalle(true);
+			btnBuscar.Visible = false;
+			//btnNuevo.Visible = false;
+			btnVolver.Visible = true;
+			btnGuardar.Visible = true;
+			gvwReporte.Visible = false;
+			udpFiltrosBusqueda.Visible = false;
+			udpEdit.Visible = true;
+			udpEdit.Update();
 		}
 		#endregion
 
