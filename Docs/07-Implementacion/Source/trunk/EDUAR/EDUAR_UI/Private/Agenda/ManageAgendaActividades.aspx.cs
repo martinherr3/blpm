@@ -71,9 +71,28 @@ namespace EDUAR_UI
 			}
 			set { ViewState["listaAgenda"] = value; }
 		}
+
+		/// <summary>
+		/// Contiene el ID de la agenda que se está editando.
+		/// Se utiliza para el manejo de eventos de agenda (evaluación, excursión, reunión).
+		/// </summary>
+		/// <value>
+		/// The id agenda.
+		/// </value>
+		public int idAgenda
+		{
+			get
+			{
+				if (Session["idAgenda"] == null)
+					return 0;
+
+				return (int)Session["idAgenda"];
+			}
+			set { Session["idAgenda"] = value; }
+		}
 		#endregion
 
-		#region --[entidads]--
+		#region --[Eventos]--
 		/// <summary>
 		/// Método que se ejecuta al dibujar los controles de la página.
 		/// Se utiliza para gestionar las excepciones del método Page_Load().
@@ -169,6 +188,54 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
+		/// Handles the Click event of the btnEvaluacion control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnEvaluacion_Click(object sender, EventArgs e)
+		{
+			try
+			{
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnExcursion control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnExcursion_Click(object sender, EventArgs e)
+		{
+			try
+			{
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnReunion control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnReunion_Click(object sender, EventArgs e)
+		{
+			try
+			{
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
 		/// Handles the Click event of the btnBuscar control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -186,6 +253,7 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
+		/// DESACTIVADO!!!!!!
 		/// Handles the Click event of the btnNuevo control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -201,7 +269,7 @@ namespace EDUAR_UI
 				btnGuardar.Visible = true;
 				btnBuscar.Visible = false;
 				btnVolver.Visible = true;
-				btnNuevo.Visible = false;
+				//btnNuevo.Visible = false;
 				gvwReporte.Visible = false;
 				litEditar.Visible = false;
 				litNuevo.Visible = true;
@@ -285,7 +353,7 @@ namespace EDUAR_UI
 						litNuevo.Visible = false;
 						HabilitarBotonesDetalle(true);
 						btnBuscar.Visible = false;
-						btnNuevo.Visible = false;
+						//btnNuevo.Visible = false;
 						btnVolver.Visible = true;
 						btnGuardar.Visible = true;
 						gvwReporte.Visible = false;
@@ -358,7 +426,7 @@ namespace EDUAR_UI
 			btnVolver.Visible = false;
 			btnGuardar.Visible = false;
 			udpFiltrosBusqueda.Visible = true;
-			btnNuevo.Visible = true;
+			//btnNuevo.Visible = true;
 			btnBuscar.Visible = true;
 			gvwReporte.Visible = true;
 			udpFiltros.Update();
@@ -422,7 +490,7 @@ namespace EDUAR_UI
 			if (ddlCurso.Items.Count > 0) ddlCurso.SelectedIndex = 0;
 			if (ddlCursoEdit.Items.Count > 0) ddlCursoEdit.SelectedIndex = 0;
 			HabilitarBotonesDetalle(false);
-			chkActivo.Checked = false;
+			chkActivo.Checked = true;
 			chkActivoEdit.Checked = false;
 			txtDescripcionEdit.Text = string.Empty;
 		}
@@ -438,7 +506,6 @@ namespace EDUAR_UI
 			entidad.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
 			entidad.fechaCreacion = Convert.ToDateTime(calfecha.ValorFecha);
 			entidad.activo = chkActivo.Checked;
-
 			propFiltroAgenda = entidad;
 			BuscarAgenda(entidad);
 		}
@@ -469,7 +536,7 @@ namespace EDUAR_UI
 				entidad.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
 			}
 			entidad.descripcion = txtDescripcionEdit.Text;
-			//entidad.fechaCreacion = (DateTime)calFechaEdit.ValorFecha;
+			entidad.fechaCreacion = Convert.ToDateTime(txtFechaEdit.Text);
 			entidad.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue);
 			entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCursoEdit.SelectedValue);
 			entidad.activo = chkActivoEdit.Checked;
@@ -495,7 +562,7 @@ namespace EDUAR_UI
 			propAgenda = entidad;
 			//propAgenda.cursoCicloLectivo.idCursoCicloLectivo = entidad.cursoCicloLectivo.idCursoCicloLectivo;
 			txtDescripcionEdit.Text = entidad.descripcion;
-			//calFechaEdit.Fecha.Text = entidad.fechaCreacion.ToString();
+			txtFechaEdit.Text = DateTime.Now.ToShortDateString();
 			ddlCicloLectivoEdit.SelectedValue = entidad.cursoCicloLectivo.idCicloLectivo.ToString();
 			CargarComboCursos(entidad.cursoCicloLectivo.idCicloLectivo, ddlCursoEdit);
 			ddlCursoEdit.SelectedValue = entidad.cursoCicloLectivo.idCurso.ToString();

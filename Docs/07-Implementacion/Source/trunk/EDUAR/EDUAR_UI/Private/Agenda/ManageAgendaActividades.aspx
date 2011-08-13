@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Administrar Agenda Actividades" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="ManageAgendaActividades.aspx.cs" Inherits="EDUAR_UI.ManageAgendaActividades" %>
+    AutoEventWireup="true" CodeBehind="ManageAgendaActividades.aspx.cs" Inherits="EDUAR_UI.ManageAgendaActividades" Theme="Tema" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
@@ -17,14 +17,14 @@
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
-                        <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
-                            ImageUrl="~/Images/botonNuevo.png" />
-                        <asp:Image ID="btnEvaluacion" ImageUrl="~/Images/botonEvaluacion.png" runat="server"
-                            Visible="false" ToolTip="Evaluaciones" />
-                        <asp:Image ID="btnExcursion" ImageUrl="~/Images/botonExcursion.png" runat="server"
-                            Visible="false" ToolTip="Excursiones" />
-                        <asp:Image ID="btnReunion" ImageUrl="~/Images/botonReunion.png" runat="server" Visible="false"
-                            ToolTip="Reuniones" />
+                        <%--<asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
+                            ImageUrl="~/Images/botonNuevo.png" />--%>
+                        <asp:ImageButton ID="btnEvaluacion" OnClick="btnEvaluacion_Click" runat="server"
+                            Visible="false" ToolTip="Evaluaciones" ImageUrl="~/Images/botonEvaluacion.png" />
+                        <asp:ImageButton ID="btnExcursion" OnClick="btnExcursion_Click" runat="server" Visible="false"
+                            ToolTip="Excursiones" ImageUrl="~/Images/botonExcursion.png" />
+                        <asp:ImageButton ID="btnReunion" OnClick="btnReunion_Click" runat="server" Visible="false"
+                            ToolTip="Reuniones" ImageUrl="~/Images/botonReunion.png" />
                         <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                             ImageUrl="~/Images/botonGuardar.png" CausesValidation="true" ValidationGroup="validarEdit" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
@@ -72,10 +72,10 @@
                                 <cal:Calendario ID="calfecha" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="Label12" runat="server" Text="Solo Activos:"></asp:Label>
+                                <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:CheckBox ID="chkActivo" runat="server" Checked="false" />
+                                <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
                             </td>
                         </tr>
                     </table>
@@ -88,7 +88,7 @@
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
-            <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
+            <%--<asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />--%>
         </Triggers>
     </asp:UpdatePanel>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
@@ -105,18 +105,25 @@
                                 ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Fecha">
+                    <%--<asp:TemplateField HeaderText="Fecha Creación">
                         <HeaderStyle HorizontalAlign="Center" Width="20%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("fechaCreacion","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Descripción">
+                    </asp:TemplateField>--%>
+                     <asp:TemplateField HeaderText="Ciclo Lectivo">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblDescripGrilla" runat="server" Text='<%# Bind("descripcion") %>'></asp:Label>
+                            <asp:Label ID="lblCicloLectivoGrilla" runat="server" Text='<%# Bind("cursoCicloLectivo.cicloLectivo.nombre") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Curso">
+                        <HeaderStyle HorizontalAlign="left" Width="20%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblCursoGrilla" runat="server" Text='<%# Bind("cursoCicloLectivo.curso.nombre") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Activo">
@@ -163,21 +170,18 @@
                                 </asp:DropDownList>
                             </td>
                         </tr>
-                        <%--<tr>
+                        <tr>
                             <td valign="top" style="width: 17%; text-align: left">
                                 <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
-                                <cal:Calendario ID="calFechaEdit" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda"
-                                    MensajeErrorValidacion="Fecha Inválida" />
+                                <asp:TextBox ID="txtFechaEdit" runat="server" Enabled="false" />
                             </td>
                             <td valign="top" class="TDCriterios10">
                             </td>
                             <td valign="top" class="TDCriterios25">
                             </td>
-                        </tr>--%>
-                        <%-- </table>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">--%>
+                        </tr>
                         <tr>
                             <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
@@ -208,7 +212,7 @@
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
-            <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
+            <%--<asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />--%>
             <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
         </Triggers>

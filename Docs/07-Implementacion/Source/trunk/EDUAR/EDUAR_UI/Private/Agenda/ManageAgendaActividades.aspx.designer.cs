@@ -31,22 +31,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnBuscar;
         
         /// <summary>
-        /// Control btnNuevo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnNuevo;
-        
-        /// <summary>
         /// Control btnEvaluacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image btnEvaluacion;
+        protected global::System.Web.UI.WebControls.ImageButton btnEvaluacion;
         
         /// <summary>
         /// Control btnExcursion.
@@ -55,7 +46,7 @@ namespace EDUAR_UI {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image btnExcursion;
+        protected global::System.Web.UI.WebControls.ImageButton btnExcursion;
         
         /// <summary>
         /// Control btnReunion.
@@ -64,7 +55,7 @@ namespace EDUAR_UI {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image btnReunion;
+        protected global::System.Web.UI.WebControls.ImageButton btnReunion;
         
         /// <summary>
         /// Control btnGuardar.
@@ -263,6 +254,24 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCursoEdit;
+        
+        /// <summary>
+        /// Control Label3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+        
+        /// <summary>
+        /// Control txtFechaEdit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFechaEdit;
         
         /// <summary>
         /// Control lblActivoBusqueda.
