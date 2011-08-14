@@ -12,15 +12,14 @@ using System;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Reunion : DTBase
+    public class Reunion : EventoAgenda
     {
         public int idReunion { get; set; }
         public DateTime horario { get; set; }
-        public EventoAgenda evento { get; set; }
 
         public Reunion()
         {
-            evento = new EventoAgenda();
+			//evento = new EventoAgenda<Reunion>();
         }
 
         ~Reunion()

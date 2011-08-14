@@ -7,22 +7,21 @@
 ///////////////////////////////////////////////////////////
 
 using System;
-using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Evaluacion : DTBase
+    public class Evaluacion : EventoAgenda
     {
         public int idEvaluacion { get; set; }
         public Asignatura asignatura;
         public DateTime fecha { get; set; }
-        public EventoAgenda evento { get; set; }
+		//public EventoAgenda<Evaluacion,> evento { get; set; }
 
         public Evaluacion()
         {
             asignatura = new Asignatura();
-            evento = new EventoAgenda();
+			//evento = new EventoAgenda<Evaluacion>();
         }
 
         ~Evaluacion()

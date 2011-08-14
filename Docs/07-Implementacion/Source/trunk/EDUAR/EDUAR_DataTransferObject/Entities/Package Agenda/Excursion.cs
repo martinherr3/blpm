@@ -12,17 +12,17 @@ using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Excursion:DTBase
+	public class Excursion : EventoAgenda
     {
         public int idExcursion { get; set; }
         public string destino { get; set; }
         public DateTime horaDesde { get; set; }
         public DateTime horaHasta { get; set; }
-        public EventoAgenda evento { get; set; }
+		//public EventoAgenda<Excursion> evento { get; set; }
 
         public Excursion()
         {
-            evento = new EventoAgenda();
+			//evento = new EventoAgenda<Excursion>();
         }
 
         ~Excursion()
