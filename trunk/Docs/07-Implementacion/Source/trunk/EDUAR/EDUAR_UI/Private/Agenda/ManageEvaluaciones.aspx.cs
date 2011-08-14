@@ -122,14 +122,14 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
+					//Siempre que se acceda a la página debiera existir una agenda
 					propEvento.idAgendaActividad = propAgenda.idAgendaActividad;
 					if (propEvento.idAgendaActividad > 0)
 					{
-						CargarLista(propEvento);
-						CargaAgenda();
+						BuscarAgenda(propEvento);
 					}
-					else
-						BuscarAgenda(null);
+					//else
+					//    BuscarAgenda(null);
 				}
 				this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
 			}
@@ -295,7 +295,7 @@ namespace EDUAR_UI
 		private void CargarPresentacion()
 		{
 			LimpiarCampos();
-			//CargarCombos(ddlCicloLectivo, ddlCurso);
+			CargarCombos();
 			udpEdit.Visible = false;
 			btnVolver.Visible = true;
 			btnGuardar.Visible = false;
@@ -320,6 +320,18 @@ namespace EDUAR_UI
 			chkActivo.Checked = true;
 			chkActivoEdit.Checked = false;
 			txtDescripcionEdit.Text = string.Empty;
+		}
+
+		/// <summary>
+		/// Cargars the combos.
+		/// </summary>
+		private void CargarCombos()
+		{
+			BLAsignatura objBLAsignatura = new BLAsignatura();
+			Asignatura objAsignatura = new Asignatura();
+			objAsignatura.curso.idCurso = propAgenda.cursoCicloLectivo.idCurso;
+			objAsignatura.curso.cicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
+			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
 		}
 
 		/// <summary>

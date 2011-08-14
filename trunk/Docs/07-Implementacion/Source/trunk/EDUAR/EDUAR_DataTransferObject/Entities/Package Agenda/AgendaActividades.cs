@@ -14,9 +14,10 @@ namespace EDUAR_Entities
         public bool activo { get; set; }
 		public DateTime fechaCreacion { get; set; }
         public CursoCicloLectivo cursoCicloLectivo { get; set; }
-		public List<Evaluacion> listaEvaluaciones { get; set; }
-		public List<Excursion> listaExcursiones { get; set; }
-		public List<Reunion> listaReuniones { get; set; }
+		public List<EventoAgenda> listaEventos { get; set; }
+		//public List<Evaluacion> listaEvaluaciones { get; set; }
+		//public List<Excursion> listaExcursiones { get; set; }
+		//public List<Reunion> listaReuniones { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AgendaActividades"/> class.
@@ -26,9 +27,10 @@ namespace EDUAR_Entities
 			idAgendaActividad = 0;
 			activo = true;
 			cursoCicloLectivo = new CursoCicloLectivo();
-			listaEvaluaciones = new List<Evaluacion>();
-			listaExcursiones = new List<Excursion>();
-			listaReuniones = new List<Reunion>();
+			listaEventos = new List<EventoAgenda>();
+			//listaEvaluaciones = new List<Evaluacion>();
+			//listaExcursiones = new List<Excursion>();
+			//listaReuniones = new List<Reunion>();
         }
 
         /// <summary>

@@ -89,8 +89,7 @@
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-                AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idAgendaActividad"
-                >
+                AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idAgendaActividad">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
@@ -100,7 +99,7 @@
                                 ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Ciclo Lectivo">
+                    <asp:TemplateField HeaderText="Ciclo Lectivo">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
@@ -131,7 +130,7 @@
                                 <h3>
                                     <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
                                     <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
-                                    Agenda de Actividades</h3>
+                                    Evaluación</h3>
                             </td>
                         </tr>
                         <tr>
@@ -146,7 +145,7 @@
                                 <asp:Label ID="lblCicloLectivoEdit" runat="server" Text="Ciclo Lectivo:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlCicloLectivoEdit" runat="server"                                Enabled="false">
+                                <asp:DropDownList ID="ddlCicloLectivoEdit" runat="server" Enabled="false">
                                 </asp:DropDownList>
                             </td>
                             <td valign="top" class="TDCriterios25">
