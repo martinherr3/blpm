@@ -29,7 +29,7 @@ namespace EDUAR_DataAccess.Common
 		#endregion
 
 		#region --[Métodos Públicos]--
-		public List<AgendaActividades> GetAgendaActividadess(AgendaActividades entidad)
+		public List<AgendaActividades> GetAgendaActividades(AgendaActividades entidad)
 		{
 			try
 			{
@@ -50,7 +50,7 @@ namespace EDUAR_DataAccess.Common
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-				List<AgendaActividades> listaAgendaActividadess = new List<AgendaActividades>();
+				List<AgendaActividades> listaAgendaActividades = new List<AgendaActividades>();
 				AgendaActividades objAgendaActividades;
 				while (reader.Read())
 				{
@@ -65,9 +65,9 @@ namespace EDUAR_DataAccess.Common
 					objAgendaActividades.descripcion = reader["descripcion"].ToString();
 					objAgendaActividades.activo = Convert.ToBoolean(reader["activo"].ToString());
 					objAgendaActividades.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"].ToString());
-					listaAgendaActividadess.Add(objAgendaActividades);
+					listaAgendaActividades.Add(objAgendaActividades);
 				}
-				return listaAgendaActividadess;
+				return listaAgendaActividades;
 			}
 			catch (SqlException ex)
 			{
@@ -80,6 +80,63 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+		/// <summary>
+		/// Gets the eventos agenda.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<EventoAgenda> GetEventosAgenda(AgendaActividades entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoAgenda_Select");
+				if (entidad != null)
+				{
+					if (entidad.idAgendaActividad > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
+					//if (entidad.cursoCicloLectivo.idCurso > 0)
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.cursoCicloLectivo.idCurso);
+					//if (entidad.cursoCicloLectivo.idCicloLectivo > 0)
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.idCicloLectivo);
+					//if (!string.IsNullOrEmpty(entidad.descripcion))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
+					//if (ValidarFechaSQL(entidad.fechaCreacion))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaCreacion);
+					//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<EventoAgenda> listaEventos = new List<EventoAgenda>();
+				EventoAgenda objEvento;
+				while (reader.Read())
+				{
+					objEvento = new EventoAgenda();
+					
+					objEvento.descripcion = reader["descripcion"].ToString();
+					objEvento.activo = Convert.ToBoolean(reader["activo"].ToString());
+					objEvento.fechaAlta = Convert.ToDateTime(reader["fechaAlta"].ToString());
+					objEvento.fechaModificacion = Convert.ToDateTime(reader["fechaModificacion"].ToString());
+					objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
+					objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
+					objEvento.tipoEventoAgenda.idTipoEventoAgenda = Convert.ToInt32(reader["idTipoEvento"]);
+
+					listaEventos.Add(objEvento);
+				}
+				return new List<EventoAgenda>();
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEventosAgenda()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEventosAgenda()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
 		#endregion
 
 		#region --[Implementación métodos heredados]--

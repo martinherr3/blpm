@@ -19,7 +19,8 @@ namespace EDUAR_UI
 
 		#region --[Propiedades]--
 		/// <summary>
-		/// Gets or sets the prop agenda.
+		/// Mantiene la agenda seleccionada en la grilla.
+		/// Se utiliza para el manejo de eventos de agenda (evaluación, excursión, reunión).
 		/// </summary>
 		/// <value>
 		/// The prop agenda.
@@ -28,12 +29,12 @@ namespace EDUAR_UI
 		{
 			get
 			{
-				if (ViewState["propAgenda"] == null)
-					ViewState["propAgenda"] = new AgendaActividades();
+				if (Session["propAgenda"] == null)
+					Session["propAgenda"] = new AgendaActividades();
 
-				return (AgendaActividades)ViewState["propAgenda"];
+				return (AgendaActividades)Session["propAgenda"];
 			}
-			set { ViewState["propAgenda"] = value; }
+			set { Session["propAgenda"] = value; }
 		}
 
 		/// <summary>
@@ -71,25 +72,6 @@ namespace EDUAR_UI
 			}
 			set { ViewState["listaAgenda"] = value; }
 		}
-
-		/// <summary>
-		/// Contiene el ID de la agenda que se está editando.
-		/// Se utiliza para el manejo de eventos de agenda (evaluación, excursión, reunión).
-		/// </summary>
-		/// <value>
-		/// The id agenda.
-		/// </value>
-		public int idAgenda
-		{
-			get
-			{
-				if (Session["idAgenda"] == null)
-					return 0;
-
-				return (int)Session["idAgenda"];
-			}
-			set { Session["idAgenda"] = value; }
-		}
 		#endregion
 
 		#region --[Eventos]--
@@ -126,9 +108,8 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
-					if (idAgenda > 0)
+					if (propAgenda.idAgendaActividad > 0)
 					{
-						propAgenda.idAgendaActividad = idAgenda;
 						CargarLista(propAgenda);
 						CargaAgenda();
 					}
@@ -203,7 +184,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				idAgenda = propAgenda.idAgendaActividad;
+				//idAgenda = propAgenda.idAgendaActividad;
 				Response.Redirect("ManageEvaluaciones.aspx", false);
 			}
 			catch (Exception ex)
@@ -352,7 +333,7 @@ namespace EDUAR_UI
 				switch (e.CommandName)
 				{
 					case "Editar":
-						idAgenda = Convert.ToInt32(e.CommandArgument.ToString());
+						propAgenda.idAgendaActividad = Convert.ToInt32(e.CommandArgument.ToString());
 						CargaAgenda();
 						break;
 				}
@@ -522,7 +503,7 @@ namespace EDUAR_UI
 		private void CargarLista(AgendaActividades entidad)
 		{
 			objBLAgenda = new BLAgendaActividades(entidad);
-			listaAgenda = objBLAgenda.GetAgendaActividadess(entidad);
+			listaAgenda = objBLAgenda.GetAgendaActividades(entidad);
 		}
 
 		/// <summary>
@@ -598,7 +579,7 @@ namespace EDUAR_UI
 		private void CargaAgenda()
 		{
 			//propAgenda = new AgendaActividades();
-			propAgenda.idAgendaActividad = idAgenda;
+			//propAgenda.idAgendaActividad = idAgenda;
 			AccionPagina = enumAcciones.Modificar;
 			esNuevo = false;
 			CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);

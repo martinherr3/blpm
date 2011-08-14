@@ -162,11 +162,16 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        public List<AgendaActividades> GetAgendaActividadess(AgendaActividades entidad)
+		/// <summary>
+		/// Gets the agenda actividadess.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+        public List<AgendaActividades> GetAgendaActividades(AgendaActividades entidad)
         {
             try
             {
-                return DataAcces.GetAgendaActividadess(entidad);
+                return DataAcces.GetAgendaActividades(entidad);
             }
             catch (CustomizedException ex)
             {
@@ -178,6 +183,28 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+		/// <summary>
+		/// Gets the eventos agenda.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<EventoAgenda> GetEventosAgenda(AgendaActividades entidad)
+		{
+			try
+			{
+				return DataAcces.GetEventosAgenda(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEventosAgenda", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
     }
 }

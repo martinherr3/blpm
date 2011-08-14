@@ -5,6 +5,7 @@ using System.Text;
 
 namespace EDUAR_Entities
 {
+	[Serializable]
     public class TipoEventoAgenda
     {
         public int idTipoEventoAgenda { get; set; }
