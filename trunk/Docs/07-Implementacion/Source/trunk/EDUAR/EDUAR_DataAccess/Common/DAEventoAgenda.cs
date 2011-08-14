@@ -56,7 +56,7 @@ namespace EDUAR_DataAccess.Common
                 while (reader.Read())
                 {
                     objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
-                    objEvento.agendaActividades.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividades"]);
+                    objEvento.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividades"]);
                     objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
                     objEvento.fechaModificacion = Convert.ToDateTime(reader["fechaModificacion"].ToString());
                     objEvento.descripcion = reader["descripcion"].ToString();
@@ -85,7 +85,7 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoAgenda_Insert");
 
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, 0);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividades", DbType.Int32, entidad.agendaActividades.idAgendaActividad);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividades", DbType.Int32, entidad.idAgendaActividad);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoEvento", DbType.Int32, entidad.tipoEventoAgenda.idTipoEventoAgenda);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.Int32, entidad.usuario.username);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaModificacion", DbType.Date, entidad.fechaModificacion);
@@ -117,7 +117,7 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoAgenda_Insert");
 
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, 0);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividades", DbType.Int32, entidad.agendaActividades.idAgendaActividad);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividades", DbType.Int32, entidad.idAgendaActividad);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoEvento", DbType.Int32, entidad.tipoEventoAgenda.idTipoEventoAgenda);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.Int32, entidad.usuario.username);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaModificacion", DbType.Date, entidad.fechaModificacion);
@@ -206,35 +206,35 @@ namespace EDUAR_DataAccess.Common
                         objEvento.usuario.apellido = reader["apellidoOrganizador"].ToString();
                     }
                     
-                    switch (objEvento.tipoEventoAgenda.idTipoEventoAgenda)
-                    {
-                        case (int)enumEventoAgendaType.Evaluacion:
-                            Evaluacion eventoEvaluacion = (Evaluacion) objEvento.evento;
+					//switch (objEvento.tipoEventoAgenda.idTipoEventoAgenda)
+					//{
+					//    case (int)enumEventoAgendaType.Evaluacion:
+					//        Evaluacion eventoEvaluacion = (Evaluacion) objEvento.evento;
 
-                            //eventoEvaluacion.asignatura = null;
-                            //eventoEvaluacion.idEvaluacion = (int)reader["idEvaluacion"];
+					//        //eventoEvaluacion.asignatura = null;
+					//        //eventoEvaluacion.idEvaluacion = (int)reader["idEvaluacion"];
 
-                            break;
-                        case (int)enumEventoAgendaType.Reunion:
-                            Reunion eventoReunion = (Reunion)objEvento.evento;
+					//        break;
+					//    case (int)enumEventoAgendaType.Reunion:
+					//        Reunion eventoReunion = (Reunion)objEvento.evento;
 
-                            eventoReunion.idReunion = Convert.ToInt32(reader["idEvento"]);
-                            eventoReunion.horario = Convert.ToDateTime(reader["hora"].ToString());
+					//        eventoReunion.idReunion = Convert.ToInt32(reader["idEvento"]);
+					//        eventoReunion.horario = Convert.ToDateTime(reader["hora"].ToString());
                             
-                            break;
-                        case (int)enumEventoAgendaType.Excursion:
-                            Excursion eventoExcursion = (Excursion)objEvento.evento;
+					//        break;
+					//    case (int)enumEventoAgendaType.Excursion:
+					//        Excursion eventoExcursion = (Excursion)objEvento.evento;
 
-                            //eventoExcursion.horaDesde = Convert.ToDateTime(reader["horaDesde"].ToString());
-                            //eventoExcursion.horaHasta = Convert.ToDateTime(reader["horaHasta"].ToString());
-                            //eventoExcursion.destino = reader["destino"].ToString();
-                            //eventoExcursion.idExcursion = (int)reader["idExcursion"];
+					//        //eventoExcursion.horaDesde = Convert.ToDateTime(reader["horaDesde"].ToString());
+					//        //eventoExcursion.horaHasta = Convert.ToDateTime(reader["horaHasta"].ToString());
+					//        //eventoExcursion.destino = reader["destino"].ToString();
+					//        //eventoExcursion.idExcursion = (int)reader["idExcursion"];
 
-                            break;
-                        default:
-                            objEvento.evento = null;
-                            break;
-                    }
+					//        break;
+					//    default:
+					//        objEvento.evento = null;
+					//        break;
+					//}
 
                     listEventoAgenda.Add(objEvento);
                 }
