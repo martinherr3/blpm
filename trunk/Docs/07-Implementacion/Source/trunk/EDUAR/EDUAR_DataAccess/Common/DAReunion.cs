@@ -119,7 +119,7 @@ namespace EDUAR_DataAccess.Common
 		{
 			try
 			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoInstitucional_Select");
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reunion_Select");
 				if (entidad != null)
 				{
 					if (entidad.idReunion > 0)
@@ -145,7 +145,13 @@ namespace EDUAR_DataAccess.Common
 						objEvento.horario = Convert.ToDateTime(reader["horario"].ToString());
 					objEvento.idEventoAgenda = Convert.ToInt32(reader["idEvento"]);
 
-					listReuniones.Add(objEvento);
+                    objEvento.activo = Convert.ToBoolean(reader["activo"]);
+                    objEvento.descripcion = reader["descripcion"].ToString();
+                    objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"]);
+
+                    objEvento.usuario = new Persona() { idPersona = Convert.ToInt32(reader["idOrganizador"]), nombre = reader["nombreOrganizador"].ToString(), apellido = reader["apellidoOrganizador"].ToString() };
+					
+                    listReuniones.Add(objEvento);
 				}
 				return listReuniones;
 			}

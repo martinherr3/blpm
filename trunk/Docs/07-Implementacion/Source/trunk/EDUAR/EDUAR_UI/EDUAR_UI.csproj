@@ -100,6 +100,7 @@
     <Content Include="Private\Agenda\ManageAgendaActividades.aspx" />
     <Content Include="Private\Agenda\ManageEvaluaciones.aspx" />
     <Content Include="Private\Agenda\RegisterEventoInstitucional.aspx" />
+    <Content Include="Private\Agenda\ManageReuniones.aspx" />
     <Content Include="Private\Reports\PrintReport.aspx" />
     <Content Include="Private\Reports\reportAccesos.aspx" />
     <Content Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx" />
@@ -214,6 +215,13 @@
     </Compile>
     <Compile Include="Private\Agenda\RegisterEventoInstitucional.aspx.designer.cs">
       <DependentUpon>RegisterEventoInstitucional.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Agenda\ManageReuniones.aspx.cs">
+      <DependentUpon>ManageReuniones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Agenda\ManageReuniones.aspx.designer.cs">
+      <DependentUpon>ManageReuniones.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Reports\PrintReport.aspx.cs">
       <DependentUpon>PrintReport.aspx</DependentUpon>

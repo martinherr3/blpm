@@ -164,22 +164,22 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<Reunion> GetReunions(Reunion entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetReunions(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetReunions", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+        public List<Reunion> GetReuniones(Reunion entidad)
+        {
+            try
+            {
+                return DataAcces.GetReuniones(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetReunions", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }
