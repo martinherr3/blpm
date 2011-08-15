@@ -13,6 +13,15 @@ namespace EDUAR_UI {
     public partial class ManageEvaluaciones {
         
         /// <summary>
+        /// Control lblTitulo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTitulo;
+        
+        /// <summary>
         /// Control udpFiltros.
         /// </summary>
         /// <remarks>
@@ -94,22 +103,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.DropDownList ddlAsignatura;
         
         /// <summary>
-        /// Control lblFecha.
+        /// Control calfechas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFecha;
-        
-        /// <summary>
-        /// Control calfecha.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::EDUAR_UI.UserControls.Calendario calfecha;
+        protected global::EDUAR_UI.UserControls.Calendario calfechas;
         
         /// <summary>
         /// Control Label12.
@@ -184,40 +184,22 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ValidationSummary validarEdit;
         
         /// <summary>
-        /// Control lblCicloLectivoEdit.
+        /// Control lblAsignaturaEdit.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCicloLectivoEdit;
+        protected global::System.Web.UI.WebControls.Label lblAsignaturaEdit;
         
         /// <summary>
-        /// Control ddlCicloLectivoEdit.
+        /// Control ddlAsignaturaEdit.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCicloLectivoEdit;
-        
-        /// <summary>
-        /// Control lblCursoEdit.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCursoEdit;
-        
-        /// <summary>
-        /// Control ddlCursoEdit.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCursoEdit;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAsignaturaEdit;
         
         /// <summary>
         /// Control Label3.
@@ -229,13 +211,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// Control txtFechaEdit.
+        /// Control calFechaEvento.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaEdit;
+        protected global::EDUAR_UI.UserControls.Calendario calFechaEvento;
         
         /// <summary>
         /// Control lblActivoBusqueda.

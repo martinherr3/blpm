@@ -9,7 +9,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Evaluaciones</h2>
+        Evaluaciones
+        <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
     <br />
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
@@ -47,49 +48,45 @@
                             <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios75" colspan="3">
                                 <asp:DropDownList ID="ddlAsignatura" runat="server">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TDCriterios25">
-                                <%--<asp:Label ID="lblLugar" runat="server" Text="Curso:"></asp:Label>--%>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <%--<asp:DropDownList ID="ddlCurso" runat="server">
-                                </asp:DropDownList>--%>
+                        </tr>
+                        <tr>
+                            <td valign="top" colspan="4" class="TDCriterios100">
+                                <cal:Calendario ID="calfechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
+                                    EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TDCriterios20">
-                                <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios40">
-                                <cal:Calendario ID="calfecha" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
-                            </td>
                             <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
                             </td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
                         </tr>
                     </table>
                 </ContentTemplate>
                 <Triggers>
-                    <%--<asp:PostBackTrigger ControlID="ddlCicloLectivo" />--%>
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
                 </Triggers>
             </asp:UpdatePanel>
         </ContentTemplate>
         <Triggers>
-            <%--<asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />--%>
             <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-                AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idAgendaActividad">
+                AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idEventoAgenda"
+                OnRowCommand="gvwReporte_RowCommand">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
@@ -99,18 +96,18 @@
                                 ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Ciclo Lectivo">
+                    <asp:TemplateField HeaderText="Asignatura">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblCicloLectivoGrilla" runat="server" Text='<%# Bind("cursoCicloLectivo.cicloLectivo.nombre") %>'></asp:Label>
+                            <asp:Label ID="lblEventoGrilla" runat="server" Text='<%# Bind("asignatura.nombre") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Curso">
+                    <asp:TemplateField HeaderText="Fecha">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblCursoGrilla" runat="server" Text='<%# Bind("cursoCicloLectivo.curso.nombre") %>'></asp:Label>
+                            <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# Bind("fechaEvento","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Activo">
@@ -142,17 +139,10 @@
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblCicloLectivoEdit" runat="server" Text="Ciclo Lectivo:"></asp:Label>
+                                <asp:Label ID="lblAsignaturaEdit" runat="server" Text="Asignatura:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlCicloLectivoEdit" runat="server" Enabled="false">
-                                </asp:DropDownList>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblCursoEdit" runat="server" Text="Curso:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlCursoEdit" runat="server" Enabled="false">
+                            <td valign="top" class="TDCriterios75" colspan="3">
+                                <asp:DropDownList ID="ddlAsignaturaEdit" runat="server">
                                 </asp:DropDownList>
                             </td>
                         </tr>
@@ -161,7 +151,7 @@
                                 <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
-                                <asp:TextBox ID="txtFechaEdit" runat="server" Enabled="false" />
+                                <cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
                             </td>
                             <td valign="top" class="TDCriterios10">
                             </td>
@@ -198,7 +188,7 @@
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
-            <%--<asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />--%>
+            <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
         </Triggers>

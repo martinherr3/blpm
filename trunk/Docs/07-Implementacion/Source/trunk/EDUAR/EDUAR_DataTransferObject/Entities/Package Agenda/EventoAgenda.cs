@@ -19,10 +19,9 @@ namespace EDUAR_Entities
 		public DateTime fechaModificacion { get; set; }
 		public string descripcion { get; set; }
 		public bool activo { get; set; }
-		//public object evento { get; set; }
-
-		//public  evento<DTBase> { get; set; }
-		//public AgendaActividades agendaActividades { get; set; }
+		//Se utilizan para filtrar
+		public DateTime fechaEventoDesde { get; set; }
+		public DateTime fechaEventoHasta { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EventoAgenda"/> class.
@@ -31,29 +30,8 @@ namespace EDUAR_Entities
 		{
 			idEventoAgenda = 0;
 			tipoEventoAgenda = new TipoEventoAgenda();
-			//agendaActividades = new AgendaActividades();
 			usuario = new Persona();
-			//fechaEvento = new DateTime();
-			//fechaModificacion = new DateTime();
-			//descripcion = string.Empty;
 			activo = true;
-
-			//switch(tipoEventoAgenda.idTipoEventoAgenda)
-			//{
-			//    case (int)enumEventoAgendaType.Evaluacion:
-			//        evento = new Evaluacion();    
-			//        break;
-			//    case (int)enumEventoAgendaType.Reunion:
-			//        evento = new Reunion();
-			//        break;
-			//    case (int)enumEventoAgendaType.Excursion:
-			//        evento = new Excursion();    
-			//        break;
-			//    default:
-			//        evento = null;
-			//        break;
-			//}
-
 		}
 	}
 }

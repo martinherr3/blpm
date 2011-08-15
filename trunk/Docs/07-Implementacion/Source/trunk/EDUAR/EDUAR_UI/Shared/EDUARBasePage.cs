@@ -139,18 +139,6 @@ namespace EDUAR_UI.Shared
         }
 
         /// <summary>
-        /// Confirma que un control <see cref="T:System.Web.UI.HtmlControls.HtmlForm"/> se represente para el control de servidor ASP.NET especificado en tiempo de ejecución.
-        /// </summary>
-        /// <param name="control">Control de servidor ASP.NET que es necesario en el control <see cref="T:System.Web.UI.HtmlControls.HtmlForm"/>.</param>
-        /// <exception cref="T:System.Web.HttpException">El control de servidor especificado no está incluido entre las etiquetas de apertura y cierre del control de servidor <see cref="T:System.Web.UI.HtmlControls.HtmlForm"/> en tiempo de ejecución. </exception>
-        ///   
-        /// <exception cref="T:System.ArgumentNullException">El control que se va a comprobar es null.</exception>
-        //public override void VerifyRenderingInServerForm(Control control)
-        //{
-        //    /* Verifies that the control is rendered */
-        //}
-
-        /// <summary>
         /// Habilita un control de servidor para que realice la limpieza final antes de que se libere de la memoria.
         /// </summary>
         public override void Dispose()

@@ -40,14 +40,14 @@ namespace EDUAR_UI
 		/// <value>
 		/// The prop evento.
 		/// </value>
-		public EventoAgenda propEvento
+		public Evaluacion propEvento
 		{
 			get
 			{
 				if (ViewState["propEvento"] == null)
-					propEvento = new EventoAgenda();
+					propEvento = new Evaluacion();
 
-				return (EventoAgenda)ViewState["propEvento"];
+				return (Evaluacion)ViewState["propEvento"];
 			}
 			set { ViewState["propEvento"] = value; }
 		}
@@ -58,14 +58,14 @@ namespace EDUAR_UI
 		/// <value>
 		/// The prop filtro evento.
 		/// </value>
-		public EventoAgenda propFiltroEvento
+		public Evaluacion propFiltroEvento
 		{
 			get
 			{
 				if (ViewState["propFiltroEvento"] == null)
-					propFiltroEvento = new EventoAgenda();
+					propFiltroEvento = new Evaluacion();
 
-				return (EventoAgenda)ViewState["propFiltroEvento"];
+				return (Evaluacion)ViewState["propFiltroEvento"];
 			}
 			set { ViewState["propFiltroEvento"] = value; }
 		}
@@ -76,14 +76,14 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista agenda.
 		/// </value>
-		public List<EventoAgenda> listaEventos
+		public List<Evaluacion> listaEventos
 		{
 			get
 			{
 				if (ViewState["listaEventos"] == null)
-					listaEventos = new List<EventoAgenda>();
+					listaEventos = new List<Evaluacion>();
 
-				return (List<EventoAgenda>)ViewState["listaEventos"];
+				return (List<Evaluacion>)ViewState["listaEventos"];
 			}
 			set { ViewState["listaEventos"] = value; }
 		}
@@ -162,8 +162,8 @@ namespace EDUAR_UI
 					case enumAcciones.Seleccionar:
 						break;
 					case enumAcciones.Limpiar:
-						//CargarPresentacion();
-						//BuscarAgenda(null);
+						CargarPresentacion();
+						BuscarAgenda(propEvento);
 						break;
 					case enumAcciones.Aceptar:
 						break;
@@ -173,7 +173,7 @@ namespace EDUAR_UI
 						break;
 					case enumAcciones.Guardar:
 						AccionPagina = enumAcciones.Limpiar;
-						//GuardarAgenda(ObtenerValoresDePantalla());
+						GuardarEntidad(ObtenerValoresDePantalla());
 						Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
 						break;
 					case enumAcciones.Ingresar:
@@ -199,7 +199,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//BuscarFiltrando();
+				BuscarFiltrando();
 			}
 			catch (Exception ex)
 			{
@@ -217,21 +217,21 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//AccionPagina = enumAcciones.Nuevo;
-				//LimpiarCampos();
-				//CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
-				//esNuevo = true;
-				//btnGuardar.Visible = true;
-				//btnBuscar.Visible = false;
-				//btnVolver.Visible = true;
-				////btnNuevo.Visible = false;
-				//gvwReporte.Visible = false;
-				//litEditar.Visible = false;
-				//litNuevo.Visible = true;
-				//udpEdit.Visible = true;
-				//udpFiltrosBusqueda.Visible = false;
-				//udpFiltros.Update();
-				//udpGrilla.Update();
+				AccionPagina = enumAcciones.Nuevo;
+				LimpiarCampos();
+				CargarCombos();
+				esNuevo = true;
+				btnGuardar.Visible = true;
+				btnBuscar.Visible = false;
+				btnVolver.Visible = true;
+				btnNuevo.Visible = false;
+				gvwReporte.Visible = false;
+				litEditar.Visible = false;
+				litNuevo.Visible = true;
+				udpEdit.Visible = true;
+				udpFiltrosBusqueda.Visible = false;
+				udpFiltros.Update();
+				udpGrilla.Update();
 			}
 			catch (Exception ex)
 			{
@@ -248,7 +248,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				string mensaje = string.Empty; //ValidarPagina();
+				string mensaje = ValidarPagina();
 				if (mensaje == string.Empty)
 				{
 					if (Page.IsValid)
@@ -286,6 +286,29 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+		/// <summary>
+		/// Método que se llama al hacer click sobre las acciones de la grilla
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
+		protected void gvwReporte_RowCommand(object sender, GridViewCommandEventArgs e)
+		{
+			try
+			{
+				switch (e.CommandName)
+				{
+					case "Editar":
+						propEvento.idEventoAgenda = Convert.ToInt32(e.CommandArgument.ToString());
+						CargaAgenda();
+						break;
+				}
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -294,6 +317,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPresentacion()
 		{
+			lblTitulo.Text = propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
 			LimpiarCampos();
 			CargarCombos();
 			udpEdit.Visible = false;
@@ -312,13 +336,12 @@ namespace EDUAR_UI
 		/// </summary>
 		private void LimpiarCampos()
 		{
-			//ddlCicloLectivo.SelectedIndex = 0;
-			//if (ddlCicloLectivoEdit.Items.Count > 0) ddlCicloLectivoEdit.SelectedIndex = 0;
-			//if (ddlCurso.Items.Count > 0) ddlCurso.SelectedIndex = 0;
-			//if (ddlCursoEdit.Items.Count > 0) ddlCursoEdit.SelectedIndex = 0;
-			//HabilitarBotonesDetalle(false);
 			chkActivo.Checked = true;
 			chkActivoEdit.Checked = false;
+			calFechaEvento.LimpiarControles();
+			calfechas.LimpiarControles();
+			ddlAsignatura.SelectedIndex = 0;
+			ddlAsignaturaEdit.SelectedIndex = 0;
 			txtDescripcionEdit.Text = string.Empty;
 		}
 
@@ -331,7 +354,12 @@ namespace EDUAR_UI
 			Asignatura objAsignatura = new Asignatura();
 			objAsignatura.curso.idCurso = propAgenda.cursoCicloLectivo.idCurso;
 			objAsignatura.curso.cicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
+			if (User.IsInRole(enumRoles.Docente.ToString()))
+				objAsignatura.docente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
+			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false);
+
 		}
 
 		/// <summary>
@@ -341,7 +369,7 @@ namespace EDUAR_UI
 		/// <param name="lista">The lista.</param>
 		private void CargarGrilla()
 		{
-			gvwReporte.DataSource = UIUtilidades.BuildDataTable<EventoAgenda>(listaEventos).DefaultView;
+			gvwReporte.DataSource = UIUtilidades.BuildDataTable<Evaluacion>(listaEventos).DefaultView;
 			gvwReporte.DataBind();
 			udpEdit.Visible = false;
 			udpGrilla.Update();
@@ -352,11 +380,11 @@ namespace EDUAR_UI
 		/// </summary>
 		private void BuscarFiltrando()
 		{
-			calfecha.ValidarRangoDesde();
-			EventoAgenda entidad = new EventoAgenda();
-			//entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-			//entidad.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-			entidad.fechaEvento = Convert.ToDateTime(calfecha.ValorFecha);
+			calfechas.ValidarRangoDesdeHasta(false);
+			Evaluacion entidad = new Evaluacion();
+			entidad.asignatura.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
+			entidad.fechaEventoDesde = Convert.ToDateTime(calfechas.ValorFechaDesde);
+			entidad.fechaEventoHasta = Convert.ToDateTime(calfechas.ValorFechaHasta);
 			entidad.activo = chkActivo.Checked;
 			propFiltroEvento = entidad;
 			BuscarAgenda(entidad);
@@ -366,7 +394,7 @@ namespace EDUAR_UI
 		/// Buscars the entidads.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
-		private void BuscarAgenda(EventoAgenda entidad)
+		private void BuscarAgenda(Evaluacion entidad)
 		{
 			CargarLista(entidad);
 
@@ -377,30 +405,33 @@ namespace EDUAR_UI
 		/// Cargars the lista.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
-		private void CargarLista(EventoAgenda entidad)
+		private void CargarLista(Evaluacion entidad)
 		{
 			objBLAgenda = new BLAgendaActividades();
-			listaEventos = objBLAgenda.GetEventosAgenda(propAgenda);
+			entidad.idAgendaActividad = propAgenda.idAgendaActividad;
+			listaEventos = objBLAgenda.GetEvaluacionesAgenda(entidad);
 		}
 
 		/// <summary>
 		/// Obteners the valores pantalla.
 		/// </summary>
 		/// <returns></returns>
-		private AgendaActividades ObtenerValoresDePantalla()
+		private Evaluacion ObtenerValoresDePantalla()
 		{
-			AgendaActividades entidad = new AgendaActividades();
-			entidad = propAgenda;
+			Evaluacion entidad = new Evaluacion();
+			entidad = propEvento;
 			if (!esNuevo)
 			{
 				entidad.idAgendaActividad = propAgenda.idAgendaActividad;
-				entidad.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
+				entidad.idEventoAgenda = propEvento.idEventoAgenda;
+				//entidad.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
 			}
+			entidad.asignatura.idAsignatura = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
 			entidad.descripcion = txtDescripcionEdit.Text;
-			entidad.fechaCreacion = Convert.ToDateTime(txtFechaEdit.Text);
-			entidad.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue);
-			entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCursoEdit.SelectedValue);
+			entidad.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
+			entidad.usuario.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
 			entidad.activo = chkActivoEdit.Checked;
+			entidad.fechaAlta = DateTime.Now;
 			return entidad;
 		}
 
@@ -408,9 +439,11 @@ namespace EDUAR_UI
 		/// Guardars the agenda.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
-		private void GuardarAgenda(AgendaActividades entidad)
+		private void GuardarEntidad(Evaluacion entidad)
 		{
-			objBLAgenda = new BLAgendaActividades(entidad);
+			objBLAgenda = new BLAgendaActividades(propAgenda);
+			objBLAgenda.GetById();
+			objBLAgenda.Data.listaEvaluaciones.Add(entidad);
 			objBLAgenda.Save();
 		}
 
@@ -419,18 +452,13 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarValoresEnPantalla(int idEventoAgenda)
 		{
-			EventoAgenda entidad = listaEventos.Find(c => c.idEventoAgenda == idEventoAgenda);
+			Evaluacion entidad = listaEventos.Find(c => c.idEventoAgenda == idEventoAgenda);
 			propEvento = entidad;
 			if (entidad != null)
 			{
-				//propAgenda.cursoCicloLectivo.idCursoCicloLectivo = entidad.cursoCicloLectivo.idCursoCicloLectivo;
 				txtDescripcionEdit.Text = entidad.descripcion;
-				txtFechaEdit.Text = DateTime.Now.ToShortDateString();
-				//ddlCicloLectivoEdit.SelectedValue = entidad.cursoCicloLectivo.idCicloLectivo.ToString();
-				//CargarComboCursos(entidad.cursoCicloLectivo.idCicloLectivo, ddlCursoEdit);
-				//ddlCursoEdit.SelectedValue = entidad.cursoCicloLectivo.idCurso.ToString();
-				ddlCicloLectivoEdit.Enabled = false;
-				ddlCursoEdit.Enabled = false;
+				calFechaEvento.Fecha.Text = entidad.fechaEvento.ToShortDateString();
+				ddlAsignaturaEdit.SelectedValue = entidad.asignatura.idAsignatura.ToString();
 				chkActivoEdit.Checked = entidad.activo;
 			}
 		}
@@ -446,10 +474,10 @@ namespace EDUAR_UI
 				mensaje = "- Descripcion<br />";
 			//if (calFechaEdit.Fecha.Text.Trim().Length == 0)
 			//    mensaje += "- Fecha<br />";
-			if (!(Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue) > 0))
-				mensaje += "- Ciclo Lectivo";
-			if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
-				mensaje += "- Curso";
+			if (!(Convert.ToInt32(ddlAsignaturaEdit.SelectedValue) > 0))
+				mensaje += "- Asignatura";
+			//if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
+			//    mensaje += "- Curso";
 			return mensaje;
 		}
 
@@ -458,22 +486,19 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargaAgenda()
 		{
-			//propAgenda = new AgendaActividades();
-			//propAgenda.idAgendaActividad = idAgenda;
 			AccionPagina = enumAcciones.Modificar;
 			esNuevo = false;
-			//CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
-			CargarValoresEnPantalla(propAgenda.idAgendaActividad);
+			CargarValoresEnPantalla(propEvento.idEventoAgenda);
 			litEditar.Visible = true;
 			litNuevo.Visible = false;
-			//HabilitarBotonesDetalle(true);
 			btnBuscar.Visible = false;
-			//btnNuevo.Visible = false;
+			btnNuevo.Visible = false;
 			btnVolver.Visible = true;
 			btnGuardar.Visible = true;
 			gvwReporte.Visible = false;
 			udpFiltrosBusqueda.Visible = false;
 			udpEdit.Visible = true;
+			udpFiltros.Update();
 			udpEdit.Update();
 		}
 		#endregion
