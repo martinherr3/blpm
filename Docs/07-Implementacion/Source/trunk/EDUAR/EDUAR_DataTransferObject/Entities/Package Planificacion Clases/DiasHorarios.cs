@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 ///////////////////////////////////////////////////////////
 //  DiaHorario.cs
 //  Implementation of the Class DiaHorario
@@ -6,12 +8,12 @@
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
 using EDUAR_Entities.Shared;
-using System.Collections.Generic;
 using EDUAR_Utility.Enumeraciones;
 
 
 namespace EDUAR_Entities
 {
+	[Serializable]
     public class DiasHorarios: DTBase
     {
 		private int _idDiaHorario;

@@ -30,7 +30,7 @@ namespace EDUAR_UI
 			get
 			{
 				if (Session["propAgenda"] == null)
-					Session["propAgenda"] = new AgendaActividades();
+					propAgenda = new AgendaActividades();
 
 				return (AgendaActividades)Session["propAgenda"];
 			}
@@ -48,7 +48,7 @@ namespace EDUAR_UI
 			get
 			{
 				if (ViewState["propFiltroAgenda"] == null)
-					return new AgendaActividades();
+					propFiltroAgenda = new AgendaActividades();
 
 				return (AgendaActividades)ViewState["propFiltroAgenda"];
 			}
@@ -66,7 +66,7 @@ namespace EDUAR_UI
 			get
 			{
 				if (ViewState["listaAgenda"] == null)
-					return new List<AgendaActividades>();
+					listaAgenda = new List<AgendaActividades>();
 
 				return (List<AgendaActividades>)ViewState["listaAgenda"];
 			}
@@ -114,7 +114,7 @@ namespace EDUAR_UI
 						CargaAgenda();
 					}
 					else
-						BuscarAgenda(null);
+						BuscarAgenda(propAgenda);
 				}
 				this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
 			}
@@ -502,6 +502,8 @@ namespace EDUAR_UI
 		/// <param name="entidad">The entidad.</param>
 		private void CargarLista(AgendaActividades entidad)
 		{
+			if (User.IsInRole(enumRoles.Docente.ToString()))
+				entidad.usuario = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
 			objBLAgenda = new BLAgendaActividades(entidad);
 			listaAgenda = objBLAgenda.GetAgendaActividades(entidad);
 		}

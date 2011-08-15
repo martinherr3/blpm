@@ -92,6 +92,13 @@ namespace EDUAR_BusinessLogic.Common
                 else
                     DataAcces.Update(Data);
 
+				BLEvaluacion objBLEvaluacion;
+				foreach (Evaluacion item in Data.listaEvaluaciones)
+				{
+					objBLEvaluacion = new BLEvaluacion(item);
+					objBLEvaluacion.Save(DataAcces.Transaction);
+				}
+
                 //Se da el OK para la transaccion.
                 DataAcces.Transaction.CommitTransaction();
             }
@@ -189,11 +196,11 @@ namespace EDUAR_BusinessLogic.Common
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public List<EventoAgenda> GetEventosAgenda(AgendaActividades entidad)
+		public List<Evaluacion> GetEvaluacionesAgenda(Evaluacion entidad)
 		{
 			try
 			{
-				return DataAcces.GetEventosAgenda(entidad);
+				return DataAcces.GetEvaluacionesAgenda(entidad);
 			}
 			catch (CustomizedException ex)
 			{

@@ -92,6 +92,9 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.curso.idCurso);
 					if (entidad.curso.cicloLectivo.idCicloLectivo > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.curso.cicloLectivo.idCicloLectivo);
+					if(!string.IsNullOrEmpty(entidad.docente.username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.docente.username);
+
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -100,8 +103,8 @@ namespace EDUAR_DataAccess.Common
 				while (reader.Read())
 				{
 					objAsignatura = new Asignatura();
-
-					objAsignatura.idAsignatura = Convert.ToInt32(reader["idAsignatura"]);
+					//Se asigna el idAsignaturaCurso de la tabla - SOLO CUANDO MANEJO ASIGNATURA - CURSO
+					objAsignatura.idAsignatura = Convert.ToInt32(reader["idAsignaturaCurso"]);
 					objAsignatura.nombre = reader["nombreAsignatura"].ToString();
 
 					listaAsignaturas.Add(objAsignatura);

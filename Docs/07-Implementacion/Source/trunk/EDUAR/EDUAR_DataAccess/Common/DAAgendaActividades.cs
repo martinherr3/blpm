@@ -46,6 +46,8 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
 					if (ValidarFechaSQL(entidad.fechaCreacion))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaCreacion);
+					if (!string.IsNullOrEmpty(entidad.usuario))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.usuario);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
@@ -82,57 +84,60 @@ namespace EDUAR_DataAccess.Common
 		}
 
 		/// <summary>
-		/// Gets the eventos agenda.
+		/// Gets the evaluaciones agenda.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public List<EventoAgenda> GetEventosAgenda(AgendaActividades entidad)
+		public List<Evaluacion> GetEvaluacionesAgenda(Evaluacion entidad)
 		{
 			try
 			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoAgenda_Select");
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Evaluacion_Select");
 				if (entidad != null)
 				{
 					if (entidad.idAgendaActividad > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
-					//if (entidad.cursoCicloLectivo.idCurso > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.cursoCicloLectivo.idCurso);
-					//if (entidad.cursoCicloLectivo.idCicloLectivo > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.idCicloLectivo);
-					//if (!string.IsNullOrEmpty(entidad.descripcion))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
-					//if (ValidarFechaSQL(entidad.fechaCreacion))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaCreacion);
-					//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+					if (entidad.asignatura.idAsignatura > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCurso", DbType.Int32, entidad.asignatura.idAsignatura);
+					if (ValidarFechaSQL(entidad.fechaEventoDesde))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
+					if (ValidarFechaSQL(entidad.fechaEventoHasta))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-				List<EventoAgenda> listaEventos = new List<EventoAgenda>();
-				EventoAgenda objEvento;
+				List<Evaluacion> listaEventos = new List<Evaluacion>();
+				Evaluacion objEvento;
 				while (reader.Read())
 				{
-					objEvento = new EventoAgenda();
-					
+					objEvento = new Evaluacion();
+
+					objEvento.idEvaluacion = Convert.ToInt32(reader["idEvaluacion"]);
+					objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
+					objEvento.asignatura.nombre = reader["asignatura"].ToString();
+					objEvento.asignatura.idAsignatura = Convert.ToInt32(reader["idAsignaturaCurso"]);
 					objEvento.descripcion = reader["descripcion"].ToString();
 					objEvento.activo = Convert.ToBoolean(reader["activo"].ToString());
 					objEvento.fechaAlta = Convert.ToDateTime(reader["fechaAlta"].ToString());
-					objEvento.fechaModificacion = Convert.ToDateTime(reader["fechaModificacion"].ToString());
+					if (!string.IsNullOrEmpty(reader["fechaModificacion"].ToString()))
+						objEvento.fechaModificacion = Convert.ToDateTime(reader["fechaModificacion"].ToString());
 					objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
 					objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
 					objEvento.tipoEventoAgenda.idTipoEventoAgenda = Convert.ToInt32(reader["idTipoEvento"]);
 
 					listaEventos.Add(objEvento);
 				}
-				return new List<EventoAgenda>();
+				return listaEventos;
 			}
 			catch (SqlException ex)
 			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetEventosAgenda()", ClassName),
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEvaluacionesAgenda()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetEventosAgenda()", ClassName),
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEvaluacionesAgenda()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
@@ -150,9 +155,47 @@ namespace EDUAR_DataAccess.Common
 			get { throw new NotImplementedException(); }
 		}
 
+		/// <summary>
+		/// Gets the by id.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
 		public override AgendaActividades GetById(AgendaActividades entidad)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AgendaActividades_Select");
+				if (entidad.idAgendaActividad > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				AgendaActividades objAgendaActividades = null;
+				while (reader.Read())
+				{
+					objAgendaActividades = new AgendaActividades();
+
+					objAgendaActividades.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividad"]);
+					objAgendaActividades.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(reader["idCicloLectivo"]);
+					objAgendaActividades.cursoCicloLectivo.idCurso = Convert.ToInt32(reader["idCurso"]);
+					objAgendaActividades.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
+					objAgendaActividades.cursoCicloLectivo.curso.nombre = reader["curso"].ToString();
+					objAgendaActividades.cursoCicloLectivo.cicloLectivo.nombre = reader["cicloLectivo"].ToString();
+					objAgendaActividades.descripcion = reader["descripcion"].ToString();
+					objAgendaActividades.activo = Convert.ToBoolean(reader["activo"].ToString());
+					objAgendaActividades.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"].ToString());
+				}
+				return objAgendaActividades;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
 		}
 
 		public override void Create(AgendaActividades entidad)

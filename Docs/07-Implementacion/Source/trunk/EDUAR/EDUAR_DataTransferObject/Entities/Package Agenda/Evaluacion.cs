@@ -14,7 +14,7 @@ namespace EDUAR_Entities
     public class Evaluacion : EventoAgenda
     {
         public int idEvaluacion { get; set; }
-        public Asignatura asignatura;
+		public Asignatura asignatura { get; set; }
         public DateTime fecha { get; set; }
 		//public EventoAgenda<Evaluacion,> evento { get; set; }
 
