@@ -77,9 +77,9 @@ namespace EDUAR_DataAccess.Common
 			{
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reunion_Insert");
 
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idReunion", DbType.Int32, 0);
+				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idReunion", DbType.Int32, 0);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horario", DbType.DateTime, entidad.horario);
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEvento", DbType.Int32, entidad.idEventoAgenda);
+				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEvento", DbType.Int32, entidad.idEventoAgenda);
 
 				if (Transaction.Transaction != null)
 					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
