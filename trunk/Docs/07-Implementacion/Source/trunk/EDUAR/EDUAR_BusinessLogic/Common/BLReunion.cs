@@ -180,6 +180,15 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+        public void SaveEventoReunion(Reunion reunion, EventoAgenda evento)
+        {
+            BLEventoAgenda objBLEvento = new BLEventoAgenda(evento);
+            objBLEvento.Save();
+
+            BLReunion objBLReunion = new BLReunion(reunion);
+            objBLReunion.Save();
+        }
         #endregion
     }
 }
