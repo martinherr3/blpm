@@ -179,11 +179,11 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horario", DbType.Time, Convert.ToDateTime(entidad.horario).ToShortTimeString());
 
                     if (entidad.activo == true)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Int32, entidad.activo);
-                    if (entidad.fechaEventoDesde != null)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Int32, entidad.fechaEventoDesde);
-                    if (entidad.fechaEventoHasta != null)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Int32, entidad.fechaEventoHasta);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+                    if (ValidarFechaSQL(entidad.fechaEventoDesde))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
+                    if (ValidarFechaSQL(entidad.fechaEventoHasta))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
                     if (entidad.idAgendaActividad > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
                 }

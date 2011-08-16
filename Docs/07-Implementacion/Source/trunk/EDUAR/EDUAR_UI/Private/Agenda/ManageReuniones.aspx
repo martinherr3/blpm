@@ -1,16 +1,16 @@
 ﻿<%@ Page Title="Administrar evento Reunión" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.ManageReuniones" %>
+    AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.ManageReuniones" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Evaluaciones</h2>
-        <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
+        Reuniones</h2>
+    <br />
+    <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
@@ -69,10 +69,6 @@ AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.M
             <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
-
-
-
-
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
@@ -87,7 +83,6 @@ AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.M
                                 ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    
                     <asp:TemplateField HeaderText="Fecha">
                         <HeaderStyle HorizontalAlign="Center" Width="20%" />
                         <ItemStyle HorizontalAlign="Center" />
@@ -95,7 +90,6 @@ AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.M
                             <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("fechaEvento","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    
                     <asp:TemplateField HeaderText="Descripcion">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -103,7 +97,6 @@ AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.M
                             <asp:Label ID="lblDescripcion" runat="server" Text='<%# Bind("detalle") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Organizador">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -111,7 +104,6 @@ AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.M
                             <asp:Label ID="lblOrganizador" runat="server" Text='<%# String.Format("{0} {1}", Eval("usuario.nombre"), Eval("usuario.apellido")) %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Activo">
                         <HeaderStyle HorizontalAlign="left" Width="10%" />
                         <ItemStyle HorizontalAlign="Center" />
@@ -138,14 +130,14 @@ AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.M
                             </td>
                         </tr>
                     </table>
-
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" style="width: 17%; text-align: left">
                                 <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
-                                <cal:Calendario ID="calFechaEdit" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" MensajeErrorValidacion="Fecha Inválida" />
+                                <cal:Calendario ID="calFechaEdit" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda"
+                                    MensajeErrorValidacion="Fecha Inválida" />
                             </td>
                             <td valign="top" class="TDCriterios10">
                                 <asp:Label runat="server" ID="Label4" Text="Hora:"></asp:Label>
@@ -163,7 +155,6 @@ AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.M
                             </td>
                         </tr>
                     </table>
-
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TDCriterios25">
@@ -173,7 +164,6 @@ AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.M
                                 <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
                             </td>
                         </tr>
-
                         <tr>
                             <td valign="top" class="TD25">
                                 <asp:Label runat="server" ID="Label9" Text="Descripción:"></asp:Label>
@@ -197,6 +187,4 @@ AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.M
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
         </Triggers>
     </asp:UpdatePanel>
-
-
 </asp:Content>

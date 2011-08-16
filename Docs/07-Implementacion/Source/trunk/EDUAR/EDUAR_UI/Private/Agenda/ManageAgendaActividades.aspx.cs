@@ -218,6 +218,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				Response.Redirect("ManageReuniones.aspx", false);
 			}
 			catch (Exception ex)
 			{
