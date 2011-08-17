@@ -31,8 +31,7 @@
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td>
-                                <h3>
-                                    Buscar Reuniones</h3>
+                                <h3>Buscar Reuniones</h3>
                             </td>
                         </tr>
                         <tr>
@@ -43,29 +42,31 @@
                     </table>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" class="TDCriterios20">
-                                <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
+                            <td valign="top" colspan="4" class="TDCriterios100">
+                                <cal:Calendario ID="calfechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
+                                    EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
                             </td>
-                            <td valign="top" class="TDCriterios40">
-                                <cal:Calendario ID="calfecha" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
-                            </td>
+                        </tr>
+                        <tr>
                             <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
                             </td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
                         </tr>
                     </table>
                 </ContentTemplate>
                 <Triggers>
-                    <%--<asp:PostBackTrigger ControlID="ddlCicloLectivo" />--%>
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
                 </Triggers>
             </asp:UpdatePanel>
         </ContentTemplate>
         <Triggers>
-            <%--<asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />--%>
             <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
@@ -94,7 +95,7 @@
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblDescripcion" runat="server" Text='<%# Bind("detalle") %>'></asp:Label>
+                            <asp:Label ID="lblDescripcion" runat="server" Text='<%# Bind("descripcion") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Organizador">
@@ -120,8 +121,8 @@
                             <td colspan="2">
                                 <h3>
                                     <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
-                                    <asp:Literal ID="litNuevo" runat="server" Text="Nuevo "></asp:Literal>
-                                    Evento Institucional</h3>
+                                    <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
+                                    Reunión</h3>
                             </td>
                         </tr>
                         <tr>
@@ -133,14 +134,17 @@
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" style="width: 17%; text-align: left">
-                                <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
+                                <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
-                                <cal:Calendario ID="calFechaEdit" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda"
-                                    MensajeErrorValidacion="Fecha Inválida" />
+                                <cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
                             </td>
                             <td valign="top" class="TDCriterios10">
-                                <asp:Label runat="server" ID="Label4" Text="Hora:"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
+                            <td valign="top" class="TDCriterios10">
+                                <asp:Label runat="server" ID="lblHora" Text="Hora:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
                                 <asp:TextBox runat="server" ID="txtHoraEdit" MaxLength="5" CssClass="EstiloTxtCorto80"></asp:TextBox>
@@ -154,14 +158,16 @@
                                 </cc1:MaskedEditValidator>
                             </td>
                         </tr>
-                    </table>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
                                 <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
+                            <td valign="top" class="TDCriterios25">
                             </td>
                         </tr>
                         <tr>
@@ -179,6 +185,7 @@
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
                 </Triggers>
             </asp:UpdatePanel>
+
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
