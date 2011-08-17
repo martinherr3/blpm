@@ -14,7 +14,8 @@ namespace EDUAR_UI
 	public partial class ManageReuniones : EDUARBasePage
 	{
 		#region --[Atributos]--
-		private BLReunion objBLReunion;
+		//private BLReunion objBLReunion;
+        private BLAgendaActividades objBLAgenda;
 		#endregion
 
 		#region --[Propiedades]--
@@ -56,16 +57,16 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista evento.
 		/// </value>
-		public List<Reunion> listaEvento
+		public List<Reunion> listaEventos
 		{
 			get
 			{
 				if (ViewState["listaEvento"] == null)
-					listaEvento = new List<Reunion>();
+					listaEventos = new List<Reunion>();
 
-				return (List<Reunion>)ViewState["listaEvento"];
+				return (List<Reunion>)ViewState["listaEventos"];
 			}
-			set { ViewState["listaEvento"] = value; }
+			set { ViewState["listaEventos"] = value; }
 		}
 
 		/// <summary>
@@ -125,7 +126,7 @@ namespace EDUAR_UI
 					propEvento.idAgendaActividad = propAgenda.idAgendaActividad;
 					if (propEvento.idAgendaActividad > 0)
 					{
-						BuscarEventos(propEvento);
+						BuscarAgenda(propEvento);
 					}
 				}
 				this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
@@ -160,7 +161,7 @@ namespace EDUAR_UI
 						break;
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
-						BuscarEventos(propEvento);
+						BuscarAgenda(propEvento);
 						break;
 					case enumAcciones.Aceptar:
 						break;
@@ -216,7 +217,6 @@ namespace EDUAR_UI
 			{
 				AccionPagina = enumAcciones.Nuevo;
 				LimpiarCampos();
-				//CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
 				esNuevo = true;
 				btnGuardar.Visible = true;
 				btnBuscar.Visible = false;
@@ -314,7 +314,7 @@ namespace EDUAR_UI
 		/// <param name="lista">The lista.</param>
 		private void CargarGrilla()
 		{
-			gvwReporte.DataSource = UIUtilidades.BuildDataTable<Reunion>(listaEvento).DefaultView;
+			gvwReporte.DataSource = UIUtilidades.BuildDataTable<Reunion>(listaEventos).DefaultView;
 			gvwReporte.DataBind();
 			udpEdit.Visible = false;
 			udpGrilla.Update();
@@ -342,10 +342,12 @@ namespace EDUAR_UI
 		/// </summary>
 		private void LimpiarCampos()
 		{
-			calfecha.LimpiarControles();
 			txtHoraEdit.Text = string.Empty;
-			calFechaEdit.LimpiarControles();
-			txtDescripcionEdit.Text = string.Empty;
+			chkActivo.Checked = true;
+            chkActivoEdit.Checked = false;
+            calFechaEvento.LimpiarControles();
+            calfechas.LimpiarControles();
+            txtDescripcionEdit.Text = string.Empty;
 		}
 
 		/// <summary>
@@ -353,24 +355,27 @@ namespace EDUAR_UI
 		/// </summary>
 		private void BuscarFiltrando()
 		{
-			calfecha.ValidarRangoDesde();
+			//calfechas.ValidarRangoDesde();
+            calfechas.ValidarRangoDesdeHasta(false);
 			Reunion evento = new Reunion();
 
-			evento.fechaEvento = Convert.ToDateTime(calfecha.ValorFecha);
+			//evento.fechaEvento = Convert.ToDateTime(calfechas.ValorFecha);
 			evento.activo = chkActivo.Checked;
+            evento.fechaEventoDesde = Convert.ToDateTime(calfechas.ValorFechaDesde);
+            evento.fechaEventoHasta = Convert.ToDateTime(calfechas.ValorFechaHasta);
 
 			if (txtHoraEdit.Text.Trim().Length > 1)
 				evento.horario = Convert.ToDateTime(txtHoraEdit.Text);
-			propFiltroEvento = evento;
-
-			BuscarEventos(evento);
+			
+            propFiltroEvento = evento;
+            BuscarAgenda(evento);
 		}
 
 		/// <summary>
 		/// Buscars the eventos.
 		/// </summary>
 		/// <param name="evento">The evento.</param>
-		private void BuscarEventos(Reunion evento)
+		private void BuscarAgenda(Reunion evento)
 		{
 			CargarLista(evento);
 			CargarGrilla();
@@ -382,30 +387,34 @@ namespace EDUAR_UI
 		/// <param name="evento">The evento.</param>
 		private void CargarLista(Reunion evento)
 		{
-			objBLReunion = new BLReunion(evento);
-			evento.idAgendaActividad = propAgenda.idAgendaActividad;
-			listaEvento = objBLReunion.GetReuniones(evento);
+			objBLAgenda = new BLAgendaActividades();
+            evento.idAgendaActividad = propAgenda.idAgendaActividad;
+			listaEventos = objBLAgenda.GetReunionesAgenda(evento);
 		}
 
 		/// <summary>
 		/// Obteners the valores pantalla.
 		/// </summary>
 		/// <returns></returns>
-
 		private Reunion ObtenerValoresDePantalla()
 		{
 			Reunion evento = new Reunion();
+            evento = propEvento;
 
 			if (!esNuevo)
 			{
 				evento.idEventoAgenda = propEvento.idEventoAgenda;
+                evento.idEventoAgenda = propEvento.idAgendaActividad;
 			}
-			evento.fechaEvento = Convert.ToDateTime(calFechaEdit.ValorFecha);
+
+			evento.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
 			evento.horario = Convert.ToDateTime(txtHoraEdit.Text.Trim());
 			evento.descripcion = txtDescripcionEdit.Text.Trim();
 			evento.activo = chkActivoEdit.Checked;
 			evento.usuario.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
-			return evento;
+            evento.fechaAlta = DateTime.Now;
+
+            return evento;
 		}
 
 		/// <summary>
@@ -414,8 +423,10 @@ namespace EDUAR_UI
 		/// <param name="evento">The evento.</param>
 		private void GuardarEvento(Reunion evento)
 		{
-			objBLReunion = new BLReunion(evento);
-			objBLReunion.Save();
+            objBLAgenda = new BLAgendaActividades(propAgenda);
+            objBLAgenda.GetById();
+            objBLAgenda.Data.listaReuniones.Add(evento);
+            objBLAgenda.Save();
 		}
 
 		/// <summary>
@@ -423,22 +434,23 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarValoresEnPantalla(int idEventoAgenda)
 		{
-			Reunion evento = listaEvento.Find(c => c.idEventoAgenda == idEventoAgenda);
-			txtDescripcionEdit.Text = evento.descripcion;
+			Reunion evento = listaEventos.Find(c => c.idEventoAgenda == idEventoAgenda);
+			
+            txtDescripcionEdit.Text = evento.descripcion;
 			txtHoraEdit.Text = Convert.ToDateTime(evento.horario).ToShortTimeString();
-			calFechaEdit.Fecha.Text = Convert.ToDateTime(evento.fechaEvento).ToShortDateString();
+			calFechaEvento.Fecha.Text = Convert.ToDateTime(evento.fechaEvento).ToShortDateString();
 			chkActivoEdit.Checked = evento.activo;
 		}
 
 		private string ValidarPagina()
 		{
-			calFechaEdit.ValidarRangoDesde(true);
+			calFechaEvento.ValidarRangoDesde(true);
 			string mensaje = string.Empty;
 			if (txtDescripcionEdit.Text.Trim().Length == 0)
 				mensaje = "- Descripcion<br />";
 			if (txtHoraEdit.Text.Trim().Length == 0)
 				mensaje += "- Hora<br />";
-			if (calFechaEdit.Fecha.Text.Trim().Length == 0)
+			if (calFechaEvento.Fecha.Text.Trim().Length == 0)
 				mensaje += "- Fecha<br />";
 
 			return mensaje;
