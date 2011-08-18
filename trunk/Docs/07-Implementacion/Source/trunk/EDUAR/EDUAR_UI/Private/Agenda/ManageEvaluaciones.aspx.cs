@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using EDUAR_UI.Shared;
-using EDUAR_Utility.Enumeraciones;
-using EDUAR_Utility.Constantes;
-using EDUAR_Entities;
-using EDUAR_UI.Utilidades;
 using EDUAR_BusinessLogic.Common;
+using EDUAR_Entities;
+using EDUAR_UI.Shared;
+using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Constantes;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -208,7 +206,6 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// DESACTIVADO!!!!!!
 		/// Handles the Click event of the btnNuevo control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -217,6 +214,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				//TODO: hay que cargar días disponibles en función de los días que se dicta la materia!
 				AccionPagina = enumAcciones.Nuevo;
 				LimpiarCampos();
 				CargarCombos();

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
+﻿<%@ Page Title="Admministrar Evaluaciones" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
     CodeBehind="ManageEvaluaciones.aspx.cs" Inherits="EDUAR_UI.ManageEvaluaciones"
     Theme="Tema" StylesheetTheme="Tema" %>
 

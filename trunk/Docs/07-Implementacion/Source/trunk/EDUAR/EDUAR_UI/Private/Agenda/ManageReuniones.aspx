@@ -1,5 +1,6 @@
-﻿<%@ Page Title="Administrar evento Reunión" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.ManageReuniones" %>
+﻿<%@ Page Title="Administrar Reuniones" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+    AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.ManageReuniones"
+    Theme="Tema" StylesheetTheme="Tema" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
@@ -8,7 +9,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Reuniones</h2>
+        Reuniones
+        <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
     <br />
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
@@ -31,7 +33,8 @@
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td>
-                                <h3>Buscar Reuniones</h3>
+                                <h3>
+                                    Buscar Reuniones</h3>
                             </td>
                         </tr>
                         <tr>
@@ -133,27 +136,27 @@
                     </table>
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" style="width: 17%; text-align: left">
+                            <td valign="top" class="TDCriterios20">
                                 <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
                                 <cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
                             </td>
-                            <td valign="top" class="TDCriterios10">
+                            <%--<td valign="top" class="TDCriterios10">
                             </td>
                             <td valign="top" class="TDCriterios25">
-                            </td>
+                            </td>--%>
                             <td valign="top" class="TDCriterios10">
                                 <asp:Label runat="server" ID="lblHora" Text="Hora:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios40">
                                 <asp:TextBox runat="server" ID="txtHoraEdit" MaxLength="5" CssClass="EstiloTxtCorto80"></asp:TextBox>
                                 <cc1:MaskedEditExtender ID="MaskedEditExtender2" runat="server" AcceptAMPM="false"
                                     MaskType="Time" Mask="99:99" ErrorTooltipEnabled="true" InputDirection="LeftToRight"
                                     CultureName="es-ES" TargetControlID="txtHoraEdit" MessageValidatorTip="true">
                                 </cc1:MaskedEditExtender>
                                 <cc1:MaskedEditValidator ID="MaskedEditValidator2" runat="server" ToolTip="Hora Inválida"
-                                    ErrorMessage="*" ControlExtender="MaskedEditExtender1" ControlToValidate="txtHoraEdit"
+                                    ErrorMessage="*" ControlExtender="MaskedEditExtender2" ControlToValidate="txtHoraEdit"
                                     InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
                                 </cc1:MaskedEditValidator>
                             </td>
@@ -185,7 +188,6 @@
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
                 </Triggers>
             </asp:UpdatePanel>
-
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
