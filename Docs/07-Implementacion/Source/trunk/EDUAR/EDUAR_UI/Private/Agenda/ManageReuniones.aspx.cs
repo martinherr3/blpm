@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_Entities;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
-using System.Web.UI.WebControls;
 
 namespace EDUAR_UI
 {
@@ -245,7 +245,10 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				string mensaje = string.Empty; //ValidarPagina();
+				//TODO: validar que para la misma persona que está dando de alta la reunión, no exista otra en el mismo horario, 
+				//tuvimos en cuenta la duración aproximada? para poder tener varias reuniones en un día
+				//validar que no exista ya otra reunión para el curso en el mismo día - horario
+				string mensaje = ValidarPagina();
 				if (mensaje == string.Empty)
 				{
 					if (Page.IsValid)
@@ -325,7 +328,9 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPresentacion()
 		{
+			lblTitulo.Text = propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
 			LimpiarCampos();
+			//CargarCombos();
 			udpEdit.Visible = false;
 			btnVolver.Visible = true;
 			btnGuardar.Visible = false;
