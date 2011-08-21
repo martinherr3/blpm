@@ -14,90 +14,37 @@ using EDUAR_Utility.Enumeraciones;
 namespace EDUAR_Entities
 {
 	[Serializable]
-    public class DiasHorarios: DTBase
-    {
-		private int _idDiaHorario;
-	  
-	    public int idDiaHorario
-        {
-            get
-            {
-                return _idDiaHorario;
-            }
-            set
-            {
-                _idDiaHorario = value;
-            }
-        }
+	public class DiasHorarios : DTBase
+	{
+		public int idDiaHorario { get; set; }
+		public int idAsignaturaCurso { get; set; }
+		public int idDiaHorarioTransaccional { get; set; }
+		public enumDiasSemana unDia { get; set; }
+		public List<Modulo> modulos { get; set; }
 
-        private int _idNivel;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DiasHorarios"/> class.
+		/// </summary>
+		public DiasHorarios()
+		{
+			modulos = new List<Modulo>();
+		}
 
-        public int idNivel
-        {
-            get { return _idNivel; }
-            set { _idNivel = value; }
-        }
+		/// <summary>
+		/// Releases unmanaged resources and performs other cleanup operations before the
+		/// <see cref="DiasHorarios"/> is reclaimed by garbage collection.
+		/// </summary>
+		~DiasHorarios()
+		{
 
+		}
 
-        private int _idAsignatura;
+		/// <summary>
+		/// Releases unmanaged and - optionally - managed resources
+		/// </summary>
+		public virtual void Dispose()
+		{
 
-        public int idAsignatura
-        {
-            get { return _idAsignatura; }
-            set { _idAsignatura = value; }
-        }
-
-        private int _idCurso;
-
-        public int idCurso
-        {
-            get { return _idCurso; }
-            set { _idCurso = value; }
-        }
-
-
-        private int _idDiaHorarioTransaccional;
-
-        public int idDiaHorarioTransaccional
-        {
-            get { return _idDiaHorarioTransaccional; }
-            set { _idDiaHorarioTransaccional = value; }
-        }
-
-	    private enumDiasSemana _unDia;
-
-        public enumDiasSemana unDia
-        {
-            get { return _unDia; }
-            set { _unDia = value; }
-        }
-
-        private List<Modulo> _modulos;
-
-		public List<Modulo> modulos
-        {
-            get { return _modulos; }
-            set { _modulos = value; }
-        }
-
-        public DiasHorarios()
-        {
-
-        }
-
-        ~DiasHorarios()
-        {
-
-        }
-
-        public virtual void Dispose()
-        {
-
-        }
-
-
-
-      
-
-    }//end DiaHorario
+		}
+	}//end DiaHorario
 }

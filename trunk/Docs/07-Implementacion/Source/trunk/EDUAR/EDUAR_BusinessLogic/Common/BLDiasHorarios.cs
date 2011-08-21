@@ -164,22 +164,32 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<DiasHorarios> GetDiasHorarioss(DiasHorarios entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetDiasHorarioss(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetDiasHorarioss", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+		public List<DiasHorarios> GetHorariosCurso(DiasHorarios entidad)
+		{
+			try
+			{
+				List<DiasHorarios> listaDias = new List<DiasHorarios>();
+				listaDias = DataAcces.GetDiasHorarios(entidad);
+				BLModulo objBLModulo = new BLModulo();
+				Modulo objModulo ;
+				foreach (DiasHorarios item in listaDias)
+				{
+					objModulo = new Modulo();
+					objModulo.idDiaHorario = item.idDiaHorario;
+					item.modulos = objBLModulo.GetModulos(objModulo);
+				}
+				return listaDias;
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetDiasHorarioss", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
     }
 }

@@ -1,5 +1,5 @@
-﻿<%@ Page Title="Admministrar Evaluaciones" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
-    CodeBehind="ManageEvaluaciones.aspx.cs" Inherits="EDUAR_UI.ManageEvaluaciones"
+﻿<%@ Page Title="Admministrar Evaluaciones" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+    AutoEventWireup="true" CodeBehind="ManageEvaluaciones.aspx.cs" Inherits="EDUAR_UI.ManageEvaluaciones"
     Theme="Tema" StylesheetTheme="Tema" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
@@ -142,7 +142,7 @@
                                 <asp:Label ID="lblAsignaturaEdit" runat="server" Text="Asignatura:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios75" colspan="3">
-                                <asp:DropDownList ID="ddlAsignaturaEdit" runat="server">
+                                <asp:DropDownList ID="ddlAsignaturaEdit" runat="server" OnSelectedIndexChanged="ddlAsignaturaEdit_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </td>
                         </tr>
@@ -151,7 +151,28 @@
                                 <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
-                                <cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
+                                <%--<cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />--%>
+                                <asp:UpdatePanel ID="udpMeses" runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                            <tr>
+                                                <td>
+                                                    <asp:DropDownList runat="server" ID="ddlMeses" OnSelectedIndexChanged="ddlMeses_SelectedIndexChanged"
+                                                        AutoPostBack="true">
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList runat="server" ID="ddlDia">
+                                                    </asp:DropDownList>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="ddlAsignaturaEdit" EventName="SelectedIndexChanged" />
+                                        <asp:PostBackTrigger ControlID="ddlMeses" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
                             </td>
                             <td valign="top" class="TDCriterios10">
                             </td>
