@@ -64,6 +64,8 @@ namespace EDUAR_DataAccess.Common
 					objAgendaActividades.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					objAgendaActividades.cursoCicloLectivo.curso.nombre = reader["curso"].ToString();
 					objAgendaActividades.cursoCicloLectivo.cicloLectivo.nombre = reader["cicloLectivo"].ToString();
+					objAgendaActividades.cursoCicloLectivo.cicloLectivo.fechaInicio = Convert.ToDateTime(reader["fechaInicio"].ToString());
+					objAgendaActividades.cursoCicloLectivo.cicloLectivo.fechaFin = Convert.ToDateTime(reader["fechaFin"].ToString());
 					objAgendaActividades.descripcion = reader["descripcion"].ToString();
 					objAgendaActividades.activo = Convert.ToBoolean(reader["activo"].ToString());
 					objAgendaActividades.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"].ToString());
@@ -236,6 +238,8 @@ namespace EDUAR_DataAccess.Common
 					objAgendaActividades.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					objAgendaActividades.cursoCicloLectivo.curso.nombre = reader["curso"].ToString();
 					objAgendaActividades.cursoCicloLectivo.cicloLectivo.nombre = reader["cicloLectivo"].ToString();
+					objAgendaActividades.cursoCicloLectivo.cicloLectivo.fechaInicio = Convert.ToDateTime(reader["fechaInicio"].ToString());
+					objAgendaActividades.cursoCicloLectivo.cicloLectivo.fechaFin = Convert.ToDateTime(reader["fechaFin"].ToString());
 					objAgendaActividades.descripcion = reader["descripcion"].ToString();
 					objAgendaActividades.activo = Convert.ToBoolean(reader["activo"].ToString());
 					objAgendaActividades.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"].ToString());

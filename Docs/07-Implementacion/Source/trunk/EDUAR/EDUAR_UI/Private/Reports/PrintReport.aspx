@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PrintReport.aspx.cs" Inherits="EDUAR_UI.PrintReport" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PrintReport.aspx.cs" Inherits="EDUAR_UI.PrintReport" Theme="Tema" StylesheetTheme="Tema" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -103,6 +103,11 @@
             <td align="left">
                 <asp:Label ID="lblUsuario" Text="" runat="server" Font-Names="Helvetica" Font-Bold="false"
                     ForeColor="Black" Font-Size="Medium" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left">
+                <asp:Literal ID="lblFiltro" Text="" runat="server" />
             </td>
         </tr>
     </table>

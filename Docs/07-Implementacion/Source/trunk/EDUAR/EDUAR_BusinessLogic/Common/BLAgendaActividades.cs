@@ -92,6 +92,13 @@ namespace EDUAR_BusinessLogic.Common
                 else
                     DataAcces.Update(Data);
 
+				BLEvaluacion objBLEvaluacion;
+				foreach (Evaluacion item in Data.listaEvaluaciones)
+				{
+					objBLEvaluacion = new BLEvaluacion(item);
+					objBLEvaluacion.Save(DataAcces.Transaction);
+				}
+
 				BLReunion objBLReunion;
 				foreach (Reunion item in Data.listaReuniones)
 				{

@@ -8,6 +8,7 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using System.Collections;
 
 namespace EDUAR_UI
 {
@@ -86,6 +87,7 @@ namespace EDUAR_UI
 			set { ViewState["listaEventos"] = value; }
 		}
 		#endregion
+
 		#region --[Eventos]--
 		/// <summary>
 		/// Método que se ejecuta al dibujar los controles de la página.
@@ -307,6 +309,42 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+		/// <summary>
+		/// Handles the SelectedIndexChanged event of the ddlMeses control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void ddlMeses_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				int mes = Convert.ToInt32(ddlMeses.SelectedValue);
+				BindComboModulos(mes);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the SelectedIndexChanged event of the ddlAsignaturaEdit control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void ddlAsignaturaEdit_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
+				BindComboModulos(DateTime.Now.Month);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -336,7 +374,9 @@ namespace EDUAR_UI
 		{
 			chkActivo.Checked = true;
 			chkActivoEdit.Checked = false;
-			calFechaEvento.LimpiarControles();
+			//calFechaEvento.LimpiarControles();
+			if (ddlMeses.Items.Count > 0) ddlMeses.SelectedIndex = 0;
+			if (ddlDia.Items.Count > 0) ddlDia.SelectedIndex = 0;
 			calfechas.LimpiarControles();
 			ddlAsignatura.SelectedIndex = 0;
 			ddlAsignaturaEdit.SelectedIndex = 0;
@@ -355,12 +395,52 @@ namespace EDUAR_UI
 			if (User.IsInRole(enumRoles.Docente.ToString()))
 				objAsignatura.docente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
 
-			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
+			ddlAsignatura.Items.Clear();
+			ddlAsignaturaEdit.Items.Clear();
+			ddlMeses.Items.Clear();
+			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false, true);
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false);
-
+			UIUtilidades.BindComboMeses(ddlMeses, false);
+			BindComboModulos(DateTime.Now.Month);
 		}
 
 		/// <summary>
+		/// Binds the combo modulos.
+		/// </summary>
+		/// <param name="mes">The mes.</param>
+		private void BindComboModulos(int mes)
+		{
+			BLDiasHorarios objBLHorario = new BLDiasHorarios();
+			List<DiasHorarios> listaHorario = new List<DiasHorarios>();
+			DiasHorarios objDiaHorario = new DiasHorarios();
+			if (esNuevo)
+				objDiaHorario.idAsignaturaCurso = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
+			else
+				objDiaHorario.idAsignaturaCurso = propEvento.asignatura.idAsignatura;
+			listaHorario = objBLHorario.GetHorariosCurso(objDiaHorario);
+			int anio = propAgenda.cursoCicloLectivo.cicloLectivo.fechaInicio.Year;
+			int cantDias = DateTime.DaysInMonth(anio, mes);
+			cantDias++;
+			DateTime fecha = new DateTime(anio, mes, 1);
+			ddlDia.Items.Clear();
+			foreach (DiasHorarios item in listaHorario)
+			{
+				if ((int)item.unDia >= (int)enumDiasSemana.Lunes && (int)item.unDia <= (int)enumDiasSemana.Viernes)
+				{
+					for (int i = 1; i < cantDias; i++)
+					{
+						fecha = new DateTime(anio, mes, i);
+						if ((int)fecha.Date.DayOfWeek == (int)item.unDia && !ddlDia.Items.Contains(ddlDia.Items.FindByValue(i.ToString())))
+						{
+							ddlDia.Items.Add(new ListItem(item.unDia + " " + i.ToString(), i.ToString()));
+						}
+					}
+				}
+			}
+			UIUtilidades.SortByValue(ddlDia);
+			udpMeses.Update();
+		}
+
 		/// Cargars the grilla.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -426,7 +506,8 @@ namespace EDUAR_UI
 			}
 			entidad.asignatura.idAsignatura = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
 			entidad.descripcion = txtDescripcionEdit.Text;
-			entidad.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
+			//entidad.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
+			entidad.fechaEvento = Convert.ToDateTime(new DateTime(propAgenda.cursoCicloLectivo.cicloLectivo.fechaInicio.Year, Convert.ToInt32(ddlMeses.SelectedValue), Convert.ToInt32(ddlDia.SelectedValue)));
 			entidad.usuario.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
 			entidad.activo = chkActivoEdit.Checked;
 			entidad.fechaAlta = DateTime.Now;
@@ -455,8 +536,12 @@ namespace EDUAR_UI
 			if (entidad != null)
 			{
 				txtDescripcionEdit.Text = entidad.descripcion;
-				calFechaEvento.Fecha.Text = entidad.fechaEvento.ToShortDateString();
+				BindComboModulos(entidad.fechaEvento.Month);
+				//calFechaEvento.Fecha.Text = entidad.fechaEvento.ToShortDateString();
+				ddlMeses.SelectedValue = entidad.fechaEvento.Month.ToString();
+				ddlDia.SelectedValue = entidad.fechaEvento.Day.ToString();
 				ddlAsignaturaEdit.SelectedValue = entidad.asignatura.idAsignatura.ToString();
+				ddlAsignaturaEdit.Enabled = false;
 				chkActivoEdit.Checked = entidad.activo;
 			}
 		}
@@ -474,6 +559,8 @@ namespace EDUAR_UI
 			//    mensaje += "- Fecha<br />";
 			if (!(Convert.ToInt32(ddlAsignaturaEdit.SelectedValue) > 0))
 				mensaje += "- Asignatura";
+			if (!(Convert.ToInt32(ddlMeses.SelectedValue) > 0) || !(Convert.ToInt32(ddlDia.SelectedValue) > 0))
+				mensaje += "- Fecha de Evaluación";
 			//if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
 			//    mensaje += "- Curso";
 			return mensaje;

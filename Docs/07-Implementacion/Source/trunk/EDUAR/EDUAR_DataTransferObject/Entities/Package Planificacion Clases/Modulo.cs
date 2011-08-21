@@ -6,37 +6,36 @@ using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
+	[Serializable]
     public class Modulo: DTBase
     {
-        private int _idModulo;
+		public int idModulo { get; set; }
+		public DateTime horaInicio { get; set; }
+		public DateTime horaFinalizacion { get; set; }
+		public int idDiaHorario { get; set; }
 
-        public int idModulo
-        {
-            get { return _idModulo; }
-            set { _idModulo = value; }
-        }
-        private DateTime _horaInicio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Modulo"/> class.
+		/// </summary>
+		public Modulo()
+		{
+		}
 
-        public DateTime horaInicio
-        {
-            get { return _horaInicio; }
-            set { _horaInicio = value; }
-        }
-        private DateTime _horaFinalizacion;
+		/// <summary>
+		/// Releases unmanaged resources and performs other cleanup operations before the
+		/// <see cref="Modulo"/> is reclaimed by garbage collection.
+		/// </summary>
+		~Modulo()
+		{
 
-        public DateTime horaFinalizacion
-        {
-            get { return _horaFinalizacion; }
-            set { _horaFinalizacion = value; }
-        }
+		}
 
-        private int _idDiaHorario;
+		/// <summary>
+		/// Releases unmanaged and - optionally - managed resources
+		/// </summary>
+		public virtual void Dispose()
+		{
 
-        public int idDiaHorario
-        {
-            get { return _idDiaHorario; }
-            set { _idDiaHorario = value; }
-        }
- 
+		}
     }
 }

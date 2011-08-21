@@ -13,7 +13,7 @@ namespace EDUAR_UI.Utilidades
 {
     public class ExportPDF
     {
-        public static void ExportarPDF(string TituloPagina, DataTable dtReporte, string username)
+        public static void ExportarPDF(string TituloPagina, DataTable dtReporte, string username, string filtros)
         {
             Persona usuario = new Persona();
             usuario.username = username;
@@ -37,8 +37,8 @@ namespace EDUAR_UI.Utilidades
             Phrase tipo = new Phrase(strTitulo, font15B);
             Phrase fechas = new Phrase(fecha, font15B);
 
-            Font font12B = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, Font.NORMAL);
-            Phrase user = new Phrase("Usuario: " + usuario.apellido + " " + usuario.nombre + " - " + usuario.username, font12B);
+			Font font12B = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, Font.NORMAL);
+			//Phrase user = new Phrase("Usuario: " + usuario.apellido + " " + usuario.nombre + " - " + usuario.username, font12B);
 
             PdfContentByte cb = writerPdf.DirectContent;
 
@@ -54,11 +54,19 @@ namespace EDUAR_UI.Utilidades
             ct.SetSimpleColumn(fechas, documento.Left, 0, documento.Right, documento.Top + 25, 15, Element.ALIGN_CENTER);
             ct.Go();
 
-            ColumnText cu = new ColumnText(cb);
-            cu.SetSimpleColumn(user, documento.Left, 0, documento.Right, documento.Top + 25, 15, Element.ALIGN_LEFT);
-            cu.Go();
+			//ColumnText cu = new ColumnText(cb);
+			//cu.SetSimpleColumn(user, documento.Left, 0, documento.Right, documento.Top + 25, 15, Element.ALIGN_LEFT);
+			//cu.Go();
 
-            PdfPTable grdTable = new PdfPTable(columnCount);
+			PdfPTable grdTableEncabezado = new PdfPTable(1);
+			grdTableEncabezado.WidthPercentage = 90;
+			grdTableEncabezado.AddCell(new PdfPCell(new Phrase("Usuario: " + usuario.apellido + " " + usuario.nombre + " - " + usuario.username, font12B)));
+			grdTableEncabezado.CompleteRow();
+			grdTableEncabezado.AddCell(new PdfPCell(new Phrase(filtros, font12B)));
+			grdTableEncabezado.CompleteRow();
+			documento.Add(grdTableEncabezado);
+
+			PdfPTable grdTable = new PdfPTable(columnCount);
             Font LetraTituloTabla = FontFactory.GetFont(FontFactory.HELVETICA, 9, Font.BOLDITALIC, BaseColor.LIGHT_GRAY);
             float[] espacios = new float[columnCount];
             for (int i = 0; i < columnCount; i++)

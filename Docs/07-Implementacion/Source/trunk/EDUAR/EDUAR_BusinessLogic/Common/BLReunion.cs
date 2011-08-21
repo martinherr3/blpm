@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EDUAR_DataAccess.Common;
-using EDUAR_Entities;
 using EDUAR_BusinessLogic.Shared;
-using EDUAR_Entities.Shared;
-using EDUAR_Utility.Excepciones;
-using EDUAR_Utility.Enumeraciones;
+using EDUAR_DataAccess.Common;
 using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
+using EDUAR_Entities.Shared;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_BusinessLogic.Common
 {
