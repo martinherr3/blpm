@@ -136,34 +136,14 @@ namespace EDUAR_UI
 			{
 				switch (AccionPagina)
 				{
-					case enumAcciones.Buscar:
-						break;
-					case enumAcciones.Nuevo:
-						break;
-					case enumAcciones.Modificar:
-						break;
-					case enumAcciones.Eliminar:
-						break;
-					case enumAcciones.Seleccionar:
-						break;
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
 						BuscarAgenda(null);
-						break;
-					case enumAcciones.Aceptar:
-						break;
-					case enumAcciones.Salir:
-						break;
-					case enumAcciones.Redirect:
 						break;
 					case enumAcciones.Guardar:
 						AccionPagina = enumAcciones.Limpiar;
 						GuardarAgenda(ObtenerValoresDePantalla());
 						Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
-						break;
-					case enumAcciones.Ingresar:
-						break;
-					case enumAcciones.Desbloquear:
 						break;
 					default:
 						break;
@@ -241,38 +221,6 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
-
-		/// <summary>
-		/// DESACTIVADO!!!!!!
-		/// Handles the Click event of the btnNuevo control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		//protected void btnNuevo_Click(object sender, EventArgs e)
-		//{
-		//    try
-		//    {
-		//        AccionPagina = enumAcciones.Nuevo;
-		//        LimpiarCampos();
-		//        //CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
-		//        esNuevo = true;
-		//        //btnGuardar.Visible = true;
-		//        btnBuscar.Visible = false;
-		//        btnVolver.Visible = true;
-		//        //btnNuevo.Visible = false;
-		//        gvwReporte.Visible = false;
-		//        //litEditar.Visible = false;
-		//        //litNuevo.Visible = true;
-		//        udpEdit.Visible = true;
-		//        udpFiltrosBusqueda.Visible = false;
-		//        udpFiltros.Update();
-		//        udpGrilla.Update();
-		//    }
-		//    catch (Exception ex)
-		//    {
-		//        Master.ManageExceptions(ex);
-		//    }
-		//}
 
 		/// <summary>
 		/// Handles the Click event of the btnAsignarRol control.
@@ -362,19 +310,6 @@ namespace EDUAR_UI
 			}
 		}
 
-		//protected void ddlCicloLectivoEdit_SelectedIndexChanged(object sender, EventArgs e)
-		//{
-		//    try
-		//    {
-		//        //int idCicloLectivo = Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue);
-		//        //CargarComboCursos(idCicloLectivo, ddlCursoEdit);
-		//    }
-		//    catch (Exception ex)
-		//    {
-		//        Master.ManageExceptions(ex);
-		//    }
-		//}
-
 		/// <summary>
 		/// Handles the PageIndexChanging event of the gvwReporte control.
 		/// </summary>
@@ -454,6 +389,10 @@ namespace EDUAR_UI
 			udpGrilla.Update();
 		}
 
+		/// <summary>
+		/// Habilitars the botones detalle.
+		/// </summary>
+		/// <param name="habilitar">if set to <c>true</c> [habilitar].</param>
 		private void HabilitarBotonesDetalle(bool habilitar)
 		{
 			btnExcursion.Visible = habilitar;
@@ -533,7 +472,6 @@ namespace EDUAR_UI
 		private void BuscarAgenda(AgendaActividades entidad)
 		{
 			CargarLista(entidad);
-
 			CargarGrilla();
 		}
 
@@ -603,11 +541,8 @@ namespace EDUAR_UI
 			AccionPagina = enumAcciones.Modificar;
 			esNuevo = false;
 			CargarValoresEnPantalla(propAgenda.idAgendaActividad);
-
 			propAgenda.listaEventos.Sort((p, q) => DateTime.Compare(p.fechaEvento, q.fechaEvento));
-
 			CargarGrillaAgenda();
-
 			HabilitarBotonesDetalle(true);
 			btnBuscar.Visible = false;
 			btnVolver.Visible = true;
@@ -617,6 +552,5 @@ namespace EDUAR_UI
 			udpEdit.Update();
 		}
 		#endregion
-
 	}
 }
