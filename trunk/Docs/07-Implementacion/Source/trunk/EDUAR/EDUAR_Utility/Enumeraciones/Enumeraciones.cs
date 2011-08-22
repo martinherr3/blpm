@@ -93,7 +93,8 @@ namespace EDUAR_Utility.Enumeraciones
 		Redirect,
 		Guardar,
 		Ingresar,
-		Desbloquear
+		Desbloquear,
+		Error
 	}
 
 	/// <summary>

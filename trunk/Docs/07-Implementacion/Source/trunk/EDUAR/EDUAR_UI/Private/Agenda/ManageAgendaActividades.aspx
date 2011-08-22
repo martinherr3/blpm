@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="Administrar Agenda Actividades" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="ManageAgendaActividades.aspx.cs" Inherits="EDUAR_UI.ManageAgendaActividades" Theme="Tema" %>
+    AutoEventWireup="true" CodeBehind="ManageAgendaActividades.aspx.cs" Inherits="EDUAR_UI.ManageAgendaActividades"
+    Theme="Tema" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
@@ -112,7 +113,7 @@
                             <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("fechaCreacion","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>--%>
-                     <asp:TemplateField HeaderText="Ciclo Lectivo">
+                    <asp:TemplateField HeaderText="Ciclo Lectivo">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
@@ -137,73 +138,46 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td colspan="2">
-                                <h3>
-                                    <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
-                                    <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
-                                    Agenda de Actividades</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="validarEdit" runat="server" />
-                            </td>
-                        </tr>
-                    </table>
-                    <table width="100%" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblCicloLectivoEdit" runat="server" Text="Ciclo Lectivo:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlCicloLectivoEdit" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivoEdit_SelectedIndexChanged"
-                                    Enabled="false">
-                                </asp:DropDownList>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblCursoEdit" runat="server" Text="Curso:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlCursoEdit" runat="server" Enabled="false">
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" style="width: 17%; text-align: left">
-                                <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios40">
-                                <asp:TextBox ID="txtFechaEdit" runat="server" Enabled="false" />
-                            </td>
-                            <td valign="top" class="TDCriterios10">
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TD25">
-                                <asp:Label runat="server" ID="Label9" Text="Descripción:"></asp:Label>
-                            </td>
-                            <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="500px" TextMode="MultiLine"
-                                    Rows="5"></asp:TextBox>
-                            </td>
-                        </tr>
-                    </table>
+                    <asp:GridView ID="gvwAgenda" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
+                        AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idEventoAgenda">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Evento">
+                                <HeaderStyle HorizontalAlign="left" Width="20%" />
+                                <ItemStyle HorizontalAlign="left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblEventoGrilla" runat="server" Text='<%# Bind("tipoEventoAgenda.descripcion") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Fecha">
+                                <HeaderStyle HorizontalAlign="center" Width="20%" />
+                                <ItemStyle HorizontalAlign="center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# Bind("fechaEvento","{0:d}") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Descripcion">
+                                <HeaderStyle HorizontalAlign="left" Width="20%" />
+                                <ItemStyle HorizontalAlign="left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDescripcionGrilla" runat="server" Text='<%# Bind("descripcion") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Organizador">
+                                <HeaderStyle HorizontalAlign="left" Width="20%" />
+                                <ItemStyle HorizontalAlign="left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblOrganizadorGrilla" runat="server" Text='<%# String.Format("{0} {1}", Eval("usuario.nombre"), Eval("usuario.apellido")) %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Activo">
+                                <HeaderStyle HorizontalAlign="center" Width="10%" />
+                                <ItemStyle HorizontalAlign="center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblActivo" runat="server" Text='<%# Boolean.Parse(Eval("activo").ToString()) ? "Sí" : "No"  %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
                 </ContentTemplate>
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
@@ -217,4 +191,4 @@
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
         </Triggers>
     </asp:UpdatePanel>
-</asp:Content>
+</asp:Content> 

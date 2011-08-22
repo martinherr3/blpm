@@ -116,7 +116,7 @@ namespace EDUAR_UI
 					else
 						BuscarAgenda(propAgenda);
 				}
-				this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
+				//this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
 			}
 			catch (Exception ex)
 			{
@@ -255,15 +255,15 @@ namespace EDUAR_UI
 			{
 				AccionPagina = enumAcciones.Nuevo;
 				LimpiarCampos();
-				CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
+				//CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
 				esNuevo = true;
-				btnGuardar.Visible = true;
+				//btnGuardar.Visible = true;
 				btnBuscar.Visible = false;
 				btnVolver.Visible = true;
 				//btnNuevo.Visible = false;
 				gvwReporte.Visible = false;
-				litEditar.Visible = false;
-				litNuevo.Visible = true;
+				//litEditar.Visible = false;
+				//litNuevo.Visible = true;
 				udpEdit.Visible = true;
 				udpFiltrosBusqueda.Visible = false;
 				udpFiltros.Update();
@@ -367,8 +367,8 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue);
-				CargarComboCursos(idCicloLectivo, ddlCursoEdit);
+				//int idCicloLectivo = Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue);
+				//CargarComboCursos(idCicloLectivo, ddlCursoEdit);
 			}
 			catch (Exception ex)
 			{
@@ -462,13 +462,13 @@ namespace EDUAR_UI
 		private void LimpiarCampos()
 		{
 			ddlCicloLectivo.SelectedIndex = 0;
-			if (ddlCicloLectivoEdit.Items.Count > 0) ddlCicloLectivoEdit.SelectedIndex = 0;
+			//if (ddlCicloLectivoEdit.Items.Count > 0) ddlCicloLectivoEdit.SelectedIndex = 0;
 			if (ddlCurso.Items.Count > 0) ddlCurso.SelectedIndex = 0;
-			if (ddlCursoEdit.Items.Count > 0) ddlCursoEdit.SelectedIndex = 0;
+			//if (ddlCursoEdit.Items.Count > 0) ddlCursoEdit.SelectedIndex = 0;
 			HabilitarBotonesDetalle(false);
 			chkActivo.Checked = true;
-			chkActivoEdit.Checked = false;
-			txtDescripcionEdit.Text = string.Empty;
+			//chkActivoEdit.Checked = false;
+			//txtDescripcionEdit.Text = string.Empty;
 		}
 
 		/// <summary>
@@ -522,11 +522,11 @@ namespace EDUAR_UI
 				entidad.idAgendaActividad = propAgenda.idAgendaActividad;
 				entidad.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
 			}
-			entidad.descripcion = txtDescripcionEdit.Text;
-			entidad.fechaCreacion = Convert.ToDateTime(txtFechaEdit.Text);
-			entidad.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue);
-			entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCursoEdit.SelectedValue);
-			entidad.activo = chkActivoEdit.Checked;
+			//entidad.descripcion = txtDescripcionEdit.Text;
+			//entidad.fechaCreacion = Convert.ToDateTime(txtFechaEdit.Text);
+			//entidad.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue);
+			//entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCursoEdit.SelectedValue);
+			//entidad.activo = chkActivoEdit.Checked;
 			return entidad;
 		}
 
@@ -545,17 +545,21 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarValoresEnPantalla(int idAgendaActividad)
 		{
-			AgendaActividades entidad = listaAgenda.Find(c => c.idAgendaActividad == idAgendaActividad);
-			propAgenda = entidad;
+			BLAgendaActividades objBLAgenda = new BLAgendaActividades(new AgendaActividades() { idAgendaActividad = idAgendaActividad });
+			objBLAgenda.GetById();
+			//AgendaActividades entidad = listaAgenda.Find(c => c.idAgendaActividad == idAgendaActividad);
+			propAgenda = objBLAgenda.Data;
 			//propAgenda.cursoCicloLectivo.idCursoCicloLectivo = entidad.cursoCicloLectivo.idCursoCicloLectivo;
-			txtDescripcionEdit.Text = entidad.descripcion;
-			txtFechaEdit.Text = DateTime.Now.ToShortDateString();
-			ddlCicloLectivoEdit.SelectedValue = entidad.cursoCicloLectivo.idCicloLectivo.ToString();
-			CargarComboCursos(entidad.cursoCicloLectivo.idCicloLectivo, ddlCursoEdit);
-			ddlCursoEdit.SelectedValue = entidad.cursoCicloLectivo.idCurso.ToString();
-			ddlCicloLectivoEdit.Enabled = false;
-			ddlCursoEdit.Enabled = false;
-			chkActivoEdit.Checked = entidad.activo;
+			//txtDescripcionEdit.Text = entidad.descripcion;
+			//txtFechaEdit.Text = DateTime.Now.ToShortDateString();
+			//ddlCicloLectivoEdit.SelectedValue = entidad.cursoCicloLectivo.idCicloLectivo.ToString();
+			//CargarComboCursos(entidad.cursoCicloLectivo.idCicloLectivo, ddlCursoEdit);
+			//ddlCursoEdit.SelectedValue = entidad.cursoCicloLectivo.idCurso.ToString();
+			//ddlCicloLectivoEdit.Enabled = false;
+			//ddlCursoEdit.Enabled = false;
+			//chkActivoEdit.Checked = entidad.activo;
+
+			
 		}
 
 		/// <summary>
@@ -565,14 +569,14 @@ namespace EDUAR_UI
 		private string ValidarPagina()
 		{
 			string mensaje = string.Empty;
-			if (txtDescripcionEdit.Text.Trim().Length == 0)
-				mensaje = "- Descripcion<br />";
+			//if (txtDescripcionEdit.Text.Trim().Length == 0)
+			//    mensaje = "- Descripcion<br />";
 			//if (calFechaEdit.Fecha.Text.Trim().Length == 0)
 			//    mensaje += "- Fecha<br />";
-			if (!(Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue) > 0))
-				mensaje += "- Ciclo Lectivo";
-			if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
-				mensaje += "- Curso";
+			//if (!(Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue) > 0))
+			//    mensaje += "- Ciclo Lectivo";
+			//if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
+			//    mensaje += "- Curso";
 			return mensaje;
 		}
 
@@ -585,15 +589,23 @@ namespace EDUAR_UI
 			//propAgenda.idAgendaActividad = idAgenda;
 			AccionPagina = enumAcciones.Modificar;
 			esNuevo = false;
-			CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
+			//CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
 			CargarValoresEnPantalla(propAgenda.idAgendaActividad);
-			litEditar.Visible = true;
-			litNuevo.Visible = false;
+
+			propAgenda.listaEventos.Sort((p, q) => DateTime.Compare(p.fechaEvento, q.fechaEvento));
+
+			gvwAgenda.DataSource = UIUtilidades.BuildDataTable<EventoAgenda>(propAgenda.listaEventos).DefaultView;
+			gvwAgenda.DataBind();
+			udpEdit.Visible = false;
+			udpGrilla.Update();
+
+			//litEditar.Visible = true;
+			//litNuevo.Visible = false;
 			HabilitarBotonesDetalle(true);
 			btnBuscar.Visible = false;
 			//btnNuevo.Visible = false;
 			btnVolver.Visible = true;
-			btnGuardar.Visible = true;
+			//btnGuardar.Visible = true;
 			gvwReporte.Visible = false;
 			udpFiltrosBusqueda.Visible = false;
 			udpEdit.Visible = true;

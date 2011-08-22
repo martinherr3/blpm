@@ -104,14 +104,14 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fecha">
-                        <HeaderStyle HorizontalAlign="left" Width="20%" />
-                        <ItemStyle HorizontalAlign="left" />
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# Bind("fechaEvento","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Activo">
-                        <HeaderStyle HorizontalAlign="left" Width="10%" />
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblActivo" runat="server" Text='<%# Boolean.Parse(Eval("activo").ToString()) ? "Sí" : "No"  %>'></asp:Label>
