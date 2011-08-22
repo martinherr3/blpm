@@ -184,7 +184,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//idAgenda = propAgenda.idAgendaActividad;
 				Response.Redirect("ManageEvaluaciones.aspx", false);
 			}
 			catch (Exception ex)
@@ -249,31 +248,31 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void btnNuevo_Click(object sender, EventArgs e)
-		{
-			try
-			{
-				AccionPagina = enumAcciones.Nuevo;
-				LimpiarCampos();
-				//CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
-				esNuevo = true;
-				//btnGuardar.Visible = true;
-				btnBuscar.Visible = false;
-				btnVolver.Visible = true;
-				//btnNuevo.Visible = false;
-				gvwReporte.Visible = false;
-				//litEditar.Visible = false;
-				//litNuevo.Visible = true;
-				udpEdit.Visible = true;
-				udpFiltrosBusqueda.Visible = false;
-				udpFiltros.Update();
-				udpGrilla.Update();
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
-		}
+		//protected void btnNuevo_Click(object sender, EventArgs e)
+		//{
+		//    try
+		//    {
+		//        AccionPagina = enumAcciones.Nuevo;
+		//        LimpiarCampos();
+		//        //CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
+		//        esNuevo = true;
+		//        //btnGuardar.Visible = true;
+		//        btnBuscar.Visible = false;
+		//        btnVolver.Visible = true;
+		//        //btnNuevo.Visible = false;
+		//        gvwReporte.Visible = false;
+		//        //litEditar.Visible = false;
+		//        //litNuevo.Visible = true;
+		//        udpEdit.Visible = true;
+		//        udpFiltrosBusqueda.Visible = false;
+		//        udpFiltros.Update();
+		//        udpGrilla.Update();
+		//    }
+		//    catch (Exception ex)
+		//    {
+		//        Master.ManageExceptions(ex);
+		//    }
+		//}
 
 		/// <summary>
 		/// Handles the Click event of the btnAsignarRol control.
@@ -363,17 +362,53 @@ namespace EDUAR_UI
 			}
 		}
 
-		protected void ddlCicloLectivoEdit_SelectedIndexChanged(object sender, EventArgs e)
+		//protected void ddlCicloLectivoEdit_SelectedIndexChanged(object sender, EventArgs e)
+		//{
+		//    try
+		//    {
+		//        //int idCicloLectivo = Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue);
+		//        //CargarComboCursos(idCicloLectivo, ddlCursoEdit);
+		//    }
+		//    catch (Exception ex)
+		//    {
+		//        Master.ManageExceptions(ex);
+		//    }
+		//}
+
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwReporte control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+		protected void gvwReporte_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 			try
 			{
-				//int idCicloLectivo = Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue);
-				//CargarComboCursos(idCicloLectivo, ddlCursoEdit);
+				gvwReporte.PageIndex = e.NewPageIndex;
+				CargarGrilla();
 			}
-			catch (Exception ex)
+			catch (Exception ex) { Master.ManageExceptions(ex); }
+		}
+
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwAgenda control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+		protected void gvwAgenda_PageIndexChanging(object sender, GridViewPageEventArgs e)
+		{
+			try
 			{
-				Master.ManageExceptions(ex);
+				gvwAgenda.PageIndex = e.NewPageIndex;
+				CargarGrillaAgenda();
+				btnBuscar.Visible = false;
+				btnVolver.Visible = true;
+				gvwReporte.Visible = false;
+				udpFiltrosBusqueda.Visible = false;
+				udpEdit.Visible = true;
+				udpEdit.Update();
 			}
+			catch (Exception ex) { Master.ManageExceptions(ex); }
 		}
 		#endregion
 
@@ -392,6 +427,17 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
+		/// Cargars the grilla agenda.
+		/// </summary>
+		private void CargarGrillaAgenda()
+		{
+			gvwAgenda.DataSource = UIUtilidades.BuildDataTable<EventoAgenda>(propAgenda.listaEventos).DefaultView;
+			gvwAgenda.DataBind();
+			udpEdit.Visible = false;
+			udpGrilla.Update();
+		}
+
+		/// <summary>
 		/// Cargars the presentacion.
 		/// </summary>
 		private void CargarPresentacion()
@@ -402,7 +448,6 @@ namespace EDUAR_UI
 			btnVolver.Visible = false;
 			btnGuardar.Visible = false;
 			udpFiltrosBusqueda.Visible = true;
-			//btnNuevo.Visible = true;
 			btnBuscar.Visible = true;
 			gvwReporte.Visible = true;
 			udpFiltros.Update();
@@ -451,7 +496,6 @@ namespace EDUAR_UI
 			}
 			else
 			{
-				//ddlCurso.SelectedIndex = 0;
 				ddlCurso.Enabled = false;
 			}
 		}
@@ -462,13 +506,9 @@ namespace EDUAR_UI
 		private void LimpiarCampos()
 		{
 			ddlCicloLectivo.SelectedIndex = 0;
-			//if (ddlCicloLectivoEdit.Items.Count > 0) ddlCicloLectivoEdit.SelectedIndex = 0;
 			if (ddlCurso.Items.Count > 0) ddlCurso.SelectedIndex = 0;
-			//if (ddlCursoEdit.Items.Count > 0) ddlCursoEdit.SelectedIndex = 0;
 			HabilitarBotonesDetalle(false);
 			chkActivo.Checked = true;
-			//chkActivoEdit.Checked = false;
-			//txtDescripcionEdit.Text = string.Empty;
 		}
 
 		/// <summary>
@@ -522,11 +562,6 @@ namespace EDUAR_UI
 				entidad.idAgendaActividad = propAgenda.idAgendaActividad;
 				entidad.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
 			}
-			//entidad.descripcion = txtDescripcionEdit.Text;
-			//entidad.fechaCreacion = Convert.ToDateTime(txtFechaEdit.Text);
-			//entidad.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue);
-			//entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCursoEdit.SelectedValue);
-			//entidad.activo = chkActivoEdit.Checked;
 			return entidad;
 		}
 
@@ -547,19 +582,7 @@ namespace EDUAR_UI
 		{
 			BLAgendaActividades objBLAgenda = new BLAgendaActividades(new AgendaActividades() { idAgendaActividad = idAgendaActividad });
 			objBLAgenda.GetById();
-			//AgendaActividades entidad = listaAgenda.Find(c => c.idAgendaActividad == idAgendaActividad);
 			propAgenda = objBLAgenda.Data;
-			//propAgenda.cursoCicloLectivo.idCursoCicloLectivo = entidad.cursoCicloLectivo.idCursoCicloLectivo;
-			//txtDescripcionEdit.Text = entidad.descripcion;
-			//txtFechaEdit.Text = DateTime.Now.ToShortDateString();
-			//ddlCicloLectivoEdit.SelectedValue = entidad.cursoCicloLectivo.idCicloLectivo.ToString();
-			//CargarComboCursos(entidad.cursoCicloLectivo.idCicloLectivo, ddlCursoEdit);
-			//ddlCursoEdit.SelectedValue = entidad.cursoCicloLectivo.idCurso.ToString();
-			//ddlCicloLectivoEdit.Enabled = false;
-			//ddlCursoEdit.Enabled = false;
-			//chkActivoEdit.Checked = entidad.activo;
-
-			
 		}
 
 		/// <summary>
@@ -569,14 +592,6 @@ namespace EDUAR_UI
 		private string ValidarPagina()
 		{
 			string mensaje = string.Empty;
-			//if (txtDescripcionEdit.Text.Trim().Length == 0)
-			//    mensaje = "- Descripcion<br />";
-			//if (calFechaEdit.Fecha.Text.Trim().Length == 0)
-			//    mensaje += "- Fecha<br />";
-			//if (!(Convert.ToInt32(ddlCicloLectivoEdit.SelectedValue) > 0))
-			//    mensaje += "- Ciclo Lectivo";
-			//if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
-			//    mensaje += "- Curso";
 			return mensaje;
 		}
 
@@ -585,27 +600,17 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargaAgenda()
 		{
-			//propAgenda = new AgendaActividades();
-			//propAgenda.idAgendaActividad = idAgenda;
 			AccionPagina = enumAcciones.Modificar;
 			esNuevo = false;
-			//CargarCombos(ddlCicloLectivoEdit, ddlCursoEdit);
 			CargarValoresEnPantalla(propAgenda.idAgendaActividad);
 
 			propAgenda.listaEventos.Sort((p, q) => DateTime.Compare(p.fechaEvento, q.fechaEvento));
 
-			gvwAgenda.DataSource = UIUtilidades.BuildDataTable<EventoAgenda>(propAgenda.listaEventos).DefaultView;
-			gvwAgenda.DataBind();
-			udpEdit.Visible = false;
-			udpGrilla.Update();
+			CargarGrillaAgenda();
 
-			//litEditar.Visible = true;
-			//litNuevo.Visible = false;
 			HabilitarBotonesDetalle(true);
 			btnBuscar.Visible = false;
-			//btnNuevo.Visible = false;
 			btnVolver.Visible = true;
-			//btnGuardar.Visible = true;
 			gvwReporte.Visible = false;
 			udpFiltrosBusqueda.Visible = false;
 			udpEdit.Visible = true;
