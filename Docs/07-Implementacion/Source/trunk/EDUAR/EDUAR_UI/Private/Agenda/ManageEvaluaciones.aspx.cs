@@ -357,6 +357,21 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwReporte control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+		protected void gvwReporte_PageIndexChanging(object sender, GridViewPageEventArgs e)
+		{
+			try
+			{
+				gvwReporte.PageIndex = e.NewPageIndex;
+				CargarGrilla();
+			}
+			catch (Exception ex) { Master.ManageExceptions(ex); }
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -386,7 +401,6 @@ namespace EDUAR_UI
 		{
 			chkActivo.Checked = true;
 			chkActivoEdit.Checked = false;
-			//calFechaEvento.LimpiarControles();
 			if (ddlMeses.Items.Count > 0) ddlMeses.SelectedIndex = 0;
 			if (ddlDia.Items.Count > 0) ddlDia.SelectedIndex = 0;
 			calfechas.LimpiarControles();
@@ -554,7 +568,8 @@ namespace EDUAR_UI
 				BindComboModulos(entidad.fechaEvento.Month);
 				//calFechaEvento.Fecha.Text = entidad.fechaEvento.ToShortDateString();
 				ddlMeses.SelectedValue = entidad.fechaEvento.Month.ToString();
-				ddlDia.SelectedValue = entidad.fechaEvento.Day.ToString();
+				if (ddlDia.Items.FindByValue(entidad.fechaEvento.Day.ToString()) != null)
+					ddlDia.SelectedValue = entidad.fechaEvento.Day.ToString();
 				ddlAsignaturaEdit.SelectedValue = entidad.asignatura.idAsignatura.ToString();
 				ddlAsignaturaEdit.Enabled = false;
 				chkActivoEdit.Checked = entidad.activo;
