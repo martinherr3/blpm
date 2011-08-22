@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Admministrar Evaluaciones" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+﻿<%@ Page Title="Administrar Evaluaciones" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="ManageEvaluaciones.aspx.cs" Inherits="EDUAR_UI.ManageEvaluaciones"
     Theme="Tema" StylesheetTheme="Tema" %>
 
@@ -108,6 +108,13 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# Bind("fechaEvento","{0:d}") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Organizador">
+                        <HeaderStyle HorizontalAlign="left" Width="20%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblOrganizador" runat="server" Text='<%# String.Format("{0} {1}", Eval("usuario.nombre"), Eval("usuario.apellido")) %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Activo">

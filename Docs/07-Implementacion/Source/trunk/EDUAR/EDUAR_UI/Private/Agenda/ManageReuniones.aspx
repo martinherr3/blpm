@@ -91,7 +91,7 @@
                         <HeaderStyle HorizontalAlign="Center" Width="20%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
-                            <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("fechaEvento","{0:d}") %>'></asp:Label>
+                            <asp:Label ID="lblFecha" runat="server" Text='<%# String.Format("{0} {1} hs.", Eval("fechaEvento","{0:d}"), Eval("horario","{0:HH:mm}")) %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Descripcion">
