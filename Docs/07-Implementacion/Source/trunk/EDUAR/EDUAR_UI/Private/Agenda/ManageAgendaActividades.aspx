@@ -18,8 +18,6 @@
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
-                        <%--<asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
-                            ImageUrl="~/Images/botonNuevo.png" />--%>
                         <asp:ImageButton ID="btnEvaluacion" OnClick="btnEvaluacion_Click" runat="server"
                             Visible="false" ToolTip="Evaluaciones" ImageUrl="~/Images/botonEvaluacion.png" />
                         <asp:ImageButton ID="btnExcursion" OnClick="btnExcursion_Click" runat="server" Visible="false"
@@ -89,14 +87,13 @@
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
-            <%--<asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />--%>
         </Triggers>
     </asp:UpdatePanel>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-                AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idAgendaActividad"
-                OnRowCommand="gvwReporte_RowCommand">
+                AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idAgendaActividad"
+                OnRowCommand="gvwReporte_RowCommand" OnPageIndexChanging="gvwReporte_PageIndexChanging">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
@@ -106,13 +103,6 @@
                                 ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <%--<asp:TemplateField HeaderText="Fecha Creación">
-                        <HeaderStyle HorizontalAlign="Center" Width="20%" />
-                        <ItemStyle HorizontalAlign="Center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("fechaCreacion","{0:d}") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="Ciclo Lectivo">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -139,7 +129,7 @@
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
                     <asp:GridView ID="gvwAgenda" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-                        AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idEventoAgenda">
+                        AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idEventoAgenda" OnPageIndexChanging="gvwAgenda_PageIndexChanging">
                         <Columns>
                             <asp:TemplateField HeaderText="Evento">
                                 <HeaderStyle HorizontalAlign="left" Width="20%" />
@@ -186,7 +176,6 @@
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
-            <%--<asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />--%>
             <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
         </Triggers>

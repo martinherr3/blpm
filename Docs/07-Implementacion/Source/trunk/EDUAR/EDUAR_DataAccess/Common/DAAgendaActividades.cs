@@ -99,6 +99,8 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (entidad.idAgendaActividad > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
+					if (entidad.idEventoAgenda > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEvento", DbType.Int32, entidad.idEventoAgenda);
 					if (entidad.asignatura.idAsignatura > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCurso", DbType.Int32, entidad.asignatura.idAsignatura);
 					if (ValidarFechaSQL(entidad.fechaEventoDesde))

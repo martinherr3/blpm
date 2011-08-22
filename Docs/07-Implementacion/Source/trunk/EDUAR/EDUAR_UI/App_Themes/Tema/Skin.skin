@@ -13,12 +13,12 @@ no se permite que haya varios SkinId por tipo de control en el mismo tema.
 
 <asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
 --%>
-<asp:GridView runat="server" SkinId="gridviewSkinPagerReporte" CellPadding="4"
+<asp:GridView runat="server" SkinId="gridviewSkinPagerReporte" CellPadding="5"
               AutoGenerateColumns="false"
               GridLines="Both" 
               BorderStyle="Solid" 
               PagerSettings-Visible="true" 
-              ShowFooter="true"
+              ShowFooter="false"
               EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="20">
               
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
