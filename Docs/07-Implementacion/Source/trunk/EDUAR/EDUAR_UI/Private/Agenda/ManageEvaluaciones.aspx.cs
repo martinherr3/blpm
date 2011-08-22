@@ -180,6 +180,8 @@ namespace EDUAR_UI
 						break;
 					case enumAcciones.Desbloquear:
 						break;
+					case enumAcciones.Error:
+						break;
 					default:
 						break;
 				}
@@ -248,18 +250,28 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				string mensaje = ValidarPagina();
-				if (mensaje == string.Empty)
+				DateTime fechaEvento = new DateTime(DateTime.Now.Year, Convert.ToInt32(ddlMeses.SelectedValue), Convert.ToInt32(ddlDia.SelectedValue));
+				if (fechaEvento < DateTime.Today)
 				{
-					if (Page.IsValid)
-					{
-						AccionPagina = enumAcciones.Guardar;
-						Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
-					}
+					AccionPagina = enumAcciones.Error;
+					Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeFechaMenorActual, enumTipoVentanaInformacion.Advertencia);
 				}
 				else
 				{
-					Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
+					string mensaje = ValidarPagina();
+					if (mensaje == string.Empty)
+					{
+						if (Page.IsValid)
+						{
+							AccionPagina = enumAcciones.Guardar;
+							Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+						}
+					}
+					else
+					{
+						AccionPagina = enumAcciones.Error;
+						Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
+					}
 				}
 			}
 			catch (Exception ex)
@@ -402,6 +414,9 @@ namespace EDUAR_UI
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false);
 			UIUtilidades.BindComboMeses(ddlMeses, false);
 			BindComboModulos(DateTime.Now.Month);
+
+			UIUtilidades.SortByText(ddlAsignatura);
+			UIUtilidades.SortByText(ddlAsignaturaEdit);
 		}
 
 		/// <summary>
@@ -561,6 +576,10 @@ namespace EDUAR_UI
 				mensaje += "- Asignatura";
 			if (!(Convert.ToInt32(ddlMeses.SelectedValue) > 0) || !(Convert.ToInt32(ddlDia.SelectedValue) > 0))
 				mensaje += "- Fecha de Evaluación";
+			else
+			{
+
+			}
 			//if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
 			//    mensaje += "- Curso";
 			return mensaje;

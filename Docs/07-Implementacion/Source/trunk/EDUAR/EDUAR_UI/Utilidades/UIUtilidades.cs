@@ -78,10 +78,15 @@ namespace EDUAR_UI.Utilidades
 			}
 
 			if (addDefaultValue)
+			{
 				dropDownList.Items.Insert(0, new ListItem("Seleccione", "-1"));
-
+				dropDownList.SelectedValue = "-1";
+			}
 			if (addAllValue)
+			{
 				dropDownList.Items.Insert(1, new ListItem("Todos", "-2"));
+				dropDownList.SelectedValue = "-2";
+			}
 		}
 
 		public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescription, bool addDefaultValue)
@@ -112,10 +117,10 @@ namespace EDUAR_UI.Utilidades
 			}
 
 			if (addDefaultValue)
+			{
 				dropDownList.Items.Insert(0, new ListItem("Seleccione", "-1"));
-
-			if (addDefaultValue)
-				dropDownList.Items.Insert(1, new ListItem("Todos", "-2"));
+				dropDownList.SelectedValue = "-1";
+			}
 		}
 
 		// <T> is the type of data in the list.

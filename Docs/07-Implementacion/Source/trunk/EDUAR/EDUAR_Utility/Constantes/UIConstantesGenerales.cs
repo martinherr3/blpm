@@ -31,6 +31,7 @@ namespace EDUAR_Utility.Constantes
 
         #region MensajesGenericos
         public const string MensajeSinResultados = "La consulta no produjo resultados.";
+		public const string MensajeFechaMenorActual = "La fecha no puede ser anterior a la fecha actual.";
         #endregion
     }
 }

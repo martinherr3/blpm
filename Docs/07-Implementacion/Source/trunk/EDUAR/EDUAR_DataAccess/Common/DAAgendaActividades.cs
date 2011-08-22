@@ -105,6 +105,8 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
 					if (ValidarFechaSQL(entidad.fechaEventoHasta))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
+					if (ValidarFechaSQL(entidad.fechaEvento))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaEvento", DbType.Date, entidad.fechaEvento);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
@@ -145,61 +147,61 @@ namespace EDUAR_DataAccess.Common
 		}
 
 
-        /// <summary>
-        /// Gets the reuniones agenda.
-        /// </summary>
-        /// <param name="entidad">The entidad.</param>
-        /// <returns></returns>
-        public List<Reunion> GetReunionesAgenda(Reunion entidad)
-        {
-            try
-            {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reunion_Select");
-                if (entidad != null)
-                {
-                    if (entidad.idAgendaActividad > 0)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
-                    if (ValidarFechaSQL(entidad.fechaEventoDesde))
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
-                    if (ValidarFechaSQL(entidad.fechaEventoHasta))
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
-                }
-                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+		/// <summary>
+		/// Gets the reuniones agenda.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<Reunion> GetReunionesAgenda(Reunion entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reunion_Select");
+				if (entidad != null)
+				{
+					if (entidad.idAgendaActividad > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
+					if (ValidarFechaSQL(entidad.fechaEventoDesde))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
+					if (ValidarFechaSQL(entidad.fechaEventoHasta))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-                List<Reunion> listaEventos = new List<Reunion>();
-                Reunion objEvento;
-                while (reader.Read())
-                {
-                    objEvento = new Reunion();
+				List<Reunion> listaEventos = new List<Reunion>();
+				Reunion objEvento;
+				while (reader.Read())
+				{
+					objEvento = new Reunion();
 
-                    objEvento.idReunion = Convert.ToInt32(reader["idReunion"]);
-                    objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
-                    objEvento.descripcion = reader["descripcion"].ToString();
-                    objEvento.activo = Convert.ToBoolean(reader["activo"].ToString());
-                    objEvento.fechaAlta = Convert.ToDateTime(reader["fechaAlta"].ToString());
-                    if (!string.IsNullOrEmpty(reader["fechaModificacion"].ToString()))
-                        objEvento.fechaModificacion = Convert.ToDateTime(reader["fechaModificacion"].ToString());
-                    objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
-                    objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
-                    objEvento.tipoEventoAgenda.idTipoEventoAgenda = Convert.ToInt32(reader["idTipoEvento"]);
-                    objEvento.horario = Convert.ToDateTime(reader["horario"].ToString());
-                    
-                    listaEventos.Add(objEvento);
-                }
-                return listaEventos;
-            }
-            catch (SqlException ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetReunionesAgenda()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetReunionesAgenda()", ClassName),
-                                    ex, enuExceptionType.DataAccesException);
-            }
-        }
+					objEvento.idReunion = Convert.ToInt32(reader["idReunion"]);
+					objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
+					objEvento.descripcion = reader["descripcion"].ToString();
+					objEvento.activo = Convert.ToBoolean(reader["activo"].ToString());
+					objEvento.fechaAlta = Convert.ToDateTime(reader["fechaAlta"].ToString());
+					if (!string.IsNullOrEmpty(reader["fechaModificacion"].ToString()))
+						objEvento.fechaModificacion = Convert.ToDateTime(reader["fechaModificacion"].ToString());
+					objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
+					objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
+					objEvento.tipoEventoAgenda.idTipoEventoAgenda = Convert.ToInt32(reader["idTipoEvento"]);
+					objEvento.horario = Convert.ToDateTime(reader["horario"].ToString());
+
+					listaEventos.Add(objEvento);
+				}
+				return listaEventos;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetReunionesAgenda()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetReunionesAgenda()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 
 		#region --[Implementación métodos heredados]--
@@ -343,6 +345,51 @@ namespace EDUAR_DataAccess.Common
 		{
 			throw new NotImplementedException();
 		}
+
+		/// <summary>
+		/// Gets the eventos agenda.
+		/// </summary>
+		/// <param name="idAgendaActividades">The id agenda actividades.</param>
+		/// <returns></returns>
+		public List<EventoAgenda> GetEventosAgenda(int idAgendaActividades)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoAgenda_Select");
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, idAgendaActividades);
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<EventoAgenda> listaEventos = new List<EventoAgenda>();
+				EventoAgenda objEvento = null;
+				while (reader.Read())
+				{
+					objEvento = new EventoAgenda();
+
+					objEvento.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividades"]);
+					objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
+					objEvento.usuario.nombre = reader["nombre"].ToString();
+					objEvento.usuario.apellido = reader["apellido"].ToString();
+					objEvento.activo = Convert.ToBoolean(reader["activo"].ToString());
+					objEvento.fechaAlta = Convert.ToDateTime(reader["fechaAlta"].ToString());
+					objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
+					objEvento.descripcion = reader["descripcion"].ToString();
+					objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
+					listaEventos.Add(objEvento);
+				}
+				return listaEventos;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
+
 	}
 }
