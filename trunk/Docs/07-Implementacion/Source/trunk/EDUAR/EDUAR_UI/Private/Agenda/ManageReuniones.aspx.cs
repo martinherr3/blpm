@@ -61,7 +61,7 @@ namespace EDUAR_UI
 		{
 			get
 			{
-				if (ViewState["listaEvento"] == null)
+                if (ViewState["listaEventos"] == null)
 					listaEventos = new List<Reunion>();
 
 				return (List<Reunion>)ViewState["listaEventos"];
@@ -161,7 +161,8 @@ namespace EDUAR_UI
 						break;
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
-						BuscarAgenda(propEvento);
+                        //BuscarAgenda(propEvento);
+                        BuscarFiltrando();
 						break;
 					case enumAcciones.Aceptar:
 						break;
@@ -408,8 +409,8 @@ namespace EDUAR_UI
 
 			if (!esNuevo)
 			{
-				evento.idEventoAgenda = propEvento.idEventoAgenda;
-                evento.idEventoAgenda = propEvento.idAgendaActividad;
+                evento.idAgendaActividad = propAgenda.idAgendaActividad;
+                evento.idEventoAgenda = propEvento.idEventoAgenda;
 			}
 
 			evento.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
@@ -439,12 +440,12 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarValoresEnPantalla(int idEventoAgenda)
 		{
-			Reunion evento = listaEventos.Find(c => c.idEventoAgenda == idEventoAgenda);
-			
-            txtDescripcionEdit.Text = evento.descripcion;
-			txtHoraEdit.Text = Convert.ToDateTime(evento.horario).ToShortTimeString();
-			calFechaEvento.Fecha.Text = Convert.ToDateTime(evento.fechaEvento).ToShortDateString();
-			chkActivoEdit.Checked = evento.activo;
+			propEvento = listaEventos.Find(c => c.idEventoAgenda == idEventoAgenda);
+            
+            txtDescripcionEdit.Text = propEvento.descripcion;
+            txtHoraEdit.Text = Convert.ToDateTime(propEvento.horario).ToShortTimeString();
+            calFechaEvento.Fecha.Text = Convert.ToDateTime(propEvento.fechaEvento).ToShortDateString();
+            chkActivoEdit.Checked = propEvento.activo;
 		}
 
 		private string ValidarPagina()

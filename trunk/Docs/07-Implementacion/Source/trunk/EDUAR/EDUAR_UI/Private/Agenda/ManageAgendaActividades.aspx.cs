@@ -179,13 +179,14 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnExcursion_Click(object sender, EventArgs e)
 		{
-			try
-			{
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
+            try
+            {
+                Response.Redirect("ManageExcursiones.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
 		}
 
 		/// <summary>

@@ -106,26 +106,37 @@ namespace EDUAR_BusinessLogic.Common
 				foreach (Reunion item in Data.listaReuniones)
 				{
 					objBLReunion = new BLReunion(item);
+                    if (GetReunionesAgenda(item).Count > 0)
+                        throw new CustomizedException("Ya existe una reunión para el mismo día.", null, enuExceptionType.ValidationException);
 					objBLReunion.Save(DataAcces.Transaction);
 				}
 
-				//Se da el OK para la transaccion.
-				DataAcces.Transaction.CommitTransaction();
-			}
-			catch (CustomizedException ex)
-			{
-				if (DataAcces != null && DataAcces.Transaction != null)
-					DataAcces.Transaction.RollbackTransaction();
-				throw ex;
-			}
-			catch (Exception ex)
-			{
-				if (DataAcces != null && DataAcces.Transaction != null)
-					DataAcces.Transaction.RollbackTransaction();
-				throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
-											  enuExceptionType.BusinessLogicException);
-			}
-		}
+                BLExcursion objBLExcursion;
+                foreach (Excursion item in Data.listaExcursiones)
+                {
+                    objBLExcursion = new BLExcursion(item);
+                    //if (GetExcursionesAgenda(item).Count > 0)
+                    //    throw new CustomizedException("Ya existe una excursión para el mismo día.", null, enuExceptionType.ValidationException);
+                    objBLExcursion.Save(DataAcces.Transaction);
+                }
+
+                //Se da el OK para la transaccion.
+                DataAcces.Transaction.CommitTransaction();
+            }
+            catch (CustomizedException ex)
+            {
+                if (DataAcces != null && DataAcces.Transaction != null)
+                    DataAcces.Transaction.RollbackTransaction();
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                if (DataAcces != null && DataAcces.Transaction != null)
+                    DataAcces.Transaction.RollbackTransaction();
+                throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
 
 		/// <summary>
 		/// Método que guarda el registro actualmente cargado en memoria. No importa si se trata de una alta o modificación.
@@ -223,27 +234,51 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
 
-		/// <summary>
-		/// Gets the eventos agenda.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		/// <returns></returns>
-		public List<Reunion> GetReunionesAgenda(Reunion entidad)
-		{
-			try
-			{
-				return DataAcces.GetReunionesAgenda(entidad);
-			}
-			catch (CustomizedException ex)
-			{
-				throw ex;
-			}
-			catch (Exception ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetEventosAgenda", ClassName), ex,
-											  enuExceptionType.BusinessLogicException);
-			}
-		}
-		#endregion
-	}
+        /// <summary>
+        /// Gets the eventos agenda.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Reunion> GetReunionesAgenda(Reunion entidad)
+        {
+            try
+            {
+                return DataAcces.GetReunionesAgenda(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetEventosAgenda", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        /// <summary>
+        /// Gets the eventos agenda.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Excursion> GetExcursionesAgenda(Excursion entidad)
+        {
+            try
+            {
+                return DataAcces.GetExcursionesAgenda(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetExcursionesAgenda", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+        
+        #endregion
+    }
+	
 }
