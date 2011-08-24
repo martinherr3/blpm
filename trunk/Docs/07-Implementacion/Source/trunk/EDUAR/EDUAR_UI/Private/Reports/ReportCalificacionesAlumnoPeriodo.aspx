@@ -39,6 +39,6 @@
         </table>
     </div>
     <div id="divReporte" runat="server">
-        <rep:reporte id="rptCalificaciones" runat="server"></rep:reporte>
+        <rep:Reporte ID="rptCalificaciones" runat="server"></rep:Reporte>
     </div>
 </asp:Content>
