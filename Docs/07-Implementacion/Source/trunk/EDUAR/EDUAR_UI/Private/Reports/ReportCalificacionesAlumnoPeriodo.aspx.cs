@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
@@ -8,7 +9,6 @@ using EDUAR_Entities;
 using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
-using EDUAR_Utility.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -26,7 +26,7 @@ namespace EDUAR_UI
 			get
 			{
 				if (ViewState["filtroCalificaciones"] == null)
-					ViewState["filtroCalificaciones"] = new FilCalificacionesAlumnoPeriodo();
+                    filtroReporte = new FilCalificacionesAlumnoPeriodo();
 				return (FilCalificacionesAlumnoPeriodo)ViewState["filtroCalificaciones"];
 			}
 			set
@@ -46,7 +46,7 @@ namespace EDUAR_UI
 			get
 			{
 				if (ViewState["listaCalificaciones"] == null)
-					ViewState["listaCalificaciones"] = new List<RptCalificacionesAlumnoPeriodo>();
+                    listaReporte = new List<RptCalificacionesAlumnoPeriodo>();
 				return (List<RptCalificacionesAlumnoPeriodo>)ViewState["listaCalificaciones"];
 			}
 			set
@@ -54,6 +54,26 @@ namespace EDUAR_UI
 				ViewState["listaCalificaciones"] = value;
 			}
 		}
+
+        /// <summary>
+        /// Gets or sets the filtros aplicados.
+        /// </summary>
+        /// <value>
+        /// The filtros aplicados.
+        /// </value>
+        public string filtrosAplicados
+        {
+            get
+            {
+                if (ViewState["filtrosCalificacion"] == null)
+                    filtrosAplicados = string.Empty;
+                return ViewState["filtrosCalificacion"].ToString();
+            }
+            set
+            {
+                ViewState["filtrosCalificacion"] = value;
+            }
+        }
 		#endregion
 
 		#region --[Eventos]--
@@ -86,19 +106,19 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				rptCalificaciones.ExportarPDFClick += (ExportarPDF);
-				rptCalificaciones.VolverClick += (VolverReporte);
-				rptCalificaciones.PaginarGrilla += (PaginarGrilla);
+                rptCalificaciones.ExportarPDFClick += (ExportarPDF);
+                rptCalificaciones.VolverClick += (VolverReporte);
+                rptCalificaciones.PaginarGrilla += (PaginarGrilla);
 
-				if (!Page.IsPostBack)
-				{
-					CargarPresentacion();
-					BLRptCalificacionesAlumnoPeriodo objBLRptCalificaciones = new BLRptCalificacionesAlumnoPeriodo();
-					objBLRptCalificaciones.GetRptCalificacionesAlumnoPeriodo(null);
-					divFiltros.Visible = true;
-					divReporte.Visible = false;
-				}
-				BuscarCalificaciones();
+                if (!Page.IsPostBack)
+                {
+                    CargarPresentacion();
+                    BLRptCalificacionesAlumnoPeriodo objBLRptCalificaciones = new BLRptCalificacionesAlumnoPeriodo();
+                    objBLRptCalificaciones.GetRptCalificacionesAlumnoPeriodo(null);
+                    divFiltros.Visible = true;
+                    divReporte.Visible = false;
+                }
+                //BuscarCalificaciones();
 			}
 			catch (Exception ex)
 			{
@@ -114,15 +134,15 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnBuscar_Click(object sender, EventArgs e)
 		{
-			try
-			{
-				fechas.ValidarRangoDesdeHasta();
-				BuscarCalificaciones();
-				divFiltros.Visible = false;
-				divReporte.Visible = true;
-			}
-			catch (Exception ex)
-			{ Master.ManageExceptions(ex); }
+            try
+            {
+                fechas.ValidarRangoDesdeHasta();
+                BuscarCalificaciones();
+                divFiltros.Visible = false;
+                divReporte.Visible = true;
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
 		}
 
 		/// <summary>
@@ -132,12 +152,12 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void ExportarPDF(object sender, EventArgs e)
 		{
-			try
-			{
-				ExportPDF.ExportarPDF(Page.Title, rptCalificaciones.dtReporte, ObjDTSessionDataUI.ObjDTUsuario.Nombre, string.Empty);
-			}
-			catch (Exception ex)
-			{ Master.ManageExceptions(ex); }
+            try
+            {
+                ExportPDF.ExportarPDF(Page.Title, rptCalificaciones.dtReporte, ObjDTSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
 		}
 
 		/// <summary>
@@ -147,13 +167,13 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void VolverReporte(object sender, EventArgs e)
 		{
-			try
-			{
-				divFiltros.Visible = true;
-				divReporte.Visible = false;
-			}
-			catch (Exception ex)
-			{ Master.ManageExceptions(ex); }
+            try
+            {
+                divFiltros.Visible = true;
+                divReporte.Visible = false;
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
 		}
 
 		/// <summary>
@@ -163,43 +183,50 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
 		protected void PaginarGrilla(object sender, GridViewPageEventArgs e)
 		{
-			try
-			{
-				int pagina = e.NewPageIndex;
+            try
+            {
+                int pagina = e.NewPageIndex;
 
-				if (rptCalificaciones.GrillaReporte.PageCount > pagina)
-				{
-					rptCalificaciones.GrillaReporte.PageIndex = pagina;
+                if (rptCalificaciones.GrillaReporte.PageCount > pagina)
+                {
+                    rptCalificaciones.GrillaReporte.PageIndex = pagina;
 
-					rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
-				}
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
+                    rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
 		}
-
 		#endregion
 
 		#region --[Métodos Privados]--
 		private void CargarPresentacion()
 		{
 			BLAsignatura objBLAsignatura = new BLAsignatura();
-
-			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturas(null), "idAsignatura", "nombre", true, false);
+			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturas(null), "idAsignatura", "nombre", true);
 		}
 
 		private void BuscarCalificaciones()
 		{
+            StringBuilder filtros = new StringBuilder();
 			filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
-			if (fechas.ValorFechaDesde != null)
-				filtroReporte.fechaDesde = (DateTime)fechas.ValorFechaDesde;
-			if (fechas.ValorFechaHasta != null)
-				filtroReporte.fechaHasta = (DateTime)fechas.ValorFechaHasta;
+            if (filtroReporte.idAsignatura > 0) filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
+            if (fechas.ValorFechaDesde != null)
+            {
+                filtros.AppendLine("- Fecha Desde: " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString());
+                filtroReporte.fechaDesde = (DateTime)fechas.ValorFechaDesde;
+            }
+            if (fechas.ValorFechaHasta != null)
+            {
+                filtros.AppendLine("- Fecha Hasta: " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString());
+                filtroReporte.fechaHasta = (DateTime)fechas.ValorFechaHasta;
+            }
 
 			BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
 			listaReporte = objBLReporte.GetRptCalificacionesAlumnoPeriodo(filtroReporte);
+            filtrosAplicados = filtros.ToString();
 
 			rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
 		}

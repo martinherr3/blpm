@@ -24,21 +24,18 @@ namespace EDUAR_UI.Utilidades
             string strTitulo = TituloPagina;
             int columnCount = dtReporte.Columns.Count;
             int rowCount = dtReporte.Rows.Count;
-            string fecha = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+            string fecha = DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
 
             Document documento = new Document(PageSize.A4, 10, 10, 100, 30);
             PdfWriter writerPdf = PdfWriter.GetInstance(documento, HttpContext.Current.Response.OutputStream);
             documento.Open();
 
-            Font font24B = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 24, Font.BOLD, BaseColor.BLUE);
+            Font font24B = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 24, Font.BOLD, BaseColor.GRAY);
             Phrase Titulo = new Phrase("EDU@R 2.0", font24B);
 
             Font font15B = FontFactory.GetFont(FontFactory.HELVETICA, 15, Font.BOLDITALIC);
             Phrase tipo = new Phrase(strTitulo, font15B);
             Phrase fechas = new Phrase(fecha, font15B);
-
-			Font font12B = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, Font.NORMAL);
-			//Phrase user = new Phrase("Usuario: " + usuario.apellido + " " + usuario.nombre + " - " + usuario.username, font12B);
 
             PdfContentByte cb = writerPdf.DirectContent;
 
@@ -54,20 +51,17 @@ namespace EDUAR_UI.Utilidades
             ct.SetSimpleColumn(fechas, documento.Left, 0, documento.Right, documento.Top + 25, 15, Element.ALIGN_CENTER);
             ct.Go();
 
-			//ColumnText cu = new ColumnText(cb);
-			//cu.SetSimpleColumn(user, documento.Left, 0, documento.Right, documento.Top + 25, 15, Element.ALIGN_LEFT);
-			//cu.Go();
+            Font font12B = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, Font.NORMAL);
+            PdfPTable grdTableEncabezado = new PdfPTable(1);
+            grdTableEncabezado.WidthPercentage = 90;
+            grdTableEncabezado.AddCell(new PdfPCell(new Phrase("- Usuario: " + usuario.apellido + " " + usuario.nombre, font12B)));
+            grdTableEncabezado.CompleteRow();
+            grdTableEncabezado.AddCell(new PdfPCell(new Phrase(filtros, font12B)));
+            grdTableEncabezado.CompleteRow();
+            documento.Add(grdTableEncabezado);
 
-			PdfPTable grdTableEncabezado = new PdfPTable(1);
-			grdTableEncabezado.WidthPercentage = 90;
-			grdTableEncabezado.AddCell(new PdfPCell(new Phrase("Usuario: " + usuario.apellido + " " + usuario.nombre + " - " + usuario.username, font12B)));
-			grdTableEncabezado.CompleteRow();
-			grdTableEncabezado.AddCell(new PdfPCell(new Phrase(filtros, font12B)));
-			grdTableEncabezado.CompleteRow();
-			documento.Add(grdTableEncabezado);
-
-			PdfPTable grdTable = new PdfPTable(columnCount);
-            Font LetraTituloTabla = FontFactory.GetFont(FontFactory.HELVETICA, 9, Font.BOLDITALIC, BaseColor.LIGHT_GRAY);
+            PdfPTable grdTable = new PdfPTable(columnCount);
+            Font LetraTituloTabla = FontFactory.GetFont(FontFactory.HELVETICA, 9, Font.BOLDITALIC, BaseColor.DARK_GRAY);
             float[] espacios = new float[columnCount];
             for (int i = 0; i < columnCount; i++)
             {
