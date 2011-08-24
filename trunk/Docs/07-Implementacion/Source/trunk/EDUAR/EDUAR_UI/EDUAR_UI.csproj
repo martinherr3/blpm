@@ -99,7 +99,6 @@
     <Content Include="Private\Account\Profiles.aspx" />
     <Content Include="Private\Agenda\ManageAgendaActividades.aspx" />
     <Content Include="Private\Agenda\ManageEvaluaciones.aspx" />
-    <Content Include="Private\Agenda\ManageExcursiones.aspx" />
     <Content Include="Private\Agenda\RegisterEventoInstitucional.aspx" />
     <Content Include="Private\Agenda\ManageReuniones.aspx" />
     <Content Include="Private\Reports\PrintReport.aspx" />
@@ -209,13 +208,6 @@
     </Compile>
     <Compile Include="Private\Agenda\ManageEvaluaciones.aspx.designer.cs">
       <DependentUpon>ManageEvaluaciones.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Agenda\ManageExcursiones.aspx.cs">
-      <DependentUpon>ManageExcursiones.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Agenda\ManageExcursiones.aspx.designer.cs">
-      <DependentUpon>ManageExcursiones.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Agenda\RegisterEventoInstitucional.aspx.cs">
       <DependentUpon>RegisterEventoInstitucional.aspx</DependentUpon>
@@ -423,6 +415,7 @@
     <Content Include="Private\Account\web.config" />
     <Content Include="Private\Reports\web.config" />
     <Content Include="Private\Alumnos\web.config" />
+    <Content Include="Private\Agenda\web.config" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>
     </None>
