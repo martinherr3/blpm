@@ -65,13 +65,13 @@ namespace EDUAR_UI
         {
             get
             {
-                if (ViewState["filtrosCalificacion"] == null)
+                if (Session["filtrosAplicados"] == null)
                     filtrosAplicados = string.Empty;
-                return ViewState["filtrosCalificacion"].ToString();
+                return Session["filtrosAplicados"].ToString();
             }
             set
             {
-                ViewState["filtrosCalificacion"] = value;
+                Session["filtrosAplicados"] = value;
             }
         }
 		#endregion

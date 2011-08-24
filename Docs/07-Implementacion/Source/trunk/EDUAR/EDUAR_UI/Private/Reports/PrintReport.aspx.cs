@@ -87,9 +87,12 @@ namespace EDUAR_UI
 					gvwReporte = UIUtilidades.GenerarGrilla(gvwReporte, dtReporte);
 					lblTitulo.Text = "EDU@R 2.0";
 					lblInforme.Text = tituloReporte;
-					lblFecha.Text = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
-					lblUsuario.Text = "Usuario: " + usuario.apellido + " " + usuario.nombre + " - " + usuario.username;
+                    lblFecha.Text = DateTime.Now.ToShortDateString() + " " 
+                        + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
+					lblUsuario.Text = "- Usuario: " + usuario.apellido + " " + usuario.nombre;
 					lblFiltro.Text = filtrosAplicados.Replace("\n", "<br />");
+                    gvwReporte.AllowPaging = false;
+                    gvwReporte.PageSize = 1000;
 					gvwReporte.DataSource = dtReporte.DefaultView;
 					gvwReporte.DataBind();
 					udpReporte.Update();

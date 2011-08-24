@@ -24,7 +24,7 @@
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblPagina" runat="server" Text="Página:" CssClass="lblCriterios"></asp:Label>
                 </td>
-                <td valign="top" class="TDCriterios25">
+                <td valign="top" class="TDCriterios30">
                     <asp:DropDownList ID="ddlPagina" runat="server">
                     </asp:DropDownList>
                 </td>

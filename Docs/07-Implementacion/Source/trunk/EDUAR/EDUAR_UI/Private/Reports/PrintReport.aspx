@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PrintReport.aspx.cs" Inherits="EDUAR_UI.PrintReport" Theme="Tema" StylesheetTheme="Tema" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PrintReport.aspx.cs" Inherits="EDUAR_UI.PrintReport"
+    Theme="Tema" StylesheetTheme="Tema" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,13 +13,14 @@
         /* Grid Zones */
         .grid
         {
-            background: #574441;
+            /*background: #574441;*/
             border: 1px solid #848484;
             width: 100%; /*background-image: url(graf/fondo.gif);*/
             font-size: 11px;
             color: #848484;
             vertical-align: top;
             font-family: Verdana;
+            background-color: White;
         }
         .gridheader
         {
@@ -40,6 +42,7 @@
             font-weight: normal;
             text-decoration: none;
             white-space: nowrap;
+            background-color: White;
         }
         .gridborder
         {
@@ -51,17 +54,19 @@
             border: 0;
             border-top: 1px solid silver;
             padding-top: 5px;
+            background-color: White;
         }
         @media print
         {
             .noImprimir
             {
                 display: none;
+                background-color: White;
             }
         }
     </style>
 </head>
-<body>
+<body style="background-color:White">
     <form id="form1" runat="server">
     <asp:ScriptManager ID="ScriptManager2" runat="server">
     </asp:ScriptManager>
@@ -82,7 +87,7 @@
             <td align="center">
                 <!--FontFactory.HELVETICA_BOLD, 24, Font.BOLD, BaseColor.BLUE);-->
                 <asp:Label ID="lblTitulo" runat="server" Font-Names="Helvetica" Font-Bold="true"
-                    ForeColor="Blue" Font-Size="Large"></asp:Label>
+                    ForeColor="Gray" Font-Size="Large"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -101,12 +106,14 @@
         </tr>
         <tr>
             <td align="left">
-                <asp:Label ID="lblUsuario" Text="" runat="server" Font-Names="Helvetica" Font-Bold="false"
+                <%--FontFactory.HELVETICA_BOLD, 12, Font.NORMAL--%>
+                <asp:Label ID="lblUsuario" Text="" runat="server" Font-Names="Helvetica" Font-Bold="true"
                     ForeColor="Black" Font-Size="Medium" />
             </td>
         </tr>
         <tr>
             <td align="left">
+                <%--FontFactory.HELVETICA_BOLD, 12, Font.NORMAL--%>
                 <asp:Literal ID="lblFiltro" Text="" runat="server" />
             </td>
         </tr>

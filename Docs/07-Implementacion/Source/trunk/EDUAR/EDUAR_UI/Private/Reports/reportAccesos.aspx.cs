@@ -121,7 +121,7 @@ namespace EDUAR_UI
                     divFiltros.Visible = true;
                     divReporte.Visible = false;
                 }
-                //BuscarAccesos();
+                BuscarAccesos();
             }
             catch (Exception ex)
             {
