@@ -7,8 +7,9 @@
             <siteMapNode url="~/Private/Agenda/ManageAgendaActividades.aspx" title="Actividades" roles="Administrador,Docente" />
             <siteMapNode url="~/Private/Agenda/RegisterEventoInstitucional.aspx" title="Eventos" roles="Administrador" />
         </siteMapNode>
-        <siteMapNode url="" title="Alumnos" roles="Docente">
-            <siteMapNode url="~/Private/Alumnos/ConsultarAlumnos.aspx" title="Consulta de Alumnos" roles="Docente" />
+        <siteMapNode url="" title="Alumnos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor">
+            <!--<siteMapNode url="~/Private/Alumnos/ConsultarAlumnos.aspx" title="Consulta de Alumnos" roles="Docente" />-->
+          <siteMapNode url="~/Private/Alumnos/ManageCitaciones.aspx" title="Citaciones" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo" />
         </siteMapNode>
         <siteMapNode url="" title="Mi Cuenta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor">
             <siteMapNode url="~/Private/Account/ChangePassword.aspx" title="Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"/>
