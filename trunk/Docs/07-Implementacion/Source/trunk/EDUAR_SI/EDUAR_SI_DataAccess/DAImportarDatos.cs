@@ -1464,38 +1464,17 @@ namespace EDUAR_SI_DataAccess
                     {
                         command.Parameters.AddWithValue("idDiaHorario", 0).Direction = ParameterDirection.Output;
                         command.Parameters.AddWithValue("idDiaHorarioTransaccional", unDiasHorarios.idDiaHorarioTransaccional);
-                        command.Parameters.AddWithValue("idCurso", unDiasHorarios.idCurso);
-                        command.Parameters.AddWithValue("idAsignatura", unDiasHorarios.idAsignatura);
+						command.Parameters.AddWithValue("idCurso", unDiasHorarios.idCursoTransaccional);
+						command.Parameters.AddWithValue("idAsignatura", unDiasHorarios.idAsignaturaTransaccional);
                         command.Parameters.AddWithValue("idDiaSemana", (int)unDiasHorarios.unDia);
-                        command.Parameters.AddWithValue("idNivel", (int)unDiasHorarios.idNivel);
+						command.Parameters.AddWithValue("idNivel", (int)unDiasHorarios.idNivelTransaccional);
                         //command.Parameters.AddWithValue("idModulo", 1);
                         //GrabarModulos(unDiasHorarios.modulos);
                         command.ExecuteNonQuery();
                         unDiasHorarios.idDiaHorario = Convert.ToInt32(command.Parameters["idDiaHorario"].Value);
                         command.Parameters.Clear();
-
-                      
-
-                        //command.CommandText = "Modulo_Insert";
-                        //command.CommandTimeout = 10;
-
-                        //transaccion = sqlConnectionConfig.BeginTransaction();
-                        //command.Transaction = transaccion;
-
-                        //foreach (Modulo unModulo in unDiasHorarios.modulos)
-                        //{
-                        //    command.Parameters.AddWithValue("idModulo", 0);
-                        //    command.Parameters.AddWithValue("horaInicio", unModulo.horaInicio);
-                        //    command.Parameters.AddWithValue("horaFinalizacion", unModulo.horaFinalizacion);
-                        //    command.Parameters.AddWithValue("idDiaHorario", unDiasHorarios.idDiaHorario);
-                        //    command.ExecuteNonQuery();
-                        //    command.Parameters.Clear();
-                        //}
-
                     }
                     transaccion.Commit();
-
-                    
                 }
             }
             catch (SqlException ex)

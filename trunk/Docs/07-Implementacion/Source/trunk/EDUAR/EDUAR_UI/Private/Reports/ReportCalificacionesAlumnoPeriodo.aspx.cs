@@ -9,6 +9,7 @@ using EDUAR_Entities;
 using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Constantes;
 
 namespace EDUAR_UI
 {
@@ -26,7 +27,7 @@ namespace EDUAR_UI
 			get
 			{
 				if (ViewState["filtroCalificaciones"] == null)
-                    filtroReporte = new FilCalificacionesAlumnoPeriodo();
+					filtroReporte = new FilCalificacionesAlumnoPeriodo();
 				return (FilCalificacionesAlumnoPeriodo)ViewState["filtroCalificaciones"];
 			}
 			set
@@ -45,35 +46,35 @@ namespace EDUAR_UI
 		{
 			get
 			{
-				if (ViewState["listaCalificaciones"] == null)
-                    listaReporte = new List<RptCalificacionesAlumnoPeriodo>();
-				return (List<RptCalificacionesAlumnoPeriodo>)ViewState["listaCalificaciones"];
+				if (Session["listaCalificaciones"] == null)
+					listaReporte = new List<RptCalificacionesAlumnoPeriodo>();
+				return (List<RptCalificacionesAlumnoPeriodo>)Session["listaCalificaciones"];
 			}
 			set
 			{
-				ViewState["listaCalificaciones"] = value;
+				Session["listaCalificaciones"] = value;
 			}
 		}
 
-        /// <summary>
-        /// Gets or sets the filtros aplicados.
-        /// </summary>
-        /// <value>
-        /// The filtros aplicados.
-        /// </value>
-        public string filtrosAplicados
-        {
-            get
-            {
-                if (Session["filtrosAplicados"] == null)
-                    filtrosAplicados = string.Empty;
-                return Session["filtrosAplicados"].ToString();
-            }
-            set
-            {
-                Session["filtrosAplicados"] = value;
-            }
-        }
+		/// <summary>
+		/// Gets or sets the filtros aplicados.
+		/// </summary>
+		/// <value>
+		/// The filtros aplicados.
+		/// </value>
+		public string filtrosAplicados
+		{
+			get
+			{
+				if (Session["filtrosAplicados"] == null)
+					filtrosAplicados = string.Empty;
+				return Session["filtrosAplicados"].ToString();
+			}
+			set
+			{
+				Session["filtrosAplicados"] = value;
+			}
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -106,19 +107,20 @@ namespace EDUAR_UI
 		{
 			try
 			{
-                rptCalificaciones.ExportarPDFClick += (ExportarPDF);
-                rptCalificaciones.VolverClick += (VolverReporte);
-                rptCalificaciones.PaginarGrilla += (PaginarGrilla);
+				rptCalificaciones.ExportarPDFClick += (ExportarPDF);
+				rptCalificaciones.VolverClick += (VolverReporte);
+				rptCalificaciones.PaginarGrilla += (PaginarGrilla);
+				Master.BotonAvisoAceptar += (VentanaAceptar);
 
-                if (!Page.IsPostBack)
-                {
-                    CargarPresentacion();
-                    BLRptCalificacionesAlumnoPeriodo objBLRptCalificaciones = new BLRptCalificacionesAlumnoPeriodo();
-                    objBLRptCalificaciones.GetRptCalificacionesAlumnoPeriodo(null);
-                    divFiltros.Visible = true;
-                    divReporte.Visible = false;
-                }
-                //BuscarCalificaciones();
+				if (!Page.IsPostBack)
+				{
+					CargarPresentacion();
+					BLRptCalificacionesAlumnoPeriodo objBLRptCalificaciones = new BLRptCalificacionesAlumnoPeriodo();
+					objBLRptCalificaciones.GetRptCalificacionesAlumnoPeriodo(null);
+					divFiltros.Visible = true;
+					divReporte.Visible = false;
+				}
+				BuscarCalificaciones();
 			}
 			catch (Exception ex)
 			{
@@ -128,21 +130,36 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void VentanaAceptar(object sender, EventArgs e)
+		{
+			//divFiltros.Visible = true;
+			//divReporte.Visible = false;
+		}
+
+		/// <summary>
 		/// Handles the Click event of the btnBuscar control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnBuscar_Click(object sender, EventArgs e)
 		{
-            try
-            {
-                fechas.ValidarRangoDesdeHasta();
-                BuscarCalificaciones();
-                divFiltros.Visible = false;
-                divReporte.Visible = true;
-            }
-            catch (Exception ex)
-            { Master.ManageExceptions(ex); }
+			try
+			{
+				fechas.ValidarRangoDesdeHasta();
+				if (BuscarCalificaciones())
+				{
+					divFiltros.Visible = false;
+					divReporte.Visible = true;
+				}
+				else
+				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
 		}
 
 		/// <summary>
@@ -152,12 +169,12 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void ExportarPDF(object sender, EventArgs e)
 		{
-            try
-            {
-                ExportPDF.ExportarPDF(Page.Title, rptCalificaciones.dtReporte, ObjDTSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
-            }
-            catch (Exception ex)
-            { Master.ManageExceptions(ex); }
+			try
+			{
+				ExportPDF.ExportarPDF(Page.Title, rptCalificaciones.dtReporte, ObjDTSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
 		}
 
 		/// <summary>
@@ -167,13 +184,13 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void VolverReporte(object sender, EventArgs e)
 		{
-            try
-            {
-                divFiltros.Visible = true;
-                divReporte.Visible = false;
-            }
-            catch (Exception ex)
-            { Master.ManageExceptions(ex); }
+			try
+			{
+				divFiltros.Visible = true;
+				divReporte.Visible = false;
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
 		}
 
 		/// <summary>
@@ -183,52 +200,126 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
 		protected void PaginarGrilla(object sender, GridViewPageEventArgs e)
 		{
-            try
-            {
-                int pagina = e.NewPageIndex;
+			try
+			{
+				int pagina = e.NewPageIndex;
 
-                if (rptCalificaciones.GrillaReporte.PageCount > pagina)
-                {
-                    rptCalificaciones.GrillaReporte.PageIndex = pagina;
+				if (rptCalificaciones.GrillaReporte.PageCount > pagina)
+				{
+					rptCalificaciones.GrillaReporte.PageIndex = pagina;
 
-                    rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
-                }
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
+					rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
+				}
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the SelectedIndexChanged event of the ddlCicloLectivo control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void ddlCicloLectivo_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+				CargarComboCursos(idCicloLectivo, ddlCurso);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
 		}
 		#endregion
 
 		#region --[Métodos Privados]--
+		/// <summary>
+		/// Cargars the presentacion.
+		/// </summary>
 		private void CargarPresentacion()
+		{
+			CargarCombos();
+			btnBuscar.Visible = true;
+		}
+
+		/// <summary>
+		/// Buscars the calificaciones.
+		/// </summary>
+		private bool BuscarCalificaciones()
+		{
+			StringBuilder filtros = new StringBuilder();
+			if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0 && Convert.ToInt32(ddlAsignatura.SelectedValue) > 0)
+			{
+				filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
+				filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
+				if (filtroReporte.idAsignatura > 0) filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
+				if (fechas.ValorFechaDesde != null)
+				{
+					filtros.AppendLine("- Fecha Desde: " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString());
+					filtroReporte.fechaDesde = (DateTime)fechas.ValorFechaDesde;
+				}
+				if (fechas.ValorFechaHasta != null)
+				{
+					filtros.AppendLine("- Fecha Hasta: " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString());
+					filtroReporte.fechaHasta = (DateTime)fechas.ValorFechaHasta;
+				}
+				filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+				filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+				BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
+				listaReporte = objBLReporte.GetRptCalificacionesAlumnoPeriodo(filtroReporte);
+				filtrosAplicados = filtros.ToString();
+
+				rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
+				return true;
+			}
+			else
+				return false;
+		}
+
+		/// <summary>
+		/// Cargars the combos.
+		/// </summary>
+		private void CargarCombos()
 		{
 			BLAsignatura objBLAsignatura = new BLAsignatura();
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturas(null), "idAsignatura", "nombre", true);
+
+			List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
+			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+			listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
+
+			List<Curso> listaCurso = new List<Curso>();
+			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
+			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
+
+			ddlCurso.Enabled = false;
 		}
 
-		private void BuscarCalificaciones()
+		/// <summary>
+		/// Cargars the combo cursos.
+		/// </summary>
+		/// <param name="idCicloLectivo">The id ciclo lectivo.</param>
+		/// <param name="ddlCurso">The DDL curso.</param>
+		private void CargarComboCursos(int idCicloLectivo, DropDownList ddlCurso)
 		{
-            StringBuilder filtros = new StringBuilder();
-			filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
-            if (filtroReporte.idAsignatura > 0) filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
-            if (fechas.ValorFechaDesde != null)
-            {
-                filtros.AppendLine("- Fecha Desde: " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString());
-                filtroReporte.fechaDesde = (DateTime)fechas.ValorFechaDesde;
-            }
-            if (fechas.ValorFechaHasta != null)
-            {
-                filtros.AppendLine("- Fecha Hasta: " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString());
-                filtroReporte.fechaHasta = (DateTime)fechas.ValorFechaHasta;
-            }
+			if (idCicloLectivo > 0)
+			{
+				List<Curso> listaCurso = new List<Curso>();
+				BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+				Curso objCurso = new Curso();
 
-			BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
-			listaReporte = objBLReporte.GetRptCalificacionesAlumnoPeriodo(filtroReporte);
-            filtrosAplicados = filtros.ToString();
-
-			rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
+				listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
+				UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
+				ddlCurso.Enabled = true;
+			}
+			else
+			{
+				ddlCurso.Enabled = false;
+			}
 		}
 		#endregion
 	}

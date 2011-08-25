@@ -43,6 +43,8 @@ namespace EDUAR_DataAccess.Reports
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.idAsignatura);
                     if (entidad.idCurso > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.idCurso);
+					if (entidad.idCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
                     if (entidad.idInstanciaEvaluacion > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idInstanciaEvaluacion", DbType.Int32, entidad.idInstanciaEvaluacion);
                     if (ValidarFechaSQL(entidad.fechaDesde))
@@ -62,7 +64,7 @@ namespace EDUAR_DataAccess.Reports
                     objReporte.asignatura = reader["Asignatura"].ToString();
                     objReporte.curso = reader["Curso"].ToString();
                     objReporte.calificacion = reader["Calificacion"].ToString();
-                    objReporte.instancia = reader["Instancia"].ToString();
+					//objReporte.instancia = reader["Instancia"].ToString();
                     objReporte.fecha = Convert.ToDateTime(reader["Fecha"].ToString());
                     
                     listaReporte.Add(objReporte);
