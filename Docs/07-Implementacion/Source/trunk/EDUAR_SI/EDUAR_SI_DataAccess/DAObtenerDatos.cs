@@ -1767,16 +1767,12 @@ namespace EDUAR_SI_DataAccess
                         unDiasHorarios.idDiaHorarioTransaccional = (int)reader["idRelDivActDocAnio"];
                         unDiasHorarios.unDia = (enumDiasSemana)reader["idDiaSemana"];
                         unDiasHorarios.modulos = getModulos(Convert.ToDateTime(reader["fecha_inicio"]), Convert.ToDateTime(reader["fecha_fin"]));
-                        unDiasHorarios.idAsignatura = (int)reader["fk_actividad_id"]; // Asignatura
-                        unDiasHorarios.idCurso = (int)reader["fk_division_id"]; // Curso (SQL Server) = Divsion (MySQL)
-                        unDiasHorarios.idNivel = (int)reader["fk_anio_id"]; // Nivel (SQL Server) = Anio (MySQL)
-
-
-
+                        unDiasHorarios.idAsignaturaTransaccional = (int)reader["fk_actividad_id"]; // Asignatura
+                        unDiasHorarios.idCursoTransaccional = (int)reader["fk_division_id"]; // Curso (SQL Server) = Divsion (MySQL)
+						unDiasHorarios.idNivelTransaccional = (int)reader["fk_anio_id"]; // Nivel (SQL Server) = Anio (MySQL)
 
                         //unDiasHorarios.motivoDiasHorario.idMotivoDiasHorarioTransaccional = (int)reader["fk_motivoDiasHorario_id"];
                         //unDiasHorarios.tipoDiasHorario.idTipoDiasHorarioTransaccional = (int)reader["fk_tipoDiasHorario_id"];
-
 
                         listadoDiasHorarios.Add(unDiasHorarios);
                     }

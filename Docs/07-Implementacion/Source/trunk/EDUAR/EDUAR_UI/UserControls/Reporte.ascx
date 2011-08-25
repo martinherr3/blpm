@@ -14,30 +14,37 @@
         popup.document.close();
     }
 </script>
-<table class="tablaInterna" cellpadding="0" cellspacing="0">
-    <tr>
-        <td align="right">
-            <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
-                Visible="false" />
-            <asp:ImageButton ID="btnImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/Images/botonImprimir.png"
-                Visible="false" OnClick="btnImprimir_Click" />
-            <asp:ImageButton ID="btnVolver" runat="server" ToolTip="Volver" ImageUrl="~/Images/botonVolver.png"
-                Visible="false" />
-        </td>
-    </tr>
-</table>
-<table class="tablaInterna" cellpadding="1" cellspacing="5">
+<table border="0" cellpadding="0" cellspacing="0" width="750px">
     <tr>
         <td>
+            <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="right">
+                        <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
+                            Visible="false" />
+                        <asp:ImageButton ID="btnImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/Images/botonImprimir.png"
+                            Visible="false" OnClick="btnImprimir_Click" />
+                        <asp:ImageButton ID="btnVolver" runat="server" ToolTip="Volver" ImageUrl="~/Images/botonVolver.png"
+                            Visible="false" />
+                    </td>
+                </tr>
+            </table>
+            <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+            <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
+                        AutoGenerateColumns="false" Width="100%" AllowPaging="true" PageSize="30">
+                        <%--<EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="Center" />--%>
+                    </asp:GridView>
+                    <asp:Label ID="lblSinDatos" runat="server" Text="La consulta no produjo resultados."
+                        Visible="false"></asp:Label>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </td>
     </tr>
 </table>
-<asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
-    <ContentTemplate>
-        <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-            AutoGenerateColumns="false" Width="100%" AllowPaging="true" PageSize="20">
-            <%--<EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="Center" />--%>
-        </asp:GridView>
-        <asp:Label ID="lblSinDatos" runat="server" Text="La consulta no produjo resultados." Visible="false"></asp:Label>
-    </ContentTemplate>
-</asp:UpdatePanel>

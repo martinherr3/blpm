@@ -140,8 +140,7 @@ namespace EDUAR_UI.Shared
 			catch (Exception ex)
 			{
 				//throw;
-				LogMensaje(ex.StackTrace);
-				Response.Redirect("~/Error/Error.htm", false);
+				LogMensaje(ex);
 			}
 		}
 
@@ -157,8 +156,7 @@ namespace EDUAR_UI.Shared
 			catch (Exception ex)
 			{
 				//throw;
-				LogMensaje(ex.StackTrace);
-				Response.Redirect("~/Error/Error.htm", false);
+				LogMensaje(ex);
 			}
 		}
 
@@ -208,32 +206,54 @@ namespace EDUAR_UI.Shared
 		/// Loguea un mensaje Particular
 		/// </summary>
 		/// <param name="mensaje">The mensaje.</param>
-		public void LogMensaje(string mensaje)
+		public void LogMensaje(Exception excepcionNoControlada)
 		{
-			Boolean oLogActivo = Boolean.Parse(ConfigurationManager.AppSettings["oLogActivo"]);
+			try
+			{
+				#region Manejo de Directorio de LOG
 
-			if (!oLogActivo)
-				return;
+				Boolean oLogActivo = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["oLogActivo"]);
 
-			string logPath = ConfigurationManager.AppSettings["oLogPath"];
-			string logNombre = ConfigurationManager.AppSettings["oLogNombre"];
+				if (!oLogActivo)
+					return;
 
-			//Crea el directorio.
-			if (!System.IO.Directory.Exists(logPath))
-				System.IO.Directory.CreateDirectory(logPath);
+				string logPath = System.Configuration.ConfigurationManager.AppSettings["oLogPath"];
+				string logNombre = System.Configuration.ConfigurationManager.AppSettings["oLogNombre"];
 
-			string oLogPath = string.Format("{0}\\{1}", logPath, logNombre);
+				//Crea el directorio.
+				if (!System.IO.Directory.Exists(logPath))
+					System.IO.Directory.CreateDirectory(logPath);
 
-			//Crea el archivo.
-			if (!System.IO.File.Exists(oLogPath))
-				System.IO.File.CreateText(oLogPath);
+				string oLogPath = string.Format("{0}\\{1}", logPath, logNombre);
 
-			StringBuilder msgLog = new StringBuilder();
-			msgLog.Append(string.Format("Message: {0} -  {1}", DateTime.Now, mensaje));
-			msgLog.AppendLine();
+				//Crea el archivo.
+				if (!System.IO.File.Exists(oLogPath))
+					System.IO.File.CreateText(oLogPath);
 
-			EDUARLog objLog = new EDUARLog(oLogPath, true);
-			objLog.write(msgLog.ToString());
+				#endregion
+
+				//Log
+				StringBuilder msgLog = new StringBuilder();
+				msgLog.AppendLine("*********************************************************************************");
+				msgLog.AppendFormat("{0} - {1}", DateTime.Now, enuExceptionType.Exception);
+				//Message
+				msgLog.Append(string.Format("Message: {0}", excepcionNoControlada.Message));
+				msgLog.AppendLine();
+				//Source
+				msgLog.Append(string.Format("Source: {0}", excepcionNoControlada.Source));
+				msgLog.AppendLine();
+				//StackTrace
+				msgLog.Append(string.Format("StackTrace: {0}", excepcionNoControlada.StackTrace));
+				msgLog.AppendLine();
+
+				msgLog.AppendLine();
+				msgLog.AppendLine("*********************************************************************************");
+
+				EDUARLog objLog = new EDUARLog(oLogPath, true);
+				objLog.write(msgLog.ToString());
+				Response.Redirect("~/Error/Error.htm", false);
+			}
+			catch (Exception) { }
 		}
 		#endregion
 	}

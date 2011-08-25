@@ -36,6 +36,22 @@
                         EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
                 </td>
             </tr>
+            <tr>
+                <td valign="top" class="TDCriterios25">
+                    <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
+                </td>
+                <td valign="top" class="TDCriterios25">
+                    <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
+                    </asp:DropDownList>
+                </td>
+                <td valign="top" class="TDCriterios25">
+                    <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
+                </td>
+                <td valign="top" class="TDCriterios25">
+                    <asp:DropDownList ID="ddlCurso" runat="server">
+                    </asp:DropDownList>
+                </td>
+            </tr>
         </table>
     </div>
     <div id="divReporte" runat="server">

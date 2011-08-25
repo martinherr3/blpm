@@ -163,7 +163,8 @@ namespace EDUAR_UI
 						break;
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
-						BuscarAgenda(propEvento);
+						BuscarFiltrando();
+						//BuscarAgenda(propEvento);
 						break;
 					case enumAcciones.Aceptar:
 						break;
@@ -425,12 +426,12 @@ namespace EDUAR_UI
 			ddlAsignaturaEdit.Items.Clear();
 			ddlMeses.Items.Clear();
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false, true);
-			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false);
+			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
 			UIUtilidades.BindComboMeses(ddlMeses, false);
 			BindComboModulos(DateTime.Now.Month);
 
-			UIUtilidades.SortByText(ddlAsignatura);
-			UIUtilidades.SortByText(ddlAsignaturaEdit);
+			//UIUtilidades.SortByText(ddlAsignatura);
+			//UIUtilidades.SortByText(ddlAsignaturaEdit);
 		}
 
 		/// <summary>

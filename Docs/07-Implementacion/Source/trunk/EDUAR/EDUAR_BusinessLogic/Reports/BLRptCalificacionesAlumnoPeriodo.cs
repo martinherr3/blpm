@@ -92,6 +92,11 @@ namespace EDUAR_BusinessLogic.Reports
         #endregion
 
         #region --[Métodos publicos]--
+		/// <summary>
+		/// Gets the RPT calificaciones alumno periodo.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
         public List<RptCalificacionesAlumnoPeriodo> GetRptCalificacionesAlumnoPeriodo(FilCalificacionesAlumnoPeriodo entidad)
         {
             try

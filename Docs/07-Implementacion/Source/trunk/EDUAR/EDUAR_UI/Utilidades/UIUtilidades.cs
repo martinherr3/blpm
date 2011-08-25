@@ -77,15 +77,16 @@ namespace EDUAR_UI.Utilidades
 					dropDownList.Items.Insert(dropDownList.Items.Count, new ListItem(drv.Row[fieldDescription].ToString(), drv.Row[fieldId].ToString()));
 			}
 
+			SortByText(dropDownList);
+			if (addAllValue)
+			{
+				dropDownList.Items.Insert(0, new ListItem("Todos", "-2"));
+				dropDownList.SelectedValue = "-2";
+			}
 			if (addDefaultValue)
 			{
 				dropDownList.Items.Insert(0, new ListItem("Seleccione", "-1"));
 				dropDownList.SelectedValue = "-1";
-			}
-			if (addAllValue)
-			{
-				dropDownList.Items.Insert(1, new ListItem("Todos", "-2"));
-				dropDownList.SelectedValue = "-2";
 			}
 		}
 

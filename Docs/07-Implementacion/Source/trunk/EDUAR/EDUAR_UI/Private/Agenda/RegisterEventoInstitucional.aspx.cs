@@ -339,7 +339,7 @@ namespace EDUAR_UI
 			BLTipoEventoInstitucional objBLTipoEvento = new BLTipoEventoInstitucional();
 			listaTipoEvento = objBLTipoEvento.GetTipoEventoInstitucional(null);
 
-			UIUtilidades.BindCombo<TipoEventoInstitucional>(ddlTipoEvento, listaTipoEvento, "idTipoEventoInstitucional", "descripcion", false);
+			UIUtilidades.BindCombo<TipoEventoInstitucional>(ddlTipoEvento, listaTipoEvento, "idTipoEventoInstitucional", "descripcion", false, true);
 			UIUtilidades.BindCombo<TipoEventoInstitucional>(ddlTipoEventoEdit, listaTipoEvento, "idTipoEventoInstitucional", "descripcion", true);
 		}
 
