@@ -1,5 +1,6 @@
 using System;
 using EDUAR_Entities.Shared;
+using EDUAR_Entities;
 ///////////////////////////////////////////////////////////
 //  Citacion.cs
 //  Implementation of the Class Citacion
@@ -8,19 +9,19 @@ using EDUAR_Entities.Shared;
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 
-
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Citacion:DTBase
+    public class Citacion : DTBase
     {
-        private int _idCitacion;
-        private string _detalles;
-        private DateTime _fecha;
-        private Usuario _gestorEvento;
-        private DateTime _horario;
-        private MotivoCitacion _motivoCitacion;
-        private Tutor _tutor;
+        public int idCitacion { get; set; }
+        public string detalles { get; set; }
+        public DateTime fecha { get; set; }
+        public Persona organizador { get; set; }
+        public DateTime horario { get; set; }
+        public MotivoCitacion motivoCitacion { get; set; }
+        public Tutor tutor { get; set; }
+        public bool activo { get; set; }
 
         public Citacion()
         {
@@ -36,84 +37,5 @@ namespace EDUAR_Entities
         {
 
         }
-
-        public int idCitacion
-        {
-            get { return _idCitacion; }
-            set { _idCitacion = value; }
-        }
-
-        public string detalles
-        {
-            get
-            {
-                return _detalles;
-            }
-            set
-            {
-                _detalles = value;
-            }
-        }
-
-        public DateTime fecha
-        {
-            get
-            {
-                return _fecha;
-            }
-            set
-            {
-                _fecha = value;
-            }
-        }
-
-        public Usuario gestorEvento
-        {
-            get
-            {
-                return _gestorEvento;
-            }
-            set
-            {
-                _gestorEvento = value;
-            }
-        }
-
-        public DateTime horario
-        {
-            get
-            {
-                return _horario;
-            }
-            set
-            {
-                _horario = value;
-            }
-        }
-
-        public MotivoCitacion motivoCitacion
-        {
-            get
-            {
-                return _motivoCitacion;
-            }
-            set
-            {
-                _motivoCitacion = value;
-            }
-        }
-
-        public Tutor tutor
-        {
-            get
-            {
-                return _tutor;
-            }
-            set
-            {
-                _tutor = value;
-            }
-        }
-
     }//end Citacion
 }
