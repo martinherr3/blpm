@@ -72,17 +72,17 @@ namespace EDUAR_DataAccess.Security
                             switch (status)
                             {
                                 case System.Web.Security.MembershipCreateStatus.DuplicateUserName:
-                                    EliminarUsaurios(objDTSeguridad, Nombre);
+                                    EliminarUsuarios(objDTSeguridad, Nombre);
                                     throw new CustomizedException("El usuario " + objUsuario.Nombre + " ya existe, la operación ha sido cancelada.", null, enuExceptionType.ValidationException);
                                 case System.Web.Security.MembershipCreateStatus.InvalidPassword:
-                                    EliminarUsaurios(objDTSeguridad, Nombre);
+                                    EliminarUsuarios(objDTSeguridad, Nombre);
                                     throw new CustomizedException("La Contraseña para el usuario " + objUsuario.Nombre + " es invalida, la operación ha sido cancelada.", null,
                                                                   enuExceptionType.ValidationException);
                                 case System.Web.Security.MembershipCreateStatus.InvalidUserName:
-                                    EliminarUsaurios(objDTSeguridad, Nombre);
+                                    EliminarUsuarios(objDTSeguridad, Nombre);
                                     throw new Exception("El nombre del usuario " + objUsuario.Nombre + " es invalido, la operación ha sido cancelada.");
                                 default:
-                                    EliminarUsaurios(objDTSeguridad, Nombre);
+                                    EliminarUsuarios(objDTSeguridad, Nombre);
                                     throw new CustomizedException("No se pudo crear el usuario " + objUsuario.Nombre + ", la operación ha sido cancelada.", null,
                                                                   enuExceptionType.ValidationException);
                             }
@@ -104,7 +104,7 @@ namespace EDUAR_DataAccess.Security
                                     Roles.AddUserToRole(objUsuario.Nombre, rolUsuario.Nombre);
                                 else
                                 {
-                                    EliminarUsaurios(objDTSeguridad, Nombre);
+                                    EliminarUsuarios(objDTSeguridad, Nombre);
                                     Exception ex = new CustomizedException("No se pudieron agregar los roles para El usuario " + Nombre + ", la operación ha sido cancelada.", null, enuExceptionType.ValidationException);
                                     throw ex;
                                 }
@@ -133,7 +133,7 @@ namespace EDUAR_DataAccess.Security
             }
         }
 
-        private void EliminarUsaurios(DTSeguridad objDTSeguridad, string Nombre)
+        private void EliminarUsuarios(DTSeguridad objDTSeguridad, string Nombre)
         {
             try
             {

@@ -17,8 +17,8 @@ namespace EDUAR_Entities
         public int idCitacion { get; set; }
         public string detalles { get; set; }
         public DateTime fecha { get; set; }
-        public Persona organizador { get; set; }
-        public DateTime horario { get; set; }
+        public Personal organizador { get; set; }
+        public DateTime hora { get; set; }
         public MotivoCitacion motivoCitacion { get; set; }
         public Tutor tutor { get; set; }
         public bool activo { get; set; }

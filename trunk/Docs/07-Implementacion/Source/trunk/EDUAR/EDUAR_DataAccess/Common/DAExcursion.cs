@@ -186,7 +186,7 @@ namespace EDUAR_DataAccess.Common
                     if (entidad.horaDesde != null)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaHasta", DbType.Time, Convert.ToDateTime(entidad.horaHasta).ToShortTimeString());
 
-                    if (entidad.activo == true)
+                    if (entidad.activo)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
                     if (ValidarFechaSQL(entidad.fechaEventoDesde))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);

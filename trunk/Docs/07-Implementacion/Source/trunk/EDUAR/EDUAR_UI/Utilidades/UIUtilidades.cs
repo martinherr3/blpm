@@ -11,6 +11,10 @@ namespace EDUAR_UI.Utilidades
 {
 	public class UIUtilidades
 	{
+		/// <summary>
+		/// Binds the combo tipo persona.
+		/// </summary>
+		/// <param name="ddlTipoUsuario">The DDL tipo usuario.</param>
 		public static void BindComboTipoPersona(DropDownList ddlTipoUsuario)
 		{
 			foreach (enumTipoPersona tipoPersona in Enum.GetValues(typeof(enumTipoPersona)))
@@ -20,6 +24,11 @@ namespace EDUAR_UI.Utilidades
 			ddlTipoUsuario.Items.Insert(0, new ListItem("Todos", "-1"));
 		}
 
+		/// <summary>
+		/// Binds the combo meses.
+		/// </summary>
+		/// <param name="ddlEntidad">The DDL entidad.</param>
+		/// <param name="addDefaultValue">if set to <c>true</c> [add default value].</param>
 		public static void BindComboMeses(DropDownList ddlEntidad, bool addDefaultValue)
 		{
 			foreach (enumMeses mes in Enum.GetValues(typeof(enumMeses)))
@@ -90,6 +99,15 @@ namespace EDUAR_UI.Utilidades
 			}
 		}
 
+		/// <summary>
+		/// Binds the combo.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="dropDownList">The drop down list.</param>
+		/// <param name="lista">The lista.</param>
+		/// <param name="fieldId">The field id.</param>
+		/// <param name="fieldDescription">The field description.</param>
+		/// <param name="addDefaultValue">if set to <c>true</c> [add default value].</param>
 		public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescription, bool addDefaultValue)
 		{
 			BindCombo<T>(dropDownList, lista, fieldId, fieldDescription, addDefaultValue, false);
@@ -105,7 +123,7 @@ namespace EDUAR_UI.Utilidades
 		/// <param name="fieldDescriptionFirst">The field description first.</param>
 		/// <param name="fieldDescriptionSecond">The field description second.</param>
 		/// <param name="addDefaultValue">if set to <c>true</c> [add default value].</param>
-		public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescriptionFirst, string fieldDescriptionSecond, bool addDefaultValue)
+		public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescriptionFirst, string fieldDescriptionSecond, bool addDefaultValue, bool addAllValue)
 		{
 			DataView dataView = new DataView(BuildDataTable(lista));
 			dropDownList.Items.Clear();
@@ -124,6 +142,21 @@ namespace EDUAR_UI.Utilidades
 			}
 		}
 
+		/// <summary>
+		/// Binds the combo.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="dropDownList">The drop down list.</param>
+		/// <param name="lista">The lista.</param>
+		/// <param name="fieldId">The field id.</param>
+		/// <param name="fieldDescriptionFirst">The field description first.</param>
+		/// <param name="fieldDescriptionSecond">The field description second.</param>
+		/// <param name="addDefaultValue">if set to <c>true</c> [add default value].</param>
+		public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescriptionFirst, string fieldDescriptionSecond, bool addDefaultValue)
+		{
+			BindCombo<T>(dropDownList, lista, fieldId, fieldDescriptionFirst, fieldDescriptionSecond, addDefaultValue, false);
+		}
+
 		// <T> is the type of data in the list.
 		// If you have a List<int>, for example, then call this as follows:
 		// List<int> ListOfInt;
@@ -140,7 +173,8 @@ namespace EDUAR_UI.Utilidades
 				DataRow row = tbl.NewRow();
 				foreach (PropertyDescriptor prop in properties)
 				{
-					row[prop.Name] = prop.GetValue(item);
+					if (prop.GetValue(item) != null)
+						row[prop.Name] = prop.GetValue(item);
 				}
 				tbl.Rows.Add(row);
 			}
@@ -257,11 +291,19 @@ namespace EDUAR_UI.Utilidades
 		}
 
 		#region sorting methods
+		/// <summary>
+		/// Sorts the by value.
+		/// </summary>
+		/// <param name="combo">The combo.</param>
 		public static void SortByValue(ListControl combo)
 		{
 			SortCombo(combo, new ComboValueComparer());
 		}
 
+		/// <summary>
+		/// Sorts the by text.
+		/// </summary>
+		/// <param name="combo">The combo.</param>
 		public static void SortByText(ListControl combo)
 		{
 			SortCombo(combo, new ComboTextComparer());
