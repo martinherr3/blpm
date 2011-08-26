@@ -164,22 +164,22 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<Citacion> GetCitacions(Citacion entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetCitacions(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetCitacions", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+		public List<Citacion> GetCitaciones(Citacion entidad)
+		{
+			try
+			{
+				return DataAcces.GetCitaciones(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCitaciones", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
-    }
+	}
 }

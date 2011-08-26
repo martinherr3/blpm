@@ -87,6 +87,8 @@ namespace EDUAR_DataAccess.Common
 					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
 					//if (ValidarFechaSQL(entidad.hora))
 					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
+					if(entidad.activo)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

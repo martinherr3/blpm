@@ -67,7 +67,7 @@
                     </asp:TreeView>
                     <!-- FIN MENU -->
                 </td>
-                <td style="width: 700px">
+                <td style="width: 800px">
                     <div class="main">
                         <asp:ContentPlaceHolder ID="MainContent" runat="server">
                         </asp:ContentPlaceHolder>

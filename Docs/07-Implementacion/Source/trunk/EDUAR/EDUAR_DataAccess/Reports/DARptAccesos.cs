@@ -32,55 +32,55 @@ namespace EDUAR_DataAccess.Reports
         #region --[Métodos Públicos]--
         public List<RptAccesos> GetRptAccesos(FilAccesos entidad)
         {
-            try
-            {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_Accesos");
-                if (entidad != null)
-                {
-                    if (entidad.idPagina > 0)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.idPagina);
-                    if (ValidarFechaSQL(entidad.fechaDesde))
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaDesde);
-                    if (ValidarFechaSQL(entidad.fechaHasta))
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaHasta);
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_Accesos");
+				if (entidad != null)
+				{
+					if (entidad.idPagina > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.idPagina);
+					if (ValidarFechaSQL(entidad.fechaDesde))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaDesde);
+					if (ValidarFechaSQL(entidad.fechaHasta))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaHasta);
 
-                    string rolesParam = string.Empty;
-                    if (entidad.listaRoles.Count != 0)
-                    {
-                        foreach (DTRol rol in entidad.listaRoles)
-                            rolesParam += string.Format("{0},", rol.Nombre);
+					string rolesParam = string.Empty;
+					if (entidad.listaRoles.Count != 0)
+					{
+						foreach (DTRol rol in entidad.listaRoles)
+							rolesParam += string.Format("{0},", rol.Nombre);
 
-                        rolesParam = rolesParam.Substring(0, rolesParam.Length - 1);
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaRoles", DbType.String, rolesParam);
-                    }
-                }
-                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+						rolesParam = rolesParam.Substring(0, rolesParam.Length - 1);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaRoles", DbType.String, rolesParam);
+					}
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-                List<RptAccesos> listaReporte = new List<RptAccesos>();
-                RptAccesos objReporte;
-                while (reader.Read())
-                {
-                    objReporte = new RptAccesos();
+				List<RptAccesos> listaReporte = new List<RptAccesos>();
+				RptAccesos objReporte;
+				while (reader.Read())
+				{
+					objReporte = new RptAccesos();
 
-                    objReporte.pagina = reader["titulo"].ToString();
-                    objReporte.fecha = Convert.ToDateTime(reader["fecha"].ToString());
-                    //objReporte.username = reader["username"].ToString();
-                    objReporte.rol = reader["RoleName"].ToString();
-                    objReporte.accesos = (int)reader["cantidadAccesos"];
-                    listaReporte.Add(objReporte);
-                }
-                return listaReporte;
-            }
-            catch (SqlException ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetRptAccesos()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetRptAccesos()", ClassName),
-                                    ex, enuExceptionType.DataAccesException);
-            }
+					objReporte.pagina = reader["titulo"].ToString();
+					objReporte.fecha = Convert.ToDateTime(reader["fecha"].ToString());
+					//objReporte.username = reader["username"].ToString();
+					objReporte.rol = reader["RoleName"].ToString();
+					objReporte.accesos = (int)reader["cantidadAccesos"];
+					listaReporte.Add(objReporte);
+				}
+				return listaReporte;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRptAccesos()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRptAccesos()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
         }
         #endregion
 

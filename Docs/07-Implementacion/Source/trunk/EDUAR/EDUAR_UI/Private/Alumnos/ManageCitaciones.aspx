@@ -52,32 +52,35 @@
                         </tr>
                         <tr>
                             <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="Label1" runat="server" Text="Tutores:"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:DropDownList ID="ddlTutores" runat="server">
+                                </asp:DropDownList>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
                             </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
                         </tr>
                         <tr>
-                <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                    <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
-                    </asp:DropDownList>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                    <asp:DropDownList ID="ddlCurso" runat="server">
-                    </asp:DropDownList>
-                </td>
-            </tr>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:DropDownList ID="ddlCurso" runat="server">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
                     </table>
                 </ContentTemplate>
                 <Triggers>
@@ -92,24 +95,24 @@
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-                AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idEventoAgenda"
+                AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idCitacion"
                 OnRowCommand="gvwReporte_RowCommand" OnPageIndexChanging="gvwReporte_PageIndexChanging">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
-                            <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEventoAgenda") %>'
+                            <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idCitacion") %>'
                                 ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Asignatura">
+                    <%--<asp:TemplateField HeaderText="Asignatura">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblEventoGrilla" runat="server" Text='<%# Bind("asignatura.nombre") %>'></asp:Label>
                         </ItemTemplate>
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="Fecha">
                         <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="center" />
@@ -121,7 +124,7 @@
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblOrganizador" runat="server" Text='<%# String.Format("{0} {1}", Eval("usuario.nombre"), Eval("usuario.apellido")) %>'></asp:Label>
+                            <asp:Label ID="lblOrganizador" runat="server" Text='<%# String.Format("{0} {1}", Eval("organizador.nombre"), Eval("organizador.apellido")) %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Activo">
@@ -156,7 +159,7 @@
                                 <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
-                                <%--<cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />--%>
+                                <cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
                             </td>
                             <td valign="top" class="TDCriterios10">
                             </td>
