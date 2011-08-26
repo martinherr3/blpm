@@ -214,28 +214,34 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
-		/// <summary>
-		/// Gets the excursiones agenda.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		/// <returns></returns>
-		public List<Excursion> GetExcursionesAgenda(Excursion entidad)
-		{
-			try
-			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Excursion_Select");
-				if (entidad != null)
-				{
-					if (entidad.idAgendaActividad > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
-					if (ValidarFechaSQL(entidad.fechaEventoDesde))
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
-					if (ValidarFechaSQL(entidad.fechaEventoHasta))
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
-					if (entidad.activo)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
-				}
-				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+        /// <summary>
+        /// Gets the excursiones agenda.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Excursion> GetExcursionesAgenda(Excursion entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Excursion_Select");
+                if (entidad != null)
+                {
+                    if (entidad.idExcursion > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idExcursion", DbType.Int32, entidad.idExcursion);
+                    if (entidad.idAgendaActividad > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
+                    if (entidad.idEventoAgenda > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEvento", DbType.Int32, entidad.idEventoAgenda);
+                    if (ValidarFechaSQL(entidad.fechaEvento))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaEvento", DbType.Date, entidad.fechaEvento);
+                    if (ValidarFechaSQL(entidad.fechaEventoDesde))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
+                    if (ValidarFechaSQL(entidad.fechaEventoHasta))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+                }
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				List<Excursion> listaEventos = new List<Excursion>();
 				Excursion objEvento;
@@ -243,36 +249,37 @@ namespace EDUAR_DataAccess.Common
 				{
 					objEvento = new Excursion();
 
-					objEvento.idExcursion = Convert.ToInt32(reader["idExcursion"]);
-					objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
-					objEvento.descripcion = reader["descripcion"].ToString();
-					objEvento.activo = Convert.ToBoolean(reader["activo"].ToString());
-					objEvento.fechaAlta = Convert.ToDateTime(reader["fechaAlta"].ToString());
-					if (!string.IsNullOrEmpty(reader["fechaModificacion"].ToString()))
-						objEvento.fechaModificacion = Convert.ToDateTime(reader["fechaModificacion"].ToString());
-					objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
-					objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
-					objEvento.tipoEventoAgenda.idTipoEventoAgenda = Convert.ToInt32(reader["idTipoEvento"]);
-					objEvento.horaDesde = Convert.ToDateTime(reader["horaDesde"].ToString());
-					objEvento.horaHasta = Convert.ToDateTime(reader["horaHasta"].ToString());
-					objEvento.destino = reader["destino"].ToString();
-					objEvento.usuario.nombre = reader["nombre"].ToString();
-					objEvento.usuario.apellido = reader["apellido"].ToString();
-					listaEventos.Add(objEvento);
-				}
-				return listaEventos;
-			}
-			catch (SqlException ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetExcursionesAgenda()", ClassName),
-									ex, enuExceptionType.SqlException);
-			}
-			catch (Exception ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetExcursionesAgenda()", ClassName),
-									ex, enuExceptionType.DataAccesException);
-			}
-		}
+                    objEvento.idExcursion = Convert.ToInt32(reader["idExcursion"]);
+                    objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
+                    objEvento.descripcion = reader["descripcion"].ToString();
+                    objEvento.activo = Convert.ToBoolean(reader["activo"].ToString());
+                    objEvento.fechaAlta = Convert.ToDateTime(reader["fechaAlta"].ToString());
+                    if (!string.IsNullOrEmpty(reader["fechaModificacion"].ToString()))
+                        objEvento.fechaModificacion = Convert.ToDateTime(reader["fechaModificacion"].ToString());
+                    objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
+                    objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
+                    objEvento.tipoEventoAgenda.idTipoEventoAgenda = Convert.ToInt32(reader["idTipoEvento"]);
+                    objEvento.horaDesde = Convert.ToDateTime(reader["horaDesde"].ToString());
+                    objEvento.horaHasta = Convert.ToDateTime(reader["horaHasta"].ToString());
+                    objEvento.destino = reader["destino"].ToString();
+                    objEvento.usuario.nombre = reader["nombre"].ToString();
+                    objEvento.usuario.apellido = reader["apellido"].ToString();
+                    
+                    listaEventos.Add(objEvento);
+                }
+                return listaEventos;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetExcursionesAgenda1()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetExcursionesAgenda2()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
 		#endregion
 
 		#region --[Implementación métodos heredados]--
