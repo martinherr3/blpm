@@ -161,7 +161,8 @@ namespace EDUAR_UI
                         break;
                     case enumAcciones.Limpiar:
                         CargarPresentacion();
-                        BuscarAgenda(propEvento);
+                        //BuscarAgenda(propEvento);
+                        BuscarFiltrando();
                         break;
                     case enumAcciones.Aceptar:
                         break;
@@ -412,9 +413,9 @@ namespace EDUAR_UI
             if (!esNuevo)
             {
                 evento.idEventoAgenda = propEvento.idEventoAgenda;
-                evento.idAgendaActividad = propEvento.idAgendaActividad;
+                evento.idAgendaActividad = propAgenda.idAgendaActividad;
 
-                evento.idExcursion = propEvento.idExcursion;
+                //evento.idExcursion = propEvento.idExcursion;
             }
 
             evento.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
