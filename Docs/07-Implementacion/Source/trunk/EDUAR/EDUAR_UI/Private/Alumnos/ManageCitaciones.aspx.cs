@@ -315,6 +315,19 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+		protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				int idCurso = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+				CargarComboTutor(idCurso, ddlTutores);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -357,20 +370,16 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarCombos()
 		{
-			List<Tutor> listaTutores = new List<Tutor>();
-			BLTutor objBLTutor = new BLTutor();
-			listaTutores = objBLTutor.GetTutores(new Tutor() { activo = true });
-			UIUtilidades.BindCombo<Tutor>(ddlTutores, listaTutores, "idTutor", "apellido", "nombre", true);
-
 			List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
 			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
 			listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(new CicloLectivo() { activo = true });
 
-			List<Curso> listaCurso = new List<Curso>();
+			//List<Curso> listaCurso = new List<Curso>();
 			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
-			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
+			//UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
 
 			ddlCurso.Enabled = false;
+			ddlTutores.Enabled = false;
 		}
 
 		/// <summary>
@@ -395,6 +404,24 @@ namespace EDUAR_UI
 				ddlCurso.Enabled = false;
 			}
 		}
+
+		private void CargarComboTutor(int idCurso, DropDownList ddlTutor)
+		{
+			if (idCurso > 0)
+			{
+				List<Tutor> listaTutores = new List<Tutor>();
+				BLTutor objBLTutor = new BLTutor();
+				AlumnoCurso objFiltro = new AlumnoCurso();
+				objFiltro.curso.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+				objFiltro.curso.cicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+				listaTutores = objBLTutor.GetTutoresPorCurso(objFiltro);
+				UIUtilidades.BindCombo<Tutor>(ddlTutores, listaTutores, "idTutor", "apellido", "nombre", true);
+				ddlTutor.Enabled = true;
+			}
+			else
+			{ ddlTutor.Enabled = false; }
+		}
+
 
 		/// Cargars the grilla.
 		/// </summary>

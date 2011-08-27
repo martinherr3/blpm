@@ -109,6 +109,51 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+		/// <summary>
+		/// Gets the tutores por curso.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<Tutor> GetTutoresPorCurso(AlumnoCurso entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TutoresPorCurso_Select");
+				if (entidad != null)
+				{
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.curso.idCurso);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.curso.cicloLectivo.idCicloLectivo);
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<Tutor> listaTutores = new List<Tutor>();
+				Tutor objTutor;
+				while (reader.Read())
+				{
+					objTutor = new Tutor();
+
+					objTutor.idTutor = Convert.ToInt32(reader["idTutor"]);
+					objTutor.nombre = reader["nombre"].ToString();
+					objTutor.apellido = reader["apellido"].ToString();
+					//objTutor.activo = Convert.ToBoolean(reader["activo"]);
+					//if (!string.IsNullOrEmpty(reader["fechaNacimiento"].ToString()))
+					//    objTutor.fechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"].ToString());
+					listaTutores.Add(objTutor);
+				}
+				return listaTutores;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetTutoresPorCurso()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetTutoresPorCurso()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 	}
 }

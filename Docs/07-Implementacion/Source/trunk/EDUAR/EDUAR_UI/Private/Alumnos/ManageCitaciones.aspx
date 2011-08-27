@@ -52,6 +52,22 @@
                         </tr>
                         <tr>
                             <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="Label1" runat="server" Text="Tutores:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
@@ -63,22 +79,6 @@
                             </td>
                             <td valign="top" class="TDCriterios25">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlCurso" runat="server">
-                                </asp:DropDownList>
                             </td>
                         </tr>
                     </table>
@@ -144,7 +144,7 @@
                                 <h3>
                                     <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
                                     <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
-                                    Evaluación</h3>
+                                    Citación</h3>
                             </td>
                         </tr>
                         <tr>

@@ -179,14 +179,14 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnExcursion_Click(object sender, EventArgs e)
 		{
-            try
-            {
-                Response.Redirect("ManageExcursiones.aspx", false);
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
+			try
+			{
+				Response.Redirect("ManageExcursiones.aspx", false);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
 		}
 
 		/// <summary>
@@ -284,6 +284,7 @@ namespace EDUAR_UI
 					case "Editar":
 						propAgenda.idAgendaActividad = Convert.ToInt32(e.CommandArgument.ToString());
 						CargaAgenda();
+						lblTitulo.Text = "Agenda del Curso: " + propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
 						break;
 				}
 			}
@@ -379,6 +380,7 @@ namespace EDUAR_UI
 		private void CargarPresentacion()
 		{
 			LimpiarCampos();
+			lblTitulo.Text = "Actividades";
 			CargarCombos(ddlCicloLectivo, ddlCurso);
 			udpEdit.Visible = false;
 			btnVolver.Visible = false;
@@ -456,6 +458,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void BuscarFiltrando()
 		{
+			lblTitulo.Text = "Actividades";
 			calfecha.ValidarRangoDesde();
 			AgendaActividades entidad = new AgendaActividades();
 			entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
