@@ -151,35 +151,15 @@ namespace EDUAR_UI
 			{
 				switch (AccionPagina)
 				{
-					case enumAcciones.Buscar:
-						break;
-					case enumAcciones.Nuevo:
-						break;
-					case enumAcciones.Modificar:
-						break;
-					case enumAcciones.Eliminar:
-						break;
-					case enumAcciones.Seleccionar:
-						break;
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
 						BuscarFiltrando();
 						//BuscarAgenda(propEvento);
 						break;
-					case enumAcciones.Aceptar:
-						break;
-					case enumAcciones.Salir:
-						break;
-					case enumAcciones.Redirect:
-						break;
 					case enumAcciones.Guardar:
 						AccionPagina = enumAcciones.Limpiar;
 						GuardarEntidad(ObtenerValoresDePantalla());
 						Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
-						break;
-					case enumAcciones.Ingresar:
-						break;
-					case enumAcciones.Desbloquear:
 						break;
 					case enumAcciones.Error:
 						break;
@@ -351,7 +331,7 @@ namespace EDUAR_UI
 			try
 			{
 				ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
-				BindComboModulos(DateTime.Now.Month);
+				//BindComboModulos(DateTime.Now.Month);
 			}
 			catch (Exception ex)
 			{
@@ -428,7 +408,7 @@ namespace EDUAR_UI
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false, true);
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
 			UIUtilidades.BindComboMeses(ddlMeses, false);
-			BindComboModulos(DateTime.Now.Month);
+			//BindComboModulos(DateTime.Now.Month);
 
 			//UIUtilidades.SortByText(ddlAsignatura);
 			//UIUtilidades.SortByText(ddlAsignaturaEdit);

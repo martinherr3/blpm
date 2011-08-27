@@ -91,7 +91,7 @@
     </asp:UpdatePanel>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-            <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
+            <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                 AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idAgendaActividad"
                 OnRowCommand="gvwReporte_RowCommand" OnPageIndexChanging="gvwReporte_PageIndexChanging">
                 <Columns>
@@ -128,8 +128,15 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-                    <asp:GridView ID="gvwAgenda" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-                        AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idEventoAgenda" OnPageIndexChanging="gvwAgenda_PageIndexChanging">
+                    <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                    <asp:GridView ID="gvwAgenda" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
+                        AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idEventoAgenda"
+                        OnPageIndexChanging="gvwAgenda_PageIndexChanging">
                         <Columns>
                             <asp:TemplateField HeaderText="Evento">
                                 <HeaderStyle HorizontalAlign="left" Width="20%" />
@@ -180,4 +187,4 @@
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
         </Triggers>
     </asp:UpdatePanel>
-</asp:Content> 
+</asp:Content>
