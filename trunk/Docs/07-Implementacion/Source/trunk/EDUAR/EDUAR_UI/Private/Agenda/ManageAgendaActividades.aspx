@@ -8,11 +8,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Actividades</h2>
-    <br />
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
+            <h2>
+                <asp:Label ID="lblTitulo" Text="Actividades" runat="server" /></h2>
+            <br />
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="right">

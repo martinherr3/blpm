@@ -76,6 +76,21 @@
             </tr>
         </table>
         <div class="clear">
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 100%; text-align: center">
+                        Copyright (c)
+                        <%=DateTime.Now.Year.ToString() %>
+                        - BLPM - <a href="http://www.gnu.org/licenses/gpl-3.0.html" title="Licencia GNU - GPLv3"
+                            target="_blank">GPLv3</a>
+                        <br />
+                        Sitio web compatible con Mozilla Firefox<br />
+                        <a href="http://www.mozilla.org/es-ES/firefox/" target="_blank">
+                            <img src="/EDUAR_UI/Images/firefox.png" alt="Compatible con Mozilla Firefox" title="Compatible con Mozilla Firefox"
+                                style="border: 0" /></a>
+                    </td>
+                </tr>
+            </table>
         </div>
         <!--******** INICIO FUNCIONALIDAD UPDATE PROGRESS ********-->
         <asp:UpdateProgress ID="updateProgress1" runat="server" DisplayAfter="0">
