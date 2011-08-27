@@ -374,9 +374,12 @@ namespace EDUAR_UI
 			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
 			listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(new CicloLectivo() { activo = true });
 
-			//List<Curso> listaCurso = new List<Curso>();
-			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
-			//UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
+			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", false);
+
+			List<MotivoCitacion> listaMotivos = new List<MotivoCitacion>();
+			BLMotivoCitacion objBLMotivos = new BLMotivoCitacion();
+			listaMotivos = objBLMotivos.GetMotivos(new MotivoCitacion());
+			UIUtilidades.BindCombo<MotivoCitacion>(ddlMotivoCitacion, listaMotivos, "idMotivoCitacion", "nombre", false, true);
 
 			ddlCurso.Enabled = false;
 			ddlTutores.Enabled = false;
