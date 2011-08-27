@@ -1,20 +1,21 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Reporte.ascx.cs" Inherits="EDUAR_UI.UserControls.Reporte" %>
 <script language="javascript" type="text/javascript">
-    function abrir() {
-        window.open('PrintReport.aspx', 'Impresión de Informes', 'scrollbars=No,status=yes,width=800,height=600');
-        return false;
-    }
-
     function AbrirPopup() {
         var popup;
         //Abrir Ventana
         popup = window.open('PrintReport.aspx', 'Impresión de Informes', 'width=800,height=600,left=50,top=100,­menubar=0,toolbar=0,status=0,scrollbars=1,resizable=0,titlebar=0');
 
-        //Armar documento
-        popup.document.close();
+        if (popup == null || typeof (popup) == 'undefined') {
+            alert('Por favor deshabilita el bloqueador de ventanas emergentes y vuelve a hacer clic en "Imprimir".');
+        }
+        else {
+            popup.focus();
+            //Armar documento
+            popup.document.close();
+        }
     }
 </script>
-<table border="0" cellpadding="0" cellspacing="0" width="750px">
+<table border="0" cellpadding="0" cellspacing="0" width="800px">
     <tr>
         <td>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">

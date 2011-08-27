@@ -78,7 +78,7 @@
 
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-            <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
+            <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                 AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idEventoAgenda"
                 OnRowCommand="gvwReporte_RowCommand">
                 <Columns>
