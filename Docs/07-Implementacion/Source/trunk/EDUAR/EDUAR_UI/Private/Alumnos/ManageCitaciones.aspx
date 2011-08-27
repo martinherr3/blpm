@@ -81,6 +81,19 @@
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
                             </td>
                         </tr>
+                        <tr>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="Label2" runat="server" Text="Motivo de Citación:"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:DropDownList ID="ddlMotivoCitacion" runat="server">
+                                </asp:DropDownList>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
+                        </tr>
                     </table>
                 </ContentTemplate>
                 <Triggers>

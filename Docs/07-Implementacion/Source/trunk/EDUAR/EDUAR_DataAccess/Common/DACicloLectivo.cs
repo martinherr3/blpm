@@ -77,16 +77,6 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("CicloLectivo_Select");
 				if (entidad != null)
 				{
-					//if (entidad.idCicloLectivo > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
-					//if (entidad.pagina.idPagina > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
-					//if (!string.IsNullOrEmpty(entidad.pagina.titulo))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
-					//if (ValidarFechaSQL(entidad.fecha))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
-					//if (ValidarFechaSQL(entidad.hora))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
 					if(entidad.activo)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 				}

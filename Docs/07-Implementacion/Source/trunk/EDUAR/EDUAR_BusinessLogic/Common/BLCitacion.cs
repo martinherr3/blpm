@@ -164,6 +164,11 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
+		/// <summary>
+		/// Gets the citaciones.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
 		public List<Citacion> GetCitaciones(Citacion entidad)
 		{
 			try
