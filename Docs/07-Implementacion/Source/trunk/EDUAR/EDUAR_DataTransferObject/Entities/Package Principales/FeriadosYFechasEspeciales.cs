@@ -10,13 +10,12 @@ using System;
 using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
-
     [Serializable]
     public class FeriadosYFechasEspeciales: DTBase
     {
-        public int idFeriadosYFechasEspeciales { get; set; }
-        private string _descripcion;
-        private DateTime _fecha;
+        public int idFeriado { get; set; }
+		public string descripcion { get; set; }
+		public DateTime fecha { get; set; }
 
         public FeriadosYFechasEspeciales()
         {
@@ -32,30 +31,5 @@ namespace EDUAR_Entities
         {
 
         }
-
-        public string descripcion
-        {
-            get
-            {
-                return _descripcion;
-            }
-            set
-            {
-                _descripcion = value;
-            }
-        }
-
-        public DateTime fecha
-        {
-            get
-            {
-                return _fecha;
-            }
-            set
-            {
-                _fecha = value;
-            }
-        }
-
     }//end FeriadosYFechasEspeciales
 }

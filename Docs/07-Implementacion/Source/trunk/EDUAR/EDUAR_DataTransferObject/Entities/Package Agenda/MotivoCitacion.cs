@@ -6,18 +6,16 @@
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
 
-using EDUAR_Entities.Shared;
 using System;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
     public class MotivoCitacion:DTBase
     {
-        private int _idMotivoCitacion;
-
-       
-        private string _descripcion;
-        private string _nombre;
+		public int idMotivoCitacion { get; set; }
+		public string descripcion { get; set; }
+		public string nombre { get; set; }
 
         public MotivoCitacion()
         {
@@ -33,36 +31,5 @@ namespace EDUAR_Entities
         {
 
         }
-
-        public int idMotivoCitacion
-        {
-            get { return _idMotivoCitacion; }
-            set { _idMotivoCitacion = value; }
-        }
-
-        public string descripcion
-        {
-            get
-            {
-                return _descripcion;
-            }
-            set
-            {
-                _descripcion = value;
-            }
-        }
-
-        public string nombre
-        {
-            get
-            {
-                return _nombre;
-            }
-            set
-            {
-                _nombre = value;
-            }
-        }
-
     }//end MotivoCitacion
 }
