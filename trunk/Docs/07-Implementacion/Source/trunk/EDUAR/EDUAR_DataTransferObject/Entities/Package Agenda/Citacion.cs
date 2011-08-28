@@ -22,10 +22,15 @@ namespace EDUAR_Entities
         public MotivoCitacion motivoCitacion { get; set; }
         public Tutor tutor { get; set; }
         public bool activo { get; set; }
+		//Se utilizan para filtrar
+		public DateTime fechaEventoDesde { get; set; }
+		public DateTime fechaEventoHasta { get; set; }
 
         public Citacion()
         {
-
+			organizador = new Personal();
+			motivoCitacion = new MotivoCitacion();
+			tutor = new Tutor();
         }
 
         ~Citacion()

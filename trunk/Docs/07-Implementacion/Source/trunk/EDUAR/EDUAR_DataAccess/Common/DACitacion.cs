@@ -48,14 +48,81 @@ namespace EDUAR_DataAccess.Common
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Creates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <param name="identificador">The identificador.</param>
 		public override void Create(Citacion entidad, out int identificador)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Citacion_Insert");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCitacion", DbType.Int32, 0);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMotivoCitacion", DbType.Int32, entidad.motivoCitacion.idMotivoCitacion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTutor", DbType.Int32, entidad.tutor.idTutor);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha.Date.ToShortDateString());
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, entidad.hora.ToShortTimeString());
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.organizador.username);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalles);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+
+				identificador = Int32.Parse(Transaction.DBcomand.Parameters["@idCitacion"].Value.ToString());
+
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
 		}
 
+		/// <summary>
+		/// Updates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
 		public override void Update(Citacion entidad)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Citacion_Update");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCitacion", DbType.Int32, entidad.idCitacion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMotivoCitacion", DbType.Int32, entidad.motivoCitacion.idMotivoCitacion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTutor", DbType.Int32, entidad.tutor.idTutor);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha.Date.ToShortDateString());
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, Convert.ToDateTime(entidad.hora.Hour + ":" + entidad.hora.Minute));
+				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.organizador.username);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idOrganizador", DbType.Int32, entidad.organizador.IdPersonal);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalles);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
 		}
 
 		public override void Delete(Citacion entidad)
@@ -89,6 +156,10 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalles);
 					if (entidad.activo)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+					if (ValidarFechaSQL(entidad.fechaEventoDesde))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
+					if (ValidarFechaSQL(entidad.fechaEventoHasta))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -110,7 +181,7 @@ namespace EDUAR_DataAccess.Common
 					objCitacion.tutor.apellido = reader["apellidoTutor"].ToString();
 					objCitacion.motivoCitacion.idMotivoCitacion = Convert.ToInt32(reader["idMotivoCitacion"]);
 					objCitacion.motivoCitacion.nombre = reader["motivoCitacion"].ToString();
-
+					objCitacion.activo = Convert.ToBoolean(reader["activo"]);
 					listaCitaciones.Add(objCitacion);
 				}
 				return listaCitaciones;
@@ -126,7 +197,49 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
-		#endregion
 
+		/// <summary>
+		/// Verificars the disponibilidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public bool VerificarDisponibilidad(Citacion entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Citacion_Select");
+				if (entidad != null)
+				{
+					if (entidad.idCitacion > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCitacion", DbType.Int32, entidad.idCitacion);
+					if (entidad.tutor.idTutor > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTutor", DbType.Int32, entidad.tutor.idTutor);
+					if (!string.IsNullOrEmpty(entidad.organizador.username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.organizador.username);
+					if (ValidarFechaSQL(entidad.fechaEventoDesde))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
+					if (!string.IsNullOrEmpty(entidad.hora.ToShortTimeString()))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, entidad.hora.ToShortTimeString());
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				while (reader.Read())
+				{
+					return false;
+				}
+				return true;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarDisponibilidad()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarDisponibilidad()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+		#endregion
 	}
 }

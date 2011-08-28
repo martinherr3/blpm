@@ -28,6 +28,11 @@ namespace EDUAR_DataAccess.Common
         #endregion
 
         #region --[Métodos Públicos]--
+		/// <summary>
+		/// Gets the accesos.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
         public List<Acceso> GetAccesos(Acceso entidad)
         {
             try

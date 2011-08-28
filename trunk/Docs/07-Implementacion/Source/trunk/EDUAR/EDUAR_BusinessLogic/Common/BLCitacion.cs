@@ -185,6 +185,31 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+		/// <summary>
+		/// Verificars the disponibilidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public bool VerificarDisponibilidad(Citacion entidad)
+		{
+			try
+			{
+				if(!DataAcces.VerificarDisponibilidad(entidad))
+					throw new CustomizedException("Las personas involucradas no se encuentran disponibles en el horario y fecha seleccioandas", null,
+											  enuExceptionType.ValidationException);
+				return true;
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarDisponibilidad", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
 	}
 }

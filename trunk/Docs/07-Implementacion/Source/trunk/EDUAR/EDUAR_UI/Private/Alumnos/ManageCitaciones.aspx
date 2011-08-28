@@ -119,18 +119,11 @@
                                 ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <%--<asp:TemplateField HeaderText="Asignatura">
-                        <HeaderStyle HorizontalAlign="left" Width="20%" />
-                        <ItemStyle HorizontalAlign="left" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblEventoGrilla" runat="server" Text='<%# Bind("asignatura.nombre") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="Fecha">
                         <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
-                            <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# Bind("fechaEvento","{0:d}") %>'></asp:Label>
+                            <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# String.Format("{0} {1} hs.", Eval("fecha","{0:d}"), Eval("hora","{0:HH:mm}")) %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Organizador">
@@ -138,6 +131,20 @@
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblOrganizador" runat="server" Text='<%# String.Format("{0} {1}", Eval("organizador.nombre"), Eval("organizador.apellido")) %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Tutor">
+                        <HeaderStyle HorizontalAlign="left" Width="20%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblTutorGrilla" runat="server" Text='<%# String.Format("{0} {1}", Eval("tutor.nombre"), Eval("tutor.apellido")) %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Motivo">
+                        <HeaderStyle HorizontalAlign="left" Width="20%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblMotivoGrilla" runat="server" Text='<%# Bind("motivoCitacion.nombre") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Activo">
@@ -175,28 +182,56 @@
                                 <cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
                             </td>
                             <td valign="top" class="TDCriterios10">
+                                <asp:Label runat="server" ID="lblHora" Text="Hora:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios40">
+                                <asp:TextBox runat="server" ID="txtHoraEdit" MaxLength="5" CssClass="EstiloTxtCorto80"></asp:TextBox>
+                                <cc1:MaskedEditExtender ID="MaskedEditExtender2" runat="server" AcceptAMPM="false"
+                                    MaskType="Time" Mask="99:99" ErrorTooltipEnabled="true" InputDirection="LeftToRight"
+                                    CultureName="es-ES" TargetControlID="txtHoraEdit" MessageValidatorTip="true">
+                                </cc1:MaskedEditExtender>
+                                <cc1:MaskedEditValidator ID="MaskedEditValidator2" runat="server" ToolTip="Hora Inválida"
+                                    ErrorMessage="*" ControlExtender="MaskedEditExtender2" ControlToValidate="txtHoraEdit"
+                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
+                                </cc1:MaskedEditValidator>
                             </td>
                         </tr>
                         <tr>
                             <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
+                                <asp:Label ID="Label5" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
+                                <asp:DropDownList ID="ddlCursoEdit" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCursoEdit_SelectedIndexChanged">
+                                </asp:DropDownList>
                             </td>
                             <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="Label6" runat="server" Text="Tutor:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
+                                <asp:DropDownList ID="ddlTutorEdit" runat="server" Enabled="false">
+                                </asp:DropDownList>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="Label7" runat="server" Text="Motivo de Citación:"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:DropDownList ID="ddlMotivoEdit" runat="server">
+                                </asp:DropDownList>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="lblActivoEdit" runat="server" Text="Activo:"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="true" />
                             </td>
                         </tr>
                         <tr>
                             <td valign="top" class="TD25">
                                 <asp:Label runat="server" ID="Label9" Text="Descripción:"></asp:Label>
                             </td>
-                            <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="500px" TextMode="MultiLine"
+                            <td colspan="3" class="TDCriterios75">
+                                <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="600px" TextMode="MultiLine"
                                     Rows="5"></asp:TextBox>
                             </td>
                         </tr>

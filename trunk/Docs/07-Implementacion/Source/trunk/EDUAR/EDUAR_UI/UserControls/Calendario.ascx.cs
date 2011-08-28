@@ -576,6 +576,17 @@ namespace EDUAR_UI.UserControls
 			ComprobarRangosDesde(comprobarFechaHoy);
 		}
 
+		/// <summary>
+		/// Método utilizado para validar las fechas en calendario Desde
+		/// </summary>
+		/// <param name="comprobarFechaHoy">Indica si el campo se debe validar que no sea superior a la fecha de hoy (TRUE) o si no se valida fecha superior a la de hoy (FALSE)</param>
+		public void ValidarRangoDesde(bool comprobarFechaPosteriorHoy, bool comprobarFechaAnteriorHoy)
+		{
+			ValidarFormatoDesdeEx();
+			ComprobarRangosDesde(comprobarFechaPosteriorHoy, comprobarFechaAnteriorHoy);
+			ComprobarDiaHabil();
+		}
+
 		private void ComprobarRangosDesdeHasta()
 		{ ComprobarRangosDesdeHasta(true); }
 
@@ -621,10 +632,53 @@ namespace EDUAR_UI.UserControls
 				if (boolFechaDesdeCorrecta)
 					if (fechaDesde.Date > DateTime.Now.Date)
 					{
-						string campo = lblFechaDesde_DA.Text;
+						string campoDesde = lblFechaDesde_DA.Text;
 						if (lblFechaDesde_DA.Text.Trim().Length == 0)
-							campo = "Fecha";
-						throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha no puede ser superior a la fecha actual.", this.lblFechaDesde_DA.Text + " " + this.lblFechaHasta_DA.Text), null, enuExceptionType.ValidationException);
+							campoDesde = "Fecha";
+						string campoHasta = lblFechaHasta_DA.Text;
+						if (lblFechaHasta_DA.Text.Trim().Length == 0)
+							campoHasta = "";
+						throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha no puede ser superior a la fecha actual.", (campoDesde + " " + campoHasta).Trim()), null, enuExceptionType.ValidationException);
+					}
+			}
+		}
+
+		private void ComprobarRangosDesde(bool comprobarFechaPosteriorHoy, bool comprobarFechaAnteriorHoy)
+		{
+			bool boolFechaDesdeCorrecta = false;
+			DateTime fechaDesde;
+
+			if (TipoCalendario == enumTipoCalendario.SoloFecha) txtFechaDesde = txtFecha;
+			boolFechaDesdeCorrecta = (DateTime.TryParse(txtFechaDesde.Text.Trim(), out fechaDesde));
+
+			if (comprobarFechaPosteriorHoy)
+			{
+				//Valida que la fecha final no sea superior a la fecha del día
+				if (boolFechaDesdeCorrecta)
+					if (fechaDesde.Date > DateTime.Now.Date)
+					{
+						string campoDesde = lblFechaDesde_DA.Text;
+						if (lblFechaDesde_DA.Text.Trim().Length == 0)
+							campoDesde = "Fecha";
+						string campoHasta = lblFechaHasta_DA.Text;
+						if (lblFechaHasta_DA.Text.Trim().Length == 0)
+							campoHasta = "";
+						throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha no puede ser superior a la fecha actual.", (campoDesde + " " + campoHasta).Trim()), null, enuExceptionType.ValidationException);
+					}
+			}
+			if (comprobarFechaAnteriorHoy)
+			{
+				//Valida que la fecha final no sea anterior a la fecha del día
+				if (boolFechaDesdeCorrecta)
+					if (fechaDesde.Date <= DateTime.Now.Date)
+					{
+						string campoDesde = lblFechaDesde_DA.Text;
+						if (lblFechaDesde_DA.Text.Trim().Length == 0)
+							campoDesde = "Fecha";
+						string campoHasta = lblFechaHasta_DA.Text;
+						if (lblFechaHasta_DA.Text.Trim().Length == 0)
+							campoHasta = "";
+						throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha no puede ser anterior a la fecha actual.", (campoDesde + " " + campoHasta).Trim()), null, enuExceptionType.ValidationException);
 					}
 			}
 		}
@@ -635,6 +689,21 @@ namespace EDUAR_UI.UserControls
 			this.ComprobarRangosDesde(true);
 		}
 
+		private void ComprobarDiaHabil()
+		{
+			bool boolFechaDesdeCorrecta = false;
+			DateTime fechaDesde;
+
+			if (TipoCalendario == enumTipoCalendario.SoloFecha) txtFechaDesde = txtFecha;
+			boolFechaDesdeCorrecta = (DateTime.TryParse(txtFechaDesde.Text.Trim(), out fechaDesde));
+
+			//Valida que la fecha final no sea superior a la fecha del día
+			if (boolFechaDesdeCorrecta)
+				if (fechaDesde.Date.DayOfWeek == DayOfWeek.Saturday || fechaDesde.Date.DayOfWeek == DayOfWeek.Sunday)
+				{
+					throw new CustomizedException("La fecha seleccionada corresponde a un día laborable.", null, enuExceptionType.ValidationException);
+				}
+		}
 		#endregion
 	}
 }
