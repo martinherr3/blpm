@@ -237,7 +237,8 @@ namespace EDUAR_UI
 				{
 					if (Page.IsValid)
 					{
-						AccionPagina = enumAcciones.Guardar;
+						//TODO: Aquí hay que llamar a la validación de disponibilidad de agenda
+                        AccionPagina = enumAcciones.Guardar;
 						Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
 					}
 				}
@@ -555,6 +556,7 @@ namespace EDUAR_UI
 			udpEdit.Visible = true;
 			udpEdit.Update();
 		}
+
 		#endregion
 	}
 }

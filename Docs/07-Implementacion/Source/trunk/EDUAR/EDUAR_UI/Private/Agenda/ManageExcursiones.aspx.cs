@@ -356,6 +356,7 @@ namespace EDUAR_UI
             calFechaEvento.LimpiarControles();
             calfechas.LimpiarControles();
             txtDescripcionEdit.Text = string.Empty;
+            txtDestinoEdit.Text = string.Empty;
         }
 
         /// <summary>
@@ -412,10 +413,8 @@ namespace EDUAR_UI
 
             if (!esNuevo)
             {
-                evento.idEventoAgenda = propEvento.idEventoAgenda;
                 evento.idAgendaActividad = propAgenda.idAgendaActividad;
-
-                //evento.idExcursion = propEvento.idExcursion;
+                evento.idEventoAgenda = propEvento.idEventoAgenda;
             }
 
             evento.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
@@ -438,6 +437,8 @@ namespace EDUAR_UI
         {
             objBLAgenda = new BLAgendaActividades(propAgenda);
             objBLAgenda.GetById();
+            objBLAgenda.VerificarAgenda(evento);
+
             objBLAgenda.Data.listaExcursiones.Add(evento);
             objBLAgenda.Save();
         }
@@ -447,14 +448,14 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarValoresEnPantalla(int idEventoAgenda)
         {
-            Excursion evento = listaEventos.Find(c => c.idEventoAgenda == idEventoAgenda);
+            propEvento = listaEventos.Find(c => c.idEventoAgenda == idEventoAgenda);
 
-            txtDescripcionEdit.Text = evento.descripcion;
-            txtDestinoEdit.Text = evento.destino;
-            txtHoraDesdeEdit.Text = Convert.ToDateTime(evento.horaDesde).ToShortTimeString();
-            txtHoraHastaEdit.Text = Convert.ToDateTime(evento.horaHasta).ToShortTimeString();
-            calFechaEvento.Fecha.Text = Convert.ToDateTime(evento.fechaEvento).ToShortDateString();
-            chkActivoEdit.Checked = evento.activo;
+            txtDescripcionEdit.Text = propEvento.descripcion;
+            txtDestinoEdit.Text = propEvento.destino;
+            txtHoraDesdeEdit.Text = Convert.ToDateTime(propEvento.horaDesde).ToShortTimeString();
+            txtHoraHastaEdit.Text = Convert.ToDateTime(propEvento.horaHasta).ToShortTimeString();
+            calFechaEvento.Fecha.Text = Convert.ToDateTime(propEvento.fechaEvento).ToShortDateString();
+            chkActivoEdit.Checked = propEvento.activo;
         }
 
         private string ValidarPagina()
@@ -493,6 +494,7 @@ namespace EDUAR_UI
             udpFiltros.Update();
             udpEdit.Update();
         }
+
         #endregion
     }
 }

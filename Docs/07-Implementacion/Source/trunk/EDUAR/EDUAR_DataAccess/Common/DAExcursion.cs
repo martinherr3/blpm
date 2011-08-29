@@ -60,8 +60,8 @@ namespace EDUAR_DataAccess.Common
 
                 //Propios de la reunión
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idExcursion", DbType.Int32, 0);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaDesde", DbType.DateTime, entidad.horaDesde);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaHasta", DbType.DateTime, entidad.horaHasta);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaDesde", DbType.Time, entidad.horaDesde);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaHasta", DbType.Time, entidad.horaHasta);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@destino", DbType.String, entidad.destino);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, 0);
 
@@ -99,8 +99,8 @@ namespace EDUAR_DataAccess.Common
 
                 //Propios de la reunión
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idExcursion", DbType.Int32, 0);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaDesde", DbType.DateTime, entidad.horaDesde);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaHasta", DbType.DateTime, entidad.horaHasta);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaDesde", DbType.Time, entidad.horaDesde);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaHasta", DbType.Time, entidad.horaHasta);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@destino", DbType.String, entidad.destino);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, 0);
 
@@ -133,15 +133,16 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividades", DbType.Int32, entidad.idAgendaActividad);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.usuario.username);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoEvento", DbType.Int32, (int)enumEventoAgendaType.Reunion);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaAlta", DbType.Date, entidad.fechaAlta);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaModificacion", DbType.Date, DateTime.Now);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaEvento", DbType.Date, entidad.fechaEvento);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
 
-                //Propios de la reunión
+                //Propios de la excursión
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idExcursion", DbType.Int32, entidad.idExcursion);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaDesde", DbType.DateTime, entidad.horaDesde);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaHasta", DbType.DateTime, entidad.horaHasta);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaDesde", DbType.Time, entidad.horaDesde);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaHasta", DbType.Time, entidad.horaHasta);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@destino", DbType.String, entidad.destino);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
 

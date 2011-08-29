@@ -467,6 +467,81 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+        public bool VerificarAgenda(EventoAgenda entidad)
+        {
+            bool disponible = false;
+            int tipoEvento = entidad.tipoEventoAgenda.idTipoEventoAgenda;
+
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoAgenda_VerificarDisponibilidadAgenda");
+
+                if (tipoEvento == (int)enumEventoAgendaType.Evaluacion || tipoEvento == (int)enumEventoAgendaType.Excursion)
+                {
+                    if (entidad.fechaEvento != null)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fechaEvento", DbType.DateTime, entidad.fechaEvento);
+
+                    IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                    while (reader.Read())
+                    {
+                        disponible = false;
+                    }
+                    disponible = true;
+                }
+
+                return disponible;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        public bool VerificarAgendaReuniones(EventoAgenda entidad)
+        {
+            bool disponible = false;
+            int tipoEvento = entidad.tipoEventoAgenda.idTipoEventoAgenda;
+
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ReunionValidarDisponibilidad_Select");
+
+                if (tipoEvento == (int)enumEventoAgendaType.Reunion)
+                {
+                    if (entidad.fechaEvento != null)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fecha", DbType.DateTime, entidad.fechaEvento);
+
+                    IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                    while (reader.Read())
+                    {
+                        disponible = false;
+                    }
+                    disponible = true;
+                }
+
+                return disponible;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgendaReuniones()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgendaReuniones()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
 		#endregion
 
 	}

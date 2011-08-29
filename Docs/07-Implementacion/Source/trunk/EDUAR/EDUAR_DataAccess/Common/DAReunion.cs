@@ -60,7 +60,7 @@ namespace EDUAR_DataAccess.Common
 
                 //Propios de la reunión
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idReunion", DbType.Int32, 0);
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horario", DbType.DateTime, entidad.horario);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horario", DbType.Time, entidad.horario);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, 0);
 
 				if (Transaction.Transaction != null)
@@ -97,7 +97,7 @@ namespace EDUAR_DataAccess.Common
 
                 //Propios de la reunión
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idReunion", DbType.Int32, 0);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horario", DbType.DateTime, entidad.horario);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horario", DbType.Time, entidad.horario);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, 0); //entidad.idEventoAgenda);
 
                 if (Transaction.Transaction != null)
@@ -137,7 +137,7 @@ namespace EDUAR_DataAccess.Common
 
                 //Propios de la reunión
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idReunion", DbType.Int32, entidad.idReunion);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horario", DbType.DateTime, entidad.horario);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horario", DbType.Time, entidad.horario);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
 
                 if (Transaction.Transaction != null)

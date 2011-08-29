@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using EDUAR_BusinessLogic.Shared;
-using EDUAR_Entities;
 using EDUAR_DataAccess.Common;
-using EDUAR_Entities.Shared;
-using EDUAR_Utility.Excepciones;
-using EDUAR_Utility.Enumeraciones;
 using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
+using EDUAR_Entities.Shared;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_BusinessLogic.Common
 {
@@ -90,7 +88,11 @@ namespace EDUAR_BusinessLogic.Common
                 Int32 idEventoAgenda = 0;
 
                 if (Data.idEventoAgenda == 0)
+                {
                     DataAcces.Create(Data, out idEventoAgenda);
+                    //VerificarAgenda(Data);
+                    //VerificarAgendaReuniones(Data);
+                }
                 else
                     DataAcces.Update(Data);
 
@@ -183,6 +185,7 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
         #endregion
 
     }

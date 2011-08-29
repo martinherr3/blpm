@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EDUAR_Entities;
-using EDUAR_DataAccess.Shared;
 using System.Data;
 using System.Data.SqlClient;
-using EDUAR_Utility.Excepciones;
+using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
 using EDUAR_Utility.Enumeraciones;
-using EDUAR_Utility.Constantes;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_DataAccess.Common
 {
@@ -206,36 +203,6 @@ namespace EDUAR_DataAccess.Common
                         objEvento.usuario.apellido = reader["apellidoOrganizador"].ToString();
                     }
                     
-					//switch (objEvento.tipoEventoAgenda.idTipoEventoAgenda)
-					//{
-					//    case (int)enumEventoAgendaType.Evaluacion:
-					//        Evaluacion eventoEvaluacion = (Evaluacion) objEvento.evento;
-
-					//        //eventoEvaluacion.asignatura = null;
-					//        //eventoEvaluacion.idEvaluacion = (int)reader["idEvaluacion"];
-
-					//        break;
-					//    case (int)enumEventoAgendaType.Reunion:
-					//        Reunion eventoReunion = (Reunion)objEvento.evento;
-
-					//        eventoReunion.idReunion = Convert.ToInt32(reader["idEvento"]);
-					//        eventoReunion.horario = Convert.ToDateTime(reader["hora"].ToString());
-                            
-					//        break;
-					//    case (int)enumEventoAgendaType.Excursion:
-					//        Excursion eventoExcursion = (Excursion)objEvento.evento;
-
-					//        //eventoExcursion.horaDesde = Convert.ToDateTime(reader["horaDesde"].ToString());
-					//        //eventoExcursion.horaHasta = Convert.ToDateTime(reader["horaHasta"].ToString());
-					//        //eventoExcursion.destino = reader["destino"].ToString();
-					//        //eventoExcursion.idExcursion = (int)reader["idExcursion"];
-
-					//        break;
-					//    default:
-					//        objEvento.evento = null;
-					//        break;
-					//}
-
                     listEventoAgenda.Add(objEvento);
                 }
                 return listEventoAgenda;
