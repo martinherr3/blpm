@@ -23,5 +23,14 @@ namespace EDUAR_Entities
             alumno = new Alumno();
             curso = new Curso();
         }
+
+        public AlumnoCurso(int idCurso)
+        {
+            //idAlumnoCurso = 0;
+            //idAlumnoCursoTransaccional = 0;
+            alumno = new Alumno();
+            curso = new Curso();
+            curso.idCurso = idCurso;
+        }
     }
 }
