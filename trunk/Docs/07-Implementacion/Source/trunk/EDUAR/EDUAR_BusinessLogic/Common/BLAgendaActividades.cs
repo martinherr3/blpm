@@ -88,35 +88,36 @@ namespace EDUAR_BusinessLogic.Common
 				DataAcces.Transaction.OpenTransaction();
 				int idAgendaActividad = 0;
 
-				if (Data.idAgendaActividad == 0)
+                if (Data.idAgendaActividad == 0)
 					DataAcces.Create(Data, out idAgendaActividad);
 				else
 					DataAcces.Update(Data);
 
-				BLEvaluacion objBLEvaluacion;
-				foreach (Evaluacion item in Data.listaEvaluaciones)
-				{
-					objBLEvaluacion = new BLEvaluacion(item);
-					if (GetEvaluacionesAgenda(item).Count > 0)
-						throw new CustomizedException("Ya existe una evaluación para el mismo día y materia.", null, enuExceptionType.ValidationException);
-					objBLEvaluacion.Save(DataAcces.Transaction);
-				}
+                BLEvaluacion objBLEvaluacion;
+                BLExcursion objBLExcursion;
+                BLReunion objBLReunion;
 
-				BLReunion objBLReunion;
-				foreach (Reunion item in Data.listaReuniones)
-				{
-					objBLReunion = new BLReunion(item);
+                foreach (Reunion item in Data.listaReuniones)
+                {
+                    objBLReunion = new BLReunion(item);
                     if (GetReunionesAgenda(item).Count > 0)
                         throw new CustomizedException("Ya existe una reunión para el mismo día.", null, enuExceptionType.ValidationException);
-					objBLReunion.Save(DataAcces.Transaction);
-				}
+                    objBLReunion.Save(DataAcces.Transaction);
+                }
 
-                BLExcursion objBLExcursion;
+                foreach (Evaluacion item in Data.listaEvaluaciones)
+                {
+                    objBLEvaluacion = new BLEvaluacion(item);
+                    if (GetEvaluacionesAgenda(item).Count > 0)
+                        throw new CustomizedException("Ya existe una evaluación para el mismo día y materia.", null, enuExceptionType.ValidationException);
+                    objBLEvaluacion.Save(DataAcces.Transaction);
+                }
+
                 foreach (Excursion item in Data.listaExcursiones)
                 {
                     objBLExcursion = new BLExcursion(item);
-                    //if (GetExcursionesAgenda(item).Count > 0)
-                    //    throw new CustomizedException("Ya existe una excursión para el mismo día.", null, enuExceptionType.ValidationException);
+                    if (GetExcursionesAgenda(item).Count > 0)
+                        throw new CustomizedException("Ya existe una excursión para el mismo día.", null, enuExceptionType.ValidationException);
                     objBLExcursion.Save(DataAcces.Transaction);
                 }
 
@@ -277,7 +278,46 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
-        
+
+        public bool VerificarAgenda(EventoAgenda entidad)
+        {
+            try
+            {
+                if (!DataAcces.VerificarAgendaReuniones(entidad))
+                    throw new CustomizedException("Ya existen eventos agendados para la presente fecha", null,
+                                              enuExceptionType.ValidationException);
+                return true;
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetEventoAgenda", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        public bool VerificarAgendaReuniones(EventoAgenda entidad)
+        {
+            try
+            {
+                if (!DataAcces.VerificarAgendaReuniones(entidad))
+                    throw new CustomizedException("Ya existen reuniones agendadas para la presente fecha", null,
+                                              enuExceptionType.ValidationException);
+                return true;
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetEventoAgenda", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 	

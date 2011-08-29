@@ -431,6 +431,8 @@ namespace EDUAR_UI
 		{
             objBLAgenda = new BLAgendaActividades(propAgenda);
             objBLAgenda.GetById();
+            objBLAgenda.VerificarAgendaReuniones(evento);
+
             objBLAgenda.Data.listaReuniones.Add(evento);
             objBLAgenda.Save();
 		}
