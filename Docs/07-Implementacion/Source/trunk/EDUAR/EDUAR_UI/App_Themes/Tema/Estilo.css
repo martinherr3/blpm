@@ -893,18 +893,5 @@ TD.EncabezadoConfirmación
 
 .MarcoGrafico
 {
-    border: 3px double #341010;
-    padding: 1px;
-    margin: 5px;
-    text-align: center;
-    vertical-align: middle; /*Sombreado*/
-    -moz-box-shadow: 3px 3px 4px #000;
-    -webkit-box-shadow: 3px 3px 4px #000;
-    box-shadow: 3px 3px 4px #000;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
-    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
-    width: 645px;
-    min-height: 425px;
-    height: auto !important;
-    height: 425px;
+    
 }

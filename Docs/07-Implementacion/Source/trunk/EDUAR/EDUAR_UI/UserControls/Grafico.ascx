@@ -33,7 +33,7 @@
                 height: 450px;">
                 <asp:Chart ID="Chart1" runat="server" Height="400px" Width="645px" ImageType="Png"
                     AntiAliasing="All" BorderDashStyle="Solid" BackSecondaryColor="White" Palette="BrightPastel"
-                    RenderType="ImageTag" BackGradientStyle="TopBottom" BackColor="#C8D3E0" BorderWidth="2"
+                    RenderType="ImageTag" BackGradientStyle="TopBottom" BackColor="#D3D3D3" BorderWidth="2"
                     BorderColor="26, 59, 105">
                     <Legends>
                         <asp:Legend IsTextAutoFit="False" BorderWidth="1" BorderDashStyle="Solid" ShadowOffset="3"
@@ -43,16 +43,16 @@
                     <BorderSkin SkinStyle="Emboss"></BorderSkin>
                     <ChartAreas>
                         <asp:ChartArea Name="ChartArea1" BorderColor="64, 64, 64, 64" BorderDashStyle="Solid"
-                            BackSecondaryColor="White" BackColor="64, 165, 191, 228" ShadowColor="Transparent"
+                            BackSecondaryColor="LightGray" BackColor="#D3D3D3" ShadowColor="Transparent"
                             BackGradientStyle="TopBottom">
                             <Area3DStyle Rotation="10" Perspective="10" Inclination="15" IsRightAngleAxes="False"
                                 WallWidth="0" IsClustered="False" Enable3D="true"></Area3DStyle>
                             <AxisY LineColor="64, 64, 64, 64">
-                                <LabelStyle Font="Tahoma, 8.25pt, style=Bold" />
+                                <LabelStyle Font="Verdana, 8.25pt, style=Bold" />
                                 <MajorGrid LineColor="64, 64, 64, 64" />
                             </AxisY>
                             <AxisX LineColor="64, 64, 64, 64">
-                                <LabelStyle Font="Tahoma, 8.25pt, style=Bold" />
+                                <LabelStyle Font="Verdana, 8.25pt, style=Bold" />
                                 <MajorGrid LineColor="64, 64, 64, 64" />
                             </AxisX>
                         </asp:ChartArea>

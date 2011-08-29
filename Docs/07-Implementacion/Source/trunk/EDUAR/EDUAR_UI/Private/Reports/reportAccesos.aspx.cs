@@ -12,6 +12,7 @@ using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using iTextSharp.text;
+using System.Data;
 
 namespace EDUAR_UI
 {
@@ -184,13 +185,32 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				if (ddlPagina.SelectedIndex > 0)
-					rptAccesos.graficoReporte.ColumnaNombre = "fecha";
-				else
-					rptAccesos.graficoReporte.ColumnaNombre = "pagina";
-				rptAccesos.graficoReporte.ColumnaValor = "accesos";
-				rptAccesos.graficoReporte.Titulo = "Accesos por Página";
-				rptAccesos.graficoReporte.CargarDatos<RptAccesos>(listaAcceso);
+                rptAccesos.graficoReporte.LimpiarSeries();
+                if (ddlPagina.SelectedIndex > 0)
+                {
+                    DataTable dt = UIUtilidades.BuildDataTable<RptAccesos>(listaAcceso);
+                    rptAccesos.graficoReporte.AgregarSerie("Pagina", dt, "pagina", "accesos");
+                    rptAccesos.graficoReporte.Titulo = "Accesos Página " + ddlPagina.SelectedItem.Text;
+                }
+                else
+                {
+                    //List<RptAccesos> lista;
+                    foreach (System.Web.UI.WebControls.ListItem item in chkListRolesBusqueda.Items)
+                    {
+                        if (item.Selected)
+                        {
+                            List<RptAccesos> lista = listaAcceso.FindAll(c => c.rol == item.Text);
+                            DataTable dt = UIUtilidades.BuildDataTable<RptAccesos>(lista);
+                            rptAccesos.graficoReporte.AgregarSerie(item.Text, dt, "rol", "accesos");
+                        }
+                    }
+                    
+                    //rptAccesos.graficoReporte.ColumnaNombre = "pagina";
+                    rptAccesos.graficoReporte.Titulo = "Accesos";
+                }
+                //rptAccesos.graficoReporte.ColumnaValor = "accesos";
+                //rptAccesos.graficoReporte.CargarDatos<RptAccesos>(listaAcceso);
+                rptAccesos.graficoReporte.Titulo = "Accesos Página " + ddlPagina.SelectedItem.Text;
 				rptAccesos.graficoReporte.GraficarBarra();
 			}
 			catch (Exception ex)
