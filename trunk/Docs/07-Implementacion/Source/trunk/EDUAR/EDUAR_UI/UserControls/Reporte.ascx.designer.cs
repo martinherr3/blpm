@@ -13,6 +13,15 @@ namespace EDUAR_UI.UserControls {
     public partial class Reporte {
         
         /// <summary>
+        /// Control btnGraficar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnGraficar;
+        
+        /// <summary>
         /// Control btnPDF.
         /// </summary>
         /// <remarks>
@@ -65,5 +74,23 @@ namespace EDUAR_UI.UserControls {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSinDatos;
+        
+        /// <summary>
+        /// Control divGrafico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGrafico;
+        
+        /// <summary>
+        /// Control grafico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::EDUAR_UI.UserControls.Grafico grafico;
     }
 }

@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Reporte.ascx.cs" Inherits="EDUAR_UI.UserControls.Reporte" %>
+<script src="../../Scripts/JQuery.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
     function AbrirPopup() {
         var popup;
@@ -15,12 +16,15 @@
         }
     }
 </script>
+<%@ Register Src="~/UserControls/Grafico.ascx" TagName="Grafico" TagPrefix="gra" %>
 <table border="0" cellpadding="0" cellspacing="0" width="800px">
     <tr>
         <td>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="right">
+                        <asp:ImageButton ID="btnGraficar" runat="server" ToolTip="Graficar" ImageUrl="~/Images/Graficar.png"
+                            Visible="false" />
                         <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
                             Visible="false" />
                         <asp:ImageButton ID="btnImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/Images/botonImprimir.png"
@@ -49,3 +53,6 @@
         </td>
     </tr>
 </table>
+<div id="divGrafico" runat="server" class="divGraficoOcultar">
+    <gra:Grafico ID="grafico" runat="server" />
+</div>

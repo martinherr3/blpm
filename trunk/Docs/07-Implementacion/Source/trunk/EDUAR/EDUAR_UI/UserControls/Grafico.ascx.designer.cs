@@ -7,102 +7,117 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace EDUAR_UI {
+namespace EDUAR_UI.UserControls {
     
     
-    public partial class reportAccesos {
+    public partial class Grafico {
         
         /// <summary>
-        /// Control divFiltros.
+        /// Control divGrafico.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divFiltros;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGrafico;
         
         /// <summary>
-        /// Control btnBuscar.
+        /// Control divSysExceptionFrame.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnBuscar;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSysExceptionFrame;
         
         /// <summary>
-        /// Control lblPagina.
+        /// Control div2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPagina;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div2;
         
         /// <summary>
-        /// Control ddlPagina.
+        /// Control TDGrafico.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPagina;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TDGrafico;
         
         /// <summary>
-        /// Control fechas.
+        /// Control Chart1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::EDUAR_UI.UserControls.Calendario fechas;
+        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart1;
         
         /// <summary>
-        /// Control lblRolesBusqueda.
+        /// Control AnimationExtender2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRolesBusqueda;
+        protected global::AjaxControlToolkit.AnimationExtender AnimationExtender2;
         
         /// <summary>
-        /// Control chkListRolesBusqueda.
+        /// Control TDBotonera.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList chkListRolesBusqueda;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TDBotonera;
         
         /// <summary>
-        /// Control divReporte.
+        /// Control btnLineal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divReporte;
+        protected global::System.Web.UI.WebControls.Button btnLineal;
         
         /// <summary>
-        /// Control rptAccesos.
+        /// Control btnBar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::EDUAR_UI.UserControls.Reporte rptAccesos;
+        protected global::System.Web.UI.WebControls.Button btnBar;
         
         /// <summary>
-        /// Propiedad Master.
+        /// Control btnTorta.
         /// </summary>
         /// <remarks>
-        /// Propiedad generada automáticamente.
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        public new EDUAR_UI.EDUARMaster Master {
-            get {
-                return ((EDUAR_UI.EDUARMaster)(base.Master));
-            }
-        }
+        protected global::System.Web.UI.WebControls.Button btnTorta;
+        
+        /// <summary>
+        /// Control btnRadar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRadar;
+        
+        /// <summary>
+        /// Control btnCerrar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCerrar;
     }
 }

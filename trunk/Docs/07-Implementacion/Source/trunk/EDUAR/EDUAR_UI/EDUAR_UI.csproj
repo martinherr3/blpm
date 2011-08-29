@@ -135,7 +135,9 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\JQuery.js" />
     <Content Include="UserControls\Calendario.ascx" />
+    <Content Include="UserControls\Grafico.ascx" />
     <Content Include="UserControls\Reporte.ascx" />
     <Content Include="UserControls\VentanaInfo.ascx" />
     <Content Include="Web.config">
@@ -372,6 +374,13 @@
     </Compile>
     <Compile Include="UserControls\Calendario.ascx.designer.cs">
       <DependentUpon>Calendario.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Grafico.ascx.cs">
+      <DependentUpon>Grafico.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Grafico.ascx.designer.cs">
+      <DependentUpon>Grafico.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Reporte.ascx.cs">
       <DependentUpon>Reporte.ascx</DependentUpon>
