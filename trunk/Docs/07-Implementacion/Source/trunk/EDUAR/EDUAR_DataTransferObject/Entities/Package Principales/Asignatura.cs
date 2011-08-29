@@ -30,6 +30,15 @@ namespace EDUAR_Entities
             docente = new Docente();
         }
 
+        public Asignatura(int idCurso)
+        {
+            listaContenidos = new List<Contenido>();
+            curso = new Curso();
+            curso.idCurso = idCurso;
+            diasHorarios = new DiasHorarios();
+            docente = new Docente();
+        }
+
         ~Asignatura()
         {
 
