@@ -10,7 +10,7 @@ using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_BusinessLogic.Reports
 {
-    public class BLRptCalificacionesAlumnoPeriodo : BusinessLogicBase<RptCalificacionesAlumnoPeriodo, DARptCalificacionesAlumnoPeriodo>
+    public class BLCalificacionesAlumnoPeriodo : BusinessLogicBase<RptCalificacionesAlumnoPeriodo, DARptCalificacionesAlumnoPeriodo>
     {
         #region --[Constante]--
         private const string ClassName = "BLRptCalificacionesAlumnoPeriodo";
