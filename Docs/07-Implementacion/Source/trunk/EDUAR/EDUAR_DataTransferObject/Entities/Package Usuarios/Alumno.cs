@@ -7,8 +7,8 @@ namespace EDUAR_Entities
     [Serializable]
     public class Alumno : Persona
     {
-        public Alumno()
-        {
+        public Alumno():base()
+        {        
             listaTutores = new List<Tutor>();
         }
 
