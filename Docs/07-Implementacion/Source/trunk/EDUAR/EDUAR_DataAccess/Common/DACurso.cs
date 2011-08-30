@@ -118,6 +118,59 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+        // Chequear y preguntar stored procedure
+        // preguntar el tema division
+        public List<Curso> GetCursosCicloLectivo(Curso entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("CursosCicloLectivo_Select");
+                if (entidad != null)
+                {
+                    if (entidad.idCurso > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.idCurso);
+                    if (entidad.cicloLectivo != null && entidad.cicloLectivo.idCicloLectivo != 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cicloLectivo.idCicloLectivo);
+                    //if (!string.IsNullOrEmpty(entidad.nombre))
+                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
+                    //if (entidad.preceptor != null && entidad.preceptor.idPreceptor != 0)
+                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPreceptor", DbType.Int32, entidad.preceptor.idPreceptor);
+                    //if (entidad.nivel != null && entidad.nivel.idNivel != 0)
+                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32, entidad.nivel.idNivel);
+                }
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<Curso> listaCursos = new List<Curso>();
+                Curso objCurso;
+                while (reader.Read())
+                {
+                    objCurso = new Curso();
+
+                    objCurso.idCurso = Convert.ToInt32(reader["idCurso"]);
+                    objCurso.nombre = reader["nombre"].ToString();
+                    //objCurso.nivel.idNivel = (int)reader["idCurso"];
+                    // Preguntar como hacer con esto
+                    // objCurso.orientacion = (int)reader["idOrientacion"];
+                    //if (reader["idPreceptor"] != DBNull.Value)
+                    //    objCurso.preceptor.idPreceptor = Convert.ToInt32(reader["idPreceptor"]);
+
+                    listaCursos.Add(objCurso);
+                }
+                return listaCursos;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCursos()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCursos()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
 		#endregion
 	}
 }
