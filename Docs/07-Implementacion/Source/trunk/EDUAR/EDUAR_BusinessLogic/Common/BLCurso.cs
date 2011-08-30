@@ -164,27 +164,39 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-		/// <summary>
-		/// Gets the cursos.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		/// <returns></returns>
-		public List<Curso> GetCursos(Curso entidad)
-		{
-			try
-			{
-				return DataAcces.GetCursos(entidad);
-			}
-			catch (CustomizedException ex)
-			{
-				throw ex;
-			}
-			catch (Exception ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetCursos", ClassName), ex,
-											  enuExceptionType.BusinessLogicException);
-			}
-		}
+        public List<Curso> GetCursos(Curso entidad)
+        {
+            try
+            {
+                return DataAcces.GetCursos(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCursos", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        public List<Curso> GetCursosCicloLectivo(Curso entidad)
+        {
+            try
+            {
+                return DataAcces.GetCursosCicloLectivo(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCursosCicloLectivo", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }
