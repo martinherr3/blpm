@@ -120,7 +120,7 @@ namespace EDUAR_UI
 					divFiltros.Visible = true;
 					divReporte.Visible = false;
 				}
-				BuscarCalificaciones();
+				//BuscarCalificaciones();
 			}
 			catch (Exception ex)
 			{
@@ -234,6 +234,33 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the ddlCurso control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void ddlCurso_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+            try
+            {
+
+                //int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+                CargarAlumnos(Convert.ToInt32(ddlCurso.SelectedValue));
+                ddlAlumno.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        private void CargarAlumnos(int idCurso)
+        {
+            BLAlumno objBLAlumno = new BLAlumno();
+            UIUtilidades.BindCombo<Alumno>(ddlAlumno, objBLAlumno.GetAlumnos(new AlumnoCurso(idCurso)), "idAlumno", "apellido", true);
+            ddlAlumno.Enabled = true;
+        }
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -269,6 +296,8 @@ namespace EDUAR_UI
 				}
 				filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
 				filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+                if (ddlAlumno.SelectedIndex > 1)
+                    filtroReporte.idAlumno =  Convert.ToInt32(ddlAlumno.SelectedValue);
 				BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
 				listaReporte = objBLReporte.GetRptCalificacionesAlumnoPeriodo(filtroReporte);
 				filtrosAplicados = filtros.ToString();
@@ -293,10 +322,13 @@ namespace EDUAR_UI
 			listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
 
 			List<Curso> listaCurso = new List<Curso>();
+            List<Alumno> listaAlumno = new List<Alumno>();
 			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
 			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
+            UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
 
 			ddlCurso.Enabled = false;
+            ddlAlumno.Enabled = false;
 		}
 
 		/// <summary>
@@ -322,5 +354,9 @@ namespace EDUAR_UI
 			}
 		}
 		#endregion
+
+
+
+        
 	}
 }
