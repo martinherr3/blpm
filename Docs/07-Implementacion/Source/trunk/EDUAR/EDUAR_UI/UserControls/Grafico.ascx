@@ -76,23 +76,36 @@
             </td>
         </tr>
         <tr>
-            <td id="TDBotonera" runat="server" align="left">
-                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <td id="TDBotonera" runat="server" align="right">
+                <table cellpadding="0" cellspacing="0" border="0" width="646px">
                     <tr>
-                        <td style="" align="left">
-                            <asp:Button ID="btnLineal" runat="server" OnClick="btnLineal_Click" Text="Línea" />
+                        <td style="width: 50%">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td style="" align="left">
+                                        <asp:ImageButton ID="btnLineal" runat="server" OnClick="btnLineal_Click" ImageUrl="/EDUAR_UI/Images/chart-line.png"
+                                            ToolTip="Líneas" AlternateText="Líneas" />
+                                    </td>
+                                    <td style="" align="left">
+                                        <asp:ImageButton ID="btnBar" runat="server" OnClick="btnBar_Click" ImageUrl="/EDUAR_UI/Images/chart-bar.png"
+                                            ToolTip="Barras" AlternateText="Barras" />
+                                    </td>
+                                    <td style="" align="left">
+                                        <asp:ImageButton ID="btnTorta" runat="server" OnClick="btnTorta_Click" ImageUrl="/EDUAR_UI/Images/chart-pie.png"
+                                            ToolTip="Torta" AlternateText="Torta" />
+                                    </td>
+                                    <td style="" align="left">
+                                        <asp:ImageButton ID="btnRadar" runat="server" OnClick="btnRadar_Click" ImageUrl="/EDUAR_UI/Images/chart-polar.png"
+                                            ToolTip="Radar" AlternateText="Radar" />
+                                    </td>
+                                    <td style="width: 60%" align="right">
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
-                        <td style="" align="left">
-                            <asp:Button ID="btnBar" runat="server" OnClick="btnBar_Click" Text="Barras" />
-                        </td>
-                        <td style="" align="left">
-                            <asp:Button ID="btnTorta" runat="server" OnClick="btnTorta_Click" Text="Torta" />
-                        </td>
-                        <td style="" align="left">
-                            <asp:Button ID="btnRadar" runat="server" OnClick="btnRadar_Click" Text="Area" />
-                        </td>
-                        <td>
-                            <asp:Button ID="btnCerrar" runat="server" OnClick="btnCerrar_Click" Text="Cerrar" />
+                        <td style="width: 50%; text-align: right">
+                            <asp:ImageButton ID="btnCerrar" runat="server" OnClick="btnCerrar_Click" ImageUrl="/EDUAR_UI/Images/CerrarPopup.png"
+                                ToolTip="Cerrar" AlternateText="Cerrar" />
                         </td>
                     </tr>
                 </table>

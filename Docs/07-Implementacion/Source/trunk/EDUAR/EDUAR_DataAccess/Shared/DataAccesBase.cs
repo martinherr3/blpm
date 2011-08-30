@@ -23,6 +23,12 @@ namespace EDUAR_DataAccess.Shared
         {
             Transaction = objDATransaction;
         }
+
+        protected virtual void Dispose()
+        {
+            //if (Transaction.Conection.State != System.Data.ConnectionState.Closed) Transaction.Conection.Close();
+            //Transaction.Conection.Dispose();
+        }
         #endregion
 
         #region --[Propiedades Abstractas]--
@@ -47,7 +53,7 @@ namespace EDUAR_DataAccess.Shared
         /// Método abstracto que debe ser implementado para obtener una entidad
         /// </summary>
         public abstract TDataTransferObject GetById(TDataTransferObject entidad);
-        
+
         /// <summary>
         /// Método abstracto que debe ser implementado para guardar la entidad
         /// </summary>
