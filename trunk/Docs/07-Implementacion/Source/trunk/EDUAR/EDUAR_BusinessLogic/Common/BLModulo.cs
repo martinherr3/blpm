@@ -173,7 +173,7 @@ namespace EDUAR_BusinessLogic.Common
 		{
 			try
 			{
-				return DataAcces.GetModulos(entidad);
+                return DataAcces.GetModulos(entidad);
 			}
 			catch (CustomizedException ex)
 			{

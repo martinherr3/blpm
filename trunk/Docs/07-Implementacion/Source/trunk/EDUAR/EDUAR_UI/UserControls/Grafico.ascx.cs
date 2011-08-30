@@ -11,326 +11,340 @@ using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI.UserControls
 {
-	public partial class Grafico : UserControl
-	{
-		private bool _LegendOutside;
-		private bool _IsListado;
-		private int numeroAleatorio;
+    public partial class Grafico : UserControl
+    {
+        private bool _LegendOutside;
+        private bool _IsListado;
+        private int numeroAleatorio;
 
-		/// <summary>
-		/// Para mostrar la leyenda fuera de del grafico de torta.
-		/// </summary>
-		public bool LegendOutside
-		{
-			get
-			{
-				if (ViewState["_LegendOutside"] != null)
-					_LegendOutside = (bool)ViewState["_LegendOutside"];
-				return _LegendOutside;
-			}
-			set { ViewState["_LegendOutside"] = value; _LegendOutside = value; }
-		}
+        /// <summary>
+        /// Para mostrar la leyenda fuera de del grafico de torta.
+        /// </summary>
+        public bool LegendOutside
+        {
+            get
+            {
+                if (ViewState["_LegendOutside"] != null)
+                    _LegendOutside = (bool)ViewState["_LegendOutside"];
+                return _LegendOutside;
+            }
+            set { ViewState["_LegendOutside"] = value; _LegendOutside = value; }
+        }
 
-		public string Titulo
-		{
-			get
-			{
-				if (Chart1.Titles.Count > 0)
-					return Chart1.Titles[0].Text.ToString();
-				else
-				{
-					if (ViewState["_Titulo"] != null)
-					{
-						Chart1.Titles.Clear();
-						Title t = new Title(ViewState["_Titulo"].ToString(), Docking.Top, new System.Drawing.Font("Helvetica Neue", 16, System.Drawing.FontStyle.Bold), System.Drawing.Color.Black);
-						Chart1.Titles.Add(t);
-					}
-				}
-				return "";
-			}
-			set
-			{
-				ViewState["_Titulo"] = value;
-			}
-		}
+        public string Titulo
+        {
+            get
+            {
+                if (Chart1.Titles.Count > 0)
+                    return Chart1.Titles[0].Text.ToString();
+                else
+                {
+                    if (ViewState["_Titulo"] != null)
+                    {
+                        Chart1.Titles.Clear();
+                        Title t = new Title(ViewState["_Titulo"].ToString(), Docking.Top, new System.Drawing.Font("Helvetica Neue", 16, System.Drawing.FontStyle.Bold), System.Drawing.Color.Black);
+                        Chart1.Titles.Add(t);
+                    }
+                }
+                return "";
+            }
+            set
+            {
+                ViewState["_Titulo"] = value;
+            }
+        }
 
-		public List<MiSerie> ListaSeries
-		{
-			get
-			{
-				if (ViewState["_Series"] == null)
-					ListaSeries = new List<MiSerie>();
-				return (List<MiSerie>)ViewState["_Series"];
-			}
-			set { ViewState["_Series"] = value; }
-		}
+        public List<MiSerie> ListaSeries
+        {
+            get
+            {
+                if (ViewState["_Series"] == null)
+                    ListaSeries = new List<MiSerie>();
+                return (List<MiSerie>)ViewState["_Series"];
+            }
+            set { ViewState["_Series"] = value; }
+        }
 
-		[Serializable]
-		public class MiSerie
-		{
-			public DataTable Datos;
-			public string ColumnaValor;
-			public string ColumnaNombre;
-			public string NombreSerie;
+        [Serializable]
+        public class MiSerie
+        {
+            public DataTable Datos;
+            public string ColumnaValor;
+            public string ColumnaNombre;
+            public string NombreSerie;
 
-			public MiSerie()
-			{ }
+            public MiSerie()
+            { }
 
-			~MiSerie()
-			{ }
-		}
+            ~MiSerie()
+            { }
+        }
 
-		public Chart ChartTesis
-		{
-			get { return Chart1; }
-		}
+        public Chart ChartTesis
+        {
+            get { return Chart1; }
+        }
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			numeroAleatorio = DateTime.Now.Millisecond;
-		}
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            numeroAleatorio = DateTime.Now.Millisecond;
+        }
 
-		protected override void OnPreRender(EventArgs e)
-		{
-			base.OnPreRender(e);
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
 
-			if (ListaSeries != null)
-			{
-				if (_IsListado)
-				{
-					divGrafico.Visible = false;
-				}
-				else
-				{
-					divGrafico.Visible = true;
-				}
-				//divNoHayDatos.Visible = false;
-			}
-			else
-			{
-				divGrafico.Visible = false;
-				//divNoHayDatos.Visible = true;
-			}
-		}
+            if (ListaSeries != null)
+            {
+                if (_IsListado)
+                {
+                    divGrafico.Visible = false;
+                }
+                else
+                {
+                    divGrafico.Visible = true;
+                }
+                //divNoHayDatos.Visible = false;
+            }
+            else
+            {
+                divGrafico.Visible = false;
+                //divNoHayDatos.Visible = true;
+            }
+        }
 
-		private void Graficar()
-		{
-			foreach (MiSerie item in ListaSeries)
-			{
-				Chart1.Series[item.NombreSerie].Points.DataBind(item.Datos.DefaultView, item.ColumnaNombre, item.ColumnaValor, "");
-			}
-			Chart1.Titles.Add(Titulo);
-			_IsListado = false;
-			//divGrafico.Visible = true;
-			divGrafico.Attributes.Add("class", "divGraficoMostrar");
-			TDGrafico.Attributes.Add("class", "divGraficoMostrar");
-			TDBotonera.Attributes.Add("class", "BotoneraGraficoMostrar");
-		}
+        private void Graficar()
+        {
+            foreach (MiSerie item in ListaSeries)
+            {
+                Chart1.Series[item.NombreSerie].Points.DataBind(item.Datos.DefaultView, item.ColumnaNombre, item.ColumnaValor, "");
+            }
+            Chart1.Titles.Add(Titulo);
+            btnTorta.Visible = true;
+            if (ListaSeries.Count > 1) btnTorta.Visible = false;
 
-		public void AgregarSerie(string serie, DataTable dt, string ColumnaNombre, string ColumnaValor)
-		{
-			MiSerie serieNueva = new MiSerie();
-			serieNueva.NombreSerie = serie;
-			serieNueva.Datos = dt;
-			serieNueva.ColumnaNombre = ColumnaNombre;
-			serieNueva.ColumnaValor = ColumnaValor;
-			ListaSeries.Add(serieNueva);
-		}
+            _IsListado = false;
+            //divGrafico.Visible = true;
+            divGrafico.Attributes.Add("class", "divGraficoMostrar");
+            TDGrafico.Attributes.Add("class", "divGraficoMostrar");
+            TDBotonera.Attributes.Add("class", "BotoneraGraficoMostrar");
+        }
 
-		/// <summary>
-		/// Grafica de barras.
-		/// </summary>
-		public void GraficarBarra()
-		{
-			foreach (MiSerie item in ListaSeries)
-			{
-				Chart1.Series.Add(item.NombreSerie);
-				Chart1.Series[item.NombreSerie].Color = GetRandomColor();
-				Chart1.Series[item.NombreSerie].BackGradientStyle = GradientStyle.DiagonalLeft;
-				Chart1.Series[item.NombreSerie].ShadowOffset = 2;
-				Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #VALY";
+        public void AgregarSerie(string serie, DataTable dt, string ColumnaNombre, string ColumnaValor)
+        {
+            MiSerie serieNueva = new MiSerie();
+            serieNueva.NombreSerie = serie;
+            serieNueva.Datos = dt;
+            serieNueva.ColumnaNombre = ColumnaNombre;
+            serieNueva.ColumnaValor = ColumnaValor;
+            ListaSeries.Add(serieNueva);
+        }
 
-				// Set series chart type
-				Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Column;
+        /// <summary>
+        /// Grafica de barras.
+        /// </summary>
+        public void GraficarBarra()
+        {
+            foreach (MiSerie item in ListaSeries)
+            {
+                Chart1.Series.Add(item.NombreSerie);
+                Chart1.Series[item.NombreSerie].Color = GetRandomColor();
+                Chart1.Series[item.NombreSerie].BackGradientStyle = GradientStyle.DiagonalLeft;
+                Chart1.Series[item.NombreSerie].ShadowOffset = 2;
+                Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #VALY";
 
-				// Set series point width
-				Chart1.Series[item.NombreSerie]["PointWidth"] = "0.6";
+                // Set series chart type
+                Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Column;
 
-				// Show data points labels
-				Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
+                // Set series point width
+                Chart1.Series[item.NombreSerie]["PointWidth"] = "1.0";
 
-				// Set data points label style
-				Chart1.Series[item.NombreSerie]["BarLabelStyle"] = "Center";
+                // Show data points labels
+                Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
 
-				// Draw as 3D Cylinder
-				Chart1.Series[item.NombreSerie]["DrawingStyle"] = "Cylinder";
+                // Set data points label style
+                Chart1.Series[item.NombreSerie]["BarLabelStyle"] = "Center";
 
-			}
-			// Show as 3D
-			Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
-			Graficar();
-		}
+                // Draw as 3D Cylinder
+                Chart1.Series[item.NombreSerie]["DrawingStyle"] = "Emboss";
+            }
 
-		/// <summary>
-		/// Grafica lineal.
-		/// </summary>
-		public void GraficarLinea()
-		{
-			foreach (MiSerie item in ListaSeries)
-			{
-				Chart1.Series.Add(item.NombreSerie);
-				Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Spline;
-				Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
-				Chart1.Series[item.NombreSerie].Color = GetRandomColor();
-				Chart1.Series[item.NombreSerie].BorderWidth = 4;
-				Chart1.Series[item.NombreSerie].ShadowOffset = 2;
-				Chart1.Series[item.NombreSerie].IsVisibleInLegend = true;
-				Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #VALY";
-			}
-			Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
+            // Disable X axis margin
+            Chart1.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = true;
+            // Show as 3D
+            Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = false;
+            Graficar();
+        }
 
-			Graficar();
-		}
+        /// <summary>
+        /// Grafica lineal.
+        /// </summary>
+        public void GraficarLinea()
+        {
+            foreach (MiSerie item in ListaSeries)
+            {
+                Chart1.Series.Add(item.NombreSerie);
+                Chart1.Series[item.NombreSerie].Color = GetRandomColor();
+                Chart1.Series[item.NombreSerie].BorderWidth = 4;
+                Chart1.Series[item.NombreSerie].ShadowOffset = 2;
+                Chart1.Series[item.NombreSerie].IsVisibleInLegend = true;
+                Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #VALY";
 
-		/// <summary>
-		/// Grafica una torta 3D.
-		/// </summary>
-		public void GraficarTorta3D()
-		{
-			foreach (MiSerie item in ListaSeries)
-			{
-				Chart1.Series.Add(item.NombreSerie);
-				Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Pie;
-				Chart1.Series[item.NombreSerie].ShadowOffset = 2;
-				Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #PERCENT";
+                // Set series chart type
+                Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Spline;
 
-				if (LegendOutside)
-				{
-					Chart1.Series[item.NombreSerie]["PieLabelStyle"] = "Outside";
-					Chart1.Series[item.NombreSerie].Label = "#VALX";
-				}
-				else
-					Chart1.Series[item.NombreSerie].Label = " ";
-				Chart1.Series[item.NombreSerie].LegendText = "#VALX : #PERCENT";
+                // Set point labels
+                Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false ;
 
-				// Set the threshold type to be in percentage
-				// When set to false, this property uses the actual value to determine the collected threshold
-				Chart1.Series[item.NombreSerie]["CollectedThresholdUsePercent"] = "true";
+                // Enable 3D, and show data point marker lines
+                Chart1.Series[item.NombreSerie]["ShowMarkerLines"] = "True";
+            }
+            Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = false;
+            // Enable X axis margin
+            Chart1.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = true;
 
-				// Set the label of the collected pie slice
-				Chart1.Series[item.NombreSerie]["CollectedLabel"] = "Otros";
+            Graficar();
+        }
 
-				// Set the legend text of the collected pie slice
-				Chart1.Series[item.NombreSerie]["CollectedLegendText"] = "Otros";
+        /// <summary>
+        /// Grafica una torta 3D.
+        /// </summary>
+        public void GraficarTorta3D()
+        {
+            foreach (MiSerie item in ListaSeries)
+            {
+                Chart1.Series.Add(item.NombreSerie);
+                Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Pie;
+                Chart1.Series[item.NombreSerie].ShadowOffset = 2;
+                Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #PERCENT";
 
-				// Set the collected pie slice to be exploded
-				Chart1.Series[item.NombreSerie]["CollectedSliceExploded"] = "true";
+                if (LegendOutside)
+                {
+                    Chart1.Series[item.NombreSerie]["PieLabelStyle"] = "Outside";
+                    Chart1.Series[item.NombreSerie].Label = "#VALX";
+                }
+                else
+                    Chart1.Series[item.NombreSerie].Label = " ";
+                Chart1.Series[item.NombreSerie].LegendText = "#VALX : #PERCENT";
 
-				// Set the color of the collected pie slice
-				Chart1.Series[item.NombreSerie]["CollectedColor"] = "Grey";
+                // Set the threshold type to be in percentage
+                // When set to false, this property uses the actual value to determine the collected threshold
+                //Chart1.Series[item.NombreSerie]["CollectedThresholdUsePercent"] = "true";
 
-				// Set the tooltip of the collected pie slice
-				Chart1.Series[item.NombreSerie]["CollectedToolTip"] = "Otros";
+                // Set the label of the collected pie slice
+                Chart1.Series[item.NombreSerie]["CollectedLabel"] = "Otros";
 
-			}
-			Graficar();
+                // Set the legend text of the collected pie slice
+                Chart1.Series[item.NombreSerie]["CollectedLegendText"] = "Otros";
 
-			if (Chart1.Legends.Count > 0)
-				Chart1.Legends[0].Alignment = StringAlignment.Center;
+                // Set the collected pie slice to be exploded
+                Chart1.Series[item.NombreSerie]["CollectedSliceExploded"] = "true";
 
-		}
+                // Set the color of the collected pie slice
+                Chart1.Series[item.NombreSerie]["CollectedColor"] = "Grey";
 
-		/// <summary>
-		/// Grafica una torta 3D.
-		/// </summary>
-		public void GraficarRadar()
-		{
-			foreach (MiSerie item in ListaSeries)
-			{
-				Chart1.Series.Add(item.NombreSerie);
-				Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Radar;
-				Chart1.Series[item.NombreSerie].Color = GetRandomColor();
-				Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #PERCENT";
+                // Set the tooltip of the collected pie slice
+                Chart1.Series[item.NombreSerie]["CollectedToolTip"] = "Otros";
 
-				// Set radar chart style (Area, Line or Marker)
-				Chart1.Series[item.NombreSerie]["RadarDrawingStyle"] = "Area";
+            }
+            Graficar();
 
-				// Set circular area drawing style (Circle or Polygon)
-				Chart1.Series[item.NombreSerie]["AreaDrawingStyle"] = "Polygon";
+            if (Chart1.Legends.Count > 0)
+                Chart1.Legends[0].Alignment = StringAlignment.Center;
 
-				// Set labels style (Auto, Horizontal, Circular or Radial)
-				Chart1.Series[item.NombreSerie]["CircularLabelsStyle"] = "Horizontal";
+        }
 
-				Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
+        /// <summary>
+        /// Grafica una torta 3D.
+        /// </summary>
+        public void GraficarRadar()
+        {
+            foreach (MiSerie item in ListaSeries)
+            {
+                Chart1.Series.Add(item.NombreSerie);
+                Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Radar;
+                Chart1.Series[item.NombreSerie].Color = GetRandomColor();
+                Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #PERCENT";
 
-				Chart1.Series[item.NombreSerie].IsVisibleInLegend = true;
-			}
-			Graficar();
+                // Set radar chart style (Area, Line or Marker)
+                Chart1.Series[item.NombreSerie]["RadarDrawingStyle"] = "Area";
 
-			Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
-		}
+                // Set circular area drawing style (Circle or Polygon)
+                Chart1.Series[item.NombreSerie]["AreaDrawingStyle"] = "Polygon";
 
-		/// <summary>
-		/// Muestra un listado de la tabla cargada.
-		/// </summary>
-		public void Listar()
-		{
-			_IsListado = true;
-		}
+                // Set labels style (Auto, Horizontal, Circular or Radial)
+                Chart1.Series[item.NombreSerie]["CircularLabelsStyle"] = "Horizontal";
 
-		public void LimpiarSeries()
-		{
-			Chart1.Series.Clear();
-			ListaSeries.Clear();
-		}
+                Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
 
-		protected void btnLineal_Click(object sender, EventArgs e)
-		{
-			divGrafico.Attributes.Add("class", "divGraficoOcultar");
-			TDGrafico.Attributes.Add("class", "divGraficoOcultar");
-			Chart1.Series.Clear();
-			GraficarLinea();
-		}
+                Chart1.Series[item.NombreSerie].IsVisibleInLegend = true;
+            }
+            Graficar();
 
-		protected void btnBar_Click(object sender, EventArgs e)
-		{
-			divGrafico.Attributes.Add("class", "divGraficoOcultar");
-			TDGrafico.Attributes.Add("class", "divGraficoOcultar");
-			Chart1.Series.Clear();
-			GraficarBarra();
-		}
+            Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = true;
+        }
 
-		protected void btnTorta_Click(object sender, EventArgs e)
-		{
-			divGrafico.Attributes.Add("class", "divGraficoOcultar");
-			TDGrafico.Attributes.Add("class", "divGraficoOcultar");
-			Chart1.Series.Clear();
-			GraficarTorta3D();
-		}
+        /// <summary>
+        /// Muestra un listado de la tabla cargada.
+        /// </summary>
+        public void Listar()
+        {
+            _IsListado = true;
+        }
 
-		protected void btnRadar_Click(object sender, EventArgs e)
-		{
-			divGrafico.Attributes.Add("class", "divGraficoOcultar");
-			TDGrafico.Attributes.Add("class", "divGraficoOcultar");
-			Chart1.Series.Clear();
-			GraficarRadar();
-		}
+        public void LimpiarSeries()
+        {
+            Chart1.Series.Clear();
+            ListaSeries.Clear();
+        }
 
-		protected void btnCerrar_Click(object sender, EventArgs e)
-		{
-			divGrafico.Attributes.Add("class", "divGraficoOcultar");
-			TDGrafico.Attributes.Add("class", "divGraficoOcultar");
-			TDBotonera.Attributes.Add("class", "BotoneraGraficoOcultar");
-			Chart1.Series.Clear();
-		}
+        protected void btnLineal_Click(object sender, EventArgs e)
+        {
+            divGrafico.Attributes.Add("class", "divGraficoOcultar");
+            TDGrafico.Attributes.Add("class", "divGraficoOcultar");
+            Chart1.Series.Clear();
+            GraficarLinea();
+        }
 
-		private Color GetRandomColor()
-		{
-			Random aleatorioRojo = new Random(DateTime.Now.Millisecond + 2 * numeroAleatorio);
-			numeroAleatorio = aleatorioRojo.Next(0, 255) * numeroAleatorio + DateTime.Now.Millisecond + DateTime.Now.Year;
-			Random aleatorioVerde = new Random(DateTime.Now.Millisecond + 5);
-			Random aleatorioAzul = new Random(DateTime.Now.Millisecond + 3);
-			return Color.FromArgb(aleatorioRojo.Next(0, 255), aleatorioVerde.Next(0, 255), aleatorioAzul.Next(0, 255));
-		}
-	}
+        protected void btnBar_Click(object sender, EventArgs e)
+        {
+            divGrafico.Attributes.Add("class", "divGraficoOcultar");
+            TDGrafico.Attributes.Add("class", "divGraficoOcultar");
+            Chart1.Series.Clear();
+            GraficarBarra();
+        }
+
+        protected void btnTorta_Click(object sender, EventArgs e)
+        {
+            divGrafico.Attributes.Add("class", "divGraficoOcultar");
+            TDGrafico.Attributes.Add("class", "divGraficoOcultar");
+            Chart1.Series.Clear();
+            GraficarTorta3D();
+        }
+
+        protected void btnRadar_Click(object sender, EventArgs e)
+        {
+            divGrafico.Attributes.Add("class", "divGraficoOcultar");
+            TDGrafico.Attributes.Add("class", "divGraficoOcultar");
+            Chart1.Series.Clear();
+            GraficarRadar();
+        }
+
+        protected void btnCerrar_Click(object sender, EventArgs e)
+        {
+            divGrafico.Attributes.Add("class", "divGraficoOcultar");
+            TDGrafico.Attributes.Add("class", "divGraficoOcultar");
+            TDBotonera.Attributes.Add("class", "BotoneraGraficoOcultar");
+            Chart1.Series.Clear();
+        }
+
+        private Color GetRandomColor()
+        {
+            Random aleatorioRojo = new Random(DateTime.Now.Millisecond + 2 * numeroAleatorio);
+            numeroAleatorio = aleatorioRojo.Next(0, 255) * numeroAleatorio + DateTime.Now.Millisecond + DateTime.Now.Year;
+            Random aleatorioVerde = new Random((DateTime.Now.Millisecond + 5) * numeroAleatorio * DateTime.Now.Second);
+            Random aleatorioAzul = new Random((DateTime.Now.Millisecond + 3) * DateTime.Now.Year * DateTime.Now.Millisecond);
+            return Color.FromArgb(aleatorioRojo.Next(0, 255), aleatorioVerde.Next(0, 255), aleatorioAzul.Next(0, 255));
+        }
+    }
 }

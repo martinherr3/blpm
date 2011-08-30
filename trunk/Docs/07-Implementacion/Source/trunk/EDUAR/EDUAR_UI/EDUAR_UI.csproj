@@ -87,6 +87,11 @@
     <Content Include="Images\botonSiguiente.png" />
     <Content Include="Images\botonVolver.png" />
     <Content Include="Images\calendario.png" />
+    <Content Include="Images\CerrarPopup.png" />
+    <Content Include="Images\chart-bar.png" />
+    <Content Include="Images\chart-line.png" />
+    <Content Include="Images\chart-pie.png" />
+    <Content Include="Images\chart-polar.png" />
     <Content Include="Images\ExportarPDF.png" />
     <Content Include="Images\firefox.png" />
     <Content Include="Images\Graficar.png" />

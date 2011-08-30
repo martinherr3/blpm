@@ -74,27 +74,29 @@ namespace EDUAR_DataAccess.Common
 		{
 			try
 			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("HorariosCurso_Select");
-				if (entidad != null)
-				{
-					if (entidad.idDiaHorario > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idDiaHorario", DbType.Int32, entidad.idDiaHorario);
-				}
-				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+                using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("HorariosCurso_Select"))
+                {
+                    if (entidad != null)
+                    {
+                        if (entidad.idDiaHorario > 0)
+                            Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idDiaHorario", DbType.Int32, entidad.idDiaHorario);
+                    }
+                    IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-				List<Modulo> listaModulos = new List<Modulo>();
-				Modulo objModulo;
-				while (reader.Read())
-				{
-					objModulo = new Modulo();
-					objModulo.idDiaHorario = Convert.ToInt32(reader["idDiaHorario"]);
-					objModulo.idModulo = Convert.ToInt32(reader["idModulo"]);
-					objModulo.horaInicio = Convert.ToDateTime(reader["horaInicio"].ToString());
-					objModulo.horaFinalizacion = Convert.ToDateTime(reader["horaFinalizacion"].ToString());
+                    List<Modulo> listaModulos = new List<Modulo>();
+                    Modulo objModulo;
+                    while (reader.Read())
+                    {
+                        objModulo = new Modulo();
+                        objModulo.idDiaHorario = Convert.ToInt32(reader["idDiaHorario"]);
+                        objModulo.idModulo = Convert.ToInt32(reader["idModulo"]);
+                        objModulo.horaInicio = Convert.ToDateTime(reader["horaInicio"].ToString());
+                        objModulo.horaFinalizacion = Convert.ToDateTime(reader["horaFinalizacion"].ToString());
 
-					listaModulos.Add(objModulo);
-				}
-				return listaModulos;
+                        listaModulos.Add(objModulo);
+                    }
+                    return listaModulos;
+                }
 			}
 			catch (SqlException ex)
 			{

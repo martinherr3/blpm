@@ -108,23 +108,23 @@ namespace EDUAR_DataAccess.Common
         {
             try
             {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Accesos_Insert");
+                using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Accesos_Insert"))
+                {
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAcceso", DbType.Int32, 0);
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, 0);
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha.Date.ToShortDateString());
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, entidad.hora.ToShortTimeString());
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.usuario);
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@url", DbType.String, entidad.pagina.url);
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
 
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAcceso", DbType.Int32, 0);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, 0);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha.Date.ToShortDateString());
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, entidad.hora.ToShortTimeString());
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.usuario);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@url", DbType.String, entidad.pagina.url);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
+                    if (Transaction.Transaction != null)
+                        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+                    else
+                        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
 
-                if (Transaction.Transaction != null)
-                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
-                else
-                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
-
-                identificador = Int32.Parse(Transaction.DBcomand.Parameters["@idAcceso"].Value.ToString());
-
+                    identificador = Int32.Parse(Transaction.DBcomand.Parameters["@idAcceso"].Value.ToString());
+                }
             }
             catch (SqlException ex)
             {

@@ -82,7 +82,7 @@ namespace EDUAR_UI.UserControls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLineal;
+        protected global::System.Web.UI.WebControls.ImageButton btnLineal;
         
         /// <summary>
         /// btnBar control.
@@ -91,7 +91,7 @@ namespace EDUAR_UI.UserControls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBar;
+        protected global::System.Web.UI.WebControls.ImageButton btnBar;
         
         /// <summary>
         /// btnTorta control.
@@ -100,7 +100,7 @@ namespace EDUAR_UI.UserControls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTorta;
+        protected global::System.Web.UI.WebControls.ImageButton btnTorta;
         
         /// <summary>
         /// btnRadar control.
@@ -109,7 +109,7 @@ namespace EDUAR_UI.UserControls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRadar;
+        protected global::System.Web.UI.WebControls.ImageButton btnRadar;
         
         /// <summary>
         /// btnCerrar control.
@@ -118,6 +118,6 @@ namespace EDUAR_UI.UserControls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCerrar;
+        protected global::System.Web.UI.WebControls.ImageButton btnCerrar;
     }
 }

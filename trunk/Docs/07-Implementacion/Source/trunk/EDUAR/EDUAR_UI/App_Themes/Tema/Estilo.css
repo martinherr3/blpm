@@ -463,7 +463,7 @@ a.menuHijos:hover
     /*background: #LightGray;     background-color: LightGray;     position: fixed;     top: 0;     left: 0;     width: 100%;     height: 100%;     border: 1px solid #cecece;     z-index: 995;     -moz-opacity: 0.5;     -khtml-opacity: 0.5; /*opacity: 0.5; 	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);  	filter: alpha(opacity=50);     visibility: inherit;     */
     background: none repeat scroll 0 0 LightGray;
     border: 1px solid #CECECE;
-    height: 768px;
+    height: 100%;
     left: 0;
     position: fixed;
     top: 0;
