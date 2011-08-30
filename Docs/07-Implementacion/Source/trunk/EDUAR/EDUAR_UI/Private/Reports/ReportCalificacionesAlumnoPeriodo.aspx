@@ -48,9 +48,18 @@
                     <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="top" class="TDCriterios25">
-                    <asp:DropDownList ID="ddlCurso" runat="server">
+                    <asp:DropDownList ID="ddlCurso" runat="server" onselectedindexchanged="ddlCurso_SelectedIndexChanged1" 
+                        AutoPostBack="True">
                     </asp:DropDownList>
                 </td>
+                <td valign="top" class="TDCriterios25">
+                    <asp:Label ID="lblAlumno" runat="server" Text="Alumno:" CssClass="lblCriterios"></asp:Label>
+                </td>
+                <td valign="top" class="TDCriterios25">
+                    <asp:DropDownList ID="ddlAlumno" runat="server"> 
+                    </asp:DropDownList>
+                </td>
+
             </tr>
         </table>
     </div>
