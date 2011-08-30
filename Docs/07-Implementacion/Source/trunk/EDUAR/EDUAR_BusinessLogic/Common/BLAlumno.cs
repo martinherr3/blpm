@@ -180,6 +180,25 @@ namespace EDUAR_BusinessLogic.Common
 		//                                      enuExceptionType.BusinessLogicException);
 		//    }
 		//}
+		
+		public List<Alumno> GetAlumnos(AlumnoCurso entidad)
+        {
+            try
+            {
+                return DataAcces.GetAlumnos(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnos", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+
 		#endregion
 	}
 }
