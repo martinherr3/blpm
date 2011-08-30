@@ -143,6 +143,8 @@ namespace EDUAR_UI.UserControls
 					lblSinDatos.Visible = true;
 					gvwReporte.Visible = false;
 					btnVolver.Visible = true;
+					btnPDF.Visible = false;
+					btnGraficar.Visible = false;
 					btnImprimir.Visible = false;
 				}
 				udpReporte.Update();

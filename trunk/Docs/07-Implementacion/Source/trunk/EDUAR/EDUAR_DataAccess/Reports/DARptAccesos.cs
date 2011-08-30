@@ -11,27 +11,27 @@ using EDUAR_Entities.Security;
 
 namespace EDUAR_DataAccess.Reports
 {
-    public class DARptAccesos : DataAccesBase<RptAccesos>
-    {
-        #region --[Atributos]--
-        private const string ClassName = "DARptAcceso";
-        #endregion
+	public class DARptAccesos : DataAccesBase<RptAccesos>
+	{
+		#region --[Atributos]--
+		private const string ClassName = "DARptAcceso";
+		#endregion
 
-        #region --[Constructor]--
-        public DARptAccesos()
-        {
-        }
+		#region --[Constructor]--
+		public DARptAccesos()
+		{
+		}
 
-        public DARptAccesos(DATransaction objDATransaction)
-            : base(objDATransaction)
-        {
+		public DARptAccesos(DATransaction objDATransaction)
+			: base(objDATransaction)
+		{
 
-        }
-        #endregion
+		}
+		#endregion
 
-        #region --[Métodos Públicos]--
-        public List<RptAccesos> GetRptAccesos(FilAccesos entidad)
-        {
+		#region --[Métodos Públicos]--
+		public List<RptAccesos> GetRptAccesos(FilAccesos entidad)
+		{
 			try
 			{
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_Accesos");
@@ -65,7 +65,10 @@ namespace EDUAR_DataAccess.Reports
 					objReporte.pagina = reader["titulo"].ToString();
 					objReporte.fecha = Convert.ToDateTime(reader["fecha"].ToString());
 					//objReporte.username = reader["username"].ToString();
-					objReporte.rol = reader["RoleName"].ToString();
+					if (!string.IsNullOrEmpty(reader["RoleName"].ToString()))
+						objReporte.rol = reader["RoleName"].ToString();
+					else
+						objReporte.rol = enumRoles.Anonimo.ToString();
 					objReporte.accesos = (int)reader["cantidadAccesos"];
 					listaReporte.Add(objReporte);
 				}
@@ -81,44 +84,44 @@ namespace EDUAR_DataAccess.Reports
 				throw new CustomizedException(string.Format("Fallo en {0} - GetRptAccesos()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
-        }
-        #endregion
+		}
+		#endregion
 
-        #region --[Implementación métodos heredados]--
-        public override string FieldID
-        {
-            get { throw new NotImplementedException(); }
-        }
+		#region --[Implementación métodos heredados]--
+		public override string FieldID
+		{
+			get { throw new NotImplementedException(); }
+		}
 
-        public override string FieldDescription
-        {
-            get { throw new NotImplementedException(); }
-        }
+		public override string FieldDescription
+		{
+			get { throw new NotImplementedException(); }
+		}
 
-        public override RptAccesos GetById(RptAccesos entidad)
-        {
-            throw new NotImplementedException();
-        }
+		public override RptAccesos GetById(RptAccesos entidad)
+		{
+			throw new NotImplementedException();
+		}
 
-        public override void Create(RptAccesos entidad)
-        {
-            throw new NotImplementedException();
-        }
+		public override void Create(RptAccesos entidad)
+		{
+			throw new NotImplementedException();
+		}
 
-        public override void Create(RptAccesos entidad, out int identificador)
-        {
-            throw new NotImplementedException();
-        }
+		public override void Create(RptAccesos entidad, out int identificador)
+		{
+			throw new NotImplementedException();
+		}
 
-        public override void Update(RptAccesos entidad)
-        {
-            throw new NotImplementedException();
-        }
+		public override void Update(RptAccesos entidad)
+		{
+			throw new NotImplementedException();
+		}
 
-        public override void Delete(RptAccesos entidad)
-        {
-            throw new NotImplementedException();
-        }
-        #endregion
-    }
+		public override void Delete(RptAccesos entidad)
+		{
+			throw new NotImplementedException();
+		}
+		#endregion
+	}
 }
