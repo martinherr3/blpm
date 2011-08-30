@@ -67,7 +67,7 @@ namespace EDUAR_Utility.Enumeraciones
 
 	public enum enumRoles : int
 	{
-		None = 0,
+		Anonimo = 0,
 		Administrador = 1,
 		Administrativo = 2,
 		Alumno = 3,

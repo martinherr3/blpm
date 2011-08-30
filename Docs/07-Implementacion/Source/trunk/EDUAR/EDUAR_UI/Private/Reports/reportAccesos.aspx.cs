@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,7 +13,7 @@ using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using iTextSharp.text;
-using System.Data;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -141,7 +142,9 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				fechas.ValidarRangoDesdeHasta();
+				//if (fechas.ValorFechaDesde.ToString() == string.Empty)
+				//    fechas.FechaDesde.Text = DateTime.Now.AddDays(-7).ToShortDateString();
+				fechas.ValidarRangoDesdeHasta(true);
 				BuscarAccesos();
 				divFiltros.Visible = false;
 				divReporte.Visible = true;
@@ -185,32 +188,44 @@ namespace EDUAR_UI
 		{
 			try
 			{
-                rptAccesos.graficoReporte.LimpiarSeries();
-                if (ddlPagina.SelectedIndex > 0)
-                {
-                    DataTable dt = UIUtilidades.BuildDataTable<RptAccesos>(listaAcceso);
-                    rptAccesos.graficoReporte.AgregarSerie("Pagina", dt, "pagina", "accesos");
-                    rptAccesos.graficoReporte.Titulo = "Accesos Página " + ddlPagina.SelectedItem.Text;
-                }
-                else
-                {
-                    //List<RptAccesos> lista;
-                    foreach (System.Web.UI.WebControls.ListItem item in chkListRolesBusqueda.Items)
-                    {
-                        if (item.Selected)
-                        {
-                            List<RptAccesos> lista = listaAcceso.FindAll(c => c.rol == item.Text);
-                            DataTable dt = UIUtilidades.BuildDataTable<RptAccesos>(lista);
-                            rptAccesos.graficoReporte.AgregarSerie(item.Text, dt, "rol", "accesos");
-                        }
-                    }
-                    
-                    //rptAccesos.graficoReporte.ColumnaNombre = "pagina";
-                    rptAccesos.graficoReporte.Titulo = "Accesos";
-                }
-                //rptAccesos.graficoReporte.ColumnaValor = "accesos";
-                //rptAccesos.graficoReporte.CargarDatos<RptAccesos>(listaAcceso);
-                rptAccesos.graficoReporte.Titulo = "Accesos Página " + ddlPagina.SelectedItem.Text;
+				rptAccesos.graficoReporte.LimpiarSeries();
+				if (ddlPagina.SelectedIndex > 0)
+				{
+					foreach (enumRoles item in enumRoles.GetValues(typeof(enumRoles)))
+					{
+						List<RptAccesos> lista = listaAcceso.FindAll(c => c.rol == item.ToString());
+						if (lista.Count > 0)
+						{
+							DataTable dt = UIUtilidades.BuildDataTable<RptAccesos>(lista);
+							rptAccesos.graficoReporte.AgregarSerie(item.ToString(), dt, "fecha", "accesos");
+						}
+					}
+					rptAccesos.graficoReporte.Titulo = "Accesos Página " + ddlPagina.SelectedItem.Text;
+				}
+				else
+				{
+					bool filtroRoles = false;
+					//List<RptAccesos> lista;
+					foreach (System.Web.UI.WebControls.ListItem item in chkListRolesBusqueda.Items)
+					{
+						if (item.Selected)
+						{
+							List<RptAccesos> lista = listaAcceso.FindAll(c => c.rol == item.Text);
+							if (lista.Count > 0)
+							{
+								filtroRoles = true;
+								DataTable dt = UIUtilidades.BuildDataTable<RptAccesos>(lista);
+								rptAccesos.graficoReporte.AgregarSerie(item.Text, dt, "fecha", "accesos");
+							}
+						}
+					}
+					if (!filtroRoles)
+					{
+						DataTable dt = UIUtilidades.BuildDataTable<RptAccesos>(listaAcceso);
+						rptAccesos.graficoReporte.AgregarSerie("Fechas", dt, "fecha", "accesos");
+					}
+					rptAccesos.graficoReporte.Titulo = "Accesos";
+				}
 				rptAccesos.graficoReporte.GraficarBarra();
 			}
 			catch (Exception ex)
