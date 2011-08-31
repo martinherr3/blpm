@@ -26,12 +26,48 @@
     <iframe runat="server" id="divSysExceptionFrame" visible="true" class="FondoNegroVentana"
         frameborder="0" scrolling="no" width="100%" height="100%" />
     <div id="div2" runat="server" class="FondoNegroVentana" />
-    <table class="TablaExternaVentana" border="0" cellpadding="0" cellspacing="0" width="100%"
-        visible="true">
+    <table class="TablaExternaGrafico" border="0" cellpadding="0" cellspacing="0" visible="true"
+        width="646px">
         <tr>
-            <td id="TDGrafico" runat="server" style="min-height: 450px; height: auto !important;
-                height: 450px;">
-                <asp:Chart ID="Chart1" runat="server" Height="400px" Width="645px" ImageType="Png"
+            <td id="TDBotonera" runat="server" width="646px" align="center">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td style="width: 50%; background-color: White">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td align="left">
+                                        <asp:ImageButton ID="btnLineal" runat="server" OnClick="btnLineal_Click" ImageUrl="/EDUAR_UI/Images/chart-line.png"
+                                            ToolTip="Líneas" AlternateText="Líneas" />
+                                    </td>
+                                    <td align="left">
+                                        <asp:ImageButton ID="btnBar" runat="server" OnClick="btnBar_Click" ImageUrl="/EDUAR_UI/Images/chart-bar.png"
+                                            ToolTip="Barras" AlternateText="Barras" />
+                                    </td>
+                                    <td align="left">
+                                        <asp:ImageButton ID="btnTorta" runat="server" OnClick="btnTorta_Click" ImageUrl="/EDUAR_UI/Images/chart-pie.png"
+                                            ToolTip="Torta" AlternateText="Torta" />
+                                    </td>
+                                    <td align="left">
+                                        <asp:ImageButton ID="btnRadar" runat="server" OnClick="btnRadar_Click" ImageUrl="/EDUAR_UI/Images/chart-polar.png"
+                                            ToolTip="Radar" AlternateText="Radar" />
+                                    </td>
+                                    <td style="width: 60%">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 50%; text-align: right; background-color: White">
+                            <asp:ImageButton ID="btnCerrar" runat="server" OnClick="btnCerrar_Click" ImageUrl="/EDUAR_UI/Images/CerrarPopup.png"
+                                ToolTip="Cerrar" AlternateText="Cerrar" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td id="TDGrafico" style="min-height: 450px; height: auto !important; height: 450px"
+                runat="server">
+                <asp:Chart ID="Chart1" runat="server" Height="400px" Width="646px" ImageType="Png"
                     AntiAliasing="All" BorderDashStyle="Solid" BackSecondaryColor="White" Palette="BrightPastel"
                     RenderType="ImageTag" BackGradientStyle="TopBottom" BackColor="#D3D3D3" BorderWidth="2"
                     BorderColor="26, 59, 105">
@@ -73,42 +109,6 @@
                         </OnLoad>
                     </Animations>
                 </cc1:AnimationExtender>
-            </td>
-        </tr>
-        <tr>
-            <td id="TDBotonera" runat="server" align="right">
-                <table cellpadding="0" cellspacing="0" border="0" width="646px">
-                    <tr>
-                        <td style="width: 50%">
-                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                <tr>
-                                    <td style="" align="left">
-                                        <asp:ImageButton ID="btnLineal" runat="server" OnClick="btnLineal_Click" ImageUrl="/EDUAR_UI/Images/chart-line.png"
-                                            ToolTip="Líneas" AlternateText="Líneas" />
-                                    </td>
-                                    <td style="" align="left">
-                                        <asp:ImageButton ID="btnBar" runat="server" OnClick="btnBar_Click" ImageUrl="/EDUAR_UI/Images/chart-bar.png"
-                                            ToolTip="Barras" AlternateText="Barras" />
-                                    </td>
-                                    <td style="" align="left">
-                                        <asp:ImageButton ID="btnTorta" runat="server" OnClick="btnTorta_Click" ImageUrl="/EDUAR_UI/Images/chart-pie.png"
-                                            ToolTip="Torta" AlternateText="Torta" />
-                                    </td>
-                                    <td style="" align="left">
-                                        <asp:ImageButton ID="btnRadar" runat="server" OnClick="btnRadar_Click" ImageUrl="/EDUAR_UI/Images/chart-polar.png"
-                                            ToolTip="Radar" AlternateText="Radar" />
-                                    </td>
-                                    <td style="width: 60%" align="right">
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td style="width: 50%; text-align: right">
-                            <asp:ImageButton ID="btnCerrar" runat="server" OnClick="btnCerrar_Click" ImageUrl="/EDUAR_UI/Images/CerrarPopup.png"
-                                ToolTip="Cerrar" AlternateText="Cerrar" />
-                        </td>
-                    </tr>
-                </table>
             </td>
         </tr>
     </table>
