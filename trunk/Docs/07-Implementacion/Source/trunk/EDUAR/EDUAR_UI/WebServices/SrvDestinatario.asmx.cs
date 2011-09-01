@@ -28,7 +28,7 @@ namespace EDUAR_UI.WebServices
 		}
 
 		[WebMethod]
-		public List<Persona> obtenerDestinatarios(string prefixText, int count)
+        public List<Persona> obtenerDestinatarios(string prefixText, int limite)
 		{
 			return new BLPersona().GetPersonas(new Persona() { apellido = prefixText });
 		}
