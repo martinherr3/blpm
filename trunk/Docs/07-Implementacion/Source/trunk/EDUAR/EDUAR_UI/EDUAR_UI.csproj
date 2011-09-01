@@ -36,7 +36,8 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit">
+    <Reference Include="AjaxControlToolkit, Version=4.1.50731.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
@@ -71,9 +72,9 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DLL\AjaxControlToolkit.dll" />
     <Content Include="Error\Error.htm" />
     <Content Include="About.aspx" />
-    <Content Include="DLL\AjaxControlToolkit.dll" />
     <Content Include="DLL\itextsharp.dll" />
     <Content Include="DLL\itextsharp.xtra.dll" />
     <Content Include="favicon.ico" />
@@ -110,6 +111,7 @@
     <Content Include="Private\Agenda\RegisterEventoInstitucional.aspx" />
     <Content Include="Private\Agenda\ManageReuniones.aspx" />
     <Content Include="Private\Alumnos\ManageCitaciones.aspx" />
+    <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
     <Content Include="Private\Reports\PrintReport.aspx" />
     <Content Include="Private\Reports\reportAccesos.aspx" />
     <Content Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx" />
@@ -155,6 +157,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="WebServices\SrvDestinatario.asmx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.aspx.cs">
@@ -247,6 +250,13 @@
     </Compile>
     <Compile Include="Private\Alumnos\ManageCitaciones.aspx.designer.cs">
       <DependentUpon>ManageCitaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Mensajes\MsjeRedactar.aspx.cs">
+      <DependentUpon>MsjeRedactar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Mensajes\MsjeRedactar.aspx.designer.cs">
+      <DependentUpon>MsjeRedactar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Reports\PrintReport.aspx.cs">
       <DependentUpon>PrintReport.aspx</DependentUpon>
@@ -404,6 +414,10 @@
     </Compile>
     <Compile Include="Utilidades\ExportPDF.cs" />
     <Compile Include="Utilidades\UIUtilidades.cs" />
+    <Compile Include="WebServices\SrvDestinatario.asmx.cs">
+      <DependentUpon>SrvDestinatario.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
