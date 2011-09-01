@@ -191,7 +191,7 @@ namespace EDUAR_UI.UserControls
                 Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #VALY";
 
                 // Set series chart type
-                Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Spline;
+                Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Line;
 
                 // Set point labels
                 Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false ;
@@ -322,13 +322,13 @@ namespace EDUAR_UI.UserControls
             GraficarTorta3D();
         }
 
-        protected void btnRadar_Click(object sender, EventArgs e)
-        {
-            divGrafico.Attributes.Add("class", "divGraficoOcultar");
-            TDGrafico.Attributes.Add("class", "divGraficoOcultar");
-            Chart1.Series.Clear();
-            GraficarRadar();
-        }
+		//protected void btnRadar_Click(object sender, EventArgs e)
+		//{
+		//    divGrafico.Attributes.Add("class", "divGraficoOcultar");
+		//    TDGrafico.Attributes.Add("class", "divGraficoOcultar");
+		//    Chart1.Series.Clear();
+		//    GraficarRadar();
+		//}
 
         protected void btnCerrar_Click(object sender, EventArgs e)
         {

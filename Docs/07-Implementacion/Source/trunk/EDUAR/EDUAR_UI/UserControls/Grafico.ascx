@@ -48,10 +48,10 @@
                                             ToolTip="Torta" AlternateText="Torta" />
                                     </td>
                                     <td align="left">
-                                        <asp:ImageButton ID="btnRadar" runat="server" OnClick="btnRadar_Click" ImageUrl="/EDUAR_UI/Images/chart-polar.png"
-                                            ToolTip="Radar" AlternateText="Radar" />
+                                        <%--<asp:ImageButton ID="btnRadar" runat="server" OnClick="btnRadar_Click" ImageUrl="/EDUAR_UI/Images/chart-polar.png"
+                                            ToolTip="Radar" AlternateText="Radar" />--%>
                                     </td>
-                                    <td style="width: 60%">
+                                    <td style="width: 80%">
                                     </td>
                                 </tr>
                             </table>
