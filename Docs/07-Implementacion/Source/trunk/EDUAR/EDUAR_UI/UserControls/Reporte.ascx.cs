@@ -4,10 +4,6 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_UI.Utilidades;
-using EDUAR_Utility.Constantes;
-using System.IO;
-using System.Text;
-using System.Web.UI.HtmlControls;
 
 namespace EDUAR_UI.UserControls
 {
