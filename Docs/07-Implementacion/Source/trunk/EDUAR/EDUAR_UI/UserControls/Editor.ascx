@@ -4,8 +4,8 @@
 <script type="text/javascript" src="/EDUAR_UI/Scripts/cleditor/jquery.cleditor.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#inputEditor").cleditor({
-            width: 500, // width not including margins, borders or padding
+        $("#MainContent_textoMensaje_inputEditor").cleditor({
+            width: 685, // width not including margins, borders or padding
             height: 250, // height not including margins, borders or padding
             controls:     // controls to add to the toolbar
                         "bold italic underline strikethrough subscript superscript | font size " +
@@ -39,5 +39,5 @@
         });
     });
 </script>
-<textarea id="inputEditor" name="inputEditor" rows="20" cols="70"></textarea>
+<textarea id="inputEditor" name="inputEditor" rows="20" cols="90" runat="server"></textarea>
 <script type="text/javascript">   $(document).ready();</script>

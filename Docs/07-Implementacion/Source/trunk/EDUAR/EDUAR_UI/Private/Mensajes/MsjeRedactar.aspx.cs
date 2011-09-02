@@ -47,13 +47,26 @@ namespace EDUAR_UI
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            List<string> lista = new List<string>();
+            Mensaje objMensaje = new Mensaje();
+
+            objMensaje.textoMensaje = textoMensaje.contenido;
+            objMensaje.remitente = ObjDTSessionDataUI.ObjDTUsuario;
+            objMensaje.fechaEnvio = DateTime.Now;
+            objMensaje.horaEnvio = Convert.ToDateTime(DateTime.Now.Hour + ":" + DateTime.Now.Minute);
+
+            Persona destinatario;
             foreach (ListItem item in ddlDestino.Items)
             {
                 if (item.Selected)
-                    lista.Add(item.Text + " " + item.Value);
+                {
+                    destinatario = new Persona();
+                    destinatario.idPersona = Convert.ToInt32(item.Value);
+                    objMensaje.ListaDestinatarios.Add(destinatario);
+                }
             }
-
+            BLMensaje objBLMensaje = new BLMensaje(objMensaje);
+            objBLMensaje.Save();
+            
         }
         #endregion
     }

@@ -9,11 +9,11 @@ namespace EDUAR_UI.UserControls
 {
 	public partial class Editor : UserControl
 	{
-		public String contenido
-		{
-			get { return inputCopia.InnerHtml; }
-			set { inputCopia.InnerHtml = value; }
-		}
+        public String contenido
+        {
+            get { return inputEditor.InnerText; }
+            set { inputEditor.InnerText = value; }
+        }
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			
