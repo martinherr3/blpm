@@ -15,7 +15,7 @@
     <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.js"></script>
-    <script type="text/javascript" src="/EDUAR_U/Scripts/chosen/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js"></script>
 
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
