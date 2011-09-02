@@ -10,20 +10,23 @@
 using System;
 using System.Collections.Generic;
 using EDUAR_Entities.Shared;
+using EDUAR_Entities.Security;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class Mensaje: DTBase
+    public class Mensaje : DTBase
     {
-        private int _idMensaje;
-        private List<Usuario> _destinatarios;
-        private DateTime _fechaEnvio;
-        private Usuario _remitente;
-        private string _textoMensaje;
+        public int idMensaje { get; set; }
+        public List<Persona> ListaDestinatarios { get; set; }
+        public DateTime fechaEnvio { get; set; }
+        public DateTime horaEnvio { get; set; }
+        public DTUsuario remitente { get; set; }
+        public string textoMensaje { get; set; }
 
         public Mensaje()
         {
-
+            ListaDestinatarios = new List<Persona>();
+            remitente = new DTUsuario();
         }
 
         ~Mensaje()
@@ -35,60 +38,5 @@ namespace EDUAR_Entities
         {
 
         }
-
-        public int idMensaje
-        {
-            get { return _idMensaje; }
-            set { _idMensaje = value; }
-        }
-
-        public List<Usuario> destinatarios
-        {
-            get
-            {
-                return _destinatarios;
-            }
-            set
-            {
-                _destinatarios = value;
-            }
-        }
-
-        public DateTime fechaEnvio
-        {
-            get
-            {
-                return _fechaEnvio;
-            }
-            set
-            {
-                _fechaEnvio = value;
-            }
-        }
-
-        public Usuario remitente
-        {
-            get
-            {
-                return _remitente;
-            }
-            set
-            {
-                _remitente = value;
-            }
-        }
-
-        public string textoMensaje
-        {
-            get
-            {
-                return _textoMensaje;
-            }
-            set
-            {
-                _textoMensaje = value;
-            }
-        }
-
     }//end Mensaje
 }

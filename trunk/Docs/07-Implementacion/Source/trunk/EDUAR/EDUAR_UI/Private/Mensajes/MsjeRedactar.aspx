@@ -10,7 +10,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <br />
     <asp:Button Text="Enviar!" runat="server" OnClick="btnSubmit_Click" />
-    <table>
+    <table class="tablaInterna" width="100%">
         <tr>
             <td class="TD20">
                 Destinatarios
@@ -33,11 +33,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
+            <td colspan="2" style="width:100%">
                 <edi:Editor ID="textoMensaje" runat="server" />
             </td>
         </tr>

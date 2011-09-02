@@ -3,7 +3,7 @@
 
 <%@ Register Src="UserControls/VentanaInfo.ascx" TagName="VentanaInfo" TagPrefix="uc1" %>
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>EDU@R 2.0</title>
