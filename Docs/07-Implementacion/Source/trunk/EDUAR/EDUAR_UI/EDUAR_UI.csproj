@@ -72,25 +72,6 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="chosen\chosen-sprite.png" />
-    <Content Include="chosen\chosen.css" />
-    <Content Include="chosen\chosen.jquery.js" />
-    <Content Include="chosen\chosen.jquery.min.js" />
-    <Content Include="chosen\chosen.proto.js" />
-    <Content Include="chosen\chosen.proto.min.js" />
-    <Content Include="css\blitzer\images\ui-bg_diagonals-thick_75_f3d8d8_40x40.png" />
-    <Content Include="css\blitzer\images\ui-bg_dots-small_65_a6a6a6_2x2.png" />
-    <Content Include="css\blitzer\images\ui-bg_flat_0_333333_40x100.png" />
-    <Content Include="css\blitzer\images\ui-bg_flat_65_ffffff_40x100.png" />
-    <Content Include="css\blitzer\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="css\blitzer\images\ui-bg_glass_55_fbf8ee_1x400.png" />
-    <Content Include="css\blitzer\images\ui-bg_highlight-hard_100_eeeeee_1x100.png" />
-    <Content Include="css\blitzer\images\ui-bg_highlight-hard_100_f6f6f6_1x100.png" />
-    <Content Include="css\blitzer\images\ui-bg_highlight-soft_15_cc0000_1x100.png" />
-    <Content Include="css\blitzer\images\ui-icons_004276_256x240.png" />
-    <Content Include="css\blitzer\images\ui-icons_cc0000_256x240.png" />
-    <Content Include="css\blitzer\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="css\blitzer\jquery-ui-1.8.16.custom.css" />
     <Content Include="DLL\AjaxControlToolkit.dll" />
     <Content Include="Error\Error.htm" />
     <Content Include="About.aspx" />
@@ -158,6 +139,25 @@
     <Content Include="Public\General\Localizacion.aspx" />
     <Content Include="Public\General\Novedades.aspx" />
     <Content Include="Public\General\Organizacion.aspx" />
+    <Content Include="Scripts\chosen\chosen-sprite.png" />
+    <Content Include="Scripts\chosen\chosen.css" />
+    <Content Include="Scripts\chosen\chosen.jquery.js" />
+    <Content Include="Scripts\chosen\chosen.jquery.min.js" />
+    <Content Include="Scripts\chosen\chosen.proto.js" />
+    <Content Include="Scripts\chosen\chosen.proto.min.js" />
+    <Content Include="Scripts\css\blitzer\images\ui-bg_diagonals-thick_75_f3d8d8_40x40.png" />
+    <Content Include="Scripts\css\blitzer\images\ui-bg_dots-small_65_a6a6a6_2x2.png" />
+    <Content Include="Scripts\css\blitzer\images\ui-bg_flat_0_333333_40x100.png" />
+    <Content Include="Scripts\css\blitzer\images\ui-bg_flat_65_ffffff_40x100.png" />
+    <Content Include="Scripts\css\blitzer\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Scripts\css\blitzer\images\ui-bg_glass_55_fbf8ee_1x400.png" />
+    <Content Include="Scripts\css\blitzer\images\ui-bg_highlight-hard_100_eeeeee_1x100.png" />
+    <Content Include="Scripts\css\blitzer\images\ui-bg_highlight-hard_100_f6f6f6_1x100.png" />
+    <Content Include="Scripts\css\blitzer\images\ui-bg_highlight-soft_15_cc0000_1x100.png" />
+    <Content Include="Scripts\css\blitzer\images\ui-icons_004276_256x240.png" />
+    <Content Include="Scripts\css\blitzer\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Scripts\css\blitzer\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Scripts\css\blitzer\jquery-ui-1.8.16.custom.css" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
@@ -426,7 +426,6 @@
     <Compile Include="UserControls\Reporte.ascx.designer.cs">
       <DependentUpon>Reporte.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TextoHTML.cs" />
     <Compile Include="UserControls\VentanaInfo.ascx.cs">
       <DependentUpon>VentanaInfo.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -484,6 +483,7 @@
     <Content Include="Private\Reports\web.config" />
     <Content Include="Private\Alumnos\web.config" />
     <Content Include="Private\Agenda\web.config" />
+    <None Include="Scripts\css\blitzer\images\Thumbs.db" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>
     </None>
