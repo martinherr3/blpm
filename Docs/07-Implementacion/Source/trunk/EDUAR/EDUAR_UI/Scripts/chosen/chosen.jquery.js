@@ -34,7 +34,7 @@
       this.form_field_jq = $(this.form_field);
       this.is_multiple = this.form_field.multiple;
       this.is_rtl = this.form_field_jq.hasClass("chzn-rtl");
-      this.default_text_default = this.form_field.multiple ? "Select Some Options" : "Select an Option";
+      this.default_text_default = this.form_field.multiple ? "Seleccione las opciones" : "Seleccione una opción";
       this.set_up_html();
       this.register_observers();
       this.form_field_jq.addClass("chzn-done");

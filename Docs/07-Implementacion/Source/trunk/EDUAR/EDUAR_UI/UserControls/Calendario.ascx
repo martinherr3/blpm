@@ -1,6 +1,53 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Calendario.ascx.cs"
     Inherits="EDUAR_UI.UserControls.Calendario" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<script type="text/javascript" src="/EDUAR_UI/Scripts/jquery.maskedinput-1.3.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#date').datepicker(
+            { dateFormat: 'dd MM, yy',
+                minDate: '+0D',
+                maxDate: '+1Y',
+//                changeMonth: true,
+//                changeYear: true,
+                numberOfMonths: 1,
+                dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
+                    'Junio', 'Julio', 'Agosto', 'Septiembre',
+                    'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr',
+                    'May', 'Jun', 'Jul', 'Ago',
+                    'Sep', 'Oct', 'Nov', 'Dic'],
+                dateFormat: 'dd/mm/yy',
+                beforeShowDay: function (day) {
+                    var day = day.getDay();
+                    if (day == 0 || day == 6) {
+                        return [false, "somecssclass"]
+                    } else {
+                        return [true, "someothercssclass"]
+                    }
+                } 
+            });  
+
+
+        $("#date").mask("99/99/9999");
+
+        $.mask.definitions['H'] = '[012]';
+        $.mask.definitions['N'] = '[012345]';
+        $.mask.definitions['n'] = '[0123456789]';
+        $("#time").mask("Hn:Nn");
+    });
+</script>
+<script type="text/javascript">
+    function valida(valor) {
+        //que no existan elementos sin escribir
+        if (valor.indexOf("_") == -1) {
+            var hora = valor.split(":")[0];
+            if (parseInt(hora) > 23) {
+                $("#time").val("");
+            }
+        }
+    }</script>
 <div id="DivDesdeHasta" runat="server">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
@@ -80,4 +127,6 @@
     <cc1:CalendarExtender ID="calExtFecha" runat="server" TargetControlID="txtFecha"
         Format="dd/MM/yyyy" PopupButtonID="imgFecha">
     </cc1:CalendarExtender>
+    <input id="date" type="text" />
+    <input type="text" id="time" onblur="valida(this.value);" />
 </div>
