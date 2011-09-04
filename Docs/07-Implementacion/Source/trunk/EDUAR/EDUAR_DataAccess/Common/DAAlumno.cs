@@ -1,16 +1,11 @@
 ﻿using System;
-using EDUAR_DataAccess.Shared;
-using EDUAR_Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EDUAR_Entities;
+using System.Data;
+using System.Data.SqlClient;
 using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
-using System.Data.SqlClient;
-using System.Data;
-using EDUAR_Utility.Constantes;
 
 namespace EDUAR_DataAccess.Common
 {
