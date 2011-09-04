@@ -344,7 +344,8 @@ namespace EDUAR_UI
 			{
 				BLMensaje objBLMensaje = new BLMensaje();
 				List<Mensaje> objMensajes = new List<Mensaje>();
-				objMensajes = objBLMensaje.GetMensajes(new Mensaje() { destinatario = new Persona() { username = ObjDTSessionDataUI.ObjDTUsuario.Nombre } });
+
+				objMensajes = objBLMensaje.GetMensajes(new Mensaje() { destinatario = new Persona() { username = ObjDTSessionDataUI.ObjDTUsuario.Nombre }, leido = false, activo = true });
 				btnMail.Visible = true;
 				if (objMensajes.Count > 0)
 				{
@@ -358,13 +359,9 @@ namespace EDUAR_UI
 					btnMail.AlternateText = "Mensajes";
 					btnMail.ToolTip = "Mensaje";
 				}
-				//btnMail.RenderControl(htm);
-				//htm.Flush();
 				lnkMensajes.HRef = "Private/Mensajes/MsjeEntrada.aspx";
-				//htm = new HtmlTextWriter(sr);
 				lnkMensajes.RenderControl(htm);
 				htm.Flush();
-				//udpImgMensajes.Update();
 			}
 			else
 			{
@@ -372,7 +369,6 @@ namespace EDUAR_UI
 				btnMail.Visible = false;
 				btnMail.RenderControl(htm);
 				htm.Flush();
-				//udpImgMensajes.Update();
 			}
 			_callbackResult = sr.ToString();
 		}
