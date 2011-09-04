@@ -58,15 +58,6 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpImgMensajes;
         
         /// <summary>
-        /// Control btnNuevoMail.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnNuevoMail;
-        
-        /// <summary>
         /// Control btnMail.
         /// </summary>
         /// <remarks>

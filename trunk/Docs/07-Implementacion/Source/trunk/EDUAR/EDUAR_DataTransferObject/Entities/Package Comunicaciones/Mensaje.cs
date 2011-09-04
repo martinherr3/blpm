@@ -21,13 +21,31 @@ namespace EDUAR_Entities
         public DateTime fechaEnvio { get; set; }
         public DateTime horaEnvio { get; set; }
         public DTUsuario remitente { get; set; }
+
+		/// <summary>
+		/// Este atributo SOLO SE UTILIZA PARA RECUPERAR LOS MENSAJES EN LOS QUE UN USUARIO APARECE COMO DESTINATARIO!!!
+		/// </summary>
+		/// <value>
+		/// The destinatario.
+		/// </value>
+		public Persona destinatario { get; set; }
         public string textoMensaje { get; set; }
 		public bool activo { get; set; }
+
+		/// <summary>
+		/// Se utiliza para recuperar la lista de mensajes de un usuario e indicar si ha sido leido o no.
+		/// Gets or sets a value indicating whether this <see cref="Mensaje"/> is leido.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if leido; otherwise, <c>false</c>.
+		/// </value>
+		public bool leido { get; set; }
 
         public Mensaje()
         {
             ListaDestinatarios = new List<Persona>();
             remitente = new DTUsuario();
+			destinatario = new Persona();
 			activo = true;
         }
 

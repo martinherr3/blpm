@@ -20,7 +20,7 @@
     <script type="text/javascript">
         function timerEvent() {
             callServerTask();
-            setTimeout("timerEvent()", 30000);
+            setTimeout("timerEvent()", 120000);
             return false;
         }
 
@@ -38,17 +38,14 @@
             alert('Callback failed! ' + error);
         }
 
-        // JScript File
         function clientTime() {
 
         }
-        function char2(v) {
-        } 
     </script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body onload="javascript:setTimeout('timerEvent()',1500);">
+<body onload="javascript:setTimeout('timerEvent()', 1);">
     <form runat="server">
     <asp:ScriptManager ID="scmManager" runat="server" AsyncPostBackTimeout="9000" EnablePartialRendering="true"
         ScriptMode="Release" LoadScriptsBeforeUI="false" EnableScriptLocalization="true"
@@ -81,10 +78,10 @@
                 <div id="div_CallbackResult">
                     <asp:UpdatePanel ID="udpImgMensajes" UpdateMode="Conditional" runat="server">
                         <ContentTemplate>
-                            <asp:ImageButton ID="btnNuevoMail" runat="server" ImageUrl="/EDUAR_UI/Images/mail-unread.png"
-                                Visible="false" />
+                            <%--<asp:ImageButton ID="btnNuevoMail" runat="server" ImageUrl="/EDUAR_UI/Images/mail-unread.png"
+                                Visible="false" ToolTip="Nuevo Mensaje!" AlternateText="Nuevo Mensaje!" />--%>
                             <asp:ImageButton ID="btnMail" runat="server" ImageUrl="/EDUAR_UI/Images/mail-inbox.png"
-                                Visible="false" />
+                                Visible="false" ToolTip="Mensajes" AlternateText="Mensajes" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
