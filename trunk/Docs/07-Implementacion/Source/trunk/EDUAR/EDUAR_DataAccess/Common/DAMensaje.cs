@@ -115,7 +115,7 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (!string.IsNullOrEmpty(entidad.destinatario.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioDestino", DbType.String, entidad.destinatario.username);
-					if (entidad.leido)
+					//if (entidad.leido)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
 					if (entidad.activo)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);

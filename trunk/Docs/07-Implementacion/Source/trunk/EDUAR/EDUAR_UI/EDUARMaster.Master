@@ -76,13 +76,9 @@
                     </LoggedInTemplate>
                 </asp:LoginView>
                 <div id="div_CallbackResult">
-                    <%--<asp:UpdatePanel ID="udpImgMensajes" UpdateMode="Conditional" runat="server">
-                        <ContentTemplate>--%>
-                            <a href="Private/Mensajes/MsjeEntrada.aspx" id="lnkMensajes" runat="server">
-                                <asp:Image ID="btnMail" runat="server" ImageUrl="" Visible="false" />
-                            </a>
-                        <%--</ContentTemplate>
-                    </asp:UpdatePanel>--%>
+                    <a href="Private/Mensajes/MsjeEntrada.aspx" id="lnkMensajes" runat="server">
+                        <asp:Image ID="btnMail" runat="server" ImageUrl="" Visible="false" />
+                    </a>
                 </div>
             </div>
             <div class="clear hideSkiplink">
