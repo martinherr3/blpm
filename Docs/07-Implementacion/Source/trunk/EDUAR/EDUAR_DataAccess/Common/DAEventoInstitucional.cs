@@ -209,7 +209,7 @@ namespace EDUAR_DataAccess.Common
                     if (ValidarFechaSQL(entidad.fecha))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha.ToShortDateString());
                     if (entidad.hora != null)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, Convert.ToDateTime(entidad.hora).ToShortTimeString());
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, Convert.ToDateTime(String.Format("{0:HH:mm}",entidad.hora)).ToShortTimeString());
                     if (!string.IsNullOrEmpty(entidad.lugar))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@lugar", DbType.String, entidad.lugar);
                     if (!string.IsNullOrEmpty(entidad.titulo))

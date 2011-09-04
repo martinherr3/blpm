@@ -279,11 +279,11 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
-        public bool VerificarAgenda(EventoAgenda entidad)
+        public bool VerificarAgendaEvaluacion(EventoAgenda entidad, int idAsignatura)
         {
             try
             {
-                if (!DataAcces.VerificarAgendaReuniones(entidad))
+                if (!DataAcces.VerificarAgendaEvaluacion(entidad,idAsignatura))
                     throw new CustomizedException("Ya existen eventos agendados para la presente fecha", null,
                                               enuExceptionType.ValidationException);
                 return true;
@@ -294,7 +294,27 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetEventoAgenda", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        public bool VerificarAgendaExcursion(EventoAgenda entidad)
+        {
+            try
+            {
+                if (!DataAcces.VerificarAgendaExcursiones(entidad))
+                    throw new CustomizedException("Ya existen eventos agendados para la presente fecha", null,
+                                              enuExceptionType.ValidationException);
+                return true;
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
@@ -314,7 +334,7 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetEventoAgenda", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgendaReuniones", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
