@@ -7,7 +7,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>EDU@R 2.0</title>
-    <link type="text/css" href="/EDUAR_UI/Scripts/css/blitzer/jquery-ui-1.8.16.custom.css" rel="Stylesheet" />
+    <link type="text/css" href="/EDUAR_UI/Scripts/css/blitzer/jquery-ui-1.8.16.custom.css"
+        rel="Stylesheet" />
     <link type="text/css" rel="Stylesheet" href="/EDUAR_UI/Scripts/chosen/chosen.css" />
     <link href="~/App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/png" href="~/favicon.ico" />
@@ -16,11 +17,38 @@
     <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js"></script>
+    <script type="text/javascript">
+        function timerEvent() {
+            callServerTask();
+            setTimeout("timerEvent()", 30000);
+            return false;
+        }
 
+        function callServerTask() {
+            WebForm_DoCallback('__Page', clientTime(''),
+                        putCallbackResult, null, clientErrorCallback, true);
+        }
+
+        function putCallbackResult(callbackResult) {
+            var info = document.getElementById('div_CallbackResult');
+            info.innerHTML = callbackResult;
+        }
+
+        function clientErrorCallback(error, context) {
+            alert('Callback failed! ' + error);
+        }
+
+        // JScript File
+        function clientTime() {
+
+        }
+        function char2(v) {
+        } 
+    </script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body>
+<body onload="javascript:setTimeout('timerEvent()',1500);">
     <form runat="server">
     <asp:ScriptManager ID="scmManager" runat="server" AsyncPostBackTimeout="9000" EnablePartialRendering="true"
         ScriptMode="Release" LoadScriptsBeforeUI="false" EnableScriptLocalization="true"
@@ -50,6 +78,16 @@
                         ]
                     </LoggedInTemplate>
                 </asp:LoginView>
+                <div id="div_CallbackResult">
+                    <asp:UpdatePanel ID="udpImgMensajes" UpdateMode="Conditional" runat="server">
+                        <ContentTemplate>
+                            <asp:ImageButton ID="btnNuevoMail" runat="server" ImageUrl="/EDUAR_UI/Images/mail-unread.png"
+                                Visible="false" />
+                            <asp:ImageButton ID="btnMail" runat="server" ImageUrl="/EDUAR_UI/Images/mail-inbox.png"
+                                Visible="false" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
             </div>
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"

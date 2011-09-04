@@ -22,11 +22,13 @@ namespace EDUAR_Entities
         public DateTime horaEnvio { get; set; }
         public DTUsuario remitente { get; set; }
         public string textoMensaje { get; set; }
+		public bool activo { get; set; }
 
         public Mensaje()
         {
             ListaDestinatarios = new List<Persona>();
             remitente = new DTUsuario();
+			activo = true;
         }
 
         ~Mensaje()

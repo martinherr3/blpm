@@ -40,4 +40,4 @@
     });
 </script>
 <textarea id="inputEditor" name="inputEditor" rows="20" cols="90" runat="server"></textarea>
-<script type="text/javascript">   $(document).ready();</script>
+<script type="text/javascript">    $(document).ready();</script>
