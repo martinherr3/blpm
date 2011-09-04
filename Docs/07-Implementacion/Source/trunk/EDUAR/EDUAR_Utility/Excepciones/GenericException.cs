@@ -20,21 +20,21 @@ namespace EDUAR_Utility.Excepciones
         /// (Incluido en el detail del GenericException)
         /// </summary>
         [DataMember]
-        public string Source { get; set; }
+        public string Origen { get; set; }
 
         /// <summary>
         /// Message interno de la Excepcion generada
         /// (Incluido en el detail del GenericException)
         /// </summary>
         [DataMember]
-        public string Message { get; set; }
+        public string Mensaje { get; set; }
 
         /// <summary>
         /// StackTrace interno de la Excepcion generada
         /// (Incluido en el detail del GenericException)
         /// </summary>
         [DataMember]
-        public string StackTrace { get; set; }
+        public string Trace { get; set; }
 
 
         [DataMember]
@@ -51,9 +51,9 @@ namespace EDUAR_Utility.Excepciones
         /// <param name="e"></param>
         private GenericException(enuExceptionType exceptionType, Exception e)
         {
-            Message = e.Message;
-            Source = e.Source;
-            StackTrace = e.StackTrace;
+            Mensaje = e.Message;
+            Origen = e.Source;
+            Trace = e.StackTrace;
             ExceptionType = exceptionType;
 
             if (e.InnerException != null)

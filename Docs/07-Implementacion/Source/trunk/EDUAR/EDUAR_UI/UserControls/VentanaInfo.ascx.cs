@@ -141,10 +141,10 @@ namespace EDUAR_UI.UserControls
                             break;
                     }
 
-                    informacion = string.Format("{0} {1}", genericEx.Message, genericEx.Informacion);
-                    message = genericEx.Message;
-                    source = genericEx.Source;
-                    stackTrace = genericEx.StackTrace;
+                    informacion = string.Format("{0} {1}", genericEx.Mensaje, genericEx.Informacion);
+                    message = genericEx.Mensaje;
+                    source = genericEx.Origen;
+                    stackTrace = genericEx.Trace;
                     #endregion
 
                     msgLog.AppendFormat("{0} - {1}", DateTime.Now, genericEx.ExceptionType);

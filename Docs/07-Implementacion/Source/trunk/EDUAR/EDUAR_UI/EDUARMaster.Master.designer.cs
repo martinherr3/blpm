@@ -49,13 +49,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.LoginView HeadLoginView;
         
         /// <summary>
-        /// Control udpImgMensajes.
+        /// Control lnkMensajes.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpImgMensajes;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkMensajes;
         
         /// <summary>
         /// Control btnMail.
@@ -64,7 +64,7 @@ namespace EDUAR_UI {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnMail;
+        protected global::System.Web.UI.WebControls.Image btnMail;
         
         /// <summary>
         /// Control NavigationMenu.

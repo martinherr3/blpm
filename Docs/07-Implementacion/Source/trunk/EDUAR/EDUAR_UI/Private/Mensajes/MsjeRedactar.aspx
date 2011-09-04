@@ -2,8 +2,8 @@
     AutoEventWireup="true" CodeBehind="MsjeRedactar.aspx.cs" Inherits="EDUAR_UI.MsjeRedactar"
     Theme="Tema" StylesheetTheme="Tema" ValidateRequest="false" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/UserControls/Editor.ascx" TagName="Editor" TagPrefix="edi" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
@@ -26,7 +26,7 @@
                 Asunto
             </td>
             <td class="TD80">
-                <input type="text" runat="server" style="width: 595px; background-color: #FFFFFF;
+                <input id="txtAsunto" type="text" runat="server" style="width: 595px; background-color: #FFFFFF;
                     background-image: -moz-linear-gradient(center bottom , white 85%, #EEEEEE 99%);
                     border: 1px solid #AAAAAA; cursor: text; height: 26px !important; margin: 0;
                     overflow: hidden; padding: 0; position: relative; font-family: sans-serif; font-size: 1em" />

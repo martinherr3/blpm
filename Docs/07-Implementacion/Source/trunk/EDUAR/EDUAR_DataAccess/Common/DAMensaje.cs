@@ -62,7 +62,8 @@ namespace EDUAR_DataAccess.Common
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensaje", DbType.Int32, 0);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaEnvio", DbType.Date, entidad.fechaEnvio.Date.ToShortDateString());
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaEnvio", DbType.Time, entidad.horaEnvio.Hour + ":" + entidad.horaEnvio.Minute);
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.remitente.Nombre);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.remitente.username);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@asuntoMensaje", DbType.String, entidad.asuntoMensaje);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@textoMensaje", DbType.String, entidad.textoMensaje);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 
@@ -72,7 +73,7 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
 					else
 						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
-					
+
 					identificador = Int32.Parse(Transaction.DBcomand.Parameters["@idMensaje"].Value.ToString());
 				}
 			}
@@ -114,7 +115,8 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (!string.IsNullOrEmpty(entidad.destinatario.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioDestino", DbType.String, entidad.destinatario.username);
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, false);
+					if (entidad.leido)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
 					if (entidad.activo)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 				}
@@ -127,9 +129,15 @@ namespace EDUAR_DataAccess.Common
 					objMensaje = new Mensaje();
 
 					objMensaje.idMensaje = Convert.ToInt32(reader["idMensaje"]);
+					objMensaje.asuntoMensaje = reader["asuntoMensaje"].ToString();
 					objMensaje.textoMensaje = reader["textoMensaje"].ToString();
 					objMensaje.activo = Convert.ToBoolean(reader["activo"].ToString());
 					objMensaje.fechaEnvio = Convert.ToDateTime(reader["fechaEnvio"].ToString());
+					objMensaje.horaEnvio = Convert.ToDateTime(reader["horaEnvio"].ToString());
+					objMensaje.destinatario.nombre = reader["nombreDestinatario"].ToString();
+					objMensaje.destinatario.apellido = reader["apellidoDestinatario"].ToString();
+					objMensaje.remitente.nombre = reader["nombreRemitente"].ToString();
+					objMensaje.remitente.apellido = reader["apellidoRemitente"].ToString();
 					listaMensaje.Add(objMensaje);
 				}
 				return listaMensaje;

@@ -112,6 +112,7 @@
     <Content Include="Private\Agenda\RegisterEventoInstitucional.aspx" />
     <Content Include="Private\Agenda\ManageReuniones.aspx" />
     <Content Include="Private\Alumnos\ManageCitaciones.aspx" />
+    <Content Include="Private\Mensajes\MsjeEntrada.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
     <Content Include="Private\Reports\PrintReport.aspx" />
     <Content Include="Private\Reports\reportAccesos.aspx" />
@@ -279,6 +280,13 @@
     </Compile>
     <Compile Include="Private\Alumnos\ManageCitaciones.aspx.designer.cs">
       <DependentUpon>ManageCitaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Mensajes\MsjeEntrada.aspx.cs">
+      <DependentUpon>MsjeEntrada.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Mensajes\MsjeEntrada.aspx.designer.cs">
+      <DependentUpon>MsjeEntrada.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Mensajes\MsjeRedactar.aspx.cs">
       <DependentUpon>MsjeRedactar.aspx</DependentUpon>
@@ -498,6 +506,7 @@
     <Content Include="Private\Reports\web.config" />
     <Content Include="Private\Alumnos\web.config" />
     <Content Include="Private\Agenda\web.config" />
+    <Content Include="Private\Mensajes\web.config" />
     <None Include="Scripts\css\blitzer\images\Thumbs.db" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>

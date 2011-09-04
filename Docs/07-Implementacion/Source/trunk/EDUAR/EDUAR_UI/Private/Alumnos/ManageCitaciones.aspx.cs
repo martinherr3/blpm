@@ -18,6 +18,12 @@ namespace EDUAR_UI
 		#endregion
 
 		#region --[Propiedades]--
+		/// <summary>
+		/// Gets or sets the prop citacion.
+		/// </summary>
+		/// <value>
+		/// The prop citacion.
+		/// </value>
 		public Citacion propCitacion
 		{
 			get

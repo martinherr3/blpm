@@ -49,8 +49,9 @@ namespace EDUAR_UI
         {
             Mensaje objMensaje = new Mensaje();
 
+			objMensaje.asuntoMensaje = txtAsunto.Value;
             objMensaje.textoMensaje = textoMensaje.contenido;
-            objMensaje.remitente = ObjDTSessionDataUI.ObjDTUsuario;
+            objMensaje.remitente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
             objMensaje.fechaEnvio = DateTime.Now;
             objMensaje.horaEnvio = Convert.ToDateTime(DateTime.Now.Hour + ":" + DateTime.Now.Minute);
 
