@@ -528,14 +528,19 @@ namespace EDUAR_UI
 		/// Guardars the agenda.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
-		private void GuardarEntidad(Evaluacion entidad)
+		private void GuardarEntidad(EventoAgenda entidad)
 		{
 			objBLAgenda = new BLAgendaActividades(propAgenda);
 			objBLAgenda.GetById();
-            objBLAgenda.VerificarAgenda(entidad);
 
-			objBLAgenda.Data.listaEvaluaciones.Add(entidad);
-			objBLAgenda.Save();
+            int idAsignatura = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
+
+            entidad.tipoEventoAgenda.idTipoEventoAgenda = (int)enumEventoAgendaType.Evaluacion;
+            if (objBLAgenda.VerificarAgendaExcursion(entidad) && objBLAgenda.VerificarAgendaEvaluacion(entidad, idAsignatura))
+            {
+                objBLAgenda.Data.listaEvaluaciones.Add((Evaluacion)entidad);
+                objBLAgenda.Save();
+            }
 		}
 
 		/// <summary>

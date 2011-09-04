@@ -433,14 +433,16 @@ namespace EDUAR_UI
         /// Registrar el evento.
         /// </summary>
         /// <param name="evento">The evento.</param>
-        private void GuardarEvento(Excursion evento)
+        private void GuardarEvento(EventoAgenda evento)
         {
             objBLAgenda = new BLAgendaActividades(propAgenda);
             objBLAgenda.GetById();
-            objBLAgenda.VerificarAgenda(evento);
-
-            objBLAgenda.Data.listaExcursiones.Add(evento);
-            objBLAgenda.Save();
+            evento.tipoEventoAgenda.idTipoEventoAgenda = (int)enumEventoAgendaType.Excursion;
+            if (objBLAgenda.VerificarAgendaExcursion(evento) && objBLAgenda.VerificarAgendaEvaluacion(evento,0))
+            {
+                objBLAgenda.Data.listaExcursiones.Add((Excursion)evento);
+                objBLAgenda.Save();
+            }
         }
 
         /// <summary>

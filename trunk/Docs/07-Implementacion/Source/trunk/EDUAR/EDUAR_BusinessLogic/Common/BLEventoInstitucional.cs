@@ -185,7 +185,5 @@ namespace EDUAR_BusinessLogic.Common
         }
         #endregion
 
-
-
     }
 }
