@@ -97,44 +97,6 @@ namespace EDUAR_UI
 			}
 		}
 
-
-		public void RaiseCallbackEvent(string eventArgument)
-		{
-			StringWriter sr = new StringWriter();
-			HtmlTextWriter htm = new HtmlTextWriter(sr);
-
-			BLMensaje objBLMensaje = new BLMensaje();
-			List<Mensaje> objMensajes = new List<Mensaje>();
-			objMensajes = objBLMensaje.GetMensajes(new Mensaje() { remitente = new DTUsuario() { Nombre = ObjDTSessionDataUI.ObjDTUsuario.Nombre } });
-			if (objMensajes.Count > 0)
-			{
-				btnNuevoMail.Visible = true;
-				btnNuevoMail.RenderControl(htm);
-				htm.Flush();
-				btnMail.Visible = false;
-				btnMail.RenderControl(htm);
-				htm.Flush();
-				udpImgMensajes.Update();
-			}
-			else
-			{
-				btnNuevoMail.Visible = false;
-				btnNuevoMail.RenderControl(htm);
-				htm.Flush();
-				btnMail.Visible = true;
-				btnMail.RenderControl(htm);
-				htm.Flush();
-				udpImgMensajes.Update();
-			}
-			_callbackResult = sr.ToString();
-		}
-
-		public string GetCallbackResult()
-		{
-			//  ésta variable es pasada al argumento de putCallbackResult
-			return _callbackResult;
-		}
-
 		/// <summary>
 		/// Método que cierra la sesión del usuario logueado.
 		/// </summary>
@@ -363,6 +325,56 @@ namespace EDUAR_UI
 			{
 				ManageExceptions(ex);
 			}
+		}
+
+		/// <summary>
+		/// Procesa un evento de devolución de llamada que tiene como destino un control.
+		/// </summary>
+		/// <param name="eventArgument">Cadena que representa un argumento del evento que se pasará al controlador de eventos.</param>
+		public void RaiseCallbackEvent(string eventArgument)
+		{
+			StringWriter sr = new StringWriter();
+			HtmlTextWriter htm = new HtmlTextWriter(sr);
+
+			if (HttpContext.Current.User != null)
+			{
+				BLMensaje objBLMensaje = new BLMensaje();
+				List<Mensaje> objMensajes = new List<Mensaje>();
+				objMensajes = objBLMensaje.GetMensajes(new Mensaje() { destinatario = new Persona() { username = ObjDTSessionDataUI.ObjDTUsuario.Nombre } });
+				btnMail.Visible = true;
+				if (objMensajes.Count > 0)
+				{
+					btnMail.ImageUrl = "/EDUAR_UI/Images/mail-unread.png";
+				}
+				else
+				{
+					btnMail.ImageUrl = "/EDUAR_UI/Images/mail-inbox.png";
+				}
+				btnMail.RenderControl(htm);
+				htm.Flush();
+				udpImgMensajes.Update();
+			}
+			else
+			{
+				btnMail.ImageUrl = "";
+				btnMail.Visible = false;
+				btnMail.RenderControl(htm);
+				htm.Flush();
+				udpImgMensajes.Update();
+			}
+			_callbackResult = sr.ToString();
+		}
+
+		/// <summary>
+		/// Devuelve los resultados de un evento de devolución de llamada que tiene como destino un control.
+		/// </summary>
+		/// <returns>
+		/// Resultado de la devolución de llamada.
+		/// </returns>
+		public string GetCallbackResult()
+		{
+			//  ésta variable es pasada al argumento de putCallbackResult
+			return _callbackResult;
 		}
 		#endregion
 

@@ -89,10 +89,23 @@ namespace EDUAR_BusinessLogic.Common
                 DataAcces.Transaction.OpenTransaction();
                 int idMensaje = 0;
 
-                if (Data.idMensaje == 0)
-                    DataAcces.Create(Data, out idMensaje);
-                else
-                    DataAcces.Update(Data);
+				if (Data.idMensaje == 0)
+				{
+					DataAcces.Create(Data, out idMensaje);
+
+					Mensaje objMensaje;
+					foreach (Persona item in Data.ListaDestinatarios)
+					{
+						objMensaje = new Mensaje();
+						objMensaje.leido = false;
+						objMensaje.activo = true;
+						objMensaje.idMensaje = idMensaje;
+						objMensaje.destinatario = item;
+						SaveDestinatario(objMensaje, dataAcces.Transaction);
+					}
+				}
+				else
+					DataAcces.Update(Data);
 
                 //Se da el OK para la transaccion.
                 DataAcces.Transaction.CommitTransaction();
@@ -164,6 +177,11 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
+		/// <summary>
+		/// Gets the mensajes.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
 		public List<Mensaje> GetMensajes(Mensaje entidad)
 		{
 			try
@@ -181,5 +199,31 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
         #endregion
-    }
+
+		#region --[Métodos Privados]--
+		/// <summary>
+		/// Saves the destinatario.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <param name="objDATransaction">The obj DA transaction.</param>
+		private void SaveDestinatario(Mensaje entidad, DATransaction objDATransaction)
+		{
+			try
+			{
+				DataAcces = new DAMensaje(objDATransaction);
+				DataAcces.SaveDestinatario(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+		#endregion
+
+	}
 }

@@ -48,6 +48,11 @@ namespace EDUAR_DataAccess.Common
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Creates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <param name="identificador">The identificador.</param>
 		public override void Create(Mensaje entidad, out int identificador)
 		{
 			try
@@ -61,11 +66,13 @@ namespace EDUAR_DataAccess.Common
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@textoMensaje", DbType.String, entidad.textoMensaje);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 
+					Transaction.DBcomand.Parameters["@idMensaje"].Direction = ParameterDirection.Output;
+
 					if (Transaction.Transaction != null)
 						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
 					else
 						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
-
+					
 					identificador = Int32.Parse(Transaction.DBcomand.Parameters["@idMensaje"].Value.ToString());
 				}
 			}
@@ -93,8 +100,6 @@ namespace EDUAR_DataAccess.Common
 		#endregion
 
 		#region --[Métodos Públicos]--
-		#endregion
-
 		/// <summary>
 		/// Gets the mensajes.
 		/// </summary>
@@ -107,20 +112,8 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajeRecibido_Select");
 				if (entidad != null)
 				{
-					//if (entidad.idAgendaActividad > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
-					//if (entidad.idEventoAgenda > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEvento", DbType.Int32, entidad.idEventoAgenda);
-					//if (entidad.asignatura.idAsignatura > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCurso", DbType.Int32, entidad.asignatura.idAsignatura);
-					//if (ValidarFechaSQL(entidad.fechaEventoDesde))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
-					//if (ValidarFechaSQL(entidad.fechaEventoHasta))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
-					//if (ValidarFechaSQL(entidad.fechaEvento))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaEvento", DbType.Date, entidad.fechaEvento);
-					if (!string.IsNullOrEmpty(entidad.remitente.Nombre))
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioDestino", DbType.String, entidad.remitente.Nombre);
+					if (!string.IsNullOrEmpty(entidad.destinatario.username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioDestino", DbType.String, entidad.destinatario.username);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, false);
 					if (entidad.activo)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
@@ -152,5 +145,39 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+		/// <summary>
+		/// Saves the destinatario.
+		/// </summary>
+		/// <param name="Data">The data.</param>
+		public void SaveDestinatario(Mensaje entidad)
+		{
+			try
+			{
+				using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajeDestinatarios_Insert"))
+				{
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensaje", DbType.Int32, entidad.idMensaje);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersonaDestinatario", DbType.Int32, entidad.destinatario.idPersona);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+
+					if (Transaction.Transaction != null)
+						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+					else
+						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+				}
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - SaveDestinatario()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - SaveDestinatario()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+		#endregion
 	}
 }
