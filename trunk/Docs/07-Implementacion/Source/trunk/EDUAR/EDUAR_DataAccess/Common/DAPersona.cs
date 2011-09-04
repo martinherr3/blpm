@@ -64,12 +64,12 @@ namespace EDUAR_DataAccess.Common
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@email", DbType.String, entidad.email);
 				if (entidad.activo != null)
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.String, entidad.activo);
-				if (entidad.username != null)
+				if (!string.IsNullOrEmpty(entidad.username))
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
 				else
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, DBNull.Value);
-				//if (entidad.idTipoPersona != null)
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
+				if (entidad.idTipoPersona > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
 
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

@@ -10,34 +10,25 @@
 namespace EDUAR_UI {
     
     
-    public partial class MsjeRedactar {
+    public partial class MsjeEntrada {
         
         /// <summary>
-        /// Control ddlDestino.
+        /// Control udpGrilla.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect ddlDestino;
+        protected global::System.Web.UI.UpdatePanel udpGrilla;
         
         /// <summary>
-        /// Control txtAsunto.
+        /// Control gvwReporte.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtAsunto;
-        
-        /// <summary>
-        /// Control textoMensaje.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::EDUAR_UI.UserControls.Editor textoMensaje;
+        protected global::System.Web.UI.WebControls.GridView gvwReporte;
         
         /// <summary>
         /// Propiedad Master.

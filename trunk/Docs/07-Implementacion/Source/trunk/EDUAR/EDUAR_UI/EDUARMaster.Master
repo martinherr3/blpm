@@ -76,14 +76,13 @@
                     </LoggedInTemplate>
                 </asp:LoginView>
                 <div id="div_CallbackResult">
-                    <asp:UpdatePanel ID="udpImgMensajes" UpdateMode="Conditional" runat="server">
-                        <ContentTemplate>
-                            <%--<asp:ImageButton ID="btnNuevoMail" runat="server" ImageUrl="/EDUAR_UI/Images/mail-unread.png"
-                                Visible="false" ToolTip="Nuevo Mensaje!" AlternateText="Nuevo Mensaje!" />--%>
-                            <asp:ImageButton ID="btnMail" runat="server" ImageUrl="/EDUAR_UI/Images/mail-inbox.png"
-                                Visible="false" ToolTip="Mensajes" AlternateText="Mensajes" />
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                    <%--<asp:UpdatePanel ID="udpImgMensajes" UpdateMode="Conditional" runat="server">
+                        <ContentTemplate>--%>
+                            <a href="Private/Mensajes/MsjeEntrada.aspx" id="lnkMensajes" runat="server">
+                                <asp:Image ID="btnMail" runat="server" ImageUrl="" Visible="false" />
+                            </a>
+                        <%--</ContentTemplate>
+                    </asp:UpdatePanel>--%>
                 </div>
             </div>
             <div class="clear hideSkiplink">

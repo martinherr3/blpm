@@ -200,10 +200,9 @@ namespace EDUAR_UI
                 BuscarFiltrando();
             }
             catch (Exception ex)
-            {
-                AvisoMostrar = true;
-                AvisoExcepcion = ex;
-            }
+			{
+				Master.ManageExceptions(ex);
+			}
         }
 
         /// <summary>
@@ -230,10 +229,9 @@ namespace EDUAR_UI
                 }
             }
             catch (Exception ex)
-            {
-                AvisoMostrar = true;
-                AvisoExcepcion = ex;
-            }
+			{
+				Master.ManageExceptions(ex);
+			}
         }
 
         /// <summary>

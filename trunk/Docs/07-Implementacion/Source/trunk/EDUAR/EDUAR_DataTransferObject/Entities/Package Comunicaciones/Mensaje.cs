@@ -20,7 +20,7 @@ namespace EDUAR_Entities
         public List<Persona> ListaDestinatarios { get; set; }
         public DateTime fechaEnvio { get; set; }
         public DateTime horaEnvio { get; set; }
-        public DTUsuario remitente { get; set; }
+        public Persona remitente { get; set; }
 
 		/// <summary>
 		/// Este atributo SOLO SE UTILIZA PARA RECUPERAR LOS MENSAJES EN LOS QUE UN USUARIO APARECE COMO DESTINATARIO!!!
@@ -29,7 +29,8 @@ namespace EDUAR_Entities
 		/// The destinatario.
 		/// </value>
 		public Persona destinatario { get; set; }
-        public string textoMensaje { get; set; }
+        public string asuntoMensaje { get; set; }
+		public string textoMensaje { get; set; }
 		public bool activo { get; set; }
 
 		/// <summary>
@@ -44,7 +45,7 @@ namespace EDUAR_Entities
         public Mensaje()
         {
             ListaDestinatarios = new List<Persona>();
-            remitente = new DTUsuario();
+			remitente = new Persona();
 			destinatario = new Persona();
 			activo = true;
         }

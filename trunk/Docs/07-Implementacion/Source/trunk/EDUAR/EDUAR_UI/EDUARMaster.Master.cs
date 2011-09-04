@@ -88,6 +88,10 @@ namespace EDUAR_UI
 				// Ocultar la ventana de información
 				ventanaInfoMaster.Visible = false;
 
+				//Suscribe los eventos de la ventana emergente. 
+				ventanaInfoMaster.VentanaAceptarClick += (Aceptar);
+				ventanaInfoMaster.VentanaCancelarClick += (Cancelar);
+
 				if (!Page.IsPostBack)
 					CargarMenu();
 			}
@@ -345,14 +349,22 @@ namespace EDUAR_UI
 				if (objMensajes.Count > 0)
 				{
 					btnMail.ImageUrl = "/EDUAR_UI/Images/mail-unread.png";
+					btnMail.AlternateText = "Nuevo Mensaje!";
+					btnMail.ToolTip = "Nuevo Mensaje!";
 				}
 				else
 				{
 					btnMail.ImageUrl = "/EDUAR_UI/Images/mail-inbox.png";
+					btnMail.AlternateText = "Mensajes";
+					btnMail.ToolTip = "Mensaje";
 				}
-				btnMail.RenderControl(htm);
+				//btnMail.RenderControl(htm);
+				//htm.Flush();
+				lnkMensajes.HRef = "Private/Mensajes/MsjeEntrada.aspx";
+				//htm = new HtmlTextWriter(sr);
+				lnkMensajes.RenderControl(htm);
 				htm.Flush();
-				udpImgMensajes.Update();
+				//udpImgMensajes.Update();
 			}
 			else
 			{
@@ -360,7 +372,7 @@ namespace EDUAR_UI
 				btnMail.Visible = false;
 				btnMail.RenderControl(htm);
 				htm.Flush();
-				udpImgMensajes.Update();
+				//udpImgMensajes.Update();
 			}
 			_callbackResult = sr.ToString();
 		}
