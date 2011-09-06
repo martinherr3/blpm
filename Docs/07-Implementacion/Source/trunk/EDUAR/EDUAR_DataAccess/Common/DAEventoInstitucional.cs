@@ -208,6 +208,10 @@ namespace EDUAR_DataAccess.Common
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersona", DbType.String, entidad.organizador.idPersona);
                     if (ValidarFechaSQL(entidad.fecha))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha.ToShortDateString());
+                    if (ValidarFechaSQL(entidad.fechaDesde))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaDesde.ToShortDateString());
+                    if (ValidarFechaSQL(entidad.fechaHasta))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaHasta.ToShortDateString());
                     if (entidad.hora != null)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, Convert.ToDateTime(String.Format("{0:HH:mm}",entidad.hora)).ToShortTimeString());
                     if (!string.IsNullOrEmpty(entidad.lugar))

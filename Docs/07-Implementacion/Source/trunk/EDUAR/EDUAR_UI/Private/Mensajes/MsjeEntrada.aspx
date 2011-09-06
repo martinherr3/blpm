@@ -1,7 +1,8 @@
-﻿<%@ Page Title="Bandeja de Entrada" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
-    CodeBehind="MsjeEntrada.aspx.cs" Inherits="EDUAR_UI.MsjeEntrada" Theme="Tema"
-    StylesheetTheme="Tema" %>
+﻿<%@ Page Title="Bandeja de Entrada" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+    AutoEventWireup="true" CodeBehind="MsjeEntrada.aspx.cs" Inherits="EDUAR_UI.MsjeEntrada"
+    Theme="Tema" StylesheetTheme="Tema" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxtoolkit" %>
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
@@ -12,6 +13,34 @@
     </h2>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
+            <ajaxtoolkit:Accordion ID="MyAccordion" runat="Server" SelectedIndex="0" HeaderCssClass="accordionHeader"
+                HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent"
+                AutoSize="Fill" FadeTransitions="true" TransitionDuration="250" FramesPerSecond="40"
+                RequireOpenedPane="false" SuppressHeaderPostbacks="true">
+                <Panes>
+                    <ajaxtoolkit:AccordionPane runat="server" HeaderCssClass="accordionHeader" ContentCssClass="accordionContent">
+                        <Header>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <%# String.Format("{0} {1}", Eval("remitente.nombre"), Eval("remitente.apellido")) %>
+                                    </td>
+                                    <td>
+                                        <%# Eval("asuntoMensaje") %>
+                                    </td>
+                                    <td>
+                                        <%# (Eval("fechaEnvio","{0:d}") == DateTime.Now.ToShortDateString()) ?  Eval("horaEnvio","{0:HH:mm}") : Eval("fechaEnvio","{0:d}") %>
+                                    </td>
+                                </tr>
+                            </table>
+                        </Header>
+                        <Content>
+                            <p>
+                                <%# Server.HtmlDecode(Eval("textoMensaje").ToString()) %></p>
+                        </Content>
+                    </ajaxtoolkit:AccordionPane>
+                </Panes>
+            </ajaxtoolkit:Accordion>
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                 AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idMensaje"
                 OnRowCommand="gvwReporte_RowCommand" OnPageIndexChanging="gvwReporte_PageIndexChanging"

@@ -23,6 +23,8 @@ namespace EDUAR_Entities
         public Persona organizador { get; set; }
         public TipoEventoInstitucional tipoEventoInstitucional { get; set; }
         public bool activo { get; set; }
+        public DateTime fechaDesde { get; set; }
+        public DateTime fechaHasta { get; set; }
 
         public EventoInstitucional()
         {
