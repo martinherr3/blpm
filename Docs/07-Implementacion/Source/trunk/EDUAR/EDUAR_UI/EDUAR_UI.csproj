@@ -114,9 +114,11 @@
     <Content Include="Private\Alumnos\ManageCitaciones.aspx" />
     <Content Include="Private\Mensajes\MsjeEntrada.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
+    <Content Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx" />
     <Content Include="Private\Reports\PrintReport.aspx" />
     <Content Include="Private\Reports\reportAccesos.aspx" />
     <Content Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx" />
+    <Content Include="Private\Reports\reportInasistenciasAlumnoPeriodo.aspx" />
     <Content Include="Public\Account\ForgotPassword.aspx" />
     <Content Include="Public\Account\Login.aspx" />
     <Content Include="Private\Account\RegisterUser.aspx" />
@@ -295,6 +297,13 @@
     <Compile Include="Private\Mensajes\MsjeRedactar.aspx.designer.cs">
       <DependentUpon>MsjeRedactar.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx.cs">
+      <DependentUpon>reportSancionesAlumnoPeriodo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx.designer.cs">
+      <DependentUpon>reportSancionesAlumnoPeriodo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Private\Reports\PrintReport.aspx.cs">
       <DependentUpon>PrintReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -315,6 +324,13 @@
     </Compile>
     <Compile Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx.designer.cs">
       <DependentUpon>reportCalificacionesAlumnoPeriodo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Reports\reportInasistenciasAlumnoPeriodo.aspx.cs">
+      <DependentUpon>reportInasistenciasAlumnoPeriodo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Reports\reportInasistenciasAlumnoPeriodo.aspx.designer.cs">
+      <DependentUpon>reportInasistenciasAlumnoPeriodo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\Account\ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
