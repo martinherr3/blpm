@@ -48,12 +48,43 @@
     <Compile Include="Excepciones\CustomizedException.cs" />
     <Compile Include="Excepciones\GenericException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\SMSServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Utilidades\EDUAREmail.cs" />
     <Compile Include="Utilidades\EDUARLog.cs" />
+    <Compile Include="Utilidades\EDUARSMS.cs" />
     <Compile Include="Utilidades\EDUARUtilidades.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DLL\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\SMSServiceReference\aspsmsx2.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\SMSServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SMSServiceReference\aspsmsx2.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SMSServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SMSServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SMSServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
