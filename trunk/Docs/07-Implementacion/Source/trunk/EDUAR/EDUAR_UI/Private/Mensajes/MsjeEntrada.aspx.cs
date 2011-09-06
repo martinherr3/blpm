@@ -170,6 +170,10 @@ namespace EDUAR_UI
 		{
 			gvwReporte.DataSource = UIUtilidades.BuildDataTable<Mensaje>(listaMensajes).DefaultView;
 			gvwReporte.DataBind();
+
+			MyAccordion.DataSource = UIUtilidades.BuildDataTable<Mensaje>(listaMensajes).DefaultView;
+			MyAccordion.DataBind();
+
 			//udpEdit.Visible = false;
 			udpGrilla.Update();
 		}

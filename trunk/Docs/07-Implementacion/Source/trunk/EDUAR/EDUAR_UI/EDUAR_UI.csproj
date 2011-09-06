@@ -114,11 +114,9 @@
     <Content Include="Private\Alumnos\ManageCitaciones.aspx" />
     <Content Include="Private\Mensajes\MsjeEntrada.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
-    <Content Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx" />
     <Content Include="Private\Reports\PrintReport.aspx" />
     <Content Include="Private\Reports\reportAccesos.aspx" />
     <Content Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx" />
-    <Content Include="Private\Reports\reportInasistenciasAlumnoPeriodo.aspx" />
     <Content Include="Public\Account\ForgotPassword.aspx" />
     <Content Include="Public\Account\Login.aspx" />
     <Content Include="Private\Account\RegisterUser.aspx" />
@@ -167,6 +165,20 @@
     <Content Include="Scripts\css\blitzer\images\ui-icons_cc0000_256x240.png" />
     <Content Include="Scripts\css\blitzer\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Scripts\css\blitzer\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Scripts\css\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Scripts\css\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\css\smoothness\jquery-ui-1.8.16.custom.css" />
     <Content Include="Scripts\General.js" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
@@ -297,13 +309,6 @@
     <Compile Include="Private\Mensajes\MsjeRedactar.aspx.designer.cs">
       <DependentUpon>MsjeRedactar.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx.cs">
-      <DependentUpon>reportSancionesAlumnoPeriodo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx.designer.cs">
-      <DependentUpon>reportSancionesAlumnoPeriodo.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Private\Reports\PrintReport.aspx.cs">
       <DependentUpon>PrintReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -324,13 +329,6 @@
     </Compile>
     <Compile Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx.designer.cs">
       <DependentUpon>reportCalificacionesAlumnoPeriodo.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Reports\reportInasistenciasAlumnoPeriodo.aspx.cs">
-      <DependentUpon>reportInasistenciasAlumnoPeriodo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Reports\reportInasistenciasAlumnoPeriodo.aspx.designer.cs">
-      <DependentUpon>reportInasistenciasAlumnoPeriodo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\Account\ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>

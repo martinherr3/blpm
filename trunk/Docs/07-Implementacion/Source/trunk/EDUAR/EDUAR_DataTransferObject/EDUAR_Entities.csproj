@@ -120,8 +120,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Reports\FilSancionesAlumnoPeriodo.cs" />
-    <Compile Include="Reports\FilInasistenciasAlumnoPeriodo.cs" />
     <Compile Include="Reports\FilAccesos.cs" />
     <Compile Include="Reports\FilCalificacionesAlumnoPeriodo.cs" />
     <Compile Include="Reports\RptCalificacionesAlumnoPeriodo.cs" />
