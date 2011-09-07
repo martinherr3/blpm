@@ -33,5 +33,10 @@ namespace EDUAR_Utility.Constantes
         public const string MensajeSinResultados = "La consulta no produjo resultados.";
 		public const string MensajeFechaMenorActual = "La fecha no puede ser anterior a la fecha actual.";
         #endregion
-    }
+
+		#region Mensajería
+		public const string MensajeMultiDestino = "El mensaje ha sido enviado a los destinatarios.";
+		public const string MensajeUnicoDestino = "El mensaje ha sido enviado al destinatario.";
+		#endregion
+	}
 }

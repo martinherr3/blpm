@@ -29,6 +29,11 @@ namespace EDUAR_DataAccess.Common
 		#endregion
 
 		#region --[Métodos Publicos]--
+		/// <summary>
+		/// Gets the personas.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
 		public List<Persona> GetPersonas(Persona entidad)
 		{
 			try
@@ -215,6 +220,11 @@ namespace EDUAR_DataAccess.Common
 			get { throw new NotImplementedException(); }
 		}
 
+		/// <summary>
+		/// Gets the by id.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
 		public override Persona GetById(Persona entidad)
 		{
 			try
@@ -269,6 +279,11 @@ namespace EDUAR_DataAccess.Common
 
 		}
 
+		/// <summary>
+		/// Creates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <param name="identificador">The identificador.</param>
 		public override void Create(Persona entidad, out int identificador)
 		{
 			try
@@ -313,6 +328,10 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
+		/// <summary>
+		/// Updates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
 		public override void Update(Persona entidad)
 		{
 			try
@@ -360,6 +379,10 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
+		/// <summary>
+		/// Deletes the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
 		public override void Delete(Persona entidad)
 		{
 			try

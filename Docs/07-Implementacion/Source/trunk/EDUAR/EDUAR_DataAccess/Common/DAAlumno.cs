@@ -127,6 +127,11 @@ namespace EDUAR_DataAccess.Common
         //    }
         //}
 
+		/// <summary>
+		/// Gets the alumnos.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
         public List<Alumno> GetAlumnos(AlumnoCurso entidad)
         {
             try

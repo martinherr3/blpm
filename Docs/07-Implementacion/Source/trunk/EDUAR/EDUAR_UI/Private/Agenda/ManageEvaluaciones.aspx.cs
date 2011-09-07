@@ -202,7 +202,8 @@ namespace EDUAR_UI
 				//TODO: hay que cargar días disponibles en función de los días que se dicta la materia!
 				AccionPagina = enumAcciones.Nuevo;
 				LimpiarCampos();
-				CargarCombos();
+				CargarComboAsignatura();
+				//BindComboModulos(DateTime.Now.Month);
 				esNuevo = true;
 				btnGuardar.Visible = true;
 				btnBuscar.Visible = false;
@@ -330,6 +331,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				ddlMeses.Enabled = true;
 				ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
 				//BindComboModulos(DateTime.Now.Month);
 			}
@@ -385,8 +387,8 @@ namespace EDUAR_UI
 			if (ddlMeses.Items.Count > 0) ddlMeses.SelectedIndex = 0;
 			if (ddlDia.Items.Count > 0) ddlDia.SelectedIndex = 0;
 			calfechas.LimpiarControles();
-			ddlAsignatura.SelectedIndex = 0;
-			ddlAsignaturaEdit.SelectedIndex = 0;
+			if (ddlAsignatura.Items.Count > 0) ddlAsignatura.SelectedIndex = 0;
+			if (ddlAsignaturaEdit.Items.Count > 0) ddlAsignaturaEdit.SelectedIndex = 0;
 			txtDescripcionEdit.Text = string.Empty;
 		}
 
@@ -406,8 +408,8 @@ namespace EDUAR_UI
 			ddlAsignaturaEdit.Items.Clear();
 			ddlMeses.Items.Clear();
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false, true);
-			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
 			UIUtilidades.BindComboMeses(ddlMeses, false);
+			ddlMeses.Enabled = false;
 			//BindComboModulos(DateTime.Now.Month);
 
 			//UIUtilidades.SortByText(ddlAsignatura);
@@ -533,14 +535,14 @@ namespace EDUAR_UI
 			objBLAgenda = new BLAgendaActividades(propAgenda);
 			objBLAgenda.GetById();
 
-            int idAsignatura = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
+			int idAsignatura = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
 
-            entidad.tipoEventoAgenda.idTipoEventoAgenda = (int)enumEventoAgendaType.Evaluacion;
-            if (objBLAgenda.VerificarAgendaExcursion(entidad) && objBLAgenda.VerificarAgendaEvaluacion(entidad, idAsignatura))
-            {
-                objBLAgenda.Data.listaEvaluaciones.Add((Evaluacion)entidad);
-                objBLAgenda.Save();
-            }
+			entidad.tipoEventoAgenda.idTipoEventoAgenda = (int)enumEventoAgendaType.Evaluacion;
+			if (objBLAgenda.VerificarAgendaExcursion(entidad) && objBLAgenda.VerificarAgendaEvaluacion(entidad, idAsignatura))
+			{
+				objBLAgenda.Data.listaEvaluaciones.Add((Evaluacion)entidad);
+				objBLAgenda.Save();
+			}
 		}
 
 		/// <summary>
@@ -558,8 +560,11 @@ namespace EDUAR_UI
 				ddlMeses.SelectedValue = entidad.fechaEvento.Month.ToString();
 				if (ddlDia.Items.FindByValue(entidad.fechaEvento.Day.ToString()) != null)
 					ddlDia.SelectedValue = entidad.fechaEvento.Day.ToString();
+				else
+					ddlDia.SelectedIndex = 0;
 				ddlAsignaturaEdit.SelectedValue = entidad.asignatura.idAsignatura.ToString();
 				ddlAsignaturaEdit.Enabled = false;
+				ddlMeses.Enabled = true;
 				chkActivoEdit.Checked = entidad.activo;
 			}
 		}
@@ -595,6 +600,7 @@ namespace EDUAR_UI
 		{
 			AccionPagina = enumAcciones.Modificar;
 			esNuevo = false;
+			CargarComboAsignatura();
 			CargarValoresEnPantalla(propEvento.idEventoAgenda);
 			litEditar.Visible = true;
 			litNuevo.Visible = false;
@@ -607,6 +613,22 @@ namespace EDUAR_UI
 			udpEdit.Visible = true;
 			udpFiltros.Update();
 			udpEdit.Update();
+		}
+
+		/// <summary>
+		/// Cargars the combo asignatura.
+		/// </summary>
+		private void CargarComboAsignatura()
+		{
+			BLAsignatura objBLAsignatura = new BLAsignatura();
+			Asignatura objAsignatura = new Asignatura();
+			objAsignatura.curso.idCurso = propAgenda.cursoCicloLectivo.idCurso;
+			objAsignatura.curso.cicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
+			if (User.IsInRole(enumRoles.Docente.ToString()))
+				objAsignatura.docente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+
+			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
+
 		}
 		#endregion
 	}
