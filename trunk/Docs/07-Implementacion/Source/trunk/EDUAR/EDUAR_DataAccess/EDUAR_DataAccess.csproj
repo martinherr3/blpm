@@ -118,6 +118,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\DARptCalificacionesAlumnoPeriodo.cs" />
     <Compile Include="Reports\DARptAccesos.cs" />
+    <Compile Include="Reports\DARptInasistenciasAlumnoPeriodo.cs" />
+    <Compile Include="Reports\DARptSancionesAlumnoPeriodo.cs" />
     <Compile Include="Security\DASeguridad.cs" />
     <Compile Include="Shared\DAConfiguracionGlobal.cs" />
     <Compile Include="Shared\DAHelper.cs" />
