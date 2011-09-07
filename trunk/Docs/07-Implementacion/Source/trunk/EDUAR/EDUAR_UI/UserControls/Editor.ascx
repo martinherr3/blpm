@@ -4,7 +4,7 @@
 <script type="text/javascript" src="/EDUAR_UI/Scripts/cleditor/jquery.cleditor.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#MainContent_textoMensaje_inputEditor").cleditor({
+        $("#<%= inputEditor.ClientID  %>").cleditor({
             width: 685, // width not including margins, borders or padding
             height: 250, // height not including margins, borders or padding
             controls:     // controls to add to the toolbar

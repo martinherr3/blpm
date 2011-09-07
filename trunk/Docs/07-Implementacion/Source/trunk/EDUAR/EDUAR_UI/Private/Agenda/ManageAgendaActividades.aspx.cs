@@ -238,7 +238,7 @@ namespace EDUAR_UI
 					if (Page.IsValid)
 					{
 						//TODO: Aquí hay que llamar a la validación de disponibilidad de agenda
-                        AccionPagina = enumAcciones.Guardar;
+						AccionPagina = enumAcciones.Guardar;
 						Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
 					}
 				}
@@ -548,7 +548,7 @@ namespace EDUAR_UI
 			CargarValoresEnPantalla(propAgenda.idAgendaActividad);
 			propAgenda.listaEventos.Sort((p, q) => DateTime.Compare(p.fechaEvento, q.fechaEvento));
 			CargarGrillaAgenda();
-			HabilitarBotonesDetalle(true);
+			HabilitarBotonesDetalle(propAgenda.activo);
 			btnBuscar.Visible = false;
 			btnVolver.Visible = true;
 			gvwReporte.Visible = false;
