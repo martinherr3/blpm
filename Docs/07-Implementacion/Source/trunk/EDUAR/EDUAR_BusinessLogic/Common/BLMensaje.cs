@@ -198,6 +198,23 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+        public void LeerMensaje()
+        {
+            try
+            {
+                DataAcces.LeerMensaje(Data);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - LeerMensaje", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
 
 		#region --[Métodos Privados]--
@@ -224,6 +241,5 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
 		#endregion
-
-	}
+    }
 }

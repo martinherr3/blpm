@@ -69,11 +69,11 @@
             <div class="title">
                 <img src="/EDUAR_UI/Images/Logo_chico.png" alt="EDU@R 2.0" style="vertical-align: middle" />
                 <br />
-                <asp:SiteMapPath ID="siteMapPathEDUAR" runat="server" OnPreRender="siteMapPathEDUAR_PreRender"
+                <%--<asp:SiteMapPath ID="siteMapPathEDUAR" runat="server" OnPreRender="siteMapPathEDUAR_PreRender"
                     BorderWidth="0">
                     <PathSeparatorStyle CssClass="sitepathSeparacion" />
                     <NodeStyle CssClass="sitepath" />
-                </asp:SiteMapPath>
+                </asp:SiteMapPath>--%>
             </div>
             <div class="loginDisplay">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
@@ -82,7 +82,7 @@
                             sesión</a> ]
                     </AnonymousTemplate>
                     <LoggedInTemplate>
-                        Pantalla de bienvenida <span class="bold">
+                        Usuario: <span class="bold">
                             <asp:LoginName ID="HeadLoginName" runat="server" />
                         </span>! [
                         <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutText="Cerrar sesión" OnLoggingOut="HeadLoginStatus_LoggingOut" />

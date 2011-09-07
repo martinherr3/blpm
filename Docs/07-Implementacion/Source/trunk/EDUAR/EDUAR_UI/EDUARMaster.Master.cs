@@ -129,17 +129,17 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void siteMapPathEDUAR_PreRender(object sender, EventArgs e)
 		{
-			SiteMapNodeItem sepItem = new SiteMapNodeItem(-1, SiteMapNodeItemType.PathSeparator);
-			ITemplate sepTemplate = siteMapPathEDUAR.PathSeparatorTemplate;
-			if (sepTemplate == null)
-			{
-				Literal separator = new Literal { Text = siteMapPathEDUAR.PathSeparator };
-				sepItem.Controls.Add(separator);
-			}
-			else
-				sepTemplate.InstantiateIn(sepItem);
+            //SiteMapNodeItem sepItem = new SiteMapNodeItem(-1, SiteMapNodeItemType.PathSeparator);
+            //ITemplate sepTemplate = siteMapPathEDUAR.PathSeparatorTemplate;
+            //if (sepTemplate == null)
+            //{
+            //    Literal separator = new Literal { Text = siteMapPathEDUAR.PathSeparator };
+            //    sepItem.Controls.Add(separator);
+            //}
+            //else
+            //    sepTemplate.InstantiateIn(sepItem);
 
-			sepItem.ApplyStyle(siteMapPathEDUAR.PathSeparatorStyle);
+            //sepItem.ApplyStyle(siteMapPathEDUAR.PathSeparatorStyle);
 		}
 
 		/// <summary>
