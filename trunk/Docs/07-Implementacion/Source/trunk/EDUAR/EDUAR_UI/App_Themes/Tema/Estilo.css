@@ -262,22 +262,23 @@ div.accountInfo
     display: block;
     text-align: right;
     padding: 10px;
-    color: White;
+    color: #1E1E1E;
+    font-weight: 100;
 }
 
 .loginDisplay a:link
 {
-    color: white;
+    color: #1E1E1E;
 }
 
 .loginDisplay a:visited
 {
-    color: white;
+    color: #1E1E1E;
 }
 
 .loginDisplay a:hover
 {
-    color: white;
+    color: #DCDCDC;
 }
 
 .failureNotification

@@ -187,5 +187,31 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 		#endregion
-	}
+
+        public void LeerMensaje(Mensaje entidad)
+        {
+            try
+            {
+                using (Transaction.DBcomand = Transaction.DataBase.GetSqlStringCommand("UPDATE Mensaje SET leido = 1 WHERE idMensaje = idMensaje"))
+                {
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensaje", DbType.Int32, entidad.idMensaje);
+
+                    if (Transaction.Transaction != null)
+                        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+                    else
+                        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - LeerMensaje()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - LeerMensaje()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+    }
 }

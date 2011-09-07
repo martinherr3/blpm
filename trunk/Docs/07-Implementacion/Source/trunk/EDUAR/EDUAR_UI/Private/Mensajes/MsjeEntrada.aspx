@@ -19,9 +19,8 @@
             font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
             font-size: 12px;
             font-style: normal;
-            font-weight: normal;
-            /*color: #8B908C;*/
-            color:Black;
+            font-weight: normal; /*color: #8B908C;*/
+            color: Black;
             border: 1px solid #dbdddc;
             text-decoration: none;
             overflow: hidden; /* text-overflow: ellipsis;*/
@@ -42,9 +41,8 @@
             font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
             font-size: 12px;
             font-style: normal;
-            font-weight: normal;
-             /*color: #8B908C;*/
-            color:Black;
+            font-weight: normal; /*color: #8B908C;*/
+            color: Black;
             border: 1px solid #dbdddc;
             text-decoration: none;
             overflow: hidden; /* text-overflow: ellipsis;*/
@@ -58,6 +56,18 @@
             padding: 10px 25px 25px 25px; /*font-size: medium; color:Snow;  */
         }
     </style>
+    <script type="text/javascript">
+        //        function pageLoad() {
+        //            var accCtrl = $find('<%= MyAccordion.ClientID %>_AccordionExtender');
+        //            accCtrl.add_selectedIndexChanged(onAccordionPaneChanged);
+        //        }
+
+
+        //        function onAccordionPaneChanged(sender, eventArgs) {
+        //            var selPane = sender.get_SelectedIndex() + 1;
+        //            alert('You selected Pane ' + selPane);
+        //        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
@@ -67,11 +77,18 @@
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <hr />
-            <ajaxtoolkit:Accordion ID="MyAccordion" runat="Server" SelectedIndex="0" HeaderCssClass="accordionHeader"
+            <ajaxtoolkit:Accordion ID="MyAccordion" runat="Server" SelectedIndex="-1" HeaderCssClass="accordionHeader"
                 HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent"
-                AutoSize="Fill" FadeTransitions="true" TransitionDuration="250" FramesPerSecond="40"
-                RequireOpenedPane="false" SuppressHeaderPostbacks="true" Width="100%">
+                AutoSize="None" FadeTransitions="true" TransitionDuration="250" FramesPerSecond="40"
+                RequireOpenedPane="false" Width="100%" OnItemDataBound="MyAccordion_ItemDataBound"
+                OnItemCommand="MyAccordion_ItemCommand" SuppressHeaderPostbacks="false">
                 <HeaderTemplate>
+                    <%--<asp:HiddenField ID="idMensaje" runat="server" Value="<%# Eval("idMensaje") %>" />--%>
+                    <%--<asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idMensaje") %>'
+                                ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />--%>
+                    <%--<asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idMensaje") %>'
+                        ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />--%>
+                    <asp:LinkButton ID="lnkEncabezado" runat="server" CommandName="Leer" CommandArgument='<%# Bind("idMensaje") %>'>
                     <table class="tablaInternaMensajes" cellpadding="1" cellspacing="5">
                         <tr>
                             <td class="TDCriterios30">
@@ -84,7 +101,7 @@
                                 <%# (Eval("fechaEnvio","{0:d}") == DateTime.Now.ToShortDateString()) ?  Eval("horaEnvio","{0:HH:mm}") : Eval("fechaEnvio","{0:d}") %>
                             </td>
                         </tr>
-                    </table>
+                    </table></asp:LinkButton>
                 </HeaderTemplate>
                 <ContentTemplate>
                     <p>
@@ -92,43 +109,50 @@
                 </ContentTemplate>
             </ajaxtoolkit:Accordion>
             <hr />
-            <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
-                AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idMensaje"
-                OnRowCommand="gvwReporte_RowCommand" OnPageIndexChanging="gvwReporte_PageIndexChanging"
-                AllowSorting="true">
-                <Columns>
-                    <asp:TemplateField HeaderText="Acciones">
-                        <HeaderStyle HorizontalAlign="center" Width="5%" />
-                        <ItemStyle HorizontalAlign="center" />
-                        <ItemTemplate>
-                            <asp:ImageButton ID="leerMensaje" runat="server" CommandName="Abrir" CommandArgument='<%# Bind("idMensaje") %>'
-                                ToolTip="Abrir Mensaje" ImageUrl="~/Images/Grillas/action-open.png" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Remitente">
-                        <HeaderStyle HorizontalAlign="left" Width="20%" />
-                        <ItemStyle HorizontalAlign="left" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblOrganizador" runat="server" Text='<%# String.Format("{0} {1}", Eval("remitente.nombre"), Eval("remitente.apellido")) %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Asunto">
-                        <HeaderStyle HorizontalAlign="left" Width="50%" />
-                        <ItemStyle HorizontalAlign="left" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblMotivoGrilla" runat="server" Text='<%# Bind("asuntoMensaje") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Fecha">
-                        <HeaderStyle HorizontalAlign="center" Width="10%" />
-                        <ItemStyle HorizontalAlign="center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# (Eval("fechaEnvio","{0:d}") == DateTime.Now.ToShortDateString()) ?  Eval("horaEnvio","{0:HH:mm}") : Eval("fechaEnvio","{0:d}") %>'></asp:Label>
-                            <%--<asp:Label ID="Label1" runat="server" Text='<%# String.Format("{0} {1} hs.", Eval("fechaEnvio","{0:d}"), Eval("horaEnvio","{0:HH:mm}")) %>'></asp:Label>--%>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
+            <table class="tablaInternaMensajes" cellpadding="5" cellspacing="1">
+                <tr>
+                    <td class="TDCriterios50">
+                        Mostrar
+                        <asp:DropDownList ID="ddlPageSize" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
+                            <asp:ListItem>5</asp:ListItem>
+                            <asp:ListItem>10</asp:ListItem>
+                            <asp:ListItem>15</asp:ListItem>
+                        </asp:DropDownList>
+                        por Página
+                    </td>
+                    <td class="TD50" align="right">
+                        <table>
+                            <tr>
+                                <td>
+                                    <asp:ImageButton ID="lnkbtnFirst" OnClick="lnkbtnFirst_Click" ImageUrl="~/Images/Paginador/go-frist-view.png"
+                                        runat="server" />
+                                </td>
+                                <td>
+                                    <asp:ImageButton ID="lnkbtnPrevious" OnClick="lnkbtnPrevious_Click" ImageUrl="~/Images/Paginador/go-previous-view.png"
+                                        runat="server" />
+                                </td>
+                                <td>
+                                    <asp:DataList ID="dlPaging" runat="server" OnItemCommand="dlPaging_ItemCommand" OnItemDataBound="dlPaging_ItemDataBound"
+                                        RepeatDirection="Horizontal">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lnkbtnPaging" runat="server" CommandArgument='<%# Eval("PageIndex") %>'
+                                                CommandName="lnkbtnPaging" Text='<%# Eval("PageText") %>'></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:DataList>
+                                </td>
+                                <td>
+                                    <asp:ImageButton ID="lnkbtnNext" OnClick="lnkbtnNext_Click" ImageUrl="~/Images/Paginador/go-next-view.png"
+                                        runat="server" />
+                                </td>
+                                <td>
+                                    <asp:ImageButton ID="lnkbtnLast" OnClick="lnkbtnLast_Click" ImageUrl="~/Images/Paginador/go-last-view.png"
+                                        runat="server" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
