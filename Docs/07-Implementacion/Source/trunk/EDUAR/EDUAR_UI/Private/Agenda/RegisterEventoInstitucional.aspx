@@ -213,7 +213,7 @@
                                     CultureName="es-ES" TargetControlID="txtHoraEdit" MessageValidatorTip="true">
                                 </cc1:MaskedEditExtender>
                                 <cc1:MaskedEditValidator ID="MaskedEditValidator2" runat="server" ToolTip="Hora Inválida"
-                                    ErrorMessage="*" ControlExtender="MaskedEditExtender1" ControlToValidate="txtHoraEdit"
+                                    ErrorMessage="*" ControlExtender="MaskedEditExtender2" ControlToValidate="txtHoraEdit"
                                     InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
                                 </cc1:MaskedEditValidator>
                             </td>

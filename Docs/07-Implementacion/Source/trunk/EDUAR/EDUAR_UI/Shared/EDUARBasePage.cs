@@ -180,11 +180,11 @@ namespace EDUAR_UI.Shared
 			string loginPage = "";
 			if (strScheme != "")
 				loginPage += strScheme + "://";
-			//loginPage += "/Public/Account/Login.aspx";
 			loginPage += Request.Url.Host;
 			if (strPort != "")
 				loginPage += ":" + strPort;
-			loginPage += strDefaultPage;
+			//loginPage += strDefaultPage;
+			loginPage += "/EDUAR_UI/Public/Account/Login.aspx";
 
 			ObjDTSessionDataUI.urlDefault = new Uri(loginPage);
 
