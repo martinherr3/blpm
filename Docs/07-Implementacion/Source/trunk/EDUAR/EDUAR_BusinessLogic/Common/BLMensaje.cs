@@ -199,6 +199,9 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
 
+		/// <summary>
+		/// Leers the mensaje.
+		/// </summary>
         public void LeerMensaje()
         {
             try

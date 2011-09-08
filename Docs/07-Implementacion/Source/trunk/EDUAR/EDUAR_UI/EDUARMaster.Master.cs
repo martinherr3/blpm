@@ -345,7 +345,8 @@ namespace EDUAR_UI
 				BLMensaje objBLMensaje = new BLMensaje();
 				List<Mensaje> objMensajes = new List<Mensaje>();
 
-				objMensajes = objBLMensaje.GetMensajes(new Mensaje() { destinatario = new Persona() { username = ObjDTSessionDataUI.ObjDTUsuario.Nombre }, leido = false, activo = true });
+				objMensajes = objBLMensaje.GetMensajes(new Mensaje() { destinatario = new Persona() { username = ObjDTSessionDataUI.ObjDTUsuario.Nombre }, activo = true });
+				objMensajes = objMensajes.FindAll(p => p.leido == false);
 				btnMail.Visible = true;
 				if (objMensajes.Count > 0)
 				{
