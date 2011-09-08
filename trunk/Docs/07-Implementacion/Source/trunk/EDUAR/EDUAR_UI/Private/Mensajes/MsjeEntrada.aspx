@@ -56,18 +56,6 @@
             padding: 10px 25px 25px 25px; /*font-size: medium; color:Snow;  */
         }
     </style>
-    <script type="text/javascript">
-        //        function pageLoad() {
-        //            var accCtrl = $find('<%= MyAccordion.ClientID %>_AccordionExtender');
-        //            accCtrl.add_selectedIndexChanged(onAccordionPaneChanged);
-        //        }
-
-
-        //        function onAccordionPaneChanged(sender, eventArgs) {
-        //            var selPane = sender.get_SelectedIndex() + 1;
-        //            alert('You selected Pane ' + selPane);
-        //        }
-    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
@@ -80,28 +68,26 @@
             <ajaxtoolkit:Accordion ID="MyAccordion" runat="Server" SelectedIndex="-1" HeaderCssClass="accordionHeader"
                 HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent"
                 AutoSize="None" FadeTransitions="true" TransitionDuration="250" FramesPerSecond="40"
-                RequireOpenedPane="false" Width="100%" OnItemDataBound="MyAccordion_ItemDataBound"
-                OnItemCommand="MyAccordion_ItemCommand" SuppressHeaderPostbacks="false">
+                RequireOpenedPane="false" Width="100%" OnItemCommand="MyAccordion_ItemCommand"
+                SuppressHeaderPostbacks="false">
                 <HeaderTemplate>
-                    <%--<asp:HiddenField ID="idMensaje" runat="server" Value="<%# Eval("idMensaje") %>" />--%>
-                    <%--<asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idMensaje") %>'
-                                ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />--%>
-                    <%--<asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idMensaje") %>'
-                        ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />--%>
                     <asp:LinkButton ID="lnkEncabezado" runat="server" CommandName="Leer" CommandArgument='<%# Bind("idMensaje") %>'>
-                    <table class="tablaInternaMensajes" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td class="TDCriterios30">
-                                <%# String.Format("{0} {1}", Eval("remitente.nombre"), Eval("remitente.apellido")) %>
-                            </td>
-                            <td class="TDCriterios60">
-                                <%# Eval("asuntoMensaje") %>
-                            </td>
-                            <td class="TD10" align="center">
-                                <%# (Eval("fechaEnvio","{0:d}") == DateTime.Now.ToShortDateString()) ?  Eval("horaEnvio","{0:HH:mm}") : Eval("fechaEnvio","{0:d}") %>
-                            </td>
-                        </tr>
-                    </table></asp:LinkButton>
+                        <table id="<%# String.Format("tbl_{0}", Eval("idMensaje").ToString()) %>" class="tablaInternaMensajes"
+                            cellpadding="1" cellspacing="5" style="font-weight: <%# Boolean.Parse(Eval("leido").ToString()) ? "normal" : "bold"  %>">
+                            <tr>
+                                <td class="TDCriterios30">
+                                 
+                                    <%# String.Format("{0} {1}", Eval("remitente.nombre"), Eval("remitente.apellido")) %>
+                                </td>
+                                <td class="TDCriterios60">
+                                    <%# Eval("asuntoMensaje") %>
+                                </td>
+                                <td class="TD10" align="center">
+                                    <%# (Eval("fechaEnvio","{0:d}") == DateTime.Now.ToShortDateString()) ?  Eval("horaEnvio","{0:HH:mm}") : Eval("fechaEnvio","{0:d}") %>
+                                </td>
+                            </tr>
+                        </table>
+                    </asp:LinkButton>
                 </HeaderTemplate>
                 <ContentTemplate>
                     <p>
@@ -111,7 +97,7 @@
             <hr />
             <table class="tablaInternaMensajes" cellpadding="5" cellspacing="1">
                 <tr>
-                    <td class="TDCriterios50">
+                    <td class="TDCriterios40">
                         Mostrar
                         <asp:DropDownList ID="ddlPageSize" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlPageSize_SelectedIndexChanged">
                             <asp:ListItem>5</asp:ListItem>
@@ -120,7 +106,10 @@
                         </asp:DropDownList>
                         por Página
                     </td>
-                    <td class="TD50" align="right">
+                    <td class="TD30" align="center">
+                        <asp:Label ID="lblCantidad" Text="" runat="server" />
+                    </td>
+                    <td class="TD30" align="right">
                         <table>
                             <tr>
                                 <td>

@@ -17,6 +17,7 @@ namespace EDUAR_Entities
     public class Mensaje : DTBase
     {
         public int idMensaje { get; set; }
+		public int idMensajeDestinatario { get; set; }
         public List<Persona> ListaDestinatarios { get; set; }
         public DateTime fechaEnvio { get; set; }
         public DateTime horaEnvio { get; set; }

@@ -1,11 +1,11 @@
 ﻿using System;
-using EDUAR_DataAccess.Shared;
-using EDUAR_Entities;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using EDUAR_Utility.Excepciones;
+using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
 using EDUAR_Utility.Enumeraciones;
-using System.Collections.Generic;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_DataAccess.Common
 {
@@ -116,7 +116,7 @@ namespace EDUAR_DataAccess.Common
 					if (!string.IsNullOrEmpty(entidad.destinatario.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioDestino", DbType.String, entidad.destinatario.username);
 					//if (entidad.leido)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
+					//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
 					if (entidad.activo)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 				}
@@ -129,6 +129,7 @@ namespace EDUAR_DataAccess.Common
 					objMensaje = new Mensaje();
 
 					objMensaje.idMensaje = Convert.ToInt32(reader["idMensaje"]);
+					objMensaje.idMensajeDestinatario = Convert.ToInt32(reader["idMensajeDestinatario"]);
 					objMensaje.asuntoMensaje = reader["asuntoMensaje"].ToString();
 					objMensaje.textoMensaje = reader["textoMensaje"].ToString();
 					objMensaje.activo = Convert.ToBoolean(reader["activo"].ToString());
@@ -138,6 +139,7 @@ namespace EDUAR_DataAccess.Common
 					objMensaje.destinatario.apellido = reader["apellidoDestinatario"].ToString();
 					objMensaje.remitente.nombre = reader["nombreRemitente"].ToString();
 					objMensaje.remitente.apellido = reader["apellidoRemitente"].ToString();
+					objMensaje.leido = Convert.ToBoolean(reader["leido"]);
 					listaMensaje.Add(objMensaje);
 				}
 				return listaMensaje;
@@ -186,32 +188,37 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+		/// <summary>
+		/// Leers the mensaje.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		public void LeerMensaje(Mensaje entidad)
+		{
+			try
+			{
+				using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajeDestinatario_Update"))
+				{
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensajeDestinatario", DbType.Int32, entidad.idMensajeDestinatario);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
+
+					if (Transaction.Transaction != null)
+						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+					else
+						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+				}
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - LeerMensaje()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - LeerMensaje()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
-
-        public void LeerMensaje(Mensaje entidad)
-        {
-            try
-            {
-                using (Transaction.DBcomand = Transaction.DataBase.GetSqlStringCommand("UPDATE Mensaje SET leido = 1 WHERE idMensaje = idMensaje"))
-                {
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensaje", DbType.Int32, entidad.idMensaje);
-
-                    if (Transaction.Transaction != null)
-                        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
-                    else
-                        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - LeerMensaje()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - LeerMensaje()", ClassName),
-                                    ex, enuExceptionType.DataAccesException);
-            }
-        }
-    }
+	}
 }

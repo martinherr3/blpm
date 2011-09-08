@@ -246,10 +246,6 @@ namespace EDUAR_UI
         {
             try
             {
-                //TODO: validar que para la misma persona que está dando de alta la reunión, no exista otra en el mismo horario, 
-                //tuvimos en cuenta la duración aproximada? para poder tener varias reuniones en un día
-                //validar que no exista ya otra reunión para el curso en el mismo día - horario
-                
                 string mensaje = ValidarPagina();
                 if (mensaje == string.Empty)
                 {

@@ -199,7 +199,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//TODO: hay que cargar días disponibles en función de los días que se dicta la materia!
 				AccionPagina = enumAcciones.Nuevo;
 				LimpiarCampos();
 				CargarComboAsignatura();
