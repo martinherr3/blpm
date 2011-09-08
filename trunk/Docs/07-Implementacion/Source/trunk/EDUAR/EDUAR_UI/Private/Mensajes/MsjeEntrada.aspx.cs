@@ -7,301 +7,361 @@ using EDUAR_BusinessLogic.Common;
 using EDUAR_Entities;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Constantes;
 
 //TODO: botón Eliminar mensaje, Responder.
 //TODO: filtrar destinatarios según el usuario logueado.
 
 namespace EDUAR_UI
 {
-	public partial class MsjeEntrada : EDUARBasePage
-	{
-		#region --[Atributos]--
-		private BLMensaje objBLMensaje;
+    public partial class MsjeEntrada : EDUARBasePage
+    {
+        #region --[Atributos]--
+        private BLMensaje objBLMensaje;
 
-		PagedDataSource pds = new PagedDataSource();
+        PagedDataSource pds = new PagedDataSource();
 
-		#endregion
+        #endregion
 
-		#region --[Propiedades]--
-		/// <summary>
-		/// Gets or sets the prop mensaje.
-		/// </summary>
-		/// <value>
-		/// The prop mensaje.
-		/// </value>
-		public Mensaje propMensaje
-		{
-			get
-			{
-				if (ViewState["propMensaje"] == null)
-					propMensaje = new Mensaje();
-				return (Mensaje)ViewState["propMensaje"];
-			}
-			set
-			{ ViewState["propMensaje"] = value; }
+        #region --[Propiedades]--
+        /// <summary>
+        /// Gets or sets the prop mensaje.
+        /// </summary>
+        /// <value>
+        /// The prop mensaje.
+        /// </value>
+        public Mensaje propMensaje
+        {
+            get
+            {
+                if (ViewState["propMensaje"] == null)
+                    propMensaje = new Mensaje();
+                return (Mensaje)ViewState["propMensaje"];
+            }
+            set
+            { ViewState["propMensaje"] = value; }
 
-		}
+        }
 
-		/// <summary>
-		/// Gets or sets the lista mensajes.
-		/// </summary>
-		/// <value>
-		/// The lista mensajes.
-		/// </value>
-		public List<Mensaje> listaMensajes
-		{
-			get
-			{
-				if (ViewState["listaMensajes"] == null)
-					listaMensajes = new List<Mensaje>();
-				return (List<Mensaje>)ViewState["listaMensajes"];
-			}
-			set
-			{ ViewState["listaMensajes"] = value; }
+        /// <summary>
+        /// Gets or sets the lista mensajes.
+        /// </summary>
+        /// <value>
+        /// The lista mensajes.
+        /// </value>
+        public List<Mensaje> listaMensajes
+        {
+            get
+            {
+                if (ViewState["listaMensajes"] == null)
+                    listaMensajes = new List<Mensaje>();
+                return (List<Mensaje>)ViewState["listaMensajes"];
+            }
+            set
+            { ViewState["listaMensajes"] = value; }
 
-		}
+        }
 
-		public int CurrentPage
-		{
-			get
-			{
-				if (this.ViewState["CurrentPage"] == null)
-				{
-					return 0;
-				}
-				else
-				{
-					return Convert.ToInt16(this.ViewState["CurrentPage"].ToString());
-				}
-			}
-			set
-			{
-				this.ViewState["CurrentPage"] = value;
-			}
-		}
-		#endregion
+        public int CurrentPage
+        {
+            get
+            {
+                if (this.ViewState["CurrentPage"] == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return Convert.ToInt16(this.ViewState["CurrentPage"].ToString());
+                }
+            }
+            set
+            {
+                this.ViewState["CurrentPage"] = value;
+            }
+        }
 
-		#region --[Eventos]--
-		/// <summary>
-		/// Método que se ejecuta al dibujar los controles de la página.
-		/// Se utiliza para gestionar las excepciones del método Page_Load().
-		/// </summary>
-		/// <param name="e"></param>
-		protected override void OnPreRender(EventArgs e)
-		{
-			base.OnPreRender(e);
-			if (AvisoMostrar)
-			{
-				AvisoMostrar = false;
+        public bool proceso
+        {
+            get
+            {
+                if (this.ViewState["proceso"] == null)
+                { proceso = true; }
+                return Convert.ToBoolean(this.ViewState["proceso"].ToString());
+            }
+            set
+            { this.ViewState["proceso"] = value; }
+        }
+        #endregion
 
-				try
-				{
-					Master.ManageExceptions(AvisoExcepcion);
-				}
-				catch (Exception ex) { Master.ManageExceptions(ex); }
-			}
-		}
+        #region --[Eventos]--
+        /// <summary>
+        /// Método que se ejecuta al dibujar los controles de la página.
+        /// Se utiliza para gestionar las excepciones del método Page_Load().
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnPreRender(EventArgs e)
+        {
+            base.OnPreRender(e);
+            if (AvisoMostrar)
+            {
+                AvisoMostrar = false;
 
-		/// <summary>
-		/// Handles the Load event of the Page control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			try
-			{
-				//Master.BotonAvisoAceptar += (VentanaAceptar);
-				MyAccordion.ItemCommand += (MyAccordion_ItemCommand);
-				if (!Page.IsPostBack)
-				{
-					//CargarPresentacion();
-					BuscarMensajes();
-				}
-			}
-			catch (Exception ex)
-			{
-				AvisoMostrar = true;
-				AvisoExcepcion = ex;
-			}
-		}
+                try
+                {
+                    Master.ManageExceptions(AvisoExcepcion);
+                }
+                catch (Exception ex) { Master.ManageExceptions(ex); }
+            }
+        }
 
-		/// <summary>
-		/// Método que se llama al hacer click sobre las acciones de la grilla
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
-		protected void gvwReporte_RowCommand(object sender, GridViewCommandEventArgs e)
-		{
-			try
-			{
-				switch (e.CommandName)
-				{
-					case "Abrir":
-						propMensaje.idMensaje = Convert.ToInt32(e.CommandArgument.ToString());
-						//CargaCitacion();
-						break;
-				}
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
-		}
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                Master.BotonAvisoAceptar += (VentanaAceptar);
+                MyAccordion.ItemCommand += (MyAccordion_ItemCommand);
+                if (!Page.IsPostBack)
+                {
+                    //CargarPresentacion();
+                    BuscarMensajes();
+                }
+            }
+            catch (Exception ex)
+            {
+                AvisoMostrar = true;
+                AvisoExcepcion = ex;
+            }
+        }
 
-		/// <summary>
-		/// Handles the ItemCommand event of the MyAccordion control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
-		protected void MyAccordion_ItemCommand(object sender, CommandEventArgs e)
-		{
-			switch (e.CommandName)
-			{
-				case "Leer":
-					int idMensaje = Convert.ToInt32(e.CommandArgument);
+        protected void VentanaAceptar(object sender, EventArgs e)
+        {
+            try
+            {
+                switch (AccionPagina)
+                {
+                    case enumAcciones.Modificar:
+                        AccionPagina = enumAcciones.Limpiar;
+                        break;
+                    case enumAcciones.Eliminar:
+                        Mensaje objMensaje = listaMensajes.Find(p => p.idMensajeDestinatario == propMensaje.idMensajeDestinatario);
+                        //objMensaje.idMensaje = idMensaje;
+                        objMensaje.leido = true;
+                        BLMensaje objBLMensaje = new BLMensaje(objMensaje);
+                        objBLMensaje.EliminarMensaje();
+                        listaMensajes.Remove(objMensaje);
+                        CargarGrilla();
+                        AccionPagina = enumAcciones.Limpiar;
+                        break;
+                    default:
+                        break;
+                }
+                //udpGrilla.Update();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
 
-					Mensaje objMensaje = listaMensajes.Find(p => p.idMensaje == idMensaje);
-					if (!objMensaje.leido)
-					{
-						//objMensaje.idMensaje = idMensaje;
-						objMensaje.leido = true;
-						BLMensaje objBLMensaje = new BLMensaje(objMensaje);
-						objBLMensaje.LeerMensaje();
-						listaMensajes.Find(p => p.idMensaje == idMensaje).leido = true;
-						Master.RaiseCallbackEvent(e.ToString());
-						CargarGrilla();
-					}
-					break;
-			}
-			udpGrilla.Update();
-		}
+        /// <summary>
+        /// Método que se llama al hacer click sobre las acciones de la grilla
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
+        protected void gvwReporte_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                switch (e.CommandName)
+                {
+                    case "Abrir":
+                        propMensaje.idMensajeDestinatario = Convert.ToInt32(e.CommandArgument.ToString());
+                        //CargaCitacion();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
 
-		/// <summary>
-		/// Handles the PageIndexChanging event of the gvwReporte control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
-		protected void gvwReporte_PageIndexChanging(object sender, GridViewPageEventArgs e)
-		{
-			try
-			{
-				//gvwReporte.PageIndex = e.NewPageIndex;
-				//CargarGrilla();
-			}
-			catch (Exception ex) { Master.ManageExceptions(ex); }
-		}
-		#endregion
+        /// <summary>
+        /// Handles the ItemCommand event of the MyAccordion control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
+        protected void MyAccordion_ItemCommand(object sender, CommandEventArgs e)
+        {
+            if (proceso)
+            {
+                proceso = false;
+                switch (e.CommandName)
+                {
+                    case "Leer":
+                        int idMensajeDestinatario = Convert.ToInt32(e.CommandArgument);
 
-		#region --[Métodos Privados]--
-		/// <summary>
-		/// Buscars the entidads.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		private void BuscarMensajes()
-		{
-			Mensaje entidad = new Mensaje();
-			entidad.destinatario.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
-			CargarLista(entidad);
-			CargarGrilla();
-		}
+                        Mensaje objMensaje = listaMensajes.Find(p => p.idMensajeDestinatario == idMensajeDestinatario);
+                        if (!objMensaje.leido)
+                        {
+                            //objMensaje.idMensajeDestinatario = idMensajeDestinatario;
+                            objMensaje.leido = true;
+                            BLMensaje objBLMensaje = new BLMensaje(objMensaje);
+                            objBLMensaje.LeerMensaje();
+                            listaMensajes.Find(p => p.idMensajeDestinatario == idMensajeDestinatario).leido = true;
+                            Master.RaiseCallbackEvent(e.ToString());
+                            CargarGrilla();
+                        }
+                        break;
+                    case "Responder":
 
-		/// <summary>
-		/// Cargars the lista.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		private void CargarLista(Mensaje entidad)
-		{
-			objBLMensaje = new BLMensaje();
-			listaMensajes = objBLMensaje.GetMensajes(entidad);
-		}
+                        break;
+                    case "Eliminar":
+                        AccionPagina = enumAcciones.Eliminar;
+                        propMensaje.idMensajeDestinatario = Convert.ToInt32(e.CommandArgument.ToString());
+                        Master.MostrarMensaje("Eliminar Mensaje", UIConstantesGenerales.MensajeEliminar, enumTipoVentanaInformacion.Confirmación);
+                        break;
+                }
+            }
+            else
+            {
+                proceso = true;
+            }
+            //udpGrilla.Update();
+        }
 
-		/// Cargars the grilla.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="lista">The lista.</param>
-		private void CargarGrilla()
-		{
-			DataTable dt = UIUtilidades.BuildDataTable<Mensaje>(listaMensajes);
-			pds.DataSource = dt.DefaultView;
-			pds.AllowPaging = true;
-			pds.PageSize = Convert.ToInt16(ddlPageSize.SelectedValue);
-			pds.CurrentPageIndex = CurrentPage;
-			lnkbtnNext.Visible = !pds.IsLastPage;
-			lnkbtnLast.Visible = !pds.IsLastPage;
-			lnkbtnPrevious.Visible = !pds.IsFirstPage;
-			lnkbtnFirst.Visible = !pds.IsFirstPage;
-			MyAccordion.DataSource = pds;
-			MyAccordion.DataBind();
-			doPaging();
-			lblCantidad.Text = dt.Rows.Count.ToString() + " Mensajes";
-			udpGrilla.Update();
-		}
-		#endregion
+        /// <summary>
+        /// Handles the PageIndexChanging event of the gvwReporte control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+        protected void gvwReporte_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                //gvwReporte.PageIndex = e.NewPageIndex;
+                //CargarGrilla();
+            }
+            catch (Exception ex) { Master.ManageExceptions(ex); }
+        }
+        #endregion
 
-		private void doPaging()
-		{
-			DataTable dt = new DataTable();
-			dt.Columns.Add("PageIndex");
-			dt.Columns.Add("PageText");
-			for (int i = 0; i < pds.PageCount; i++)
-			{
-				DataRow dr = dt.NewRow();
-				dr[0] = i;
-				dr[1] = i + 1;
-				dt.Rows.Add(dr);
-			}
-			dlPaging.DataSource = dt;
-			dlPaging.DataBind();
-		}
+        #region --[Métodos Privados]--
+        /// <summary>
+        /// Buscars the entidads.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        private void BuscarMensajes()
+        {
+            Mensaje entidad = new Mensaje();
+            entidad.destinatario.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+            CargarLista(entidad);
+            CargarGrilla();
+        }
 
-		protected void dlPaging_ItemCommand(object source, DataListCommandEventArgs e)
-		{
-			if (e.CommandName.Equals("lnkbtnPaging"))
-			{
-				CurrentPage = Convert.ToInt16(e.CommandArgument.ToString());
-				BuscarMensajes();
-			}
-		}
+        /// <summary>
+        /// Cargars the lista.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        private void CargarLista(Mensaje entidad)
+        {
+            objBLMensaje = new BLMensaje();
+            listaMensajes = objBLMensaje.GetMensajes(entidad);
+        }
 
-		protected void dlPaging_ItemDataBound(object sender, DataListItemEventArgs e)
-		{
-			LinkButton lnkbtnPage = (LinkButton)e.Item.FindControl("lnkbtnPaging");
-			if (lnkbtnPage.CommandArgument.ToString() == CurrentPage.ToString())
-			{
-				lnkbtnPage.Enabled = false;
-				lnkbtnPage.Font.Bold = true;
-			}
-		}
+        /// Cargars the grilla.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="lista">The lista.</param>
+        private void CargarGrilla()
+        {
+            DataTable dt = UIUtilidades.BuildDataTable<Mensaje>(listaMensajes);
+            pds.DataSource = dt.DefaultView;
+            pds.AllowPaging = true;
+            pds.PageSize = Convert.ToInt16(ddlPageSize.SelectedValue);
+            pds.CurrentPageIndex = CurrentPage;
+            lnkbtnNext.Visible = !pds.IsLastPage;
+            lnkbtnLast.Visible = !pds.IsLastPage;
+            lnkbtnPrevious.Visible = !pds.IsFirstPage;
+            lnkbtnFirst.Visible = !pds.IsFirstPage;
+            MyAccordion.DataSource = pds;
+            MyAccordion.DataBind();
+            doPaging();
+            lblCantidad.Text = dt.Rows.Count.ToString() + " Mensajes";
+            udpGrilla.Update();
+        }
+        #endregion
 
-		protected void lnkbtnPrevious_Click(object sender, EventArgs e)
-		{
-			CurrentPage -= 1;
-			BuscarMensajes();
-		}
+        private void doPaging()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("PageIndex");
+            dt.Columns.Add("PageText");
+            for (int i = 0; i < pds.PageCount; i++)
+            {
+                DataRow dr = dt.NewRow();
+                dr[0] = i;
+                dr[1] = i + 1;
+                dt.Rows.Add(dr);
+            }
+            dlPaging.DataSource = dt;
+            dlPaging.DataBind();
+        }
 
-		protected void lnkbtnNext_Click(object sender, EventArgs e)
-		{
-			CurrentPage += 1;
-			BuscarMensajes();
-		}
+        protected void dlPaging_ItemCommand(object source, DataListCommandEventArgs e)
+        {
+            if (e.CommandName.Equals("lnkbtnPaging"))
+            {
+                CurrentPage = Convert.ToInt16(e.CommandArgument.ToString());
+                BuscarMensajes();
+            }
+        }
 
-		protected void lnkbtnLast_Click(object sender, EventArgs e)
-		{
-			CurrentPage = dlPaging.Controls.Count - 1;
-			BuscarMensajes();
-		}
+        protected void dlPaging_ItemDataBound(object sender, DataListItemEventArgs e)
+        {
+            LinkButton lnkbtnPage = (LinkButton)e.Item.FindControl("lnkbtnPaging");
+            if (lnkbtnPage.CommandArgument.ToString() == CurrentPage.ToString())
+            {
+                lnkbtnPage.Enabled = false;
+                lnkbtnPage.Font.Bold = true;
+            }
+        }
 
-		protected void lnkbtnFirst_Click(object sender, EventArgs e)
-		{
-			CurrentPage = 0;
-			BuscarMensajes();
-		}
+        protected void lnkbtnPrevious_Click(object sender, EventArgs e)
+        {
+            CurrentPage -= 1;
+            BuscarMensajes();
+        }
 
-		protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			CurrentPage = 0;
-			BuscarMensajes();
-		}
-	}
+        protected void lnkbtnNext_Click(object sender, EventArgs e)
+        {
+            CurrentPage += 1;
+            BuscarMensajes();
+        }
+
+        protected void lnkbtnLast_Click(object sender, EventArgs e)
+        {
+            CurrentPage = dlPaging.Controls.Count - 1;
+            BuscarMensajes();
+        }
+
+        protected void lnkbtnFirst_Click(object sender, EventArgs e)
+        {
+            CurrentPage = 0;
+            BuscarMensajes();
+        }
+
+        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CurrentPage = 0;
+            BuscarMensajes();
+        }
+    }
 }

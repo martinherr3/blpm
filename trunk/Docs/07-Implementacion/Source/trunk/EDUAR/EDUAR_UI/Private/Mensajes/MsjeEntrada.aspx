@@ -71,8 +71,19 @@
                 RequireOpenedPane="false" Width="100%" OnItemCommand="MyAccordion_ItemCommand"
                 SuppressHeaderPostbacks="false">
                 <HeaderTemplate>
-                    <asp:LinkButton ID="lnkEncabezado" runat="server" CommandName="Leer" CommandArgument='<%# Bind("idMensaje") %>'>
-                        <table id="<%# String.Format("tbl_{0}", Eval("idMensaje").ToString()) %>" class="tablaInternaMensajes"
+                    <table class="tablaInternaMensajes" cellpadding="1" cellspacing="5">
+                        <tr>
+                            <td style="vertical-align: text-top">
+                                <asp:ImageButton ImageUrl="~/Images/Grillas/mail-reply-2.png" runat="server" ID="btnResponder"
+                                    AlternateText="Responder" ToolTip="Responder" ImageAlign="TextTop" CommandName="Responder"
+                                    CommandArgument='<%# Bind("idMensajeDestinatario") %>' />
+                                <asp:ImageButton ImageUrl="~/Images/Grillas/edit-delete-2.png" runat="server" ID="btnEliminar"
+                                    AlternateText="Eliminar" ToolTip="Eliminar" ImageAlign="TextTop" CommandName="Eliminar"
+                                    CommandArgument='<%# Bind("idMensajeDestinatario") %>' />
+                            </td>
+                            <td style="width: 95%; vertical-align: middle">
+                                <asp:LinkButton ID="lnkEncabezado" runat="server" CommandName="Leer" CommandArgument='<%# Bind("idMensajeDestinatario") %>'>
+                        <table id="<%# String.Format("tbl_{0}", Eval("idMensajeDestinatario").ToString()) %>" class="tablaInternaMensajes"
                             cellpadding="1" cellspacing="5" style="font-weight: <%# Boolean.Parse(Eval("leido").ToString()) ? "normal" : "bold"  %>">
                             <tr>
                                 <td class="TDCriterios30">
@@ -87,7 +98,10 @@
                                 </td>
                             </tr>
                         </table>
-                    </asp:LinkButton>
+                                </asp:LinkButton>
+                            </td>
+                        </tr>
+                    </table>
                 </HeaderTemplate>
                 <ContentTemplate>
                     <p>

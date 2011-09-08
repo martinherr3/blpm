@@ -219,6 +219,34 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
-		#endregion
-	}
+
+        public void EliminarMensaje(Mensaje entidad)
+        {
+            try
+            {
+                using (Transaction.DBcomand = Transaction.DataBase.GetSqlStringCommand("UPDATE MensajeDestinatarios SET activo = 0 WHERE idMensajeDestinatario = @idMensajeDestinatario"))
+                {
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensajeDestinatario", DbType.Int32, entidad.idMensajeDestinatario);
+                    //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
+
+                    if (Transaction.Transaction != null)
+                        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+                    else
+                        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - EliminarMensaje()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - EliminarMensaje()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+        #endregion
+
+    }
 }

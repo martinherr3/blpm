@@ -98,6 +98,8 @@
     <Content Include="Images\Graficar.png" />
     <Content Include="Images\Grillas\action_delete.png" />
     <Content Include="Images\Grillas\action_new.png" />
+    <Content Include="Images\Grillas\edit-delete-2.png" />
+    <Content Include="Images\Grillas\mail-reply-2.png" />
     <Content Include="Images\mail-inbox.png" />
     <Content Include="Images\mail-unread.png" />
     <Content Include="Images\Paginador\go-frist-view.png" />
