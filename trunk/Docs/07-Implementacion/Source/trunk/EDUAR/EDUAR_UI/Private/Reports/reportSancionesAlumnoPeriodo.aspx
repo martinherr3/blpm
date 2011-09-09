@@ -45,14 +45,14 @@
                         AutoPostBack="True">
                     </asp:DropDownList>
                 </td>
+            </tr>
+            <tr>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblAlumno" runat="server" Text="Alumno:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="top" class="TDCriterios25">
-                    <asp:DropDownList ID="ddlAlumno" runat="server"> 
-                    </asp:DropDownList>
+                    <asp:DropDownList ID="ddlAlumno" runat="server"></asp:DropDownList>
                 </td>
-
             </tr>
         </table>
     </div>
