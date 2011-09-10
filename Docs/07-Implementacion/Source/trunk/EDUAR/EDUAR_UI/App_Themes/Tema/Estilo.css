@@ -809,6 +809,11 @@ TD.EncabezadoConfirmación
     width: 120px;
 }
 
+.EstiloTxtCorto50
+{
+    width: 50px;
+}
+
 .EstiloTxtCorto80
 {
     width: 80px;
