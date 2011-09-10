@@ -25,7 +25,13 @@ namespace EDUAR_UI
         void Application_Error(object sender, EventArgs e)
         {
             // Código que se ejecuta al producirse un error no controlado
-
+			//string error = "Se produjo un error: \n" +
+			if (Server.GetLastError() != null)
+			{
+				Application["CurrentError"] = Server.GetLastError().Message.ToString();
+				Application["CurrentErrorDetalle"] = Server.GetLastError().ToString();
+			}
+			Server.Transfer("~/Error/Error.aspx");
         }
 
         void Session_Start(object sender, EventArgs e)

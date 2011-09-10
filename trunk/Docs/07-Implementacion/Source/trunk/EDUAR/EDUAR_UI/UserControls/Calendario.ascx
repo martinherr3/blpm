@@ -12,7 +12,7 @@
             </td>
             <td style="width: 25%">
                 <div style="vertical-align: middle; overflow: visible">
-                    <asp:TextBox ID="txtFechaDesde_DA" runat="server" CssClass="EstiloTxtMedio120" />
+                    <asp:TextBox ID="txtFechaDesde_DA" runat="server" CssClass="EstiloTxtCorto80" />
                     <cc1:MaskedEditExtender ID="maskEditFechaDesde_DA" runat="server" Mask="99/99/9999"
                         MaskType="Date" TargetControlID="txtFechaDesde_DA" UserDateFormat="DayMonthYear"
                         Enabled="True" ClearTextOnInvalid="True">
@@ -31,7 +31,7 @@
             </td>
             <td style="width: 25%">
                 <div style="vertical-align: middle; overflow: visible">
-                    <asp:TextBox ID="txtFechaHasta_DA" runat="server" CssClass="EstiloTxtMedio120" />
+                    <asp:TextBox ID="txtFechaHasta_DA" runat="server" CssClass="EstiloTxtCorto80" />
                     <cc1:MaskedEditExtender ID="maskEditFechaHasta_DA" runat="server" Mask="99/99/9999"
                         MaskType="Date" TargetControlID="txtFechaHasta_DA" UserDateFormat="DayMonthYear"
                         Enabled="True" ClearTextOnInvalid="True">
@@ -56,7 +56,7 @@
             </td>
             <td style="vertical-align: middle; width: 60%">
                 <div style="vertical-align: middle; overflow: visible">
-                    <asp:TextBox ID="txtFechaDesde" runat="server" CssClass="EstiloTxtMedio120"></asp:TextBox>
+                    <asp:TextBox ID="txtFechaDesde" runat="server" CssClass="EstiloTxtCorto80"></asp:TextBox>
                     <cc1:MaskedEditExtender ID="txtFechaDesde_MaskedEditExtender" runat="server" Mask="99/99/9999"
                         MaskType="Date" TargetControlID="txtFechaDesde" UserDateFormat="DayMonthYear"
                         Enabled="True" ClearTextOnInvalid="True">
@@ -71,7 +71,7 @@
     </table>
 </div>
 <div id="DivSoloFecha" runat="server">
-    <asp:TextBox ID="txtFecha" runat="server"></asp:TextBox>
+    <asp:TextBox ID="txtFecha" runat="server" CssClass="EstiloTxtCorto80"></asp:TextBox>
     <cc1:MaskedEditExtender ID="txtFecha_MaskedEditExtender" runat="server" Mask="99/99/9999"
         MaskType="Date" TargetControlID="txtFecha" UserDateFormat="DayMonthYear" Enabled="True"
         ClearTextOnInvalid="True">

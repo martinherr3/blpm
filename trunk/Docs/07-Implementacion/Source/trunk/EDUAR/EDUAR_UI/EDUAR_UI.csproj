@@ -36,7 +36,7 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=4.1.50731.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+    <Reference Include="AjaxControlToolkit, Version=4.1.50401.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\AjaxControlToolkit.dll</HintPath>
     </Reference>
@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DLL\AjaxControlToolkit.dll" />
+    <Content Include="Error\Error.aspx" />
     <Content Include="Error\Error.htm" />
     <Content Include="About.aspx" />
     <Content Include="DLL\itextsharp.dll" />
@@ -199,6 +200,7 @@
     <Content Include="UserControls\Calendario.ascx" />
     <Content Include="UserControls\Editor.ascx" />
     <Content Include="UserControls\Grafico.ascx" />
+    <Content Include="UserControls\Hora.ascx" />
     <Content Include="UserControls\Reporte.ascx" />
     <Content Include="UserControls\VentanaInfo.ascx" />
     <Content Include="Web.config">
@@ -219,6 +221,13 @@
     </Compile>
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error\Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error\Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Account\ChangeQuestion.aspx.cs">
       <DependentUpon>ChangeQuestion.aspx</DependentUpon>
@@ -478,6 +487,13 @@
     </Compile>
     <Compile Include="UserControls\Grafico.ascx.designer.cs">
       <DependentUpon>Grafico.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Hora.ascx.cs">
+      <DependentUpon>Hora.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Hora.ascx.designer.cs">
+      <DependentUpon>Hora.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Reporte.ascx.cs">
       <DependentUpon>Reporte.ascx</DependentUpon>

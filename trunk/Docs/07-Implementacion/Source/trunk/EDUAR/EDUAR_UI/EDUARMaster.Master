@@ -18,7 +18,6 @@
     <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js"></script>
-    <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery.maskedinput-1.3.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/cleditor/jquery.cleditor.min.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/cleditor/jquery.cleditor.js"></script>
     <script type="text/javascript">
@@ -59,7 +58,6 @@
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js" />
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/chosen/chosen.jquery.js" />
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js" />
-            <asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery.maskedinput-1.3.js" />
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/cleditor/jquery.cleditor.min.js" />
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/cleditor/jquery.cleditor.js" />
         </Scripts>
