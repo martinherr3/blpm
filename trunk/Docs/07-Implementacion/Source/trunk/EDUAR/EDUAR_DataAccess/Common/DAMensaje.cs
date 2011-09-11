@@ -203,6 +203,7 @@ namespace EDUAR_DataAccess.Common
 				{
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensajeDestinatario", DbType.Int32, entidad.idMensajeDestinatario);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 
 					if (Transaction.Transaction != null)
 						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -222,20 +223,43 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
-        public void EliminarMensaje(Mensaje entidad)
+		/// <summary>
+		/// Eliminars the mensaje.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		public void EliminarMensaje(Mensaje entidad)
         {
             try
             {
-                using (Transaction.DBcomand = Transaction.DataBase.GetSqlStringCommand("UPDATE MensajeDestinatarios SET activo = 0 WHERE idMensajeDestinatario = @idMensajeDestinatario"))
-                {
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensajeDestinatario", DbType.Int32, entidad.idMensajeDestinatario);
-                    //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
+				if (entidad.idMensajeDestinatario > 0)
+				{
+					using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajeDestinatario_Update"))
+					{
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensajeDestinatario", DbType.Int32, entidad.idMensajeDestinatario);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 
-                    if (Transaction.Transaction != null)
-                        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
-                    else
-                        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
-                }
+						if (Transaction.Transaction != null)
+							Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+						else
+							Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+					}
+				}
+				else
+
+					if (entidad.idMensaje > 0)
+					{
+						using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajeRemitente_Update"))
+						{
+							Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensaje", DbType.Int32, entidad.idMensaje);
+							Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+
+							if (Transaction.Transaction != null)
+								Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+							else
+								Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+						}
+					}
             }
             catch (SqlException ex)
             {
@@ -248,7 +272,64 @@ namespace EDUAR_DataAccess.Common
                                     ex, enuExceptionType.DataAccesException);
             }
         }
-        #endregion
 
-    }
+		/// <summary>
+		/// Gets the mensajes.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<Mensaje> GetMensajesEnviados(Mensaje entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajeEnviado_Select");
+				if (entidad != null)
+				{
+					if (!string.IsNullOrEmpty(entidad.destinatario.username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioRemitente", DbType.String, entidad.remitente.username);
+					//if (entidad.leido)
+					//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
+					if (entidad.activo)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<Mensaje> listaMensaje = new List<Mensaje>();
+				Mensaje objMensaje;
+				while (reader.Read())
+				{
+					objMensaje = new Mensaje();
+
+					objMensaje.idMensaje = Convert.ToInt32(reader["idMensaje"]);
+					objMensaje.idMensajeDestinatario = Convert.ToInt32(reader["idMensajeDestinatario"]);
+					objMensaje.asuntoMensaje = reader["asuntoMensaje"].ToString();
+					objMensaje.textoMensaje = reader["textoMensaje"].ToString();
+					objMensaje.activo = Convert.ToBoolean(reader["activo"].ToString());
+					objMensaje.fechaEnvio = Convert.ToDateTime(reader["fechaEnvio"].ToString());
+					objMensaje.horaEnvio = Convert.ToDateTime(reader["horaEnvio"].ToString());
+					objMensaje.destinatario.idPersona = Convert.ToInt32(reader["idPersonaDestinatario"]);
+					objMensaje.destinatario.nombre = reader["nombreDestinatario"].ToString();
+					objMensaje.destinatario.apellido = reader["apellidoDestinatario"].ToString();
+					objMensaje.remitente.idPersona = Convert.ToInt32(reader["idPersonaRemitente"]);
+					objMensaje.remitente.nombre = reader["nombreRemitente"].ToString();
+					objMensaje.remitente.apellido = reader["apellidoRemitente"].ToString();
+					objMensaje.leido = Convert.ToBoolean(reader["leido"]);
+					listaMensaje.Add(objMensaje);
+				}
+				return listaMensaje;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetMensajesEnviados()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetMensajesEnviados()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+		#endregion
+
+	}
 }

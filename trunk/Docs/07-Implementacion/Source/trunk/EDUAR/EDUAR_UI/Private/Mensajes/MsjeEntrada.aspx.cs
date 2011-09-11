@@ -82,18 +82,6 @@ namespace EDUAR_UI
 				this.ViewState["CurrentPage"] = value;
 			}
 		}
-
-		public bool proceso
-		{
-			get
-			{
-				if (this.ViewState["proceso"] == null)
-				{ proceso = true; }
-				return Convert.ToBoolean(this.ViewState["proceso"].ToString());
-			}
-			set
-			{ this.ViewState["proceso"] = value; }
-		}
 		#endregion
 
 		#region --[Eventos]--
@@ -127,10 +115,8 @@ namespace EDUAR_UI
 			try
 			{
 				Master.BotonAvisoAceptar += (VentanaAceptar);
-				//gvwReporte.ItemCommand += (gvwReporte_ItemCommand);
 				if (!Page.IsPostBack)
 				{
-					//CargarPresentacion();
 					BuscarMensajes();
 					divContenido.Visible = false;
 					divReply.Visible = false;
@@ -143,6 +129,11 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void VentanaAceptar(object sender, EventArgs e)
 		{
 			try
@@ -157,8 +148,9 @@ namespace EDUAR_UI
 					case enumAcciones.Eliminar:
 						AccionPagina = enumAcciones.Limpiar;
 						Mensaje objMensaje = listaMensajes.Find(p => p.idMensajeDestinatario == propMensaje.idMensajeDestinatario);
-						//objMensaje.idMensaje = idMensaje;
+						objMensaje.idMensaje = 0;
 						objMensaje.leido = true;
+						objMensaje.activo = false;
 						BLMensaje objBLMensaje = new BLMensaje(objMensaje);
 						objBLMensaje.EliminarMensaje();
 						listaMensajes.Remove(objMensaje);
@@ -245,21 +237,6 @@ namespace EDUAR_UI
 			{
 				Master.ManageExceptions(ex);
 			}
-		}
-
-		/// <summary>
-		/// Handles the PageIndexChanging event of the gvwReporte control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
-		protected void gvwReporte_PageIndexChanging(object sender, GridViewPageEventArgs e)
-		{
-			try
-			{
-				//gvwReporte.PageIndex = e.NewPageIndex;
-				//CargarGrilla();
-			}
-			catch (Exception ex) { Master.ManageExceptions(ex); }
 		}
 
 		/// <summary>
@@ -367,6 +344,7 @@ namespace EDUAR_UI
 		}
 		#endregion
 
+		#region --[Paginación]--
 		private void doPaging()
 		{
 			DataTable dt = new DataTable();
@@ -431,5 +409,6 @@ namespace EDUAR_UI
 			CurrentPage = 0;
 			BuscarMensajes();
 		}
+		#endregion
 	}
 }

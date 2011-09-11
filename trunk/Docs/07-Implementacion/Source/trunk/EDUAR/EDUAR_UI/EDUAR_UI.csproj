@@ -82,6 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DLL\AjaxControlToolkit.dll" />
+    <Content Include="DLL\AntiXSSLibrary.dll" />
+    <Content Include="DLL\HtmlSanitizationLibrary.dll" />
+    <Content Include="DLL\SanitizerProviders.dll" />
     <Content Include="Error.aspx" />
     <Content Include="Error\Error.htm" />
     <Content Include="About.aspx" />
