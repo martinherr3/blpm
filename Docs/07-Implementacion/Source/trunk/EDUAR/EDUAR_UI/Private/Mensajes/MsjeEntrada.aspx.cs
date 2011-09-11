@@ -220,6 +220,7 @@ namespace EDUAR_UI
 						hdfDestinatario.Value = objMensaje.remitente.idPersona.ToString();
 						textoMensaje.contenido = "<br /><hr />" + objMensaje.textoMensaje;
 						udpReporte.Visible = false;
+						divContenido.Visible = false;
 						divPaginacion.Visible = false;
 						divReply.Visible = true;
 						break;

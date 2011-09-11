@@ -2,7 +2,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:TextBox ID="txtEditor" runat="server" Width="685px" Height="200px" TextMode="MultiLine" />
 <ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender1" TargetControlID="txtEditor"
-    runat="server">
+    runat="server" >
     <Toolbar>
         <ajaxToolkit:Undo />
         <ajaxToolkit:Redo />
