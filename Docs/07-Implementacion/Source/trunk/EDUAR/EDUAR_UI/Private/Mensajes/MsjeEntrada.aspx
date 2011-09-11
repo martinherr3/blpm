@@ -19,8 +19,7 @@
                 <ContentTemplate>
                     <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                         AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idMensajeDestinatario"
-                        OnRowCommand="gvwReporte_RowCommand" OnPageIndexChanging="gvwReporte_PageIndexChanging"
-                        SelectedRowStyle-BackColor="Cyan" SelectedRowStyle-ForeColor="AliceBlue">
+                        OnRowCommand="gvwReporte_RowCommand">
                         <Columns>
                             <asp:TemplateField HeaderText="Acciones">
                                 <HeaderStyle HorizontalAlign="center" Width="5%" />

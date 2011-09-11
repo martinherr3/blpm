@@ -200,6 +200,28 @@ namespace EDUAR_BusinessLogic.Common
 		}
 
 		/// <summary>
+		/// Gets the mensajes.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<Mensaje> GetMensajesEnviados(Mensaje entidad)
+		{
+			try
+			{
+				return DataAcces.GetMensajesEnviados(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetMensajes", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
+		/// <summary>
 		/// Leers the mensaje.
 		/// </summary>
         public void LeerMensaje()
