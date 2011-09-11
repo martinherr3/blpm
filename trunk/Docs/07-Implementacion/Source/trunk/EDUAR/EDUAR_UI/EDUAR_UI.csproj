@@ -112,7 +112,7 @@
     <Content Include="Images\Grillas\mail-reply-2.png" />
     <Content Include="Images\mail-inbox.png" />
     <Content Include="Images\mail-unread.png" />
-    <Content Include="Images\Paginador\go-frist-view.png" />
+    <Content Include="Images\Paginador\go-first-view.png" />
     <Content Include="Images\Paginador\go-last-view.png" />
     <Content Include="Images\Paginador\go-next-view.png" />
     <Content Include="Images\Paginador\go-previous-view.png" />
@@ -130,6 +130,7 @@
     <Content Include="Private\Agenda\ManageReuniones.aspx" />
     <Content Include="Private\Alumnos\ManageCitaciones.aspx" />
     <Content Include="Private\Mensajes\MsjeEntrada.aspx" />
+    <Content Include="Private\Mensajes\MsjeEnviado.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
     <Content Include="Private\Reports\PrintReport.aspx" />
     <Content Include="Private\Reports\reportAccesos.aspx" />
@@ -328,6 +329,13 @@
     </Compile>
     <Compile Include="Private\Mensajes\MsjeEntrada.aspx.designer.cs">
       <DependentUpon>MsjeEntrada.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Mensajes\MsjeEnviado.aspx.cs">
+      <DependentUpon>MsjeEnviado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Mensajes\MsjeEnviado.aspx.designer.cs">
+      <DependentUpon>MsjeEnviado.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Mensajes\MsjeRedactar.aspx.cs">
       <DependentUpon>MsjeRedactar.aspx</DependentUpon>

@@ -11,7 +11,9 @@
           <siteMapNode url="~/Private/Alumnos/ManageCitaciones.aspx" title="Citaciones" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo" />
         </siteMapNode>
         <siteMapNode url="" title="Mensajes" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor">
-            <siteMapNode url="~/Private/Mensajes/MsjeRedactar.aspx" title="Enviar Mensaje" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"/>
+            <siteMapNode url="~/Private/Mensajes/MsjeEntrada.aspx" title="Bandeja de Entrada" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"/>
+            <siteMapNode url="~/Private/Mensajes/MsjeEnviado.aspx" title="Enviados" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"/>
+            <siteMapNode url="~/Private/Mensajes/MsjeRedactar.aspx" title="Nuevo" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"/>
         </siteMapNode>
         <siteMapNode url="" title="Mi Cuenta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor">
             <siteMapNode url="~/Private/Account/ChangePassword.aspx" title="Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Tutor"/>
