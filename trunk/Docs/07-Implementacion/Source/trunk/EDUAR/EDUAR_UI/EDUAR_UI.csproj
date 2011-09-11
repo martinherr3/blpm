@@ -40,6 +40,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="AntiXSSLibrary">
+      <HintPath>DLL\AntiXSSLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlSanitizationLibrary">
+      <HintPath>DLL\HtmlSanitizationLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.1.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\itextsharp.dll</HintPath>
@@ -52,6 +58,9 @@
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="SanitizerProviders">
+      <HintPath>DLL\SanitizerProviders.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -73,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DLL\AjaxControlToolkit.dll" />
-    <Content Include="Error\Error.aspx" />
+    <Content Include="Error.aspx" />
     <Content Include="Error\Error.htm" />
     <Content Include="About.aspx" />
     <Content Include="DLL\itextsharp.dll" />
@@ -222,11 +231,11 @@
     <Compile Include="About.aspx.designer.cs">
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Error\Error.aspx.cs">
+    <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Error\Error.aspx.designer.cs">
+    <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Account\ChangeQuestion.aspx.cs">

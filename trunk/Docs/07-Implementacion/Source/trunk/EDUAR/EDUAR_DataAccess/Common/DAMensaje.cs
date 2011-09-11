@@ -135,8 +135,10 @@ namespace EDUAR_DataAccess.Common
 					objMensaje.activo = Convert.ToBoolean(reader["activo"].ToString());
 					objMensaje.fechaEnvio = Convert.ToDateTime(reader["fechaEnvio"].ToString());
 					objMensaje.horaEnvio = Convert.ToDateTime(reader["horaEnvio"].ToString());
+					objMensaje.destinatario.idPersona = Convert.ToInt32(reader["idPersonaDestinatario"]);
 					objMensaje.destinatario.nombre = reader["nombreDestinatario"].ToString();
 					objMensaje.destinatario.apellido = reader["apellidoDestinatario"].ToString();
+					objMensaje.remitente.idPersona = Convert.ToInt32(reader["idPersonaRemitente"]);
 					objMensaje.remitente.nombre = reader["nombreRemitente"].ToString();
 					objMensaje.remitente.apellido = reader["apellidoRemitente"].ToString();
 					objMensaje.leido = Convert.ToBoolean(reader["leido"]);
