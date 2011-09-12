@@ -6,6 +6,8 @@ using EDUAR_Entities;
 using EDUAR_UI.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Constantes;
+using System.Web;
+using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -44,22 +46,8 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
-					BLPersona objpersona = new BLPersona();
-					List<Persona> lista = objpersona.GetPersonas(new Persona() { activo = true });
-					lista.Sort((p, q) => string.Compare(p.apellido + " " + p.nombre, q.apellido + " " + q.nombre));
 
-					foreach (Persona item in lista)
-					{
-						string[] nombre;
-						nombre = item.nombre.Trim().Split(' ');
-						string nuevoNombre = string.Empty;
-						for (int i = 0; i < nombre.Length; i++)
-						{
-							nuevoNombre += " " + nombre[i].ToUpper().Substring(0, 1) + nombre[i].ToLower().Substring(1, nombre[i].Length - 1);
-						}
-						nuevoNombre = nuevoNombre.Trim();
-						ddlDestino.Items.Add(new System.Web.UI.WebControls.ListItem(item.apellido.ToUpper() + ", " + nuevoNombre, item.idPersona.ToString()));
-					}
+					CargarLista();
 				}
 			}
 			catch (Exception ex)
@@ -102,34 +90,31 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				Mensaje objMensaje = new Mensaje();
-
-				objMensaje.asuntoMensaje = txtAsunto.Value;
-				objMensaje.textoMensaje = textoMensaje.contenido;
-				objMensaje.remitente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
-				objMensaje.fechaEnvio = DateTime.Now;
-				objMensaje.horaEnvio = Convert.ToDateTime(DateTime.Now.Hour + ":" + DateTime.Now.Minute);
-
-				Persona destinatario;
-				int cantidad = 0;
-				foreach (ListItem item in ddlDestino.Items)
+				//Docente: a personas o cursos
+				if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
 				{
-					if (item.Selected)
+					switch (rdlDestinatarios.SelectedValue)
 					{
-						destinatario = new Persona();
-						destinatario.idPersona = Convert.ToInt32(item.Value);
-						objMensaje.ListaDestinatarios.Add(destinatario);
-						cantidad++;
+						case "0":
+							AlumnoCurso objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
+							BLAlumno objBLAlumno = new BLAlumno();
+							List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
+							ddlDestino.Items.Clear();
+							foreach (Alumno item in listaAlumnos)
+							{
+								ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
+								ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
+							}
+							break;
+						case "1":
+							break;
+						case "2":
+							break;
+						default:
+							break;
 					}
 				}
-				BLMensaje objBLMensaje = new BLMensaje(objMensaje);
-				objBLMensaje.Save();
-				AccionPagina = enumAcciones.Salir;
-
-				if (cantidad == 1)
-					Master.MostrarMensaje("Mensaje Enviado", UIConstantesGenerales.MensajeUnicoDestino, enumTipoVentanaInformacion.Satisfactorio);
-				else
-					Master.MostrarMensaje("Mensaje Enviado", UIConstantesGenerales.MensajeMultiDestino, enumTipoVentanaInformacion.Satisfactorio);
+				EnviarMensaje();
 			}
 			catch (Exception ex)
 			{
@@ -152,6 +137,196 @@ namespace EDUAR_UI
 			{
 				Master.ManageExceptions(ex);
 			}
+		}
+
+		protected void ddlCurso_OnSelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				ddlDestino.Items.Clear();
+				rdlDestinatarios.SelectedIndex = -1;
+				rdlDestinatarios.Enabled = ddlCurso.SelectedIndex > 0;
+				udpFiltros.Update();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		protected void rdlDestinatarios_OnSelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				ddlDestino.Items.Clear();
+				AlumnoCurso objCurso = null;
+				List<Persona> lista = null;
+				Persona persona = null;
+				switch (rdlDestinatarios.SelectedValue)
+				{
+					case "0":
+						ddlDestino.Items.Add(new ListItem(ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));
+						ddlDestino.Items.FindByValue(ddlCurso.SelectedItem.Value).Selected = true;
+						break;
+					case "1":
+						objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
+						BLAlumno objBLAlumno = new BLAlumno();
+						List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
+						ddlDestino.Items.Clear();
+						lista = new List<Persona>();
+						foreach (Alumno item in listaAlumnos)
+						{
+							persona = new Persona();
+							persona.idPersona = item.idPersona;
+							persona.nombre = item.nombre;
+							persona.apellido = item.apellido;
+							lista.Add(persona);
+						}
+						CargarDestinos(lista);
+						break;
+					case "2":
+						objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
+						BLTutor objBLTutor = new BLTutor();
+						List<Tutor> listaTutores = objBLTutor.GetTutoresPorCurso(objCurso);
+						ddlDestino.Items.Clear();
+						lista = new List<Persona>();
+						foreach (Tutor item in listaTutores)
+						{
+							persona = new Persona();
+							persona.idPersona = item.idPersona;
+							persona.nombre = item.nombre;
+							persona.apellido = item.apellido;
+							lista.Add(persona);
+						}
+						CargarDestinos(lista);
+						break;
+					default:
+						break;
+				}
+				udpFiltros.Update();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		#endregion
+
+		#region --[Métodos Privados]--
+		/// <summary>
+		/// Cargars the lista.
+		/// </summary>
+		private void CargarLista()
+		{
+			BLPersona objpersona = new BLPersona();
+			List<Persona> lista = null;
+
+			////Docente: a personas o cursos
+			if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+			{
+				divCurso.Visible = true;
+				CargarComboCursos();
+				rdlDestinatarios.Enabled = false;
+				ddlDestino.Disabled = true;
+			}
+
+			//Alumno: a SUS docentes o su curso
+			//Tutor: docentes de sus alumnos
+
+			//Administrativo: a tutores
+			if (HttpContext.Current.User.IsInRole(enumRoles.Administrativo.ToString()))
+			{
+				lista = objpersona.GetPersonas(new Persona() { activo = true, idTipoPersona = (int)enumTipoPersona.Tutor });
+			}
+
+			//Director: a cualquier persona
+			//Psicopedagogo: a cualquier persona
+			if (HttpContext.Current.User.IsInRole(enumRoles.Director.ToString())
+				||
+				HttpContext.Current.User.IsInRole(enumRoles.Psicopedagogo.ToString())
+				||
+				HttpContext.Current.User.IsInRole(enumRoles.Administrador.ToString()))
+			{
+				lista = objpersona.GetPersonas(new Persona() { activo = true });
+			}
+
+
+			if (lista != null)
+			{
+				CargarDestinos(lista);
+			}
+		}
+
+		private void CargarDestinos(List<Persona> lista)
+		{
+			lista.Sort((p, q) => string.Compare(p.apellido + " " + p.nombre, q.apellido + " " + q.nombre));
+
+			//Quien recibe, siempre puede responder al remitente.
+			foreach (Persona item in lista)
+			{
+				string[] nombre;
+				nombre = item.nombre.Trim().Split(' ');
+				string nuevoNombre = string.Empty;
+				for (int i = 0; i < nombre.Length; i++)
+				{
+					nuevoNombre += " " + nombre[i].ToUpper().Substring(0, 1) + nombre[i].ToLower().Substring(1, nombre[i].Length - 1);
+				}
+				nuevoNombre = nuevoNombre.Trim();
+				ddlDestino.Items.Add(new System.Web.UI.WebControls.ListItem(item.apellido.ToUpper() + ", " + nuevoNombre, item.idPersona.ToString()));
+			}
+		}
+
+		/// <summary>
+		/// Cargars the combo cursos.
+		/// </summary>
+		private void CargarComboCursos()
+		{
+			Asignatura asignatura = new Asignatura();
+			asignatura.docente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+			BLAsignatura objBLAsignatura = new BLAsignatura(asignatura);
+			List<Asignatura> lista = objBLAsignatura.GetAsignaturasCurso(asignatura);
+			List<Curso> listaCurso = new List<Curso>();
+			foreach (Asignatura item in lista)
+			{
+				listaCurso.Add(item.curso);
+			}
+			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
+		}
+
+		/// <summary>
+		/// Enviars the mensaje.
+		/// </summary>
+		private void EnviarMensaje()
+		{
+			Mensaje objMensaje = new Mensaje();
+
+			objMensaje.asuntoMensaje = txtAsunto.Value;
+			objMensaje.textoMensaje = textoMensaje.contenido;
+			objMensaje.remitente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+			objMensaje.fechaEnvio = DateTime.Now;
+			objMensaje.horaEnvio = Convert.ToDateTime(DateTime.Now.Hour + ":" + DateTime.Now.Minute);
+
+			Persona destinatario;
+			int cantidad = 0;
+			foreach (ListItem item in ddlDestino.Items)
+			{
+				if (item.Selected)
+				{
+					destinatario = new Persona();
+					destinatario.idPersona = Convert.ToInt32(item.Value);
+					objMensaje.ListaDestinatarios.Add(destinatario);
+					cantidad++;
+				}
+			}
+			BLMensaje objBLMensaje = new BLMensaje(objMensaje);
+			objBLMensaje.Save();
+			AccionPagina = enumAcciones.Salir;
+
+			if (cantidad == 1)
+				Master.MostrarMensaje("Mensaje Enviado", UIConstantesGenerales.MensajeUnicoDestino, enumTipoVentanaInformacion.Satisfactorio);
+			else
+				Master.MostrarMensaje("Mensaje Enviado", UIConstantesGenerales.MensajeMultiDestino, enumTipoVentanaInformacion.Satisfactorio);
 		}
 		#endregion
 	}

@@ -106,7 +106,8 @@ namespace EDUAR_DataAccess.Common
 					//Se asigna el idAsignaturaCurso de la tabla - SOLO CUANDO MANEJO ASIGNATURA - CURSO
 					objAsignatura.idAsignatura = Convert.ToInt32(reader["idAsignaturaCurso"]);
 					objAsignatura.nombre = reader["nombreAsignatura"].ToString();
-
+					objAsignatura.curso.idCurso = Convert.ToInt32(reader["idCurso"]);
+					objAsignatura.curso.nombre = reader["nombreCurso"].ToString();
 					listaAsignaturas.Add(objAsignatura);
 				}
 				return listaAsignaturas;

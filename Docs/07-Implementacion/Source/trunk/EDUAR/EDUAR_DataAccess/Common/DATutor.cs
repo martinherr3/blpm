@@ -136,6 +136,7 @@ namespace EDUAR_DataAccess.Common
 					objTutor.idTutor = Convert.ToInt32(reader["idTutor"]);
 					objTutor.nombre = reader["nombre"].ToString();
 					objTutor.apellido = reader["apellido"].ToString();
+					objTutor.idPersona = Convert.ToInt32(reader["idPersona"]);
 					//objTutor.activo = Convert.ToBoolean(reader["activo"]);
 					//if (!string.IsNullOrEmpty(reader["fechaNacimiento"].ToString()))
 					//    objTutor.fechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"].ToString());
