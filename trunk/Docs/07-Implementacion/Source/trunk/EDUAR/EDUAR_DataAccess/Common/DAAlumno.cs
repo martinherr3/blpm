@@ -156,13 +156,14 @@ namespace EDUAR_DataAccess.Common
                     objAlumno = new Alumno();
 
                     objAlumno.idAlumno = Convert.ToInt32(reader["idAlumno"]);
+					objAlumno.nombre = reader["nombre"].ToString();
                     objAlumno.apellido = reader["apellido"].ToString();
                     if (!string.IsNullOrEmpty(reader["fechaAlta"].ToString()))
                         objAlumno.fechaAlta = (DateTime)reader["fechaAlta"];
                     if (!string.IsNullOrEmpty(reader["fechaBaja"].ToString()))
                         objAlumno.fechaBaja = (DateTime)reader["fechaBaja"];
-                    //objAlumno.activo = Convert.ToBoolean(reader["activo"]);
-
+                    objAlumno.activo = Convert.ToBoolean(reader["activo"]);
+					objAlumno.idPersona = Convert.ToInt32(reader["idPersona"]);
                     //TODO: Completar los miembros que faltan de alumno
 
                     listaAlumnos.Add(objAlumno);

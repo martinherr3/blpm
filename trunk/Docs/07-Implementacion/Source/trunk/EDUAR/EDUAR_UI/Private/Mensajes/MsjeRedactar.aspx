@@ -23,6 +23,32 @@
                     </td>
                 </tr>
             </table>
+            <div id="divCurso" runat="server" visible="false">
+                <table class="tablaInterna" width="100%">
+                    <tr>
+                        <td class="TD20">
+                            Curso:
+                        </td>
+                        <td class="TD80">
+                            <asp:DropDownList ID="ddlCurso" runat="server" CssClass="EstiloTxtMedio120" OnSelectedIndexChanged="ddlCurso_OnSelectedIndexChanged"
+                                AutoPostBack="true">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            Destinatarios:
+                        </td>
+                        <td rowspan="3">
+                            <asp:RadioButtonList ID="rdlDestinatarios" runat="server" OnSelectedIndexChanged="rdlDestinatarios_OnSelectedIndexChanged" AutoPostBack="true">
+                                <asp:ListItem Text="Curso Completo" Value="0" />
+                                <asp:ListItem Text="Seleccionar Alumnos" Value="1" Enabled="true" />
+                                <asp:ListItem Text="Seleccionar Tutores" Value="2" />
+                            </asp:RadioButtonList>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <table class="tablaInterna" width="100%">
                 <tr>
                     <td class="TD20">
@@ -52,6 +78,10 @@
                 </tr>
             </table>
         </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="ddlCurso" />
+            <asp:PostBackTrigger ControlID="rdlDestinatarios" />
+        </Triggers>
     </asp:UpdatePanel>
     <script type="text/javascript">        $(".chzn-select").chosen();</script>
 </asp:Content>
