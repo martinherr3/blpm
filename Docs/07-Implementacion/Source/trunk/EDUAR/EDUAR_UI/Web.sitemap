@@ -24,6 +24,7 @@
             <siteMapNode url="~/Private/Reports/reportCalificacionesAlumnoPeriodo.aspx" title="Calificaciones" roles="Administrador,Director,Docente,Psicopedagogo" />
             <siteMapNode url="~/Private/Reports/reportInasistenciasAlumnoPeriodo.aspx" title="Inasistencias" roles="Administrador,Director,Docente,Psicopedagogo" />
             <siteMapNode url="~/Private/Reports/reportSancionesAlumnoPeriodo.aspx" title="Sanciones" roles="Administrador,Director,Docente,Psicopedagogo" />
+            <siteMapNode url="~/Private/Reports/reportPromedios.aspx" title="Informes consolidados" roles="Administrador,Director,Docente,Psicopedagogo" />
             <siteMapNode url="~/Private/Reports/PrintReport.aspx" title="Imprimir Informe" visible="false" roles="Administrador,Director,Docente,Psicopedagogo" />
         </siteMapNode>
         <siteMapNode url="" title="Roles" roles="Administrador" >

@@ -221,4 +221,14 @@ namespace EDUAR_Utility.Enumeraciones
 		Noviembre = 11,
 		Diciembre = 12
 	}
+
+    public enum enumPonderacionCalificacionesConceptuales
+    {
+        None = 0,
+        I = 1,
+        R = 2,
+        B = 3,
+        MB = 4,
+        S = 5
+    }
 }
