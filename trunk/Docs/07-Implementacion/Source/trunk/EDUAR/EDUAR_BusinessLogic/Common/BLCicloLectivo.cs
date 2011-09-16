@@ -187,7 +187,7 @@ namespace EDUAR_BusinessLogic.Common
 		}
 
 		/// <summary>
-		/// Gets the ciclo lectivos.
+		/// Gets the cursos por ciclo lectivo.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
@@ -203,10 +203,33 @@ namespace EDUAR_BusinessLogic.Common
 			}
 			catch (Exception ex)
 			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetCicloLectivos", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCursosByCicloLectivo", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+        /// <summary>
+        /// Gets the periodos.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Periodo> GetPeriodosByCicloLectivo(int idCicloLectivo)
+        {
+            try
+            {
+                return DataAcces.GetPeriodosByCicloLectivo(idCicloLectivo);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPeriodosByCicloLectivo", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+        
         #endregion
     }
 }

@@ -140,6 +140,7 @@
     <Content Include="Private\Reports\reportAccesos.aspx" />
     <Content Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx" />
     <Content Include="Private\Reports\reportInasistenciasAlumnoPeriodo.aspx" />
+    <Content Include="Private\Reports\reportPromedios.aspx" />
     <Content Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx" />
     <Content Include="Public\Account\ForgotPassword.aspx" />
     <Content Include="Public\Account\Login.aspx" />
@@ -375,6 +376,13 @@
     </Compile>
     <Compile Include="Private\Reports\reportInasistenciasAlumnoPeriodo.aspx.designer.cs">
       <DependentUpon>reportInasistenciasAlumnoPeriodo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Reports\reportPromedios.aspx.cs">
+      <DependentUpon>reportPromedios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Reports\reportPromedios.aspx.designer.cs">
+      <DependentUpon>reportPromedios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx.cs">
       <DependentUpon>reportSancionesAlumnoPeriodo.aspx</DependentUpon>
