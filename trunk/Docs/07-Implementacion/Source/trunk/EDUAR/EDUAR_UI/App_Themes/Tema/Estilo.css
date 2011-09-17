@@ -98,8 +98,7 @@ first child of the left and right table columns */
 {
     position: relative;
     margin: 0px;
-    padding: 0px;
-    /*background: #4b6c9e;*/
+    padding: 0px; /*background: #4b6c9e;*/
     background-color: #A2B5CD;
     width: 100%;
 }
@@ -922,4 +921,9 @@ TD.EncabezadoConfirmación
     position: fixed;
     width: 646px;
     z-index: 997;
+}
+
+.HiddenText label
+{
+    display: none;
 }

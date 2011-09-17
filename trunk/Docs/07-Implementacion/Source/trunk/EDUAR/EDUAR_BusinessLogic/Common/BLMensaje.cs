@@ -241,6 +241,9 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
+		/// <summary>
+		/// Eliminars the mensaje.
+		/// </summary>
         public void EliminarMensaje()
         {
             try
@@ -257,6 +260,26 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+		/// <summary>
+		/// Eliminars the mensaje.
+		/// </summary>
+		public void EliminarListaMensajes()
+		{
+			try
+			{
+				DataAcces.EliminarListaMensajes(Data);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - EliminarListaMensajes", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
 
 		#region --[Métodos Privados]--
