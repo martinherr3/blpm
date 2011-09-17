@@ -114,6 +114,7 @@
     <Content Include="Images\Grillas\mail-delete-2.png" />
     <Content Include="Images\Grillas\mail-mark-read-2.png" />
     <Content Include="Images\Grillas\mail-reply-2.png" />
+    <Content Include="Images\mail-delete.png" />
     <Content Include="Images\mail-inbox.png" />
     <Content Include="Images\mail-unread.png" />
     <Content Include="Images\Paginador\go-first-view.png" />
