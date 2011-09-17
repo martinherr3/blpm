@@ -26,7 +26,7 @@ Inherits="EDUAR_UI.reportPromedios" %>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                 </td>
-                <td valign="top" class="TDCriterios25">
+                <td valign="top" class="TDCriterios75" colspan="3">
                     <asp:DropDownList ID="ddlAsignatura" runat="server">
                     </asp:DropDownList>
                 </td>

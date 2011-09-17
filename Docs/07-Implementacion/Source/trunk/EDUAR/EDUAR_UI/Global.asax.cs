@@ -31,6 +31,7 @@ namespace EDUAR_UI
 				Application["CurrentError"] = Server.GetLastError().Message.ToString();
 				Application["CurrentErrorDetalle"] = Server.GetLastError().ToString();
 			}
+			Response.Redirect("~/Error.aspx", false);
 			Server.Transfer("~/Error.aspx");
 		}
 

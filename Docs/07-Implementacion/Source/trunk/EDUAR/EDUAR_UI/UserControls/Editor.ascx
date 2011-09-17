@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Editor.ascx.cs" Inherits="EDUAR_UI.UserControls.Editor" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:TextBox ID="txtEditor" runat="server" Width="685px" Height="200px" TextMode="MultiLine" />
-<ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender1" TargetControlID="txtEditor"
-    runat="server" >
+<ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender1" TargetControlID="txtEditor" 
+    runat="server"   >
     <Toolbar>
         <ajaxToolkit:Undo />
         <ajaxToolkit:Redo />

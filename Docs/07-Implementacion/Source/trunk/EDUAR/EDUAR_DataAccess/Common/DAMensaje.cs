@@ -274,6 +274,57 @@ namespace EDUAR_DataAccess.Common
         }
 
 		/// <summary>
+		/// Eliminars the mensaje.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		public void EliminarListaMensajes(Mensaje entidad)
+		{
+			try
+			{
+				if (entidad.idMensajeDestinatario > 0)
+				{
+					using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajesDestinatario_DesactivarLista"))
+					{
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensajesDestinatario", DbType.String, entidad.listaIDMensaje);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+
+						if (Transaction.Transaction != null)
+							Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+						else
+							Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+					}
+				}
+				else
+
+					if (entidad.idMensaje > 0)
+					{
+						using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajesRemitente_DesactivarLista"))
+						{
+							Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensajesDestinatario", DbType.String, entidad.listaIDMensaje);
+							Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensaje", DbType.Int32, entidad.idMensaje);
+							Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+
+							if (Transaction.Transaction != null)
+								Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+							else
+								Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+						}
+					}
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - EliminarListaMensajes()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - EliminarListaMensajes()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
 		/// Gets the mensajes.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>

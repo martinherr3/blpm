@@ -12,6 +12,16 @@
         Mensajes Recibidos
         <br />
     </h2>
+    <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="right">
+                        <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Eliminar Seleccionados" AlternateText="Eliminar Seleccionados"
+                            ImageUrl="~/Images/mail-delete.png" OnClick="btnEliminar_Click" />
+                        <%--<asp:ImageButton ID="ImageButton2" runat="server" ToolTip="Volver"
+                            ImageUrl="~/Images/botonVolver.png" />--%>
+                    </td>
+                </tr>
+            </table>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <hr />
@@ -25,15 +35,25 @@
                                 <HeaderStyle HorizontalAlign="center" Width="5%" />
                                 <ItemStyle HorizontalAlign="center" />
                                 <ItemTemplate>
-                                    <asp:ImageButton ImageUrl="~/Images/Grillas/mail-mark-read-2.png" runat="server"
-                                        ID="btnLeer" AlternateText="Leer" ToolTip="Leer" ImageAlign="TextTop" CommandName="Leer"
-                                        CommandArgument='<%# Bind("idMensajeDestinatario") %>' />
-                                    <asp:ImageButton ImageUrl="~/Images/Grillas/mail-reply-2.png" runat="server" ID="btnResponder"
-                                        AlternateText="Responder" ToolTip="Responder" ImageAlign="TextTop" CommandName="Responder"
-                                        CommandArgument='<%# Bind("idMensajeDestinatario") %>' />
-                                    <asp:ImageButton ImageUrl="~/Images/Grillas/mail-delete-2.png" runat="server" ID="btnEliminar"
-                                        AlternateText="Eliminar" ToolTip="Eliminar" ImageAlign="TextTop" CommandName="Eliminar"
-                                        CommandArgument='<%# Bind("idMensajeDestinatario") %>' />
+                                    <table border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td valign="middle">
+                                                <asp:CheckBox ID="checkEliminar" Text='<%# Eval("idMensajeDestinatario")%>' runat="server"
+                                                    CssClass="HiddenText" Width="30px" ClientIDMode="Static" />
+                                            </td>
+                                            <td>
+                                                <asp:ImageButton ImageUrl="~/Images/Grillas/mail-mark-read-2.png" runat="server"
+                                                    ID="btnLeer" AlternateText="Leer" ToolTip="Leer" ImageAlign="TextTop" CommandName="Leer"
+                                                    CommandArgument='<%# Bind("idMensajeDestinatario") %>' />
+                                                <asp:ImageButton ImageUrl="~/Images/Grillas/mail-reply-2.png" runat="server" ID="btnResponder"
+                                                    AlternateText="Responder" ToolTip="Responder" ImageAlign="TextTop" CommandName="Responder"
+                                                    CommandArgument='<%# Bind("idMensajeDestinatario") %>' />
+                                                <asp:ImageButton ImageUrl="~/Images/Grillas/mail-delete-2.png" runat="server" ID="btnEliminar"
+                                                    AlternateText="Eliminar" ToolTip="Eliminar" ImageAlign="TextTop" CommandName="Eliminar"
+                                                    CommandArgument='<%# Bind("idMensajeDestinatario") %>' />
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remitente">

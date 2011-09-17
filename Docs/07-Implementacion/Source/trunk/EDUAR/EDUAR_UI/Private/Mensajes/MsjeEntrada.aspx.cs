@@ -147,13 +147,7 @@ namespace EDUAR_UI
 						break;
 					case enumAcciones.Eliminar:
 						AccionPagina = enumAcciones.Limpiar;
-						Mensaje objMensaje = listaMensajes.Find(p => p.idMensajeDestinatario == propMensaje.idMensajeDestinatario);
-						objMensaje.idMensaje = 0;
-						objMensaje.leido = true;
-						objMensaje.activo = false;
-						BLMensaje objBLMensaje = new BLMensaje(objMensaje);
-						objBLMensaje.EliminarMensaje();
-						listaMensajes.Remove(objMensaje);
+						EliminarMensaje(propMensaje.idMensajeDestinatario);
 						CargarGrilla();
 						udpGrilla.Update();
 						break;
@@ -283,6 +277,45 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+		/// <summary>
+		/// Handles the Click event of the btnEliminar control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnEliminar_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				Mensaje objMensajesEliminar = new Mensaje();
+				for (int i = 0; i < gvwReporte.Rows.Count; i++)
+				{
+					CheckBox checkbox = (CheckBox)gvwReporte.Rows[i].FindControl("checkEliminar");
+					if (checkbox != null && checkbox.Checked)
+					{
+						int idMensajeDestinatario = 0;
+						Int32.TryParse(checkbox.Text, out idMensajeDestinatario);
+						if (idMensajeDestinatario > 0)
+							//EliminarMensaje(idMensajeDestinatario);
+							objMensajesEliminar.listaIDMensaje += string.Format("{0},", idMensajeDestinatario.ToString());
+					}
+				}
+				if (!string.IsNullOrEmpty(objMensajesEliminar.listaIDMensaje))
+				{
+					objMensajesEliminar.listaIDMensaje = objMensajesEliminar.listaIDMensaje.Substring(0, objMensajesEliminar.listaIDMensaje.Length - 1);
+					objMensajesEliminar.idMensajeDestinatario = 0;
+					objMensajesEliminar.leido = true;
+					objMensajesEliminar.activo = false;
+					CargarPresentacion();
+				}
+
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -342,6 +375,22 @@ namespace EDUAR_UI
 			lblCantidad.Text = dt.Rows.Count.ToString() + " Mensajes";
 			divContenido.Visible = false;
 			udpGrilla.Update();
+		}
+
+		/// <summary>
+		/// Eliminars the mensaje.
+		/// </summary>
+		/// <param name="idMensajeDestinatario">The id mensaje destinatario.</param>
+		private void EliminarMensaje(int idMensajeDestinatario)
+		{
+			Mensaje objMensaje = listaMensajes.Find(p => p.idMensajeDestinatario == idMensajeDestinatario);
+			objMensaje.listaIDMensaje = idMensajeDestinatario.ToString();
+			objMensaje.idMensaje = 0;
+			objMensaje.leido = true;
+			objMensaje.activo = false;
+			BLMensaje objBLMensaje = new BLMensaje(objMensaje);
+			objBLMensaje.EliminarMensaje();
+			listaMensajes.Remove(objMensaje);
 		}
 		#endregion
 
