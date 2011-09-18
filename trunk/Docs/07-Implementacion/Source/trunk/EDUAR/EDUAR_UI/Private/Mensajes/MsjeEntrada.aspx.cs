@@ -142,13 +142,15 @@ namespace EDUAR_UI
 				{
 					case enumAcciones.Modificar:
 						AccionPagina = enumAcciones.Limpiar;
-						CargarGrilla();
+						//CargarGrilla();
+						CargarPresentacion();
 						udpGrilla.Update();
 						break;
 					case enumAcciones.Eliminar:
 						AccionPagina = enumAcciones.Limpiar;
 						EliminarMensaje(propMensaje.idMensajeDestinatario);
-						CargarGrilla();
+						//CargarGrilla();
+						CargarPresentacion();
 						udpGrilla.Update();
 						break;
 					case enumAcciones.Limpiar:
@@ -183,30 +185,7 @@ namespace EDUAR_UI
 				switch (e.CommandName)
 				{
 					case "Leer":
-
-						foreach (GridViewRow item in gvwReporte.Rows)
-						{
-							item.BackColor = Color.Transparent;
-						}
-						objMensaje = new Mensaje();
-						objMensaje = listaMensajes.Find(p => p.idMensajeDestinatario == idMensajeDestinatario);
-						if (!objMensaje.leido)
-						{
-							//objMensaje.idMensajeDestinatario = idMensajeDestinatario;
-							objMensaje.leido = true;
-							BLMensaje objBLMensaje = new BLMensaje(objMensaje);
-							objBLMensaje.LeerMensaje();
-							listaMensajes.Find(p => p.idMensajeDestinatario == idMensajeDestinatario).leido = true;
-							Master.RaiseCallbackEvent(e.ToString());
-							CargarGrilla();
-						}
-						litAsunto.Text = objMensaje.asuntoMensaje;
-						litFecha.Text = objMensaje.fechaEnvio.ToShortDateString() + " " + objMensaje.horaEnvio.Hour.ToString() + ":" + objMensaje.horaEnvio.Minute.ToString();
-						litRemitente.Text = objMensaje.remitente.apellido + "  " + objMensaje.remitente.nombre;
-						litContenido.Text = objMensaje.textoMensaje;
-						divContenido.Visible = true;
-						divPaginacion.Visible = true;
-						divReply.Visible = false;
+						CargarMensajeEnPantalla(idMensajeDestinatario);
 						GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
 						gvwReporte.Rows[row.RowIndex].BackColor = Color.Gainsboro;
 						break;
@@ -217,6 +196,9 @@ namespace EDUAR_UI
 						lblDestinatario.Text = objMensaje.remitente.apellido + "  " + objMensaje.remitente.nombre;
 						hdfDestinatario.Value = objMensaje.remitente.idPersona.ToString();
 						textoMensaje.contenido = "<br /><hr />" + objMensaje.textoMensaje;
+						btnEnviar.Visible = true;
+						btnVolver.Visible = true;
+						btnEliminar.Visible = false;
 						udpReporte.Visible = false;
 						divContenido.Visible = false;
 						divPaginacion.Visible = false;
@@ -349,6 +331,9 @@ namespace EDUAR_UI
 		private void CargarPresentacion()
 		{
 			BuscarMensajes();
+			btnEnviar.Visible = false;
+			btnVolver.Visible = false;
+			btnEliminar.Visible = true;
 			udpReporte.Visible = true;
 			divPaginacion.Visible = true;
 			divContenido.Visible = false;
@@ -444,6 +429,37 @@ namespace EDUAR_UI
 				objBLMensaje = new BLMensaje(objMensajesEliminar);
 				objBLMensaje.EliminarListaMensajes();
 			}
+		}
+
+		/// <summary>
+		/// Cargars the mensaje en pantalla.
+		/// </summary>
+		/// <param name="idMensajeDestinatario">The id mensaje destinatario.</param>
+		private void CargarMensajeEnPantalla(int idMensajeDestinatario)
+		{
+			foreach (GridViewRow item in gvwReporte.Rows)
+			{
+				item.BackColor = Color.Transparent;
+			}
+			Mensaje objMensaje = new Mensaje();
+			objMensaje = listaMensajes.Find(p => p.idMensajeDestinatario == idMensajeDestinatario);
+			if (!objMensaje.leido)
+			{
+				//objMensaje.idMensajeDestinatario = idMensajeDestinatario;
+				objMensaje.leido = true;
+				BLMensaje objBLMensaje = new BLMensaje(objMensaje);
+				objBLMensaje.LeerMensaje();
+				listaMensajes.Find(p => p.idMensajeDestinatario == idMensajeDestinatario).leido = true;
+				//Master.RaiseCallbackEvent(e.ToString());
+				CargarGrilla();
+			}
+			litAsunto.Text = objMensaje.asuntoMensaje;
+			litFecha.Text = objMensaje.fechaEnvio.ToShortDateString() + " " + objMensaje.horaEnvio.Hour.ToString() + ":" + objMensaje.horaEnvio.Minute.ToString();
+			litRemitente.Text = objMensaje.remitente.apellido + "  " + objMensaje.remitente.nombre + " <b>(" + objMensaje.remitente.tipoPersona.nombre + ")</b>";
+			litContenido.Text = objMensaje.textoMensaje;
+			divContenido.Visible = true;
+			divPaginacion.Visible = true;
+			divReply.Visible = false;
 		}
 		#endregion
 

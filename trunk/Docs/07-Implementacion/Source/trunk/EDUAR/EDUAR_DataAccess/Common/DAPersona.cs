@@ -102,7 +102,7 @@ namespace EDUAR_DataAccess.Common
 					objPersona.email = reader["email"].ToString();
 					objPersona.activo = Convert.ToBoolean(reader["activo"]);
 					objPersona.username = reader["username"].ToString();
-
+					objPersona.tipoPersona.nombre = reader["tipoPersona"].ToString();
 					listaPersonas.Add(objPersona);
 				}
 				return listaPersonas;

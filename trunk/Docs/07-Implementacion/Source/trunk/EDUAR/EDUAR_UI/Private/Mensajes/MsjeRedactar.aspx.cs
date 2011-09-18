@@ -71,6 +71,9 @@ namespace EDUAR_UI
 					case enumAcciones.Salir:
 						Response.Redirect("MsjeEntrada.aspx", false);
 						break;
+					case enumAcciones.Error:
+						//Response.Redirect("MsjeRedactar.aspx", false);
+						break;
 					default:
 						break;
 				}
@@ -90,31 +93,39 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//Docente: a personas o cursos
-				if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+				if (ddlDestino.SelectedIndex > 0)
 				{
-					switch (rdlDestinatarios.SelectedValue)
+					//Docente: a personas o cursos
+					if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
 					{
-						case "0":
-							AlumnoCurso objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
-							BLAlumno objBLAlumno = new BLAlumno();
-							List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
-							ddlDestino.Items.Clear();
-							foreach (Alumno item in listaAlumnos)
-							{
-								ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
-								ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
-							}
-							break;
-						case "1":
-							break;
-						case "2":
-							break;
-						default:
-							break;
+						switch (rdlDestinatarios.SelectedValue)
+						{
+							case "0":
+								AlumnoCurso objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
+								BLAlumno objBLAlumno = new BLAlumno();
+								List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
+								ddlDestino.Items.Clear();
+								foreach (Alumno item in listaAlumnos)
+								{
+									ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
+									ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
+								}
+								break;
+							case "1":
+								break;
+							case "2":
+								break;
+							default:
+								break;
+						}
 					}
+					EnviarMensaje();
 				}
-				EnviarMensaje();
+				else
+				{
+					AccionPagina = enumAcciones.Error;
+					Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeSinDestinatario, enumTipoVentanaInformacion.Advertencia);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -139,6 +150,11 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the OnSelectedIndexChanged event of the ddlCurso control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void ddlCurso_OnSelectedIndexChanged(object sender, EventArgs e)
 		{
 			try
@@ -154,6 +170,11 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the OnSelectedIndexChanged event of the rdlDestinatarios control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void rdlDestinatarios_OnSelectedIndexChanged(object sender, EventArgs e)
 		{
 			try
@@ -258,6 +279,10 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Cargars the destinos.
+		/// </summary>
+		/// <param name="lista">The lista.</param>
 		private void CargarDestinos(List<Persona> lista)
 		{
 			lista.Sort((p, q) => string.Compare(p.apellido + " " + p.nombre, q.apellido + " " + q.nombre));
@@ -324,9 +349,9 @@ namespace EDUAR_UI
 			AccionPagina = enumAcciones.Salir;
 
 			if (cantidad == 1)
-				Master.MostrarMensaje("Mensaje Enviado", UIConstantesGenerales.MensajeUnicoDestino, enumTipoVentanaInformacion.Satisfactorio);
+				Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeUnicoDestino, enumTipoVentanaInformacion.Satisfactorio);
 			else
-				Master.MostrarMensaje("Mensaje Enviado", UIConstantesGenerales.MensajeMultiDestino, enumTipoVentanaInformacion.Satisfactorio);
+				Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeMultiDestino, enumTipoVentanaInformacion.Satisfactorio);
 		}
 		#endregion
 	}

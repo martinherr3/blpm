@@ -8,6 +8,22 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript">
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+        function EndRequestHandler(sender, args) {
+            if (args.get_error() == undefined) {
+                alertTest();
+            }
+        }
+
+        function alertTest() {
+            $(document).ready(function () {
+                $(".chzn-select").chosen();
+            });
+        }
+
+        alertTest();    
+</script>
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <h2>
@@ -40,7 +56,8 @@
                             Destinatarios:
                         </td>
                         <td rowspan="3">
-                            <asp:RadioButtonList ID="rdlDestinatarios" runat="server" OnSelectedIndexChanged="rdlDestinatarios_OnSelectedIndexChanged" AutoPostBack="true">
+                            <asp:RadioButtonList ID="rdlDestinatarios" runat="server" OnSelectedIndexChanged="rdlDestinatarios_OnSelectedIndexChanged"
+                                AutoPostBack="true">
                                 <asp:ListItem Text="Curso Completo" Value="0" />
                                 <asp:ListItem Text="Seleccionar Alumnos" Value="1" Enabled="true" />
                                 <asp:ListItem Text="Seleccionar Tutores" Value="2" />
@@ -56,7 +73,7 @@
                     </td>
                     <td class="TD80">
                         <select data-placeholder="Seleccione los destinatarios" style="width: 600px;" multiple="true"
-                            class="chzn-select" runat="server" id="ddlDestino">
+                            class="chzn-select" runat="server" id="ddlDestino" enableviewstate="true">
                         </select>
                     </td>
                 </tr>

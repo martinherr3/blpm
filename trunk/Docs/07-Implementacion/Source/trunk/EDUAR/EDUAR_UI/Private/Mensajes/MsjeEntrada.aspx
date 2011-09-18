@@ -12,16 +12,20 @@
         Mensajes Recibidos
         <br />
     </h2>
-    <table class="tablaInterna" cellpadding="0" cellspacing="0">
-        <tr>
-            <td align="right">
-                <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Eliminar Seleccionados"
-                    AlternateText="Eliminar Seleccionados" ImageUrl="~/Images/mail-delete.png" OnClick="btnEliminar_Click" />
-            </td>
-        </tr>
-    </table>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
+            <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="right">
+                        <asp:ImageButton ID="btnEnviar" OnClick="btnEnviar_Click" runat="server" ToolTip="Enviar"
+                            ImageUrl="~/Images/botonEnviarMail.png" Visible="false" />
+                        <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
+                            ImageUrl="~/Images/botonVolver.png" Visible="false" />
+                        <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Eliminar Seleccionados"
+                            AlternateText="Eliminar Seleccionados" ImageUrl="~/Images/mail-delete.png" OnClick="btnEliminar_Click" />
+                    </td>
+                </tr>
+            </table>
             <hr />
             <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
@@ -135,9 +139,9 @@
                     </tr>
                 </table>
             </div>
-            <div id="divContenido" runat="server">
-                <hr />
-                <div style="height: 250px;">
+            <div id="divContenido" runat="server" style="padding: 5px 5px 5px 5px; border-top: 1px solid black;
+                border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; overflow: visible">
+                <div style="min-height: 250px; height: auto; overflow: visible">
                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                             <td class="TDCriterios50">
@@ -156,20 +160,15 @@
                     <hr />
                     <asp:Literal ID="litContenido" Text="" runat="server" />
                 </div>
-                <hr />
             </div>
             <div id="divReply" runat="server">
                 <asp:HiddenField ID="hdfDestinatario" runat="server" />
-                <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <%--<table class="tablaInterna" cellpadding="0" cellspacing="0">
                     <tr>
                         <td align="right">
-                            <asp:ImageButton ID="btnEnviar" OnClick="btnEnviar_Click" runat="server" ToolTip="Enviar"
-                                ImageUrl="~/Images/botonEnviarMail.png" />
-                            <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
-                                ImageUrl="~/Images/botonVolver.png" />
                         </td>
                     </tr>
-                </table>
+                </table>--%>
                 <table class="tablaInterna" width="100%">
                     <tr>
                         <td class="TD20">
