@@ -13,15 +13,13 @@
         <br />
     </h2>
     <table class="tablaInterna" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td align="right">
-                        <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Eliminar Seleccionados" AlternateText="Eliminar Seleccionados"
-                            ImageUrl="~/Images/mail-delete.png" OnClick="btnEliminar_Click" />
-                        <%--<asp:ImageButton ID="ImageButton2" runat="server" ToolTip="Volver"
-                            ImageUrl="~/Images/botonVolver.png" />--%>
-                    </td>
-                </tr>
-            </table>
+        <tr>
+            <td align="right">
+                <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Eliminar Seleccionados"
+                    AlternateText="Eliminar Seleccionados" ImageUrl="~/Images/mail-delete.png" OnClick="btnEliminar_Click" />
+            </td>
+        </tr>
+    </table>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <hr />
@@ -31,9 +29,13 @@
                         AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idMensajeDestinatario"
                         OnRowCommand="gvwReporte_RowCommand">
                         <Columns>
-                            <asp:TemplateField HeaderText="Acciones">
-                                <HeaderStyle HorizontalAlign="center" Width="5%" />
-                                <ItemStyle HorizontalAlign="center" />
+                            <asp:TemplateField HeaderText="Acciones" HeaderStyle-VerticalAlign="Middle">
+                                <HeaderStyle HorizontalAlign="left" Width="5%" />
+                                <HeaderTemplate>
+                                    <asp:CheckBox ID="cboxhead" AutoPostBack="true" Text='Acciones' runat="server" Width="30px"
+                                        ClientIDMode="Static" OnCheckedChanged="HeaderCheckedChanged" />
+                                </HeaderTemplate>
+                                <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>
                                     <table border="0" cellpadding="0" cellspacing="0">
                                         <tr>
