@@ -39,7 +39,7 @@
                     </td>
                 </tr>
             </table>
-            <div id="divCurso" runat="server" visible="false">
+            <div id="divDocente" runat="server" visible="false">
                 <table class="tablaInterna" width="100%">
                     <tr>
                         <td class="TD20">
@@ -66,6 +66,22 @@
                     </tr>
                 </table>
             </div>
+            <%--<div id="divAlumno" runat="server" visible="false">
+                <table class="tablaInterna" width="100%">
+                    <tr>
+                        <td valign="top">
+                            Destinatarios:
+                        </td>
+                        <td rowspan="3">
+                            <asp:RadioButtonList ID="rdlDestAlumno" runat="server" OnSelectedIndexChanged="rdlDestAlumno_OnSelectedIndexChanged"
+                                AutoPostBack="true">
+                                <asp:ListItem Text="Curso" Value="0" />
+                                <asp:ListItem Text="Seleccionar Docente" Value="1" Enabled="true" />
+                            </asp:RadioButtonList>
+                        </td>
+                    </tr>
+                </table>
+            </div>--%>
             <table class="tablaInterna" width="100%">
                 <tr>
                     <td class="TD20">

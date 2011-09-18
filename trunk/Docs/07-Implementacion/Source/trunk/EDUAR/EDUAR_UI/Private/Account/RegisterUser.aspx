@@ -51,7 +51,7 @@
                                 <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
                             </td>
                             <td valign="top">
-                                <asp:CheckBox ID="chkActivoBusqueda" runat="server" Checked="false" />
+                                <asp:CheckBox ID="chkActivoBusqueda" runat="server" Checked="true" />
                             </td>
                         </tr>
                         <tr>

@@ -108,6 +108,9 @@ namespace EDUAR_DataAccess.Common
 					objAsignatura.nombre = reader["nombreAsignatura"].ToString();
 					objAsignatura.curso.idCurso = Convert.ToInt32(reader["idCurso"]);
 					objAsignatura.curso.nombre = reader["nombreCurso"].ToString();
+					objAsignatura.docente.nombre = reader["nombreDocente"].ToString();
+					objAsignatura.docente.apellido = reader["apellidoDocente"].ToString();
+					objAsignatura.docente.idPersona = Convert.ToInt32(reader["idPersona"]);
 					listaAsignaturas.Add(objAsignatura);
 				}
 				return listaAsignaturas;

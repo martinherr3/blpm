@@ -366,6 +366,7 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarPersona()
         {
+			LimpiarCampos();
             atrBLPersona = new BLPersona();
             //propPersona.username = string.Empty;
             atrBLPersona.Data = propPersona;
@@ -376,7 +377,6 @@ namespace EDUAR_UI
             txtEmailUsuario.Text = objPersona.email;
             lblPreguntaUsuario.Text = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PreguntaDefault);
             lblRespuestaUsuario.Text = objPersona.numeroDocumento.ToString();
-            LimpiarCampos();
 
             udpRoles.Visible = true;
             udpRoles.Update();

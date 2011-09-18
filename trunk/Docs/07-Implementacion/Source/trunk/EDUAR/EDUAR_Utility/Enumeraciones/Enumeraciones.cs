@@ -74,7 +74,8 @@ namespace EDUAR_Utility.Enumeraciones
 		Director = 4,
 		Docente = 5,
 		Psicopedagogo = 6,
-		Tutor = 7
+		Tutor = 7,
+		Preceptor = 8
 	}
 
 	/// <summary>

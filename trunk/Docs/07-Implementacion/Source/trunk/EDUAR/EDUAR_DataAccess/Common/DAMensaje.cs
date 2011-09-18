@@ -337,7 +337,7 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajeEnviado_Select");
 				if (entidad != null)
 				{
-					if (!string.IsNullOrEmpty(entidad.destinatario.username))
+					if (!string.IsNullOrEmpty(entidad.remitente.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioRemitente", DbType.String, entidad.remitente.username);
 					//if (entidad.leido)
 					//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);

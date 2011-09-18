@@ -316,7 +316,7 @@ namespace EDUAR_UI
 		private void CargarLista(Mensaje entidad)
 		{
 			objBLMensaje = new BLMensaje();
-			listaMensajes = objBLMensaje.GetMensajes(entidad);
+			listaMensajes = objBLMensaje.GetMensajesEnviados(entidad);
 		}
 
 		/// Cargars the grilla.
