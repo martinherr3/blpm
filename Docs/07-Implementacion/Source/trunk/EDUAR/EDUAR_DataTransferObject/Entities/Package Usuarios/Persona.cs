@@ -29,7 +29,7 @@ namespace EDUAR_Entities
 			get { return tipoPersona.idTipoPersona; }
 			set
 			{
-				idTipoPersona = value;
+				//idTipoPersona = value;
 				tipoPersona.idTipoPersona = value;
 			}
 		}

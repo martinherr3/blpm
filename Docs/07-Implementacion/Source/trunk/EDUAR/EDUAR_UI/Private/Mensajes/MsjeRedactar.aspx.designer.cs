@@ -49,13 +49,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnVolver;
         
         /// <summary>
-        /// Control divCurso.
+        /// Control divDocente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCurso;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDocente;
         
         /// <summary>
         /// Control ddlCurso.

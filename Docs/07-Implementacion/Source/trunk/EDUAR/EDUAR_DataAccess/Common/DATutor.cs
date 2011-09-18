@@ -157,6 +157,48 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+		/// <summary>
+		/// Gets the alumnos tutor.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<Alumno> GetAlumnosTutor(Tutor entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TutorAlumno_Select");
+				if (entidad != null)
+				{
+					if (!string.IsNullOrEmpty(entidad.username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
+					if (entidad.activo != null)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<Alumno> listaAlumnos = new List<Alumno>();
+				Alumno objAlumno;
+				while (reader.Read())
+				{
+					objAlumno = new Alumno();
+					objAlumno.idAlumno = Convert.ToInt32(reader["idAlumno"]);
+
+					listaAlumnos.Add(objAlumno);
+				}
+				return listaAlumnos;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnosTutor()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnosTutor()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 	}
 }

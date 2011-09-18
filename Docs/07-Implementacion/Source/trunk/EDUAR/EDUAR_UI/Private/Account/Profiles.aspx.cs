@@ -397,10 +397,10 @@ namespace EDUAR_UI
 
         }
 
-        /// <summary>
-        /// Eliminars the rol.
-        /// </summary>
-        /// <param name="?">The ?.</param>
+		/// <summary>
+		/// Eliminars the rol.
+		/// </summary>
+		/// <param name="objRol">The obj rol.</param>
         private void EliminarRol(DTRol objRol)
         {
             DTSeguridad objDTSeguridad = new DTSeguridad { Rol = objRol };

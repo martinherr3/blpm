@@ -182,6 +182,11 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
+		/// <summary>
+		/// Gets the asignaturas curso.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
 		public List<Asignatura> GetAsignaturasCurso(Asignatura entidad)
 		{
 			try

@@ -164,41 +164,84 @@ namespace EDUAR_BusinessLogic.Common
 		#endregion
 
 		#region --[Métodos publicos]--
-		//public List<Alumno> GetAlumnos(Alumno entidad)
-		//{
-		//    try
-		//    {
-		//        return DataAcces.GetAlumnos(entidad);
-		//    }
-		//    catch (CustomizedException ex)
-		//    {
-		//        throw ex;
-		//    }
-		//    catch (Exception ex)
-		//    {
-		//        throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnos", ClassName), ex,
-		//                                      enuExceptionType.BusinessLogicException);
-		//    }
-		//}
-		
+		/// <summary>
+		/// Gets the alumnos.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
 		public List<Alumno> GetAlumnos(AlumnoCurso entidad)
-        {
-            try
-            {
-                return DataAcces.GetAlumnos(entidad);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnos", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
+		{
+			try
+			{
+				return DataAcces.GetAlumnos(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnos", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 
+		/// <summary>
+		/// Gets the curso alumno.
+		/// </summary>
+		/// <returns></returns>
+		public AlumnoCurso GetCursoAlumno()
+		{
+			try
+			{
+				return DataAcces.GetCursoAlumno(Data);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCursoAlumno", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 
+		/// <summary>
+		/// Gets the docentes alumno.
+		/// </summary>
+		/// <returns></returns>
+		public List<Persona> GetDocentesAlumno()
+		{
+			try
+			{
+				AlumnoCurso objCurso = this.GetCursoAlumno();
+				BLAsignatura objBLAsignatura = new BLAsignatura();
+				Asignatura objAsignatura = new Asignatura(objCurso.curso.idCurso);
+				List<Asignatura> listaAsignatura = objBLAsignatura.GetAsignaturasCurso(objAsignatura);
+				Persona objDocente = null;
+				List<Persona> listaDocentes = new List<Persona>();
+				foreach (Asignatura item in listaAsignatura)
+				{
+					objDocente = new Persona();
+					objDocente.nombre = item.docente.nombre;
+					objDocente.apellido = item.docente.apellido;
+					objDocente.idPersona = item.docente.idPersona;
+
+					listaDocentes.Add(objDocente);
+				}
+				return listaDocentes;
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetDocentesAlumno", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 		#endregion
 	}
 }

@@ -46,7 +46,6 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
-
 					CargarLista();
 				}
 			}
@@ -232,6 +231,46 @@ namespace EDUAR_UI
 			}
 		}
 
+		// no se elimina hasta decidir definitivamente a quienes va a poder enviar mensajes un alumno, por el momento, solo a sus docentes
+		/// <summary>
+		/// Handles the OnSelectedIndexChanged event of the rdlDestAlumno control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void rdlDestAlumno_OnSelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				//ddlDestino.Items.Clear();
+				////AlumnoCurso objCurso = null;
+				//List<Persona> lista = null;
+				////Persona persona = null;
+				//switch (rdlDestAlumno.SelectedValue)
+				//{
+				//    //Mensaje a todo el curso
+				//    case "0":
+				//        ddlDestino.Items.Add(new ListItem(ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));
+				//        ddlDestino.Items.FindByValue(ddlCurso.SelectedItem.Value).Selected = true;
+				//        break;
+				//    //Mensaje a mis docentes
+				//    case "1":
+				//        Alumno objAlumno = new Alumno { username = ObjDTSessionDataUI.ObjDTUsuario.Nombre };
+				//        BLAlumno objBLAlumno = new BLAlumno(objAlumno);
+
+				//        lista = objBLAlumno.GetDocentesAlumno();
+				//        CargarDestinos(lista);
+				//        break;
+				//    default:
+				//        break;
+				//}
+				//udpFiltros.Update();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -246,14 +285,35 @@ namespace EDUAR_UI
 			////Docente: a personas o cursos
 			if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
 			{
-				divCurso.Visible = true;
+				divDocente.Visible = true;
+				//divAlumno.Visible = false;
 				CargarComboCursos();
 				rdlDestinatarios.Enabled = false;
 				ddlDestino.Disabled = true;
 			}
 
 			//Alumno: a SUS docentes o su curso
+			if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
+			{
+				//divDocente.Visible = false;
+				//divAlumno.Visible = true;
+				//rdlDestAlumno.Enabled = true;
+				//ddlDestino.Disabled = true;
+
+				Alumno objAlumno = new Alumno { username = ObjDTSessionDataUI.ObjDTUsuario.Nombre };
+				BLAlumno objBLAlumno = new BLAlumno(objAlumno);
+
+				lista = objBLAlumno.GetDocentesAlumno();
+			}
+
 			//Tutor: docentes de sus alumnos
+			if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
+			{
+				Tutor objTutor = new Tutor();
+				objTutor.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+				BLTutor objBLTutor = new BLTutor(objTutor);
+				lista = objBLTutor.GetDocentesAlumnos();
+			}
 
 			//Administrativo: a tutores
 			if (HttpContext.Current.User.IsInRole(enumRoles.Administrativo.ToString()))
@@ -261,13 +321,17 @@ namespace EDUAR_UI
 				lista = objpersona.GetPersonas(new Persona() { activo = true, idTipoPersona = (int)enumTipoPersona.Tutor });
 			}
 
+			//Preceptor: a cualquier persona
 			//Director: a cualquier persona
 			//Psicopedagogo: a cualquier persona
 			if (HttpContext.Current.User.IsInRole(enumRoles.Director.ToString())
 				||
 				HttpContext.Current.User.IsInRole(enumRoles.Psicopedagogo.ToString())
 				||
-				HttpContext.Current.User.IsInRole(enumRoles.Administrador.ToString()))
+				HttpContext.Current.User.IsInRole(enumRoles.Administrador.ToString())
+				||
+				HttpContext.Current.User.IsInRole(enumRoles.Preceptor.ToString())
+				)
 			{
 				lista = objpersona.GetPersonas(new Persona() { activo = true });
 			}
