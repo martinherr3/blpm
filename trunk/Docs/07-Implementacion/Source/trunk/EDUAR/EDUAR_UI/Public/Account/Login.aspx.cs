@@ -43,6 +43,23 @@ namespace EDUAR_UI
                 RegisterHyperLink.NavigateUrl = "~/Public/Account/Validate.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
 
                 ForgotPasswordHyperLink.NavigateUrl = "~/Public/Account/ForgotPassword.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
+
+				if (!Page.IsPostBack)
+				{
+					DTSeguridad propSeguridad = new DTSeguridad();
+					BLSeguridad objBLSeguridad = new BLSeguridad(propSeguridad);
+					if (Request.Params["const"] != null)
+					{
+						string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString());
+						ObjDTSessionDataUI.ObjDTUsuario.EsUsuarioInicial = true;
+						ObjDTSessionDataUI.ObjDTUsuario.Nombre = user;
+						propSeguridad.Usuario.Nombre = user;
+						objBLSeguridad = new BLSeguridad(propSeguridad);
+						objBLSeguridad.GetUsuario();
+						//ObjDTSessionDataUI.ObjDTUsuario.Password = objBLSeguridad.Data.Usuario.Password;
+						Response.Redirect("~/Public/Account/ForgotPassword.aspx", false);
+					}
+				}
             }
             catch (Exception ex)
             {
