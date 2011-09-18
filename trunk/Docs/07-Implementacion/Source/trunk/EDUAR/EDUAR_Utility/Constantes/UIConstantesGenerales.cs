@@ -37,6 +37,8 @@ namespace EDUAR_Utility.Constantes
 		#region Mensajería
 		public const string MensajeMultiDestino = "El mensaje ha sido enviado a los destinatarios.";
 		public const string MensajeUnicoDestino = "El mensaje ha sido enviado al destinatario.";
+		public const string MensajeEliminarMensajesSeleccionados = "¿Desea eliminar los mensajes seleccionados?";
+		public const string MensajeSinSeleccion = "No ha seleccionado ningún mensaje.";
 		#endregion
 	}
 }

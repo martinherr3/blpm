@@ -154,6 +154,10 @@ namespace EDUAR_UI
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
 						break;
+					case enumAcciones.Seleccionar:
+						EliminarSeleccionados();
+						CargarPresentacion();
+						break;
 					default:
 						break;
 				}
@@ -223,7 +227,7 @@ namespace EDUAR_UI
 						propMensaje.idMensajeDestinatario = Convert.ToInt32(e.CommandArgument.ToString());
 						divContenido.Visible = false;
 						divReply.Visible = false;
-						Master.MostrarMensaje("Eliminar Mensaje", UIConstantesGenerales.MensajeEliminar, enumTipoVentanaInformacion.Confirmación);
+						Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeEliminar, enumTipoVentanaInformacion.Confirmación);
 						break;
 				}
 				udpGrilla.Update();
@@ -258,7 +262,7 @@ namespace EDUAR_UI
 			objBLMensaje.Save();
 			AccionPagina = enumAcciones.Limpiar;
 
-			Master.MostrarMensaje("Mensaje Enviado", UIConstantesGenerales.MensajeUnicoDestino, enumTipoVentanaInformacion.Satisfactorio);
+			Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeUnicoDestino, enumTipoVentanaInformacion.Satisfactorio);
 		}
 
 		/// <summary>
@@ -287,28 +291,26 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				Mensaje objMensajesEliminar = new Mensaje();
+				bool haySeleccion = false;
 				for (int i = 0; i < gvwReporte.Rows.Count; i++)
 				{
 					CheckBox checkbox = (CheckBox)gvwReporte.Rows[i].FindControl("checkEliminar");
 					if (checkbox != null && checkbox.Checked)
 					{
-						int idMensajeDestinatario = 0;
-						Int32.TryParse(checkbox.Text, out idMensajeDestinatario);
-						if (idMensajeDestinatario > 0)
-							//EliminarMensaje(idMensajeDestinatario);
-							objMensajesEliminar.listaIDMensaje += string.Format("{0},", idMensajeDestinatario.ToString());
+						haySeleccion = true;
+						break;
 					}
 				}
-				if (!string.IsNullOrEmpty(objMensajesEliminar.listaIDMensaje))
+				if (haySeleccion)
 				{
-					objMensajesEliminar.listaIDMensaje = objMensajesEliminar.listaIDMensaje.Substring(0, objMensajesEliminar.listaIDMensaje.Length - 1);
-					objMensajesEliminar.idMensajeDestinatario = 0;
-					objMensajesEliminar.leido = true;
-					objMensajesEliminar.activo = false;
-					CargarPresentacion();
+					AccionPagina = enumAcciones.Seleccionar;
+					Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeEliminarMensajesSeleccionados, enumTipoVentanaInformacion.Confirmación);
 				}
-
+				else
+				{
+					AccionPagina = enumAcciones.Limpiar;
+					Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeSinSeleccion, enumTipoVentanaInformacion.Advertencia);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -316,6 +318,28 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Headers the checked changed.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void HeaderCheckedChanged(object sender, EventArgs e)//this is for header checkbox changed event
+		{
+			CheckBox cbSelectedHeader = (CheckBox)gvwReporte.HeaderRow.FindControl("cboxhead");
+			//if u checked header checkbox automatically all the check boxes will be checked,viseversa
+			foreach (GridViewRow row in gvwReporte.Rows)
+			{
+				CheckBox cbSelected = (CheckBox)row.FindControl("checkEliminar");
+				if (cbSelectedHeader.Checked == true)
+				{
+					cbSelected.Checked = true;
+				}
+				else
+				{
+					cbSelected.Checked = false;
+				}
+			}
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -391,6 +415,35 @@ namespace EDUAR_UI
 			BLMensaje objBLMensaje = new BLMensaje(objMensaje);
 			objBLMensaje.EliminarMensaje();
 			listaMensajes.Remove(objMensaje);
+		}
+
+		/// <summary>
+		/// Eliminars the seleccionados.
+		/// </summary>
+		private void EliminarSeleccionados()
+		{
+			Mensaje objMensajesEliminar = new Mensaje();
+			for (int i = 0; i < gvwReporte.Rows.Count; i++)
+			{
+				CheckBox checkbox = (CheckBox)gvwReporte.Rows[i].FindControl("checkEliminar");
+				if (checkbox != null && checkbox.Checked)
+				{
+					int idMensajeDestinatario = 0;
+					Int32.TryParse(checkbox.Text, out idMensajeDestinatario);
+					if (idMensajeDestinatario > 0)
+						objMensajesEliminar.listaIDMensaje += string.Format("{0},", idMensajeDestinatario.ToString());
+				}
+			}
+			if (!string.IsNullOrEmpty(objMensajesEliminar.listaIDMensaje))
+			{
+				objMensajesEliminar.listaIDMensaje = objMensajesEliminar.listaIDMensaje.Substring(0, objMensajesEliminar.listaIDMensaje.Length - 1);
+				objMensajesEliminar.idMensajeDestinatario = 1;
+				objMensajesEliminar.idMensaje = 0;
+				objMensajesEliminar.leido = true;
+				objMensajesEliminar.activo = false;
+				objBLMensaje = new BLMensaje(objMensajesEliminar);
+				objBLMensaje.EliminarListaMensajes();
+			}
 		}
 		#endregion
 

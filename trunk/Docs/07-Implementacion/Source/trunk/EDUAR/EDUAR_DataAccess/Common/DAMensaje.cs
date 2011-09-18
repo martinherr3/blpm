@@ -285,7 +285,7 @@ namespace EDUAR_DataAccess.Common
 				{
 					using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajesDestinatario_DesactivarLista"))
 					{
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensajesDestinatario", DbType.String, entidad.listaIDMensaje);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaMensajes", DbType.String, entidad.listaIDMensaje);
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@leido", DbType.Boolean, entidad.leido);
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 
@@ -301,8 +301,7 @@ namespace EDUAR_DataAccess.Common
 					{
 						using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajesRemitente_DesactivarLista"))
 						{
-							Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensajesDestinatario", DbType.String, entidad.listaIDMensaje);
-							Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idMensaje", DbType.Int32, entidad.idMensaje);
+							Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaMensajes", DbType.String, entidad.listaIDMensaje);
 							Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 
 							if (Transaction.Transaction != null)
