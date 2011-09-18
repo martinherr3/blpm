@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Data;
+using System.Drawing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
-using EDUAR_UI.Shared;
 using EDUAR_Entities;
-using EDUAR_Utility.Enumeraciones;
-using System.Drawing;
-using EDUAR_Utility.Constantes;
-using System.Data;
+using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Constantes;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -184,10 +182,10 @@ namespace EDUAR_UI
 						}
 						objMensaje = new Mensaje();
 						objMensaje = listaMensajes.Find(p => p.idMensajeDestinatario == idMensajeDestinatario);
-						
+
 						litAsunto.Text = objMensaje.asuntoMensaje;
 						litFecha.Text = objMensaje.fechaEnvio.ToShortDateString() + " " + objMensaje.horaEnvio.Hour.ToString() + ":" + objMensaje.horaEnvio.Minute.ToString();
-						litRemitente.Text = objMensaje.remitente.apellido + "  " + objMensaje.remitente.nombre;
+						litRemitente.Text = objMensaje.remitente.apellido + "  " + objMensaje.remitente.nombre + " <b>(" + objMensaje.destinatario.tipoPersona.nombre + ")</b>";
 						litContenido.Text = objMensaje.textoMensaje;
 						divContenido.Visible = true;
 						divPaginacion.Visible = true;
@@ -198,7 +196,7 @@ namespace EDUAR_UI
 						AccionPagina = enumAcciones.Eliminar;
 						propMensaje.idMensajeDestinatario = Convert.ToInt32(e.CommandArgument.ToString());
 						divContenido.Visible = false;
-						Master.MostrarMensaje("Eliminar Mensaje", UIConstantesGenerales.MensajeEliminar, enumTipoVentanaInformacion.Confirmación);
+						Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeEliminar, enumTipoVentanaInformacion.Confirmación);
 						break;
 				}
 				udpGrilla.Update();
@@ -231,12 +229,12 @@ namespace EDUAR_UI
 				if (haySeleccion)
 				{
 					AccionPagina = enumAcciones.Seleccionar;
-					Master.MostrarMensaje("Eliminar Seleccionados", UIConstantesGenerales.MensajeEliminarMensajesSeleccionados, enumTipoVentanaInformacion.Confirmación);
+					Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeEliminarMensajesSeleccionados, enumTipoVentanaInformacion.Confirmación);
 				}
 				else
 				{
 					AccionPagina = enumAcciones.Limpiar;
-					Master.MostrarMensaje("Mensajes", UIConstantesGenerales.MensajeSinSeleccion, enumTipoVentanaInformacion.Advertencia);
+					Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeSinSeleccion, enumTipoVentanaInformacion.Advertencia);
 				}
 			}
 			catch (Exception ex)
@@ -364,9 +362,9 @@ namespace EDUAR_UI
 			if (!string.IsNullOrEmpty(objMensajesEliminar.listaIDMensaje))
 			{
 				objMensajesEliminar.listaIDMensaje = objMensajesEliminar.listaIDMensaje.Substring(0, objMensajesEliminar.listaIDMensaje.Length - 1);
-				objMensajesEliminar.idMensajeDestinatario = 1;
-				objMensajesEliminar.idMensaje = 0;
-				objMensajesEliminar.leido = true;
+				objMensajesEliminar.idMensajeDestinatario = 0;
+				objMensajesEliminar.idMensaje = 1;
+				//objMensajesEliminar.leido = true;
 				objMensajesEliminar.activo = false;
 				objBLMensaje = new BLMensaje(objMensajesEliminar);
 				objBLMensaje.EliminarListaMensajes();

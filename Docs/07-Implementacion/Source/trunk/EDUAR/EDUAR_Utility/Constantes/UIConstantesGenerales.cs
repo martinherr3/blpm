@@ -39,6 +39,8 @@ namespace EDUAR_Utility.Constantes
 		public const string MensajeUnicoDestino = "El mensaje ha sido enviado al destinatario.";
 		public const string MensajeEliminarMensajesSeleccionados = "¿Desea eliminar los mensajes seleccionados?";
 		public const string MensajeSinSeleccion = "No ha seleccionado ningún mensaje.";
+		public const string MensajeSinDestinatario = "No ha seleccionado ningún destinatario.";
+
 		#endregion
 	}
 }
