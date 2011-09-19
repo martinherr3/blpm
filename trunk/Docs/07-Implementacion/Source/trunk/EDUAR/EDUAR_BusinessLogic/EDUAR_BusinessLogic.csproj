@@ -115,6 +115,8 @@
     <Compile Include="Reports\BLRptInasistenciasAlumnoPeriodo.cs" />
     <Compile Include="Reports\BLRptSancionesAlumnoPeriodo.cs" />
     <Compile Include="Reports\BLRptPromedioCalificacionesPeriodo.cs" />
+    <Compile Include="Reports\BLRptConsolidadoInasistenciasPeriodo.cs" />
+    <Compile Include="Reports\BLRptConsolidadoSancionesPeriodo.cs" />
     <Compile Include="Security\BLEncriptacion.cs" />
     <Compile Include="Security\BLSeguridad.cs" />
     <Compile Include="Shared\BLConfiguracionGlobal.cs" />
