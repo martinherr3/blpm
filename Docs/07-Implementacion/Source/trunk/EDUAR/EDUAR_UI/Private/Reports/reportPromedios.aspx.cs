@@ -38,6 +38,26 @@ namespace EDUAR_UI
 			}
 		}
 
+        /// <summary>
+        /// Gets or sets the filtro incidencias.
+        /// </summary>
+        /// <value>
+        /// The filtro incidencias.
+        /// </value>
+        public FilIncidenciasAlumno filtroReporteIncidencias
+        {
+            get
+            {
+                if (ViewState["filtroIncidencias"] == null)
+                    filtroReporteIncidencias = new FilIncidenciasAlumno();
+                return (FilIncidenciasAlumno)ViewState["filtroIncidencias"];
+            }
+            set
+            {
+                ViewState["filtroIncidencias"] = value;
+            }
+        }
+
 		/// <summary>
 		/// Gets or sets the lista promedios.
 		/// </summary>
@@ -57,6 +77,46 @@ namespace EDUAR_UI
 				Session["listaPromedios"] = value;
 			}
 		}
+
+        /// <summary>
+        /// Gets or sets the lista consolidada inasistencias.
+        /// </summary>
+        /// <value>
+        /// The lista consolidada inasistencias.
+        /// </value>
+        public List<RptConsolidadoInasistenciasPeriodo> listaReporteInasistencias
+        {
+            get
+            {
+                if (Session["listaConsolidadaInasistencias"] == null)
+                    listaReporteInasistencias = new List<RptConsolidadoInasistenciasPeriodo>();
+                return (List<RptConsolidadoInasistenciasPeriodo>)Session["listaConsolidadaInasistencias"];
+            }
+            set
+            {
+                Session["listaConsolidadaInasistencias"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the lista consolidada sanciones.
+        /// </summary>
+        /// <value>
+        /// The lista consolidada sanciones.
+        /// </value>
+        public List<RptConsolidadoSancionesPeriodo> listaReporteSanciones
+        {
+            get
+            {
+                if (Session["listaConsolidadaSanciones"] == null)
+                    listaReporteSanciones = new List<RptConsolidadoSancionesPeriodo>();
+                return (List<RptConsolidadoSancionesPeriodo>)Session["listaConsolidadaSanciones"];
+            }
+            set
+            {
+                Session["listaConsolidadaSanciones"] = value;
+            }
+        }
 
 		/// <summary>
 		/// Gets or sets the filtros aplicados.
@@ -109,20 +169,69 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				rptPromedios.ExportarPDFClick += (ExportarPDF);
-				rptPromedios.VolverClick += (VolverReporte);
-				rptPromedios.PaginarGrilla += (PaginarGrilla);
+                //divFiltros.Visible = false;
+                //divFiltrosIncidencia.Visible = false;
 
-				Master.BotonAvisoAceptar += (VentanaAceptar);
+                if (rdlAccion.SelectedValue == "0") 
+                {
+                    rptPromedios.ExportarPDFClick += (ExportarPDF);
+                    rptPromedios.VolverClick += (VolverReporte);
+                    rptPromedios.PaginarGrilla += (PaginarGrilla);
 
-				if (!Page.IsPostBack)
-				{
-					CargarPresentacion();
-					BLRptPromedioCalificacionesPeriodo objBLRptSanciones = new BLRptPromedioCalificacionesPeriodo();
-					objBLRptSanciones.GetRptPromedioCalificaciones(null);
-					divFiltros.Visible = true;
-					divPromedioPeriodo.Visible = false;
-				}
+                    Master.BotonAvisoAceptar += (VentanaAceptar);
+
+                    if (!Page.IsPostBack)
+                    {
+                        CargarPresentacion();
+                        BLRptPromedioCalificacionesPeriodo objBLRptPromedios = new BLRptPromedioCalificacionesPeriodo();
+                        objBLRptPromedios.GetRptPromedioCalificaciones(null);
+                        divFiltros.Visible = true;
+                        divFiltrosIncidencia.Visible = false;
+                        divPromedioPeriodo.Visible = false;
+                        divInasistenciasPeriodo.Visible = false;
+                        divSancionesPeriodo.Visible = false;
+                    }
+                }
+                if (rdlAccion.SelectedValue == "1")
+                {
+                    rptInasistencias.ExportarPDFClick += (ExportarPDF);
+                    rptInasistencias.VolverClick += (VolverReporte);
+                    rptInasistencias.PaginarGrilla += (PaginarGrilla);
+
+                    Master.BotonAvisoAceptar += (VentanaAceptar);
+
+                    if (!Page.IsPostBack)
+                    {
+                        CargarPresentacionIncidencias();
+                        BLRptConsolidadoInasistenciasPeriodo objBLRptInasistencias = new BLRptConsolidadoInasistenciasPeriodo();
+                        objBLRptInasistencias.GetRptConsolidadoInasistencias(null);
+                        divFiltros.Visible = false;
+                        divFiltrosIncidencia.Visible = true;
+                        divPromedioPeriodo.Visible = false;
+                        divInasistenciasPeriodo.Visible = false;
+                        divSancionesPeriodo.Visible = false;
+                    }
+                }
+                if (rdlAccion.SelectedValue == "2")
+                {
+                    rptSanciones.ExportarPDFClick += (ExportarPDF);
+                    rptSanciones.VolverClick += (VolverReporte);
+                    rptSanciones.PaginarGrilla += (PaginarGrilla);
+
+                    Master.BotonAvisoAceptar += (VentanaAceptar);
+
+                    if (!Page.IsPostBack)
+                    {
+                        CargarPresentacionIncidencias();
+                        BLRptConsolidadoSancionesPeriodo objBLRptSanciones = new BLRptConsolidadoSancionesPeriodo();
+                        objBLRptSanciones.GetRptConsolidadoSanciones(null);
+                        divFiltros.Visible = false;
+                        divFiltrosIncidencia.Visible = true;
+                        divPromedioPeriodo.Visible = false;
+                        divInasistenciasPeriodo.Visible = false;
+                        divSancionesPeriodo.Visible = false;
+                    }
+                }
 
 			}
 			catch (Exception ex)
@@ -152,13 +261,40 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				if (BuscarPromedios())
-				{
-					divFiltros.Visible = false;
-					divPromedioPeriodo.Visible = true;
+                if (rdlAccion.SelectedValue == "0"){
+                    if (BuscarPromedios())
+                    {
+                        divFiltros.Visible = false;
+                        divFiltrosIncidencia.Visible = false;
+                        divPromedioPeriodo.Visible = true;
+                        divInasistenciasPeriodo.Visible = false;
+                        divSancionesPeriodo.Visible = false;
+                    }
 				}
-				else
-				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
+                if (rdlAccion.SelectedValue == "1")
+                {
+                    if (BuscarInasistencias())
+                    {
+                        divFiltros.Visible = false;
+                        divFiltrosIncidencia.Visible = false;
+                        divPromedioPeriodo.Visible = false;
+                        divInasistenciasPeriodo.Visible = true;
+                        divSancionesPeriodo.Visible = false;
+                    }
+                }
+                if (rdlAccion.SelectedValue == "2")
+                {
+                    if (BuscarSanciones())
+                    {
+                        divFiltros.Visible = false;
+                        divFiltrosIncidencia.Visible = false;
+                        divPromedioPeriodo.Visible = false;
+                        divInasistenciasPeriodo.Visible = false;
+                        divSancionesPeriodo.Visible = true;
+                    }
+                }
+                else
+                { Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -173,7 +309,9 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				ExportPDF.ExportarPDF(Page.Title, rptPromedios.dtReporte, ObjDTSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
+                if (rdlAccion.SelectedValue == "0") ExportPDF.ExportarPDF(Page.Title, rptPromedios.dtReporte, ObjDTSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
+                if (rdlAccion.SelectedValue == "1") ExportPDF.ExportarPDF(Page.Title, rptInasistencias.dtReporte, ObjDTSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
+                if (rdlAccion.SelectedValue == "2") ExportPDF.ExportarPDF(Page.Title, rptSanciones.dtReporte, ObjDTSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -188,8 +326,12 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				divFiltros.Visible = true;
+                divAccion.Visible = true;
+                divFiltros.Visible = false;
+                divFiltrosIncidencia.Visible = false;
 				divPromedioPeriodo.Visible = false;
+                divInasistenciasPeriodo.Visible = false;
+                divSancionesPeriodo.Visible = false;
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -206,11 +348,23 @@ namespace EDUAR_UI
 			{
 				int pagina = e.NewPageIndex;
 
-				if (rptPromedios.GrillaReporte.PageCount > pagina)
+				if (rptPromedios.GrillaReporte.PageCount > pagina && rdlAccion.SelectedValue == "0")
 				{
 					rptPromedios.GrillaReporte.PageIndex = pagina;
 					rptPromedios.CargarReporte<RptPromedioCalificacionesPeriodo>(listaReporte);
 				}
+
+                if (rptPromedios.GrillaReporte.PageCount > pagina && rdlAccion.SelectedValue == "1")
+                {
+                    rptInasistencias.GrillaReporte.PageIndex = pagina;
+                    rptInasistencias.CargarReporte<RptConsolidadoInasistenciasPeriodo>(listaReporteInasistencias);
+                }
+
+                if (rptPromedios.GrillaReporte.PageCount > pagina && rdlAccion.SelectedValue == "2")
+                {
+                    rptSanciones.GrillaReporte.PageIndex = pagina;
+                    rptSanciones.CargarReporte<RptConsolidadoSancionesPeriodo>(listaReporteSanciones);
+                }
 			}
 			catch (Exception ex)
 			{
@@ -227,9 +381,19 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-				CargarComboCursos(idCicloLectivo, ddlCurso);
-				CargarComboPeriodos(idCicloLectivo, ddlPeriodo);
+                int idCicloLectivo = 0; 
+                if (rdlAccion.SelectedValue == "0")
+                {
+                    idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+                    CargarComboCursos(idCicloLectivo, ddlCurso);
+                    CargarComboPeriodos(idCicloLectivo, ddlPeriodo);
+                }
+                if (rdlAccion.SelectedValue == "1" || rdlAccion.SelectedValue == "2")
+                {
+                    idCicloLectivo = Convert.ToInt32(ddlCicloLectivo2.SelectedValue);
+                    CargarComboCursos(idCicloLectivo, ddlCurso2);
+                    CargarComboPeriodos(idCicloLectivo, ddlPeriodo2);
+                }
 			}
 			catch (Exception ex)
 			{
@@ -246,8 +410,16 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				CargarAlumnos(Convert.ToInt32(ddlCurso.SelectedValue));
-				ddlAlumno.Enabled = true;
+                if (rdlAccion.SelectedValue == "0")
+                {
+                    CargarAlumnos(Convert.ToInt32(ddlCurso.SelectedValue));
+                    ddlAlumno.Enabled = true;
+                }
+                if (rdlAccion.SelectedValue == "1" || rdlAccion.SelectedValue == "2")
+                {
+                    CargarAlumnos(Convert.ToInt32(ddlCurso2.SelectedValue));
+                    ddlAlumno2.Enabled = true;
+                }
 			}
 			catch (Exception ex)
 			{
@@ -258,8 +430,17 @@ namespace EDUAR_UI
 		private void CargarAlumnos(int idCurso)
 		{
 			BLAlumno objBLAlumno = new BLAlumno();
-			UIUtilidades.BindCombo<Alumno>(ddlAlumno, objBLAlumno.GetAlumnos(new AlumnoCurso(idCurso)), "idAlumno", "apellido", "nombre", true);
-			ddlAlumno.Enabled = true;
+
+            if (rdlAccion.SelectedValue == "0")
+            {
+                UIUtilidades.BindCombo<Alumno>(ddlAlumno, objBLAlumno.GetAlumnos(new AlumnoCurso(idCurso)), "idAlumno", "apellido", "nombre", true);
+                ddlAlumno.Enabled = true;
+            }
+            if (rdlAccion.SelectedValue == "1" || rdlAccion.SelectedValue == "2")
+            {
+                UIUtilidades.BindCombo<Alumno>(ddlAlumno2, objBLAlumno.GetAlumnos(new AlumnoCurso(idCurso)), "idAlumno", "apellido", "nombre", true);
+                ddlAlumno2.Enabled = true;
+            }
 		}
 		#endregion
 
@@ -273,8 +454,14 @@ namespace EDUAR_UI
 			btnBuscar.Visible = true;
 		}
 
+        private void CargarPresentacionIncidencias()
+        {
+            CargarCombosIncidencias();
+            btnBuscarIncidencia.Visible = true;
+        }
+
 		/// <summary>
-		/// Buscars the sanciones.
+		/// Buscars the promedios.
 		/// </summary>
 		private bool BuscarPromedios()
 		{
@@ -314,6 +501,80 @@ namespace EDUAR_UI
 				return false;
 		}
 
+        /// <summary>
+        /// Buscars the inasistencias.
+        /// </summary>
+        private bool BuscarInasistencias()
+        {
+            StringBuilder filtros = new StringBuilder();
+            if (Convert.ToInt32(ddlCicloLectivo2.SelectedValue) > 0 && Convert.ToInt32(ddlCurso2.SelectedValue) > 0)
+            {
+                filtros.AppendLine("- " + ddlCicloLectivo2.SelectedItem.Text + " - Curso: " + ddlCurso2.SelectedItem.Text);
+
+                filtroReporteIncidencias.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo2.SelectedValue);
+
+                filtroReporteIncidencias.idCurso = 0;
+                if (ddlCurso2.SelectedIndex > 0)
+                    filtroReporteIncidencias.idCurso = Convert.ToInt32(ddlCurso2.SelectedValue);
+
+                filtroReporteIncidencias.idPeriodo = Convert.ToInt32(ddlPeriodo2.SelectedValue);
+
+                filtroReporteIncidencias.idAlumno = 0;
+                if (ddlAlumno2.SelectedIndex > 0)
+                    filtroReporteIncidencias.idAlumno = Convert.ToInt32(ddlAlumno2.SelectedValue);
+
+                BLRptConsolidadoInasistenciasPeriodo objBLReporte = new BLRptConsolidadoInasistenciasPeriodo();
+                listaReporteInasistencias = objBLReporte.GetRptConsolidadoInasistencias(filtroReporteIncidencias);
+
+                listaReporteInasistencias.Sort((p, q) => String.Compare(p.alumno, q.alumno));
+
+                filtrosAplicados = filtros.ToString();
+
+                rptInasistencias.CargarReporte<RptConsolidadoInasistenciasPeriodo>(listaReporteInasistencias);
+
+                return true;
+            }
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Buscars the sanciones.
+        /// </summary>
+        private bool BuscarSanciones()
+        {
+            StringBuilder filtros = new StringBuilder();
+            if (Convert.ToInt32(ddlCicloLectivo2.SelectedValue) > 0 && Convert.ToInt32(ddlCurso2.SelectedValue) > 0)
+            {
+                filtros.AppendLine("- " + ddlCicloLectivo2.SelectedItem.Text + " - Curso: " + ddlCurso2.SelectedItem.Text);
+
+                filtroReporteIncidencias.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo2.SelectedValue);
+
+                filtroReporteIncidencias.idCurso = 0;
+                if (ddlCurso2.SelectedIndex > 0)
+                    filtroReporteIncidencias.idCurso = Convert.ToInt32(ddlCurso2.SelectedValue);
+
+                filtroReporteIncidencias.idPeriodo = Convert.ToInt32(ddlPeriodo2.SelectedValue);
+
+                filtroReporteIncidencias.idAlumno = 0;
+                if (ddlAlumno2.SelectedIndex > 0)
+                    filtroReporteIncidencias.idAlumno = Convert.ToInt32(ddlAlumno2.SelectedValue);
+
+                BLRptConsolidadoSancionesPeriodo objBLReporte = new BLRptConsolidadoSancionesPeriodo();
+                listaReporteSanciones = objBLReporte.GetRptConsolidadoSanciones(filtroReporteIncidencias);
+
+                listaReporteSanciones.Sort((p, q) => String.Compare(p.alumno, q.alumno));
+
+                filtrosAplicados = filtros.ToString();
+
+                rptSanciones.CargarReporte<RptConsolidadoSancionesPeriodo>(listaReporteSanciones);
+
+                return true;
+            }
+            else
+                return false;
+        }
+
 		/// <summary>
 		/// Cargars the combos.
 		/// </summary>
@@ -339,6 +600,27 @@ namespace EDUAR_UI
 			ddlAlumno.Enabled = false;
 		}
 
+        /// <summary>
+        /// Cargars the combos.
+        /// </summary>
+        private void CargarCombosIncidencias()
+        {
+            List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
+            BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+            listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
+
+            List<Curso> listaCurso = new List<Curso>();
+            List<Alumno> listaAlumno = new List<Alumno>();
+
+            UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo2, listaCicloLectivo, "idCicloLectivo", "nombre", true);
+
+            UIUtilidades.BindCombo<Curso>(ddlCurso2, listaCurso, "idCurso", "Nombre", true);
+
+            ddlPeriodo2.Enabled = false;
+            ddlCurso2.Enabled = false;
+            ddlAlumno2.Enabled = false;
+        }
+
 		/// <summary>
 		/// Cargars the combo cursos.
 		/// </summary>
@@ -353,12 +635,17 @@ namespace EDUAR_UI
 				Curso objCurso = new Curso();
 
 				listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
+
 				UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
-				ddlCurso.Enabled = true;
+                UIUtilidades.BindCombo<Curso>(ddlCurso2, listaCurso, "idCurso", "nombre", true);
+				
+                ddlCurso.Enabled = true;
+                ddlCurso2.Enabled = true;
 			}
 			else
 			{
 				ddlCurso.Enabled = false;
+                ddlCurso2.Enabled = false;
 			}
 		}
 
@@ -369,14 +656,58 @@ namespace EDUAR_UI
 				BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
 
 				UIUtilidades.BindCombo<Periodo>(ddlPeriodo, objBLCicloLectivo.GetPeriodosByCicloLectivo(idCicloLectivo), "idPeriodo", "nombre", true);
+                UIUtilidades.BindCombo<Periodo>(ddlPeriodo2, objBLCicloLectivo.GetPeriodosByCicloLectivo(idCicloLectivo), "idPeriodo", "nombre", true);
 
 				ddlPeriodo.Enabled = true;
+                ddlPeriodo2.Enabled = true;
 			}
 			else
 			{
 				ddlPeriodo.Enabled = false;
+                ddlPeriodo2.Enabled = false;
 			}
 		}
+
+        protected void rdlAccion_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                switch (rdlAccion.SelectedValue)
+                {
+                    case "0":
+                        CargarPresentacion();
+                        divFiltrosIncidencia.Visible = false;
+                        divFiltros.Visible = true;
+                        divPromedioPeriodo.Visible = true;
+                        divSancionesPeriodo.Visible = false;
+                        divInasistenciasPeriodo.Visible = false;
+                        break;
+                    case "1":
+                        CargarPresentacionIncidencias();
+                        divFiltrosIncidencia.Visible = true;
+                        divFiltros.Visible = false;
+                        divPromedioPeriodo.Visible = false;
+                        divSancionesPeriodo.Visible = false;
+                        divInasistenciasPeriodo.Visible = true;
+                        break;
+                    case "2":
+                        CargarPresentacionIncidencias();
+                        divFiltrosIncidencia.Visible = true;
+                        divFiltros.Visible = false;
+                        divPromedioPeriodo.Visible = false;
+                        divSancionesPeriodo.Visible = true;
+                        divInasistenciasPeriodo.Visible = false;
+                        break;
+                    default:
+                        break;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
 		#endregion
 	}
 }

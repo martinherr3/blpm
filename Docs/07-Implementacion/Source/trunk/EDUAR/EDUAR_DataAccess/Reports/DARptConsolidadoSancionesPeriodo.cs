@@ -9,19 +9,18 @@ using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_DataAccess.Reports
 {
-    public class DARptPromedioCalificacionesPeriodo : DataAccesBase<RptPromedioCalificacionesPeriodo>
+    public class DARptConsolidadoSancionesPeriodo : DataAccesBase<RptConsolidadoSancionesPeriodo>
     {
         #region --[Atributos]--
-        private const string ClassName = "DARptPromedioCalificaciones";
+        private const string ClassName = "DARptConsolidadoSancionesPeriodo";
         #endregion
 
         #region --[Constructor]--
-        public DARptPromedioCalificacionesPeriodo()
+        public DARptConsolidadoSancionesPeriodo()
         {
         }
 
-        public DARptPromedioCalificacionesPeriodo(DATransaction objDATransaction)
-            : base(objDATransaction)
+        public DARptConsolidadoSancionesPeriodo(DATransaction objDATransaction) : base(objDATransaction)
         {
 
         }
@@ -29,36 +28,35 @@ namespace EDUAR_DataAccess.Reports
 
         #region --[Métodos Públicos]--
 
-        public List<RptPromedioCalificacionesPeriodo> GetRptPromedioCalificaciones(FilPromedioCalificacionesPeriodo entidad)
+        public List<RptConsolidadoSancionesPeriodo> GetRptConsolidadoSanciones(FilIncidenciasAlumno entidad)
         {
             try
             {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_PromedioCalificacionesPeriodo");
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoSancionesPeriodo");
                 if (entidad != null)
                 {
                     if (entidad.idAlumno > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAlumno", DbType.Int32, entidad.idAlumno);
-                    if (entidad.idAsignatura > 0)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.idAsignatura);
+
                     if (entidad.idCurso > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.idCurso);
+
                     if (entidad.idCicloLectivo > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
-                    //if (entidad.idPeriodo > 0)
+
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPeriodo", DbType.Int32, entidad.idPeriodo);
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-                List<RptPromedioCalificacionesPeriodo> listaReporte = new List<RptPromedioCalificacionesPeriodo>();
-                RptPromedioCalificacionesPeriodo objReporte;
+                List<RptConsolidadoSancionesPeriodo> listaReporte = new List<RptConsolidadoSancionesPeriodo>();
+                RptConsolidadoSancionesPeriodo objReporte;
                 while (reader.Read())
                 {
-                    objReporte = new RptPromedioCalificacionesPeriodo();
+                    objReporte = new RptConsolidadoSancionesPeriodo();
 
                     objReporte.alumno = reader["Alumno"].ToString();
-                    objReporte.asignatura = reader["Asignatura"].ToString();
                     objReporte.periodo = reader["Periodo"].ToString();
-                    objReporte.promedio = reader["Promedio"].ToString();
+                    objReporte.sanciones = reader["Sanciones"].ToString();
 
                     listaReporte.Add(objReporte);
                 }
@@ -66,12 +64,12 @@ namespace EDUAR_DataAccess.Reports
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetRptPromedioCalificaciones(1)", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRptConsolidadoSanciones()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetRptPromedioCalificaciones(2)", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRptConsolidadoSanciones()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
@@ -89,27 +87,27 @@ namespace EDUAR_DataAccess.Reports
             get { throw new NotImplementedException(); }
         }
 
-        public override RptPromedioCalificacionesPeriodo GetById(RptPromedioCalificacionesPeriodo entidad)
+        public override RptConsolidadoSancionesPeriodo GetById(RptConsolidadoSancionesPeriodo entidad)
         {
             throw new NotImplementedException();
         }
 
-        public override void Create(RptPromedioCalificacionesPeriodo entidad)
+        public override void Create(RptConsolidadoSancionesPeriodo entidad)
         {
             throw new NotImplementedException();
         }
 
-        public override void Create(RptPromedioCalificacionesPeriodo entidad, out int identificador)
+        public override void Create(RptConsolidadoSancionesPeriodo entidad, out int identificador)
         {
             throw new NotImplementedException();
         }
 
-        public override void Update(RptPromedioCalificacionesPeriodo entidad)
+        public override void Update(RptConsolidadoSancionesPeriodo entidad)
         {
             throw new NotImplementedException();
         }
 
-        public override void Delete(RptPromedioCalificacionesPeriodo entidad)
+        public override void Delete(RptConsolidadoSancionesPeriodo entidad)
         {
             throw new NotImplementedException();
         }

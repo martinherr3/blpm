@@ -295,11 +295,16 @@ namespace EDUAR_UI
                     filtros.AppendLine("- Fecha Hasta: " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString());
                     filtroReporte.fechaHasta = (DateTime)fechas.ValorFechaHasta;
                 }
-                
-                filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-                
-                filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-                
+
+                //Sólo si selecciona el ciclo lectivo
+                if (ddlCicloLectivo.SelectedIndex > 1)
+                    filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+
+                //Sólo si selecciona el curso
+                if(ddlCurso.SelectedIndex > 1)
+                    filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+                               
+                //Sólo si selecciona un alumno
                 if (ddlAlumno.SelectedIndex > 1)
                     filtroReporte.idAlumno = Convert.ToInt32(ddlAlumno.SelectedValue);
                 
