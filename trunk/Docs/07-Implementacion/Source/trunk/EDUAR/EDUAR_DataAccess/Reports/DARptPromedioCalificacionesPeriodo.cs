@@ -40,7 +40,7 @@ namespace EDUAR_DataAccess.Reports
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAlumno", DbType.Int32, entidad.idAlumno);
                     if (entidad.idAsignatura > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.idAsignatura);
-                    if (entidad.idCurso > 0)
+                   if (entidad.idCurso > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.idCurso);
                     if (entidad.idCicloLectivo > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
@@ -76,6 +76,48 @@ namespace EDUAR_DataAccess.Reports
             }
         }
 
+
+        public List<RptPromedioCalificacionesAsignaturaCursoPeriodo> GetRptPromedioCalificacionesAsignaturaCurso(FilPromedioCalificacionesPeriodo entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_PromedioCalificacionesaAsignaturaCursoPeriodo");
+                if (entidad != null)
+                {
+                    if (entidad.idCurso > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.idCurso);
+                    if (entidad.idCicloLectivo > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
+                    //if (entidad.idPeriodo > 0)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPeriodo", DbType.Int32, entidad.idPeriodo);
+                }
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<RptPromedioCalificacionesAsignaturaCursoPeriodo> listaReporte = new List<RptPromedioCalificacionesAsignaturaCursoPeriodo>();
+                RptPromedioCalificacionesAsignaturaCursoPeriodo objReporte;
+                while (reader.Read())
+                {
+                    objReporte = new RptPromedioCalificacionesAsignaturaCursoPeriodo();
+
+                    objReporte.asignatura = reader["Asignatura"].ToString();
+                    objReporte.periodo = reader["Periodo"].ToString();
+                    objReporte.promedio = reader["Promedio"].ToString();
+
+                    listaReporte.Add(objReporte);
+                }
+                return listaReporte;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRptPromedioCalificaciones(1)", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRptPromedioCalificaciones(2)", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
         #endregion
 
         #region --[Implementación métodos heredados]--
