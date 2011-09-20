@@ -9,7 +9,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Reuniones
+        Excursiones
         <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
     <br />
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
@@ -159,7 +159,7 @@
                                 <h3>
                                     <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
                                     <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
-                                    Reunión</h3>
+                                    Excursión</h3>
                             </td>
                         </tr>
                         <tr>
