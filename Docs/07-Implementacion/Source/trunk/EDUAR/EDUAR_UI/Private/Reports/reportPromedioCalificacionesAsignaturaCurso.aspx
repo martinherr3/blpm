@@ -1,17 +1,15 @@
-﻿<%@ Page Title="Reporte de Calificaciones por Curso y Asignatura" Language="C#" MasterPageFile="~/EDUARMaster.Master" 
-AutoEventWireup="true" CodeBehind="reportPromedioCalificacionesAsignaturaCurso.aspx.cs" 
-Inherits="EDUAR_UI.reportPromedioCalificacionesAsignaturaCurso" %>
+﻿<%@ Page Title="Reporte de Calificaciones por Curso y Asignatura" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+    AutoEventWireup="true" CodeBehind="reportPromedioCalificacionesAsignaturaCurso.aspx.cs"
+    Inherits="EDUAR_UI.reportPromedioCalificacionesAsignaturaCurso" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Reporte.ascx" TagName="Reporte" TagPrefix="rep" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2>Consultar Promedio de Calificaciones por Asignatura y Curso</h2>
-    <br/>
+    <h2>
+        Consultar Promedio de Calificaciones por Asignatura y Curso</h2>
+    <br />
     <div id="divFiltros" runat="server">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
@@ -43,7 +41,8 @@ Inherits="EDUAR_UI.reportPromedioCalificacionesAsignaturaCurso" %>
                     <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="top" class="TDCriterios25">
-                    <asp:DropDownList ID="ddlCurso" runat="server" onselectedindexchanged="ddlCurso_SelectedIndexChanged" AutoPostBack="True">
+                    <asp:DropDownList ID="ddlCurso" runat="server" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged"
+                        AutoPostBack="True">
                     </asp:DropDownList>
                 </td>
             </tr>
@@ -56,18 +55,18 @@ Inherits="EDUAR_UI.reportPromedioCalificacionesAsignaturaCurso" %>
                     </asp:DropDownList>
                 </td>
                 <td valign="top" class="TDCriterios25">
-<%--                    <asp:Label ID="lblAlumno" runat="server" Text="Alumno:" CssClass="lblCriterios"></asp:Label>
---%>                </td>
+                    <%--                    <asp:Label ID="lblAlumno" runat="server" Text="Alumno:" CssClass="lblCriterios"></asp:Label>
+                    --%>
+                </td>
                 <td valign="top" class="TDCriterios25">
-<%--                    <asp:DropDownList ID="ddlAlumno" runat="server">
+                    <%--                    <asp:DropDownList ID="ddlAlumno" runat="server">
                     </asp:DropDownList>
---%>                </td>
+                    --%>
+                </td>
             </tr>
         </table>
     </div>
     <div id="divPromedioPeriodo" runat="server">
         <rep:Reporte ID="rptPromedioCalificacionesAsignaturaCurso" runat="server"></rep:Reporte>
-   
-
     </div>
 </asp:Content>
