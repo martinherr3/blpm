@@ -113,6 +113,23 @@ namespace EDUAR_BusinessLogic.Reports
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+        public List<RptPromedioCalificacionesAsignaturaCursoPeriodo> GetRptPromedioCalificacionesAsignaturaCurso(FilPromedioCalificacionesPeriodo entidad)
+        {
+            try
+            {
+                return DataAcces.GetRptPromedioCalificacionesAsignaturaCurso(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRptPromedioCalificacionesAsignaturaCurso", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         
         #endregion
     }
