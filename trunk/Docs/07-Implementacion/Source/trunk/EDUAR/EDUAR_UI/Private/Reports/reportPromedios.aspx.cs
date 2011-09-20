@@ -169,9 +169,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-                //divFiltros.Visible = false;
-                //divFiltrosIncidencia.Visible = false;
-
                 if (rdlAccion.SelectedValue == "0") 
                 {
                     rptPromedios.ExportarPDFClick += (ExportarPDF);
@@ -452,12 +449,18 @@ namespace EDUAR_UI
 		{
 			CargarCombos();
 			btnBuscar.Visible = true;
+            divPromedioPeriodo.Visible = false;
+            divInasistenciasPeriodo.Visible = false;
+            divSancionesPeriodo.Visible = false;
 		}
 
         private void CargarPresentacionIncidencias()
         {
             CargarCombosIncidencias();
             btnBuscarIncidencia.Visible = true;
+            divPromedioPeriodo.Visible = false;
+            divInasistenciasPeriodo.Visible = false;
+            divSancionesPeriodo.Visible = false;
         }
 
 		/// <summary>
@@ -678,7 +681,7 @@ namespace EDUAR_UI
                         CargarPresentacion();
                         divFiltrosIncidencia.Visible = false;
                         divFiltros.Visible = true;
-                        divPromedioPeriodo.Visible = true;
+                        divPromedioPeriodo.Visible = false;
                         divSancionesPeriodo.Visible = false;
                         divInasistenciasPeriodo.Visible = false;
                         break;
@@ -688,14 +691,14 @@ namespace EDUAR_UI
                         divFiltros.Visible = false;
                         divPromedioPeriodo.Visible = false;
                         divSancionesPeriodo.Visible = false;
-                        divInasistenciasPeriodo.Visible = true;
+                        divInasistenciasPeriodo.Visible = false;
                         break;
                     case "2":
                         CargarPresentacionIncidencias();
                         divFiltrosIncidencia.Visible = true;
                         divFiltros.Visible = false;
                         divPromedioPeriodo.Visible = false;
-                        divSancionesPeriodo.Visible = true;
+                        divSancionesPeriodo.Visible = false;
                         divInasistenciasPeriodo.Visible = false;
                         break;
                     default:
