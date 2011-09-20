@@ -299,7 +299,8 @@ namespace EDUAR_UI
                 
                 filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
                 
-                if (ddlAlumno.SelectedIndex > 1)
+               // if (ddlAlumno.SelectedIndex > 1)
+                if (ddlAlumno.SelectedIndex > 0)
                     filtroReporte.idAlumno = Convert.ToInt32(ddlAlumno.SelectedValue);
                 
                 BLRptSancionesAlumnoPeriodo objBLReporte = new BLRptSancionesAlumnoPeriodo();

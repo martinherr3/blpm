@@ -10,6 +10,7 @@ using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
+using System.Data;
 
 namespace EDUAR_UI
 {
@@ -111,12 +112,13 @@ namespace EDUAR_UI
 				rptCalificaciones.VolverClick += (VolverReporte);
 				rptCalificaciones.PaginarGrilla += (PaginarGrilla);
 				Master.BotonAvisoAceptar += (VentanaAceptar);
+                rptCalificaciones.GraficarClick += (btnGraficar);
 
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
 					BLRptCalificacionesAlumnoPeriodo objBLRptCalificaciones = new BLRptCalificacionesAlumnoPeriodo();
-					objBLRptCalificaciones.GetRptCalificacionesAlumnoPeriodo(null);
+					//objBLRptCalificaciones.GetRptCalificacionesAlumnoPeriodo(null);
 					divFiltros.Visible = true;
 					divReporte.Visible = false;
 				}
@@ -192,6 +194,58 @@ namespace EDUAR_UI
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
 		}
+
+        protected void btnGraficar(object sender, EventArgs e)
+        {
+            try
+            {
+                rptCalificaciones.graficoReporte.LimpiarSeries();
+                bool filtroRoles = false;
+                if (ddlAsignatura.SelectedIndex > 0)
+                {
+                    List<RptCalificacionesAlumnoPeriodo> listaCalificaciones = new List<RptCalificacionesAlumnoPeriodo>();
+                    
+                    if (Session["listaCalificaciones"] != null)
+                    {
+                        listaCalificaciones = (List<RptCalificacionesAlumnoPeriodo>)Session["listaCalificaciones"]; 
+                    }
+                    for (int i = 0; i <= 10; i++)
+                    {
+                         List<RptCalificacionesAlumnoPeriodo> lista = listaCalificaciones.FindAll(c => c.calificacion == Convert.ToString(i));
+                         if (lista.Count > 0)
+                         {
+                             DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(lista);
+                             rptCalificaciones.graficoReporte.AgregarSerie(Convert.ToString(i), dt, "asignatura", "calificacion");
+                         }
+                         rptCalificaciones.graficoReporte.Titulo = "Calificaciones en la Materia " + ddlAsignatura.SelectedItem.Text;
+                         filtroRoles = true;
+
+                    }
+
+                    ////////////////
+                    //foreach (enumRoles item in enumRoles.GetValues(typeof(enumRoles)))
+                    //{
+                    //    List<RptAccesos> lista = listaAcceso.FindAll(c => c.rol == item.ToString());
+                    //    if (lista.Count > 0)
+                    //    {
+                    //        DataTable dt = UIUtilidades.BuildDataTable<RptAccesos>(lista);
+                    //        rptAccesos.graficoReporte.AgregarSerie(item.ToString(), dt, "fecha", "accesos");
+                    //    }
+                    //}
+                    //rptAccesos.graficoReporte.Titulo = "Accesos Página " + ddlPagina.SelectedItem.Text;
+                    //filtroRoles = true;
+                }
+                else
+                {
+                // ToDo: Contemplar otros casos para graficos 
+                }
+
+                rptCalificaciones.graficoReporte.GraficarBarra();
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
+        }
+
 
 		/// <summary>
 		/// Paginars the grilla.
@@ -296,7 +350,8 @@ namespace EDUAR_UI
 				}
 				filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
 				filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-                if (ddlAlumno.SelectedIndex > 1)
+                //if (ddlAlumno.SelectedIndex > 1)
+                if (ddlAlumno.SelectedIndex > 0)
                     filtroReporte.idAlumno =  Convert.ToInt32(ddlAlumno.SelectedValue);
 				BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
 				listaReporte = objBLReporte.GetRptCalificacionesAlumnoPeriodo(filtroReporte);
