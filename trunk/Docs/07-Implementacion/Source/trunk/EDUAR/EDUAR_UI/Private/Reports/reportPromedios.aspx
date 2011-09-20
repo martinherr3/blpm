@@ -7,8 +7,16 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Reporte consolidado por período</h2>
+        Reportes por Período</h2>
     <br />
+    <table class="tablaInterna" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="right">
+                <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
+                    ImageUrl="~/Images/botonBuscar.png" />
+            </td>
+        </tr>
+    </table>
     <div id="divAccion" runat="server">
         <table class="tablaInterna" cellpadding="1" cellspacing="5" border="0">
             <tr>
@@ -27,24 +35,7 @@
         </table>
     </div>
     <div id="divFiltros" runat="server">
-        <table class="tablaInterna" cellpadding="0" cellspacing="0">
-            <tr>
-                <td align="right">
-                    <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
-                        ImageUrl="~/Images/botonBuscar.png" />
-                </td>
-            </tr>
-        </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
-            <tr>
-                <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td valign="top" class="TDCriterios75" colspan="3">
-                    <asp:DropDownList ID="ddlAsignatura" runat="server">
-                    </asp:DropDownList>
-                </td>
-            </tr>
             <tr>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
@@ -78,60 +69,18 @@
                     </asp:DropDownList>
                 </td>
             </tr>
-        </table>
-    </div>
-    <div id="divFiltrosIncidencia" runat="server">
-        <table class="tablaInterna" cellpadding="0" cellspacing="0">
-            <tr>
-                <td align="right">
-                    <asp:ImageButton ID="btnBuscarIncidencia" OnClick="btnBuscar_Click" runat="server"
-                        ToolTip="Buscar" ImageUrl="~/Images/botonBuscar.png" />
-                </td>
-            </tr>
-        </table>
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
                 <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblCicloLectivo2" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
+                    <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                 </td>
-                <td valign="top" class="TDCriterios25">
-                    <asp:DropDownList ID="ddlCicloLectivo2" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
-                    </asp:DropDownList>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblCurso2" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                    <asp:DropDownList ID="ddlCurso2" runat="server" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged"
-                        AutoPostBack="True">
-                    </asp:DropDownList>
-                </td>
-            </tr>
-            <tr>
-                <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblPeriodo2" runat="server" Text="Periodo:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                    <asp:DropDownList ID="ddlPeriodo2" runat="server">
-                    </asp:DropDownList>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblAlumno2" runat="server" Text="Alumno:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                    <asp:DropDownList ID="ddlAlumno2" runat="server">
+                <td valign="top" class="TDCriterios75" colspan="3">
+                    <asp:DropDownList ID="ddlAsignatura" runat="server">
                     </asp:DropDownList>
                 </td>
             </tr>
         </table>
     </div>
-    <div id="divPromedioPeriodo" runat="server">
-        <rep:Reporte ID="rptPromedios" runat="server"></rep:Reporte>
-    </div>
-    <div id="divInasistenciasPeriodo" runat="server">
-        <rep:Reporte ID="rptInasistencias" runat="server"></rep:Reporte>
-    </div>
-    <div id="divSancionesPeriodo" runat="server">
-        <rep:Reporte ID="rptSanciones" runat="server"></rep:Reporte>
+    <div id="divReporte" runat="server">
+        <rep:Reporte ID="rptResultado" runat="server"></rep:Reporte>
     </div>
 </asp:Content>
