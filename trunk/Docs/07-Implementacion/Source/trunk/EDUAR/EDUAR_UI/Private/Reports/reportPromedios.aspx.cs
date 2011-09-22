@@ -620,6 +620,8 @@ namespace EDUAR_UI
 						CargarPresentacion();
 						divReporte.Visible = false;
 						divFiltros.Visible = true;
+                        lblAsignatura.Visible = true;
+						ddlAsignatura.Visible = true;
 						break;
 					case "1":
 						CargarPresentacion();
