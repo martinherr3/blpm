@@ -176,7 +176,8 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
-					divFiltros.Visible = true;
+                    btnBuscar.Visible = false;
+					divFiltros.Visible = false;
 					divReporte.Visible = false;
 				}
 
@@ -275,7 +276,9 @@ namespace EDUAR_UI
 				}
 				if (faltanDatos)
 				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
-				else { divReporte.Visible = true; }
+				else { divReporte.Visible = true;
+                btnBuscar.Visible = false; //Se supone que no es mas necesario
+                }
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -619,6 +622,7 @@ namespace EDUAR_UI
 					case "0":
 						CargarPresentacion();
 						divReporte.Visible = false;
+                        btnBuscar.Visible = true;
 						divFiltros.Visible = true;
                         lblAsignatura.Visible = true;
 						ddlAsignatura.Visible = true;
@@ -626,6 +630,7 @@ namespace EDUAR_UI
 					case "1":
 						CargarPresentacion();
 						divReporte.Visible = false;
+                        btnBuscar.Visible = true;
 						divFiltros.Visible = true;
 						lblAsignatura.Visible = false;
 						ddlAsignatura.Visible = false;
@@ -633,6 +638,7 @@ namespace EDUAR_UI
 					case "2":
 						CargarPresentacion();
 						divReporte.Visible = false;
+                        btnBuscar.Visible = true;
 						divFiltros.Visible = true;
 						lblAsignatura.Visible = false;
 						ddlAsignatura.Visible = false;
