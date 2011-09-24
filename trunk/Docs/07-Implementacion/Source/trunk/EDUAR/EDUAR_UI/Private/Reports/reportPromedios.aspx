@@ -26,7 +26,7 @@
                 <td rowspan="3" class="TDCriterios75">
                     <asp:RadioButtonList ID="rdlAccion" runat="server" OnSelectedIndexChanged="rdlAccion_OnSelectedIndexChanged"
                         AutoPostBack="true">
-                        <asp:ListItem Text="Promedios" Value="0" Enabled="true" Selected="True" />
+                        <asp:ListItem Text="Promedios" Value="0" Enabled="true" />
                         <asp:ListItem Text="Inasistencias" Value="1" />
                         <asp:ListItem Text="Sanciones" Value="2" />
                     </asp:RadioButtonList>
