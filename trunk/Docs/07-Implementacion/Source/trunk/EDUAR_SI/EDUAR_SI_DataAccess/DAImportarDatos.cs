@@ -30,56 +30,7 @@ namespace EDUAR_SI_DataAccess
         #endregion
 
         #region --[Métodos Públicos]--
-        /// <summary>
-        /// Obteners the configuracion.
-        /// </summary>
-        /// <param name="parametroConfiguracion">The parametro configuracion.</param>
-        /// <returns></returns>
-        public Configuraciones ObtenerConfiguracion(enumConfiguraciones configuracion)
-        {
-            Configuraciones objConfiguracion = null;
-            try
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    sqlConnectionConfig.Open();
-
-                    command.Connection = sqlConnectionConfig;
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = "Configuraciones_Select";
-                    command.CommandTimeout = 10;
-
-                    command.Parameters.AddWithValue("@nombre", configuracion.ToString());
-
-                    SqlDataReader reader = command.ExecuteReader();
-                    objConfiguracion = new Configuraciones();
-                    while (reader.Read())
-                    {
-                        objConfiguracion.idConfiguracion = (int)reader["idConfiguracion"];
-                        objConfiguracion.nombre = reader["nombre"].ToString();
-                        objConfiguracion.descripcion = reader["descripcion"].ToString();
-                        objConfiguracion.activo = (bool)reader["activo"];
-                        objConfiguracion.valor = reader["valor"].ToString();
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new CustomizedException(String.Format("Fallo en {0} - ObtenerConfiguracion()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(String.Format("Fallo en {0} - ObtenerConfiguracion()", ClassName),
-                                    ex, enuExceptionType.DataAccesException);
-            }
-            finally
-            {
-                if (sqlConnectionConfig.State == ConnectionState.Open)
-                    sqlConnectionConfig.Close();
-            }
-            return objConfiguracion;
-        }
+       
 
         /// <summary>
         /// Guarda una colección de personas en base de datos
@@ -1583,6 +1534,7 @@ namespace EDUAR_SI_DataAccess
                         command.Parameters.AddWithValue("idAlumnoCurso", 0);
                         command.Parameters.AddWithValue("idAlumnoCursoTransaccional", alumnoCurso.idAlumnoCursoTransaccional);
                         command.Parameters.AddWithValue("idAlumno", alumnoCurso.alumno.idAlumnoTransaccional);
+						//TODO: debiera pasarse el idCursoCicloLectivo
                         command.Parameters.AddWithValue("idCurso", alumnoCurso.curso.idCursoTransaccional);
                         command.ExecuteNonQuery();
                         command.Parameters.Clear();
@@ -1611,6 +1563,5 @@ namespace EDUAR_SI_DataAccess
 
 
         #endregion
-
     }
 }

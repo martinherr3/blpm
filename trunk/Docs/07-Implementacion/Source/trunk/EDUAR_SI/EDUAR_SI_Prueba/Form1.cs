@@ -33,6 +33,22 @@ namespace EDUAR_SI_Prueba
             ddlCadenaConexion.Items.Add(@"Data Source=SOFIA;Initial Catalog=EDUAR;Persist Security Info=True;User ID=sa;Password=tesis");
             ddlCadenaConexion.Items.Add(@"Data Source=alulau.redirectme.net,1433;Initial Catalog=EDUAR;Persist Security Info=True;User ID=sa;Password=tesis");
             ddlCadenaConexion.SelectedIndex = 1;
-        }
+		}
+
+		private void btnInformeInasitencia_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				btnInformeInasistencia.Enabled = false;
+				BLNotificarInasistencia objInforme = new BLNotificarInasistencia(ddlCadenaConexion.SelectedItem.ToString());
+				objInforme.ProcedimientoNotificarInasistencia();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{ btnInformeInasistencia.Enabled = true; }
+		}
     }
 }
