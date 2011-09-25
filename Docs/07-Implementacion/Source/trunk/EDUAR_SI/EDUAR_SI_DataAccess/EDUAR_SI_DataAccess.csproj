@@ -49,7 +49,9 @@
   <ItemGroup>
     <Compile Include="DABase.cs" />
     <Compile Include="DAImportarDatos.cs" />
+    <Compile Include="DANotificarInasistencia.cs" />
     <Compile Include="DAObtenerDatos.cs" />
+    <Compile Include="DAProcesosEjecutados.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

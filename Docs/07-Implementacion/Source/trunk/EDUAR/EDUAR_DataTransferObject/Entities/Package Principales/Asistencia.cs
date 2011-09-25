@@ -1,72 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
-    public class Asistencia: DTBase
-    {
-        private int _idAsistencia;
+	[Serializable]
+	public class Asistencia : DTBase
+	{
+		public DateTime fecha { get; set; }
+		public int idAsistencia { get; set; }
+		public int idAsistenciaTransaccional { get; set; }
+		public TipoAsistencia tipoAsistencia { get; set; }
+		public Alumno unAlumno { get; set; }
 
-        public int idAsistencia
-        {
-            get { return _idAsistencia; }
-            set { _idAsistencia = value; }
-        }
+		public Asistencia()
+		{
+			unAlumno = new Alumno();
+			tipoAsistencia = new TipoAsistencia();
+		}
 
+		~Asistencia()
+		{
 
-        private DateTime _fecha;
-        public DateTime fecha
-        {
-            get { return _fecha; }
-            set { _fecha = value; }
-        }
-        private TipoAsistencia _tipoAsistencia;
+		}
 
-        public TipoAsistencia tipoAsistencia
-        {
-            get { return _tipoAsistencia; }
-            set { _tipoAsistencia = value; }
-        }
+		public virtual void Dispose()
+		{
 
-        private int _idAsistenciaTransaccional;
-
-        public int idAsistenciaTransaccional
-        {
-            get { return _idAsistenciaTransaccional; }
-            set { _idAsistenciaTransaccional = value; }
-        }
-
-        private Alumno _unAlumno;
-
-        public Alumno unAlumno
-        {
-            get { return _unAlumno; }
-            set { _unAlumno = value; }
-        }
-
-
-
-        
-        public Asistencia()
-        {
-
-        }
-
-        ~Asistencia()
-        {
-
-        }
-
-        public virtual void Dispose()
-        {
-
-        }
-
-
-      
-    }
+		}
+	}
 }

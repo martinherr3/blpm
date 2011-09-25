@@ -208,7 +208,7 @@ namespace EDUAR_SI_BusinessLogic
                         numeroDocumento = personal.numeroDocumento,
                         idTipoDocumento = personal.idTipoDocumento,
                         activo = personal.activo,
-                        fechaNacimiento = null,
+                        fechaNacimiento = DateTime.MinValue,
                         localidad = new Localidades(),
                         idTipoPersona = (int)enumTipoPersona.Personal
                     };
