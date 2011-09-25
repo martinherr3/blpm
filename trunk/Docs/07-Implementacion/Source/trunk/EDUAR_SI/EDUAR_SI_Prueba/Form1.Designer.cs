@@ -32,6 +32,7 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.ddlCadenaConexion = new System.Windows.Forms.ComboBox();
 			this.btnInformeInasistencia = new System.Windows.Forms.Button();
+			this.btnInformeSanciones = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// btnImportarMySQL
@@ -59,12 +60,12 @@
 			this.ddlCadenaConexion.FormattingEnabled = true;
 			this.ddlCadenaConexion.Location = new System.Drawing.Point(18, 44);
 			this.ddlCadenaConexion.Name = "ddlCadenaConexion";
-			this.ddlCadenaConexion.Size = new System.Drawing.Size(520, 23);
+			this.ddlCadenaConexion.Size = new System.Drawing.Size(447, 23);
 			this.ddlCadenaConexion.TabIndex = 2;
 			// 
 			// btnInformeInasistencia
 			// 
-			this.btnInformeInasistencia.Location = new System.Drawing.Point(18, 115);
+			this.btnInformeInasistencia.Location = new System.Drawing.Point(169, 73);
 			this.btnInformeInasistencia.Name = "btnInformeInasistencia";
 			this.btnInformeInasistencia.Size = new System.Drawing.Size(145, 36);
 			this.btnInformeInasistencia.TabIndex = 3;
@@ -72,11 +73,22 @@
 			this.btnInformeInasistencia.UseVisualStyleBackColor = true;
 			this.btnInformeInasistencia.Click += new System.EventHandler(this.btnInformeInasitencia_Click);
 			// 
+			// btnInformeSanciones
+			// 
+			this.btnInformeSanciones.Location = new System.Drawing.Point(320, 73);
+			this.btnInformeSanciones.Name = "btnInformeSanciones";
+			this.btnInformeSanciones.Size = new System.Drawing.Size(145, 36);
+			this.btnInformeSanciones.TabIndex = 4;
+			this.btnInformeSanciones.Text = "Informe Sanciones";
+			this.btnInformeSanciones.UseVisualStyleBackColor = true;
+			this.btnInformeSanciones.Click += new System.EventHandler(this.btnInformeSanciones_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(550, 340);
+			this.ClientSize = new System.Drawing.Size(493, 340);
+			this.Controls.Add(this.btnInformeSanciones);
 			this.Controls.Add(this.btnInformeInasistencia);
 			this.Controls.Add(this.ddlCadenaConexion);
 			this.Controls.Add(this.label1);
@@ -96,6 +108,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox ddlCadenaConexion;
 		private System.Windows.Forms.Button btnInformeInasistencia;
+		private System.Windows.Forms.Button btnInformeSanciones;
     }
 }
 
