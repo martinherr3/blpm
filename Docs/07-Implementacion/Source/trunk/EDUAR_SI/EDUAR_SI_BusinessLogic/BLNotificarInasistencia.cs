@@ -71,28 +71,53 @@ namespace EDUAR_SI_BusinessLogic
 				{
 					if (idTutorAnterior != item.unAlumno.listaTutores[0].idPersona)
 					{
+						if (sbMail != null)
+						{
+							// cambio el tutor... primero envio el mail al anterior? 
+							sbMail.Append("<br />");
+							sbMail.AppendLine("EDU@R 2.0 - Educación Argentina del Nuevo Milenio");
+							Email.EnviarMail("Inasistencias " + fechaMinima.ToShortDateString() + " al " + DateTime.Now.ToShortDateString(), sbMail.ToString().Replace("\n", "<br />"), true);
+						}
+						// empiezo a armar un nuevo email
 						sbMail = new StringBuilder();
 						sbMail.AppendLine("Gracias por utilizar <b>EDU@R 2.0</b>");
 						sbMail.Append("<br />");
 						sbMail.AppendLine("Buenos días " + item.unAlumno.listaTutores[0].nombre + ",");
 						sbMail.Append("<br />");
-						sbMail.Append("A continuación se encuentra el detalle de inasistencias y llegadas tarde para el alumno ");
-						sbMail.Append("<b>" + item.unAlumno.nombre + " " + item.unAlumno.apellido + "</b>");
+						sbMail.Append("A continuación se encuentra el detalle de inasistencias y llegadas tarde para sus alumnos ");
 						sbMail.Append(" en el periodo ");
 						sbMail.Append(fechaMinima.ToShortDateString() + " al " + DateTime.Now.ToShortDateString());
 						sbMail.Append("<br /><br />");
+
+						sbMail.AppendLine(("<b>" + item.unAlumno.nombre + " " + item.unAlumno.apellido + "</b> ").PadRight(25, ' '));
 						var listaInasistencia = listaAsistencia.FindAll(p => p.unAlumno.idPersona == item.unAlumno.idPersona);
 						foreach (var asistencia in listaInasistencia)
 						{
 							sbMail.AppendLine("Fecha: " + asistencia.fecha.ToShortDateString() + " - Tipo de Inasistencia: " + asistencia.tipoAsistencia.descripcion);
 						}
-						sbMail.Append("<br />");
-						sbMail.AppendLine("EDU@R 2.0 - Educación Argentina del Nuevo Milenio");
+
 						Email.AgregarDestinatario(item.unAlumno.listaTutores[0].email);
-						Email.EnviarMail("Inasistencias " + fechaMinima.ToShortDateString() + " al " + DateTime.Now.ToShortDateString(), sbMail.ToString().Replace("\n", "<br />"), true);
+						//Email.AgregarDestinatario("");
+					}
+					else
+					{
+						sbMail.AppendLine(("<b>" + item.unAlumno.nombre + " " + item.unAlumno.apellido + "</b> ").PadRight(25, ' '));
+						var listaInasistencia = listaAsistencia.FindAll(p => p.unAlumno.idPersona == item.unAlumno.idPersona);
+						foreach (var asistencia in listaInasistencia)
+						{
+							sbMail.AppendLine("Fecha: " + asistencia.fecha.ToShortDateString() + " - Tipo de Inasistencia: " + asistencia.tipoAsistencia.descripcion);
+						}
 					}
 					// Para controlar si sigue siendo el mismo tutor que antes
 					idTutorAnterior = item.unAlumno.listaTutores[0].idPersona;
+				}
+				// envio el último mail despues que sale del for
+				if (sbMail != null)
+				{
+					// cambio el tutor... primero envio el mail al anterior? 
+					sbMail.Append("<br />");
+					sbMail.AppendLine("EDU@R 2.0 - Educación Argentina del Nuevo Milenio");
+					Email.EnviarMail("Inasistencias " + fechaMinima.ToShortDateString() + " al " + DateTime.Now.ToShortDateString(), sbMail.ToString().Replace("\n", "<br />"), true);
 				}
 			}
 			catch (Exception ex)

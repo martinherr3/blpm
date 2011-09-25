@@ -236,6 +236,7 @@ namespace EDUAR_Utility.Enumeraciones
 	public enum enumProcesosAutomaticos : int
 	{
 		None = 0,
-		InformeInasistencias = 1
+		InformeInasistencias = 1,
+		InformeSanciones = 4
 	}
 }
