@@ -61,10 +61,14 @@
                     <asp:DropDownList ID="ddlPeriodo" runat="server">
                     </asp:DropDownList>
                 </td>
+                <td class="TDCriterios50" colspan="2">
+                </td>
+            </tr>
+            <tr>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblAlumno" runat="server" Text="Alumno:" CssClass="lblCriterios"></asp:Label>
                 </td>
-                <td valign="top" class="TDCriterios25">
+                <td valign="top" class="TDCriterios75" colspan="3">
                     <asp:DropDownList ID="ddlAlumno" runat="server">
                     </asp:DropDownList>
                 </td>

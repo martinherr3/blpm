@@ -191,6 +191,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				CargarPresentacion();
 				divFiltros.Visible = true;
 				divPromedioPeriodo.Visible = false;
 			}

@@ -176,7 +176,7 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
-                    btnBuscar.Visible = false;
+					btnBuscar.Visible = false;
 					divFiltros.Visible = false;
 					divReporte.Visible = false;
 				}
@@ -276,9 +276,11 @@ namespace EDUAR_UI
 				}
 				if (faltanDatos)
 				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
-				else { divReporte.Visible = true;
-                btnBuscar.Visible = false; //Se supone que no es mas necesario
-                }
+				else
+				{
+					divReporte.Visible = true;
+					btnBuscar.Visible = false; //Se supone que no es mas necesario
+				}
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -308,8 +310,9 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				divAccion.Visible = true;
-				divFiltros.Visible = false;
+				CargarPresentacion();
+				btnBuscar.Visible = true;
+				divFiltros.Visible = true;
 				divReporte.Visible = false;
 			}
 			catch (Exception ex)
@@ -397,6 +400,8 @@ namespace EDUAR_UI
 					CargarAlumnos(Convert.ToInt32(ddlCurso.SelectedValue));
 					ddlAlumno.Enabled = true;
 				}
+
+				CargarComboAsignatura();
 			}
 			catch (Exception ex)
 			{
@@ -404,6 +409,10 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Cargars the alumnos.
+		/// </summary>
+		/// <param name="idCurso">The id curso.</param>
 		private void CargarAlumnos(int idCurso)
 		{
 			BLAlumno objBLAlumno = new BLAlumno();
@@ -556,9 +565,6 @@ namespace EDUAR_UI
 			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
 			listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
 
-			BLAsignatura objBLAsignatura = new BLAsignatura();
-			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturas(null), "idAsignatura", "nombre", true);
-
 			List<Curso> listaCurso = new List<Curso>();
 			List<Alumno> listaAlumno = new List<Alumno>();
 
@@ -567,7 +573,7 @@ namespace EDUAR_UI
 			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
 
 			ddlPeriodo.Enabled = false;
-			ddlAsignatura.Enabled = true;
+			ddlAsignatura.Enabled = false;
 			ddlCurso.Enabled = false;
 			ddlAlumno.Enabled = false;
 		}
@@ -597,6 +603,11 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Cargars the combo periodos.
+		/// </summary>
+		/// <param name="idCicloLectivo">The id ciclo lectivo.</param>
+		/// <param name="ddlPeriodo">The DDL periodo.</param>
 		private void CargarComboPeriodos(int idCicloLectivo, DropDownList ddlPeriodo)
 		{
 			if (idCicloLectivo > 0)
@@ -613,6 +624,24 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Cargars the combo asignatura.
+		/// </summary>
+		private void CargarComboAsignatura()
+		{
+			BLAsignatura objBLAsignatura = new BLAsignatura();
+			Asignatura materia = new Asignatura();
+			materia.curso.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(materia), "idAsignatura", "nombre", true);
+			if (ddlAsignatura.Items.Count > 0)
+				ddlAsignatura.Enabled = true;
+		}
+
+		/// <summary>
+		/// Handles the OnSelectedIndexChanged event of the rdlAccion control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void rdlAccion_OnSelectedIndexChanged(object sender, EventArgs e)
 		{
 			try
@@ -622,15 +651,15 @@ namespace EDUAR_UI
 					case "0":
 						CargarPresentacion();
 						divReporte.Visible = false;
-                        btnBuscar.Visible = true;
+						btnBuscar.Visible = true;
 						divFiltros.Visible = true;
-                        lblAsignatura.Visible = true;
+						lblAsignatura.Visible = true;
 						ddlAsignatura.Visible = true;
 						break;
 					case "1":
 						CargarPresentacion();
 						divReporte.Visible = false;
-                        btnBuscar.Visible = true;
+						btnBuscar.Visible = true;
 						divFiltros.Visible = true;
 						lblAsignatura.Visible = false;
 						ddlAsignatura.Visible = false;
@@ -638,7 +667,7 @@ namespace EDUAR_UI
 					case "2":
 						CargarPresentacion();
 						divReporte.Visible = false;
-                        btnBuscar.Visible = true;
+						btnBuscar.Visible = true;
 						divFiltros.Visible = true;
 						lblAsignatura.Visible = false;
 						ddlAsignatura.Visible = false;
