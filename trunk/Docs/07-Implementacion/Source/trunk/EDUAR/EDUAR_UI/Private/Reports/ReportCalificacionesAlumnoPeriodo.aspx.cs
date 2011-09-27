@@ -76,6 +76,26 @@ namespace EDUAR_UI
 				Session["filtrosAplicados"] = value;
 			}
 		}
+
+        /// <summary>
+        /// Gets or sets the lista asignaturas.
+        /// </summary>
+        /// <value>
+        /// The lista sanciones.
+        /// </value>
+        public List<Asignatura> listaAsignatura
+        {
+            get
+            {
+                if (ViewState["listaAsignatura"] == null)
+                    listaAsignatura = new List<Asignatura>();
+                return (List<Asignatura>)ViewState["listaAsignatura"];
+            }
+            set
+            {
+                ViewState["listaAsignatura"] = value;
+            }
+        }
 		#endregion
 
 		#region --[Eventos]--
@@ -194,56 +214,42 @@ namespace EDUAR_UI
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
 		}
-
-        protected void btnGraficar(object sender, EventArgs e)
+        
+        private void btnGraficar(object sender, EventArgs e)
         {
             try
             {
+                int sumaNotas = 0;
                 rptCalificaciones.graficoReporte.LimpiarSeries();
-                bool filtroRoles = false;
-                if (ddlAsignatura.SelectedIndex > 0)
+                foreach (var item in listaAsignatura)
                 {
-                    List<RptCalificacionesAlumnoPeriodo> listaCalificaciones = new List<RptCalificacionesAlumnoPeriodo>();
-                    
-                    if (Session["listaCalificaciones"] != null)
+                    sumaNotas = 0;
+                    var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre);
+                    if (listaParcial.Count > 0)
                     {
-                        listaCalificaciones = (List<RptCalificacionesAlumnoPeriodo>)Session["listaCalificaciones"]; 
-                    }
-                    for (int i = 0; i <= 10; i++)
-                    {
-                         List<RptCalificacionesAlumnoPeriodo> lista = listaCalificaciones.FindAll(c => c.calificacion == Convert.ToString(i));
-                         if (lista.Count > 0)
-                         {
-                             DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(lista);
-                             rptCalificaciones.graficoReporte.AgregarSerie(Convert.ToString(i), dt, "asignatura", "calificacion");
-                         }
-                         rptCalificaciones.graficoReporte.Titulo = "Calificaciones en la Materia " + ddlAsignatura.SelectedItem.Text;
-                         filtroRoles = true;
+                        foreach (var nota in listaParcial)
+                        {
+                            sumaNotas += Convert.ToInt16(nota.calificacion);
+                        }
+                        var serie = new List<RptCalificacionesAlumnoPeriodo>();
+                        serie.Add(new RptCalificacionesAlumnoPeriodo
+                        {
+                            calificacion = (sumaNotas / listaParcial.Count).ToString(),
+                            asignatura = item.nombre
+                        });
 
+                        DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
+                        rptCalificaciones.graficoReporte.AgregarSerie(item.nombre, dt, "asignatura", "calificacion");
+                        rptCalificaciones.graficoReporte.Titulo = "Promedio de Calificaciones por Asignatura ";
                     }
+                }
 
-                    ////////////////
-                    //foreach (enumRoles item in enumRoles.GetValues(typeof(enumRoles)))
-                    //{
-                    //    List<RptAccesos> lista = listaAcceso.FindAll(c => c.rol == item.ToString());
-                    //    if (lista.Count > 0)
-                    //    {
-                    //        DataTable dt = UIUtilidades.BuildDataTable<RptAccesos>(lista);
-                    //        rptAccesos.graficoReporte.AgregarSerie(item.ToString(), dt, "fecha", "accesos");
-                    //    }
-                    //}
-                    //rptAccesos.graficoReporte.Titulo = "Accesos Página " + ddlPagina.SelectedItem.Text;
-                    //filtroRoles = true;
-                }
-                else
-                {
-                // ToDo: Contemplar otros casos para graficos 
-                }
 
                 rptCalificaciones.graficoReporte.GraficarBarra();
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
+
         }
 
 
@@ -333,7 +339,7 @@ namespace EDUAR_UI
 		private bool BuscarCalificaciones()
 		{
 			StringBuilder filtros = new StringBuilder();
-			if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0 && Convert.ToInt32(ddlAsignatura.SelectedValue) > 0)
+			if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0 /*&& Convert.ToInt32(ddlAsignatura.SelectedValue) > 0*/)
 			{
 				filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
 				filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
@@ -370,7 +376,8 @@ namespace EDUAR_UI
 		private void CargarCombos()
 		{
 			BLAsignatura objBLAsignatura = new BLAsignatura();
-			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturas(null), "idAsignatura", "nombre", true);
+            listaAsignatura = objBLAsignatura.GetAsignaturas(null);
+            UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignatura, "idAsignatura", "nombre", true);
 
 			List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
 			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
