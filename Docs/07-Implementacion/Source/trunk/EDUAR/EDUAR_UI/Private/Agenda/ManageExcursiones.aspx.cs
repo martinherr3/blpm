@@ -419,7 +419,7 @@ namespace EDUAR_UI
             evento.destino = txtDestinoEdit.Text.Trim();
             evento.descripcion = txtDescripcionEdit.Text.Trim();
             evento.activo = chkActivoEdit.Checked;
-            evento.usuario.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+            evento.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
             evento.fechaAlta = DateTime.Now;
 
             return evento;

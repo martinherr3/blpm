@@ -92,16 +92,16 @@ namespace EDUAR_UI.Shared
 		/// <summary>
 		/// Mantiene los datos del usuario logueado.
 		/// </summary>
-		public DTSessionDataUI ObjDTSessionDataUI
+		public DTSessionDataUI ObjSessionDataUI
 		{
 			get
 			{
-				if (Session["SessionObjDTODataPage"] == null)
-					Session["SessionObjDTODataPage"] = new DTSessionDataUI();
+				if (Session["ObjSessionDataUI"] == null)
+					Session["ObjSessionDataUI"] = new DTSessionDataUI();
 
-				return (DTSessionDataUI)Session["SessionObjDTODataPage"];
+				return (DTSessionDataUI)Session["ObjSessionDataUI"];
 			}
-			set { Session["SessionObjDTODataPage"] = value; }
+			set { Session["ObjSessionDataUI"] = value; }
 		}
 		#endregion
 
@@ -129,9 +129,9 @@ namespace EDUAR_UI.Shared
 						string[] file = path[path.Length - 1].Split('.');
 						string title = file[0].ToString();
 					}
-					if (!string.IsNullOrEmpty(ObjDTSessionDataUI.ObjDTUsuario.Nombre))
+					if (!string.IsNullOrEmpty(ObjSessionDataUI.ObjDTUsuario.Nombre))
 					{
-						nuevoAcceso.usuario = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+						nuevoAcceso.usuario = ObjSessionDataUI.ObjDTUsuario.Nombre;
 					}
 					BLAcceso objBLAcceso = new BLAcceso(nuevoAcceso);
 					objBLAcceso.Save();
@@ -186,7 +186,7 @@ namespace EDUAR_UI.Shared
 			//loginPage += strDefaultPage;
 			loginPage += "/EDUAR_UI/Public/Account/Login.aspx";
 
-			ObjDTSessionDataUI.urlDefault = new Uri(loginPage);
+			ObjSessionDataUI.urlDefault = new Uri(loginPage);
 
 			if (Session != null)
 			{

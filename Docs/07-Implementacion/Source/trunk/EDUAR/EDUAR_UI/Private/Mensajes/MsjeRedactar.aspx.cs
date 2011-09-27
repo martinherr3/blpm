@@ -300,7 +300,7 @@ namespace EDUAR_UI
 				//rdlDestAlumno.Enabled = true;
 				//ddlDestino.Disabled = true;
 
-				Alumno objAlumno = new Alumno { username = ObjDTSessionDataUI.ObjDTUsuario.Nombre };
+				Alumno objAlumno = new Alumno { username = ObjSessionDataUI.ObjDTUsuario.Nombre };
 				BLAlumno objBLAlumno = new BLAlumno(objAlumno);
 
 				lista = objBLAlumno.GetDocentesAlumno();
@@ -310,7 +310,7 @@ namespace EDUAR_UI
 			if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
 			{
 				Tutor objTutor = new Tutor();
-				objTutor.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+				objTutor.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 				BLTutor objBLTutor = new BLTutor(objTutor);
 				lista = objBLTutor.GetDocentesAlumnos();
 			}
@@ -372,7 +372,7 @@ namespace EDUAR_UI
 		private void CargarComboCursos()
 		{
 			Asignatura asignatura = new Asignatura();
-			asignatura.docente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+			asignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			BLAsignatura objBLAsignatura = new BLAsignatura(asignatura);
 			List<Asignatura> lista = objBLAsignatura.GetAsignaturasCurso(asignatura);
 			List<Curso> listaCurso = new List<Curso>();
@@ -392,7 +392,7 @@ namespace EDUAR_UI
 
 			objMensaje.asuntoMensaje = txtAsunto.Value;
 			objMensaje.textoMensaje = textoMensaje.contenido;
-			objMensaje.remitente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+			objMensaje.remitente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			objMensaje.fechaEnvio = DateTime.Now;
 			objMensaje.horaEnvio = Convert.ToDateTime(DateTime.Now.Hour + ":" + DateTime.Now.Minute);
 

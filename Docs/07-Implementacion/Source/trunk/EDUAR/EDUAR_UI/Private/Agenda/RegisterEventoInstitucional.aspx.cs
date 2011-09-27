@@ -411,7 +411,7 @@ namespace EDUAR_UI
 			evento.detalle = txtDescripcionEdit.Text.Trim();
 			evento.activo = chkActivoEdit.Checked;
 			evento.tipoEventoInstitucional.idTipoEventoInstitucional = Convert.ToInt32(ddlTipoEventoEdit.SelectedValue);
-			evento.organizador.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+			evento.organizador.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			return evento;
 		}
 

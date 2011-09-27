@@ -51,8 +51,8 @@ namespace EDUAR_UI
 					if (Request.Params["const"] != null)
 					{
 						string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString());
-						ObjDTSessionDataUI.ObjDTUsuario.EsUsuarioInicial = true;
-						ObjDTSessionDataUI.ObjDTUsuario.Nombre = user;
+						ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial = true;
+						ObjSessionDataUI.ObjDTUsuario.Nombre = user;
 						propSeguridad.Usuario.Nombre = user;
 						objBLSeguridad = new BLSeguridad(propSeguridad);
 						objBLSeguridad.GetUsuario();
@@ -94,16 +94,14 @@ namespace EDUAR_UI
                     e.Authenticated = true;
                     FormsAuthentication.SignOut();
                     FormsAuthentication.Initialize();
-
-                    ObjDTSessionDataUI.ObjDTUsuario = objDTSeguridad.Usuario;
+					
+                    ObjSessionDataUI.ObjDTUsuario = objDTSeguridad.Usuario;
                 }
                 else
                 {
                     e.Authenticated = false;
                     LoginUser.FailureText = UIConstantesGenerales.MensajeLoginFallido;
                 }
-
-                
             }
             catch (Exception ex)
             {

@@ -401,7 +401,7 @@ namespace EDUAR_UI
 			objAsignatura.curso.idCurso = propAgenda.cursoCicloLectivo.idCurso;
 			objAsignatura.curso.cicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
 			if (User.IsInRole(enumRoles.Docente.ToString()))
-				objAsignatura.docente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+				objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
 			ddlAsignatura.Items.Clear();
 			ddlAsignaturaEdit.Items.Clear();
@@ -519,7 +519,7 @@ namespace EDUAR_UI
 			entidad.descripcion = txtDescripcionEdit.Text;
 			//entidad.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
 			entidad.fechaEvento = Convert.ToDateTime(new DateTime(propAgenda.cursoCicloLectivo.cicloLectivo.fechaInicio.Year, Convert.ToInt32(ddlMeses.SelectedValue), Convert.ToInt32(ddlDia.SelectedValue)));
-			entidad.usuario.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+			entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			entidad.activo = chkActivoEdit.Checked;
 			entidad.fechaAlta = DateTime.Now;
 			return entidad;
@@ -624,7 +624,7 @@ namespace EDUAR_UI
 			objAsignatura.curso.idCurso = propAgenda.cursoCicloLectivo.idCurso;
 			objAsignatura.curso.cicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
 			if (User.IsInRole(enumRoles.Docente.ToString()))
-				objAsignatura.docente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+				objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
 

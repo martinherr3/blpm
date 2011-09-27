@@ -231,7 +231,7 @@ namespace EDUAR_UI
 
 			objMensaje.asuntoMensaje = txtAsunto.Text;
 			objMensaje.textoMensaje = textoMensaje.contenido;
-			objMensaje.remitente.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+			objMensaje.remitente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			objMensaje.fechaEnvio = DateTime.Now;
 			objMensaje.horaEnvio = Convert.ToDateTime(DateTime.Now.Hour + ":" + DateTime.Now.Minute);
 
@@ -348,7 +348,7 @@ namespace EDUAR_UI
 		private void BuscarMensajes()
 		{
 			Mensaje entidad = new Mensaje();
-			entidad.destinatario.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+			entidad.destinatario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			CargarLista(entidad);
 			CargarGrilla();
 		}

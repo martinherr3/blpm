@@ -1,20 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using EDUAR_BusinessLogic.Common;
+using EDUAR_Entities;
 using EDUAR_Entities.Security;
 using EDUAR_Entities.Shared;
 using EDUAR_UI.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
-using System.Threading;
-using EDUAR_BusinessLogic.Common;
-using EDUAR_Entities;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using System.IO;
 
 namespace EDUAR_UI
 {
@@ -32,16 +30,16 @@ namespace EDUAR_UI
 		/// <summary>
 		/// Mantiene los datos del usuario logueado.
 		/// </summary>
-		public DTSessionDataUI ObjDTSessionDataUI
+		public DTSessionDataUI ObjSessionDataUI
 		{
 			get
 			{
-				if (Session["SessionObjDTODataPage"] == null)
-					Session["SessionObjDTODataPage"] = new DTSessionDataUI();
+				if (Session["ObjSessionDataUI"] == null)
+					Session["ObjSessionDataUI"] = new DTSessionDataUI();
 
-				return (DTSessionDataUI)Session["SessionObjDTODataPage"];
+				return (DTSessionDataUI)Session["ObjSessionDataUI"];
 			}
-			set { Session["SessionObjDTODataPage"] = value; }
+			set { Session["ObjSessionDataUI"] = value; }
 		}
 		#endregion
 
@@ -53,7 +51,7 @@ namespace EDUAR_UI
 				//Llama a la funcionalidad que redirecciona a la pagina de Login cuando finaliza el tiempo de session
 				((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
 
-				if (ObjDTSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty)
+				if (ObjSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty)
 					HttpContext.Current.User = null;
 
 				if (HttpContext.Current.User == null)
@@ -156,7 +154,7 @@ namespace EDUAR_UI
 			if (bool.TryParse(node["visible"], out isVisible) && !isVisible)
 				return false;
 
-			foreach (DTRol rolUsuario in ObjDTSessionDataUI.ObjDTUsuario.ListaRoles)
+			foreach (DTRol rolUsuario in ObjSessionDataUI.ObjDTUsuario.ListaRoles)
 			{
 				if (node.Roles.Contains(rolUsuario.Nombre))
 					return true;
@@ -345,7 +343,7 @@ namespace EDUAR_UI
 				BLMensaje objBLMensaje = new BLMensaje();
 				List<Mensaje> objMensajes = new List<Mensaje>();
 
-				objMensajes = objBLMensaje.GetMensajes(new Mensaje() { destinatario = new Persona() { username = ObjDTSessionDataUI.ObjDTUsuario.Nombre }, activo = true });
+				objMensajes = objBLMensaje.GetMensajes(new Mensaje() { destinatario = new Persona() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, activo = true });
 				objMensajes = objMensajes.FindAll(p => p.leido == false);
 				btnMail.Visible = true;
 				if (objMensajes.Count > 0)
@@ -389,7 +387,7 @@ namespace EDUAR_UI
 
 		#region --[Métodos Privados]--
 		/// <summary>
-		/// 
+		/// Cargars the menu.
 		/// </summary>
 		private void CargarMenu()
 		{

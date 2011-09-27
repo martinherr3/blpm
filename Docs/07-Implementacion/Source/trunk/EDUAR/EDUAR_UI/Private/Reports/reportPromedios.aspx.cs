@@ -281,14 +281,10 @@ namespace EDUAR_UI
                         rptResultado.graficoReporte.Titulo = "Promedios ";
                     }
                 }
-
-
                 rptResultado.graficoReporte.GraficarBarra();
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
-
-
         }
 
         //private void GraficarInasistencia()
@@ -401,7 +397,7 @@ namespace EDUAR_UI
         {
             try
             {
-                ExportPDF.ExportarPDF(Page.Title, rptResultado.dtReporte, ObjDTSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
+                ExportPDF.ExportarPDF(Page.Title, rptResultado.dtReporte, ObjSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }

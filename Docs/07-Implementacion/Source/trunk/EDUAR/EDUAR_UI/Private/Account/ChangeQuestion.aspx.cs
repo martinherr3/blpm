@@ -135,10 +135,10 @@ namespace EDUAR_UI
         /// </summary>
         private void CambiarPregunta()
         {
-            ObjDTSessionDataUI.ObjDTUsuario.PaswordPregunta = Question.Text.Trim();
-            ObjDTSessionDataUI.ObjDTUsuario.PaswordRespuesta = Answer.Text.Trim();
+            ObjSessionDataUI.ObjDTUsuario.PaswordPregunta = Question.Text.Trim();
+            ObjSessionDataUI.ObjDTUsuario.PaswordRespuesta = Answer.Text.Trim();
             propSeguridad = new DTSeguridad();
-            propSeguridad.Usuario = ObjDTSessionDataUI.ObjDTUsuario;
+            propSeguridad.Usuario = ObjSessionDataUI.ObjDTUsuario;
             objBLSeguridad = new BLSeguridad(propSeguridad);
             objBLSeguridad.CambiarPregunta();
         }
