@@ -550,7 +550,7 @@ namespace EDUAR_UI
 			entidad.detalles = txtDescripcionEdit.Text;
 			entidad.fecha = Convert.ToDateTime(calFechaEvento.ValorFecha);
 			entidad.hora = new DateTime(entidad.fecha.Year, entidad.fecha.Month, entidad.fecha.Day, Convert.ToDateTime(txtHoraEdit.Text).Hour, Convert.ToDateTime(txtHoraEdit.Text).Minute, 0);
-			entidad.organizador.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+			entidad.organizador.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			entidad.activo = chkActivoEdit.Checked;
 			return entidad;
 		}

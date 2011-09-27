@@ -125,7 +125,7 @@ namespace EDUAR_UI
             objBLPersona.Save();
 
 
-            ObjDTSessionDataUI.ObjDTUsuario.Nombre = propSeguridad.Usuario.Nombre;
+            ObjSessionDataUI.ObjDTUsuario.Nombre = propSeguridad.Usuario.Nombre;
             FormsAuthentication.SetAuthCookie(RegisterUser.UserName, true /* createPersistentCookie */);
 
             string continueUrl = RegisterUser.ContinueDestinationPageUrl;

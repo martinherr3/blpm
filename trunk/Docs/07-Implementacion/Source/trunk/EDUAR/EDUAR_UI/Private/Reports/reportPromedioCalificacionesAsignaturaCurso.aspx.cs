@@ -176,7 +176,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				ExportPDF.ExportarPDF(Page.Title, rptPromedioCalificacionesAsignaturaCurso.dtReporte, ObjDTSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
+				ExportPDF.ExportarPDF(Page.Title, rptPromedioCalificacionesAsignaturaCurso.dtReporte, ObjSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }

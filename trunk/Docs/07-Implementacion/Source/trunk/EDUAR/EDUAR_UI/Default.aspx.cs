@@ -60,7 +60,7 @@ namespace EDUAR_UI
             {
                 Master.BotonAvisoAceptar += (VentanaAceptar);
 
-                if (ObjDTSessionDataUI.ObjDTUsuario.EsUsuarioInicial)
+                if (ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial)
                     Response.Redirect("~/Private/Account/ChangePassword.aspx", false);
 
                 if (!Page.IsPostBack)
@@ -70,8 +70,8 @@ namespace EDUAR_UI
                     if (Request.Params["const"] != null)
                     {
                         string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString());
-                        ObjDTSessionDataUI.ObjDTUsuario.EsUsuarioInicial = true;
-                        ObjDTSessionDataUI.ObjDTUsuario.Nombre = user;
+                        ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial = true;
+                        ObjSessionDataUI.ObjDTUsuario.Nombre = user;
                         propSeguridad.Usuario.Nombre = user;
                         objBLSeguridad = new BLSeguridad(propSeguridad);
                         objBLSeguridad.GetUsuario();

@@ -79,7 +79,7 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					Persona usuario = new Persona();
-					usuario.username = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+					usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 					BLPersona objBLPersona = new BLPersona(usuario);
 					objBLPersona.GetPersonaByEntidad();
 					usuario = objBLPersona.Data;

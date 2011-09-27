@@ -69,9 +69,9 @@ namespace EDUAR_UI
                 if (!Page.IsPostBack)
                 {
                     propSeguridad = new DTSeguridad();
-                    if (ObjDTSessionDataUI.ObjDTUsuario.EsUsuarioInicial == true)
+                    if (ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial == true)
                     {
-                        ObjDTSessionDataUI.ObjDTUsuario.EsUsuarioInicial = false;
+                        ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial = false;
                         CargarDatosUsuario();
                         CargarPresentacionRecover();
                     }
@@ -122,7 +122,7 @@ namespace EDUAR_UI
                     propSeguridad.Usuario.Email = txtEmail.Text.Trim();
                     objBLSeguridad = new BLSeguridad(propSeguridad);
                     objBLSeguridad.GetUsuarioByEmail();
-                    objBLSeguridad.RecuperarPassword(ObjDTSessionDataUI.urlDefault);
+                    objBLSeguridad.RecuperarPassword(ObjSessionDataUI.urlDefault);
 
                     txtEmail.Text = string.Empty;
 
@@ -148,13 +148,13 @@ namespace EDUAR_UI
                 if (txtRespuesta.Text.Trim().Length > 0)
                 {
                     propSeguridad.Usuario.PaswordRespuesta = txtRespuesta.Text.Trim();
-                    propSeguridad.Usuario.Nombre = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+                    propSeguridad.Usuario.Nombre = ObjSessionDataUI.ObjDTUsuario.Nombre;
                     objBLSeguridad = new BLSeguridad(propSeguridad);
                     objBLSeguridad.ValidarRespuesta();
 
                     if (!string.IsNullOrEmpty(objBLSeguridad.Data.Usuario.PaswordRespuesta))
                     {
-                        ObjDTSessionDataUI.ObjDTUsuario.PaswordRespuesta = txtRespuesta.Text.Trim();
+                        ObjSessionDataUI.ObjDTUsuario.PaswordRespuesta = txtRespuesta.Text.Trim();
                         CargarPresentacionNuevaPassword();
 
                         txtEmail.Text = string.Empty;
@@ -182,8 +182,8 @@ namespace EDUAR_UI
             {
                 if (Page.IsValid)
                 {
-                    propSeguridad.Usuario.PaswordPregunta = ObjDTSessionDataUI.ObjDTUsuario.PaswordPregunta;
-                    propSeguridad.Usuario.PaswordRespuesta = ObjDTSessionDataUI.ObjDTUsuario.PaswordRespuesta;
+                    propSeguridad.Usuario.PaswordPregunta = ObjSessionDataUI.ObjDTUsuario.PaswordPregunta;
+                    propSeguridad.Usuario.PaswordRespuesta = ObjSessionDataUI.ObjDTUsuario.PaswordRespuesta;
                     propSeguridad.Usuario.PasswordNuevo = txtPassword.Text.Trim();
                     objBLSeguridad = new BLSeguridad(propSeguridad);
                     objBLSeguridad.CambiarPassword();
@@ -232,11 +232,11 @@ namespace EDUAR_UI
         {
             propSeguridad.Usuario.Email = txtEmail.Text.Trim();
 
-            propSeguridad.Usuario = ObjDTSessionDataUI.ObjDTUsuario;
+            propSeguridad.Usuario = ObjSessionDataUI.ObjDTUsuario;
             objBLSeguridad = new BLSeguridad(propSeguridad);
             objBLSeguridad.GetUsuario();
-            ObjDTSessionDataUI.ObjDTUsuario.PaswordPregunta = objBLSeguridad.Data.Usuario.PaswordPregunta;
-            lblPregunta.Text = ObjDTSessionDataUI.ObjDTUsuario.PaswordPregunta;
+            ObjSessionDataUI.ObjDTUsuario.PaswordPregunta = objBLSeguridad.Data.Usuario.PaswordPregunta;
+            lblPregunta.Text = ObjSessionDataUI.ObjDTUsuario.PaswordPregunta;
         }
 
         #endregion

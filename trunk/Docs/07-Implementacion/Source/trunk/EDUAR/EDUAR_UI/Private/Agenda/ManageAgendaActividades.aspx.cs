@@ -487,7 +487,7 @@ namespace EDUAR_UI
 		private void CargarLista(AgendaActividades entidad)
 		{
 			if (User.IsInRole(enumRoles.Docente.ToString()))
-				entidad.usuario = ObjDTSessionDataUI.ObjDTUsuario.Nombre;
+				entidad.usuario = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			objBLAgenda = new BLAgendaActividades(entidad);
 			listaAgenda = objBLAgenda.GetAgendaActividades(entidad);
 		}
