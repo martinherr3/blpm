@@ -1652,6 +1652,7 @@ namespace EDUAR_SI_DataAccess
                         alumnoCurso.idAlumnoCurso = 0;
                         alumnoCurso.idAlumnoCursoTransaccional = (int)reader["id"];
                         alumnoCurso.curso.idCursoTransaccional = (int)reader["curso_id"];
+						alumnoCurso.curso.cicloLectivo.idCicloLectivoTransaccional = (int)reader["ciclo_lectivo_id"];
                         alumnoCurso.alumno.idAlumnoTransaccional = (int)reader["alumno_id"];
                         listaAlumnoCurso.Add(alumnoCurso);
                     }
