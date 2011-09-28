@@ -94,7 +94,7 @@ namespace EDUAR_UI
                     e.Authenticated = true;
                     FormsAuthentication.SignOut();
                     FormsAuthentication.Initialize();
-					
+					FormsAuthentication.SetAuthCookie(LoginUser.UserName.Trim(), true);
                     ObjSessionDataUI.ObjDTUsuario = objDTSeguridad.Usuario;
                 }
                 else

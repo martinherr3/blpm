@@ -205,7 +205,6 @@ namespace EDUAR_UI
             try
             {
                 rptPromedioCalificacionesAsignaturaCurso.graficoReporte.LimpiarSeries();
-                bool filtroRoles = false;
                 //if (ddlAsignatura.SelectedIndex > 0)
                 {
                     List<RptPromedioCalificacionesAsignaturaCursoPeriodo> listaPromedioCalificaciones = new List<RptPromedioCalificacionesAsignaturaCursoPeriodo>();
@@ -223,7 +222,6 @@ namespace EDUAR_UI
                             rptPromedioCalificacionesAsignaturaCurso.graficoReporte.AgregarSerie(Convert.ToString(i), dt, "asignatura", "promedio");
                         }
                         rptPromedioCalificacionesAsignaturaCurso.graficoReporte.Titulo = "Promedio de Calificaciones en las Materia ";
-                        filtroRoles = true;
 
                     }
 

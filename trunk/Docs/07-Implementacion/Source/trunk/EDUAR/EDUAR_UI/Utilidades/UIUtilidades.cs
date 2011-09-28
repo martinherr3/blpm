@@ -134,7 +134,8 @@ namespace EDUAR_UI.Utilidades
 				foreach (DataRowView drv in dataView)
 					dropDownList.Items.Insert(dropDownList.Items.Count, new ListItem(drv.Row[fieldDescriptionFirst].ToString() + " " + drv.Row[fieldDescriptionSecond].ToString(), drv.Row[fieldId].ToString()));
 			}
-
+			
+			SortByText(dropDownList);
 			if (addDefaultValue)
 			{
 				dropDownList.Items.Insert(0, new ListItem("Seleccione", "-1"));
