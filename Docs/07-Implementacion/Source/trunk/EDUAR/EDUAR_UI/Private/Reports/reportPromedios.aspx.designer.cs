@@ -67,6 +67,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblCicloLectivo;
         
         /// <summary>
+        /// Control udpCicloLectivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpCicloLectivo;
+        
+        /// <summary>
         /// Control ddlCicloLectivo.
         /// </summary>
         /// <remarks>
@@ -83,6 +92,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCurso;
+        
+        /// <summary>
+        /// Control udpCurso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpCurso;
         
         /// <summary>
         /// Control ddlCurso.
@@ -103,6 +121,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblPeriodo;
         
         /// <summary>
+        /// Control udpPeriodo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpPeriodo;
+        
+        /// <summary>
         /// Control ddlPeriodo.
         /// </summary>
         /// <remarks>
@@ -119,6 +146,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAlumno;
+        
+        /// <summary>
+        /// Control udpAlumno.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpAlumno;
         
         /// <summary>
         /// Control ddlAlumno.
