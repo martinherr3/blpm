@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,7 +11,7 @@ using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
-using System.Data;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -335,7 +336,7 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlCurso_SelectedIndexChanged1(object sender, EventArgs e)
+		protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			try
 			{
@@ -413,6 +414,10 @@ namespace EDUAR_UI
 						filtroReporte.idAlumno = Convert.ToInt32(ddlAlumno.SelectedValue);
 						filtros.AppendLine("- Alumno: " + ddlAlumno.SelectedItem.Text);
 					}
+
+					if (Context.User.IsInRole(enumRoles.Docente.ToString()))
+						filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
 					BLRptInasistenciasAlumnoPeriodo objBLReporte = new BLRptInasistenciasAlumnoPeriodo();
 					listaReporte = objBLReporte.GetRptInasistenciasAlumnoPeriodo(filtroReporte);
 					filtrosAplicados = filtros.ToString();
@@ -461,9 +466,13 @@ namespace EDUAR_UI
 			{
 				List<Curso> listaCurso = new List<Curso>();
 				BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-				Curso objCurso = new Curso();
+				Asignatura objAsignatura = new Asignatura();
+				objAsignatura.curso.cicloLectivo.idCicloLectivo = idCicloLectivo;
 
-				listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
+				if (User.IsInRole(enumRoles.Docente.ToString()))
+					objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+				listaCurso = objBLCicloLectivo.GetCursosByAsignatura(objAsignatura);
 				UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
 				ddlCurso.Enabled = true;
 			}

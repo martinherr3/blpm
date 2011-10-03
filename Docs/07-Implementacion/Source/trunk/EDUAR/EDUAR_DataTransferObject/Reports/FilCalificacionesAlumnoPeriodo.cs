@@ -13,6 +13,7 @@ namespace EDUAR_Entities.Reports
         public int idInstanciaEvaluacion { get; set; }
         public DateTime fechaDesde { get; set; }
         public DateTime fechaHasta { get; set; }
+		public string username { get; set; }
 
         public FilCalificacionesAlumnoPeriodo()
         {

@@ -11,6 +11,7 @@ using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -232,12 +233,12 @@ namespace EDUAR_UI
 					for (int i = 1; i < 11; i++)
 					{
 						sumaNotas = 0;
-						var listaParcial = listaReporte.FindAll(p =>p.calificacion== i.ToString());
+						var listaParcial = listaReporte.FindAll(p => p.calificacion == i.ToString());
 						if (listaParcial.Count > 0)
 						{
 							serie.Add(new RptCalificacionesAlumnoPeriodo
 							{
-								calificacion =listaParcial.Count.ToString(),
+								calificacion = listaParcial.Count.ToString(),
 								alumno = i.ToString()
 							});
 						}
@@ -394,12 +395,16 @@ namespace EDUAR_UI
 					}
 					filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
 					filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-					
+
 					if (ddlAlumno.SelectedIndex > 0)
 					{
 						filtroReporte.idAlumno = Convert.ToInt32(ddlAlumno.SelectedValue);
 						filtros.AppendLine("- Alumno: " + ddlAsignatura.SelectedItem.Text);
 					}
+
+					if (Context.User.IsInRole(enumRoles.Docente.ToString()))
+						filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
 					BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
 					listaReporte = objBLReporte.GetRptCalificacionesAlumnoPeriodo(filtroReporte);
 					filtrosAplicados = filtros.ToString();
@@ -455,9 +460,13 @@ namespace EDUAR_UI
 			{
 				List<Curso> listaCurso = new List<Curso>();
 				BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-				Curso objCurso = new Curso();
+				Asignatura objAsignatura = new Asignatura();
+				objAsignatura.curso.cicloLectivo.idCicloLectivo = idCicloLectivo;
 
-				listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
+				if (User.IsInRole(enumRoles.Docente.ToString()))
+					objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+				listaCurso = objBLCicloLectivo.GetCursosByAsignatura(objAsignatura);
 				UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
 				ddlCurso.Enabled = true;
 			}
@@ -475,6 +484,8 @@ namespace EDUAR_UI
 			BLAsignatura objBLAsignatura = new BLAsignatura();
 			Asignatura materia = new Asignatura();
 			materia.curso.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+			if (User.IsInRole(enumRoles.Docente.ToString()))
+				materia.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			listaAsignatura = objBLAsignatura.GetAsignaturasCurso(materia);
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignatura, "idAsignatura", "nombre", true);
 			if (ddlAsignatura.Items.Count > 0)
