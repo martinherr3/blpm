@@ -52,8 +52,8 @@ namespace EDUAR_DataAccess.Reports
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaDesde);
                     if (ValidarFechaSQL(entidad.fechaHasta))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaHasta);
-                    //if (entidad.idCicloLectivo > 0)
-                     //   Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
+					if (!string.IsNullOrEmpty(entidad.username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.username);
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

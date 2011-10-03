@@ -181,6 +181,7 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
+		//Check: no se utiliza en ningún lugar
         public List<Curso> GetCursosCicloLectivo(Curso entidad)
         {
             try
