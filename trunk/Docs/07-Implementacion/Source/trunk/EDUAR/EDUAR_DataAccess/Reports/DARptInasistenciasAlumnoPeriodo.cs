@@ -55,10 +55,10 @@ namespace EDUAR_DataAccess.Reports
                 {
                     objReporte = new RptInasistenciasAlumnoPeriodo();
 
-                    objReporte.nombreAlumno = reader["Nombre"].ToString();
+                    objReporte.alumno = reader["Nombre"].ToString();
                     objReporte.curso = reader["Curso"].ToString();
-					objReporte.fechaInasistencia = Convert.ToDateTime(reader["Fecha"].ToString());
-                    objReporte.motivoInasistencia = reader["Descripcion"].ToString();
+					objReporte.fecha = Convert.ToDateTime(reader["Fecha"].ToString());
+                    objReporte.motivo = reader["Descripcion"].ToString();
                     
                     listaReporte.Add(objReporte);
                 }

@@ -1,48 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EDUAR_DataAccess.Common;
-using EDUAR_Entities;
 using EDUAR_BusinessLogic.Shared;
-using EDUAR_Entities.Shared;
-using EDUAR_Utility.Excepciones;
-using EDUAR_Utility.Enumeraciones;
+using EDUAR_DataAccess.Common;
 using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
+using EDUAR_Entities.Shared;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_BusinessLogic.Common
 {
-    public class BLMotivoAusencia : BusinessLogicBase<MotivoAusencia, DAMotivoAusencia>
+    public class BLTipoSancion : BusinessLogicBase<TipoSancion, DATipoSancion>
     {
         #region --[Constante]--
-        private const string ClassName = "BLMotivoAusencia";
+        private const string ClassName = "BLTipoSancion";
         #endregion
 
         #region --[Constructores]--
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLMotivoAusencia(DTBase objMotivoAusencia)
+        public BLTipoSancion(DTBase objTipoSancion)
         {
-            Data = (MotivoAusencia)objMotivoAusencia;
+            Data = (TipoSancion)objTipoSancion;
         }
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public BLMotivoAusencia()
+        public BLTipoSancion()
         {
-            Data = new MotivoAusencia();
+            Data = new TipoSancion();
         }
         #endregion
 
         #region --[Propiedades Override]--
-        protected override sealed DAMotivoAusencia DataAcces
+        protected override sealed DATipoSancion DataAcces
         {
             get { return dataAcces; }
             set { dataAcces = value; }
         }
 
-        public override sealed MotivoAusencia Data
+        public override sealed TipoSancion Data
         {
             get { return data; }
             set { data = value; }
@@ -87,10 +85,10 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                int idMotivoAusencia = 0;
+                Int32 idTipoSancion = 0;
 
-                if (Data.idMotivo == 0)
-                    DataAcces.Create(Data, out idMotivoAusencia);
+                if (Data.idTipoSancion == 0)
+                    DataAcces.Create(Data, out idTipoSancion);
                 else
                     DataAcces.Update(Data);
 
@@ -99,14 +97,12 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (CustomizedException ex)
             {
-                if (DataAcces != null && DataAcces.Transaction != null)
-                    DataAcces.Transaction.RollbackTransaction();
+                DataAcces.Transaction.RollbackTransaction();
                 throw ex;
             }
             catch (Exception ex)
             {
-                if (DataAcces != null && DataAcces.Transaction != null)
-                    DataAcces.Transaction.RollbackTransaction();
+                DataAcces.Transaction.RollbackTransaction();
                 throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
@@ -120,8 +116,8 @@ namespace EDUAR_BusinessLogic.Common
             try
             {
                 //Si no viene el Id es porque se esta creando la entidad
-                DataAcces = new DAMotivoAusencia(objDATransaction);
-                if (Data.idMotivo == 0)
+                DataAcces = new DATipoSancion(objDATransaction);
+                if (Data.idTipoSancion == 0)
                     DataAcces.Create(Data);
                 else
                 {
@@ -148,7 +144,7 @@ namespace EDUAR_BusinessLogic.Common
         {
             try
             {
-                DataAcces = new DAMotivoAusencia(objDATransaction);
+                DataAcces = new DATipoSancion(objDATransaction);
                 DataAcces.Delete(Data);
             }
             catch (CustomizedException ex)
@@ -164,22 +160,27 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<MotivoAusencia> GetMotivoAusencias(MotivoAusencia entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetMotivoAusencias(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetMotivoAusencias", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+		/// <summary>
+		/// Gets the tipo asistencia.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+        public List<TipoSancion> GetTipoSancion(TipoSancion entidad)
+        {
+            try
+            {
+                return DataAcces.GetTipoSancion(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+				throw new CustomizedException(string.Format("Fallo en {0} - GetTipoSancion", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }

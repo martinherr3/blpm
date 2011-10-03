@@ -70,7 +70,6 @@
     <Compile Include="Common\DAPeriodo.cs" />
     <Compile Include="Common\DANivel.cs" />
     <Compile Include="Common\DAMotivoSancion.cs" />
-    <Compile Include="Common\DAMotivoAusencia.cs" />
     <Compile Include="Common\DAInstitucion.cs" />
     <Compile Include="Common\DAInstanciaCalificacion.cs" />
     <Compile Include="Common\DAInasistencia.cs" />
