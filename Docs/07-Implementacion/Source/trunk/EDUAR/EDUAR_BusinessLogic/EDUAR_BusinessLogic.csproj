@@ -93,7 +93,6 @@
     <Compile Include="Common\BLInasistencia.cs" />
     <Compile Include="Common\BLInstanciaCalificacion.cs" />
     <Compile Include="Common\BLInstitucion.cs" />
-    <Compile Include="Common\BLMotivoAusencia.cs" />
     <Compile Include="Common\BLMotivoSancion.cs" />
     <Compile Include="Common\BLNivel.cs" />
     <Compile Include="Common\BLPeriodo.cs" />
@@ -109,6 +108,8 @@
     <Compile Include="Common\BLTipoTutor.cs" />
     <Compile Include="Common\BLTutor.cs" />
     <Compile Include="Common\BLAgendaActividades.cs" />
+    <Compile Include="Common\BLTipoAsistencia.cs" />
+    <Compile Include="Common\BLTipoSancion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\BLRptAccesos.cs" />
     <Compile Include="Reports\BLRptCalificacionesAlumnoPeriodo.cs" />

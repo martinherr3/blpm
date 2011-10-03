@@ -55,7 +55,7 @@ namespace EDUAR_DataAccess.Reports
                 {
                     objReporte = new RptSancionesAlumnoPeriodo();
 
-                    objReporte.alumno = reader["Nombre"].ToString().ToUpperInvariant();
+                    objReporte.alumno = reader["Nombre"].ToString();
 					objReporte.fecha = Convert.ToDateTime(reader["Fecha"].ToString());
                     objReporte.cantidad = Convert.ToInt32(reader["Cantidad"]);
                     objReporte.tipo = reader["Tipo"].ToString();

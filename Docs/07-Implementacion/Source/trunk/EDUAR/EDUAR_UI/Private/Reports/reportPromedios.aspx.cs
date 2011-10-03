@@ -156,26 +156,6 @@ namespace EDUAR_UI
 				ViewState["listaAsignatura"] = value;
 			}
 		}
-
-		///// <summary>
-		///// Gets or sets the lista cursos.
-		///// </summary>
-		///// <value>
-		///// The lista sanciones.
-		///// </value>
-		//public List<Curso> listaCurso
-		//{
-		//    get
-		//    {
-		//        if (ViewState["listaCurso"] == null)
-		//            listaCurso = new List<Curso>();
-		//        return (List<Curso>)ViewState["listaCurso"];
-		//    }
-		//    set
-		//    {
-		//        ViewState["listCurso"] = value;
-		//    }
-		//}
 		#endregion
 
 		#region --[Eventos]--
@@ -390,6 +370,18 @@ namespace EDUAR_UI
 			try
 			{
 				CargarPresentacion();
+				ddlCicloLectivo.SelectedValue = (filtroReporte.idCicloLectivo > 0) ? filtroReporte.idCicloLectivo.ToString() : "-1";
+				ddlCurso.SelectedValue = (filtroReporte.idCurso > 0) ? filtroReporte.idCurso.ToString() : "-1";
+				ddlAsignatura.SelectedValue = (filtroReporte.idAsignatura > 0) ? filtroReporte.idAsignatura.ToString() : "-1";
+
+				ddlPeriodo.SelectedValue = (filtroReporte.idPeriodo > 0) ? filtroReporte.idPeriodo.ToString() : "-1";
+				if (filtroReporte.idCurso > 0)
+				{
+					CargarAlumnos(filtroReporte.idCurso);
+				}
+				ddlAlumno.SelectedValue = (filtroReporte.idAlumno > 0) ? filtroReporte.idAlumno.ToString() : "-1";
+				ddlAlumno.Enabled = (filtroReporte.idCurso > 0);
+
 				btnBuscar.Visible = true;
 				divFiltros.Visible = true;
 				divReporte.Visible = false;
@@ -441,7 +433,7 @@ namespace EDUAR_UI
 			try
 			{
 				HabilitaCursoYPeriodo();
-				
+
 			}
 			catch (Exception ex)
 			{
@@ -458,9 +450,20 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				CargarAlumnos(Convert.ToInt32(ddlCurso.SelectedValue));
-				ddlAlumno.Enabled = true;
-				CargarComboAsignatura();
+				int idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+				if (idCurso > 0)
+				{
+					CargarAlumnos(idCurso);
+					ddlAlumno.Enabled = true;
+					CargarComboAsignatura();
+				}
+				else
+				{
+					ddlAlumno.Items.Clear();
+					ddlAlumno.Enabled = false;
+					ddlAsignatura.Items.Clear();
+					ddlAsignatura.Enabled = false;
+				}
 			}
 			catch (Exception ex)
 			{
@@ -650,7 +653,6 @@ namespace EDUAR_UI
 		{
 			if (idCicloLectivo > 0)
 			{
-
 				BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
 				UIUtilidades.BindCombo<Periodo>(ddlPeriodo, objBLCicloLectivo.GetPeriodosByCicloLectivo(idCicloLectivo), "idPeriodo", "nombre", true);
 				ddlPeriodo.Enabled = true;

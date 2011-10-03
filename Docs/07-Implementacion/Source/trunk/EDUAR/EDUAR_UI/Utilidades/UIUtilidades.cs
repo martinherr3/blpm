@@ -238,6 +238,7 @@ namespace EDUAR_UI.Utilidades
 				switch (prop.PropertyType.Name)
 				{
 					case "DateTime":
+					case "Int16":
 					case "Int32":
 						customField.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 						break;
@@ -275,6 +276,7 @@ namespace EDUAR_UI.Utilidades
 				switch (columna.DataType.Name)
 				{
 					case "DateTime":
+					case "Int16":
 					case "Int32":
 						customField.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
 						break;
@@ -312,6 +314,11 @@ namespace EDUAR_UI.Utilidades
 		#endregion
 
 		#region Private Methods - for internal use
+		/// <summary>
+		/// Sorts the combo.
+		/// </summary>
+		/// <param name="combo">The combo.</param>
+		/// <param name="comparer">The comparer.</param>
 		private static void SortCombo(ListControl combo, IComparer comparer)
 		{
 			int i;

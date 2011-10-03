@@ -4,7 +4,6 @@
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
 <%@ Register Src="~/UserControls/Reporte.ascx" TagName="Reporte" TagPrefix="rep" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -25,13 +24,9 @@
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblPagina" runat="server" Text="Página:" CssClass="lblCriterios"></asp:Label>
                 </td>
-                <td valign="top" class="TDCriterios30">
+                <td valign="top" class="TDCriterios75" colspan="3">
                     <asp:DropDownList ID="ddlPagina" runat="server">
                     </asp:DropDownList>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                </td>
-                <td valign="top" class="TDCriterios25">
                 </td>
             </tr>
             <tr>
@@ -41,16 +36,12 @@
                 </td>
             </tr>
             <tr>
-                <td valign="top" class="TD25">
+                <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblRolesBusqueda" runat="server" Text="Roles:"></asp:Label>
                 </td>
-                <td class="TD25">
+                <td valign="top" class="TDCriterios75" colspan="3">
                     <asp:CheckBoxList ID="chkListRolesBusqueda" TabIndex="2" runat="server">
                     </asp:CheckBoxList>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                </td>
-                <td valign="top" class="TDCriterios25">
                 </td>
             </tr>
         </table>

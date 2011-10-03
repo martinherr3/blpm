@@ -598,11 +598,13 @@ namespace EDUAR_UI.UserControls
 			DateTime fechaDesde;
 			DateTime fechaHasta;
 
-			if (txtFechaDesde_DA.Text.Trim().Equals(string.Empty))
-				txtFechaDesde_DA.Text = DateTime.Now.AddDays(-7).ToShortDateString();
+			//if (txtFechaDesde_DA.Text.Trim().Equals(string.Empty))
+			//    //txtFechaDesde_DA.Text = DateTime.Now.AddDays(-7).ToShortDateString();
+			//    txtFechaDesde_DA.Text = new DateTime(1753, 1, 1).ToString();
 
-			if (txtFechaHasta_DA.Text.Trim().Equals(string.Empty))
-				txtFechaHasta_DA.Text = DateTime.Now.ToShortDateString();
+			//if (txtFechaHasta_DA.Text.Trim().Equals(string.Empty))
+			//    //txtFechaHasta_DA.Text = DateTime.Now.ToShortDateString();
+			//    txtFechaHasta_DA.Text = new DateTime(9999, 12, 31).ToString(); 
 
 			boolFechaDesdeCorrecta = (DateTime.TryParse(txtFechaDesde_DA.Text.Trim(), out fechaDesde));
 			boolFechaHastaCorrecta = (DateTime.TryParse(txtFechaHasta_DA.Text.Trim(), out fechaHasta));

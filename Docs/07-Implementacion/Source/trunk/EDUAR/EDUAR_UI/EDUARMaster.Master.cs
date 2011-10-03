@@ -246,6 +246,8 @@ namespace EDUAR_UI
 					}
 					if (Detalle != ex.Message) Detalle += " " + ex.Message;
 					MostrarMensaje(Titulo, Detalle, tipoVentana);
+					if (tipoVentana != enumTipoVentanaInformacion.Advertencia)
+						ManageExceptionsLog(ex);
 				}
 				//Esta es una excepcion de tipo validacion que viene de BL.
 				else if ((exceptionName.Contains("GenericException")))
