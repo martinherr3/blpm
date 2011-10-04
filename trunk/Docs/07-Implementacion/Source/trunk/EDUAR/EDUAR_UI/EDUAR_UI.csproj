@@ -137,7 +137,7 @@
     <Content Include="Private\Mensajes\MsjeEntrada.aspx" />
     <Content Include="Private\Mensajes\MsjeEnviado.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
-    <Content Include="Private\Reports\reportPromedioCalificacionesAsignaturaCurso.aspx" />
+    <Content Include="Private\Reports\Historicos\reportRendimiento.aspx" />
     <Content Include="Private\Reports\PrintReport.aspx" />
     <Content Include="Private\Reports\reportAccesos.aspx" />
     <Content Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx" />
@@ -351,12 +351,12 @@
     <Compile Include="Private\Mensajes\MsjeRedactar.aspx.designer.cs">
       <DependentUpon>MsjeRedactar.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Private\Reports\reportPromedioCalificacionesAsignaturaCurso.aspx.cs">
-      <DependentUpon>reportPromedioCalificacionesAsignaturaCurso.aspx</DependentUpon>
+    <Compile Include="Private\Reports\Historicos\reportRendimiento.aspx.cs">
+      <DependentUpon>reportRendimiento.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Private\Reports\reportPromedioCalificacionesAsignaturaCurso.aspx.designer.cs">
-      <DependentUpon>reportPromedioCalificacionesAsignaturaCurso.aspx</DependentUpon>
+    <Compile Include="Private\Reports\Historicos\reportRendimiento.aspx.designer.cs">
+      <DependentUpon>reportRendimiento.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Reports\PrintReport.aspx.cs">
       <DependentUpon>PrintReport.aspx</DependentUpon>

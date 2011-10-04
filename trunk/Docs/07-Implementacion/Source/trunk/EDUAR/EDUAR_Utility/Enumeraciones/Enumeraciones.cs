@@ -239,4 +239,12 @@ namespace EDUAR_Utility.Enumeraciones
 		InformeInasistencias = 1,
 		InformeSanciones = 4
 	}
+
+	public enum enumTipoSancion : int
+	{
+		None = 0,
+		Amonestacion = 217,
+		LlamadoAtencion = 218,
+		FirmaLibro = 219
+	}
 }

@@ -199,6 +199,7 @@ namespace EDUAR_UI
 					CargarPresentacion();
 					divReporte.Visible = false;
 					btnBuscar.Visible = true;
+					divAccion.Visible = true;
 					divFiltros.Visible = true;
 					lblAsignatura.Visible = true;
 					ddlAsignatura.Visible = true;
@@ -339,6 +340,7 @@ namespace EDUAR_UI
 				{
 					divReporte.Visible = true;
 					btnBuscar.Visible = false; //Se supone que no es mas necesario
+					divAccion.Visible = false;
 				}
 			}
 			catch (Exception ex)
@@ -383,6 +385,7 @@ namespace EDUAR_UI
 				ddlAlumno.Enabled = (filtroReporte.idCurso > 0);
 
 				btnBuscar.Visible = true;
+				divAccion.Visible = true;
 				divFiltros.Visible = true;
 				divReporte.Visible = false;
 			}
@@ -482,6 +485,7 @@ namespace EDUAR_UI
 			ddlAsignatura.Items.Clear();
 			CargarCombos();
 			btnBuscar.Visible = true;
+			divAccion.Visible = true;
 			divReporte.Visible = false;
 		}
 
@@ -692,6 +696,7 @@ namespace EDUAR_UI
 						CargarPresentacion();
 						divReporte.Visible = false;
 						btnBuscar.Visible = true;
+						divAccion.Visible = true;
 						divFiltros.Visible = true;
 						lblAsignatura.Visible = true;
 						ddlAsignatura.Visible = true;
@@ -700,6 +705,7 @@ namespace EDUAR_UI
 						CargarPresentacion();
 						divReporte.Visible = false;
 						btnBuscar.Visible = true;
+						divAccion.Visible = true;
 						divFiltros.Visible = true;
 						lblAsignatura.Visible = false;
 						ddlAsignatura.Visible = false;
@@ -708,6 +714,7 @@ namespace EDUAR_UI
 						CargarPresentacion();
 						divReporte.Visible = false;
 						btnBuscar.Visible = true;
+						divAccion.Visible = true;
 						divFiltros.Visible = true;
 						lblAsignatura.Visible = false;
 						ddlAsignatura.Visible = false;

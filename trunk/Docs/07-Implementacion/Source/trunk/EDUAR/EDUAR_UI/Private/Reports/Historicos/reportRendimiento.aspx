@@ -1,15 +1,16 @@
-﻿<%@ Page Title="Informe consolidado" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="reportPromedios.aspx.cs" Inherits="EDUAR_UI.reportPromedios" %>
+﻿<%@ Page Title="Histórico Rendimiento" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+    AutoEventWireup="true" CodeBehind="reportRendimiento.aspx.cs" Inherits="EDUAR_UI.reportRendimiento" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
+<%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
 <%@ Register Src="~/UserControls/Reporte.ascx" TagName="Reporte" TagPrefix="rep" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Reportes Por Período</h2>
+        Rendimiento Histórico</h2>
     <br />
-    <div id="divAccion" runat="server">
+    <div id="divFiltros" runat="server">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td align="right">
@@ -18,24 +19,13 @@
                 </td>
             </tr>
         </table>
-        <table class="tablaInterna" cellpadding="1" cellspacing="5" border="0">
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
-                <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblAccion" runat="server" Text="Tipo reporte consolidado:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td rowspan="3" class="TDCriterios75">
-                    <asp:RadioButtonList ID="rdlAccion" runat="server" OnSelectedIndexChanged="rdlAccion_OnSelectedIndexChanged"
-                        AutoPostBack="true">
-                        <asp:ListItem Text="Promedios" Value="0" Selected="true" />
-                        <asp:ListItem Text="Inasistencias" Value="1" />
-                        <asp:ListItem Text="Sanciones" Value="2" />
-                    </asp:RadioButtonList>
+                <td valign="top" colspan="4" class="TDCriterios100">
+                    <cal:Calendario ID="fechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
+                        EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
                 </td>
             </tr>
-        </table>
-    </div>
-    <div id="divFiltros" runat="server">
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
@@ -48,6 +38,23 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </td>
+                <td valign="top" class="TDCriterios25">
+                    <asp:Label ID="lblNivel" runat="server" Text="Nivel:" CssClass="lblCriterios"></asp:Label>
+                </td>
+                <td valign="top" class="TDCriterios25">
+                    <asp:UpdatePanel ID="udpNivel" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddlNivel" runat="server" OnSelectedIndexChanged="ddlNivel_SelectedIndexChanged"
+                                AutoPostBack="True">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+            <tr>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                 </td>
@@ -63,39 +70,9 @@
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
-            </tr>
-            <tr>
                 <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblPeriodo" runat="server" Text="Periodo:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="top" class="TDCriterios25">
-                    <asp:UpdatePanel ID="udpPeriodo" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:DropDownList ID="ddlPeriodo" runat="server">
-                            </asp:DropDownList>
-                        </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
-                        </Triggers>
-                    </asp:UpdatePanel>
-                </td>
-                <td class="TDCriterios50" colspan="2">
-                </td>
-            </tr>
-            <tr>
-                <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblAlumno" runat="server" Text="Alumno:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td valign="top" class="TDCriterios75" colspan="3">
-                    <asp:UpdatePanel ID="udpAlumno" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:DropDownList ID="ddlAlumno" runat="server" CssClass="EstiloTxtLargo250">
-                            </asp:DropDownList>
-                        </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
-                        </Triggers>
-                    </asp:UpdatePanel>
                 </td>
             </tr>
             <tr>
@@ -103,13 +80,20 @@
                     <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="top" class="TDCriterios75" colspan="3">
-                    <asp:DropDownList ID="ddlAsignatura" runat="server">
-                    </asp:DropDownList>
+                    <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
                 </td>
             </tr>
         </table>
     </div>
     <div id="divReporte" runat="server">
-        <rep:Reporte ID="rptResultado" runat="server"></rep:Reporte>
+        <rep:Reporte ID="rptCalificaciones" runat="server"></rep:Reporte>
     </div>
 </asp:Content>
