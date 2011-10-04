@@ -4,6 +4,7 @@ using System.Data;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Globalization;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_BusinessLogic.Reports;
 using EDUAR_Entities;
@@ -156,6 +157,32 @@ namespace EDUAR_UI
 				ViewState["listaAsignatura"] = value;
 			}
 		}
+
+        /// <summary>
+        /// Gets or sets the lista tipo asistencia.
+        /// </summary>
+        /// <value>
+        /// The lista tipo asistencia.
+        /// </value>
+        public List<TipoAsistencia> listaTipoAsistencia
+        {
+            get
+            {
+                if (ViewState["listaTipoAsistencia"] == null)
+                {
+                    listaTipoAsistencia = new List<TipoAsistencia>();
+                    BLTipoAsistencia objBLTipoAsistencia = new BLTipoAsistencia();
+                    listaTipoAsistencia = objBLTipoAsistencia.GetTipoAsistencia(null);
+                }
+                return (List<TipoAsistencia>)ViewState["listaTipoAsistencia"];
+            }
+            set
+            {
+                ViewState["listaTipoAsistencia"] = value;
+            }
+        }
+
+  
 		#endregion
 
 		#region --[Eventos]--
@@ -245,9 +272,11 @@ namespace EDUAR_UI
 		/// </summary>
 		private void GraficarPromedios()
 		{
+
+            // Cuando se elija 
 			try
 			{
-				int sumaNotas = 0;
+				Double sumaNotas = 0;
 				rptResultado.graficoReporte.LimpiarSeries();
 				foreach (var item in listaAsignatura)
 				{
@@ -257,18 +286,22 @@ namespace EDUAR_UI
 					{
 						foreach (var nota in listaParcial)
 						{
-							sumaNotas += Convert.ToInt16(nota.promedio);
+							sumaNotas += Convert.ToDouble(nota.promedio);                           
 						}
 						var serie = new List<RptPromedioCalificacionesPeriodo>();
-						serie.Add(new RptPromedioCalificacionesPeriodo
-						{
-							promedio = (sumaNotas / listaParcial.Count).ToString(),
-							asignatura = item.nombre
-						});
+
+                        serie.Add(new RptPromedioCalificacionesPeriodo
+                        {
+                            promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
+                            asignatura = item.nombre
+                            //asignatura = ""
+                        });
 
 						DataTable dt = UIUtilidades.BuildDataTable<RptPromedioCalificacionesPeriodo>(serie);
-						rptResultado.graficoReporte.AgregarSerie(item.nombre, dt, "asignatura", "promedio");
-						rptResultado.graficoReporte.Titulo = "Promedios ";
+                       rptResultado.graficoReporte.AgregarSerie(item.nombre, dt, "asignatura", "promedio");
+                       //rptResultado.graficoReporte.AgregarSerie("", dt, "asignatura", "promedio");
+                           
+                        rptResultado.graficoReporte.Titulo = "Promedios ";
 					}
 				}
 				rptResultado.graficoReporte.GraficarBarra();
@@ -279,7 +312,116 @@ namespace EDUAR_UI
 
 		private void GraficarInasistencia()
 		{
-			throw new NotImplementedException();
+			try
+			{
+				rptResultado.graficoReporte.LimpiarSeries();
+				var serie = new List<RptInasistenciasAlumnoPeriodo>();
+				///////////////////////////////////
+                if (ddlAlumno.SelectedIndex <= 0 && ddlCurso.SelectedIndex <= 0)
+                {
+                    //foreach (var item in listaTipoAsistencia)
+                    for(int i=0; i<= 6; i++)
+                    {
+                        // Esto es una chanchada, si anda lo corrijo con un listado de niveles
+                        var listaPorNivel = listaReporteInasistencias.FindAll(p => p.nivel.Substring(0,1) ==i.ToString());
+                        if (listaPorNivel.Count > 0)
+                        {
+                            serie.Add(new RptInasistenciasAlumnoPeriodo
+                            {
+                                curso = i.ToString()+"º Año",
+                                alumno = listaPorNivel.Count.ToString()
+                            });
+                        }
+                    }
+                    DataTable dt = UIUtilidades.BuildDataTable<RptInasistenciasAlumnoPeriodo>(serie);
+                    rptResultado.graficoReporte.AgregarSerie("Inasistencias", dt, "curso", "alumno");
+
+                    rptResultado.graficoReporte.Titulo = "Inasistencias por Cursos en el Ciclo Lectivo "+ ddlCicloLectivo.SelectedItem.ToString();
+                }
+                else if(ddlCurso.SelectedIndex > 0 && ddlAlumno.SelectedIndex <= 0)
+                {
+                    foreach (var item in listaTipoAsistencia)
+                    {
+                        var listaPorTipoAsistencia = listaReporteInasistencias.FindAll(p => p.motivo == item.descripcion);
+                        if (listaPorTipoAsistencia.Count > 0)
+                        {
+                            serie.Add(new RptInasistenciasAlumnoPeriodo
+                            {
+                                motivo = item.descripcion,
+                                alumno = listaPorTipoAsistencia.Count.ToString()
+                            });
+                        }
+                    }
+                    DataTable dt = UIUtilidades.BuildDataTable<RptInasistenciasAlumnoPeriodo>(serie);
+                    rptResultado.graficoReporte.AgregarSerie("Inasistencias", dt, "motivo", "alumno");
+
+                   rptResultado.graficoReporte.Titulo = "Inasistencias por Motivo en el Curso " + ddlCurso.SelectedItem.ToString();
+                }
+                
+
+
+
+                //////////////////////////////////
+                
+                
+                //if (ddlAlumno.SelectedIndex > 0)
+                //{
+                //    var listaParcial = listaReporteInasistencias.FindAll(p => p.alumno == ddlAlumno.SelectedItem.Text);
+
+                //    foreach (var item in listaTipoAsistencia)
+                //    {
+                //        var listaPorTipoAsistencia = listaParcial.FindAll(p => p.motivo == item.descripcion);
+                //        if (listaPorTipoAsistencia.Count > 0)
+                //        {
+                //            serie.Add(new RptInasistenciasAlumnoPeriodo
+                //            {
+                //                motivo = item.descripcion,
+                //                alumno = listaPorTipoAsistencia.Count.ToString()
+                //            });
+                //        }
+                //    }
+                //    if (serie != null)
+                //    {
+                //        DataTable dt = UIUtilidades.BuildDataTable<RptInasistenciasAlumnoPeriodo>(serie);
+                //        // En alumno envio la nota y en calificación la cantidad de esa nota que se produjo
+                //        rptResultado.graficoReporte.AgregarSerie(ddlAlumno.SelectedItem.Text, dt, "motivo", "alumno");
+                //        rptResultado.graficoReporte.Titulo = "Inasistencias " + ddlAlumno.SelectedItem.Text;
+                //    }
+                //}
+                //else
+                //{
+                //    foreach (var item in listaTipoAsistencia)
+                //    {
+                //        var listaPorTipoAsistencia = listaReporteInasistencias.FindAll(p => p.motivo == item.descripcion);
+                //        if (listaPorTipoAsistencia.Count > 0)
+                //        {
+                //            serie.Add(new RptInasistenciasAlumnoPeriodo
+                //            {
+                //                motivo = item.descripcion,
+                //                alumno = listaPorTipoAsistencia.Count.ToString()
+                //            });
+                //        }
+                //    }
+                //    DataTable dt = UIUtilidades.BuildDataTable<RptInasistenciasAlumnoPeriodo>(serie);
+                //    rptResultado.graficoReporte.AgregarSerie("Inasistencias", dt, "motivo", "alumno");
+
+                //    //if (fechas.ValorFechaDesde != null
+                //    //    && fechas.ValorFechaHasta != null)
+                //    //    rptResultado.graficoReporte.Titulo = @"Inasistencias " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString() +
+                //    //         " - " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString();
+                //    //else
+                //        rptResultado.graficoReporte.Titulo = "Inasistencias";
+                //}
+				rptResultado.graficoReporte.GraficarBarra();
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
+
+		
+
+
+
+            /////////////////////////////////////////
 		}
 
 		private void GraficarSanciones()
@@ -536,7 +678,7 @@ namespace EDUAR_UI
 		private bool BuscarInasistencias()
 		{
 			StringBuilder filtros = new StringBuilder();
-			if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0)
+			if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 /*&& Convert.ToInt32(ddlCurso.SelectedValue) > 0*/)
 			{
 				filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
 
@@ -546,7 +688,9 @@ namespace EDUAR_UI
 				if (ddlCurso.SelectedIndex > 0)
 					filtroReporteIncidencias.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
 
-				filtroReporteIncidencias.idPeriodo = Convert.ToInt32(ddlPeriodo.SelectedValue);
+                filtroReporteIncidencias.idPeriodo = 0;
+                if (ddlCurso.SelectedIndex > 0)
+                    filtroReporteIncidencias.idPeriodo = Convert.ToInt32(ddlPeriodo.SelectedValue);
 
 				filtroReporteIncidencias.idAlumno = 0;
 				if (ddlAlumno.SelectedIndex > 0)
