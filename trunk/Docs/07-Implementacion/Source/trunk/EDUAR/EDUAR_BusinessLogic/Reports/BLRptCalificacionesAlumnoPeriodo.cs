@@ -113,6 +113,29 @@ namespace EDUAR_BusinessLogic.Reports
                                               enuExceptionType.BusinessLogicException);
             }
         }
-        #endregion
-    }
+
+		/// <summary>
+		/// Gets the RPT rendimiento historico.
+		/// </summary>
+		/// <param name="filtroReporte">The filtro reporte.</param>
+		/// <returns></returns>
+		public List<RptRendimientoHistorico> GetRptRendimientoHistorico(FilCalificacionesAlumnoPeriodo entidad)
+		{
+			try
+			{
+				return DataAcces.GetRptRendimientoHistorico(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRptRendimientoHistorico", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+		#endregion
+
+	}
 }
