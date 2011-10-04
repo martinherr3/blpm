@@ -142,8 +142,10 @@ namespace EDUAR_UI
         {
             try
             {
-                //if (fechas.ValorFechaDesde.ToString() == string.Empty)
-                //    fechas.FechaDesde.Text = DateTime.Now.AddDays(-7).ToShortDateString();
+                if (fechas.ValorFechaDesde.ToString() == string.Empty)
+                    fechas.FechaDesde.Text = DateTime.Now.AddDays(-7).ToShortDateString();
+				if (fechas.ValorFechaHasta.ToString() == string.Empty)
+					fechas.FechaHasta.Text = DateTime.Now.ToShortDateString();
                 fechas.ValidarRangoDesdeHasta(true);
                 BuscarAccesos();
                 divFiltros.Visible = false;

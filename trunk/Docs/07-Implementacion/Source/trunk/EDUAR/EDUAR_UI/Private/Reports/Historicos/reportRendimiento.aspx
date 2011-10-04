@@ -8,7 +8,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Rendimiento Histórico</h2>
+        Rendimiento</h2>
     <br />
     <div id="divFiltros" runat="server">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
