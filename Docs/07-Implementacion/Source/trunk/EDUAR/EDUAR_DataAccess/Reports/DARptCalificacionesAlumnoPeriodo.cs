@@ -85,44 +85,104 @@ namespace EDUAR_DataAccess.Reports
                                     ex, enuExceptionType.DataAccesException);
             }
         }
-        #endregion
 
-        #region --[Implementación métodos heredados]--
-        public override string FieldID
-        {
-            get { throw new NotImplementedException(); }
-        }
+		/// <summary>
+		/// Gets the RPT rendimiento historico.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<RptRendimientoHistorico> GetRptRendimientoHistorico(FilCalificacionesAlumnoPeriodo entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_PromedioHistoricoCalificacionesAlumno");
+				if (entidad != null)
+				{
+					if (entidad.idAlumno > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAlumno", DbType.Int32, entidad.idAlumno);
+					if (entidad.idAsignatura > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.idAsignatura);
+					if (entidad.idCurso > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.idCurso);
+					if (entidad.idNivel > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32, entidad.idNivel);
+					if (entidad.idCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
+					if (entidad.idInstanciaEvaluacion > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idInstanciaEvaluacion", DbType.Int32, entidad.idInstanciaEvaluacion);
+					if (ValidarFechaSQL(entidad.fechaDesde))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaDesde);
+					if (ValidarFechaSQL(entidad.fechaHasta))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaHasta);
+					if (!string.IsNullOrEmpty(entidad.username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.username);
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-        public override string FieldDescription
-        {
-            get { throw new NotImplementedException(); }
-        }
+				List<RptRendimientoHistorico> listaReporte = new List<RptRendimientoHistorico>();
+				RptRendimientoHistorico objReporte;
+				while (reader.Read())
+				{
+					objReporte = new RptRendimientoHistorico();
 
-        public override RptCalificacionesAlumnoPeriodo GetById(RptCalificacionesAlumnoPeriodo entidad)
-        {
-            throw new NotImplementedException();
-        }
+					objReporte.alumno = reader["alumno"].ToString();
+					objReporte.asignatura = reader["asignatura"].ToString();
+					objReporte.periodo = reader["periodo"].ToString();
+					objReporte.promedio = reader["promedio"].ToString();
+					//objReporte.instancia = reader["Instancia"].ToString();
 
-        public override void Create(RptCalificacionesAlumnoPeriodo entidad)
-        {
-            throw new NotImplementedException();
-        }
+					listaReporte.Add(objReporte);
+				}
+				return listaReporte;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRptRendimientoHistorico()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRptRendimientoHistorico()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+		#endregion
 
-        public override void Create(RptCalificacionesAlumnoPeriodo entidad, out int identificador)
-        {
-            throw new NotImplementedException();
-        }
+		#region --[Implementación métodos heredados]--
+		public override string FieldID
+		{
+			get { throw new NotImplementedException(); }
+		}
 
-        public override void Update(RptCalificacionesAlumnoPeriodo entidad)
-        {
-            throw new NotImplementedException();
-        }
+		public override string FieldDescription
+		{
+			get { throw new NotImplementedException(); }
+		}
 
-        public override void Delete(RptCalificacionesAlumnoPeriodo entidad)
-        {
-            throw new NotImplementedException();
-        }
-        #endregion
+		public override RptCalificacionesAlumnoPeriodo GetById(RptCalificacionesAlumnoPeriodo entidad)
+		{
+			throw new NotImplementedException();
+		}
 
-    }
+		public override void Create(RptCalificacionesAlumnoPeriodo entidad)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override void Create(RptCalificacionesAlumnoPeriodo entidad, out int identificador)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override void Update(RptCalificacionesAlumnoPeriodo entidad)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override void Delete(RptCalificacionesAlumnoPeriodo entidad)
+		{
+			throw new NotImplementedException();
+		}
+		#endregion
+	}
 }

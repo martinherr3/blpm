@@ -43,17 +43,17 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista calificaciones.
 		/// </value>
-		public List<RptCalificacionesAlumnoPeriodo> listaReporte
+		public List<RptRendimientoHistorico> listaReporte
 		{
 			get
 			{
-				if (Session["listaCalificaciones"] == null)
-					listaReporte = new List<RptCalificacionesAlumnoPeriodo>();
-				return (List<RptCalificacionesAlumnoPeriodo>)Session["listaCalificaciones"];
+				if (Session["listaReporte"] == null)
+					listaReporte = new List<RptRendimientoHistorico>();
+				return (List<RptRendimientoHistorico>)Session["listaReporte"];
 			}
 			set
 			{
-				Session["listaCalificaciones"] = value;
+				Session["listaReporte"] = value;
 			}
 		}
 
@@ -128,6 +128,12 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				rptCalificaciones.ExportarPDFClick += (ExportarPDF);
+				rptCalificaciones.VolverClick += (VolverReporte);
+				rptCalificaciones.PaginarGrilla += (PaginarGrilla);
+				Master.BotonAvisoAceptar += (VentanaAceptar);
+				rptCalificaciones.GraficarClick += (btnGraficar);
+
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
@@ -160,7 +166,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				fechas.ValidarRangoDesdeHasta();
 				if (BuscarCalificaciones())
 				{
 					divFiltros.Visible = false;
@@ -213,58 +218,58 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				int sumaNotas = 0;
-				rptCalificaciones.graficoReporte.LimpiarSeries();
-				if (ddlAsignatura.SelectedIndex > 0)
-				{
-					var serie = new List<RptCalificacionesAlumnoPeriodo>();
-					for (int i = 1; i < 11; i++)
-					{
-						sumaNotas = 0;
-						var listaParcial = listaReporte.FindAll(p => p.calificacion == i.ToString());
-						if (listaParcial.Count > 0)
-						{
-							serie.Add(new RptCalificacionesAlumnoPeriodo
-							{
-								calificacion = listaParcial.Count.ToString(),
-								alumno = i.ToString()
-							});
-						}
-					}
-					if (serie != null)
-					{
-						DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
-						// En alumno envio la nota y en calificación la cantidad de esa nota que se produjo
-						rptCalificaciones.graficoReporte.AgregarSerie(ddlAsignatura.SelectedItem.Text, dt, "alumno", "calificacion");
-						rptCalificaciones.graficoReporte.Titulo = "Distribución de Calificaciones " + ddlAsignatura.SelectedItem.Text;
-					}
-				}
-				else
-				{
-					foreach (var item in listaAsignatura)
-					{
-						sumaNotas = 0;
-						var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre);
-						if (listaParcial.Count > 0)
-						{
-							foreach (var nota in listaParcial)
-							{
-								sumaNotas += Convert.ToInt16(nota.calificacion);
-							}
-							var serie = new List<RptCalificacionesAlumnoPeriodo>();
-							serie.Add(new RptCalificacionesAlumnoPeriodo
-							{
-								calificacion = (sumaNotas / listaParcial.Count).ToString(),
-								asignatura = item.nombre
-							});
+				//int sumaNotas = 0;
+				//rptCalificaciones.graficoReporte.LimpiarSeries();
+				//if (ddlAsignatura.SelectedIndex > 0)
+				//{
+				//    var serie = new List<RptCalificacionesAlumnoPeriodo>();
+				//    for (int i = 1; i < 11; i++)
+				//    {
+				//        sumaNotas = 0;
+				//        var listaParcial = listaReporte.FindAll(p => p.calificacion == i.ToString());
+				//        if (listaParcial.Count > 0)
+				//        {
+				//            serie.Add(new RptCalificacionesAlumnoPeriodo
+				//            {
+				//                calificacion = listaParcial.Count.ToString(),
+				//                alumno = i.ToString()
+				//            });
+				//        }
+				//    }
+				//    if (serie != null)
+				//    {
+				//        DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
+				//         En alumno envio la nota y en calificación la cantidad de esa nota que se produjo
+				//        rptCalificaciones.graficoReporte.AgregarSerie(ddlAsignatura.SelectedItem.Text, dt, "alumno", "calificacion");
+				//        rptCalificaciones.graficoReporte.Titulo = "Distribución de Calificaciones " + ddlAsignatura.SelectedItem.Text;
+				//    }
+				//}
+				//else
+				//{
+				//    foreach (var item in listaAsignatura)
+				//    {
+				//        sumaNotas = 0;
+				//        var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre);
+				//        if (listaParcial.Count > 0)
+				//        {
+				//            foreach (var nota in listaParcial)
+				//            {
+				//                sumaNotas += Convert.ToInt16(nota.calificacion);
+				//            }
+				//            var serie = new List<RptCalificacionesAlumnoPeriodo>();
+				//            serie.Add(new RptCalificacionesAlumnoPeriodo
+				//            {
+				//                calificacion = (sumaNotas / listaParcial.Count).ToString(),
+				//                asignatura = item.nombre
+				//            });
 
-							DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
-							rptCalificaciones.graficoReporte.AgregarSerie(item.nombre, dt, "asignatura", "calificacion");
-							rptCalificaciones.graficoReporte.Titulo = "Promedio de Calificaciones por Asignatura ";
-						}
-					}
-				}
-				rptCalificaciones.graficoReporte.GraficarBarra();
+				//            DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
+				//            rptCalificaciones.graficoReporte.AgregarSerie(item.nombre, dt, "asignatura", "calificacion");
+				//            rptCalificaciones.graficoReporte.Titulo = "Promedio de Calificaciones por Asignatura ";
+				//        }
+				//    }
+				//}
+				//rptCalificaciones.graficoReporte.GraficarBarra();
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -285,7 +290,7 @@ namespace EDUAR_UI
 				{
 					rptCalificaciones.GrillaReporte.PageIndex = pagina;
 
-					rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
+					rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
 				}
 			}
 			catch (Exception ex)
@@ -303,6 +308,8 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				ddlNivel.Items.Clear();
+				ddlCurso.Items.Clear();
 				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
 
 				BLNivel objBLNivel = new BLNivel();
@@ -310,6 +317,18 @@ namespace EDUAR_UI
 				listaNiveles = objBLNivel.GetByCursoCicloLectivo(idCicloLectivo);
 				UIUtilidades.BindCombo<Nivel>(ddlNivel, listaNiveles, "idNivel", "nombre", true);
 				CargarComboCursos(idCicloLectivo, ddlCurso);
+				if (Convert.ToInt16(ddlCicloLectivo.SelectedValue) > 0)
+				{
+					ddlNivel.Enabled = true;
+					ddlCurso.Enabled = true;
+				}
+				else
+				{
+					ddlNivel.Items.Clear();
+					ddlNivel.Enabled = false;
+					ddlCurso.Items.Clear();
+					ddlCurso.Enabled = false;
+				}
 			}
 			catch (Exception ex)
 			{
@@ -372,38 +391,47 @@ namespace EDUAR_UI
 			{
 				filtroReporte = new FilCalificacionesAlumnoPeriodo();
 				StringBuilder filtros = new StringBuilder();
-				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0 /*&& Convert.ToInt32(ddlAsignatura.SelectedValue) > 0*/)
+				//if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0 /*&& Convert.ToInt32(ddlAsignatura.SelectedValue) > 0*/)
+				//{
+				//filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
+				if (ddlAsignatura.SelectedIndex > 0)
 				{
-					filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
-					if (ddlAsignatura.SelectedIndex > 0)
-					{
-						filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
-						if (filtroReporte.idAsignatura > 0) filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
-					}
-					if (fechas.ValorFechaDesde != null)
-					{
-						filtros.AppendLine("- Fecha Desde: " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString());
-						filtroReporte.fechaDesde = (DateTime)fechas.ValorFechaDesde;
-					}
-					if (fechas.ValorFechaHasta != null)
-					{
-						filtros.AppendLine("- Fecha Hasta: " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString());
-						filtroReporte.fechaHasta = (DateTime)fechas.ValorFechaHasta;
-					}
+					filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
+					if (filtroReporte.idAsignatura > 0) filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
+				}
+				//if (fechas.ValorFechaDesde != null)
+				//{
+				//    filtros.AppendLine("- Fecha Desde: " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString());
+				//    filtroReporte.fechaDesde = (DateTime)fechas.ValorFechaDesde;
+				//}
+				//if (fechas.ValorFechaHasta != null)
+				//{
+				//    filtros.AppendLine("- Fecha Hasta: " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString());
+				//    filtroReporte.fechaHasta = (DateTime)fechas.ValorFechaHasta;
+				//}
+				if (ddlCurso.Items.Count > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0)
 					filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+
+				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0)
 					filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
 
-					if (Context.User.IsInRole(enumRoles.Docente.ToString()))
-						filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+				if (ddlNivel.Items.Count > 0 && Convert.ToInt32(ddlNivel.SelectedValue) > 0)
+					filtroReporte.idNivel = Convert.ToInt32(ddlNivel.SelectedValue);
 
-					BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
-					listaReporte = objBLReporte.GetRptCalificacionesAlumnoPeriodo(filtroReporte);
-					filtrosAplicados = filtros.ToString();
+				if (Convert.ToInt32(ddlAlumno.SelectedValue) > 0)
+					filtroReporte.idAlumno = Convert.ToInt32(ddlAlumno.SelectedValue);
 
-					rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
-					return true;
-				}
-				return false;
+				if (Context.User.IsInRole(enumRoles.Docente.ToString()))
+					filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+				BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
+				listaReporte = objBLReporte.GetRptRendimientoHistorico(filtroReporte);
+				filtrosAplicados = filtros.ToString();
+
+				rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
+				return true;
+				//}
+				//return false;
 			}
 			else
 				return false;
@@ -420,17 +448,11 @@ namespace EDUAR_UI
 
 			List<Curso> listaCurso = new List<Curso>();
 			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
-			//UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
 
-			//if (ddlCicloLectivo.Items.Count > 0)
-			//{
-			//    ddlCicloLectivo.SelectedIndex = ddlCicloLectivo.Items.Count - 1;
-			//    CargarComboCursos(Convert.ToInt16(ddlCicloLectivo.SelectedValue), ddlCurso);
-			//    ddlCurso.Enabled = true;
-			//    ddlCurso.SelectedIndex = -1;
-			//}
+			CargarAlumnos();
+			CargarComboAsignatura();
 
-			ddlAsignatura.Enabled = false;
+			//ddlAsignatura.Enabled = false;
 		}
 
 		/// <summary>
@@ -466,14 +488,26 @@ namespace EDUAR_UI
 		private void CargarComboAsignatura()
 		{
 			BLAsignatura objBLAsignatura = new BLAsignatura();
-			Asignatura materia = new Asignatura();
-			materia.curso.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-			if (User.IsInRole(enumRoles.Docente.ToString()))
-				materia.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-			listaAsignatura = objBLAsignatura.GetAsignaturasCurso(materia);
+			//Asignatura materia = new Asignatura();
+			//materia.curso.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+			//if (User.IsInRole(enumRoles.Docente.ToString()))
+			//materia.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+			listaAsignatura = objBLAsignatura.GetAsignaturas(null);
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignatura, "idAsignatura", "nombre", true);
+			ddlAsignatura.Enabled = false;
 			if (ddlAsignatura.Items.Count > 0)
 				ddlAsignatura.Enabled = true;
+		}
+
+		/// <summary>
+		/// Cargars the alumnos.
+		/// </summary>
+		/// <param name="idCurso">The id curso.</param>
+		private void CargarAlumnos()
+		{
+			BLAlumno objBLAlumno = new BLAlumno();
+			UIUtilidades.BindCombo<Alumno>(ddlAlumno, objBLAlumno.GetAlumnos(null), "idAlumno", "apellido", "nombre", true);
+			ddlAlumno.Enabled = true;
 		}
 		#endregion
 

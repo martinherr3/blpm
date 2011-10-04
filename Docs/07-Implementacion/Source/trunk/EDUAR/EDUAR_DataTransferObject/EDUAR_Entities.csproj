@@ -133,6 +133,7 @@
     <Compile Include="Reports\FilSancionesAlumnoPeriodo.cs" />
     <Compile Include="Reports\RptCalificacionesAlumnoPeriodo.cs" />
     <Compile Include="Reports\RptInasistenciasAlumnoPeriodo.cs" />
+    <Compile Include="Reports\RptRendimientoHistorico.cs" />
     <Compile Include="Reports\RptSancionesAlumnoPeriodo.cs" />
     <Compile Include="Entities\Package Administracion\Acceso.cs" />
     <Compile Include="Reports\RptAccesos.cs" />

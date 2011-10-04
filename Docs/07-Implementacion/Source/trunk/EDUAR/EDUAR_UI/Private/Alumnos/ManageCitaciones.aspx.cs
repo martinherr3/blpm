@@ -406,6 +406,7 @@ namespace EDUAR_UI
 			calfechas.LimpiarControles();
 			//ddlAsignatura.SelectedIndex = 0;
 			//ddlAsignaturaEdit.SelectedIndex = 0;
+			ddlTutorEdit.Items.Clear();
 			txtDescripcionEdit.Text = string.Empty;
 		}
 

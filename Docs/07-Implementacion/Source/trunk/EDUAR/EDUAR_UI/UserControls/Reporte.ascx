@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Reporte.ascx.cs" Inherits="EDUAR_UI.UserControls.Reporte" %>
-<script src="../../Scripts/JQuery.js" type="text/javascript"></script>
+<script src="/EDUAR_UI/Scripts/JQuery.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
     function AbrirPopup() {
         var popup;

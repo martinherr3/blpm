@@ -2,7 +2,7 @@
     AutoEventWireup="true" CodeBehind="reportRendimiento.aspx.cs" Inherits="EDUAR_UI.reportRendimiento" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
-<%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
+<%--<%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>--%>
 <%@ Register Src="~/UserControls/Reporte.ascx" TagName="Reporte" TagPrefix="rep" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
@@ -20,12 +20,6 @@
             </tr>
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
-            <tr>
-                <td valign="top" colspan="4" class="TDCriterios100">
-                    <cal:Calendario ID="fechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
-                        EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
-                </td>
-            </tr>
             <tr>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
@@ -45,7 +39,7 @@
                     <asp:UpdatePanel ID="udpNivel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:DropDownList ID="ddlNivel" runat="server" OnSelectedIndexChanged="ddlNivel_SelectedIndexChanged"
-                                AutoPostBack="True">
+                                AutoPostBack="True" Enabled="false">
                             </asp:DropDownList>
                         </ContentTemplate>
                         <Triggers>
@@ -62,7 +56,7 @@
                     <asp:UpdatePanel ID="udpCurso" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:DropDownList ID="ddlCurso" runat="server" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged"
-                                AutoPostBack="True">
+                                AutoPostBack="True" Enabled="false">
                             </asp:DropDownList>
                         </ContentTemplate>
                         <Triggers>
@@ -77,16 +71,32 @@
             </tr>
             <tr>
                 <td valign="top" class="TDCriterios25">
+                    <asp:Label ID="lblAlumno" runat="server" Text="Alumno:" CssClass="lblCriterios"></asp:Label>
+                </td>
+                <td valign="top" class="TDCriterios75" colspan="3">
+                    <asp:UpdatePanel ID="udpAlumno" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddlAlumno" runat="server">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="top" class="TDCriterios75" colspan="3">
                     <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false">
+                            <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="true">
                             </asp:DropDownList>
                         </ContentTemplate>
                         <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
