@@ -193,7 +193,10 @@ namespace EDUAR_UI.UserControls
 				Chart1.Series[item.NombreSerie]["PointWidth"] = "1.0";
 
 				// Show data points labels
-				Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
+				//Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
+                Chart1.Series[item.NombreSerie].IsValueShownAsLabel = true;
+                Chart1.Series[item.NombreSerie].IsVisibleInLegend = true;
+          
 
 				// Set data points label style
 				Chart1.Series[item.NombreSerie]["BarLabelStyle"] = "Center";
@@ -203,8 +206,10 @@ namespace EDUAR_UI.UserControls
 			}
 
 			// Disable X axis margin
-			Chart1.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = false;
-			// Show as 3D
+			//Chart1.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = false;
+            Chart1.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = true;
+			
+            // Show as 3D
 			Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = false;
 			Graficar();
 		}
