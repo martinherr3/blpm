@@ -33,7 +33,9 @@ namespace EDUAR_DataAccess.Reports
         {
             try
             {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoInasistenciasPeriodo");
+               // Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoInasistenciasPeriodo");
+               //just to test:
+               Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoInasistenciasPeriodo2");
                 if (entidad != null)
                 {
                     if (entidad.idAlumno > 0)
@@ -44,8 +46,9 @@ namespace EDUAR_DataAccess.Reports
 
                     if (entidad.idCicloLectivo > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
-
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPeriodo", DbType.Int32, entidad.idPeriodo);
+                    
+                    if (entidad.idPeriodo > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPeriodo", DbType.Int32, entidad.idPeriodo);
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -58,6 +61,8 @@ namespace EDUAR_DataAccess.Reports
                     objReporte.alumno = reader["Alumno"].ToString();
                     objReporte.periodo = reader["Periodo"].ToString();
                     objReporte.inasistencias = reader["Inasistencias"].ToString();
+                    objReporte.nivel = reader["Nivel"].ToString();
+                    objReporte.motivo = reader["Motivo"].ToString();
 
                     listaReporte.Add(objReporte);
                 }
