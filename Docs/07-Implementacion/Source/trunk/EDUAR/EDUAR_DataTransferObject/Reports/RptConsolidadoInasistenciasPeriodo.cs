@@ -9,6 +9,8 @@ namespace EDUAR_Entities.Reports
         public string alumno { get; set; }
         public string periodo { get; set; }
         public string inasistencias { get; set; }
+        public string motivo { get; set; }
+        public string nivel { get; set; }
 
         public RptConsolidadoInasistenciasPeriodo()
         {
