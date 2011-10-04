@@ -8,7 +8,7 @@
             <siteMapNode url="~/Private/Agenda/RegisterEventoInstitucional.aspx" title="Eventos" roles="Administrador" />
         </siteMapNode>
         <siteMapNode url="" title="Alumnos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
-          <siteMapNode url="~/Private/Alumnos/ManageCitaciones.aspx" title="Citaciones" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo,Preceptor" />
+            <siteMapNode url="~/Private/Alumnos/ManageCitaciones.aspx" title="Citaciones" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo,Preceptor" />
         </siteMapNode>
         <siteMapNode url="" title="Mensajes" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
             <siteMapNode url="~/Private/Mensajes/MsjeEntrada.aspx" title="Recibidos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
@@ -25,8 +25,10 @@
             <siteMapNode url="~/Private/Reports/reportInasistenciasAlumnoPeriodo.aspx" title="Inasistencias" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" />
             <siteMapNode url="~/Private/Reports/reportSancionesAlumnoPeriodo.aspx" title="Sanciones" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" />
             <siteMapNode url="~/Private/Reports/reportPromedios.aspx" title="Informes consolidados" roles="Administrador,Director,Docente,Psicopedagogo" />
-            <siteMapNode url="~/Private/Reports/reportPromedioCalificacionesAsignaturaCurso.aspx" title="Promedios" roles="Administrador,Director,Docente,Psicopedagogo" />
             <!--<siteMapNode url="~/Private/Reports/PrintReport.aspx" title="Imprimir Informe" visible="false" roles="Administrador,Director,Docente,Psicopedagogo" />-->
+        </siteMapNode>
+        <siteMapNode url="" title="Historicos" roles="Administrador" >
+            <siteMapNode url="~/Private/Reports/Historicos/reportRendimiento.aspx" title="Rendimiento" roles="Administrador" />
         </siteMapNode>
         <siteMapNode url="" title="Roles" roles="Administrador" >
             <siteMapNode url="~/Private/Account/Profiles.aspx" title="Administrar" roles="Administrador" />

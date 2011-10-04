@@ -1,60 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using EDUAR_BusinessLogic.Common;
-using EDUAR_BusinessLogic.Reports;
-using EDUAR_Entities;
-using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
-using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_BusinessLogic.Common;
+using EDUAR_Entities;
+using EDUAR_Utility.Constantes;
+using System.Collections.Generic;
+using EDUAR_Entities.Reports;
+using System.Data;
+using System.Web.UI.WebControls;
+using EDUAR_BusinessLogic.Reports;
+using System.Text;
 
 namespace EDUAR_UI
 {
-	public partial class ReportSancionesAlumnoPeriodo : EDUARBasePage
+	public partial class reportRendimiento : EDUARBasePage
 	{
 		#region --[Propiedades]--
 		/// <summary>
-		/// Gets or sets the filtro sanciones.
+		/// Gets or sets the filtro calificaciones.
 		/// </summary>
 		/// <value>
-		/// The filtro sanciones.
+		/// The filtro calificaciones.
 		/// </value>
-		public FilSancionesAlumnoPeriodo filtroReporte
+		public FilCalificacionesAlumnoPeriodo filtroReporte
 		{
 			get
 			{
-				if (ViewState["filtroSanciones"] == null)
-					filtroReporte = new FilSancionesAlumnoPeriodo();
-				return (FilSancionesAlumnoPeriodo)ViewState["filtroSanciones"];
+				if (ViewState["filtroCalificaciones"] == null)
+					filtroReporte = new FilCalificacionesAlumnoPeriodo();
+				return (FilCalificacionesAlumnoPeriodo)ViewState["filtroCalificaciones"];
 			}
 			set
 			{
-				ViewState["filtroSanciones"] = value;
+				ViewState["filtroCalificaciones"] = value;
 			}
 		}
 
 		/// <summary>
-		/// Gets or sets the lista sanciones.
+		/// Gets or sets the lista calificaciones.
 		/// </summary>
 		/// <value>
-		/// The lista sanciones.
+		/// The lista calificaciones.
 		/// </value>
-		public List<RptSancionesAlumnoPeriodo> listaReporte
+		public List<RptCalificacionesAlumnoPeriodo> listaReporte
 		{
 			get
 			{
-				if (Session["listaSanciones"] == null)
-					listaReporte = new List<RptSancionesAlumnoPeriodo>();
-				return (List<RptSancionesAlumnoPeriodo>)Session["listaSanciones"];
+				if (Session["listaCalificaciones"] == null)
+					listaReporte = new List<RptCalificacionesAlumnoPeriodo>();
+				return (List<RptCalificacionesAlumnoPeriodo>)Session["listaCalificaciones"];
 			}
 			set
 			{
-				Session["listaSanciones"] = value;
+				Session["listaCalificaciones"] = value;
 			}
 		}
 
@@ -79,26 +78,22 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Gets or sets the lista tipo sancion.
+		/// Gets or sets the lista asignaturas.
 		/// </summary>
 		/// <value>
-		/// The lista tipo sancion.
+		/// The lista sanciones.
 		/// </value>
-		public List<TipoSancion> listaTipoSancion
+		public List<Asignatura> listaAsignatura
 		{
 			get
 			{
-				if (ViewState["listaTipoSancion"] == null)
-				{
-					listaTipoSancion = new List<TipoSancion>();
-					BLTipoSancion objBLTipoSancion = new BLTipoSancion();
-					listaTipoSancion = objBLTipoSancion.GetTipoSancion(null);
-				}
-				return (List<TipoSancion>)ViewState["listaTipoSancion"];
+				if (ViewState["listaAsignatura"] == null)
+					listaAsignatura = new List<Asignatura>();
+				return (List<Asignatura>)ViewState["listaAsignatura"];
 			}
 			set
 			{
-				ViewState["listaTipoSancion"] = value;
+				ViewState["listaAsignatura"] = value;
 			}
 		}
 		#endregion
@@ -133,21 +128,10 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				rptSanciones.ExportarPDFClick += (ExportarPDF);
-				rptSanciones.VolverClick += (VolverReporte);
-				rptSanciones.PaginarGrilla += (PaginarGrilla);
-				Master.BotonAvisoAceptar += (VentanaAceptar);
-				rptSanciones.GraficarClick += (btnGraficar);
-
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
-					BLRptSancionesAlumnoPeriodo objBLRptSanciones = new BLRptSancionesAlumnoPeriodo();
-					//objBLRptSanciones.GetRptSancionesAlumnoPeriodo(null);
-					divFiltros.Visible = true;
-					divReporte.Visible = false;
 				}
-				BuscarSanciones();
 			}
 			catch (Exception ex)
 			{
@@ -177,7 +161,7 @@ namespace EDUAR_UI
 			try
 			{
 				fechas.ValidarRangoDesdeHasta();
-				if (BuscarSanciones())
+				if (BuscarCalificaciones())
 				{
 					divFiltros.Visible = false;
 					divReporte.Visible = true;
@@ -198,7 +182,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				ExportPDF.ExportarPDF(Page.Title, rptSanciones.dtReporte, ObjSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
+				ExportPDF.ExportarPDF(Page.Title, rptCalificaciones.dtReporte, ObjSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -221,6 +205,72 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
+		/// BTNs the graficar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void btnGraficar(object sender, EventArgs e)
+		{
+			try
+			{
+				int sumaNotas = 0;
+				rptCalificaciones.graficoReporte.LimpiarSeries();
+				if (ddlAsignatura.SelectedIndex > 0)
+				{
+					var serie = new List<RptCalificacionesAlumnoPeriodo>();
+					for (int i = 1; i < 11; i++)
+					{
+						sumaNotas = 0;
+						var listaParcial = listaReporte.FindAll(p => p.calificacion == i.ToString());
+						if (listaParcial.Count > 0)
+						{
+							serie.Add(new RptCalificacionesAlumnoPeriodo
+							{
+								calificacion = listaParcial.Count.ToString(),
+								alumno = i.ToString()
+							});
+						}
+					}
+					if (serie != null)
+					{
+						DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
+						// En alumno envio la nota y en calificación la cantidad de esa nota que se produjo
+						rptCalificaciones.graficoReporte.AgregarSerie(ddlAsignatura.SelectedItem.Text, dt, "alumno", "calificacion");
+						rptCalificaciones.graficoReporte.Titulo = "Distribución de Calificaciones " + ddlAsignatura.SelectedItem.Text;
+					}
+				}
+				else
+				{
+					foreach (var item in listaAsignatura)
+					{
+						sumaNotas = 0;
+						var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre);
+						if (listaParcial.Count > 0)
+						{
+							foreach (var nota in listaParcial)
+							{
+								sumaNotas += Convert.ToInt16(nota.calificacion);
+							}
+							var serie = new List<RptCalificacionesAlumnoPeriodo>();
+							serie.Add(new RptCalificacionesAlumnoPeriodo
+							{
+								calificacion = (sumaNotas / listaParcial.Count).ToString(),
+								asignatura = item.nombre
+							});
+
+							DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
+							rptCalificaciones.graficoReporte.AgregarSerie(item.nombre, dt, "asignatura", "calificacion");
+							rptCalificaciones.graficoReporte.Titulo = "Promedio de Calificaciones por Asignatura ";
+						}
+					}
+				}
+				rptCalificaciones.graficoReporte.GraficarBarra();
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
+		}
+
+		/// <summary>
 		/// Paginars the grilla.
 		/// </summary>
 		/// <param name="sender">The sender.</param>
@@ -231,11 +281,11 @@ namespace EDUAR_UI
 			{
 				int pagina = e.NewPageIndex;
 
-				if (rptSanciones.GrillaReporte.PageCount > pagina)
+				if (rptCalificaciones.GrillaReporte.PageCount > pagina)
 				{
-					rptSanciones.GrillaReporte.PageIndex = pagina;
+					rptCalificaciones.GrillaReporte.PageIndex = pagina;
 
-					rptSanciones.CargarReporte<RptSancionesAlumnoPeriodo>(listaReporte);
+					rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
 				}
 			}
 			catch (Exception ex)
@@ -254,9 +304,30 @@ namespace EDUAR_UI
 			try
 			{
 				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+
+				BLNivel objBLNivel = new BLNivel();
+				List<Nivel> listaNiveles = new List<Nivel>();
+				listaNiveles = objBLNivel.GetByCursoCicloLectivo(idCicloLectivo);
+				UIUtilidades.BindCombo<Nivel>(ddlNivel, listaNiveles, "idNivel", "nombre", true);
 				CargarComboCursos(idCicloLectivo, ddlCurso);
-				ddlAlumno.Items.Clear();
-				ddlAlumno.Enabled = false;
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the SelectedIndexChanged event of the ddlNivel control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void ddlNivel_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+				CargarComboCursos(idCicloLectivo, ddlCurso);
 			}
 			catch (Exception ex)
 			{
@@ -273,88 +344,12 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-				CargarAlumnos(Convert.ToInt32(ddlCurso.SelectedValue));
-				ddlAlumno.Enabled = true;
+				CargarComboAsignatura();
 			}
 			catch (Exception ex)
 			{
 				Master.ManageExceptions(ex);
 			}
-		}
-
-		/// <summary>
-		/// BTNs the graficar.
-		/// </summary>
-		/// <param name="sender">The sender.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void btnGraficar(object sender, EventArgs e)
-		{
-			try
-			{
-				rptSanciones.graficoReporte.LimpiarSeries();
-				var serie = new List<RptSancionesAlumnoPeriodo>();
-				if (ddlAlumno.SelectedIndex > 0)
-				{
-					var listaParcial = listaReporte.FindAll(p => p.alumno == ddlAlumno.SelectedItem.Text);
-
-					foreach (var item in listaTipoSancion)
-					{
-						var listaPorTipoSancion = listaParcial.FindAll(p => p.tipo == item.nombre);
-						if (listaPorTipoSancion.Count > 0)
-						{
-							serie.Add(new RptSancionesAlumnoPeriodo
-							{
-								tipo = item.nombre,
-								cantidad = listaPorTipoSancion.Count
-							});
-						}
-					}
-					if (serie != null)
-					{
-						DataTable dt = UIUtilidades.BuildDataTable<RptSancionesAlumnoPeriodo>(serie);
-						// En cantidad envio la cantidad de sanciones y en tipo la sancion
-						rptSanciones.graficoReporte.AgregarSerie(ddlAlumno.SelectedItem.Text, dt, "tipo", "cantidad");
-						rptSanciones.graficoReporte.Titulo = "Sanciones " + ddlAlumno.SelectedItem.Text;
-					}
-				}
-				else
-				{
-					foreach (var item in listaTipoSancion)
-					{
-						var listaPorTipoSancion = listaReporte.FindAll(p => p.tipo == item.nombre);
-						if (listaPorTipoSancion.Count > 0)
-						{
-							serie.Add(new RptSancionesAlumnoPeriodo
-							{
-								tipo = item.nombre,
-								cantidad = listaPorTipoSancion.Count
-							});
-						}
-					}
-					DataTable dt = UIUtilidades.BuildDataTable<RptSancionesAlumnoPeriodo>(serie);
-					rptSanciones.graficoReporte.AgregarSerie("Sanciones", dt, "tipo", "cantidad");
-
-					rptSanciones.graficoReporte.Titulo = "Sanciones";
-
-					if (fechas.ValorFechaDesde != null
-						&& fechas.ValorFechaHasta != null)
-						rptSanciones.graficoReporte.Titulo = @"Sanciones " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString() +
-							 " - " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString();
-					else
-						if (fechas.ValorFechaDesde != null
-							&& fechas.ValorFechaHasta == null)
-							rptSanciones.graficoReporte.Titulo = @"Sanciones desde el " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString();
-						else
-							if (fechas.ValorFechaDesde == null
-							&& fechas.ValorFechaHasta != null)
-								rptSanciones.graficoReporte.Titulo = @"Sanciones hasta el " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString();
-				}
-				rptSanciones.graficoReporte.GraficarBarra();
-			}
-			catch (Exception ex)
-			{ Master.ManageExceptions(ex); }
-
 		}
 		#endregion
 
@@ -368,60 +363,44 @@ namespace EDUAR_UI
 			btnBuscar.Visible = true;
 		}
 
-
 		/// <summary>
-		/// Cargars the alumnos.
+		/// Buscars the calificaciones.
 		/// </summary>
-		/// <param name="idCurso">The id curso.</param>
-		private void CargarAlumnos(int idCurso)
-		{
-			BLAlumno objBLAlumno = new BLAlumno();
-			UIUtilidades.BindCombo<Alumno>(ddlAlumno, objBLAlumno.GetAlumnos(new AlumnoCurso(idCurso)), "idAlumno", "apellido", "nombre", true);
-			ddlAlumno.Enabled = true;
-		}
-
-		/// <summary>
-		/// Buscars the sanciones.
-		/// </summary>
-		private bool BuscarSanciones()
+		private bool BuscarCalificaciones()
 		{
 			if (Page.IsPostBack)
 			{
-				filtroReporte = new FilSancionesAlumnoPeriodo();
+				filtroReporte = new FilCalificacionesAlumnoPeriodo();
 				StringBuilder filtros = new StringBuilder();
-				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0)
+				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0 /*&& Convert.ToInt32(ddlAsignatura.SelectedValue) > 0*/)
 				{
 					filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
+					if (ddlAsignatura.SelectedIndex > 0)
+					{
+						filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
+						if (filtroReporte.idAsignatura > 0) filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
+					}
 					if (fechas.ValorFechaDesde != null)
 					{
 						filtros.AppendLine("- Fecha Desde: " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString());
 						filtroReporte.fechaDesde = (DateTime)fechas.ValorFechaDesde;
 					}
-
 					if (fechas.ValorFechaHasta != null)
 					{
 						filtros.AppendLine("- Fecha Hasta: " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString());
 						filtroReporte.fechaHasta = (DateTime)fechas.ValorFechaHasta;
 					}
-
 					filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-
 					filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-
-					if (ddlAlumno.SelectedIndex > 0)
-					{
-						filtroReporte.idAlumno = Convert.ToInt32(ddlAlumno.SelectedValue);
-						filtros.AppendLine("- Alumno: " + ddlAlumno.SelectedItem.Text);
-					}
 
 					if (Context.User.IsInRole(enumRoles.Docente.ToString()))
 						filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
-					BLRptSancionesAlumnoPeriodo objBLReporte = new BLRptSancionesAlumnoPeriodo();
-					listaReporte = objBLReporte.GetRptSancionesAlumnoPeriodo(filtroReporte);
+					BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
+					listaReporte = objBLReporte.GetRptCalificacionesAlumnoPeriodo(filtroReporte);
 					filtrosAplicados = filtros.ToString();
 
-					rptSanciones.CargarReporte<RptSancionesAlumnoPeriodo>(listaReporte);
+					rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
 					return true;
 				}
 				return false;
@@ -441,17 +420,17 @@ namespace EDUAR_UI
 
 			List<Curso> listaCurso = new List<Curso>();
 			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
-			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
+			//UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
 
-			if (ddlCicloLectivo.Items.Count > 0)
-			{
-				ddlCicloLectivo.SelectedIndex = ddlCicloLectivo.Items.Count - 1;
-				CargarComboCursos(Convert.ToInt16(ddlCicloLectivo.SelectedValue), ddlCurso);
-				ddlCurso.Enabled = true;
-				ddlCurso.SelectedIndex = -1;
-			}
+			//if (ddlCicloLectivo.Items.Count > 0)
+			//{
+			//    ddlCicloLectivo.SelectedIndex = ddlCicloLectivo.Items.Count - 1;
+			//    CargarComboCursos(Convert.ToInt16(ddlCicloLectivo.SelectedValue), ddlCurso);
+			//    ddlCurso.Enabled = true;
+			//    ddlCurso.SelectedIndex = -1;
+			//}
 
-			ddlAlumno.Enabled = false;
+			ddlAsignatura.Enabled = false;
 		}
 
 		/// <summary>
@@ -480,6 +459,23 @@ namespace EDUAR_UI
 				ddlCurso.Enabled = false;
 			}
 		}
+
+		/// <summary>
+		/// Cargars the combo asignatura.
+		/// </summary>
+		private void CargarComboAsignatura()
+		{
+			BLAsignatura objBLAsignatura = new BLAsignatura();
+			Asignatura materia = new Asignatura();
+			materia.curso.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+			if (User.IsInRole(enumRoles.Docente.ToString()))
+				materia.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+			listaAsignatura = objBLAsignatura.GetAsignaturasCurso(materia);
+			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignatura, "idAsignatura", "nombre", true);
+			if (ddlAsignatura.Items.Count > 0)
+				ddlAsignatura.Enabled = true;
+		}
 		#endregion
+
 	}
 }

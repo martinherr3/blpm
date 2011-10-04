@@ -180,6 +180,29 @@ namespace EDUAR_BusinessLogic.Common
         //                                      enuExceptionType.BusinessLogicException);
         //    }
         //}
-        #endregion
-    }
+
+		/// <summary>
+		/// Gets the by curso ciclo lectivo.
+		/// </summary>
+		/// <param name="idCicloLectivo">The id ciclo lectivo.</param>
+		/// <returns></returns>
+		public List<Nivel> GetByCursoCicloLectivo(int idCicloLectivo)
+		{
+			try
+			{
+				return DataAcces.GetByCursoCicloLectivo(idCicloLectivo);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetByCursoCicloLectivo", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+		#endregion
+
+	}
 }
