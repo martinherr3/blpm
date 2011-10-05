@@ -170,7 +170,8 @@ namespace EDUAR_Utility.Enumeraciones
 		None = 0,
 		Personal = 1,
 		Alumno = 2,
-		Tutor = 3
+		Tutor = 3,
+        Administrador = 4
 	}
 
 	/// <summary>
