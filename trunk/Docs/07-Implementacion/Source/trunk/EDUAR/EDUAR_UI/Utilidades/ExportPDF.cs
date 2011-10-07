@@ -43,11 +43,15 @@ namespace EDUAR_UI.Utilidades
             //valido si mando el nombre de un gráfico
             if (!string.IsNullOrEmpty(nombrePNG))
             {
-                string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oTmpPath"];
-                documento.Add(new Paragraph("Gráfico"));
-                Image gif = Image.GetInstance(nombrePNG);
-                if (gif != null)
-                    documento.Add(gif);
+				//Verifica si existe el archivo
+				if (System.IO.File.Exists(nombrePNG))
+				{
+					string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oTmpPath"];
+					documento.Add(new Paragraph("Gráfico"));
+					Image grafico = Image.GetInstance(nombrePNG);
+					if (grafico != null)
+						documento.Add(grafico);
+				}
             }
 
             PdfContentByte cb = writerPdf.DirectContent;

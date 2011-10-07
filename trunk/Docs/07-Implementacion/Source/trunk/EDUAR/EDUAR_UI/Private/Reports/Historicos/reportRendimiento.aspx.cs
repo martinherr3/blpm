@@ -1,16 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Web.UI.WebControls;
+using EDUAR_BusinessLogic.Common;
+using EDUAR_BusinessLogic.Reports;
+using EDUAR_Entities;
+using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
-using EDUAR_Utility.Enumeraciones;
-using EDUAR_BusinessLogic.Common;
-using EDUAR_Entities;
 using EDUAR_Utility.Constantes;
-using System.Collections.Generic;
-using EDUAR_Entities.Reports;
-using System.Data;
-using System.Web.UI.WebControls;
-using EDUAR_BusinessLogic.Reports;
-using System.Text;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
