@@ -92,11 +92,18 @@ namespace EDUAR_UI.UserControls
 		}
 
 		/// <summary>
-		/// Gets the chart tesis.
+		/// Nombre del gráfico que se genera en el servidor para la session
 		/// </summary>
-		public Chart ChartTesis
+		public string nombrePNG
 		{
-			get { return Chart1; }
+			get
+			{
+				if (Session["nombrePNG"] == null)
+					Session["nombrePNG"] = string.Empty;
+				return Session["nombrePNG"].ToString();
+			}
+
+			set { Session["nombrePNG"] = value; }
 		}
 
 		/// <summary>
@@ -194,9 +201,9 @@ namespace EDUAR_UI.UserControls
 
 				// Show data points labels
 				//Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
-                Chart1.Series[item.NombreSerie].IsValueShownAsLabel = true;
-                Chart1.Series[item.NombreSerie].IsVisibleInLegend = true;
-          
+				Chart1.Series[item.NombreSerie].IsValueShownAsLabel = true;
+				Chart1.Series[item.NombreSerie].IsVisibleInLegend = true;
+
 
 				// Set data points label style
 				Chart1.Series[item.NombreSerie]["BarLabelStyle"] = "Center";
@@ -207,9 +214,9 @@ namespace EDUAR_UI.UserControls
 
 			// Disable X axis margin
 			//Chart1.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = false;
-            Chart1.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = true;
-			
-            // Show as 3D
+			Chart1.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = true;
+
+			// Show as 3D
 			Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = false;
 			Graficar();
 		}
