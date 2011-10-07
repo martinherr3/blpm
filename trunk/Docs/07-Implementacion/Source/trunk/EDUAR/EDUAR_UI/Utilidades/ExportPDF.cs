@@ -40,20 +40,6 @@ namespace EDUAR_UI.Utilidades
             Phrase tipo = new Phrase(strTitulo, font15B);
             Phrase fechas = new Phrase(fecha, font15B);
 
-            //valido si mando el nombre de un gráfico
-            if (!string.IsNullOrEmpty(nombrePNG))
-            {
-				//Verifica si existe el archivo
-				if (System.IO.File.Exists(nombrePNG))
-				{
-					string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oTmpPath"];
-					documento.Add(new Paragraph("Gráfico"));
-					Image grafico = Image.GetInstance(nombrePNG);
-					if (grafico != null)
-						documento.Add(grafico);
-				}
-            }
-
             PdfContentByte cb = writerPdf.DirectContent;
 
             ColumnText ct = new ColumnText(cb);
@@ -76,6 +62,24 @@ namespace EDUAR_UI.Utilidades
             grdTableEncabezado.AddCell(new PdfPCell(new Phrase(filtros, font12B)));
             grdTableEncabezado.CompleteRow();
             documento.Add(grdTableEncabezado);
+
+            //valido si mando el nombre de un gráfico
+            if (!string.IsNullOrEmpty(nombrePNG))
+            {
+                //Verifica si existe el archivo
+                if (System.IO.File.Exists(nombrePNG))
+                {
+                    string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oTmpPath"];
+
+                    documento.Add(new Paragraph(""));
+                    Image grafico = Image.GetInstance(nombrePNG);
+                    grafico.ScalePercent(50, 50);
+                    grafico.Alignment = Element.ALIGN_CENTER;
+                    if (grafico != null)
+                        documento.Add(grafico);
+                    documento.Add(new Paragraph(""));
+                }
+            }
 
             PdfPTable grdTable = new PdfPTable(columnCount);
             Font LetraTituloTabla = FontFactory.GetFont(FontFactory.HELVETICA, 9, Font.BOLDITALIC, BaseColor.DARK_GRAY);
