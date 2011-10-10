@@ -147,6 +147,7 @@ namespace EDUAR_UI.Utilidades
 		/// <param name="username">The username.</param>
 		/// <param name="filtros">The filtros.</param>
 		/// <param name="nombrePNG">The nombre PNG.</param>
+		/// <param name="tablaGrafico">The tabla grafico.</param>
 		public static void ExportarGraficoPDF(string TituloInforme, string username, string filtros, string nombrePNG, List<string> tablaGrafico)
 		{
 			Persona usuario = new Persona();
@@ -184,7 +185,7 @@ namespace EDUAR_UI.Utilidades
 			ct.Go();
 
 			Font font12B = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, Font.NORMAL);
-			Font font12N = FontFactory.GetFont(FontFactory.HELVETICA, 10, Font.NORMAL);
+			Font font10N = FontFactory.GetFont(FontFactory.HELVETICA, 10, Font.NORMAL);
 			PdfPTable grdTableEncabezado = new PdfPTable(1);
 			grdTableEncabezado.WidthPercentage = 90;
 			grdTableEncabezado.AddCell(new PdfPCell(new Phrase("- Usuario: " + usuario.apellido + " " + usuario.nombre, font12B)));
@@ -215,7 +216,7 @@ namespace EDUAR_UI.Utilidades
 				if (item.Substring(0, 1).Equals("-"))
 					documento.Add(new iTextSharp.text.Paragraph(item, font12B));
 				else
-					documento.Add(new iTextSharp.text.Paragraph(item, font12N));
+					documento.Add(new iTextSharp.text.Paragraph(item, font10N));
 			}
 
 			//Cerramos el Documento 
