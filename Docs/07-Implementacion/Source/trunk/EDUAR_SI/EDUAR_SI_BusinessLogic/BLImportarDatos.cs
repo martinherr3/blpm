@@ -43,8 +43,6 @@ namespace EDUAR_SI_BusinessLogic
             {
                 objDAImportarDatos = new DAImportarDatos(ConnectionString);
 
-				//objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigen);
-
 				objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigen);
 				//objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDesdeRemoto);
 
@@ -66,12 +64,6 @@ namespace EDUAR_SI_BusinessLogic
             try
             {
                 objDAObtenerDatos = new DAObtenerDatos(objConfiguracion.valor);
-
-                objDAImportarDatos.GrabarPais(objDAObtenerDatos.obtenerPaisesBDTransaccional(objConfiguracion));
-
-                objDAImportarDatos.GrabarProvincia(objDAObtenerDatos.obtenerProvinciasBDTransaccional(objConfiguracion));
-
-                objDAImportarDatos.GrabarLocalidad(objDAObtenerDatos.obtenerLocalidadesBDTransaccional(objConfiguracion));
 
                 objDAImportarDatos.GrabarTipoDocumento(objDAObtenerDatos.obtenerTipoDocumentoBDTransaccional(objConfiguracion));
 

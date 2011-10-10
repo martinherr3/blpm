@@ -66,5 +66,21 @@ namespace EDUAR_SI_Prueba
 			finally
 			{ btnInformeSanciones.Enabled = true; }
 		}
+
+		private void btnPaisProvinciaLocalidad_Click(object sender, EventArgs e)
+		{
+			try
+            {
+                btnPaisProvinciaLocalidad.Enabled = false;
+                BLImportarPaisProvLoc objImportarDatos = new BLImportarPaisProvLoc(ddlCadenaConexion.SelectedItem.ToString());
+                objImportarDatos.ImportarPaisProvinciaLocalidad();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            { btnPaisProvinciaLocalidad.Enabled = true; }
+		}
     }
 }
