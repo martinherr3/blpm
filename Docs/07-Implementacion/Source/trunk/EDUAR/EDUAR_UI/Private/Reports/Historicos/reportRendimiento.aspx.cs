@@ -152,6 +152,7 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void VentanaAceptar(object sender, EventArgs e)
 		{
+			AccionPagina = enumAcciones.Limpiar;
 			//divFiltros.Visible = true;
 			//divReporte.Visible = false;
 		}
@@ -165,8 +166,10 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				AccionPagina = enumAcciones.Buscar;
 				if (BuscarCalificaciones())
 				{
+					AccionPagina = enumAcciones.Limpiar;
 					divFiltros.Visible = false;
 					divReporte.Visible = true;
 				}
@@ -186,6 +189,10 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				AccionPagina = enumAcciones.Limpiar;
+				string nombreGrafico = string.Empty;
+				if (rptCalificaciones.verGrafico)
+					nombreGrafico = nombrePNG;
 				ExportPDF.ExportarPDF(Page.Title, rptCalificaciones.dtReporte, ObjSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados);
 			}
 			catch (Exception ex)
@@ -386,39 +393,36 @@ namespace EDUAR_UI
 		/// </summary>
 		private bool BuscarCalificaciones()
 		{
-			if (Page.IsPostBack)
+			if (AccionPagina == enumAcciones.Buscar)
 			{
 				filtroReporte = new FilCalificacionesAlumnoPeriodo();
 				StringBuilder filtros = new StringBuilder();
-				//if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0 /*&& Convert.ToInt32(ddlAsignatura.SelectedValue) > 0*/)
-				//{
-				//filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
+				
 				if (ddlAsignatura.SelectedIndex > 0)
 				{
 					filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
-					if (filtroReporte.idAsignatura > 0) filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
+					filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
 				}
-				//if (fechas.ValorFechaDesde != null)
-				//{
-				//    filtros.AppendLine("- Fecha Desde: " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString());
-				//    filtroReporte.fechaDesde = (DateTime)fechas.ValorFechaDesde;
-				//}
-				//if (fechas.ValorFechaHasta != null)
-				//{
-				//    filtros.AppendLine("- Fecha Hasta: " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString());
-				//    filtroReporte.fechaHasta = (DateTime)fechas.ValorFechaHasta;
-				//}
-				if (ddlCurso.Items.Count > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0)
-					filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-
 				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0)
+				{
 					filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-
+					filtros.AppendLine("- Ciclo Lectivo: " + ddlCicloLectivo.SelectedItem.Text);
+				}
 				if (ddlNivel.Items.Count > 0 && Convert.ToInt32(ddlNivel.SelectedValue) > 0)
+				{
 					filtroReporte.idNivel = Convert.ToInt32(ddlNivel.SelectedValue);
-
+					filtros.AppendLine("- Nivel: " + ddlNivel.SelectedItem.Text);
+				}
+				if (ddlCurso.Items.Count > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0)
+				{
+					filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+					filtros.AppendLine("- Curso: " + ddlCurso.SelectedItem.Text);
+				}
 				if (Convert.ToInt32(ddlAlumno.SelectedValue) > 0)
+				{
 					filtroReporte.idAlumno = Convert.ToInt32(ddlAlumno.SelectedValue);
+					filtros.AppendLine("- Alumno: " + ddlAlumno.SelectedItem.Text);
+				}
 
 				if (Context.User.IsInRole(enumRoles.Docente.ToString()))
 					filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
@@ -429,8 +433,6 @@ namespace EDUAR_UI
 
 				rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
 				return true;
-				//}
-				//return false;
 			}
 			else
 				return false;

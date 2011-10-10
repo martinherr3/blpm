@@ -15,7 +15,6 @@ using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
 using iTextSharp.text;
-using iTextSharp.text.pdf;
 
 namespace EDUAR_UI
 {
@@ -99,34 +98,6 @@ namespace EDUAR_UI
 			set
 			{
 				ViewState["listaAsignatura"] = value;
-			}
-		}
-
-		/// <summary>
-		/// Nombre del gráfico que se genera en el servidor para la session
-		/// </summary>
-		public string nombrePNG
-		{
-			get
-			{
-				return Session["nombrePNG"].ToString();
-			}
-		}
-
-		/// <summary>
-		/// Contiene información detallada sobre el gráfico que puede generarse
-		/// </summary>
-		public List<string> TablaGrafico
-		{
-			get
-			{
-				if (Session["TablaGrafico"] == null)
-					TablaGrafico = new List<string>();
-				return (List<string>)Session["TablaGrafico"];
-			}
-			set
-			{
-				Session["TablaGrafico"] = value;
 			}
 		}
 		#endregion

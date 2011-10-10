@@ -8,6 +8,7 @@ using EDUAR_Entities.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Utilidades;
 using EDUAR_BusinessLogic.Common;
+using System.Collections.Generic;
 
 namespace EDUAR_UI.Shared
 {
@@ -108,6 +109,34 @@ namespace EDUAR_UI.Shared
             }
             set { Session["ObjSessionDataUI"] = value; }
         }
+
+		/// <summary>
+		/// Nombre del gráfico que se genera en el servidor para la session
+		/// </summary>
+		public string nombrePNG
+		{
+			get
+			{
+				return Session["nombrePNG"].ToString();
+			}
+		}
+
+		/// <summary>
+		/// Contiene información detallada sobre el gráfico que puede generarse
+		/// </summary>
+		public List<string> TablaGrafico
+		{
+			get
+			{
+				if (Session["TablaGrafico"] == null)
+					TablaGrafico = new List<string>();
+				return (List<string>)Session["TablaGrafico"];
+			}
+			set
+			{
+				Session["TablaGrafico"] = value;
+			}
+		}
         #endregion
 
         #region --[Eventos]--
