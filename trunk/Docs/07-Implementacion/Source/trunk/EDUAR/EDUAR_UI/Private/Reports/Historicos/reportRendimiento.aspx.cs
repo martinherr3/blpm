@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Text;
 using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
@@ -10,6 +12,7 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using System.Globalization;
 
 namespace EDUAR_UI
 {
@@ -136,7 +139,11 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
+					divFiltros.Visible = true;
+					divReporte.Visible = false;
 				}
+				if (listaReporte != null)
+					rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
 			}
 			catch (Exception ex)
 			{
@@ -208,6 +215,8 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				AccionPagina = enumAcciones.Limpiar;
+				rptCalificaciones.verGrafico = false;
 				divFiltros.Visible = true;
 				divReporte.Visible = false;
 			}
@@ -224,58 +233,53 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//int sumaNotas = 0;
-				//rptCalificaciones.graficoReporte.LimpiarSeries();
-				//if (ddlAsignatura.SelectedIndex > 0)
-				//{
-				//    var serie = new List<RptCalificacionesAlumnoPeriodo>();
-				//    for (int i = 1; i < 11; i++)
-				//    {
-				//        sumaNotas = 0;
-				//        var listaParcial = listaReporte.FindAll(p => p.calificacion == i.ToString());
-				//        if (listaParcial.Count > 0)
-				//        {
-				//            serie.Add(new RptCalificacionesAlumnoPeriodo
-				//            {
-				//                calificacion = listaParcial.Count.ToString(),
-				//                alumno = i.ToString()
-				//            });
-				//        }
-				//    }
-				//    if (serie != null)
-				//    {
-				//        DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
-				//         En alumno envio la nota y en calificación la cantidad de esa nota que se produjo
-				//        rptCalificaciones.graficoReporte.AgregarSerie(ddlAsignatura.SelectedItem.Text, dt, "alumno", "calificacion");
-				//        rptCalificaciones.graficoReporte.Titulo = "Distribución de Calificaciones " + ddlAsignatura.SelectedItem.Text;
-				//    }
-				//}
-				//else
-				//{
-				//    foreach (var item in listaAsignatura)
-				//    {
-				//        sumaNotas = 0;
-				//        var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre);
-				//        if (listaParcial.Count > 0)
-				//        {
-				//            foreach (var nota in listaParcial)
-				//            {
-				//                sumaNotas += Convert.ToInt16(nota.calificacion);
-				//            }
-				//            var serie = new List<RptCalificacionesAlumnoPeriodo>();
-				//            serie.Add(new RptCalificacionesAlumnoPeriodo
-				//            {
-				//                calificacion = (sumaNotas / listaParcial.Count).ToString(),
-				//                asignatura = item.nombre
-				//            });
+				GenerarDatosGrafico();
+				AccionPagina = enumAcciones.Limpiar;
+				rptCalificaciones.graficoReporte.LimpiarSeries();
 
-				//            DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
-				//            rptCalificaciones.graficoReporte.AgregarSerie(item.nombre, dt, "asignatura", "calificacion");
-				//            rptCalificaciones.graficoReporte.Titulo = "Promedio de Calificaciones por Asignatura ";
+				var serie = new List<RptRendimientoHistorico>();
+				if (Convert.ToInt16(ddlAlumno.SelectedItem.Value) > 0)
+				{
+					//obtengo solo las notas del alumno seleccionado
+					var listaParcial = listaReporte.FindAll(p => p.alumno == ddlAlumno.SelectedItem.Text);
+					var porAnio = from c in listaParcial
+								  group c by c.periodo into g
+								  select new { Periodo = g.Key, Rendimiento = g.Average(p => Convert.ToDouble(p.promedio)) };
+
+					foreach (var item in porAnio)
+					{
+						serie.Add(new RptRendimientoHistorico
+						{
+							promedio = item.Rendimiento.ToString(CultureInfo.InvariantCulture),
+							alumno = item.Periodo
+						});
+					}
+				}
+
+
+				//foreach (var item in listaAsignatura)
+				//{
+				//    sumaNotas = 0;
+				//    var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre);
+				//    if (listaParcial.Count > 0)
+				//    {
+				//        foreach (var nota in listaParcial)
+				//        {
+				//            sumaNotas += Convert.ToInt16(nota.calificacion);
 				//        }
+				//        serie.Add(new RptCalificacionesAlumnoPeriodo
+				//        {
+				//            calificacion = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
+				//            asignatura = item.nombre
+				//        });
 				//    }
 				//}
-				//rptCalificaciones.graficoReporte.GraficarBarra();
+				DataTable dt = UIUtilidades.BuildDataTable<RptRendimientoHistorico>(serie);
+				rptCalificaciones.graficoReporte.AgregarSerie("Histórico", dt, "alumno", "promedio");
+				rptCalificaciones.graficoReporte.Titulo = "Promedio Histórico \n" + ddlAlumno.SelectedItem.Text;
+
+				rptCalificaciones.graficoReporte.GraficarBarra();
+				rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -314,6 +318,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				AccionPagina = enumAcciones.Limpiar;
 				ddlNivel.Items.Clear();
 				ddlCurso.Items.Clear();
 				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
@@ -351,6 +356,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				AccionPagina = enumAcciones.Limpiar;
 				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
 				CargarComboCursos(idCicloLectivo, ddlCurso);
 			}
@@ -369,6 +375,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				AccionPagina = enumAcciones.Limpiar;
 				CargarComboAsignatura();
 			}
 			catch (Exception ex)
@@ -397,7 +404,7 @@ namespace EDUAR_UI
 			{
 				filtroReporte = new FilCalificacionesAlumnoPeriodo();
 				StringBuilder filtros = new StringBuilder();
-				
+
 				if (ddlAsignatura.SelectedIndex > 0)
 				{
 					filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
@@ -509,6 +516,72 @@ namespace EDUAR_UI
 			BLAlumno objBLAlumno = new BLAlumno();
 			UIUtilidades.BindCombo<Alumno>(ddlAlumno, objBLAlumno.GetAlumnos(null), "idAlumno", "apellido", "nombre", true);
 			ddlAlumno.Enabled = true;
+		}
+
+		/// <summary>
+		/// Generars the datos grafico.
+		/// </summary>
+		private void GenerarDatosGrafico()
+		{
+			var cantAlumnos =
+				from p in listaReporte
+				group p by p.alumno into g
+				select new { Alumno = g.Key, Cantidad = g.Count() };
+
+			TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
+
+			//TablaGrafico.Add("- Cantidad de Calificaciones: " + listaReporte.Count.ToString());
+
+			//var fechaMin =
+			//   from p in listaReporte
+			//   group p by p.alumno into g
+			//   select new { Alumno = g.Key, Fecha = g.Min(p => p.fecha) };
+
+			//var fechaMax =
+			//   from p in listaReporte
+			//   group p by p.alumno into g
+			//   select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
+
+			//TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
+
+			var topPromedio =
+			   (from p in listaReporte
+				group p by p.asignatura into g
+				orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
+				select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct().Take(3);
+
+			TablaGrafico.Add("- Top 3 Materias con mejor desempeño:");
+			foreach (var item in topPromedio)
+			{
+				TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString());
+			}
+
+			var worstPromedio =
+			   (from p in listaReporte
+				group p by p.asignatura into g
+				orderby g.Average(p => Convert.ToDouble(p.promedio)) ascending
+				select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct().Take(3);
+
+			TablaGrafico.Add("- Top 3 Materias con bajo desempeño:");
+			foreach (var item in worstPromedio)
+			{
+				TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString());
+			}
+
+			if (!(Convert.ToInt16(ddlAlumno.SelectedItem.Value) > 0))
+			{
+				var worstAlumnos =
+				   (from p in listaReporte
+					group p by p.alumno into g
+					orderby g.Average(p => Convert.ToDouble(p.promedio)) ascending
+					select new { Alumno = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct().Take(3);
+
+				TablaGrafico.Add("- Top 3 de Alumnos a observar:");
+				foreach (var item in worstAlumnos)
+				{
+					TablaGrafico.Add(item.Alumno + " - Promedio General: " + item.Promedio.ToString("#.##"));
+				}
+			}
 		}
 		#endregion
 

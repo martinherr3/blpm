@@ -182,7 +182,6 @@ namespace EDUAR_UI
 					AccionPagina = enumAcciones.Limpiar;
 					divFiltros.Visible = false;
 					divReporte.Visible = true;
-					//udpReporte.Update();
 				}
 				else
 				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
