@@ -10,7 +10,7 @@
     <h2>
         Rendimiento</h2>
     <br />
-    <div id="divFiltros" runat="server">
+    <div id="divFiltros" runat="server" style="width: 800px">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td align="right">

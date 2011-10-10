@@ -532,6 +532,9 @@ namespace EDUAR_UI
 			ddlAlumno.Enabled = true;
 		}
 
+		/// <summary>
+		/// Generars the datos grafico.
+		/// </summary>
 		private void GenerarDatosGrafico()
 		{
 			var cantAlumnos =
