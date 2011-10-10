@@ -182,6 +182,30 @@ namespace EDUAR_UI
             }
         }
 
+        /// <summary>
+        /// Gets or sets the lista tipo sancion.
+        /// </summary>
+        /// <value>
+        /// The lista tipo sancion.
+        /// </value>
+        public List<TipoSancion> listaTipoSancion
+        {
+            get
+            {
+                if (ViewState["listaTipoSancion"] == null)
+                {
+                    listaTipoSancion = new List<TipoSancion>();
+                    BLTipoSancion objBLTipoSancion = new BLTipoSancion();
+                    listaTipoSancion = objBLTipoSancion.GetTipoSancion(null);
+                }
+                return (List<TipoSancion>)ViewState["listaTipoSancion"];
+            }
+            set
+            {
+                ViewState["listaTipoSancion"] = value;
+            }
+        }
+
   
 		#endregion
 
@@ -357,76 +381,76 @@ namespace EDUAR_UI
 
                    rptResultado.graficoReporte.Titulo = "Inasistencias por Motivo en el Curso " + ddlCurso.SelectedItem.ToString();
                 }
-                
-
-
-
-                //////////////////////////////////
-                
-                
-                //if (ddlAlumno.SelectedIndex > 0)
-                //{
-                //    var listaParcial = listaReporteInasistencias.FindAll(p => p.alumno == ddlAlumno.SelectedItem.Text);
-
-                //    foreach (var item in listaTipoAsistencia)
-                //    {
-                //        var listaPorTipoAsistencia = listaParcial.FindAll(p => p.motivo == item.descripcion);
-                //        if (listaPorTipoAsistencia.Count > 0)
-                //        {
-                //            serie.Add(new RptInasistenciasAlumnoPeriodo
-                //            {
-                //                motivo = item.descripcion,
-                //                alumno = listaPorTipoAsistencia.Count.ToString()
-                //            });
-                //        }
-                //    }
-                //    if (serie != null)
-                //    {
-                //        DataTable dt = UIUtilidades.BuildDataTable<RptInasistenciasAlumnoPeriodo>(serie);
-                //        // En alumno envio la nota y en calificación la cantidad de esa nota que se produjo
-                //        rptResultado.graficoReporte.AgregarSerie(ddlAlumno.SelectedItem.Text, dt, "motivo", "alumno");
-                //        rptResultado.graficoReporte.Titulo = "Inasistencias " + ddlAlumno.SelectedItem.Text;
-                //    }
-                //}
-                //else
-                //{
-                //    foreach (var item in listaTipoAsistencia)
-                //    {
-                //        var listaPorTipoAsistencia = listaReporteInasistencias.FindAll(p => p.motivo == item.descripcion);
-                //        if (listaPorTipoAsistencia.Count > 0)
-                //        {
-                //            serie.Add(new RptInasistenciasAlumnoPeriodo
-                //            {
-                //                motivo = item.descripcion,
-                //                alumno = listaPorTipoAsistencia.Count.ToString()
-                //            });
-                //        }
-                //    }
-                //    DataTable dt = UIUtilidades.BuildDataTable<RptInasistenciasAlumnoPeriodo>(serie);
-                //    rptResultado.graficoReporte.AgregarSerie("Inasistencias", dt, "motivo", "alumno");
-
-                //    //if (fechas.ValorFechaDesde != null
-                //    //    && fechas.ValorFechaHasta != null)
-                //    //    rptResultado.graficoReporte.Titulo = @"Inasistencias " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString() +
-                //    //         " - " + ((DateTime)fechas.ValorFechaHasta).ToShortDateString();
-                //    //else
-                //        rptResultado.graficoReporte.Titulo = "Inasistencias";
-                //}
+                               
 				rptResultado.graficoReporte.GraficarBarra();
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
 
-		
-
-
-
-            /////////////////////////////////////////
 		}
 
 		private void GraficarSanciones()
 		{
-			throw new NotImplementedException();
+            try
+            {
+                RptSancionesAlumnoPeriodo rptAux;
+                rptResultado.graficoReporte.LimpiarSeries();
+                var serie = new List<RptSancionesAlumnoPeriodo>();
+                if (ddlAlumno.SelectedIndex > 0)
+                {
+                    var listaParcial = listaReporteSanciones.FindAll(p => p.alumno == ddlAlumno.SelectedItem.Text);
+
+                    foreach (var item in listaTipoSancion)
+                    {
+                        var listaPorTipoSancion = listaParcial.FindAll(p => p.tipo == item.nombre);
+                        if (listaPorTipoSancion.Count > 0)
+                        {
+                            rptAux = new RptSancionesAlumnoPeriodo();
+                            rptAux.tipo = item.nombre;
+                            rptAux.cantidad = 0;
+                            foreach (var item2 in listaPorTipoSancion)
+                            {
+                                rptAux.cantidad += Convert.ToInt16(item2.sanciones);
+                            }
+
+                            serie.Add(rptAux);
+                        }
+                    }
+                    if (serie != null)
+                    {
+                        DataTable dt = UIUtilidades.BuildDataTable<RptSancionesAlumnoPeriodo>(serie);
+                        // En cantidad envio la cantidad de sanciones y en tipo la sancion
+                        rptResultado.graficoReporte.AgregarSerie(ddlAlumno.SelectedItem.Text, dt, "tipo", "cantidad");
+                        rptResultado.graficoReporte.Titulo = "Sanciones " + ddlAlumno.SelectedItem.Text;
+                    }
+                }
+                else
+                {
+                    foreach (var item in listaTipoSancion)
+                    {
+                        var listaPorTipoSancion = listaReporteSanciones.FindAll(p => p.tipo == item.nombre);
+                        if (listaPorTipoSancion.Count > 0)
+                        {
+                            rptAux = new RptSancionesAlumnoPeriodo();
+                            rptAux.tipo = item.nombre;
+                            rptAux.cantidad = 0;
+                            foreach (var item2 in listaPorTipoSancion)
+                            {
+                                rptAux.cantidad += Convert.ToInt16(item2.sanciones);
+                            }
+
+                            serie.Add(rptAux);
+                        }
+                    }
+                    DataTable dt = UIUtilidades.BuildDataTable<RptSancionesAlumnoPeriodo>(serie);
+                    rptResultado.graficoReporte.AgregarSerie("Sanciones", dt, "tipo", "cantidad");
+
+                    rptResultado.graficoReporte.Titulo = "Sanciones";
+                }
+                rptResultado.graficoReporte.GraficarBarra();
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
 		}
 
 		/// <summary>

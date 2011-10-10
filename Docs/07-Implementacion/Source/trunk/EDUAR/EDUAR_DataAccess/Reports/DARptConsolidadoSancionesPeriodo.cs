@@ -32,7 +32,7 @@ namespace EDUAR_DataAccess.Reports
         {
             try
             {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoSancionesPeriodo");
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoSancionesPeriodo2");
                 if (entidad != null)
                 {
                     if (entidad.idAlumno > 0)
@@ -57,6 +57,9 @@ namespace EDUAR_DataAccess.Reports
                     objReporte.alumno = reader["Alumno"].ToString();
                     objReporte.periodo = reader["Periodo"].ToString();
                     objReporte.sanciones = reader["Sanciones"].ToString();
+                    objReporte.motivo = reader["Motivo"].ToString();
+                    objReporte.tipo = reader["Tipo"].ToString();
+
 
                     listaReporte.Add(objReporte);
                 }
