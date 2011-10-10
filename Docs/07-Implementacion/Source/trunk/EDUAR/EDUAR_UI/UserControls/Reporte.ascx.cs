@@ -50,6 +50,7 @@ namespace EDUAR_UI.UserControls
 			}
 			set { Session["dtReporte"] = value; }
 		}
+
 		/// <summary>
 		/// Gets or sets the titulo reporte.
 		/// </summary>
@@ -65,6 +66,17 @@ namespace EDUAR_UI.UserControls
 				return Session["tituloReporte"].ToString();
 			}
 			set { Session["tituloReporte"] = value; }
+		}
+
+		public bool verGrafico
+		{
+			get
+			{
+				if (ViewState["verGrafico"] == null)
+					ViewState["verGrafico"] = false;
+				return (bool)ViewState["verGrafico"];
+			}
+			set { ViewState["verGrafico"] = value; }
 		}
 		#endregion
 
@@ -180,6 +192,8 @@ namespace EDUAR_UI.UserControls
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		void Graficar(object sender, EventArgs e)
 		{
+			verGrafico = true;
+			graficoReporte.TablaGrafico.Clear();
 			OnGraficarClick(GraficarClick, e);
 			//divGrafico.Visible = true;
 		}

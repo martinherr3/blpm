@@ -57,6 +57,8 @@
                             </table>
                         </td>
                         <td style="width: 50%; text-align: right; background-color: White">
+                            <asp:ImageButton ID="btnExportar" runat="server" OnClick="btnExportar_Click" ImageUrl="/EDUAR_UI/Images/ExportarGrafico.png"
+                                ToolTip="Exportar a PDF" AlternateText="Exportar a PDF" />
                             <asp:ImageButton ID="btnCerrar" runat="server" OnClick="btnCerrar_Click" ImageUrl="/EDUAR_UI/Images/CerrarPopup.png"
                                 ToolTip="Cerrar" AlternateText="Cerrar" />
                         </td>
@@ -65,8 +67,9 @@
             </td>
         </tr>
         <tr>
-            <td id="TDGrafico" runat="server">
-                <div style="min-height: 450px; height: auto !important; height: 450px">
+            <td id="TDGrafico" runat="server" visible="false">
+                <div id="divChart" runat="server" style="min-height: 450px; height: auto !important;
+                    height: 450px">
                     <asp:Chart ID="Chart1" runat="server" Height="400px" Width="646px" ImageType="Png"
                         AntiAliasing="All" BorderDashStyle="Solid" BackSecondaryColor="White" Palette="BrightPastel"
                         RenderType="ImageTag" BackGradientStyle="TopBottom" BackColor="#D3D3D3" BorderWidth="2"
@@ -96,19 +99,30 @@
                     </asp:Chart>
                     <cc1:AnimationExtender ID="AnimationExtender2" runat="server" TargetControlID="Chart1">
                         <Animations>
-                        <OnLoad>  
-                            <Sequence>       
-                                <Scale Duration="0" Fps="60" ScaleFactor="0.03" Center="true" /> 
-                                <Condition ConditionScript="1==1">                 
-                                    <Parallel>
-                                        <FadeIn Duration="1" Fps="60" />
-                                        <Scale Duration="1" Fps="60" ScaleFactor="34.0" Center="true" />                                         
-                                    </Parallel>
-                                </Condition>
-                            </Sequence>
-                        </OnLoad>
+                            <OnLoad>  
+                                <Sequence>       
+                                    <Scale Duration="0" Fps="60" ScaleFactor="0.03" Center="true" /> 
+                                    <Condition ConditionScript="1==1">                 
+                                        <Parallel>
+                                            <FadeIn Duration="1" Fps="60" />
+                                            <Scale Duration="1" Fps="60" ScaleFactor="34.0" Center="true" />                                         
+                                        </Parallel>
+                                    </Condition>
+                                </Sequence>
+                            </OnLoad>
                         </Animations>
                     </cc1:AnimationExtender>
+                    <table width="646px" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; background-color: White; text-align: left; margin-top: -5px; vertical-align: middle">
+                        <tr>
+                            <td style="width:1%; vertical-align: middle">
+                                <asp:ImageButton ID="btnMoreInfo" runat="server" OnClick="btnExportar_Click" ImageUrl="/EDUAR_UI/Images/dialog-more.png"
+                                    ToolTip="Más Información" AlternateText="Más Información" />
+                            </td>
+                            <td style="width:99%">
+                                <asp:LinkButton ID="LinkButton1" Text="Más Información" runat="server" OnClick="btnExportar_Click" />
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </td>
         </tr>

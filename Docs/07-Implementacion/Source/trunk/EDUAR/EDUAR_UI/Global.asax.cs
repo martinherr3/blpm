@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -39,10 +41,14 @@ namespace EDUAR_UI
 		void Session_End(object sender, EventArgs e)
 		{
 			// Código que se ejecuta cuando finaliza una sesión.
+			UIUtilidades.EliminarArchivosSession(Session.SessionID);
+
 			// Nota: el evento Session_End se desencadena sólo cuando el modo sessionstate
 			// se establece como InProc en el archivo Web.config. Si el modo de sesión se establece como StateServer 
 			// o SQLServer, el evento no se genera.
 			Session.Abandon();
 		}
+
+
 	}
 }

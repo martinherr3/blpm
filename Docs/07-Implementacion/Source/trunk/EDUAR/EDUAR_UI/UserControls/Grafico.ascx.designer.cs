@@ -76,6 +76,15 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.WebControls.ImageButton btnTorta;
         
         /// <summary>
+        /// Control btnExportar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExportar;
+        
+        /// <summary>
         /// Control btnCerrar.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell TDGrafico;
         
         /// <summary>
+        /// Control divChart.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divChart;
+        
+        /// <summary>
         /// Control Chart1.
         /// </summary>
         /// <remarks>
@@ -110,5 +128,23 @@ namespace EDUAR_UI.UserControls {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::AjaxControlToolkit.AnimationExtender AnimationExtender2;
+        
+        /// <summary>
+        /// Control btnMoreInfo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnMoreInfo;
+        
+        /// <summary>
+        /// Control LinkButton1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
     }
 }

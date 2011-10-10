@@ -13,6 +13,7 @@ using EDUAR_Entities.Shared;
 using EDUAR_UI.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -108,6 +109,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				UIUtilidades.EliminarArchivosSession(Session.SessionID);
 				LoginStatus control = ((LoginStatus)Page.Master.FindControl("HeadLoginView").FindControl("HeadLoginStatus"));
 				control.LogoutPageUrl = "~/Public/Account/Login.aspx";
 				control.LogoutAction = LogoutAction.RedirectToLoginPage;
