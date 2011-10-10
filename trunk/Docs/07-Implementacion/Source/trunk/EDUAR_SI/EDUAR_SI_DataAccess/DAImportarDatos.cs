@@ -30,8 +30,6 @@ namespace EDUAR_SI_DataAccess
 		#endregion
 
 		#region --[Métodos Públicos]--
-
-
 		/// <summary>
 		/// Guarda una colección de personas en base de datos
 		/// </summary>
@@ -155,21 +153,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the pais.
 		/// </summary>
 		/// <param name="colPaises">The col paises.</param>
-		public void GrabarPais(List<Paises> listaPaises)
+		public void GrabarPais(List<Paises> listaPaises, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Paises_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Paises pais in listaPaises)
@@ -182,25 +176,17 @@ namespace EDUAR_SI_DataAccess
 						int cantidad = command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarPais()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarPais()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -208,21 +194,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the provincia.
 		/// </summary>
 		/// <param name="colProvincias">The col provincias.</param>
-		public void GrabarProvincia(List<Provincias> listaProvincias)
+		public void GrabarProvincia(List<Provincias> listaProvincias, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Provincias_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Provincias provincia in listaProvincias)
@@ -233,28 +215,20 @@ namespace EDUAR_SI_DataAccess
 						command.Parameters.AddWithValue("descripcion", provincia.descripcion);
 						command.Parameters.AddWithValue("idPais", provincia.idPais);
 						command.Parameters.AddWithValue("activo", provincia.activo);
-						int cantidad = command.ExecuteNonQuery();
+						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarProvincia()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarProvincia()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -262,21 +236,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the localidad.
 		/// </summary>
 		/// <param name="colLocalidades">The col localidades.</param>
-		public void GrabarLocalidad(List<Localidades> ListaLocalidades)
+		public void GrabarLocalidad(List<Localidades> ListaLocalidades, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Localidades_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Localidades localidad in ListaLocalidades)
@@ -290,25 +260,17 @@ namespace EDUAR_SI_DataAccess
 						int cantidad = command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarLocalidad()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarLocalidad()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 

@@ -28,22 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-			this.btnImportarMySQL = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.ddlCadenaConexion = new System.Windows.Forms.ComboBox();
-			this.btnInformeInasistencia = new System.Windows.Forms.Button();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.btnImportarMySQL = new System.Windows.Forms.Button();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.btnInformeSanciones = new System.Windows.Forms.Button();
+			this.btnInformeInasistencia = new System.Windows.Forms.Button();
+			this.btnPaisProvinciaLocalidad = new System.Windows.Forms.Button();
+			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// btnImportarMySQL
-			// 
-			this.btnImportarMySQL.Location = new System.Drawing.Point(18, 73);
-			this.btnImportarMySQL.Name = "btnImportarMySQL";
-			this.btnImportarMySQL.Size = new System.Drawing.Size(145, 36);
-			this.btnImportarMySQL.TabIndex = 0;
-			this.btnImportarMySQL.Text = "Importar My SQL";
-			this.btnImportarMySQL.UseVisualStyleBackColor = true;
-			this.btnImportarMySQL.Click += new System.EventHandler(this.btnImportarMySQL_Click);
 			// 
 			// label1
 			// 
@@ -58,45 +53,87 @@
 			// 
 			this.ddlCadenaConexion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.ddlCadenaConexion.FormattingEnabled = true;
-			this.ddlCadenaConexion.Location = new System.Drawing.Point(18, 44);
+			this.ddlCadenaConexion.Location = new System.Drawing.Point(17, 33);
 			this.ddlCadenaConexion.Name = "ddlCadenaConexion";
 			this.ddlCadenaConexion.Size = new System.Drawing.Size(447, 23);
 			this.ddlCadenaConexion.TabIndex = 2;
 			// 
-			// btnInformeInasistencia
+			// groupBox1
 			// 
-			this.btnInformeInasistencia.Location = new System.Drawing.Point(169, 73);
-			this.btnInformeInasistencia.Name = "btnInformeInasistencia";
-			this.btnInformeInasistencia.Size = new System.Drawing.Size(145, 36);
-			this.btnInformeInasistencia.TabIndex = 3;
-			this.btnInformeInasistencia.Text = "Informe Inasistencia";
-			this.btnInformeInasistencia.UseVisualStyleBackColor = true;
-			this.btnInformeInasistencia.Click += new System.EventHandler(this.btnInformeInasitencia_Click);
+			this.groupBox1.Controls.Add(this.btnPaisProvinciaLocalidad);
+			this.groupBox1.Controls.Add(this.btnImportarMySQL);
+			this.groupBox1.Location = new System.Drawing.Point(18, 71);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(446, 97);
+			this.groupBox1.TabIndex = 5;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Importación de Datos";
+			// 
+			// btnImportarMySQL
+			// 
+			this.btnImportarMySQL.Location = new System.Drawing.Point(6, 22);
+			this.btnImportarMySQL.Name = "btnImportarMySQL";
+			this.btnImportarMySQL.Size = new System.Drawing.Size(145, 36);
+			this.btnImportarMySQL.TabIndex = 1;
+			this.btnImportarMySQL.Text = "Importar My SQL";
+			this.btnImportarMySQL.UseVisualStyleBackColor = true;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.btnInformeSanciones);
+			this.groupBox2.Controls.Add(this.btnInformeInasistencia);
+			this.groupBox2.Location = new System.Drawing.Point(18, 185);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(446, 105);
+			this.groupBox2.TabIndex = 6;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Informes";
 			// 
 			// btnInformeSanciones
 			// 
-			this.btnInformeSanciones.Location = new System.Drawing.Point(320, 73);
+			this.btnInformeSanciones.Location = new System.Drawing.Point(161, 22);
 			this.btnInformeSanciones.Name = "btnInformeSanciones";
 			this.btnInformeSanciones.Size = new System.Drawing.Size(145, 36);
-			this.btnInformeSanciones.TabIndex = 4;
+			this.btnInformeSanciones.TabIndex = 6;
 			this.btnInformeSanciones.Text = "Informe Sanciones";
 			this.btnInformeSanciones.UseVisualStyleBackColor = true;
-			this.btnInformeSanciones.Click += new System.EventHandler(this.btnInformeSanciones_Click);
+			// 
+			// btnInformeInasistencia
+			// 
+			this.btnInformeInasistencia.Location = new System.Drawing.Point(10, 22);
+			this.btnInformeInasistencia.Name = "btnInformeInasistencia";
+			this.btnInformeInasistencia.Size = new System.Drawing.Size(145, 36);
+			this.btnInformeInasistencia.TabIndex = 5;
+			this.btnInformeInasistencia.Text = "Informe Inasistencia";
+			this.btnInformeInasistencia.UseVisualStyleBackColor = true;
+			// 
+			// btnPaisProvinciaLocalidad
+			// 
+			this.btnPaisProvinciaLocalidad.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+			this.btnPaisProvinciaLocalidad.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnPaisProvinciaLocalidad.Location = new System.Drawing.Point(161, 22);
+			this.btnPaisProvinciaLocalidad.Name = "btnPaisProvinciaLocalidad";
+			this.btnPaisProvinciaLocalidad.Size = new System.Drawing.Size(156, 36);
+			this.btnPaisProvinciaLocalidad.TabIndex = 2;
+			this.btnPaisProvinciaLocalidad.Text = "Pais Provincia Localidad";
+			this.btnPaisProvinciaLocalidad.UseVisualStyleBackColor = true;
+			this.btnPaisProvinciaLocalidad.Click += new System.EventHandler(this.btnPaisProvinciaLocalidad_Click);
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(493, 340);
-			this.Controls.Add(this.btnInformeSanciones);
-			this.Controls.Add(this.btnInformeInasistencia);
+			this.ClientSize = new System.Drawing.Size(557, 313);
+			this.Controls.Add(this.groupBox2);
+			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.ddlCadenaConexion);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.btnImportarMySQL);
 			this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.Form1_Load);
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -104,11 +141,14 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnImportarMySQL;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox ddlCadenaConexion;
-		private System.Windows.Forms.Button btnInformeInasistencia;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.ComboBox ddlCadenaConexion;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.Button btnPaisProvinciaLocalidad;
+		private System.Windows.Forms.Button btnImportarMySQL;
+		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.Button btnInformeSanciones;
+		private System.Windows.Forms.Button btnInformeInasistencia;
     }
 }
 
