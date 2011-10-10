@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_Utility.Enumeraciones;
 using System.Collections;
+using System.IO;
 
 namespace EDUAR_UI.Utilidades
 {
@@ -134,7 +135,7 @@ namespace EDUAR_UI.Utilidades
 				foreach (DataRowView drv in dataView)
 					dropDownList.Items.Insert(dropDownList.Items.Count, new ListItem(drv.Row[fieldDescriptionFirst].ToString() + " " + drv.Row[fieldDescriptionSecond].ToString(), drv.Row[fieldId].ToString()));
 			}
-			
+
 			SortByText(dropDownList);
 			if (addDefaultValue)
 			{
@@ -180,6 +181,23 @@ namespace EDUAR_UI.Utilidades
 				tbl.Rows.Add(row);
 			}
 			return tbl;
+		}
+
+		/// <summary>
+		/// Eliminars the archivos session.
+		/// </summary>
+		/// <param name="sessionID">The session ID.</param>
+		public static void EliminarArchivosSession(string sessionID)
+		{
+			string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oTmpPath"];
+			var archivo = "Grafico_" + sessionID + ".png";
+			if (Directory.Exists(TmpPath))
+			{
+				foreach (string item in Directory.GetFiles(TmpPath, archivo, SearchOption.TopDirectoryOnly))
+				{
+					File.Delete(item);
+				}
+			}
 		}
 
 		/// <summary>
