@@ -215,7 +215,8 @@ namespace EDUAR_DataAccess.Common
 					while (reader.Read())
 					{
 						objCurso = new Curso();
-						objCurso.idCurso = Convert.ToInt32(reader["idCurso"]);
+						//Cargo el idCursoCicloLectivo ya que facilita el filtrado
+						objCurso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 						objCurso.nombre = reader["nombre"].ToString();
 
 						listaCursos.Add(objCurso);
