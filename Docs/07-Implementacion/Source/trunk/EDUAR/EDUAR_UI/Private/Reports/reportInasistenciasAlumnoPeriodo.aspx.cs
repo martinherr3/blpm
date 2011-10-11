@@ -12,6 +12,7 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using System.Linq;
 
 namespace EDUAR_UI
 {
@@ -230,6 +231,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+                GenerarDatosGraficoInasistencias();
 				rptInasistencias.graficoReporte.LimpiarSeries();
 				var serie = new List<RptInasistenciasAlumnoPeriodo>();
 				if (ddlAlumno.SelectedIndex > 0)
@@ -481,6 +483,68 @@ namespace EDUAR_UI
 				ddlCurso.Enabled = false;
 			}
 		}
+
+        /// <summary>
+        /// Generars the datos grafico.
+        /// </summary>
+        private void GenerarDatosGraficoInasistencias()
+        {
+            var cantAlumnos =
+                from p in listaReporte
+                group p by p.alumno into g
+                select new { Alumno = g.Key, Cantidad = g.Count() };
+
+            TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
+
+            var fechaMin =
+               from p in listaReporte
+               group p by p.alumno into g
+               select new { Alumno = g.Key, Fecha = g.Min(p => p.fecha) };
+
+            var fechaMax =
+               from p in listaReporte
+               group p by p.alumno into g
+               select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
+
+            TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
+      
+            var worstAlumnos =
+                 (from p in listaReporte
+                    group p by p.alumno into g
+                    orderby g.Count() descending
+                select new { Alumno = g.Key, Faltas = g.Count() }).Distinct().Take(3);
+
+            TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad de Inasistencias:");
+            foreach (var item in worstAlumnos)
+            {
+                TablaGrafico.Add("Alumno: "+ item.Alumno + " - Cantidad de Inasistencias: " + item.Faltas);
+            }
+
+           var FaltasPorMotivo =
+                 (from p in listaReporte
+                  group p by p.motivo into g
+                  orderby g.Count() descending
+                  select new { Motivo = g.Key, Faltas = g.Count() }).Distinct().Take(3);
+
+            TablaGrafico.Add("- Cantidad de Inasistencias según Motivo:");
+            foreach (var item in FaltasPorMotivo)
+            {
+                TablaGrafico.Add("Motivo de Ausencia: " + item.Motivo + " - Cantidad de Ocurrencias: " + item.Faltas);
+            }
+
+            var worstAlumnosByMotivo =
+            (from p in listaReporte
+             group p by new { p.alumno, p.motivo } into g
+             orderby g.Count() descending
+             select new { Alumno = g.Key.alumno, Motivo = g.Key.motivo, Faltas = g.Count() }).Distinct().Take(3);
+
+            TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad y Motivo de Inasistencias:");
+            foreach (var item in worstAlumnosByMotivo)
+            {
+                TablaGrafico.Add("Alumno: " + item.Alumno + " Motivo: " + item.Motivo + " - Cantidad de Inasistencias: " + item.Faltas);
+            }
+        }
+
 		#endregion
 	}
 }
