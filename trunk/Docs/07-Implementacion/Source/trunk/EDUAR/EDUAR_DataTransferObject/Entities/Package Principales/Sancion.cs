@@ -1,3 +1,4 @@
+using System;
 ///////////////////////////////////////////////////////////
 //  Sancion.cs
 //  Implementation of the Class Sancion
@@ -6,29 +7,24 @@
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 using EDUAR_Entities.Shared;
-using System;
 namespace EDUAR_Entities
 {
     [Serializable]
     public class Sancion: DTBase
     {
-        private int _idSancion;
-        private int _idSancionTransaccional;
-        private int _cantidad;
-        private DateTime _fecha;
-        private MotivoSancion _motivoSancion;
-        private TipoSancion _tipoSancion;
-        private Alumno _alumno;
+		public int idSancion { get; set; }
+		public int idSancionTransaccional { get; set; }
+		public int cantidad { get; set; }
+		public DateTime fecha { get; set; }
+		public MotivoSancion motivoSancion { get; set; }
+		public TipoSancion tipoSancion { get; set; }
+		public AlumnoCursoCicloLectivo alumno { get; set; }
 
         public Sancion()
         {
-            _idSancion = 0;
-            _idSancionTransaccional = 0;
-            _cantidad = 0;
-            _fecha = DateTime.Today;
-            _motivoSancion = new MotivoSancion();
-            _tipoSancion = new TipoSancion();
-            _alumno = new Alumno();
+			motivoSancion = new MotivoSancion();
+			tipoSancion = new TipoSancion();
+			alumno = new AlumnoCursoCicloLectivo();
         }
 
         ~Sancion()
@@ -39,84 +35,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public int cantidad
-        {
-            get
-            {
-                return _cantidad;
-            }
-            set
-            {
-                _cantidad = value;
-            }
-        }
-
-        public DateTime fecha
-        {
-            get
-            {
-                return _fecha;
-            }
-            set
-            {
-                _fecha = value;
-            }
-        }
-
-        public MotivoSancion motivoSancion
-        {
-            get
-            {
-                return _motivoSancion;
-            }
-            set
-            {
-                _motivoSancion = value;
-            }
-        }
-
-        public TipoSancion tipoSancion
-        {
-            get
-            {
-                return _tipoSancion;
-            }
-            set
-            {
-                _tipoSancion = value;
-            }
-        }
-
-        public int idSancion
-        {
-            get
-            {
-                return _idSancion;
-            }
-            set
-            {
-                _idSancion = value;
-            }
-        }
-
-        public int idSancionTransaccional
-        {
-            get
-            {
-                return _idSancionTransaccional;
-            }
-            set
-            {
-                _idSancionTransaccional = value;
-            }
-        }
-
-        public Alumno alumno
-        {
-            get { return _alumno; }
-            set { _alumno = value; }
         }
     }//end Sancion
 }

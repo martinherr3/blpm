@@ -54,11 +54,11 @@ namespace EDUAR_SI_DataAccess
 					{
 						objSancion = new Sancion();
 						objSancion.fecha = Convert.ToDateTime(reader["fecha"]);
-						objSancion.alumno.nombre = reader["nombreAlumno"].ToString();
-						objSancion.alumno.apellido = reader["apellidoAlumno"].ToString();
-						objSancion.alumno.idPersona = Convert.ToInt32(reader["idPersonaAlumno"]);
+						objSancion.alumno.alumno.nombre = reader["nombreAlumno"].ToString();
+						objSancion.alumno.alumno.apellido = reader["apellidoAlumno"].ToString();
+						objSancion.alumno.alumno.idPersona = Convert.ToInt32(reader["idPersonaAlumno"]);
 
-						objSancion.alumno.listaTutores.Add(new Tutor
+						objSancion.alumno.alumno.listaTutores.Add(new Tutor
 						{
 							nombre = reader["nombreTutor"].ToString(),
 							apellido = reader["nombreTutor"].ToString(),

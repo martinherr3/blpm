@@ -41,8 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLImportarAlumnos.cs" />
+    <Compile Include="BLImportarAsistencia.cs" />
+    <Compile Include="BLImportarCalificaciones.cs" />
+    <Compile Include="BLImportarConfiguracionAcademica.cs" />
     <Compile Include="BLImportarDatos.cs" />
-    <Compile Include="BLImportarPaisProvLoc.cs" />
+    <Compile Include="BLImportarPersonal.cs" />
+    <Compile Include="BLImportarSanciones.cs" />
+    <Compile Include="BLImportarTablasAuxiliares.cs" />
+    <Compile Include="BLImportarTutores.cs" />
     <Compile Include="BLNotificarInasistencia.cs" />
     <Compile Include="BLProcesoBase.cs" />
     <Compile Include="BLNotificarSancion.cs" />

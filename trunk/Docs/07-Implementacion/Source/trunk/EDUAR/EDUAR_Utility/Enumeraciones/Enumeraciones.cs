@@ -113,7 +113,8 @@ namespace EDUAR_Utility.Enumeraciones
 		enableSSL,
 		SendUserName,
 		SendUserPass,
-		PreguntaDefault
+		PreguntaDefault,
+		BaseDeDatosOrigenDEV
 	}
 
 	public enum enumEscalasCalificaciones
@@ -126,12 +127,12 @@ namespace EDUAR_Utility.Enumeraciones
 	public enum enumCargosPersonal
 	{
 		None = 0,
-		Director = 116,
-		Vicedirector = 117,
-		Psicopedagogo = 118,
-		Preceptor = 119,
-		Administrativo = 120,
-		Docente = 121
+		Director = 38,
+		Vicedirector = 39,
+		Psicopedagogo = 40,
+		Preceptor = 41,
+		Administrativo = 42,
+		Docente = 43
 	}
 
 	/// <summary>
@@ -239,7 +240,14 @@ namespace EDUAR_Utility.Enumeraciones
 		None = 0,
 		InformeInasistencias = 1,
 		InformeSanciones = 4,
-		ImportarPaisProvinciaLocalidad = 5
+		ImportarTablasAuxiliares = 5,
+		ImportarAlumnos = 7,
+		ImportarTutores = 8,
+		ImportarPersonal = 9,
+		ImportarConfiguracionAcademica = 11,
+		ImportarCalificaciones = 13,
+		ImportarAsistencia = 14,
+		ImportarSanciones = 15
 	}
 
 	public enum enumTipoSancion : int
