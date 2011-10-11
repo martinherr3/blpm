@@ -103,8 +103,15 @@
                     <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="top" class="TDCriterios75" colspan="3">
-                    <asp:DropDownList ID="ddlAsignatura" runat="server">
-                    </asp:DropDownList>
+                    <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddlAsignatura" runat="server">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
                 </td>
             </tr>
         </table>

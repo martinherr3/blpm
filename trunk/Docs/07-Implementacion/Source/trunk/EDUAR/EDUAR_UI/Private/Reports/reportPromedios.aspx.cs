@@ -944,41 +944,47 @@ namespace EDUAR_UI
             if (listaReporte.Count() > 0)
                 TablaGrafico.Add("- Periodo de Inasistencias: " + listaReporte[0].periodo);
 
-            var topPromedio =
-               (from p in listaReporte
-                group p by p.asignatura into g
-                orderby g.Average(p => Convert.ToInt32(p.promedio)) descending
-                select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToInt32(p.promedio)), Cantidad = g.Count() }).Distinct().Take(3);
+			if (Convert.ToInt32(ddlAsignatura.SelectedValue) < 0)
+			{
+				var topPromedio =
+				   (from p in listaReporte
+					group p by p.asignatura into g
+					orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
+					select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)), Cantidad = g.Count() }).Distinct().Take(3);
 
-            TablaGrafico.Add("- Top 3 Materias con mejor desempeño:");
-            foreach (var item in topPromedio)
-            {
-                TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString() + " - Cantidad de Evaluaciones: " + item.Cantidad.ToString());
-            }
+				TablaGrafico.Add("- Top 3 Materias con mejor desempeño:");
+				foreach (var item in topPromedio)
+				{
+					TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString() + " - Cantidad de Evaluaciones: " + item.Cantidad.ToString());
+				}
 
-            var worstPromedio =
-               (from p in listaReporte
-                group p by p.asignatura into g
-                orderby g.Average(p => Convert.ToInt32(p.promedio)) ascending
-                select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToInt32(p.promedio)), Cantidad = g.Count() }).Distinct().Take(3);
+				var worstPromedio =
+				   (from p in listaReporte
+					group p by p.asignatura into g
+					orderby g.Average(p => Convert.ToDouble(p.promedio)) ascending
+					select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)), Cantidad = g.Count() }).Distinct().Take(3);
 
-            TablaGrafico.Add("- Top 3 Materias con bajo desempeño:");
-            foreach (var item in worstPromedio)
-            {
-                TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString() + " - Cantidad de Evaluaciones: " + item.Cantidad.ToString());
-            }
+				TablaGrafico.Add("- Top 3 Materias con bajo desempeño:");
+				foreach (var item in worstPromedio)
+				{
+					TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString() + " - Cantidad de Evaluaciones: " + item.Cantidad.ToString());
+				}
+			}
 
-            var worstAlumnos =
-               (from p in listaReporte
-                group p by p.alumno into g
-                orderby g.Average(p => Convert.ToInt32(p.promedio)) ascending
-                select new { Alumno = g.Key, Promedio = g.Average(p => Convert.ToInt32(p.promedio)) }).Distinct().Take(3);
+			if (Convert.ToInt32(ddlAlumno.SelectedValue) < 0)
+			{
+				var worstAlumnos =
+				   (from p in listaReporte
+					group p by p.alumno into g
+					orderby g.Average(p => Convert.ToDouble(p.promedio)) ascending
+					select new { Alumno = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct().Take(3);
 
-            TablaGrafico.Add("- Top 3 de Alumnos a observar:");
-            foreach (var item in worstAlumnos)
-            {
-                TablaGrafico.Add(item.Alumno + " - Promedio General: " + item.Promedio.ToString("#.##"));
-            }
+				TablaGrafico.Add("- Top 3 de Alumnos a observar:");
+				foreach (var item in worstAlumnos)
+				{
+					TablaGrafico.Add(item.Alumno + " - Promedio General: " + item.Promedio.ToString("#.##"));
+				}
+			}
         }
 
 
