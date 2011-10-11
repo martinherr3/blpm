@@ -12,6 +12,7 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using System.Linq;
 
 namespace EDUAR_UI
 {
@@ -292,6 +293,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+                GenerarDatosGraficoSanciones();
 				rptSanciones.graficoReporte.LimpiarSeries();
 				var serie = new List<RptSancionesAlumnoPeriodo>();
 				if (ddlAlumno.SelectedIndex > 0)
@@ -323,13 +325,19 @@ namespace EDUAR_UI
 					foreach (var item in listaTipoSancion)
 					{
 						var listaPorTipoSancion = listaReporte.FindAll(p => p.tipo == item.nombre);
-						if (listaPorTipoSancion.Count > 0)
+
+                        if (listaPorTipoSancion.Count > 0)
 						{
-							serie.Add(new RptSancionesAlumnoPeriodo
-							{
-								tipo = item.nombre,
-								cantidad = listaPorTipoSancion.Count
-							});
+                            RptSancionesAlumnoPeriodo oneSerie = new RptSancionesAlumnoPeriodo();
+                            oneSerie.cantidad = 0;
+                            foreach (var item2 in listaPorTipoSancion)
+                            {
+                                oneSerie.tipo = item.nombre;
+                                oneSerie.cantidad += item2.cantidad;
+                            }
+
+                            serie.Add(oneSerie);
+
 						}
 					}
 					DataTable dt = UIUtilidades.BuildDataTable<RptSancionesAlumnoPeriodo>(serie);
@@ -355,7 +363,97 @@ namespace EDUAR_UI
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
 
+
 		}
+
+        /// <summary>
+        /// Generars the datos grafico.
+        /// </summary>
+        private void GenerarDatosGraficoSanciones()
+        {
+            var cantAlumnos =
+                from p in listaReporte
+                group p by p.alumno into g
+                select new { Alumno = g.Key, Cantidad = g.Count() };
+
+            TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
+
+            var fechaMin =
+               from p in listaReporte
+               group p by p.alumno into g
+               select new { Alumno = g.Key, Fecha = g.Min(p => p.fecha) };
+
+            var fechaMax =
+               from p in listaReporte
+               group p by p.alumno into g
+               select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
+
+            TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
+
+            var worstAlumnos =
+                 (from p in listaReporte
+                  group p by p.alumno into g
+                  orderby g.Count() descending
+                  select new { Alumno = g.Key, Sanciones = g.Sum(p => p.cantidad) }).Distinct().Take(3);
+
+  
+            TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad de Sanciones:");
+
+            foreach (var item in worstAlumnos)
+            {
+                TablaGrafico.Add("Alumno: " + item.Alumno + " - Cantidad de Sanciones: " + item.Sanciones);
+            }
+
+            var SancionesPorTipo =
+                  (from p in listaReporte
+                   group p by p.tipo into g
+                   orderby g.Count() descending
+                   select new { Tipo = g.Key, Sanciones = g.Sum(p => p.cantidad) }).Distinct().Take(3);
+
+            TablaGrafico.Add("- Cantidad de Sanciones según Tipo:");
+            foreach (var item in SancionesPorTipo)
+            {
+                TablaGrafico.Add("Tipo de Sancion: " + item.Tipo + " - Cantidad de Sanciones: " + item.Sanciones);
+            }
+
+            var SancionesPorMotivo =
+                  (from p in listaReporte
+                   group p by p.motivo into g
+                   orderby g.Count() descending
+                   select new { Motivo = g.Key, Sanciones = g.Sum(p => p.cantidad) }).Distinct().Take(3);
+
+            TablaGrafico.Add("- Cantidad de Sanciones según Motivo:");
+            foreach (var item in SancionesPorMotivo)
+            {
+                TablaGrafico.Add("Motivo de Sancion: " + item.Motivo + " - Cantidad de Sanciones: " + item.Sanciones);
+            }
+
+
+            var worstAlumnosByMotivo =
+            (from p in listaReporte
+             group p by new { p.alumno, p.motivo } into g
+             orderby g.Sum(p => p.cantidad) descending
+             select new { Alumno = g.Key.alumno, Motivo = g.Key.motivo, Sanciones = g.Sum(p => p.cantidad) }).Distinct().Take(3);
+
+            TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad y Motivo de Sanciones:");
+            foreach (var item in worstAlumnosByMotivo)
+            {
+                TablaGrafico.Add("Alumno: " + item.Alumno + " Motivo: " + item.Motivo + " - Cantidad de Sanciones: " + item.Sanciones);
+            }
+
+
+            var worstAlumnosByTipo =
+            (from p in listaReporte
+             group p by new { p.alumno, p.tipo } into g
+             orderby g.Sum(p => p.cantidad) descending
+             select new { Alumno = g.Key.alumno, Tipo = g.Key.tipo, Sanciones = g.Sum(p => p.cantidad) }).Distinct().Take(3);
+
+            TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad y Tipo de Sanciones:");
+            foreach (var item in worstAlumnosByTipo)
+            {
+                TablaGrafico.Add("Alumno: " + item.Alumno + " Tipo: " + item.Tipo + " - Cantidad de Sanciones: " + item.Sanciones);
+            }
+        }
 		#endregion
 
 		#region --[Métodos Privados]--
