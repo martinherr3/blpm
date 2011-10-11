@@ -27,9 +27,9 @@
             <siteMapNode url="~/Private/Reports/reportPromedios.aspx" title="Informes consolidados" roles="Administrador,Director,Docente,Psicopedagogo" />
             <!--<siteMapNode url="~/Private/Reports/PrintReport.aspx" title="Imprimir Informe" visible="false" roles="Administrador,Director,Docente,Psicopedagogo" />-->
         </siteMapNode>
-        <siteMapNode url="" title="Historicos" roles="Administrador" >
+        <!--<siteMapNode url="" title="Historicos" roles="Administrador" >
             <siteMapNode url="~/Private/Reports/Historicos/reportRendimiento.aspx" title="Rendimiento" roles="Administrador" />
-        </siteMapNode>
+        </siteMapNode>-->
         <siteMapNode url="" title="Roles" roles="Administrador" >
             <siteMapNode url="~/Private/Account/Profiles.aspx" title="Administrar" roles="Administrador" />
             <!--<siteMapNode url="~/Private/Account/ChangeRolAccess.aspx" title="Nivel Acceso" roles="Administrador" visible="false" />-->

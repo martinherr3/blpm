@@ -21,15 +21,15 @@ namespace EDUAR_UI
 
 		void Application_Error(object sender, EventArgs e)
 		{
-			// Código que se ejecuta al producirse un error no controlado
+            // Código que se ejecuta al producirse un error no controlado
 			//string error = "Se produjo un error: \n" +
-			if (Server.GetLastError() != null)
-			{
-				Application["CurrentError"] = Server.GetLastError().Message.ToString();
-				Application["CurrentErrorDetalle"] = Server.GetLastError().ToString();
-			}
-			//Response.Redirect("~/Error.aspx", false);
-			Server.Transfer("~/Error.aspx");
+            //if (Server.GetLastError() != null)
+            //{
+            //    Application["CurrentError"] = Server.GetLastError().Message.ToString();
+            //    Application["CurrentErrorDetalle"] = Server.GetLastError().ToString();
+            //}
+            ////Response.Redirect("~/Error.aspx", false);
+            //Server.Transfer("~/Error.aspx");
 		}
 
 		void Session_Start(object sender, EventArgs e)

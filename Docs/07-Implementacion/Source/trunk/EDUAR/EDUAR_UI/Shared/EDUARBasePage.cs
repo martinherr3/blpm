@@ -193,7 +193,6 @@ namespace EDUAR_UI.Shared
                 LogMensaje(ex);
             }
         }
-
         #endregion
 
         #region --[Métodos Públicos]--

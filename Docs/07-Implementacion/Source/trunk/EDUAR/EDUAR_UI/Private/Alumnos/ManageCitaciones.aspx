@@ -52,6 +52,21 @@
                         </tr>
                         <tr>
                             <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="Label2" runat="server" Text="Motivo de Citación:"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:DropDownList ID="ddlMotivoCitacion" runat="server">
+                                </asp:DropDownList>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
@@ -68,30 +83,11 @@
                         </tr>
                         <tr>
                             <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="Label1" runat="server" Text="Tutores:"></asp:Label>
+                                <asp:Label ID="Label1" runat="server" Text="Tutores:" CssClass="lblCriterios"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlTutores" runat="server">
+                            <td valign="top" class="TDCriterios75" colspan="3">
+                                <asp:DropDownList ID="ddlTutores" runat="server" CssClass="EstiloTxtLargo250">
                                 </asp:DropDownList>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="Label2" runat="server" Text="Motivo de Citación:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlMotivoCitacion" runat="server">
-                                </asp:DropDownList>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
-                            <td valign="top" class="TDCriterios25">
                             </td>
                         </tr>
                     </table>
@@ -204,12 +200,8 @@
                                 <asp:DropDownList ID="ddlCursoEdit" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCursoEdit_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="Label6" runat="server" Text="Tutor:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlTutorEdit" runat="server" Enabled="false">
-                                </asp:DropDownList>
+                            <td valign="top" class="TDCriterios25"></td>
+                            <td valign="top" class="TDCriterios25"></td>
                         </tr>
                         <tr>
                             <td valign="top" class="TDCriterios25">
@@ -224,6 +216,15 @@
                             </td>
                             <td valign="top" class="TDCriterios25">
                                 <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="true" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TDCriterios25">
+                                <asp:Label ID="Label6" runat="server" Text="Tutor:" CssClass="lblCriterios"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios75" colspan="3">
+                                <asp:DropDownList ID="ddlTutorEdit" runat="server" Enabled="false" CssClass="EstiloTxtLargo250">
+                                </asp:DropDownList>
                             </td>
                         </tr>
                         <tr>
