@@ -81,7 +81,7 @@ namespace EDUAR_DataAccess.Common
 		{
 			try
 			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AsignaturaCurso_Select");
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AsignaturaCicloLectivo_Select");
 				if (entidad != null)
 				{
 					if (entidad.idAsignatura > 0)
@@ -89,7 +89,7 @@ namespace EDUAR_DataAccess.Common
 					if (!string.IsNullOrEmpty(entidad.nombre))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.nombre);
 					if (entidad.curso.idCurso > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.curso.idCurso);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.curso.idCurso);
 					if (entidad.curso.cicloLectivo.idCicloLectivo > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.curso.cicloLectivo.idCicloLectivo);
 					if(!string.IsNullOrEmpty(entidad.docente.username))
@@ -104,9 +104,9 @@ namespace EDUAR_DataAccess.Common
 				{
 					objAsignatura = new Asignatura();
 					//Se asigna el idAsignaturaCurso de la tabla - SOLO CUANDO MANEJO ASIGNATURA - CURSO
-					objAsignatura.idAsignatura = Convert.ToInt32(reader["idAsignaturaCurso"]);
+					objAsignatura.idAsignatura = Convert.ToInt32(reader["idAsignaturaCicloLectivo"]);
 					objAsignatura.nombre = reader["nombreAsignatura"].ToString();
-					objAsignatura.curso.idCurso = Convert.ToInt32(reader["idCurso"]);
+					objAsignatura.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					objAsignatura.curso.nombre = reader["nombreCurso"].ToString();
 					objAsignatura.docente.nombre = reader["nombreDocente"].ToString();
 					objAsignatura.docente.apellido = reader["apellidoDocente"].ToString();
