@@ -486,7 +486,7 @@ namespace EDUAR_UI
 		{
 			BLAsignatura objBLAsignatura = new BLAsignatura();
 			Asignatura materia = new Asignatura();
-			materia.curso.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+			materia.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
 			if (User.IsInRole(enumRoles.Docente.ToString()))
 				materia.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			listaAsignatura = objBLAsignatura.GetAsignaturasCurso(materia);

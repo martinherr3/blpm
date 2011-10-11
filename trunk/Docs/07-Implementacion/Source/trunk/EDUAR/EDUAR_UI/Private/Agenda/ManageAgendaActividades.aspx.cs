@@ -264,6 +264,7 @@ namespace EDUAR_UI
 			{
 				CargarPresentacion();
 				BuscarAgenda(propFiltroAgenda);
+                propAgenda = new AgendaActividades();
 			}
 			catch (Exception ex)
 			{
@@ -411,11 +412,11 @@ namespace EDUAR_UI
 		{
 			List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
 			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-			listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
+            listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(new CicloLectivo { activo = true });
 
 			List<Curso> listaCurso = new List<Curso>();
 			UIUtilidades.BindCombo<CicloLectivo>(ddlCiclo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
-			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
+            //UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
 
 			ddlCurso.Enabled = false;
 		}
@@ -462,7 +463,8 @@ namespace EDUAR_UI
 			lblTitulo.Text = "Actividades";
 			calfecha.ValidarRangoDesde();
 			AgendaActividades entidad = new AgendaActividades();
-			entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+			//entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+            entidad.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
 			entidad.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
 			entidad.fechaCreacion = Convert.ToDateTime(calfecha.ValorFecha);
 			entidad.activo = chkActivo.Checked;
@@ -486,7 +488,8 @@ namespace EDUAR_UI
 		/// <param name="entidad">The entidad.</param>
 		private void CargarLista(AgendaActividades entidad)
 		{
-			if (User.IsInRole(enumRoles.Docente.ToString()))
+            entidad.activo = true;
+            if (User.IsInRole(enumRoles.Docente.ToString()))
 				entidad.usuario = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			objBLAgenda = new BLAgendaActividades(entidad);
 			listaAgenda = objBLAgenda.GetAgendaActividades(entidad);

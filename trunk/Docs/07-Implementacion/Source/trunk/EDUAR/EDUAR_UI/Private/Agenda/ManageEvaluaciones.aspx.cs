@@ -398,8 +398,8 @@ namespace EDUAR_UI
 		{
 			BLAsignatura objBLAsignatura = new BLAsignatura();
 			Asignatura objAsignatura = new Asignatura();
-			objAsignatura.curso.idCurso = propAgenda.cursoCicloLectivo.idCurso;
-			objAsignatura.curso.cicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
+			objAsignatura.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
+            objAsignatura.cursoCicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
 			if (User.IsInRole(enumRoles.Docente.ToString()))
 				objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
@@ -621,7 +621,7 @@ namespace EDUAR_UI
 		{
 			BLAsignatura objBLAsignatura = new BLAsignatura();
 			Asignatura objAsignatura = new Asignatura();
-			objAsignatura.curso.idCurso = propAgenda.cursoCicloLectivo.idCurso;
+			objAsignatura.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
 			objAsignatura.curso.cicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
 			if (User.IsInRole(enumRoles.Docente.ToString()))
 				objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;

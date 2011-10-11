@@ -39,7 +39,7 @@ namespace EDUAR_DataAccess.Common
 					if (entidad.idAgendaActividad > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
 					if (entidad.cursoCicloLectivo.idCurso > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.cursoCicloLectivo.idCurso);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.cursoCicloLectivo.idCursoCicloLectivo);
 					if (entidad.cursoCicloLectivo.idCicloLectivo > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.idCicloLectivo);
 					if (!string.IsNullOrEmpty(entidad.descripcion))
@@ -513,7 +513,8 @@ namespace EDUAR_DataAccess.Common
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fechaEvento", DbType.DateTime, entidad.fechaEvento);
 				if (entidad.idAgendaActividad > 0)
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
-
+                if (entidad.idEventoAgenda > 0)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				while (reader.Read())
@@ -547,6 +548,8 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (entidad.fechaEvento != null)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fecha", DbType.DateTime, entidad.fechaEvento);
+                    if (entidad.idEventoAgenda > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
 
 					IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

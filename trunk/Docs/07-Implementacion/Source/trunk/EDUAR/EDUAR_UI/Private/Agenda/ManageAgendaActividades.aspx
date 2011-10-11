@@ -74,7 +74,7 @@
                                 <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
+                                <asp:CheckBox ID="chkActivo" runat="server" Checked="true" Enabled="false" />
                             </td>
                         </tr>
                     </table>

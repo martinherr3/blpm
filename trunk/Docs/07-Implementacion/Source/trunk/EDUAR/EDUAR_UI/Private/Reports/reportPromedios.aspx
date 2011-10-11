@@ -105,7 +105,7 @@
                 <td valign="top" class="TDCriterios75" colspan="3">
                     <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <asp:DropDownList ID="ddlAsignatura" runat="server">
+                            <asp:DropDownList ID="ddlAsignatura" runat="server" CssClass="EstiloTxtLargo250">
                             </asp:DropDownList>
                         </ContentTemplate>
                         <Triggers>
