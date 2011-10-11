@@ -1102,7 +1102,7 @@ namespace EDUAR_SI_DataAccess
 
                     command.CommandText = @"SELECT 
                                                  id
-                                                ,fk_alumno_id
+                                                ,fk_alumnocursociclolectivo_id
                                                 ,fk_tipoasistencia_id
                                                 ,fecha 
                                             FROM asistencia";
