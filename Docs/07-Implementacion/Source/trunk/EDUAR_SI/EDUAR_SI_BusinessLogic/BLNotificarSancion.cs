@@ -70,7 +70,7 @@ namespace EDUAR_SI_BusinessLogic
 				DateTime fechaMinima = listaSanciones[0].fecha;
 				foreach (var item in listaSanciones)
 				{
-					if (idTutorAnterior != item.alumno.listaTutores[0].idPersona)
+					if (idTutorAnterior != item.alumno.alumno.listaTutores[0].idPersona)
 					{
 						if (sbMail != null)
 						{
@@ -83,25 +83,25 @@ namespace EDUAR_SI_BusinessLogic
 						sbMail = new StringBuilder();
 						sbMail.AppendLine("Gracias por utilizar <b>EDU@R 2.0</b>");
 						sbMail.Append("<br />");
-						sbMail.AppendLine("Buenos días " + item.alumno.listaTutores[0].nombre + ",");
+						sbMail.AppendLine("Buenos días " + item.alumno.alumno.listaTutores[0].nombre + ",");
 						sbMail.Append("<br />");
 						sbMail.Append("A continuación se encuentra el detalle de sanciones disciplinarios aplicadas sobre sus alumnos ");
 						sbMail.Append(" en el periodo ");
 						sbMail.Append(fechaMinima.ToShortDateString() + " al " + DateTime.Now.ToShortDateString());
 						sbMail.Append("<br /><br />");
-						
-						sbMail.Append(("<b>" + item.alumno.nombre + " " + item.alumno.apellido + "</b> ").PadRight(25,' '));
+
+						sbMail.Append(("<b>" + item.alumno.alumno.nombre + " " + item.alumno.alumno.apellido + "</b> ").PadRight(25, ' '));
 						sbMail.AppendLine("Fecha: " + item.fecha.ToShortDateString() + " - <u>Motivo</u>: " + item.tipoSancion.nombre + " por " + item.motivoSancion.descripcion + " - <u>Cantidad</u>: " + item.cantidad.ToString());
 
-						Email.AgregarDestinatario(item.alumno.listaTutores[0].email);
+						Email.AgregarDestinatario(item.alumno.alumno.listaTutores[0].email);
 					}
 					else
 					{
-						sbMail.Append(("<b>" + item.alumno.nombre + " " + item.alumno.apellido + "</b> ").PadRight(25, ' '));
+						sbMail.Append(("<b>" + item.alumno.alumno.nombre + " " + item.alumno.alumno.apellido + "</b> ").PadRight(25, ' '));
 						sbMail.AppendLine("Fecha: " + item.fecha.ToShortDateString() + " - <u>Motivo</u>: " + item.tipoSancion.nombre + " por " + item.motivoSancion.descripcion + " - <u>Cantidad</u>: " + item.cantidad.ToString());
 					}
 					// Para controlar si sigue siendo el mismo tutor que antes
-					idTutorAnterior = item.alumno.listaTutores[0].idPersona;
+					idTutorAnterior = item.alumno.alumno.listaTutores[0].idPersona;
 				}
 				// envio el último mail despues que sale del for
 				if (sbMail != null)

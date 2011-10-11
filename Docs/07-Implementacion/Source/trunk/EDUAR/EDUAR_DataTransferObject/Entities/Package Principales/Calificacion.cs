@@ -10,36 +10,37 @@ using EDUAR_Entities.Shared;
 using System;
 namespace EDUAR_Entities
 {
-    [Serializable]
-    public class Calificacion: DTBase
-    {
-        public string observacion { get; set; }
-        public int idCalificacion { get; set; }
-        public int idCalificacionTransaccional { get; set; }
-        public Asignatura asignatura { get; set; }
-        public ValoresEscalaCalificacion escala { get; set; }
-        public DateTime fecha { get; set; }
-        public Periodo periodo { get; set; }
-        public Alumno alumno { get; set; }
-        public InstanciaCalificacion instanciaCalificacion { get; set; }
+	[Serializable]
+	public class Calificacion : DTBase
+	{
+		public string observacion { get; set; }
+		public int idCalificacion { get; set; }
+		public int idCalificacionTransaccional { get; set; }
+		public AlumnoCursoCicloLectivo alumnoCurso { get; set; }
+		public Asignatura asignatura { get; set; }
+		public ValoresEscalaCalificacion escala { get; set; }
+		public DateTime fecha { get; set; }
+		public Periodo periodo { get; set; }
+		public InstanciaCalificacion instanciaCalificacion { get; set; }
 
-        public Calificacion()
-        {
-            asignatura = new Asignatura();
-            escala = new ValoresEscalaCalificacion();
-            periodo = new Periodo();
-            alumno = new Alumno();
-            instanciaCalificacion = new InstanciaCalificacion();
-        }
+		public Calificacion()
+		{
+			alumnoCurso = new AlumnoCursoCicloLectivo();
+			asignatura = new Asignatura();
+			periodo = new Periodo();
+			escala = new ValoresEscalaCalificacion();
+			periodo = new Periodo();
+			instanciaCalificacion = new InstanciaCalificacion();
+		}
 
-        ~Calificacion()
-        {
+		~Calificacion()
+		{
 
-        }
+		}
 
-        public virtual void Dispose()
-        {
+		public virtual void Dispose()
+		{
 
-        }
-    }//end Calificacion
+		}
+	}//end Calificacion
 }

@@ -10,11 +10,11 @@ namespace EDUAR_Entities
 		public int idAsistencia { get; set; }
 		public int idAsistenciaTransaccional { get; set; }
 		public TipoAsistencia tipoAsistencia { get; set; }
-		public Alumno unAlumno { get; set; }
+		public AlumnoCursoCicloLectivo alumno { get; set; }
 
 		public Asistencia()
 		{
-			unAlumno = new Alumno();
+			alumno = new AlumnoCursoCicloLectivo();
 			tipoAsistencia = new TipoAsistencia();
 		}
 

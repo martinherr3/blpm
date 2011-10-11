@@ -69,7 +69,7 @@ namespace EDUAR_SI_BusinessLogic
 				DateTime fechaMinima = listaAsistencia[0].fecha;
 				foreach (var item in listaAsistencia)
 				{
-					if (idTutorAnterior != item.unAlumno.listaTutores[0].idPersona)
+					if (idTutorAnterior != item.alumno.alumno.listaTutores[0].idPersona)
 					{
 						if (sbMail != null)
 						{
@@ -82,34 +82,34 @@ namespace EDUAR_SI_BusinessLogic
 						sbMail = new StringBuilder();
 						sbMail.AppendLine("Gracias por utilizar <b>EDU@R 2.0</b>");
 						sbMail.Append("<br />");
-						sbMail.AppendLine("Buenos días " + item.unAlumno.listaTutores[0].nombre + ",");
+						sbMail.AppendLine("Buenos días " + item.alumno.alumno.listaTutores[0].nombre + ",");
 						sbMail.Append("<br />");
 						sbMail.Append("A continuación se encuentra el detalle de inasistencias y llegadas tarde para sus alumnos ");
 						sbMail.Append(" en el periodo ");
 						sbMail.Append(fechaMinima.ToShortDateString() + " al " + DateTime.Now.ToShortDateString());
 						sbMail.Append("<br /><br />");
 
-						sbMail.AppendLine(("<b>" + item.unAlumno.nombre + " " + item.unAlumno.apellido + "</b> ").PadRight(25, ' '));
-						var listaInasistencia = listaAsistencia.FindAll(p => p.unAlumno.idPersona == item.unAlumno.idPersona);
+						sbMail.AppendLine(("<b>" + item.alumno.alumno.nombre + " " + item.alumno.alumno.apellido + "</b> ").PadRight(25, ' '));
+						var listaInasistencia = listaAsistencia.FindAll(p => p.alumno.alumno.idPersona == item.alumno.alumno.idPersona);
 						foreach (var asistencia in listaInasistencia)
 						{
 							sbMail.AppendLine("Fecha: " + asistencia.fecha.ToShortDateString() + " - Tipo de Inasistencia: " + asistencia.tipoAsistencia.descripcion);
 						}
 
-						Email.AgregarDestinatario(item.unAlumno.listaTutores[0].email);
+						Email.AgregarDestinatario(item.alumno.alumno.listaTutores[0].email);
 						//Email.AgregarDestinatario("");
 					}
 					else
 					{
-						sbMail.AppendLine(("<b>" + item.unAlumno.nombre + " " + item.unAlumno.apellido + "</b> ").PadRight(25, ' '));
-						var listaInasistencia = listaAsistencia.FindAll(p => p.unAlumno.idPersona == item.unAlumno.idPersona);
+						sbMail.AppendLine(("<b>" + item.alumno.alumno.nombre + " " + item.alumno.alumno.apellido + "</b> ").PadRight(25, ' '));
+						var listaInasistencia = listaAsistencia.FindAll(p => p.alumno.alumno.idPersona == item.alumno.alumno.idPersona);
 						foreach (var asistencia in listaInasistencia)
 						{
 							sbMail.AppendLine("Fecha: " + asistencia.fecha.ToShortDateString() + " - Tipo de Inasistencia: " + asistencia.tipoAsistencia.descripcion);
 						}
 					}
 					// Para controlar si sigue siendo el mismo tutor que antes
-					idTutorAnterior = item.unAlumno.listaTutores[0].idPersona;
+					idTutorAnterior = item.alumno.alumno.listaTutores[0].idPersona;
 				}
 				// envio el último mail despues que sale del for
 				if (sbMail != null)

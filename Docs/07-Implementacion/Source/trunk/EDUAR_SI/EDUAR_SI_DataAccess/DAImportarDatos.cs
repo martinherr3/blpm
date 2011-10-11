@@ -34,21 +34,17 @@ namespace EDUAR_SI_DataAccess
 		/// Guarda una colección de personas en base de datos
 		/// </summary>
 		/// <param name="objeto">Colección de Persona</param>
-		public int GrabarPersona(Persona persona, ref SqlTransaction transaccion, int? idCargoPersonal, int idPersonaTransaccional)
+		public int GrabarPersona(Persona persona, SqlTransaction transaccion, int? idCargoPersonal, int idPersonaTransaccional)
 		{
-			//SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Personas_Insert";
 					command.CommandTimeout = 10;
-					if (transaccion == null)
-						transaccion = sqlConnectionConfig.BeginTransaction();
+
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					command.Parameters.AddWithValue("idPersona", 0).Direction = ParameterDirection.Output;
@@ -72,7 +68,6 @@ namespace EDUAR_SI_DataAccess
 					command.Parameters.AddWithValue("idPersonaTransaccional", idPersonaTransaccional);
 
 					command.ExecuteNonQuery();
-					//transaccion.Commit();
 					return Convert.ToInt32(command.Parameters["idPersona"].Value);
 				}
 			}
@@ -88,11 +83,6 @@ namespace EDUAR_SI_DataAccess
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarPersona()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
-			}
 		}
 
 		/// <summary>
@@ -100,23 +90,18 @@ namespace EDUAR_SI_DataAccess
 		/// </summary>
 		/// <param name="alumno">The alumno.</param>
 		/// <param name="transaccion">The transaccion.</param>
-		public void GrabarAlumno(Alumno alumno, ref SqlTransaction transaccion)
+		public void GrabarAlumno(Alumno alumno, SqlTransaction transaccion)
 		{
-			//SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
+					command.Connection = transaccion.Connection;
+					command.Transaction = transaccion;
 
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Alumnos_Insert";
 					command.CommandTimeout = 10;
-					if (transaccion == null)
-						transaccion = sqlConnectionConfig.BeginTransaction();
-					command.Transaction = transaccion;
 
 					command.Parameters.AddWithValue("idAlumno", alumno.idAlumno).Direction = ParameterDirection.Output;
 					command.Parameters.AddWithValue("idAlumnoTransaccional", alumno.idAlumnoTransaccional);
@@ -126,8 +111,6 @@ namespace EDUAR_SI_DataAccess
 					command.Parameters.AddWithValue("fechaBaja", DBNull.Value);
 					command.ExecuteNonQuery();
 					command.Parameters.Clear();
-					//transaccion.Commit();
-
 				}
 			}
 			catch (SqlException ex)
@@ -141,11 +124,6 @@ namespace EDUAR_SI_DataAccess
 				//if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarAlumno()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -173,7 +151,7 @@ namespace EDUAR_SI_DataAccess
 						command.Parameters.AddWithValue("nombre", pais.nombre);
 						command.Parameters.AddWithValue("descripcion", pais.descripcion);
 						command.Parameters.AddWithValue("activo", pais.activo);
-						int cantidad = command.ExecuteNonQuery();
+						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
 				}
@@ -257,7 +235,7 @@ namespace EDUAR_SI_DataAccess
 						command.Parameters.AddWithValue("descripcion", "");
 						command.Parameters.AddWithValue("idProvincia", localidad.idProvincia);
 						command.Parameters.AddWithValue("activo", localidad.activo);
-						int cantidad = command.ExecuteNonQuery();
+						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
 				}
@@ -278,21 +256,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the tipos documentos.
 		/// </summary>
 		/// <param name="colTipoDocumento">The col tipos documentos.</param>
-		public void GrabarTipoDocumento(List<TipoDocumento> listaTipoDocumento)
+		public void GrabarTipoDocumento(List<TipoDocumento> listaTipoDocumento, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "TipoDocumento_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (TipoDocumento tipoDocumento in listaTipoDocumento)
@@ -305,7 +279,6 @@ namespace EDUAR_SI_DataAccess
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
@@ -320,11 +293,6 @@ namespace EDUAR_SI_DataAccess
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarTipoDocumento()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
-			}
 		}
 
 		/// <summary>
@@ -332,21 +300,17 @@ namespace EDUAR_SI_DataAccess
 		/// </summary>
 		/// <param name="listaValoresCalificacion">The lista valores calificacion.</param>
 		/// <param name="transaccion">The transaccion.</param>
-		public void GrabarValoresEscalasCalificaciones(List<ValoresEscalaCalificacion> listaValoresCalificacion)
+		public void GrabarValoresEscalasCalificaciones(List<ValoresEscalaCalificacion> listaValoresCalificacion, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "ValoresEscalaCalificacion_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (ValoresEscalaCalificacion valorEscala in listaValoresCalificacion)
@@ -358,11 +322,10 @@ namespace EDUAR_SI_DataAccess
 						command.Parameters.AddWithValue("activo", valorEscala.activo);
 						command.Parameters.AddWithValue("valor", valorEscala.valor);
 						command.Parameters.AddWithValue("aprobado", valorEscala.aprobado);
-						command.Parameters.AddWithValue("idEscalaCalificacion", valorEscala.idEscalaCalificacion);
-						int cantidad = command.ExecuteNonQuery();
+						//command.Parameters.AddWithValue("idEscalaCalificacion", valorEscala.idEscalaCalificacion);
+						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
@@ -377,11 +340,6 @@ namespace EDUAR_SI_DataAccess
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarValoresEscalasCalificaciones()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
-			}
 		}
 
 		/// <summary>
@@ -389,21 +347,17 @@ namespace EDUAR_SI_DataAccess
 		/// </summary>
 		/// <param name="personal">The personal.</param>
 		/// <param name="transaccion">The transaccion.</param>
-		public void GrabarPersonal(Personal personal, ref SqlTransaction transaccion)
+		public void GrabarPersonal(Personal personal, SqlTransaction transaccion)
 		{
-			//SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Personal_Insert";
 					command.CommandTimeout = 10;
-					if (transaccion == null)
-						transaccion = sqlConnectionConfig.BeginTransaction();
+
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					command.Parameters.AddWithValue("idPersonal", personal.IdPersonal).Direction = ParameterDirection.Output;
@@ -416,27 +370,18 @@ namespace EDUAR_SI_DataAccess
 					command.Parameters.AddWithValue("idCargoPersonal", personal.cargo.idCargoTransaccional);
 					command.ExecuteNonQuery();
 					command.Parameters.Clear();
-					//transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				//if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarPersonal()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				//if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarPersonal()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
-			}
-
 		}
 
 		/// <summary>
@@ -444,21 +389,17 @@ namespace EDUAR_SI_DataAccess
 		/// </summary>
 		/// <param name="listaCargosPersonal">The lista cargos personal.</param>
 		/// <param name="transaccion">The transaccion.</param>
-		public void GrabarCargoPersonal(List<CargoPersonal> listaCargosPersonal)
+		public void GrabarCargoPersonal(List<CargoPersonal> listaCargosPersonal, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "CargosPersonal_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (CargoPersonal cargoPersonal in listaCargosPersonal)
@@ -468,21 +409,18 @@ namespace EDUAR_SI_DataAccess
 						command.Parameters.AddWithValue("nombre", cargoPersonal.nombre);
 						command.Parameters.AddWithValue("descripcion", cargoPersonal.descripcion);
 						command.Parameters.AddWithValue("activo", cargoPersonal.activo);
-						int cantidad = command.ExecuteNonQuery();
+						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarCargoPersonal()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarCargoPersonal()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
@@ -497,21 +435,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the asignatura.
 		/// </summary>
 		/// <param name="listaAsignatura">The lista asignatura.</param>
-		public void GrabarAsignatura(List<Asignatura> listaAsignatura)
+		public void GrabarAsignatura(List<Asignatura> listaAsignatura, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Asignatura_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Asignatura asignatura in listaAsignatura)
@@ -522,25 +456,17 @@ namespace EDUAR_SI_DataAccess
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsignatura()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsignatura()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -548,21 +474,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the ciclo lectivo.
 		/// </summary>
 		/// <param name="listaCicloLectivo">The lista ciclo lectivo.</param>
-		public void GrabarCicloLectivo(List<CicloLectivo> listaCicloLectivo)
+		public void GrabarCicloLectivo(List<CicloLectivo> listaCicloLectivo, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "CicloLectivo_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (CicloLectivo cicloLectivo in listaCicloLectivo)
@@ -576,25 +498,17 @@ namespace EDUAR_SI_DataAccess
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsignatura()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsignatura()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -602,21 +516,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the nivel.
 		/// </summary>
 		/// <param name="listaNiveles">The lista niveles.</param>
-		public void GrabarNivel(List<Nivel> listaNiveles)
+		public void GrabarNivel(List<Nivel> listaNiveles, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Nivel_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Nivel nivel in listaNiveles)
@@ -627,25 +537,17 @@ namespace EDUAR_SI_DataAccess
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarNivel()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarNivel()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -653,21 +555,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the cursos.
 		/// </summary>
 		/// <param name="listaCursos">The lista cursos.</param>
-		public void GrabarCursos(List<Curso> listaCursos)
+		public void GrabarCursos(List<Curso> listaCursos, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Curso_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Curso curso in listaCursos)
@@ -679,25 +577,17 @@ namespace EDUAR_SI_DataAccess
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarNivel()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarNivel()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -705,21 +595,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the orientacion.
 		/// </summary>
 		/// <param name="listaOrientacion">The lista orientacion.</param>
-		public void GrabarOrientacion(List<Orientacion> listaOrientacion)
+		public void GrabarOrientacion(List<Orientacion> listaOrientacion, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Orientacion_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Orientacion orientacion in listaOrientacion)
@@ -731,25 +617,17 @@ namespace EDUAR_SI_DataAccess
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarOrientacion()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarOrientacion()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -757,60 +635,40 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the asignatura curso.
 		/// </summary>
 		/// <param name="listaAsignatura">The lista asignatura.</param>
-		public void GrabarAsignaturaCurso(List<Asignatura> listaAsignatura)
+		public void GrabarAsignaturaCurso(List<AsignaturaCicloLectivo> listaAsignatura, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
-			Asignatura actual;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
-					command.CommandText = "AsignaturaCurso_Insert";
+					command.CommandText = "AsignaturaCicloLectivo_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
-					actual = new Asignatura();
-					foreach (Asignatura asignatura in listaAsignatura)
-					{
-						actual = asignatura;
-						command.Parameters.AddWithValue("idAsignaturaCurso", 0);
-						command.Parameters.AddWithValue("idCurso", asignatura.curso.idCursoTransaccional);
-						command.Parameters.AddWithValue("idAsignatura", asignatura.idAsignaturaTransaccional);
-						command.Parameters.AddWithValue("idDocente", asignatura.docente.IdPersonalTransaccional);
-						command.Parameters.AddWithValue("idOrientacion", asignatura.curso.orientacion.idOrientacionTransaccional);
-						command.Parameters.AddWithValue("idCicloLectivo", asignatura.curso.cicloLectivo.idCicloLectivoTransaccional);
 
+					foreach (AsignaturaCicloLectivo item in listaAsignatura)
+					{
+						command.Parameters.AddWithValue("idAsignaturaCicloLectivo", 0);
+						command.Parameters.AddWithValue("idAsignaturaCicloLectivoTransaccional", item.idAsignaturaCicloLectivoTransaccional);
+						command.Parameters.AddWithValue("idAsignatura", item.asignatura.idAsignaturaTransaccional);
+						command.Parameters.AddWithValue("idDocente", item.docente.IdPersonalTransaccional);
+						command.Parameters.AddWithValue("idCursoCicloLectivo", item.cursoCicloLectivo.idCursoCicloLectivoTransaccional);
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-
-					command.CommandText = "Curso_Update_CicloLectivo";
-					command.CommandTimeout = 10;
-					command.ExecuteNonQuery();
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsignaturaCurso()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsignaturaCurso()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -818,21 +676,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the periodo.
 		/// </summary>
 		/// <param name="listaPeriodo">The lista periodo.</param>
-		public void GrabarPeriodo(List<Periodo> listaPeriodo)
+		public void GrabarPeriodo(List<Periodo> listaPeriodo, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Periodo_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Periodo periodo in listaPeriodo)
@@ -846,25 +700,17 @@ namespace EDUAR_SI_DataAccess
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarPeriodo()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarPeriodo()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -872,21 +718,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the calificacion.
 		/// </summary>
 		/// <param name="listaCalificacion">The lista calificacion.</param>
-		public void GrabarCalificacion(List<Calificacion> listaCalificacion)
+		public void GrabarCalificacion(List<Calificacion> listaCalificacion, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Calificacion_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Calificacion calificacion in listaCalificacion)
@@ -896,32 +738,24 @@ namespace EDUAR_SI_DataAccess
 						command.Parameters.AddWithValue("observaciones", calificacion.observacion);
 						command.Parameters.AddWithValue("fecha", calificacion.fecha);
 						command.Parameters.AddWithValue("idValorCalificacion", calificacion.escala.idValorEscalaCalificacionTransaccional);
-						command.Parameters.AddWithValue("idAlumno", calificacion.alumno.idAlumnoTransaccional);
+						command.Parameters.AddWithValue("idAlumnoCursoCicloLectivo", calificacion.alumnoCurso.idAlumnoCursoCicloLectivoTransaccional);
 						command.Parameters.AddWithValue("idAsignatura", calificacion.asignatura.idAsignaturaTransaccional);
 						command.Parameters.AddWithValue("idPeriodo", calificacion.periodo.idPeriodoTransaccional);
 						command.Parameters.AddWithValue("idInstanciaCalificacion", calificacion.instanciaCalificacion.idInstanciaCalificacion);
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarCalificacion()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarCalificacion()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -930,19 +764,17 @@ namespace EDUAR_SI_DataAccess
 		/// </summary>
 		/// <param name="tutor">The tutor.</param>
 		/// <param name="transaccion">The transaccion.</param>
-		public void GrabarTutor(Tutor tutor, ref SqlTransaction transaccion)
+		public void GrabarTutor(Tutor tutor, SqlTransaction transaccion)
 		{
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Tutor_Insert";
 					command.CommandTimeout = 10;
-					if (transaccion == null)
-						transaccion = sqlConnectionConfig.BeginTransaction();
+
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					command.Parameters.AddWithValue("idTutor", tutor.idTutor).Direction = ParameterDirection.Output;
@@ -964,11 +796,6 @@ namespace EDUAR_SI_DataAccess
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarTutor()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
-			}
 		}
 
 		//TODO: Primero hacer GrabarTipoAsistencia()
@@ -976,21 +803,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the tipo asistencia.
 		/// </summary>
 		/// <param name="listadoTipoAsistencia">The listado tipo asistencia.</param>
-		public void GrabarTipoAsistencia(List<TipoAsistencia> listadoTipoAsistencia)
+		public void GrabarTipoAsistencia(List<TipoAsistencia> listadoTipoAsistencia, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "TipoAsistencia_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (TipoAsistencia unTipoAsistencia in listadoTipoAsistencia)
@@ -1002,81 +825,58 @@ namespace EDUAR_SI_DataAccess
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarTipoAsistenica()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarTipoAsistencia()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
-			}
-
 		}
 
 		/// <summary>
 		/// Grabars the asistencia.
 		/// </summary>
 		/// <param name="listadoAsistencia">The listado asistencia.</param>
-		public void GrabarAsistencia(List<Asistencia> listadoAsistencia)
+		public void GrabarAsistencia(List<Asistencia> listadoAsistencia, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
-			Asistencia ASISTENCIA = new Asistencia();
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Asistencia_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Asistencia unaAsistencia in listadoAsistencia)
 					{
-						ASISTENCIA = unaAsistencia;
 						command.Parameters.AddWithValue("idAsistencia", 0);
 						command.Parameters.AddWithValue("idAsistenciaTransaccional", unaAsistencia.idAsistenciaTransaccional);
 						command.Parameters.AddWithValue("fecha", unaAsistencia.fecha);
 						command.Parameters.AddWithValue("idTipoAsistencia", unaAsistencia.tipoAsistencia.idTipoAsistenciaTransaccional);
-						command.Parameters.AddWithValue("idAlumno", unaAsistencia.unAlumno.idAlumnoTransaccional);
+						command.Parameters.AddWithValue("idAlumno", unaAsistencia.alumno.idAlumnoCursoCicloLectivoTransaccional);
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsistenica()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsistencia()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -1084,21 +884,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the tipo sancion.
 		/// </summary>
 		/// <param name="listadoTipoSancion">The listado tipo sancion.</param>
-		public void GrabarTipoSancion(List<TipoSancion> listadoTipoSancion)
+		public void GrabarTipoSancion(List<TipoSancion> listadoTipoSancion, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "TipoSancion_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (TipoSancion unTipoSancion in listadoTipoSancion)
@@ -1110,25 +906,17 @@ namespace EDUAR_SI_DataAccess
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarTipoSancion()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarTipoSancion()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -1136,21 +924,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the motivo sancion.
 		/// </summary>
 		/// <param name="listadoMotivoSancion">The listado motivo sancion.</param>
-		public void GrabarMotivoSancion(List<MotivoSancion> listadoMotivoSancion)
+		public void GrabarMotivoSancion(List<MotivoSancion> listadoMotivoSancion, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "MotivoSancion_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (MotivoSancion unMotivoSancion in listadoMotivoSancion)
@@ -1161,25 +945,17 @@ namespace EDUAR_SI_DataAccess
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarMotivoSancion()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarMotivoSancion()", ClassName),
 									ex, enuExceptionType.DataAccesException);
-			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
 			}
 		}
 
@@ -1187,21 +963,17 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the sancion.
 		/// </summary>
 		/// <param name="listadoSancion">The listado sancion.</param>
-		public void GrabarSancion(List<Sancion> listadoSancion)
+		public void GrabarSancion(List<Sancion> listadoSancion, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Sancion_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Sancion unaSancion in listadoSancion)
@@ -1212,53 +984,39 @@ namespace EDUAR_SI_DataAccess
 						command.Parameters.AddWithValue("fecha", unaSancion.fecha.Date);
 						command.Parameters.AddWithValue("idMotivoSancion", unaSancion.motivoSancion.idMotivoSancionTransaccional);
 						command.Parameters.AddWithValue("idTipoSancion", unaSancion.tipoSancion.idTipoSancionTransaccional);
-						command.Parameters.AddWithValue("idAlumno", unaSancion.alumno.idAlumnoTransaccional);
-
+						command.Parameters.AddWithValue("idAlumno", unaSancion.alumno.idAlumnoCursoCicloLectivoTransaccional);
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarSancion()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarSancion()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
-			}
-
 		}
 
 		/// <summary>
 		/// Grabars the tipo tutor.
 		/// </summary>
 		/// <param name="listadoTipoTutor">The listado tipo tutor.</param>
-		public void GrabarTipoTutor(List<TipoTutor> listadoTipoTutor)
+		public void GrabarTipoTutor(List<TipoTutor> listadoTipoTutor, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "TipoTutor_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (TipoTutor unTipoTutor in listadoTipoTutor)
@@ -1266,11 +1024,9 @@ namespace EDUAR_SI_DataAccess
 						command.Parameters.AddWithValue("idTipoTutor", 0);
 						command.Parameters.AddWithValue("descripcion", unTipoTutor.descripcion);
 						command.Parameters.AddWithValue("idTipoTutorTransaccional", unTipoTutor.idTipoTutorTransaccional);
-
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
@@ -1285,33 +1041,23 @@ namespace EDUAR_SI_DataAccess
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarTipoTutor()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
-			}
-
 		}
 
 		/// <summary>
 		/// Grabars the tutores alumno.
 		/// </summary>
 		/// <param name="listaAlumnos">The lista alumnos.</param>
-		public void GrabarTutoresAlumno(List<Alumno> listaAlumnos)
+		public void GrabarTutoresAlumno(List<Alumno> listaAlumnos, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "TutorAlumno_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
 					foreach (Alumno alumno in listaAlumnos)
@@ -1325,7 +1071,6 @@ namespace EDUAR_SI_DataAccess
 							command.Parameters.Clear();
 						}
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
@@ -1340,14 +1085,7 @@ namespace EDUAR_SI_DataAccess
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarTutoresAlumno()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
-			}
-
 		}
-
 
 		/// <summary>
 		/// Grabars the tipo asistencia.
@@ -1475,60 +1213,83 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the alumno curso.
 		/// </summary>
 		/// <param name="listaAlumnoCurso">The lista alumno curso.</param>
-		public void GrabarAlumnoCurso(List<AlumnoCurso> listaAlumnoCurso)
+		public void GrabarAlumnoCurso(List<AlumnoCursoCicloLectivo> listaAlumnoCurso, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
-			int curso = 0;
-			int ciclo = 0;
 			try
 			{
 				using (SqlCommand command = new SqlCommand())
 				{
-					if (sqlConnectionConfig.State == ConnectionState.Closed) sqlConnectionConfig.Open();
-
-					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "AlumnoCursoCicloLectivo_Insert";
 					command.CommandTimeout = 10;
 
-					transaccion = sqlConnectionConfig.BeginTransaction();
+					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
-					foreach (AlumnoCurso alumnoCurso in listaAlumnoCurso)
+					foreach (AlumnoCursoCicloLectivo alumnoCurso in listaAlumnoCurso)
 					{
-						curso = alumnoCurso.curso.idCursoTransaccional;
-						ciclo = alumnoCurso.curso.cicloLectivo.idCicloLectivoTransaccional;
 						command.Parameters.AddWithValue("idAlumnoCursoCicloLectivo", 0);
-						command.Parameters.AddWithValue("idAlumnoCursoCicloLectivoTransaccional", alumnoCurso.idAlumnoCursoTransaccional);
+						command.Parameters.AddWithValue("idAlumnoCursoCicloLectivoTransaccional", alumnoCurso.idAlumnoCursoCicloLectivoTransaccional);
 						command.Parameters.AddWithValue("idAlumno", alumnoCurso.alumno.idAlumnoTransaccional);
-						command.Parameters.AddWithValue("idCicloLectivo", alumnoCurso.curso.cicloLectivo.idCicloLectivoTransaccional);
-						command.Parameters.AddWithValue("idCurso", alumnoCurso.curso.idCursoTransaccional);
+						command.Parameters.AddWithValue("idCursoCicloLectivo", alumnoCurso.cursoCicloLectivo.idCursoCicloLectivoTransaccional);
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}
-					transaccion.Commit();
 				}
 			}
 			catch (SqlException ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarAlumnoCurso()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				if (transaccion != null) transaccion.Rollback();
 				throw new CustomizedException(String.Format("Fallo en {0} - GrabarAlumnoCurso()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
-			finally
-			{
-				//if (sqlConnectionConfig.State == ConnectionState.Open)
-				//    sqlConnectionConfig.Close();
-			}
 		}
 
+		/// <summary>
+		/// Grabars the curso ciclo lectivo.
+		/// </summary>
+		/// <param name="listaCursoCicloLectivo">The lista curso ciclo lectivo.</param>
+		/// <param name="transaccion">The transaccion.</param>
+		public void GrabarCursoCicloLectivo(List<CursoCicloLectivo> listaCursoCicloLectivo, SqlTransaction transaccion)
+		{
+			try
+			{
+				using (SqlCommand command = new SqlCommand())
+				{
+					command.CommandType = System.Data.CommandType.StoredProcedure;
+					command.CommandText = "CursoCicloLectivo_Insert";
+					command.CommandTimeout = 10;
 
+					command.Connection = transaccion.Connection;
+					command.Transaction = transaccion;
+
+					foreach (CursoCicloLectivo cursosCicloLectivo in listaCursoCicloLectivo)
+					{
+						command.Parameters.AddWithValue("idCursoCicloLectivo", 0);
+						command.Parameters.AddWithValue("idCursoCicloLectivoTransaccional", cursosCicloLectivo.idCursoCicloLectivoTransaccional);
+						command.Parameters.AddWithValue("idCurso", cursosCicloLectivo.idCurso);
+						command.Parameters.AddWithValue("idCicloLectivo", cursosCicloLectivo.idCicloLectivo);
+						//command.Parameters.AddWithValue("idPreceptor", cursosCicloLectivo.curso.idCursoTransaccional);
+						command.ExecuteNonQuery();
+						command.Parameters.Clear();
+					}
+				}
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(String.Format("Fallo en {0} - GrabarCursoCicloLectivo()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(String.Format("Fallo en {0} - GrabarCursoCicloLectivo()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 	}
 }
