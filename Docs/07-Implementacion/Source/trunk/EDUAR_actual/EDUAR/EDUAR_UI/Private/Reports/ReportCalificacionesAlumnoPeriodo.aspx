@@ -90,11 +90,6 @@
         </table>
     </div>
     <div id="divReporte" runat="server">
-        <%--<asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
-            <ContentTemplate>--%>
-                <rep:Reporte ID="rptCalificaciones" runat="server" EnableViewState="true"></rep:Reporte>
-            <%--</ContentTemplate>
-            <Triggers><asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" /></Triggers>
-        </asp:UpdatePanel>--%>
+        <rep:Reporte ID="rptCalificaciones" runat="server" EnableViewState="true"></rep:Reporte>
     </div>
 </asp:Content>

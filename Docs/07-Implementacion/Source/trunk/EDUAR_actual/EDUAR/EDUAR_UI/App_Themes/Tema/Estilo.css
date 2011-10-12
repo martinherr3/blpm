@@ -89,7 +89,7 @@ first child of the left and right table columns */
 
 .page
 {
-    width: 1000px;
+    width: 100%;
     background-color: #fff;
     margin: 0px auto 0px auto;
 }
@@ -99,7 +99,7 @@ first child of the left and right table columns */
     position: relative;
     margin: 0px;
     padding: 0px; /*background: #4b6c9e;*/
-    background-color: #A2B5CD;
+    /*background-color: #A2B5CD;*/
     width: 100%;
 }
 
@@ -148,6 +148,8 @@ div.hideSkiplink
 {
     background-color: #3a4f63;
     width: 100%;
+    min-width: 1000px;
+    text-align: center;
 }
 
 div.menu
@@ -262,7 +264,7 @@ div.accountInfo
     display: block;
     text-align: right;
     padding: 10px;
-    color: #1E1E1E;
+    /*color: #1E1E1E;*/
     font-weight: 100;
 }
 
@@ -305,7 +307,7 @@ div.accountInfo
     padding-top: 20px;
     padding-left: 10px;
     width: 250px;
-    float: left;
+    float: none;
     vertical-align: top;
 }
 
@@ -338,6 +340,7 @@ div.accountInfo
     color: #23387A;
     text-decoration: none;
     vertical-align: middle;
+    text-align: center;
 }
 
 

@@ -17,7 +17,7 @@
     }
 </script>
 <%@ Register Src="~/UserControls/Grafico.ascx" TagName="Grafico" TagPrefix="gra" %>
-<table border="0" cellpadding="0" cellspacing="0" width="800px">
+<table border="0" cellpadding="0" cellspacing="0" style="min-width: 800px; width: 100%">
     <tr>
         <td>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
