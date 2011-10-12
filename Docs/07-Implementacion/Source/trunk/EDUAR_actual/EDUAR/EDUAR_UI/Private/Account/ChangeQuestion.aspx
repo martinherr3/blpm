@@ -8,7 +8,7 @@
     <h2>
         Modificación de Pregunta Secreta
     </h2>
-    <p>
+    <p class="ui-widget">
         Use el formulario siguiente para modificar su pregunta y respuesta secreta.
     </p>
     <span class="failureNotification">
@@ -19,14 +19,14 @@
     <div class="accountInfo">
         <fieldset class="register">
             <legend>Información de cuenta</legend>
-            <p>
+            <p class="ui-widget">
                 <asp:Label runat="server" AssociatedControlID="Question" ID="QuestionLabel">Pregunta Secreta:</asp:Label>
                 <asp:TextBox runat="server" ID="Question" CssClass="textEntry"></asp:TextBox>
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Question" CssClass="failureNotification" Display="Dynamic"
                     ToolTip="Pregunta Secreta requerida." ID="QuestionRequired" ValidationGroup="RegisterUserValidationGroup"
                     ErrorMessage="La Pregunta Secreta es Requerida.">*</asp:RequiredFieldValidator>
             </p>
-            <p>
+            <p class="ui-widget">
                 <asp:Label runat="server" AssociatedControlID="Answer" ID="AnswerLabel">Respuesta Secreta:</asp:Label>
                 <asp:TextBox runat="server" ID="Answer" CssClass="textEntry"></asp:TextBox>
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Answer" CssClass="failureNotification" Display="Dynamic"

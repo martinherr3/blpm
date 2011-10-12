@@ -6,15 +6,21 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Datos de la institucion
+        Información General
     </h2>
-    <p>
-        Direccion
+    <h3>
+        Direccion</h3>
+    <p class="ui-widget">
+        Calle Pública S/N
     </p>
-    <p>
-        Telefonos
+    <h3>
+        Teléfonos</h3>
+    <p class="ui-widget">
+        0351 - 4123456
     </p>
-    <p>
-        Email
+    <h3>
+        Email</h3>
+    <p class="ui-widget">
+        <a href="mailto:proyecto.eduar2.0@gmail.com">Solicita Información</a>
     </p>
 </asp:Content>

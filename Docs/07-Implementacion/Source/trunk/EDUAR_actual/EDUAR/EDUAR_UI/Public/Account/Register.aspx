@@ -16,10 +16,10 @@
                     <h2>
                         Crear una nueva cuenta
                     </h2>
-                    <p>
+                    <p class="ui-widget">
                         Use el formulario siguiente para crear una cuenta nueva.
                     </p>
-                    <%--<p>
+                    <%--<p class="ui-widget">
                         Las contraseñas deben tener una longitud mínima de
                         <%= Membership.MinRequiredPasswordLength %>
                         caracteres.
@@ -32,28 +32,28 @@
                     <div class="accountInfo">
                         <fieldset class="register">
                             <legend>Información de cuenta</legend>
-                            <p>
+                            <p class="ui-widget">
                                 <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Nombre de usuario:</asp:Label>
                                 <asp:TextBox ID="UserName" runat="server" CssClass="textEntry"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName"
                                     CssClass="failureNotification" ErrorMessage="El nombre de usuario es obligatorio."
                                     ToolTip="El nombre de usuario es obligatorio." ValidationGroup="RegisterUserValidationGroup">*</asp:RequiredFieldValidator>
                             </p>
-                            <p>
+                            <p class="ui-widget">
                                 <asp:Label ID="EmailLabel" runat="server" AssociatedControlID="Email">Correo electrónico:</asp:Label>
                                 <asp:TextBox ID="Email" runat="server" CssClass="textEntry"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="Email"
                                     CssClass="failureNotification" ErrorMessage="El correo electrónico es obligatorio."
                                     ToolTip="El correo electrónico es obligatorio." ValidationGroup="RegisterUserValidationGroup">*</asp:RequiredFieldValidator>
                             </p>
-                            <p>
+                            <p class="ui-widget">
                                 <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Contraseña:</asp:Label>
                                 <asp:TextBox ID="Password" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"
                                     CssClass="failureNotification" ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña es obligatoria."
                                     ValidationGroup="RegisterUserValidationGroup">*</asp:RequiredFieldValidator>
                             </p>
-                            <p>
+                            <p class="ui-widget">
                                 <asp:Label ID="ConfirmPasswordLabel" runat="server" AssociatedControlID="ConfirmPassword">Confirmar contraseña:</asp:Label>
                                 <asp:TextBox ID="ConfirmPassword" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
                                 <asp:RequiredFieldValidator ControlToValidate="ConfirmPassword" CssClass="failureNotification"
@@ -63,14 +63,14 @@
                                     ControlToValidate="ConfirmPassword" CssClass="failureNotification" Display="Dynamic"
                                     ErrorMessage="Contraseña y Confirmar contraseña deben coincidir." ValidationGroup="RegisterUserValidationGroup">*</asp:CompareValidator>
                             </p>
-                            <p>
+                            <p class="ui-widget">
                                 <asp:Label runat="server" AssociatedControlID="Question" ID="QuestionLabel">Pregunta Secreta:</asp:Label>
                                 <asp:TextBox runat="server" ID="Question" CssClass="textEntry"></asp:TextBox>
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Question" CssClass="failureNotification"
                                     ToolTip="Pregunta Secreta requerida." ID="QuestionRequired" ValidationGroup="Createuserwizard1"
                                     ErrorMessage="La Pregunta Secreta es Requerida.">*</asp:RequiredFieldValidator>
                             </p>
-                            <p>
+                            <p class="ui-widget">
                                 <asp:Label runat="server" AssociatedControlID="Answer" ID="AnswerLabel">Respuesta Secreta:</asp:Label>
                                 <asp:TextBox runat="server" ID="Answer" CssClass="textEntry"></asp:TextBox>
                                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Answer" CssClass="failureNotification"

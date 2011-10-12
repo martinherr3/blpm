@@ -8,21 +8,21 @@
     <h2>
         Novedades
     </h2>
-    <%--<p>
-        <small>[En esta sesión se publicara las actividades realizadas en la institución, actividades
+    <%--<p class="ui-widget">
+        [En esta sesión se publicara las actividades realizadas en la institución, actividades
             próximas a realizar y toda noticias que involucren a la comunidad dela Institución
-            educativa]</small>
+            educativa]
     </p>
     <hr />
     <h3>
-        [Titulo de la Noticia]<small>[Fecha de publicacion]</small></h3>
-    <p>
+        [Titulo de la Noticia][Fecha de publicacion]</h3>
+    <p class="ui-widget">
         [Este espacio será dedicado al contenido de la noticia.]
     </p>
     <hr />
     <h3>
-        [Titulo de la Noticia]<small>[Fecha de publicacion]</small></h3>
-    <p>
+        [Titulo de la Noticia][Fecha de publicacion]</h3>
+    <p class="ui-widget">
         [Este espacio será dedicado al contenido de la noticia.]
     </p>
     <hr />--%>
