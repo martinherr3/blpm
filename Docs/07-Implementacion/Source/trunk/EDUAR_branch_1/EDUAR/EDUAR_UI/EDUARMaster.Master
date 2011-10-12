@@ -1,0 +1,173 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true  " CodeBehind="EDUARMaster.Master.cs"
+    Inherits="EDUAR_UI.EDUARMaster" %>
+
+<%@ Register Src="UserControls/VentanaInfo.ascx" TagName="VentanaInfo" TagPrefix="uc1" %>
+<!doctype html>
+<html lang="es">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>EDU@R 2.0</title>
+    <link type="text/css" href="/EDUAR_UI/Scripts/css/smoothness/jquery-ui-1.8.16.custom.css"
+        rel="Stylesheet" />
+    <link type="text/css" rel="Stylesheet" href="/EDUAR_UI/Scripts/chosen/chosen.css" />
+    <link href="~/App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="~/favicon.ico" />
+    <script language="javascript" src="/EDUAR_UI/Scripts/General.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.js"></script>
+    <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js"></script>
+    <script type="text/javascript">
+        function timerEvent() {
+            callServerTask();
+            setTimeout("timerEvent()", 120000);
+            return false;
+        }
+
+        function callServerTask() {
+            WebForm_DoCallback('__Page', clientTime(''),
+                        putCallbackResult, null, clientErrorCallback, true);
+        }
+
+        function putCallbackResult(callbackResult) {
+            var info = document.getElementById('div_CallbackResult');
+            info.innerHTML = callbackResult;
+        }
+
+        function clientErrorCallback(error, context) {
+            //            alert('Callback failed! ' + error);
+        }
+
+        function clientTime() {
+
+        }
+    </script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body onload="javascript:setTimeout('timerEvent()', 1);" style="background-color: White">
+    <form runat="server">
+    <asp:ScriptManager ID="scmManager" runat="server" AsyncPostBackTimeout="9000" EnablePartialRendering="true"
+        ScriptMode="Release" LoadScriptsBeforeUI="false" EnableScriptLocalization="true"
+        EnableScriptGlobalization="true">
+        <Scripts>
+            <asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery-1.6.2.min.js" />
+            <asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js" />
+            <asp:ScriptReference Path="/EDUAR_UI/Scripts/chosen/chosen.jquery.js" />
+            <asp:ScriptReference Path="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js" />
+            <%--<asp:ScriptReference Path="/EDUAR_UI/Scripts/cleditor/jquery.cleditor.min.js" />
+            <asp:ScriptReference Path="/EDUAR_UI/Scripts/cleditor/jquery.cleditor.js" />--%>
+        </Scripts>
+    </asp:ScriptManager>
+    <div class="page">
+        <div class="header">
+            <div class="title">
+                <img src="/EDUAR_UI/Images/Logo_chico.png" alt="EDU@R 2.0" style="vertical-align: middle" />
+                <br />
+                <%--<asp:SiteMapPath ID="siteMapPathEDUAR" runat="server" OnPreRender="siteMapPathEDUAR_PreRender"
+                    BorderWidth="0">
+                    <PathSeparatorStyle CssClass="sitepathSeparacion" />
+                    <NodeStyle CssClass="sitepath" />
+                </asp:SiteMapPath>--%>
+            </div>
+            <div class="loginDisplay">
+                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                    <AnonymousTemplate>
+                        [ <a href="~/Public/Account/Login.aspx" id="HeadLoginStatus" runat="server">Iniciar
+                            sesión</a> ]
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        Usuario: <span class="bold">
+                            <asp:LoginName ID="HeadLoginName" runat="server" />
+                        </span>! [
+                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutText="Cerrar sesión" OnLoggingOut="HeadLoginStatus_LoggingOut" />
+                        ]
+                    </LoggedInTemplate>
+                </asp:LoginView>
+                <div id="div_CallbackResult">
+                    <a href="Private/Mensajes/MsjeEntrada.aspx" id="lnkMensajes" runat="server">
+                        <asp:Image ID="btnMail" runat="server" ImageUrl="" Visible="false" />
+                    </a>
+                </div>
+            </div>
+            <div class="clear hideSkiplink">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
+                    IncludeStyleBlock="true" Orientation="Horizontal">
+                </asp:Menu>
+                <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" ShowStartingNode="false"
+                    SiteMapProvider="WebXmlSiteMapProvider" />
+                <asp:SiteMapDataSource ID="SiteMapAnonymusEDUAR" runat="server" ShowStartingNode="false"
+                    SiteMapProvider="AnonymusXmlSiteMapProvider" />
+            </div>
+        </div>
+        <table>
+            <tr>
+                <td style="width: 150px" class="contenedormenu">
+                    <!-- MENU -->
+                    <asp:TreeView ID="trvMenu" runat="server" CollapseImageToolTip="Contraer" ExpandImageToolTip="Expander"
+                        Visible="false">
+                        <HoverNodeStyle />
+                        <RootNodeStyle />
+                        <NodeStyle />
+                        <LeafNodeStyle />
+                    </asp:TreeView>
+                    <!-- FIN MENU -->
+                </td>
+                <td style="width: 800px; min-height: 700px; height: auto; vertical-align: top">
+                    <div class="main">
+                        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="clear">
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 100%; text-align: center">
+                        Copyright (c)
+                        <%=DateTime.Now.Year.ToString() %>
+                        - BLPM - <a href="http://www.gnu.org/licenses/gpl-3.0.html" title="Licencia GNU - GPLv3"
+                            target="_blank">GPLv3</a>
+                        <br />
+                        Sitio web compatible con Mozilla Firefox<br />
+                        <a href="http://www.mozilla.org/es-ES/firefox/" target="_blank">
+                            <img src="/EDUAR_UI/Images/firefox.png" alt="Compatible con Mozilla Firefox" title="Compatible con Mozilla Firefox"
+                                style="border: 0" /></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--******** INICIO FUNCIONALIDAD UPDATE PROGRESS ********-->
+        <asp:UpdateProgress ID="updateProgress1" runat="server" DisplayAfter="0">
+            <ProgressTemplate>
+                <iframe id="ParentDiv" class="ajaxCargandoWhite" frameborder="0" scrolling="no">
+                </iframe>
+                <div class="ajaxCargando" style="position: fixed; top: 0px; vertical-align: middle;
+                    text-align: center">
+                    <table style="height: 100%" border="0">
+                        <tr>
+                            <td valign="middle">
+                                <asp:Image Style="position: absolute; top: 300px; left: 650px" ID="imgCargando" runat="server"
+                                    ToolTip="Cargando... por favor, espere unos instantes" ImageUrl="~/Images/loading.gif" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </ProgressTemplate>
+        </asp:UpdateProgress>
+        <!--******** FIN FUNCIONALIDAD UPDATE PROGRESS ********-->
+        <!--******** INICIO FUNCIONALIDAD VENTANA MENSAJES  ********-->
+        <asp:UpdatePanel ID="updVentaneMensajes" runat="server" UpdateMode="Conditional"
+            RenderMode="Inline">
+            <ContentTemplate>
+                <uc1:VentanaInfo ID="ventanaInfoMaster" runat="server" />
+            </ContentTemplate>
+        </asp:UpdatePanel>
+        <!--******** FIN FUNCIONALIDAD VENTANA MENSAJES  ********-->
+    </div>
+    <div class="footer">
+    </div>
+    </form>
+</body>
+</html>
