@@ -130,7 +130,10 @@
     <Content Include="Images\prueba.gif" />
     <Content Include="Images\ventanaConfirmacion.png" />
     <Content Include="Images\web\BoxDocument.png" />
+    <Content Include="Images\web\docentes.png" />
     <Content Include="Images\web\ideario.png" />
+    <Content Include="Images\web\Map.png" />
+    <Content Include="Images\web\organigrama.png" />
     <Content Include="Private\Account\ChangeQuestion.aspx" />
     <Content Include="Private\Account\ChangeRolAccess.aspx" />
     <Content Include="Private\Account\ChangeUser.aspx" />
