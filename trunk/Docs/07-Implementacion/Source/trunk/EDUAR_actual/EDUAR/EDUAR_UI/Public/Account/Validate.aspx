@@ -13,7 +13,7 @@
                 <ContentTemplate>
                     <h2>
                         Registrarme</h2>
-                    <p>
+                    <p class="ui-widget">
                         Necesitamos validar su identidad para poder generarle un usuario, por favor, responda
                         las preguntas a continuación.</p>
                     <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
@@ -66,7 +66,7 @@
                 <ContentTemplate>
                     <h2>
                         Nueva clave de acceso</h2>
-                    <p>
+                    <p class="ui-widget">
                         Para obtener una nueva clave de acceso responde a la siguiente pregunta.</p>
                     <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
                         <tr>
@@ -97,7 +97,7 @@
                 <ContentTemplate>
                     <h2>
                         Nueva clave de acceso</h2>
-                    <p>
+                    <p class="ui-widget">
                         Ingrese su nueva clave de acceso.</p>
                     <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
                         <tr>

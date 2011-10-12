@@ -12,7 +12,7 @@
                 <ContentTemplate>
                     <h2>
                         Olvidé Mi Clave</h2>
-                    <p>
+                    <p class="ui-widget">
                         Recupere los datos de acceso a su cuenta. Para ello, ingrese su dirección de e-mail.</p>
                     <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
                         <tr>
@@ -38,7 +38,7 @@
                 <ContentTemplate>
                     <h2>
                         Nueva clave de acceso</h2>
-                    <p>
+                    <p class="ui-widget">
                         Para obtener una nueva clave de acceso responde a la siguiente pregunta.</p>
                     <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
                         <tr>
@@ -69,7 +69,7 @@
                 <ContentTemplate>
                     <h2>
                         Nueva clave de acceso</h2>
-                    <p>
+                    <p class="ui-widget">
                         Ingrese su nueva clave de acceso.</p>
                     <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
                         <tr>

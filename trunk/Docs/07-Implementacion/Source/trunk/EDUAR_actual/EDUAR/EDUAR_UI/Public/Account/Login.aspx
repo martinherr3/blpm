@@ -9,12 +9,12 @@
     <h2>
         Iniciar sesión
     </h2>
-    <p>
+    <p class="ui-widget">
         Especifique su nombre de usuario y contraseña.
         <asp:HyperLink ID="RegisterHyperLink" runat="server" EnableViewState="false">Registrarse</asp:HyperLink>
         si no tiene una cuenta.
     </p>
-    <p>
+    <p class="ui-widget">
         Si ha olvidado su clave de ingreso haga click
         <asp:HyperLink ID="ForgotPasswordHyperLink" runat="server" EnableViewState="false">Aquí</asp:HyperLink>
     </p>
@@ -29,21 +29,21 @@
             <div class="accountInfo">
                 <fieldset class="login">
                     <legend>Información de cuenta</legend>
-                    <p>
+                    <p class="ui-widget">
                         <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Nombre de usuario:</asp:Label>
                         <asp:TextBox ID="UserName" runat="server" CssClass="textEntry"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName"
                             CssClass="failureNotification" ErrorMessage="El nombre de usuario es obligatorio."
                             ToolTip="El nombre de usuario es obligatorio." ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
                     </p>
-                    <p>
+                    <p class="ui-widget">
                         <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Contraseña:</asp:Label>
                         <asp:TextBox ID="Password" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"
                             CssClass="failureNotification" ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña es obligatoria."
                             ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
                     </p>
-                    <%--<p>
+                    <%--<p class="ui-widget">
                         <asp:CheckBox ID="RememberMe" runat="server" />
                         <asp:Label ID="RememberMeLabel" runat="server" AssociatedControlID="RememberMe" CssClass="inline">Mantenerme conectado</asp:Label>
                     </p>--%>

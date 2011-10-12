@@ -8,7 +8,8 @@
     <h2>
         EDU@R 2.0
     </h2>
-    <p>
-        Sistema de Explotación de Información Educativa.
+    <p class="ui-widget">
+        Sistema de Comunicación y Explotación de Información Educativa.
     </p>
+    <asp:Image ImageUrl="~/Images/prueba.gif" runat="server" />
 </asp:Content>

@@ -8,10 +8,10 @@
     <h2>
         Cambiar contraseña
     </h2>
-    <p>
+    <p class="ui-widget">
         Use el formulario siguiente para cambiar la contraseña.
     </p>
-    <p>
+    <p class="ui-widget">
         Las contraseñas nuevas deben tener una longitud mínima de
         <%= Membership.MinRequiredPasswordLength %>
         caracteres.
@@ -27,21 +27,21 @@
             <div class="accountInfo">
                 <fieldset class="changePassword">
                     <legend>Información de cuenta</legend>
-                    <p>
+                    <p class="ui-widget">
                         <asp:Label ID="CurrentPasswordLabel" runat="server" AssociatedControlID="CurrentPassword">Contraseña anterior:</asp:Label>
                         <asp:TextBox ID="CurrentPassword" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="CurrentPasswordRequired" runat="server" ControlToValidate="CurrentPassword"
                             CssClass="failureNotification" ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña anterior es obligatoria."
                             ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:RequiredFieldValidator>
                     </p>
-                    <p>
+                    <p class="ui-widget">
                         <asp:Label ID="NewPasswordLabel" runat="server" AssociatedControlID="NewPassword">Nueva contraseña:</asp:Label>
                         <asp:TextBox ID="NewPassword" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="NewPasswordRequired" runat="server" ControlToValidate="NewPassword"
                             CssClass="failureNotification" ErrorMessage="La nueva contraseña es obligatoria."
                             ToolTip="La nueva contraseña es obligatoria." ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:RequiredFieldValidator>
                     </p>
-                    <p>
+                    <p class="ui-widget">
                         <asp:Label ID="ConfirmNewPasswordLabel" runat="server" AssociatedControlID="ConfirmNewPassword">Confirmar la nueva contraseña:</asp:Label>
                         <asp:TextBox ID="ConfirmNewPassword" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="ConfirmNewPasswordRequired" runat="server" ControlToValidate="ConfirmNewPassword"

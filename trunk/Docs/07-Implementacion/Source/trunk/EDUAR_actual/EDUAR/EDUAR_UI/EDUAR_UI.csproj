@@ -109,6 +109,7 @@
     <Content Include="Images\chart-line.png" />
     <Content Include="Images\chart-pie.png" />
     <Content Include="Images\chart-polar.png" />
+    <Content Include="Images\Construction.png" />
     <Content Include="Images\dialog-more.png" />
     <Content Include="Images\ExportarGrafico.png" />
     <Content Include="Images\ExportarPDF.png" />
@@ -126,7 +127,10 @@
     <Content Include="Images\Paginador\go-last-view.png" />
     <Content Include="Images\Paginador\go-next-view.png" />
     <Content Include="Images\Paginador\go-previous-view.png" />
+    <Content Include="Images\prueba.gif" />
     <Content Include="Images\ventanaConfirmacion.png" />
+    <Content Include="Images\web\BoxDocument.png" />
+    <Content Include="Images\web\ideario.png" />
     <Content Include="Private\Account\ChangeQuestion.aspx" />
     <Content Include="Private\Account\ChangeRolAccess.aspx" />
     <Content Include="Private\Account\ChangeUser.aspx" />

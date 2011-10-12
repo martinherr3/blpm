@@ -8,7 +8,7 @@
     <h2>
         Cambiar contraseña
     </h2>
-    <p>
+    <p class="ui-widget">
         La contraseña se ha cambiado correctamente.
     </p>
 </asp:Content>

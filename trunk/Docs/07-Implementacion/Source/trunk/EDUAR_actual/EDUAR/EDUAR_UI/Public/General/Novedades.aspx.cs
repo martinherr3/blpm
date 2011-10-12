@@ -72,7 +72,7 @@ namespace EDUAR_UI
 
             foreach (EventoInstitucional evento in listEventoInstitucional)
             {
-                udpNovedades.ContentTemplateContainer.Controls.Add(new LiteralControl("<h3>" + evento.titulo.ToUpper() + " - <small>" + evento.fecha.ToShortDateString() + "</small></h3>"));
+                udpNovedades.ContentTemplateContainer.Controls.Add(new LiteralControl("<h3>" + evento.titulo.ToUpper() + " - " + evento.fecha.ToShortDateString() + "</h3>"));
                 //udpNovedades.ContentTemplateContainer.Controls.Add(new LiteralControl());
                 udpNovedades.ContentTemplateContainer.Controls.Add(new LiteralControl("<p>" + evento.lugar + "</p>"));
                 udpNovedades.ContentTemplateContainer.Controls.Add(new LiteralControl("<p>" + evento.detalle + "</p><hr />"));
