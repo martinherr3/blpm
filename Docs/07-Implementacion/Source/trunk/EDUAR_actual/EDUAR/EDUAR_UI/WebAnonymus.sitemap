@@ -4,11 +4,11 @@
         <siteMapNode url="~/Default.aspx" title="Inicio" />
         <siteMapNode url="" title="Institucional" >
             <siteMapNode url="~/Public/General/Historia.aspx" title="Historia"/>
-            <siteMapNode url="~/Public/General/Ideario.aspx" title="Vision"/>
-            <siteMapNode url="~/Public/General/Localizacion.aspx" title="Localizacion"/>
+            <siteMapNode url="~/Public/General/Ideario.aspx" title="Visión"/>
+            <siteMapNode url="~/Public/General/Localizacion.aspx" title="Localización"/>
         </siteMapNode>
         <siteMapNode url="" title="Equipo Educativo" >
-            <siteMapNode url="~/Public/General/Organizacion.aspx" title="Organizacion"/>
+            <siteMapNode url="~/Public/General/Organizacion.aspx" title="Organización"/>
             <siteMapNode url="~/Public/General/Docentes.aspx" title="Docentes"/>
         </siteMapNode>
         <siteMapNode url="~/Public/General/Novedades.aspx" title="Novedades" />

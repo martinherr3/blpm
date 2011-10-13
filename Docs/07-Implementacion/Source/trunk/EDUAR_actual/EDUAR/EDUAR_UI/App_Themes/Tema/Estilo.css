@@ -122,6 +122,7 @@ first child of the left and right table columns */
     margin: 12px 8px 8px 8px;
     min-height: 420px;
     width: 90%;
+    min-width: 1000px;
     vertical-align:text-top;
 }
 
