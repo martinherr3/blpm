@@ -187,8 +187,6 @@ namespace EDUAR_UI
 						CargarMensajeEnPantalla(idMensajeDestinatario);
 						GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
 						gvwReporte.Rows[row.RowIndex].BackColor = Color.Gainsboro;
-
-
 						break;
 					case "Responder":
 						objMensaje = new Mensaje();
@@ -196,7 +194,7 @@ namespace EDUAR_UI
 						txtAsunto.Text = "Re: " + objMensaje.asuntoMensaje;
 						lblDestinatario.Text = objMensaje.remitente.apellido + "  " + objMensaje.remitente.nombre;
 						hdfDestinatario.Value = objMensaje.remitente.idPersona.ToString();
-						textoMensaje.contenido = "<br /><hr />" + objMensaje.textoMensaje;
+                        textoMensaje.contenido = "<br /><hr style='border-style: dashed' />" + objMensaje.textoMensaje;
 						btnEnviar.Visible = true;
 						btnVolver.Visible = true;
 						btnEliminar.Visible = false;
@@ -455,7 +453,7 @@ namespace EDUAR_UI
 				CargarGrilla();
 			}
 			litAsunto.Text = objMensaje.asuntoMensaje;
-			litFecha.Text = objMensaje.fechaEnvio.ToShortDateString() + " " + objMensaje.horaEnvio.Hour.ToString() + ":" + objMensaje.horaEnvio.Minute.ToString();
+            litFecha.Text = objMensaje.fechaEnvio.ToShortDateString() + " " + objMensaje.horaEnvio.Hour.ToString().PadLeft(2, '0') + ":" + objMensaje.horaEnvio.Minute.ToString().PadLeft(2, '0');
 			litRemitente.Text = objMensaje.remitente.apellido + "  " + objMensaje.remitente.nombre + " <b>(" + objMensaje.remitente.tipoPersona.nombre + ")</b>";
 			litContenido.Text = objMensaje.textoMensaje;
 			divContenido.Visible = true;

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode url="" title="EDUAR" description="Portal EDUAR" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
-        <siteMapNode url="~/Default.aspx" title="Inicio" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
+        <siteMapNode url="~/Default.aspx" title="Inicio" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" >
         </siteMapNode>
         <siteMapNode url="" title="Agenda" roles="Administrador,Docente" >
             <siteMapNode url="~/Private/Agenda/ManageAgendaActividades.aspx" title="Actividades" roles="Administrador,Docente" />
@@ -25,7 +25,6 @@
             <siteMapNode url="~/Private/Reports/reportInasistenciasAlumnoPeriodo.aspx" title="Inasistencias" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" />
             <siteMapNode url="~/Private/Reports/reportSancionesAlumnoPeriodo.aspx" title="Sanciones" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" />
             <siteMapNode url="~/Private/Reports/reportPromedios.aspx" title="Informes consolidados" roles="Administrador,Director,Docente,Psicopedagogo" />
-            <!--<siteMapNode url="~/Private/Reports/PrintReport.aspx" title="Imprimir Informe" visible="false" roles="Administrador,Director,Docente,Psicopedagogo" />-->
         </siteMapNode>
         <!--<siteMapNode url="" title="Historicos" roles="Administrador" >
             <siteMapNode url="~/Private/Reports/Historicos/reportRendimiento.aspx" title="Rendimiento" roles="Administrador" />
