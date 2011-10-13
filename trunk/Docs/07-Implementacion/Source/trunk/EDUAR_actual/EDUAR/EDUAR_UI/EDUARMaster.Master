@@ -62,11 +62,8 @@
                     <td style="width: 50%">
                         <div class="title">
                             <img src="/EDUAR_UI/Images/Logo_chico.png" alt="EDU@R 2.0" style="vertical-align: middle" />
-                            <%--<br />--%>
                         </div>
                     </td>
-                    <%--</tr>
-                <tr>--%>
                     <td style="width: 50%">
                         <div class="loginDisplay">
                             <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
@@ -98,6 +95,10 @@
                                                 Bienvenido(a) <span class="bold">
                                                     <asp:LoginName ID="HeadLoginName" runat="server" />
                                                 </span>!
+                                                <div id="div_CallbackResult">
+                                                    <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl="/EDUAR_UI/Images/mail-new-message.gif"
+                                                        OnClick="btnMensaje_Click" Style="margin-right: 50px" />
+                                                </div>
                                             </td>
                                             <td align="center" style="width: 20%">
                                                 <asp:ImageButton ID="btnLogout" ImageUrl="~/Images/web/user-online.png" OnClick="btnLogout_Click"
@@ -116,18 +117,13 @@
                                     </table>
                                 </LoggedInTemplate>
                             </asp:LoginView>
-                            <div id="div_CallbackResult">
-                                <a href="Private/Mensajes/MsjeEntrada.aspx" id="lnkMensajes" runat="server">
-                                    <asp:Image ID="btnMail" runat="server" ImageUrl="" Visible="false" />
-                                </a>
-                            </div>
                         </div>
                     </td>
                 </tr>
             </table>
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
-                    IncludeStyleBlock="true" Orientation="Horizontal">
+                    IncludeStyleBlock="true" Orientation="Horizontal" >
                 </asp:Menu>
                 <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" ShowStartingNode="false"
                     SiteMapProvider="WebXmlSiteMapProvider" />

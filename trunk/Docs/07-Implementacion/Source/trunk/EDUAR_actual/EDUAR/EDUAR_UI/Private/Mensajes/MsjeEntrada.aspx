@@ -68,6 +68,8 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblRemitente" runat="server" Text='<%# String.Format("{0} {1}", Eval("remitente.nombre"), Eval("remitente.apellido")) %>'
                                         Font-Bold='<%# Boolean.Parse(Eval("leido").ToString()) ? false : true  %>'></asp:Label>
+                                    <asp:Label ID="lblRol" runat="server" Text='<%# String.Format("({0})", Eval("remitente.tipoPersona.nombre")) %>'
+                                        Font-Bold="true"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Asunto">
@@ -170,7 +172,7 @@
                         </td>
                     </tr>
                 </table>--%>
-                <table class="tablaInterna" width="100%">
+                <table class="tablaInternaMensajes" width="100%">
                     <tr>
                         <td class="TD20">
                             Destinatario
