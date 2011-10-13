@@ -121,6 +121,7 @@
     <Content Include="Images\Grillas\mail-reply-2.png" />
     <Content Include="Images\mail-delete.png" />
     <Content Include="Images\mail-inbox.png" />
+    <Content Include="Images\mail-new-message.gif" />
     <Content Include="Images\mail-unread.png" />
     <Content Include="Images\Paginador\go-first-view.png" />
     <Content Include="Images\Paginador\go-last-view.png" />
@@ -134,16 +135,18 @@
     <Content Include="Images\web\Construction.png" />
     <Content Include="Images\web\docentes.png" />
     <Content Include="Images\web\ideario.png" />
-    <Content Include="Images\web\login.png" />
     <Content Include="Images\web\mail-new.png" />
     <Content Include="Images\web\Map.png" />
     <Content Include="Images\web\organigrama.png" />
+    <Content Include="Images\web\user-offline.png" />
+    <Content Include="Images\web\user-online.png" />
     <Content Include="Private\Account\ChangeQuestion.aspx" />
     <Content Include="Private\Account\ChangeRolAccess.aspx" />
     <Content Include="Private\Account\ChangeUser.aspx" />
     <Content Include="Private\Account\ChangePassword.aspx" />
     <Content Include="Private\Account\ChangePasswordSuccess.aspx" />
     <Content Include="Private\Account\Profiles.aspx" />
+    <Content Include="Private\Account\Welcome.aspx" />
     <Content Include="Private\Agenda\ManageAgendaActividades.aspx" />
     <Content Include="Private\Agenda\ManageEvaluaciones.aspx" />
     <Content Include="Private\Agenda\ManageExcursiones.aspx" />
@@ -297,6 +300,13 @@
     </Compile>
     <Compile Include="Private\Account\Profiles.aspx.designer.cs">
       <DependentUpon>Profiles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Account\Welcome.aspx.cs">
+      <DependentUpon>Welcome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Account\Welcome.aspx.designer.cs">
+      <DependentUpon>Welcome.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Agenda\ManageAgendaActividades.aspx.cs">
       <DependentUpon>ManageAgendaActividades.aspx</DependentUpon>

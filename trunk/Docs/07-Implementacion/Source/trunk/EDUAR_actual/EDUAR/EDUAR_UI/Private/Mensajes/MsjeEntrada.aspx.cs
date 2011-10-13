@@ -10,9 +10,9 @@ using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Constantes;
 using System.Drawing;
-
-//TODO: botón Eliminar mensaje, Responder.
-//TODO: filtrar destinatarios según el usuario logueado.
+using System.Text;
+using System.IO;
+using System.Web;
 
 namespace EDUAR_UI
 {
@@ -22,7 +22,6 @@ namespace EDUAR_UI
 		private BLMensaje objBLMensaje;
 
 		PagedDataSource pds = new PagedDataSource();
-
 		#endregion
 
 		#region --[Propiedades]--
@@ -188,6 +187,8 @@ namespace EDUAR_UI
 						CargarMensajeEnPantalla(idMensajeDestinatario);
 						GridViewRow row = (GridViewRow)((Control)e.CommandSource).NamingContainer;
 						gvwReporte.Rows[row.RowIndex].BackColor = Color.Gainsboro;
+
+
 						break;
 					case "Responder":
 						objMensaje = new Mensaje();
