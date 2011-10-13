@@ -140,7 +140,8 @@
                 </table>
             </div>
             <div id="divContenido" runat="server" style="padding: 5px 5px 5px 5px; border-top: 1px solid black;
-                border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; overflow: visible">
+                border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black;
+                overflow: visible">
                 <div style="min-height: 250px; height: auto; overflow: visible">
                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
