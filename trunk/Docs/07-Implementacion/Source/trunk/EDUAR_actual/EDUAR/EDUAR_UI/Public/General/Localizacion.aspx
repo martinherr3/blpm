@@ -9,18 +9,28 @@
         <tr>
             <td style="width: 80%; vertical-align: text-top">
                 <h2>
-                    Ubicacion<hr />
+                    Ubicación
+                    <hr />
                 </h2>
             </td>
             <td style="width: 20%; text-align: right" rowspan="2">
-                <asp:Image ID="Image1" ImageUrl="~/Images/web/map.png" runat="server" ToolTip="Mision, Vision y Valores"
-                    AlternateText="Mision, Vision y Valores" />
+                <asp:Image ID="Image1" ImageUrl="~/Images/web/map.png" runat="server" ToolTip="Ubicación"
+                    AlternateText="Ubicación" />
             </td>
         </tr>
         <tr>
             <td style="width: 80%">
+                <h3>
+                    Mapa</h3>
                 <p class="ui-widget">
-                    Mapa</p>
+                    [En esta sección se puede encontrar un mapa indicando la ubicación del establecimiento.]
+                </p>
+            </td>
+        </tr>
+    </table>
+    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+        <tr>
+            <td style="width: 100%">
             </td>
         </tr>
     </table>

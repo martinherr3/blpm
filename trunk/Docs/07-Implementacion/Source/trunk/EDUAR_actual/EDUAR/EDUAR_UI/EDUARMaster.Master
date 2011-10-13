@@ -53,43 +53,62 @@
         <Scripts>
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery-1.6.2.min.js" />
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js" />
-            <asp:ScriptReference Path="/EDUAR_UI/Scripts/chosen/chosen.jquery.js" />
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js" />
-            <%--<asp:ScriptReference Path="/EDUAR_UI/Scripts/cleditor/jquery.cleditor.min.js" />
-            <asp:ScriptReference Path="/EDUAR_UI/Scripts/cleditor/jquery.cleditor.js" />--%>
         </Scripts>
     </asp:ScriptManager>
     <div class="page">
         <div class="header">
-            <div class="title">
-                <img src="/EDUAR_UI/Images/Logo_chico.png" alt="EDU@R 2.0" style="vertical-align: middle" />
-                <br />
-                <%--<asp:SiteMapPath ID="siteMapPathEDUAR" runat="server" OnPreRender="siteMapPathEDUAR_PreRender"
-                    BorderWidth="0">
-                    <PathSeparatorStyle CssClass="sitepathSeparacion" />
-                    <NodeStyle CssClass="sitepath" />
-                </asp:SiteMapPath>--%>
-            </div>
-            <div class="loginDisplay">
-                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
-                    <AnonymousTemplate>
-                        [ <a href="~/Public/Account/Login.aspx" id="HeadLoginStatus" runat="server">Iniciar
-                            sesión</a> ]
-                    </AnonymousTemplate>
-                    <LoggedInTemplate>
-                        Usuario: <span class="bold">
-                            <asp:LoginName ID="HeadLoginName" runat="server" />
-                        </span>! [
-                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutText="Cerrar sesión" OnLoggingOut="HeadLoginStatus_LoggingOut" />
-                        ]
-                    </LoggedInTemplate>
-                </asp:LoginView>
-                <div id="div_CallbackResult">
-                    <a href="Private/Mensajes/MsjeEntrada.aspx" id="lnkMensajes" runat="server">
-                        <asp:Image ID="btnMail" runat="server" ImageUrl="" Visible="false" />
-                    </a>
-                </div>
-            </div>
+            <table border="0" cellpadding="1" cellspacing="5" style="width: 100%;">
+                <tr>
+                    <td style="width: 50%">
+                        <div class="title">
+                            <img src="/EDUAR_UI/Images/Logo_chico.png" alt="EDU@R 2.0" style="vertical-align: middle" />
+                            <%--<br />--%>
+                        </div>
+                    </td>
+                <%--</tr>
+                <tr>--%>
+                    <td style="width: 50%">
+                        <div class="loginDisplay">
+                            <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                                <AnonymousTemplate>
+                                    <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; text-align: right">
+                                        <tr>
+                                            <td style="width: 80%">
+                                            </td>
+                                            <td align="center" style="width: 20%">
+                                                <a href="~/Public/Account/Login.aspx" id="A1" runat="server" style="text-decoration: none">
+                                                    <asp:Image ID="Image1" ImageUrl="~/Images/web/login.png" runat="server" AlternateText="Iniciar Sesión"
+                                                        ToolTip="Iniciar Sesión" /></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 80%">
+                                            </td>
+                                            <td align="center" style="width: 20%">
+                                                [ <a href="~/Public/Account/Login.aspx" id="HeadLoginStatus" runat="server">Iniciar
+                                                    Sesión</a> ]
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </AnonymousTemplate>
+                                <LoggedInTemplate>
+                                    Usuario: <span class="bold">
+                                        <asp:LoginName ID="HeadLoginName" runat="server" />
+                                    </span>! [
+                                    <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutText="Cerrar sesión" OnLoggingOut="HeadLoginStatus_LoggingOut" />
+                                    ]
+                                </LoggedInTemplate>
+                            </asp:LoginView>
+                            <div id="div_CallbackResult">
+                                <a href="Private/Mensajes/MsjeEntrada.aspx" id="lnkMensajes" runat="server">
+                                    <asp:Image ID="btnMail" runat="server" ImageUrl="" Visible="false" />
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
                     IncludeStyleBlock="true" Orientation="Horizontal">
