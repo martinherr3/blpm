@@ -115,6 +115,7 @@ namespace EDUAR_UI
                 rptAccesos.VolverClick += (VolverReporte);
                 rptAccesos.PaginarGrilla += (PaginarGrilla);
                 rptAccesos.GraficarClick += (btnGraficar);
+                rptAccesos.OrdenarGrilla += (OrdenarGrilla);
 
                 if (!Page.IsPostBack)
                 {
@@ -124,7 +125,9 @@ namespace EDUAR_UI
                     divFiltros.Visible = true;
                     divReporte.Visible = false;
                 }
-                BuscarAccesos();
+                //BuscarAccesos();
+                if (listaAcceso != null)
+                    rptAccesos.CargarReporte<RptAccesos>(listaAcceso);
             }
             catch (Exception ex)
             {
@@ -144,8 +147,8 @@ namespace EDUAR_UI
             {
                 if (fechas.ValorFechaDesde.ToString() == string.Empty)
                     fechas.FechaDesde.Text = DateTime.Now.AddDays(-7).ToShortDateString();
-				if (fechas.ValorFechaHasta.ToString() == string.Empty)
-					fechas.FechaHasta.Text = DateTime.Now.ToShortDateString();
+                if (fechas.ValorFechaHasta.ToString() == string.Empty)
+                    fechas.FechaHasta.Text = DateTime.Now.ToShortDateString();
                 fechas.ValidarRangoDesdeHasta(true);
                 BuscarAccesos();
                 divFiltros.Visible = false;
@@ -308,6 +311,15 @@ namespace EDUAR_UI
             {
                 Master.ManageExceptions(ex);
             }
+        }
+
+        protected void OrdenarGrilla(object sender, GridViewSortEventArgs e)
+        {
+            rptAccesos.GridSampleSortExpression = e.SortExpression;
+            int pageIndex = rptAccesos.GrillaReporte.PageIndex;
+            rptAccesos.GrillaReporte.DataSource = rptAccesos.sortDataView(rptAccesos.GrillaReporte.DataSource as DataView, false);
+            rptAccesos.GrillaReporte.DataBind();
+            rptAccesos.GrillaReporte.PageIndex = pageIndex;
         }
         #endregion
 
