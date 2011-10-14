@@ -252,6 +252,7 @@ namespace EDUAR_UI.Utilidades
 				// Create the dynamic templates and assign them to 
 				// the appropriate template property.
 				customField.ItemTemplate = new GridViewTemplate(DataControlRowType.DataRow, prop.Name, prop.PropertyType.Name);
+                customField.SortExpression = prop.Name;
 
 				switch (prop.PropertyType.Name)
 				{
@@ -269,7 +270,9 @@ namespace EDUAR_UI.Utilidades
 				// Add the field column to the Columns collection of the
 				// GridView control.
 				grilla.Columns.Add(customField);
+                grilla.Columns[grilla.Columns.Count - 1].SortExpression = prop.Name;
 			}
+            grilla.AllowSorting = true;
 			return grilla;
 		}
 
@@ -290,8 +293,9 @@ namespace EDUAR_UI.Utilidades
 				// Create the dynamic templates and assign them to 
 				// the appropriate template property.
 				customField.ItemTemplate = new GridViewTemplate(DataControlRowType.DataRow, columna.ColumnName, columna.DataType.Name);
-
-				switch (columna.DataType.Name)
+                customField.SortExpression = columna.ColumnName;
+				
+                switch (columna.DataType.Name)
 				{
 					case "DateTime":
 					case "Int16":
@@ -307,8 +311,11 @@ namespace EDUAR_UI.Utilidades
 				// Add the field column to the Columns collection of the
 				// GridView control.
 				grilla.Columns.Add(customField);
+                grilla.Columns[grilla.Columns.Count - 1].SortExpression = columna.ColumnName;
 			}
-			return grilla;
+            grilla.AllowSorting = true;
+
+            return grilla;
 		}
 
 		#region sorting methods
@@ -459,9 +466,9 @@ namespace EDUAR_UI.Utilidades
 				case DataControlRowType.Header:
 					// Create the controls to put in the header
 					// section and set their properties.
-					Literal lc = new Literal();
+                    LinkButton lc = new LinkButton();
 					lc.Text = "<b>" + columnName + "</b>";
-
+                    lc.CommandArgument = columnName;
 					// Add the controls to the Controls collection
 					// of the container.
 					container.Controls.Add(lc);

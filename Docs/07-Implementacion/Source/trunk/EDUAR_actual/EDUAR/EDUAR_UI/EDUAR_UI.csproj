@@ -622,7 +622,9 @@
     <Content Include="App_Themes\Tema\Skin.skin" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Public\web.config" />
+    <Content Include="Public\web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Private\Account\web.config" />
