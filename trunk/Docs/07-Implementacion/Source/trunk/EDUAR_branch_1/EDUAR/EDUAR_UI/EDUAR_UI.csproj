@@ -613,9 +613,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1246</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/EDUAR_UI</IISUrl>
+          <IISUrl>http://localhost/EDUAR_UI_branch_1</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost/EDUAR_UI</IISAppRootUrl>
+          <IISAppRootUrl>http://localhost/EDUAR_UI_branch_1</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
