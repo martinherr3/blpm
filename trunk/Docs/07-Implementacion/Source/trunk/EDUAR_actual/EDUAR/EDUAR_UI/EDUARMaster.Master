@@ -1,7 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true  " CodeBehind="EDUARMaster.Master.cs"
     Inherits="EDUAR_UI.EDUARMaster" %>
 
-<%@ Register Src="UserControls/VentanaInfo.ascx" TagName="VentanaInfo" TagPrefix="uc1" %>
+<%@ Register Src="~/UserControls/VentanaInfo.ascx" TagName="VentanaInfo" TagPrefix="uc1" %>
 <!doctype html>
 <html lang="es">
 <head runat="server">
