@@ -31,14 +31,14 @@ namespace EDUAR_Entities
             cursoCicloLectivo = new CursoCicloLectivo();
         }
 
-        public Asignatura(int idCurso)
+        public Asignatura(int idCursoCicloLectivo)
         {
             listaContenidos = new List<Contenido>();
             curso = new Curso();
-            curso.idCurso = idCurso;
             diasHorarios = new DiasHorarios();
             docente = new Docente();
             cursoCicloLectivo = new CursoCicloLectivo();
+			cursoCicloLectivo.idCursoCicloLectivo = idCursoCicloLectivo;
         }
 
         ~Asignatura()
