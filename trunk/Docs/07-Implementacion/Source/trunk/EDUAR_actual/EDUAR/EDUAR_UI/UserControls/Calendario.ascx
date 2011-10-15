@@ -20,8 +20,9 @@
                     <asp:Image ID="imgFechaDesde_DA" runat="server" ImageUrl="~/Images/calendario.png"
                         ImageAlign="top" />
                     <cc1:CalendarExtender ID="calExtFechaDesde_DA" runat="server" TargetControlID="txtFechaDesde_DA"
-                        Format="dd/MM/yyyy" PopupButtonID="imgFechaDesde_DA">
+                        Format="dd/MM/yyyy" PopupButtonID="imgFechaDesde_DA" Animated="true">
                     </cc1:CalendarExtender>
+                   
                 </div>
             </td>
             <td style="vertical-align: middle; width: 25%">
@@ -39,7 +40,7 @@
                     <asp:Image ID="imgFechaHasta_DA" runat="server" ImageUrl="~/Images/calendario.png"
                         ImageAlign="top" />
                     <cc1:CalendarExtender ID="calExtFechaHasta_DA" runat="server" TargetControlID="txtFechaHasta_DA"
-                        Format="dd/MM/yyyy" PopupButtonID="imgFechaHasta_DA">
+                        Format="dd/MM/yyyy" PopupButtonID="imgFechaHasta_DA" Animated="true">
                     </cc1:CalendarExtender>
                 </div>
             </td>
@@ -63,7 +64,7 @@
                     </cc1:MaskedEditExtender>
                     <asp:Image ID="imgFechaDesde" runat="server" ImageUrl="~/Images/calendario.png" ImageAlign="top" />
                     <cc1:CalendarExtender ID="calExtDesde" runat="server" TargetControlID="txtFechaDesde"
-                        Format="dd/MM/yyyy" PopupButtonID="imgFechaDesde">
+                        Format="dd/MM/yyyy" PopupButtonID="imgFechaDesde" Animated="true">
                     </cc1:CalendarExtender>
                 </div>
             </td>
@@ -78,6 +79,6 @@
     </cc1:MaskedEditExtender>
     <asp:Image ID="imgFecha" runat="server" ImageUrl="~/Images/calendario.png" ImageAlign="top" />
     <cc1:CalendarExtender ID="calExtFecha" runat="server" TargetControlID="txtFecha"
-        Format="dd/MM/yyyy" PopupButtonID="imgFecha">
+        Format="dd/MM/yyyy" PopupButtonID="imgFecha" Animated="true">
     </cc1:CalendarExtender>
 </div>

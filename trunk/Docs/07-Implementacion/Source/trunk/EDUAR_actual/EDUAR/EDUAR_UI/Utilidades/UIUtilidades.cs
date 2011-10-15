@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using EDUAR_Utility.Enumeraciones;
 using System.Collections;
 using System.IO;
+using System.Web;
+using System.Text;
 
 namespace EDUAR_UI.Utilidades
 {
@@ -363,6 +365,7 @@ namespace EDUAR_UI.Utilidades
 			}
 		}
 		#endregion
+
 	}
 
 	#region Combo Comparers

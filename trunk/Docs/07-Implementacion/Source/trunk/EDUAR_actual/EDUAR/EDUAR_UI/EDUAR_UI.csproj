@@ -37,9 +37,13 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=4.1.50401.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+    <Reference Include="AjaxControlToolkit, Version=4.1.50927.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxControlToolkit.resources, Version=4.1.50927.0, Culture=es, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\AjaxControlToolkit.resources.dll</HintPath>
     </Reference>
     <Reference Include="AntiXSSLibrary, Version=4.0.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -86,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DLL\AjaxControlToolkit.dll" />
+    <Content Include="DLL\AjaxControlToolkit.resources.dll" />
     <Content Include="DLL\AntiXSSLibrary.dll" />
     <Content Include="DLL\HtmlSanitizationLibrary.dll" />
     <Content Include="DLL\itextsharp.dll" />
@@ -176,7 +181,7 @@
     <Content Include="Private\Reports\reportPromedios.aspx" />
     <Content Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx" />
     <Content Include="Public\Account\ForgotPassword.aspx" />
-    <Content Include="Public\Account\Login.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="Private\Account\RegisterUser.aspx" />
     <Content Include="Public\Account\Register.aspx" />
     <Content Include="Images\botonBuscar.png" />
@@ -254,7 +259,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="WebServices\SrvDestinatario.asmx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.aspx.cs">
@@ -439,11 +443,11 @@
     <Compile Include="Public\Account\ForgotPassword.aspx.designer.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Public\Account\Login.aspx.cs">
+    <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Public\Account\Login.aspx.designer.cs">
+    <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Account\RegisterUser.aspx.cs">
@@ -581,10 +585,6 @@
     </Compile>
     <Compile Include="Utilidades\ExportPDF.cs" />
     <Compile Include="Utilidades\UIUtilidades.cs" />
-    <Compile Include="WebServices\SrvDestinatario.asmx.cs">
-      <DependentUpon>SrvDestinatario.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

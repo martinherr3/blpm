@@ -51,7 +51,7 @@ namespace EDUAR_UI
 			{
 				//Llama a la funcionalidad que redirecciona a la pagina de Login cuando finaliza el tiempo de session
 				((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
-
+				
 				if (ObjSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty)
 					HttpContext.Current.User = null;
 
@@ -131,7 +131,7 @@ namespace EDUAR_UI
 			try
 			{
 				HeadLoginStatus_LoggingOut(sender, null);
-				Response.Redirect("~/Public/Account/Login.aspx", false);
+				Response.Redirect("~/Login.aspx", false);
 			}
 			catch (Exception ex)
 			{
@@ -150,7 +150,7 @@ namespace EDUAR_UI
 			{
 				UIUtilidades.EliminarArchivosSession(Session.SessionID);
 				LoginStatus control = ((LoginStatus)Page.Master.FindControl("HeadLoginView").FindControl("HeadLoginStatus"));
-				control.LogoutPageUrl = "~/Public/Account/Login.aspx";
+				control.LogoutPageUrl = "~/Login.aspx";
 				control.LogoutAction = LogoutAction.RedirectToLoginPage;
 				Session.Clear();
 				FormsAuthentication.SignOut();

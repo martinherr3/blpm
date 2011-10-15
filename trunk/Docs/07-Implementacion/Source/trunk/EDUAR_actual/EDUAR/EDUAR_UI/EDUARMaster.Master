@@ -73,7 +73,7 @@
                                             <td style="width: 80%">
                                             </td>
                                             <td align="center" style="width: 20%">
-                                                <a href="~/Public/Account/Login.aspx" id="A1" runat="server" style="text-decoration: none">
+                                                <a href="~/Login.aspx" id="A1" runat="server" style="text-decoration: none">
                                                     <asp:Image ID="Image1" ImageUrl="~/Images/web/user-offline.png" runat="server" AlternateText="Iniciar Sesión"
                                                         ToolTip="Iniciar Sesión" /></a>
                                             </td>
@@ -82,7 +82,7 @@
                                             <td style="width: 80%">
                                             </td>
                                             <td align="center" style="width: 20%">
-                                                [ <a href="~/Public/Account/Login.aspx" id="HeadLoginStatus" runat="server">Iniciar
+                                                [ <a href="~/Login.aspx" id="HeadLoginStatus" runat="server">Iniciar
                                                     Sesión</a> ]
                                             </td>
                                         </tr>
