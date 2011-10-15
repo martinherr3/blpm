@@ -102,6 +102,30 @@ namespace EDUAR_UI
                 ViewState["listaTipoSancion"] = value;
             }
         }
+
+		/// <summary>
+		/// Gets or sets the lista ciclo lectivo.
+		/// </summary>
+		/// <value>
+		/// The lista ciclo lectivo.
+		/// </value>
+		public List<CicloLectivo> listaCicloLectivo
+		{
+			get
+			{
+				if (ViewState["listaCicloLectivo"] == null)
+				{
+					listaCicloLectivo = new List<CicloLectivo>();
+					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+					listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
+				}
+				return (List<CicloLectivo>)ViewState["listaCicloLectivo"];
+			}
+			set
+			{
+				ViewState["listaCicloLectivo"] = value;
+			}
+		}
         #endregion
 
         #region --[Eventos]--
@@ -178,7 +202,7 @@ namespace EDUAR_UI
         {
             try
             {
-                fechas.ValidarRangoDesdeHasta();
+                fechas.ValidarRangoDesdeHasta(false);
                 if (BuscarSanciones())
                 {
                     divFiltros.Visible = false;
@@ -256,6 +280,8 @@ namespace EDUAR_UI
             try
             {
                 int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+				fechas.startDate = listaCicloLectivo.Find(p => p.idCicloLectivo == idCicloLectivo).fechaInicio;
+				fechas.endDate = listaCicloLectivo.Find(p => p.idCicloLectivo == idCicloLectivo).fechaFin;
                 CargarComboCursos(idCicloLectivo, ddlCurso);
                 ddlAlumno.Items.Clear();
                 ddlAlumno.Enabled = false;
@@ -534,10 +560,6 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarCombos()
         {
-            List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
-            BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-            listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
-
             List<Curso> listaCurso = new List<Curso>();
             UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
             UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
@@ -545,6 +567,8 @@ namespace EDUAR_UI
             if (ddlCicloLectivo.Items.Count > 0)
             {
                 ddlCicloLectivo.SelectedIndex = ddlCicloLectivo.Items.Count - 1;
+				fechas.startDate = listaCicloLectivo.Find(p => p.idCicloLectivo == Convert.ToInt16(ddlCicloLectivo.SelectedValue)).fechaInicio;
+				fechas.endDate = listaCicloLectivo.Find(p => p.idCicloLectivo == Convert.ToInt16(ddlCicloLectivo.SelectedValue)).fechaFin;
                 CargarComboCursos(Convert.ToInt16(ddlCicloLectivo.SelectedValue), ddlCurso);
                 ddlCurso.Enabled = true;
                 ddlCurso.SelectedIndex = -1;

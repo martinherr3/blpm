@@ -2,10 +2,11 @@
     Inherits="EDUAR_UI.Login" %>
 
 <%@ Register Src="~/UserControls/VentanaInfo.ascx" TagName="VentanaInfo" TagPrefix="uc1" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<html lang="es">
 <head id="Head1" runat="server">
     <title title="Iniciar Sesión"></title>
+    <link rel="icon" type="image/png" href="~/favicon.ico" />
     <link href="~/App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
 </head>
 <body style="background-color: White">

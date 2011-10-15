@@ -23,8 +23,15 @@
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
                 <td valign="top" colspan="4" class="TDCriterios100">
-                    <cal:Calendario ID="fechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
-                        EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <cal:Calendario ID="fechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
+                                EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
                 </td>
             </tr>
             <tr>

@@ -149,7 +149,7 @@ namespace EDUAR_UI
                     fechas.FechaDesde.Text = DateTime.Now.AddDays(-7).ToShortDateString();
                 if (fechas.ValorFechaHasta.ToString() == string.Empty)
                     fechas.FechaHasta.Text = DateTime.Now.ToShortDateString();
-                fechas.ValidarRangoDesdeHasta(true);
+                fechas.ValidarRangoDesdeHasta(false);
                 BuscarAccesos();
                 divFiltros.Visible = false;
                 divReporte.Visible = true;

@@ -22,7 +22,6 @@
                     <cc1:CalendarExtender ID="calExtFechaDesde_DA" runat="server" TargetControlID="txtFechaDesde_DA"
                         Format="dd/MM/yyyy" PopupButtonID="imgFechaDesde_DA" Animated="true">
                     </cc1:CalendarExtender>
-                   
                 </div>
             </td>
             <td style="vertical-align: middle; width: 25%">
