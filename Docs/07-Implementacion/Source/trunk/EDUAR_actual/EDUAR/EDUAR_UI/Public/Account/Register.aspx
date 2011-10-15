@@ -19,11 +19,11 @@
                     <p class="ui-widget">
                         Use el formulario siguiente para crear una cuenta nueva.
                     </p>
-                    <%--<p class="ui-widget">
+                    <p class="ui-widget">
                         Las contraseñas deben tener una longitud mínima de
                         <%= Membership.MinRequiredPasswordLength %>
                         caracteres.
-                    </p>--%>
+                    </p>
                     <span class="failureNotification">
                         <asp:Literal ID="ErrorMessage" runat="server"></asp:Literal>
                     </span>

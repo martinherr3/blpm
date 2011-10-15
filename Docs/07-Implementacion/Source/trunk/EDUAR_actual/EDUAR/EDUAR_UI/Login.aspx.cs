@@ -6,6 +6,8 @@ using EDUAR_BusinessLogic.Security;
 using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_Utility.Constantes;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_UI
 {
@@ -69,7 +71,7 @@ namespace EDUAR_UI
 				}
 				ventanaInfoLogin.Visible = false;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				//AvisoMostrar = true;
 				//AvisoExcepcion = ex;
@@ -148,13 +150,122 @@ namespace EDUAR_UI
 			{
 				try
 				{
-					ventanaInfoLogin.GestionExcepciones(ex);
+					ManageExceptions(ex);
 					updVentaneMensajes.Update();
 				}
 				catch
 				{
 
 				}
+			}
+		}
+
+		/// <summary>
+		/// Método que permite tratar las excepciones de forma standard. 
+		/// </summary>
+		/// <param name="ex">Excepción a tratar</param>
+		public void ManageExceptions(Exception ex)
+		{
+			try
+			{
+				string exceptionName = ex.GetType().FullName;
+				string Titulo = string.Empty;
+				string Detalle = string.Empty;
+				enumTipoVentanaInformacion tipoVentana = enumTipoVentanaInformacion.Error;
+				Detalle = ex.Message;
+
+				if (exceptionName.Contains("CustomizedException"))
+				{
+					switch (((CustomizedException)ex).ExceptionType)
+					{
+						case enuExceptionType.BusinessLogicException:
+							Titulo = "Error en Negocio";
+							Detalle = "Se ha producido un error al realizar una acción en el negocio.";
+							break;
+						case enuExceptionType.SqlException:
+						case enuExceptionType.MySQLException:
+						case enuExceptionType.DataAccesException:
+							Titulo = "Error en Base de Datos";
+							Detalle = "Se ha producido un error al realizar una acción en la Base de Datos.";
+							break;
+						case enuExceptionType.ServicesException:
+							Titulo = "Error en Servicio";
+							Detalle = "Se ha producido un error al realizar la consulta al Servicio.";
+							break;
+						case enuExceptionType.IntegrityDataException:
+							Titulo = "Error de Integridad de Datos";
+							break;
+						case enuExceptionType.ConcurrencyException:
+							Titulo = "Error de Concurrencia";
+							break;
+						case enuExceptionType.ValidationException:
+							//Esta es una excepcion de tipo validacion que viene de UI.
+							Titulo = "Error de Validación";
+							tipoVentana = enumTipoVentanaInformacion.Advertencia;
+							//MostrarMensaje("Error de Validación", ex.Message, enumTipoVentanaInformacion.Advertencia);
+							break;
+						case enuExceptionType.SecurityException:
+							Titulo = "Error de seguridad";
+							tipoVentana = enumTipoVentanaInformacion.Advertencia;
+							break;
+						case enuExceptionType.WorkFlowException:
+							break;
+						case enuExceptionType.Exception:
+							Titulo = "Error en la Aplicación";
+							Detalle = "Se ha producido un error interno en la aplicación.";
+							break;
+						default:
+							break;
+					}
+					if (Detalle != ex.Message) Detalle += " " + ex.Message;
+					//Detalle += " " + ex.Message;
+					MostrarMensaje(Titulo, Detalle, tipoVentana);
+					if (tipoVentana != enumTipoVentanaInformacion.Advertencia)
+						ventanaInfoLogin.GestionExcepcionesLog(ex);
+				}
+				//Esta es una excepcion de tipo validacion que viene de BL.
+				else if ((exceptionName.Contains("GenericException")))
+				{
+					///GenericException genericEx = ((GenericException)ex).Detail;
+					if (((CustomizedException)ex).ExceptionType == enuExceptionType.ValidationException)
+						MostrarMensaje("Error de Validación", ex.Message, enumTipoVentanaInformacion.Advertencia);
+					else
+						ventanaInfoLogin.GestionExcepciones(ex);
+				}
+				else
+					ventanaInfoLogin.GestionExcepciones(ex);
+
+				// Refrescar updatepanel
+				updVentaneMensajes.Update();
+			}
+			catch (Exception exNew)
+			{
+				ventanaInfoLogin.GestionExcepciones(exNew);
+			}
+		}
+
+		/// <summary>
+		/// Metodo que se encarga de mostrar mensajes en la aplicacion.
+		/// </summary>
+		/// <param name="titulo"></param>
+		/// <param name="detalle"></param>
+		/// <param name="tipoventana"></param>
+		public void MostrarMensaje(string titulo, string detalle, enumTipoVentanaInformacion tipoventana)
+		{
+			try
+			{
+				ventanaInfoLogin.TipoVentana = tipoventana;
+				ventanaInfoLogin.Titulo = titulo;
+				ventanaInfoLogin.Detalle = detalle;
+				ventanaInfoLogin.MostrarMensaje();
+
+				// Refrescar updatepanel
+				updVentaneMensajes.Update();
+
+			}
+			catch (Exception ex)
+			{
+				ManageExceptions(ex);
 			}
 		}
 	}

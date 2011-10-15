@@ -217,7 +217,7 @@ namespace EDUAR_BusinessLogic.Common
 			{
 				AlumnoCurso objCurso = this.GetCursoAlumno();
 				BLAsignatura objBLAsignatura = new BLAsignatura();
-				Asignatura objAsignatura = new Asignatura(objCurso.curso.idCurso);
+				Asignatura objAsignatura = new Asignatura(objCurso.cursoCicloLectivo.idCursoCicloLectivo);
 				List<Asignatura> listaAsignatura = objBLAsignatura.GetAsignaturasCurso(objAsignatura);
 				Persona objDocente = null;
 				List<Persona> listaDocentes = new List<Persona>();
