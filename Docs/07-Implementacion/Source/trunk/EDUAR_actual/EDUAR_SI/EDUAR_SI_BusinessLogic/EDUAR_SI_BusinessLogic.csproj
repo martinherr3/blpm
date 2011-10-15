@@ -53,6 +53,7 @@
     <Compile Include="BLNotificarInasistencia.cs" />
     <Compile Include="BLProcesoBase.cs" />
     <Compile Include="BLNotificarSancion.cs" />
+    <Compile Include="BLImportarDiasHorarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1091,9 +1091,8 @@ namespace EDUAR_SI_DataAccess
 		/// Grabars the tipo asistencia.
 		/// </summary>
 		/// <param name="listadoTipoAsistencia">The listado tipo asistencia.</param>
-		public void GrabarDiasHorarios(List<DiasHorarios> listadoDiasHorarios)
+        public void GrabarDiasHorarios(List<DiasHorarios> listadoDiasHorario, SqlTransaction transaccion)
 		{
-			SqlTransaction transaccion = null;
 			try
 			{
 				//foreach (DiasHorarios unDiasHorarios in listadoDiasHorarios)
@@ -1112,7 +1111,7 @@ namespace EDUAR_SI_DataAccess
 					transaccion = sqlConnectionConfig.BeginTransaction();
 					command.Transaction = transaccion;
 
-					foreach (DiasHorarios unDiasHorarios in listadoDiasHorarios)
+                    foreach (DiasHorarios unDiasHorarios in listadoDiasHorario)
 					{
 						command.Parameters.AddWithValue("idDiaHorario", 0).Direction = ParameterDirection.Output;
 						command.Parameters.AddWithValue("idDiaHorarioTransaccional", unDiasHorarios.idDiaHorarioTransaccional);
@@ -1146,7 +1145,7 @@ namespace EDUAR_SI_DataAccess
 				if (sqlConnectionConfig.State == ConnectionState.Open)
 					sqlConnectionConfig.Close();
 
-				GrabarModulos(listadoDiasHorarios);
+				GrabarModulos(listadoDiasHorario);
 
 			}
 

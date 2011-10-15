@@ -196,5 +196,22 @@ namespace EDUAR_SI_Prueba
 			finally
 			{ btnAsistencia.Enabled = true; }
 		}
+
+        private void btnDiasHorarios_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnDiasHorarios.Enabled = false;
+                BLImportarDiasHorarios objImportarDatos = new BLImportarDiasHorarios(ddlCadenaConexion.SelectedItem.ToString());
+                objImportarDatos.ImportarDiasHorarios();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            { btnDiasHorarios.Enabled = true; }
+        }
+
 	}
 }

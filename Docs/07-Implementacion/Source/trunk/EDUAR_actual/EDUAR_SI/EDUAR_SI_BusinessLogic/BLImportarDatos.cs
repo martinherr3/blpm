@@ -70,7 +70,7 @@ namespace EDUAR_SI_BusinessLogic
 				objDAImportarDatos.GrabarCalificacion(objDAObtenerDatos.obtenerExamenBDTransaccional(objConfiguracion), null);
 
 
-				objDAImportarDatos.GrabarDiasHorarios(objDAObtenerDatos.obtenerHorarios(objConfiguracion));
+				objDAImportarDatos.GrabarDiasHorarios(objDAObtenerDatos.obtenerHorarios(objConfiguracion),null);
 
 			}
 			catch (Exception ex)

@@ -1708,7 +1708,7 @@ namespace EDUAR_SI_DataAccess
                     command.Connection = conMySQL;
 
                     command.CommandText = @"SELECT * 
-                                            FROM vw_diashorarios";
+                                            FROM rel_diashorarios";
                     conMySQL.Open();
 
                     MySqlDataReader reader = command.ExecuteReader();
@@ -1719,12 +1719,12 @@ namespace EDUAR_SI_DataAccess
                         unDiasHorarios = new DiasHorarios();
 
                         unDiasHorarios.idDiaHorario = 0;
-                        unDiasHorarios.idDiaHorarioTransaccional = (int)reader["idRelDivActDocAnio"];
-                        unDiasHorarios.unDia = (enumDiasSemana)reader["idDiaSemana"];
+                        unDiasHorarios.idDiaHorarioTransaccional = (int)reader["id"];
+                        unDiasHorarios.unDia = (enumDiasSemana)reader["fk_diasemana_id"];
                         unDiasHorarios.modulos = getModulos(Convert.ToDateTime(reader["fecha_inicio"]), Convert.ToDateTime(reader["fecha_fin"]));
-                        unDiasHorarios.idAsignaturaTransaccional = (int)reader["fk_actividad_id"]; // Asignatura
-                        unDiasHorarios.idCursoTransaccional = (int)reader["fk_division_id"]; // Curso (SQL Server) = Divsion (MySQL)
-						unDiasHorarios.idNivelTransaccional = (int)reader["fk_anio_id"]; // Nivel (SQL Server) = Anio (MySQL)
+                        unDiasHorarios.idAsignaturaTransaccional = (int)reader["fk_asignatura_id"]; // Asignatura
+                        unDiasHorarios.idCursoTransaccional = (int)reader["fk_curso_id"]; // Curso (SQL Server) = Divsion (MySQL)
+						unDiasHorarios.idNivelTransaccional = (int)reader["fk_nivel_id"]; // Nivel (SQL Server) = Anio (MySQL)
 
                         //unDiasHorarios.motivoDiasHorario.idMotivoDiasHorarioTransaccional = (int)reader["fk_motivoDiasHorario_id"];
                         //unDiasHorarios.tipoDiasHorario.idTipoDiasHorarioTransaccional = (int)reader["fk_tipoDiasHorario_id"];
