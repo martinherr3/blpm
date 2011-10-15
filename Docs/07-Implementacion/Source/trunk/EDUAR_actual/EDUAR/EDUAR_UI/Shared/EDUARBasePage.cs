@@ -217,7 +217,7 @@ namespace EDUAR_UI.Shared
             if (strPort != "")
                 loginPage += ":" + strPort;
             //loginPage += strDefaultPage;
-            loginPage += "/EDUAR_UI/Public/Account/Login.aspx";
+            loginPage += "/EDUAR_UI/Login.aspx";
 
             ObjSessionDataUI.urlDefault = new Uri(loginPage);
 

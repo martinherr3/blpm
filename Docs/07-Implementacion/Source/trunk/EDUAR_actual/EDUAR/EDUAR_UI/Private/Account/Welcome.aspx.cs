@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using EDUAR_UI.Shared;
 
-namespace EDUAR_UI.Private.Account
+namespace EDUAR_UI
 {
-	public partial class Welcome : System.Web.UI.Page
+	public partial class Welcome : EDUARBasePage
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
