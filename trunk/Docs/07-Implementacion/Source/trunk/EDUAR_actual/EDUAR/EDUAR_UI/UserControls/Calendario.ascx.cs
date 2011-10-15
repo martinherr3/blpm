@@ -292,6 +292,109 @@ namespace EDUAR_UI.UserControls
 			}
 		}
 
+		/// <summary>
+		/// Obtiene o establece la fecha de inicio para un calendario.
+		/// </summary>
+		/// <value>
+		/// The start date.
+		/// </value>
+		public DateTime? startDate
+		{
+			get
+			{
+				DateTime? fecha = DateTime.Now;
+				switch (TipoCalendario)
+				{
+					case enumTipoCalendario.Desde:
+						fecha = calExtDesde.StartDate;
+						break;
+					case enumTipoCalendario.DesdeHasta:
+						fecha = calExtFechaDesde_DA.StartDate;
+						//calExtFechaHasta_DA.StartDate = fecha;
+						break;
+					case enumTipoCalendario.SoloFecha:
+						fecha = calExtFecha.StartDate;
+						break;
+					default:
+						fecha = null;
+						break;
+				}
+				return fecha;
+			}
+			set
+			{
+				switch (TipoCalendario)
+				{
+					case enumTipoCalendario.Desde:
+						calExtDesde.StartDate = value;
+						calExtDesde.SelectedDate = value;
+						break;
+					case enumTipoCalendario.DesdeHasta:
+						calExtFechaDesde_DA.StartDate = value;
+						calExtFechaHasta_DA.StartDate = value;
+						calExtFechaDesde_DA.SelectedDate = value;
+						break;
+					case enumTipoCalendario.SoloFecha:
+						calExtFecha.StartDate = value;
+						calExtFecha.SelectedDate = value;
+						break;
+					default:
+						break;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Obtiene o establece la fecha de fin para un calendario.
+		/// </summary>
+		/// <value>
+		/// The end date.
+		/// </value>
+		public DateTime? endDate
+		{
+			get
+			{
+				DateTime? fecha = DateTime.Now;
+				switch (TipoCalendario)
+				{
+					case enumTipoCalendario.Desde:
+						fecha = calExtDesde.EndDate;
+						break;
+					case enumTipoCalendario.DesdeHasta:
+						fecha = calExtFechaDesde_DA.EndDate;
+						//calExtFechaHasta_DA.EndDate = fecha;
+						break;
+					case enumTipoCalendario.SoloFecha:
+						fecha = calExtFecha.EndDate;
+						break;
+					default:
+						fecha = null;
+						break;
+				}
+				return fecha;
+			}
+			set
+			{
+				switch (TipoCalendario)
+				{
+					case enumTipoCalendario.Desde:
+						calExtDesde.EndDate = value;
+						calExtDesde.SelectedDate = value;
+						break;
+					case enumTipoCalendario.DesdeHasta:
+						calExtFechaDesde_DA.EndDate = value;
+						calExtFechaHasta_DA.EndDate = value;
+						calExtFechaHasta_DA.SelectedDate = value;
+						break;
+					case enumTipoCalendario.SoloFecha:
+						calExtFecha.EndDate = value;
+						calExtFecha.SelectedDate = value;
+						break;
+					default:
+						break;
+				}
+			}
+		}
 		#endregion
 
 		#region --[Eventos]--
