@@ -123,7 +123,7 @@
             </table>
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
-                    IncludeStyleBlock="true" Orientation="Horizontal" >
+                    IncludeStyleBlock="true" Orientation="Horizontal" OnPreRender="NavigationMenu_PreRender" >
                 </asp:Menu>
                 <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" ShowStartingNode="false"
                     SiteMapProvider="WebXmlSiteMapProvider" />

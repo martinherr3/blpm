@@ -60,7 +60,7 @@ namespace EDUAR_UI
 				else
 					if (HttpContext.Current.User.Identity.IsAuthenticated)
 					{
-						NavigationMenu.DataSource = SiteMapEDUAR;
+						//NavigationMenu.DataSource = SiteMapEDUAR;
 
 						StringBuilder s = new StringBuilder();
 						string er;
@@ -166,10 +166,10 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void siteMapPathEDUAR_PreRender(object sender, EventArgs e)
+		protected void NavigationMenu_PreRender(object sender, EventArgs e)
 		{
 			//SiteMapNodeItem sepItem = new SiteMapNodeItem(-1, SiteMapNodeItemType.PathSeparator);
-			//ITemplate sepTemplate = siteMapPathEDUAR.PathSeparatorTemplate;
+			//ITemplate sepTemplate = NavigationMenu.TemplateControl;
 			//if (sepTemplate == null)
 			//{
 			//    Literal separator = new Literal { Text = siteMapPathEDUAR.PathSeparator };
@@ -179,6 +179,31 @@ namespace EDUAR_UI
 			//    sepTemplate.InstantiateIn(sepItem);
 
 			//sepItem.ApplyStyle(siteMapPathEDUAR.PathSeparatorStyle);
+
+			if (SiteMapEDUAR.Provider.RootNode != null)
+			{
+				foreach (SiteMapNode node in SiteMapEDUAR.Provider.RootNode.ChildNodes)
+				{
+					if (!ValidarNodo(node))
+						continue;
+					trvMenu.Visible = true;
+					MenuItem objMenuItem = new MenuItem(node.Title);
+					if (node.Url != string.Empty)
+						objMenuItem.NavigateUrl = node.Url;
+
+					//objMenuItem.Value = TreeNodeSelectAction.Expand; 
+					//Recorre los nodos hijos
+					foreach (SiteMapNode nodeChild in node.ChildNodes)
+					{
+						if (!ValidarNodo(nodeChild))
+							continue;
+
+						MenuItem objMenuItemChild = new MenuItem(nodeChild.Title) { NavigateUrl = nodeChild.Url };
+						objMenuItem.ChildItems.Add(objMenuItemChild);
+					}
+					NavigationMenu.Items.Add(objMenuItem);
+				}
+			}
 		}
 
 		/// <summary>
@@ -291,7 +316,7 @@ namespace EDUAR_UI
 							break;
 					}
 					if (Detalle != ex.Message) Detalle += " " + ex.Message;
-					Detalle += " " + ex.Message;
+					//Detalle += " " + ex.Message;
 					MostrarMensaje(Titulo, Detalle, tipoVentana);
 					if (tipoVentana != enumTipoVentanaInformacion.Advertencia)
 						ManageExceptionsLog(ex);
