@@ -18,7 +18,7 @@
                         Enabled="True" ClearTextOnInvalid="True">
                     </cc1:MaskedEditExtender>
                     <asp:Image ID="imgFechaDesde_DA" runat="server" ImageUrl="~/Images/calendario.png"
-                        ImageAlign="top" />
+                        ImageAlign="top" Style="cursor: pointer" />
                     <cc1:CalendarExtender ID="calExtFechaDesde_DA" runat="server" TargetControlID="txtFechaDesde_DA"
                         Format="dd/MM/yyyy" PopupButtonID="imgFechaDesde_DA" Animated="true">
                     </cc1:CalendarExtender>
@@ -37,7 +37,7 @@
                         Enabled="True" ClearTextOnInvalid="True">
                     </cc1:MaskedEditExtender>
                     <asp:Image ID="imgFechaHasta_DA" runat="server" ImageUrl="~/Images/calendario.png"
-                        ImageAlign="top" />
+                        ImageAlign="top" Style="cursor: pointer" />
                     <cc1:CalendarExtender ID="calExtFechaHasta_DA" runat="server" TargetControlID="txtFechaHasta_DA"
                         Format="dd/MM/yyyy" PopupButtonID="imgFechaHasta_DA" Animated="true">
                     </cc1:CalendarExtender>
@@ -61,7 +61,8 @@
                         MaskType="Date" TargetControlID="txtFechaDesde" UserDateFormat="DayMonthYear"
                         Enabled="True" ClearTextOnInvalid="True">
                     </cc1:MaskedEditExtender>
-                    <asp:Image ID="imgFechaDesde" runat="server" ImageUrl="~/Images/calendario.png" ImageAlign="top" />
+                    <asp:Image ID="imgFechaDesde" runat="server" ImageUrl="~/Images/calendario.png" ImageAlign="top"
+                        Style="cursor: pointer" />
                     <cc1:CalendarExtender ID="calExtDesde" runat="server" TargetControlID="txtFechaDesde"
                         Format="dd/MM/yyyy" PopupButtonID="imgFechaDesde" Animated="true">
                     </cc1:CalendarExtender>
@@ -76,7 +77,8 @@
         MaskType="Date" TargetControlID="txtFecha" UserDateFormat="DayMonthYear" Enabled="True"
         ClearTextOnInvalid="True">
     </cc1:MaskedEditExtender>
-    <asp:Image ID="imgFecha" runat="server" ImageUrl="~/Images/calendario.png" ImageAlign="top" />
+    <asp:Image ID="imgFecha" runat="server" ImageUrl="~/Images/calendario.png" ImageAlign="top"
+        Style="cursor: pointer" />
     <cc1:CalendarExtender ID="calExtFecha" runat="server" TargetControlID="txtFecha"
         Format="dd/MM/yyyy" PopupButtonID="imgFecha" Animated="true">
     </cc1:CalendarExtender>

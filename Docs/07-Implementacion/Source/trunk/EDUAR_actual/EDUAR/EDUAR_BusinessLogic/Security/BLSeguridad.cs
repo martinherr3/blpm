@@ -253,6 +253,11 @@ namespace EDUAR_BusinessLogic.Security
 				MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
 				user.ChangePassword(user.GetPassword(Data.Usuario.PaswordRespuesta), Data.Usuario.PasswordNuevo);
 			}
+			catch (ArgumentException)
+			{
+				throw new CustomizedException("La Contraseña debe tener al menos 5 caracteres, de los cuales uno debe ser numérico.", null,
+															  enuExceptionType.SecurityException);
+			}
 			catch (Exception ex)
 			{
 				throw new CustomizedException(string.Format("Fallo en {0} - CambiarPassword", ClassName), ex,
@@ -289,7 +294,7 @@ namespace EDUAR_BusinessLogic.Security
 						case MembershipCreateStatus.DuplicateUserName:
 							throw new CustomizedException("El usuario ya existe", null, enuExceptionType.SecurityException);
 						case MembershipCreateStatus.InvalidPassword:
-							throw new CustomizedException("La Contraseña es invalida.", null,
+							throw new CustomizedException("La Contraseña es inválida.", null,
 														  enuExceptionType.SecurityException);
 						case MembershipCreateStatus.InvalidUserName:
 							throw new Exception("El nombre del usuario es invalido.");

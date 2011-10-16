@@ -37,7 +37,7 @@
             <asp:UpdatePanel ID="udpRecover" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
                     <h2>
-                        Nueva clave de acceso</h2>
+                        Nueva Clave De Acceso</h2>
                     <p class="ui-widget">
                         Para obtener una nueva clave de acceso responde a la siguiente pregunta.</p>
                     <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
@@ -54,7 +54,7 @@
                                 <asp:Literal Text="Respuesta" runat="server" />
                             </td>
                             <td>
-                                <asp:TextBox ID="txtRespuesta" runat="server" /><asp:ImageButton ID="btnRecoverPassword"
+                                <asp:TextBox ID="txtRespuesta" runat="server" ViewStateMode="Disabled" /><asp:ImageButton ID="btnRecoverPassword"
                                     ImageUrl="~/Images/botonSiguiente.png" runat="server" ToolTip="Siguiente" OnClick="btnRecoverPassword_Click"
                                     ImageAlign="AbsMiddle" />
                             </td>
