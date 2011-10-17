@@ -251,6 +251,27 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+		/// <summary>
+		/// Gets the ciclo lectivo actual.
+		/// </summary>
+		/// <returns></returns>
+		public CicloLectivo GetCicloLectivoActual()
+		{
+			try
+			{
+				return DataAcces.GetCicloLectivoActual();
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCicloLectivos", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 		#endregion
 	}
 }

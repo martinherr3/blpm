@@ -72,6 +72,46 @@ namespace EDUAR_UI
 			}
 			set { ViewState["listaAgenda"] = value; }
 		}
+
+		/// <summary>
+		/// Gets or sets the ciclo lectivo actual.
+		/// </summary>
+		/// <value>
+		/// The ciclo lectivo actual.
+		/// </value>
+		public CicloLectivo cicloLectivoActual
+		{
+			get
+			{
+				if (ViewState["cicloLectivoActual"] == null)
+				{
+					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+					cicloLectivoActual = objBLCicloLectivo.GetCicloLectivoActual();
+				}
+				return (CicloLectivo)ViewState["cicloLectivoActual"];
+			}
+			set { ViewState["cicloLectivoActual"] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the lista cursos.
+		/// </summary>
+		/// <value>
+		/// The lista cursos.
+		/// </value>
+		public List<Curso> listaCursos
+		{
+			get
+			{
+				if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
+				{
+					BLCurso objCurso = new BLCurso();
+					listaCursos = objCurso.GetCursosCicloLectivo(new Curso() { cicloLectivo = cicloLectivoActual });
+				}
+				return (List<Curso>)ViewState["listaCursos"];
+			}
+			set { ViewState["listaCursos"] = value; }
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -264,7 +304,7 @@ namespace EDUAR_UI
 			{
 				CargarPresentacion();
 				BuscarAgenda(propFiltroAgenda);
-                propAgenda = new AgendaActividades();
+				propAgenda = new AgendaActividades();
 			}
 			catch (Exception ex)
 			{
@@ -301,18 +341,18 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlCicloLectivo_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			try
-			{
-				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-				CargarComboCursos(idCicloLectivo, ddlCurso);
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
-		}
+		//protected void ddlCicloLectivo_SelectedIndexChanged(object sender, EventArgs e)
+		//{
+		//    try
+		//    {
+		//        int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+		//        CargarComboCursos(idCicloLectivo, ddlCurso);
+		//    }
+		//    catch (Exception ex)
+		//    {
+		//        Master.ManageExceptions(ex);
+		//    }
+		//}
 
 		/// <summary>
 		/// Handles the PageIndexChanging event of the gvwReporte control.
@@ -383,7 +423,7 @@ namespace EDUAR_UI
 		{
 			LimpiarCampos();
 			lblTitulo.Text = "Actividades";
-			CargarCombos(ddlCicloLectivo, ddlCurso);
+			CargarCombos(ddlCurso);
 			udpEdit.Visible = false;
 			btnVolver.Visible = false;
 			btnGuardar.Visible = false;
@@ -408,17 +448,13 @@ namespace EDUAR_UI
 		/// <summary>
 		/// Cargars the combos.
 		/// </summary>
-		private void CargarCombos(DropDownList ddlCiclo, DropDownList ddlCurso)
+		private void CargarCombos(DropDownList ddlCurso)
 		{
-			List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
-			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-            listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(new CicloLectivo { activo = true });
+			lblCicloLectivoValor.Text = cicloLectivoActual.nombre;
 
-			List<Curso> listaCurso = new List<Curso>();
-			UIUtilidades.BindCombo<CicloLectivo>(ddlCiclo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
-            //UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "Nombre", true);
+			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
 
-			ddlCurso.Enabled = false;
+			//ddlCurso.Enabled = false;
 		}
 
 		/// <summary>
@@ -426,33 +462,33 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="idCicloLectivo">The id ciclo lectivo.</param>
 		/// <param name="ddlCurso">The DDL curso.</param>
-		private void CargarComboCursos(int idCicloLectivo, DropDownList ddlCurso)
-		{
-			if (idCicloLectivo > 0)
-			{
-				List<Curso> listaCurso = new List<Curso>();
-				BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-				Curso objCurso = new Curso();
+		//private void CargarComboCursos(int idCicloLectivo, DropDownList ddlCurso)
+		//{
+		//    if (idCicloLectivo > 0)
+		//    {
+		//        List<Curso> listaCurso = new List<Curso>();
+		//        BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+		//        Curso objCurso = new Curso();
 
-				listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
-				UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
-				ddlCurso.Enabled = true;
-			}
-			else
-			{
-				ddlCurso.Enabled = false;
-			}
-		}
+		//        listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
+		//        UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
+		//        ddlCurso.Enabled = true;
+		//    }
+		//    else
+		//    {
+		//        ddlCurso.Enabled = false;
+		//    }
+		//}
 
 		/// <summary>
 		/// Limpiars the campos.
 		/// </summary>
 		private void LimpiarCampos()
 		{
-			ddlCicloLectivo.SelectedIndex = 0;
+			//ddlCicloLectivo.SelectedIndex = 0;
 			if (ddlCurso.Items.Count > 0) ddlCurso.SelectedIndex = 0;
 			HabilitarBotonesDetalle(false);
-			chkActivo.Checked = true;
+			//chkActivo.Checked = true;
 		}
 
 		/// <summary>
@@ -461,13 +497,13 @@ namespace EDUAR_UI
 		private void BuscarFiltrando()
 		{
 			lblTitulo.Text = "Actividades";
-			calfecha.ValidarRangoDesde();
+			//calfecha.ValidarRangoDesde();
 			AgendaActividades entidad = new AgendaActividades();
 			//entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-            entidad.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
-			entidad.cursoCicloLectivo.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-			entidad.fechaCreacion = Convert.ToDateTime(calfecha.ValorFecha);
-			entidad.activo = chkActivo.Checked;
+			entidad.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
+			entidad.cursoCicloLectivo.idCicloLectivo = cicloLectivoActual.idCicloLectivo;
+			//entidad.fechaCreacion = Convert.ToDateTime(calfecha.ValorFecha);
+			//entidad.activo = chkActivo.Checked;
 			propFiltroAgenda = entidad;
 			BuscarAgenda(entidad);
 		}
@@ -488,8 +524,8 @@ namespace EDUAR_UI
 		/// <param name="entidad">The entidad.</param>
 		private void CargarLista(AgendaActividades entidad)
 		{
-            entidad.activo = true;
-            if (User.IsInRole(enumRoles.Docente.ToString()))
+			entidad.activo = true;
+			if (User.IsInRole(enumRoles.Docente.ToString()))
 				entidad.usuario = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			objBLAgenda = new BLAgendaActividades(entidad);
 			listaAgenda = objBLAgenda.GetAgendaActividades(entidad);

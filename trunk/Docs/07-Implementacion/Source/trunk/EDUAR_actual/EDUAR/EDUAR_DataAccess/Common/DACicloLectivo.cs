@@ -77,7 +77,7 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("CicloLectivo_Select");
 				if (entidad != null)
 				{
-					if(entidad.activo)
+					if (entidad.activo)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
@@ -151,46 +151,46 @@ namespace EDUAR_DataAccess.Common
 			//}
 		}
 
-        /// <summary>
-        /// Gets the periodos by ciclo lectivo.
-        /// </summary>
-        /// <param name="idCicloLectivo">The id ciclo lectivo.</param>
-        /// <returns></returns>
-        public List<Periodo> GetPeriodosByCicloLectivo(int idCicloLectivo)
-        {
-            try
-            {
-                using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Periodo_Select"))
-                {
-                    if (idCicloLectivo > 0)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, idCicloLectivo);
-                    IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+		/// <summary>
+		/// Gets the periodos by ciclo lectivo.
+		/// </summary>
+		/// <param name="idCicloLectivo">The id ciclo lectivo.</param>
+		/// <returns></returns>
+		public List<Periodo> GetPeriodosByCicloLectivo(int idCicloLectivo)
+		{
+			try
+			{
+				using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Periodo_Select"))
+				{
+					if (idCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, idCicloLectivo);
+					IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-                    List<Periodo> listaPeriodos = new List<Periodo>();
-                    Periodo objPeriodo;
+					List<Periodo> listaPeriodos = new List<Periodo>();
+					Periodo objPeriodo;
 
-                    while (reader.Read())
-                    {
-                        objPeriodo = new Periodo();
-                        objPeriodo.idPeriodo = Convert.ToInt32(reader["idPeriodo"]);
-                        objPeriodo.nombre = reader["nombre"].ToString();
+					while (reader.Read())
+					{
+						objPeriodo = new Periodo();
+						objPeriodo.idPeriodo = Convert.ToInt32(reader["idPeriodo"]);
+						objPeriodo.nombre = reader["nombre"].ToString();
 
-                        listaPeriodos.Add(objPeriodo);
-                    }
-                    return listaPeriodos;
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetPeriodosByCicloLectivo()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetPeriodosByCicloLectivo()", ClassName),
-                                    ex, enuExceptionType.DataAccesException);
-            }
-        }
+						listaPeriodos.Add(objPeriodo);
+					}
+					return listaPeriodos;
+				}
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetPeriodosByCicloLectivo()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetPeriodosByCicloLectivo()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 
 		/// <summary>
 		/// Gets the cursos by asignatura.
@@ -235,7 +235,46 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
-		#endregion
 
+		/// <summary>
+		/// Gets the ciclo lectivo actual.
+		/// </summary>
+		/// <returns></returns>
+		public CicloLectivo GetCicloLectivoActual()
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("CicloLectivo_Select");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, true);
+				
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				CicloLectivo objCicloLectivo;
+				while (reader.Read())
+				{
+					objCicloLectivo = new CicloLectivo();
+
+					objCicloLectivo.idCicloLectivo = Convert.ToInt32(reader["idCicloLectivo"]);
+					objCicloLectivo.nombre = reader["nombre"].ToString();
+					objCicloLectivo.fechaInicio = Convert.ToDateTime(reader["fechaInicio"].ToString());
+					objCicloLectivo.fechaFin = Convert.ToDateTime(reader["fechaFin"].ToString());
+					objCicloLectivo.activo = Convert.ToBoolean(reader["activo"]);
+					return objCicloLectivo;
+				}
+				return null;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCicloLectivoActual()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCicloLectivoActual()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+		#endregion
 	}
 }

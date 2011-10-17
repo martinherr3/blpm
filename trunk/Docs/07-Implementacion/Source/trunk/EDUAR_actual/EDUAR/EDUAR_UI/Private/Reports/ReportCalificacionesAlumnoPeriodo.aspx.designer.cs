@@ -145,7 +145,7 @@ namespace EDUAR_UI {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAsignatura;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect ddlAsignatura;
         
         /// <summary>
         /// Control divReporte.

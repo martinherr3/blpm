@@ -54,6 +54,16 @@ namespace EDUAR_DataAccess.Reports
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaHasta);
 					if (!string.IsNullOrEmpty(entidad.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.username);
+					
+					string asignaturasParam = string.Empty;
+					if (entidad.listaAsignaturas.Count > 0)
+					{
+						foreach (Asignatura asignatura in entidad.listaAsignaturas)
+							asignaturasParam += string.Format("{0},", asignatura.idAsignatura);
+
+						asignaturasParam = asignaturasParam.Substring(0, asignaturasParam.Length - 1);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaAsignaturas", DbType.String, asignaturasParam);
+					}
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using EDUAR_Entities.Shared;
+using System.Collections.Generic;
 
 namespace EDUAR_Entities.Reports
 {
@@ -15,9 +16,11 @@ namespace EDUAR_Entities.Reports
         public DateTime fechaDesde { get; set; }
         public DateTime fechaHasta { get; set; }
 		public string username { get; set; }
-
-        public FilCalificacionesAlumnoPeriodo()
+		public List<Asignatura> listaAsignaturas { get; set; }
+        
+		public FilCalificacionesAlumnoPeriodo()
         {
+			listaAsignaturas = new List<Asignatura>();
         }
     }
 }
