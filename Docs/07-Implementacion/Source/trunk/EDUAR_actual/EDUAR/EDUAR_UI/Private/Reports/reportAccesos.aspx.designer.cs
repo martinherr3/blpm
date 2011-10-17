@@ -31,6 +31,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnBuscar;
         
         /// <summary>
+        /// Control fechas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::EDUAR_UI.UserControls.Calendario fechas;
+        
+        /// <summary>
         /// Control lblPagina.
         /// </summary>
         /// <remarks>
@@ -40,22 +49,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblPagina;
         
         /// <summary>
-        /// Control ddlPagina.
+        /// Control ddlDestino.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPagina;
-        
-        /// <summary>
-        /// Control fechas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::EDUAR_UI.UserControls.Calendario fechas;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect ddlDestino;
         
         /// <summary>
         /// Control lblRolesBusqueda.
@@ -67,13 +67,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblRolesBusqueda;
         
         /// <summary>
-        /// Control chkListRolesBusqueda.
+        /// Control ddlRoles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList chkListRolesBusqueda;
+        protected global::System.Web.UI.HtmlControls.HtmlSelect ddlRoles;
         
         /// <summary>
         /// Control divReporte.

@@ -37,12 +37,22 @@ namespace EDUAR_DataAccess.Reports
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_Accesos");
 				if (entidad != null)
 				{
-					if (entidad.idPagina > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.idPagina);
+					//if (entidad.idPagina > 0)
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.idPagina);
 					if (ValidarFechaSQL(entidad.fechaDesde))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaDesde);
 					if (ValidarFechaSQL(entidad.fechaHasta))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaHasta);
+
+					string paginasParam = string.Empty;
+					if (entidad.listaPaginas.Count > 0)
+					{
+						foreach (Pagina pagina in entidad.listaPaginas)
+							paginasParam += string.Format("{0},", pagina.idPagina);
+
+						paginasParam = paginasParam.Substring(0, paginasParam.Length - 1);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaPaginas", DbType.String, paginasParam);
+					}
 
 					string rolesParam = string.Empty;
 					if (entidad.listaRoles.Count != 0)

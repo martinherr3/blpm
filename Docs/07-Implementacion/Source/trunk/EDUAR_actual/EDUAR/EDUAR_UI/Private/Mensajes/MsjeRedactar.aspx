@@ -23,7 +23,7 @@
         }
 
         alertTest();    
-</script>
+    </script>
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <h2>
