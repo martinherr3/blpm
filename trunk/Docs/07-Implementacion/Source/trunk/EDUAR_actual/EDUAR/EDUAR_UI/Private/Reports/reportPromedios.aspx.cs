@@ -782,7 +782,8 @@ namespace EDUAR_UI
                     filtroReporteIncidencias.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
 
                 filtroReporteIncidencias.idPeriodo = 0;
-                if (ddlCurso.SelectedIndex > 0)
+                //TODO: Testear el siguiente condicional
+                if (ddlPeriodo.SelectedIndex > 0)
                     filtroReporteIncidencias.idPeriodo = Convert.ToInt32(ddlPeriodo.SelectedValue);
 
                 filtroReporteIncidencias.idAlumno = 0;

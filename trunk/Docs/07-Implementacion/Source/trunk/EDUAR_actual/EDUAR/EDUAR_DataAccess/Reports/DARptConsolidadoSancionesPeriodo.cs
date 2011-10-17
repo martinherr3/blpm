@@ -32,7 +32,7 @@ namespace EDUAR_DataAccess.Reports
         {
             try
             {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoSancionesPeriodo2");
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoSancionesPeriodo");
                 if (entidad != null)
                 {
                     if (entidad.idAlumno > 0)
