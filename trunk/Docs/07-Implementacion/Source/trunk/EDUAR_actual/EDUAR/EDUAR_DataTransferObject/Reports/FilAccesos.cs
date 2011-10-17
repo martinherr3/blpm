@@ -13,10 +13,11 @@ namespace EDUAR_Entities.Reports
         public DateTime fechaDesde { get; set; }
         public DateTime fechaHasta { get; set; }
         public List<DTRol> listaRoles { get; set; }
-
+		public List<Pagina> listaPaginas { get; set; }
         public FilAccesos()
         {
             listaRoles = new List<DTRol>();
+			listaPaginas = new List<Pagina>();
         }
 
         ~FilAccesos()
