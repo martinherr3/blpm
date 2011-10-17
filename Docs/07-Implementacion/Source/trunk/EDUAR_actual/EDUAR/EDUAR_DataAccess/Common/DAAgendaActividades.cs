@@ -38,8 +38,8 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (entidad.idAgendaActividad > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
-					if (entidad.cursoCicloLectivo.idCurso > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.cursoCicloLectivo.idCursoCicloLectivo);
+					if (entidad.cursoCicloLectivo.idCursoCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.idCursoCicloLectivo);
 					if (entidad.cursoCicloLectivo.idCicloLectivo > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.idCicloLectivo);
 					if (!string.IsNullOrEmpty(entidad.descripcion))

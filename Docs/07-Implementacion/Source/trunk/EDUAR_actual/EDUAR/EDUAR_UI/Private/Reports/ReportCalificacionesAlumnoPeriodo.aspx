@@ -8,6 +8,22 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript">
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+        function EndRequestHandler(sender, args) {
+            if (args.get_error() == undefined) {
+                alertTest();
+            }
+        }
+
+        function alertTest() {
+            $(document).ready(function () {
+                $(".chzn-select").chosen();
+            });
+        }
+
+        alertTest();    
+    </script>
     <h2>
         Consultar Calificaciones</h2>
     <br />
@@ -85,8 +101,11 @@
                 <td valign="top" class="TDCriterios75" colspan="3">
                     <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false">
-                            </asp:DropDownList>
+                            <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
+                                runat="server" id="ddlAsignatura" enableviewstate="true">
+                            </select>
+                            <%--<asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false">
+                            </asp:DropDownList>--%>
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
@@ -99,4 +118,5 @@
     <div id="divReporte" runat="server">
         <rep:Reporte ID="rptCalificaciones" runat="server" EnableViewState="true"></rep:Reporte>
     </div>
+    <script type="text/javascript">        $(".chzn-select").chosen();</script>
 </asp:Content>

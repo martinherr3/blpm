@@ -37,7 +37,7 @@
                         <tr>
                             <td>
                                 <h3>
-                                    Buscar Agenda de Actividades</h3>
+                                    Buscar Agenda de Actividades -  <asp:Label ID="lblCicloLectivoValor" Text="" runat="server" /></h3>
                             </td>
                         </tr>
                         <tr>
@@ -48,22 +48,22 @@
                     </table>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <%--<td valign="top" class="TDCriterios25">
                                 <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
                                 <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
                                 </asp:DropDownList>
-                            </td>
+                            </td>--%>
                             <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="lblLugar" runat="server" Text="Curso:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios75" colspan="3">
                                 <asp:DropDownList ID="ddlCurso" runat="server">
                                 </asp:DropDownList>
                             </td>
                         </tr>
-                        <tr>
+                        <%--<tr>
                             <td valign="top" class="TDCriterios20">
                                 <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
                             </td>
@@ -76,11 +76,11 @@
                             <td valign="top" class="TDCriterios25">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" Enabled="false" />
                             </td>
-                        </tr>
+                        </tr>--%>
                     </table>
                 </ContentTemplate>
                 <Triggers>
-                    <asp:PostBackTrigger ControlID="ddlCicloLectivo" />
+                    <%--<asp:PostBackTrigger ControlID="ddlCicloLectivo" />--%>
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
                 </Triggers>
             </asp:UpdatePanel>
@@ -117,13 +117,13 @@
                             <asp:Label ID="lblCursoGrilla" runat="server" Text='<%# Bind("cursoCicloLectivo.curso.nombre") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Activo">
+                    <%--<asp:TemplateField HeaderText="Activo">
                         <HeaderStyle HorizontalAlign="left" Width="10%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblActivo" runat="server" Text='<%# Boolean.Parse(Eval("activo").ToString()) ? "Sí" : "No"  %>'></asp:Label>
                         </ItemTemplate>
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                 </Columns>
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">

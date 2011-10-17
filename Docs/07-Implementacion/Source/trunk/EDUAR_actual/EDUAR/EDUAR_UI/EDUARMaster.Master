@@ -96,7 +96,7 @@
                                                     <asp:LoginName ID="HeadLoginName" runat="server" />
                                                 </span>!
                                                 <div id="div_CallbackResult">
-                                                    <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl="/EDUAR_UI/Images/mail-new-message.gif"
+                                                    <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl=""
                                                         OnClick="btnMensaje_Click" Style="margin-right: 50px" />
                                                 </div>
                                             </td>

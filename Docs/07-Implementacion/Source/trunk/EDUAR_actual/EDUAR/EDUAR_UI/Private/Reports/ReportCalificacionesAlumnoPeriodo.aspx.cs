@@ -270,27 +270,33 @@ namespace EDUAR_UI
 
 				if (ddlAsignatura.SelectedIndex > 0)
 				{
-					var serie = new List<RptCalificacionesAlumnoPeriodo>();
-					for (int i = 1; i < 11; i++)
+					foreach (System.Web.UI.WebControls.ListItem asignatura in ddlAsignatura.Items)
 					{
-						sumaNotas = 0;
-						var listaParcial = listaReporte.FindAll(p => p.calificacion == i.ToString());
-						if (listaParcial.Count > 0)
+						if (asignatura.Selected)
 						{
-							serie.Add(new RptCalificacionesAlumnoPeriodo
+							var serie = new List<RptCalificacionesAlumnoPeriodo>();
+							for (int i = 1; i < 11; i++)
 							{
-								calificacion = listaParcial.Count.ToString(),
-								alumno = i.ToString()
-							});
+								var listaParcial = listaReporte.FindAll(p => p.calificacion == i.ToString() && p.asignatura == asignatura.Text);
+								if (listaParcial.Count > 0)
+								{
+									serie.Add(new RptCalificacionesAlumnoPeriodo
+									{
+										calificacion = listaParcial.Count.ToString(),
+										asignatura = i.ToString()
+									});
+								}
+
+							}
+							if (serie != null && serie.Count > 0)
+							{
+								DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
+								// En alumno envio la nota y en calificación la cantidad de esa nota que se produjo
+								rptCalificaciones.graficoReporte.AgregarSerie(asignatura.Text, dt, "asignatura", "calificacion");
+							}
 						}
 					}
-					if (serie != null)
-					{
-						DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
-						// En alumno envio la nota y en calificación la cantidad de esa nota que se produjo
-						rptCalificaciones.graficoReporte.AgregarSerie(ddlAsignatura.SelectedItem.Text, dt, "alumno", "calificacion");
-						rptCalificaciones.graficoReporte.Titulo = "Distribución de Calificaciones \n" + ddlAsignatura.SelectedItem.Text + alumno;
-					}
+					rptCalificaciones.graficoReporte.Titulo = "Distribución de Calificaciones \n" + alumno;
 				}
 				else
 				{
@@ -411,11 +417,20 @@ namespace EDUAR_UI
 				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0 /*&& Convert.ToInt32(ddlAsignatura.SelectedValue) > 0*/)
 				{
 					filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
-					if (ddlAsignatura.SelectedIndex > 0)
+
+					List<Asignatura> listaAsignatura = new List<Asignatura>();
+					foreach (System.Web.UI.WebControls.ListItem item in ddlAsignatura.Items)
 					{
-						filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
-						if (filtroReporte.idAsignatura > 0) filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
+						if (item.Selected)
+						{
+							if (!filtros.ToString().Contains("- Asignatura"))
+								filtros.AppendLine("- Asignatura");
+							filtros.AppendLine(" * " + item.Text);
+							listaAsignatura.Add(new Asignatura() { idAsignatura = Convert.ToInt16(item.Value) });
+						}
 					}
+					filtroReporte.listaAsignaturas = listaAsignatura;
+
 					if (fechas.ValorFechaDesde != null)
 					{
 						filtros.AppendLine("- Fecha Desde: " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString());
@@ -472,7 +487,7 @@ namespace EDUAR_UI
 				ddlCurso.SelectedIndex = -1;
 			}
 
-			ddlAsignatura.Enabled = false;
+			ddlAsignatura.Disabled = true;
 			ddlAlumno.Enabled = false;
 		}
 
@@ -514,9 +529,16 @@ namespace EDUAR_UI
 			if (User.IsInRole(enumRoles.Docente.ToString()))
 				materia.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			listaAsignatura = objBLAsignatura.GetAsignaturasCurso(materia);
-			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignatura, "idAsignatura", "nombre", true);
+
+			listaAsignatura.Sort((p, q) => string.Compare(p.nombre, q.nombre));
+
+			foreach (Asignatura asignatura in listaAsignatura)
+			{
+				ddlAsignatura.Items.Add(new System.Web.UI.WebControls.ListItem(asignatura.nombre, asignatura.idAsignatura.ToString()));
+			}
+
 			if (ddlAsignatura.Items.Count > 0)
-				ddlAsignatura.Enabled = true;
+				ddlAsignatura.Disabled = false;
 		}
 
 		/// <summary>
@@ -556,7 +578,7 @@ namespace EDUAR_UI
 
 			TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
 
-			if (Convert.ToInt32(ddlAsignatura.SelectedValue) < 0)
+			if (Convert.ToInt32(ddlAsignatura.SelectedIndex) < 0)
 			{
 				var topPromedio =
 				   (from p in listaReporte
