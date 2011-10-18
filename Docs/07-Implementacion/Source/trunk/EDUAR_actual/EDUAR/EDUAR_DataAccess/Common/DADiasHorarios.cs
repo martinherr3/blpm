@@ -65,7 +65,7 @@ namespace EDUAR_DataAccess.Common
 		#endregion
 
 		#region --[Métodos Públicos]--
-		public List<DiasHorarios> GetDiasHorarios(DiasHorarios entidad)
+		public List<DiasHorarios> GetDiasHorarios(DiasHorarios entidad, CursoCicloLectivo cursoCicloLectivo)
 		{
 			try
 			{
@@ -74,6 +74,8 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (entidad.idAsignaturaCurso > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCurso", DbType.Int32, entidad.idAsignaturaCurso);
+					if (cursoCicloLectivo.idCursoCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, cursoCicloLectivo.idCursoCicloLectivo);
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -83,7 +85,7 @@ namespace EDUAR_DataAccess.Common
 				{
 					objDiaHorario = new DiasHorarios();
 					//Se asigna el idAsignaturaCurso de la tabla - SOLO CUANDO MANEJO ASIGNATURA - CURSO
-					objDiaHorario.idAsignaturaCurso = Convert.ToInt32(reader["idAsignaturaCurso"]);
+					objDiaHorario.idAsignaturaCurso = Convert.ToInt32(reader["idAsignaturaCicloLectivo"]);
 					objDiaHorario.idDiaHorario = Convert.ToInt32(reader["idDiaHorario"]);
 					objDiaHorario.unDia = (enumDiasSemana)Enum.Parse(typeof(enumDiasSemana), Convert.ToInt32(reader["idDiaSemana"]).ToString());
 					listaHorario.Add(objDiaHorario);

@@ -103,7 +103,7 @@ namespace EDUAR_DataAccess.Common
 					if (entidad.idEventoAgenda > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEvento", DbType.Int32, entidad.idEventoAgenda);
 					if (entidad.asignatura.idAsignatura > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCurso", DbType.Int32, entidad.asignatura.idAsignatura);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, entidad.asignatura.idAsignatura);
 					if (ValidarFechaSQL(entidad.fechaEventoDesde))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
 					if (ValidarFechaSQL(entidad.fechaEventoHasta))
@@ -481,7 +481,8 @@ namespace EDUAR_DataAccess.Common
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
 				if (idAsignatura > 0)
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idAsignaturaCurso", DbType.Int32, idAsignatura);
-
+				if (entidad.idEventoAgenda > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				while (reader.Read())
@@ -513,8 +514,8 @@ namespace EDUAR_DataAccess.Common
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fechaEvento", DbType.DateTime, entidad.fechaEvento);
 				if (entidad.idAgendaActividad > 0)
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
-                if (entidad.idEventoAgenda > 0)
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
+				if (entidad.idEventoAgenda > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				while (reader.Read())
@@ -548,8 +549,8 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (entidad.fechaEvento != null)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fecha", DbType.DateTime, entidad.fechaEvento);
-                    if (entidad.idEventoAgenda > 0)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
+					if (entidad.idEventoAgenda > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
 
 					IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

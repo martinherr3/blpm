@@ -131,6 +131,8 @@ namespace EDUAR_UI
 					//else
 					//    BuscarAgenda(null);
 				}
+				calfechas.startDate = cicloLectivoActual.fechaInicio;
+				calfechas.endDate = cicloLectivoActual.fechaFin;
 				this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
 			}
 			catch (Exception ex)
@@ -332,7 +334,7 @@ namespace EDUAR_UI
 			{
 				ddlMeses.Enabled = true;
 				ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
-				//BindComboModulos(DateTime.Now.Month);
+				BindComboModulos(DateTime.Now.Month);
 			}
 			catch (Exception ex)
 			{
@@ -399,7 +401,7 @@ namespace EDUAR_UI
 			BLAsignatura objBLAsignatura = new BLAsignatura();
 			Asignatura objAsignatura = new Asignatura();
 			objAsignatura.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
-            objAsignatura.cursoCicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
+			objAsignatura.cursoCicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
 			if (User.IsInRole(enumRoles.Docente.ToString()))
 				objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
@@ -407,7 +409,7 @@ namespace EDUAR_UI
 			ddlAsignaturaEdit.Items.Clear();
 			ddlMeses.Items.Clear();
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false, true);
-			UIUtilidades.BindComboMeses(ddlMeses, false);
+			UIUtilidades.BindComboMeses(ddlMeses, false, DateTime.Now.Month);
 			ddlMeses.Enabled = false;
 			//BindComboModulos(DateTime.Now.Month);
 
@@ -428,7 +430,7 @@ namespace EDUAR_UI
 				objDiaHorario.idAsignaturaCurso = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
 			else
 				objDiaHorario.idAsignaturaCurso = propEvento.asignatura.idAsignatura;
-			listaHorario = objBLHorario.GetHorariosCurso(objDiaHorario);
+			listaHorario = objBLHorario.GetHorariosCurso(objDiaHorario, propAgenda.cursoCicloLectivo);
 			int anio = propAgenda.cursoCicloLectivo.cicloLectivo.fechaInicio.Year;
 			int cantDias = DateTime.DaysInMonth(anio, mes);
 			cantDias++;

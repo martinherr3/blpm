@@ -519,7 +519,6 @@ namespace EDUAR_UI
 							{
 								rptAux.cantidad += Convert.ToInt16(item2.sanciones);
 							}
-
 							serie.Add(rptAux);
 						}
 					}
@@ -810,9 +809,6 @@ namespace EDUAR_UI
 		{
 			ddlAlumno.Items.Clear();
 			ddlAsignatura.Items.Clear();
-			//ddlTipoSancion.Items.Clear();
-			//ddlMotivoSancion.Items.Clear();
-			//ddlAsistencia.Items.Clear();
 			CargarCombos();
 			lblAsignatura.Visible = true;
 			ddlAsignatura.Visible = true;

@@ -32,11 +32,11 @@ namespace EDUAR_UI.Utilidades
 		/// </summary>
 		/// <param name="ddlEntidad">The DDL entidad.</param>
 		/// <param name="addDefaultValue">if set to <c>true</c> [add default value].</param>
-		public static void BindComboMeses(DropDownList ddlEntidad, bool addDefaultValue)
+		public static void BindComboMeses(DropDownList ddlEntidad, bool addDefaultValue, int startMonth)
 		{
 			foreach (enumMeses mes in Enum.GetValues(typeof(enumMeses)))
 			{
-				if ((int)mes > 2)
+				if ((int)mes > 2 && (int)mes >= startMonth)
 					ddlEntidad.Items.Add(new ListItem(mes.ToString(), ((int)mes).ToString()));
 			}
 			if (addDefaultValue)
@@ -254,7 +254,7 @@ namespace EDUAR_UI.Utilidades
 				// Create the dynamic templates and assign them to 
 				// the appropriate template property.
 				customField.ItemTemplate = new GridViewTemplate(DataControlRowType.DataRow, prop.Name, prop.PropertyType.Name);
-                customField.SortExpression = prop.Name;
+				customField.SortExpression = prop.Name;
 
 				switch (prop.PropertyType.Name)
 				{
@@ -272,9 +272,9 @@ namespace EDUAR_UI.Utilidades
 				// Add the field column to the Columns collection of the
 				// GridView control.
 				grilla.Columns.Add(customField);
-                grilla.Columns[grilla.Columns.Count - 1].SortExpression = prop.Name;
+				grilla.Columns[grilla.Columns.Count - 1].SortExpression = prop.Name;
 			}
-            grilla.AllowSorting = true;
+			grilla.AllowSorting = true;
 			return grilla;
 		}
 
@@ -295,9 +295,9 @@ namespace EDUAR_UI.Utilidades
 				// Create the dynamic templates and assign them to 
 				// the appropriate template property.
 				customField.ItemTemplate = new GridViewTemplate(DataControlRowType.DataRow, columna.ColumnName, columna.DataType.Name);
-                customField.SortExpression = columna.ColumnName;
-				
-                switch (columna.DataType.Name)
+				customField.SortExpression = columna.ColumnName;
+
+				switch (columna.DataType.Name)
 				{
 					case "DateTime":
 					case "Int16":
@@ -313,11 +313,11 @@ namespace EDUAR_UI.Utilidades
 				// Add the field column to the Columns collection of the
 				// GridView control.
 				grilla.Columns.Add(customField);
-                grilla.Columns[grilla.Columns.Count - 1].SortExpression = columna.ColumnName;
+				grilla.Columns[grilla.Columns.Count - 1].SortExpression = columna.ColumnName;
 			}
-            grilla.AllowSorting = true;
+			grilla.AllowSorting = true;
 
-            return grilla;
+			return grilla;
 		}
 
 		#region sorting methods
@@ -469,9 +469,9 @@ namespace EDUAR_UI.Utilidades
 				case DataControlRowType.Header:
 					// Create the controls to put in the header
 					// section and set their properties.
-                    LinkButton lc = new LinkButton();
+					LinkButton lc = new LinkButton();
 					lc.Text = "<b>" + columnName + "</b>";
-                    lc.CommandArgument = columnName;
+					lc.CommandArgument = columnName;
 					// Add the controls to the Controls collection
 					// of the container.
 					container.Controls.Add(lc);
