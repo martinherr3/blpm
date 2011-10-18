@@ -405,6 +405,8 @@ namespace EDUAR_UI
 
             TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
 
+
+
             var fechaMin =
                from p in listaReporte
                group p by p.alumno into g
@@ -416,6 +418,44 @@ namespace EDUAR_UI
                select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
 
             TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
+
+            // Calcular Promedio y Desviacion Standard por tipo de Sanciones
+            TablaGrafico.Add("- Desviacion Estandar por tipo de Sanciones: ");
+
+            double sumaSanciones, promedio, desvStd, dif, cociente, sumaDifCuad = 0;
+
+            var serie = new List<RptCalificacionesAlumnoPeriodo>();
+            foreach (var item in listaTipoSancion)
+            {
+                promedio = 0;
+                cociente = 0;
+                desvStd = 0;
+                sumaSanciones = 0;
+                dif = 0;
+                sumaDifCuad = 0;
+
+                var listaParcial = listaReporte.FindAll(p => p.tipo == item.nombre);
+                if (listaParcial.Count > 0)
+                {
+                    foreach (var sancion in listaParcial)
+                    {
+                        sumaSanciones += Convert.ToInt32(sancion.cantidad);
+                    }
+                    promedio = sumaSanciones / listaParcial.Count;
+                    foreach (var sancion in listaParcial)
+                    {
+                        dif = (Convert.ToInt32(sancion.cantidad) - promedio);
+                        sumaDifCuad += Math.Pow(dif, 2);
+                    }
+                   // cociente = (sumaDifCuad / (listaParcial.Count - 1));
+                    cociente = (sumaDifCuad / (listaParcial.Count));
+                  
+                    desvStd = Math.Sqrt(cociente);
+                    TablaGrafico.Add(item.nombre + " Promedio: " + promedio.ToString("#.##") + " , Desviacion Standard: " + desvStd.ToString("#.##"));
+
+                }
+            }
+
 
             var worstAlumnos =
                  (from p in listaReporte
