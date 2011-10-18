@@ -108,6 +108,10 @@ namespace EDUAR_UI
 					CargarPresentacion();
 					BuscarEventos(null);
 				}
+				calfecha.startDate = cicloLectivoActual.fechaInicio;
+				calfecha.endDate = cicloLectivoActual.fechaFin;
+				calFechaEdit.startDate = cicloLectivoActual.fechaInicio;
+				calFechaEdit.endDate = cicloLectivoActual.fechaFin;
 				this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
 			}
 			catch (Exception ex)

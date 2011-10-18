@@ -327,7 +327,7 @@ namespace EDUAR_UI.UserControls
 				{
 					case enumTipoCalendario.Desde:
 						calExtDesde.StartDate = value;
-						calExtDesde.SelectedDate = value;
+						//calExtDesde.SelectedDate = value;
 						break;
 					case enumTipoCalendario.DesdeHasta:
 						calExtFechaDesde_DA.StartDate = value;
@@ -336,7 +336,7 @@ namespace EDUAR_UI.UserControls
 						break;
 					case enumTipoCalendario.SoloFecha:
 						calExtFecha.StartDate = value;
-						calExtFecha.SelectedDate = value;
+						//calExtFecha.SelectedDate = value;
 						break;
 					default:
 						break;
@@ -379,7 +379,7 @@ namespace EDUAR_UI.UserControls
 				{
 					case enumTipoCalendario.Desde:
 						calExtDesde.EndDate = value;
-						calExtDesde.SelectedDate = value;
+						//calExtDesde.SelectedDate = value;
 						break;
 					case enumTipoCalendario.DesdeHasta:
 						calExtFechaDesde_DA.EndDate = value;
@@ -388,7 +388,7 @@ namespace EDUAR_UI.UserControls
 						break;
 					case enumTipoCalendario.SoloFecha:
 						calExtFecha.EndDate = value;
-						calExtFecha.SelectedDate = value;
+						//calExtFecha.SelectedDate = value;
 						break;
 					default:
 						break;
