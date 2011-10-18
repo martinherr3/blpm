@@ -104,8 +104,6 @@
                             <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
                                 runat="server" id="ddlAsignatura" enableviewstate="true">
                             </select>
-                            <%--<asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false">
-                            </asp:DropDownList>--%>
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />

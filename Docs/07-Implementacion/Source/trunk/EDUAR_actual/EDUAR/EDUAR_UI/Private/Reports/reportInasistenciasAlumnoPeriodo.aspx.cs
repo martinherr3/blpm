@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,7 +13,6 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
-using System.Linq;
 
 namespace EDUAR_UI
 {
@@ -444,6 +444,20 @@ namespace EDUAR_UI
 						filtros.AppendLine("- Alumno: " + ddlAlumno.SelectedItem.Text);
 					}
 
+					List<TipoAsistencia> listaTipoAsistencia = new List<TipoAsistencia>();
+					foreach (System.Web.UI.WebControls.ListItem item in ddlAsistencia.Items)
+					{
+						if (item.Selected)
+						{
+							if (!filtros.ToString().Contains("- Tipo de Inasistencia"))
+								filtros.AppendLine("- Tipo de Inasistencia");
+							filtros.AppendLine(" * " + item.Text);
+							listaTipoAsistencia.Add(new TipoAsistencia() { idTipoAsistencia = Convert.ToInt16(item.Value) });
+						}
+					}
+					filtroReporte.listaTiposAsistencia = listaTipoAsistencia;
+					
+					// Se utiliza para que solo devuelva alumnos del docente logueado
 					if (Context.User.IsInRole(enumRoles.Docente.ToString()))
 						filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
@@ -477,6 +491,15 @@ namespace EDUAR_UI
 				CargarComboCursos(Convert.ToInt16(ddlCicloLectivo.SelectedValue), ddlCurso);
 				ddlCurso.Enabled = true;
 				ddlCurso.SelectedIndex = -1;
+			}
+
+			// Ordena la lista alfabéticamente por la descripción
+			listaTipoAsistencia.Sort((p, q) => string.Compare(p.descripcion, q.descripcion));
+			
+			// Carga el combo de tipo de asistencia para filtrar
+			foreach (TipoAsistencia item in listaTipoAsistencia)
+			{
+				ddlAsistencia.Items.Add(new System.Web.UI.WebControls.ListItem(item.descripcion, item.idTipoAsistencia.ToString()));
 			}
 
 			ddlAlumno.Enabled = false;

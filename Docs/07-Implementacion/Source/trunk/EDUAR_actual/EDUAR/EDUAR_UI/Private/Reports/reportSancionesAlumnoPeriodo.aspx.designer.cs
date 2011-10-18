@@ -130,6 +130,42 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.DropDownList ddlAlumno;
         
         /// <summary>
+        /// Control lblTipoSanción.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTipoSanción;
+        
+        /// <summary>
+        /// Control ddlTipoSancion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect ddlTipoSancion;
+        
+        /// <summary>
+        /// Control lblMotivoSanción.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMotivoSanción;
+        
+        /// <summary>
+        /// Control ddlMotivoSancion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect ddlMotivoSancion;
+        
+        /// <summary>
         /// Control divReporte.
         /// </summary>
         /// <remarks>
