@@ -1,6 +1,11 @@
 ﻿using System;
 using EDUAR_DataAccess.Shared;
 using EDUAR_Entities;
+using System.Data;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using EDUAR_Utility.Excepciones;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_DataAccess.Common
 {
@@ -60,6 +65,47 @@ namespace EDUAR_DataAccess.Common
         #endregion
 
         #region --[Métodos Públicos]--
-        #endregion
-    }
+		/// <summary>
+		/// Gets the motivo sanciones.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<MotivoSancion> GetMotivoSanciones(MotivoSancion entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MotivoSancion_Select");
+				if (entidad != null)
+				{
+
+				}
+
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<MotivoSancion> listaMotivosSancion = new List<MotivoSancion>();
+				MotivoSancion objMotivoSancion;
+				while (reader.Read())
+				{
+					objMotivoSancion = new MotivoSancion();
+
+					objMotivoSancion.idMotivoSancion = (int)reader["idMotivoSancion"];
+					objMotivoSancion.descripcion = (string)reader["descripcion"];
+
+					listaMotivosSancion.Add(objMotivoSancion);
+				}
+				return listaMotivosSancion;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetMotivoSanciones()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetMotivoSanciones()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+		#endregion
+	}
 }

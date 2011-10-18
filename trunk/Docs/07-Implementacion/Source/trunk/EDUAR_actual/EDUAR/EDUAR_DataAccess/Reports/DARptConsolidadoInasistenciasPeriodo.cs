@@ -6,6 +6,7 @@ using EDUAR_DataAccess.Shared;
 using EDUAR_Entities.Reports;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using EDUAR_Entities;
 
 namespace EDUAR_DataAccess.Reports
 {
@@ -49,6 +50,16 @@ namespace EDUAR_DataAccess.Reports
                     
                     if (entidad.idPeriodo > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPeriodo", DbType.Int32, entidad.idPeriodo);
+
+					string asistenciasParam = string.Empty;
+					if (entidad.listaTiposAsistencia.Count > 0)
+					{
+						foreach (TipoAsistencia asistencia in entidad.listaTiposAsistencia)
+							asistenciasParam += string.Format("{0},", asistencia.idTipoAsistencia);
+
+						asistenciasParam = asistenciasParam.Substring(0, asistenciasParam.Length - 1);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaTiposAsistencia", DbType.String, asistenciasParam);
+					}
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

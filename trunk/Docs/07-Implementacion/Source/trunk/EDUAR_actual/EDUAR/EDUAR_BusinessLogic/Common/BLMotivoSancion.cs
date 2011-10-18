@@ -164,22 +164,27 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<MotivoSancion> GetMotivoSancions(MotivoSancion entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetMotivoSancions(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetMotivoSancions", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+		/// <summary>
+		/// Gets the motivo sanciones.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<MotivoSancion> GetMotivoSanciones(MotivoSancion entidad)
+		{
+			try
+			{
+				return DataAcces.GetMotivoSanciones(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetMotivoSanciones", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
     }
 }

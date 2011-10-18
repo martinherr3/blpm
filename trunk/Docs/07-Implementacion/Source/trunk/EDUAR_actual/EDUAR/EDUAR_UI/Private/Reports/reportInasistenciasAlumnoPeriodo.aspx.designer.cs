@@ -130,6 +130,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.DropDownList ddlAlumno;
         
         /// <summary>
+        /// Control lblTipoAsistencia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTipoAsistencia;
+        
+        /// <summary>
+        /// Control ddlAsistencia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect ddlAsistencia;
+        
+        /// <summary>
         /// Control divReporte.
         /// </summary>
         /// <remarks>
