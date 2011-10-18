@@ -598,7 +598,9 @@ namespace EDUAR_UI
                         dif = (Convert.ToInt32(nota.calificacion) - promedio);
                         sumaDifCuad += Math.Pow(dif, 2);
                     }
-                    cociente = (sumaDifCuad / (listaParcial.Count-1));
+                    // Revisar la formula de desviacion standard
+                    //cociente = (sumaDifCuad / (listaParcial.Count-1));
+                    cociente = (sumaDifCuad / (listaParcial.Count));
                     desvStd = Math.Sqrt(cociente);
                     TablaGrafico.Add(item.nombre + " Promedio: "+ promedio.ToString("#.##") + " , Desviacion Standard: " + desvStd.ToString("#.##"));
                       
