@@ -73,9 +73,6 @@
             <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
-
-
-
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
@@ -90,7 +87,6 @@
                                 ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                   
                     <asp:TemplateField HeaderText="Fecha">
                         <HeaderStyle HorizontalAlign="Center" Width="20%" />
                         <ItemStyle HorizontalAlign="Center" />
@@ -98,7 +94,6 @@
                             <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("fechaEvento","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="HoraDesde">
                         <HeaderStyle HorizontalAlign="Center" Width="20%" />
                         <ItemStyle HorizontalAlign="Center" />
@@ -106,7 +101,6 @@
                             <asp:Label ID="lblHoraDesde" runat="server" Text='<%# Bind("horaDesde","{0:HH:mm}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="HoraHasta">
                         <HeaderStyle HorizontalAlign="Center" Width="20%" />
                         <ItemStyle HorizontalAlign="Center" />
@@ -114,15 +108,13 @@
                             <asp:Label ID="lblHoraHasta" runat="server" Text='<%# Bind("horaHasta","{0:HH:mm}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
-<%--                    <asp:TemplateField HeaderText="Descripcion">
+                    <%--                    <asp:TemplateField HeaderText="Descripcion">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblDescripcion" runat="server" Text='<%# Bind("descripcion") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>--%>
-
                     <asp:TemplateField HeaderText="Destino">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -130,7 +122,6 @@
                             <asp:Label ID="lblDestino" runat="server" Text='<%# Bind("destino") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Organizador">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -138,7 +129,6 @@
                             <asp:Label ID="lblOrganizador" runat="server" Text='<%# String.Format("{0} {1}", Eval("usuario.nombre"), Eval("usuario.apellido")) %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                   
                     <asp:TemplateField HeaderText="Activo">
                         <HeaderStyle HorizontalAlign="left" Width="10%" />
                         <ItemStyle HorizontalAlign="Center" />
@@ -148,9 +138,6 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-
-
-
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
@@ -196,7 +183,7 @@
                                     InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
                                 </cc1:MaskedEditValidator>
                             </td>
-                        <%--</tr>
+                            <%--</tr>
                         <tr>--%>
                             <td valign="top" class="TDCriterios10">
                                 <asp:Label runat="server" ID="lblHoraHasta" Text="Hora Hasta:"></asp:Label>
@@ -225,7 +212,6 @@
                             <td valign="top" class="TDCriterios25">
                             </td>
                         </tr>
-
                         <tr>
                             <td valign="top" class="TD25">
                                 <asp:Label runat="server" ID="lblDestinoEdit" Text="Destino:"></asp:Label>
@@ -234,7 +220,6 @@
                                 <asp:TextBox runat="server" ID="txtDestinoEdit" Width="500px"></asp:TextBox>
                             </td>
                         </tr>
-
                         <tr>
                             <td valign="top" class="TD25">
                                 <asp:Label runat="server" ID="lblDescripcionEdit" Text="Descripción:"></asp:Label>
@@ -259,4 +244,3 @@
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
-
