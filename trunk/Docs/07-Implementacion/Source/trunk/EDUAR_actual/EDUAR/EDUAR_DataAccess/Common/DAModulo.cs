@@ -70,7 +70,7 @@ namespace EDUAR_DataAccess.Common
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public List<Modulo> GetModulos(Modulo entidad)
+		public List<Modulo> GetModulos(Modulo entidad, DiasHorarios diaHorario)
 		{
 			try
 			{
@@ -80,6 +80,8 @@ namespace EDUAR_DataAccess.Common
                     {
                         if (entidad.idDiaHorario > 0)
                             Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idDiaHorario", DbType.Int32, entidad.idDiaHorario);
+						if (diaHorario.idAsignaturaCurso > 0)
+							Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCurso", DbType.Int32, diaHorario.idAsignaturaCurso);
                     }
                     IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

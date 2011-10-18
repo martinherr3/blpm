@@ -137,6 +137,26 @@ namespace EDUAR_UI.Shared
 				Session["TablaGrafico"] = value;
 			}
 		}
+
+		/// <summary>
+		/// Gets or sets the ciclo lectivo actual.
+		/// </summary>
+		/// <value>
+		/// The ciclo lectivo actual.
+		/// </value>
+		public CicloLectivo cicloLectivoActual
+		{
+			get
+			{
+				if (ViewState["cicloLectivoActual"] == null)
+				{
+					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+					cicloLectivoActual = objBLCicloLectivo.GetCicloLectivoActual();
+				}
+				return (CicloLectivo)ViewState["cicloLectivoActual"];
+			}
+			set { ViewState["cicloLectivoActual"] = value; }
+		}
         #endregion
 
         #region --[Eventos]--
