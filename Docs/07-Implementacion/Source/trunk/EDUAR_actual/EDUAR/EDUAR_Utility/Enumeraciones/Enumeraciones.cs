@@ -258,4 +258,13 @@ namespace EDUAR_Utility.Enumeraciones
 		LlamadoAtencion = 218,
 		FirmaLibro = 219
 	}
+
+    public enum enumTipoGrafico : int
+    {
+        None = 0,
+        PorAsignatura = 1,  //1 = grafico de distribucion de calificaciones por asignatura
+        PorCurso = 2    // 2 = grafico de promedio de calificaciones por curso en un determinado periodo
+    }
+
+
 }
