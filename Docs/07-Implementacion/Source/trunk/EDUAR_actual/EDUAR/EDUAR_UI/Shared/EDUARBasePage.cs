@@ -9,6 +9,7 @@ using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Utilidades;
 using EDUAR_BusinessLogic.Common;
 using System.Collections.Generic;
+using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI.Shared
 {
@@ -128,13 +129,13 @@ namespace EDUAR_UI.Shared
 		{
 			get
 			{
-				if (Session["TablaGrafico"] == null)
+				if (Session["TablaGrafico1"] == null)
 					TablaGrafico = new List<string>();
-				return (List<string>)Session["TablaGrafico"];
+				return (List<string>)Session["TablaGrafico1"];
 			}
 			set
 			{
-				Session["TablaGrafico"] = value;
+				Session["TablaGrafico1"] = value;
 			}
 		}
 
@@ -156,6 +157,26 @@ namespace EDUAR_UI.Shared
 				return (CicloLectivo)ViewState["cicloLectivoActual"];
 			}
 			set { ViewState["cicloLectivoActual"] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the tabla propia grafico.
+		/// </summary>
+		/// <value>
+		/// The tabla propia grafico.
+		/// </value>
+		public List<TablaGrafico> TablaPropiaGrafico
+		{
+			get
+			{
+				if (Session["TablaGrafico"] == null)
+					TablaPropiaGrafico = new List<TablaGrafico>();
+				return (List<TablaGrafico>)Session["TablaGrafico"];
+			}
+			set
+			{
+				Session["TablaGrafico"] = value;
+			}
 		}
         #endregion
 

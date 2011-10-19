@@ -1,14 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_Utility.Enumeraciones;
-using System.Collections;
-using System.IO;
-using System.Web;
-using System.Text;
 
 namespace EDUAR_UI.Utilidades
 {
@@ -532,7 +530,17 @@ namespace EDUAR_UI.Utilidades
 		}
 	}
 
+	[Serializable]
+	public struct TablaGrafico
+	{
+		public string titulo { get; set; }
+		public List<string> listaEncabezados { get; set; }
+		public List<List<string>> listaCuerpo { get; set; }
 
-
-
+		//public TablaGrafico()
+		//{
+		//    listaCuerpo = new List<List<string>>();
+		//    listaEncabezados = new List<string>();
+		//}
+	}
 }

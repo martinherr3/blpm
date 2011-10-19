@@ -62,10 +62,10 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Gets or sets the filtros aplicados.
+		/// Gets or sets the filtros aplica2.
 		/// </summary>
 		/// <value>
-		/// The filtros aplicados.
+		/// The filtros aplica2.
 		/// </value>
 		public string filtrosAplicados
 		{
@@ -294,14 +294,14 @@ namespace EDUAR_UI
 								// En alumno envio la nota y en calificación la cantidad de esa nota que se produjo
 								rptCalificaciones.graficoReporte.AgregarSerie(asignatura.Text, dt, "asignatura", "calificacion");
 							}
-                            
+
 						}
 					}
 					rptCalificaciones.graficoReporte.Titulo = "Distribución de Calificaciones \n" + alumno;
 				}
 				else
 				{ // promedio de calificaciones por curso en un determinado periodo
-                    var serie = new List<RptCalificacionesAlumnoPeriodo>();
+					var serie = new List<RptCalificacionesAlumnoPeriodo>();
 					foreach (var item in listaAsignatura)
 					{
 						sumaNotas = 0;
@@ -312,7 +312,7 @@ namespace EDUAR_UI
 							{
 								sumaNotas += Convert.ToInt16(nota.calificacion);
 							}
-                            
+
 							serie.Add(new RptCalificacionesAlumnoPeriodo
 							{
 								calificacion = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
@@ -324,7 +324,7 @@ namespace EDUAR_UI
 					rptCalificaciones.graficoReporte.AgregarSerie("Promedios", dt, "asignatura", "calificacion");
 					rptCalificaciones.graficoReporte.Titulo = "Promedio Por Asignatura \n" + ddlCurso.SelectedItem.Text + " - " + ddlCicloLectivo.SelectedItem.Text + alumno;
 				}
-                GenerarDatosGrafico();
+				GenerarDatosGrafico();
 				rptCalificaciones.graficoReporte.GraficarBarra();
 				rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
 			}
@@ -398,7 +398,7 @@ namespace EDUAR_UI
 		}
 		#endregion
 
-		#region --[Métodos Privados]--
+		#region --[Méto2 Priva2]--
 		/// <summary>
 		/// Cargars the presentacion.
 		/// </summary>
@@ -560,54 +560,11 @@ namespace EDUAR_UI
 		/// </summary>
 		private void GenerarDatosGrafico()
 		{
-			var cantAlumnos =
-				from p in listaReporte
-				group p by p.alumno into g
-				select new { Alumno = g.Key, Cantidad = g.Count() };
-
-			TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
-
-			TablaGrafico.Add("- Cantidad de Calificaciones: " + listaReporte.Count.ToString());
-
-
-                       
-            TablaGrafico.Add("- Desviacion Estandar por materia: ");
-
-            double sumaNotas, promedio, desvStd, dif, cociente, sumaDifCuad = 0;
-
-            var serie = new List<RptCalificacionesAlumnoPeriodo>();
-            foreach (var item in listaAsignatura)
-            {
-                promedio = 0;
-                cociente = 0;
-                desvStd = 0;
-                sumaNotas = 0;
-                dif = 0;
-                sumaDifCuad = 0;
-                    
-                var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre);
-                if (listaParcial.Count > 0)
-                {
-                    foreach (var nota in listaParcial)
-                    {
-                        sumaNotas += Convert.ToInt16(nota.calificacion);
-                    }
-                    promedio = sumaNotas / listaParcial.Count;
-                    foreach (var nota in listaParcial)
-                    {
-                        dif = (Convert.ToInt32(nota.calificacion) - promedio);
-                        sumaDifCuad += Math.Pow(dif, 2);
-                    }
-                    // Revisar la formula de desviacion standard
-                    //cociente = (sumaDifCuad / (listaParcial.Count-1));
-                    cociente = (sumaDifCuad / (listaParcial.Count));
-                    desvStd = Math.Sqrt(cociente);
-                    TablaGrafico.Add(item.nombre + " Promedio: "+ promedio.ToString("#.##") + " , Desviacion Standard: " + desvStd.ToString("#.##"));
-                      
-                }
-            }
-            
-
+			TablaGrafico tabla3 = new TablaGrafico();
+			tabla3.listaCuerpo = new List<List<string>>();
+			List<string> encabezado3 = new List<string>();
+			List<string> fila3 = new List<string>();
+			
 			var fechaMin =
 			   from p in listaReporte
 			   group p by p.alumno into g
@@ -617,8 +574,85 @@ namespace EDUAR_UI
 			   from p in listaReporte
 			   group p by p.alumno into g
 			   select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
+			//TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
 
-			TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
+			tabla3.titulo = "Periodo Analizado " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString();
+
+			var cantAlumnos =
+				from p in listaReporte
+				group p by p.alumno into g
+				select new { Alumno = g.Key, Cantidad = g.Count() };
+
+			//TablaGrafico.Add("- Cantidad de Alumnos analiza2: " + cantAlumnos.Count().ToString());
+			encabezado3.Add("Cantidad de Alumnos");
+			fila3.Add(cantAlumnos.Count().ToString());
+
+			//TablaGrafico.Add("- Cantidad de Calificaciones: " + listaReporte.Count.ToString());
+			encabezado3.Add("Cantidad de Calificaciones");
+			fila3.Add(listaReporte.Count().ToString());
+
+			tabla3.listaEncabezados = encabezado3;
+			tabla3.listaCuerpo.Add(fila3);
+			TablaPropiaGrafico.Add(tabla3);
+
+			TablaGrafico tabla2 = new TablaGrafico();
+			tabla2.listaCuerpo = new List<List<string>>();
+			List<string> encabezado2 = new List<string>();
+			List<List<string>> filasTabla2 = new List<List<string>>();
+			List<string> fila2 = new List<string>();
+
+			//TablaGrafico.Add("- Desviacion Estandar por materia: ");
+			tabla2.titulo = "Desviación Estandar por Asignatura";
+			encabezado2.Add("Asignatura");
+			encabezado2.Add("Promedio");
+			encabezado2.Add("Desviación Estándar");
+
+			double sumaNotas, promedio, desvStd, dif, cociente, sumaDifCuad = 0;
+
+			var serie = new List<RptCalificacionesAlumnoPeriodo>();
+			foreach (var item in listaAsignatura)
+			{
+				promedio = 0;
+				cociente = 0;
+				desvStd = 0;
+				sumaNotas = 0;
+				dif = 0;
+				sumaDifCuad = 0;
+
+				var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre);
+				if (listaParcial.Count > 0)
+				{
+					foreach (var nota in listaParcial)
+					{
+						sumaNotas += Convert.ToInt16(nota.calificacion);
+					}
+					promedio = sumaNotas / listaParcial.Count;
+					foreach (var nota in listaParcial)
+					{
+						dif = (Convert.ToInt32(nota.calificacion) - promedio);
+						sumaDifCuad += Math.Pow(dif, 2);
+					}
+					// Revisar la formula de desviacion standard
+					//cociente = (sumaDifCuad / (listaParcial.Count-1));
+					cociente = (sumaDifCuad / (listaParcial.Count));
+					desvStd = Math.Sqrt(cociente);
+					//TablaGrafico.Add(item.nombre + " Promedio: " + promedio.ToString("#.##") + " , Desviacion Standard: " + desvStd.ToString("#.##"));
+					fila2 = new List<string>();
+					fila2.Add(item.nombre);
+					fila2.Add(promedio.ToString("#.##"));
+					fila2.Add(desvStd.ToString("#.##"));
+					filasTabla2.Add(fila2);
+				}
+			}
+			tabla2.listaEncabezados = encabezado2;
+			tabla2.listaCuerpo = filasTabla2;
+			TablaPropiaGrafico.Add(tabla2);
+
+			TablaGrafico tabla4 = new TablaGrafico();
+			tabla4.listaCuerpo = new List<List<string>>();
+			List<string> encabezado4 = new List<string>();
+			List<List<string>> filasTabla4 = new List<List<string>>();
+			List<string> fila4 = new List<string>();
 
 			if (Convert.ToInt32(ddlAsignatura.SelectedIndex) < 0)
 			{
@@ -628,11 +662,37 @@ namespace EDUAR_UI
 					orderby g.Average(p => Convert.ToInt32(p.calificacion)) descending
 					select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToInt32(p.calificacion)), Cantidad = g.Count() }).Distinct().Take(3);
 
-				TablaGrafico.Add("- Top 3 Materias con mejor desempeño:");
+				//TablaGrafico.Add("- Top 3 Materias con mejor desempeño:");
+				tabla4.titulo = "Top 3 Asignaturas con mejor desempeño";
+				encabezado4.Add("Asignatura");
+				encabezado4.Add("Promedio");
+				encabezado4.Add("Cantidad de Evaluaciones");
+
+				tabla4.listaEncabezados = encabezado4;
+
 				foreach (var item in topPromedio)
 				{
-					TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString("#.##") + " - Cantidad de Evaluaciones: " + item.Cantidad.ToString());
+					//TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString("#.##") + " - Cantidad de Evaluaciones: " + item.Cantidad.ToString());
+					fila4 = new List<string>();
+					fila4.Add(item.Asignatura);
+					fila4.Add(item.Promedio.ToString("#.##"));
+					fila4.Add(item.Cantidad.ToString());
+					filasTabla4.Add(fila4);
 				}
+				tabla4.listaEncabezados = encabezado4;
+				tabla4.listaCuerpo = filasTabla4;
+				TablaPropiaGrafico.Add(tabla4);
+
+				TablaGrafico tabla5 = new TablaGrafico();
+				tabla5.listaCuerpo = new List<List<string>>();
+				List<string> encabezado5 = new List<string>();
+				List<List<string>> filasTabla5 = new List<List<string>>();
+				List<string> fila5 = new List<string>();
+
+				tabla5.titulo = "Top 3 Asignaturas con bajo desempeño";
+				encabezado5.Add("Asignatura");
+				encabezado5.Add("Promedio");
+				encabezado5.Add("Cantidad de Evaluaciones");
 
 				var worstPromedio =
 				   (from p in listaReporte
@@ -640,11 +700,19 @@ namespace EDUAR_UI
 					orderby g.Average(p => Convert.ToInt32(p.calificacion)) ascending
 					select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToInt32(p.calificacion)), Cantidad = g.Count() }).Distinct().Take(3);
 
-				TablaGrafico.Add("- Top 3 Materias con bajo desempeño:");
+				//TablaGrafico.Add("- Top 3 Materias con bajo desempeño:");
 				foreach (var item in worstPromedio)
 				{
-					TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString("#.##") + " - Cantidad de Evaluaciones: " + item.Cantidad.ToString());
+					//TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString("#.##") + " - Cantidad de Evaluaciones: " + item.Cantidad.ToString());
+					fila5 = new List<string>();
+					fila5.Add(item.Asignatura);
+					fila5.Add(item.Promedio.ToString("#.##"));
+					fila5.Add(item.Cantidad.ToString());
+					filasTabla5.Add(fila5);
 				}
+				tabla5.listaEncabezados = encabezado5;
+				tabla5.listaCuerpo = filasTabla5;
+				TablaPropiaGrafico.Add(tabla5);
 			}
 
 			if (Convert.ToInt32(ddlAlumno.SelectedValue) < 0)
@@ -655,27 +723,60 @@ namespace EDUAR_UI
 					orderby g.Average(p => Convert.ToInt32(p.calificacion)) ascending
 					select new { Alumno = g.Key, Promedio = g.Average(p => Convert.ToInt32(p.calificacion)) }).Distinct().Take(3);
 
-				TablaGrafico.Add("- Top 3 de Alumnos a observar:");
+				TablaGrafico tabla6 = new TablaGrafico();
+				tabla6.listaCuerpo = new List<List<string>>();
+				List<string> encabezado6 = new List<string>();
+				List<List<string>> filasTabla6 = new List<List<string>>();
+				List<string> fila6 = new List<string>();
+
+				tabla6.titulo = "Top 3 de Alumnos a observar";
+				encabezado6.Add("Alumno");
+				encabezado6.Add("Promedio General");
+				//TablaGrafico.Add("- Top 3 de Alumnos a observar:");
 				foreach (var item in worstAlumnos)
 				{
-					TablaGrafico.Add(item.Alumno + " - Promedio General: " + item.Promedio.ToString("#.##"));
+					//TablaGrafico.Add(item.Alumno + " - Promedio General: " + item.Promedio.ToString("#.##"));
+					fila6 = new List<string>();
+					fila6.Add(item.Alumno);
+					fila6.Add(item.Promedio.ToString("#.##"));
+					filasTabla6.Add(fila6);
 				}
+				tabla6.listaEncabezados = encabezado6;
+				tabla6.listaCuerpo = filasTabla6;
+				TablaPropiaGrafico.Add(tabla6);
 			}
 
-            if (Convert.ToInt32(ddlAlumno.SelectedValue) < 0)
-            {
-                var worstAlumnos =
-                   (from p in listaReporte
-                    group p by p.alumno into g
-                    orderby g.Average(p => Convert.ToInt32(p.calificacion)) descending
-                    select new { Alumno = g.Key, Promedio = g.Average(p => Convert.ToInt32(p.calificacion)) }).Distinct().Take(3);
+			if (Convert.ToInt32(ddlAlumno.SelectedValue) < 0)
+			{
+				var worstAlumnos =
+				   (from p in listaReporte
+					group p by p.alumno into g
+					orderby g.Average(p => Convert.ToInt32(p.calificacion)) descending
+					select new { Alumno = g.Key, Promedio = g.Average(p => Convert.ToInt32(p.calificacion)) }).Distinct().Take(3);
 
-                TablaGrafico.Add("- Top 3 de Alumnos con mejores notas:");
-                foreach (var item in worstAlumnos)
-                {
-                    TablaGrafico.Add(item.Alumno + " - Promedio General: " + item.Promedio.ToString("#.##"));
-                }
-            }
+				TablaGrafico tabla7 = new TablaGrafico();
+				tabla7.listaCuerpo = new List<List<string>>();
+				List<string> encabezado7 = new List<string>();
+				List<List<string>> filasTabla7 = new List<List<string>>();
+				List<string> fila7 = new List<string>();
+				
+				tabla7.titulo = "Top 3 de Alumnos con mejores Promedios";
+				encabezado7.Add("Alumno");
+				encabezado7.Add("Promedio General");
+				
+				//TablaGrafico.Add("- Top 3 de Alumnos con mejores notas:");
+				foreach (var item in worstAlumnos)
+				{
+					//TablaGrafico.Add(item.Alumno + " - Promedio General: " + item.Promedio.ToString("#.##"));
+					fila7 = new List<string>();
+					fila7.Add(item.Alumno);
+					fila7.Add(item.Promedio.ToString("#.##"));
+					filasTabla7.Add(fila7);
+				}
+				tabla7.listaEncabezados = encabezado7;
+				tabla7.listaCuerpo = filasTabla7;
+				TablaPropiaGrafico.Add(tabla7);
+			}
 		}
 		#endregion
 	}
