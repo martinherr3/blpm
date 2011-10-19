@@ -155,12 +155,28 @@ namespace EDUAR_UI.UserControls
 		{
 			get
 			{
-				if (Session["TablaGrafico"] == null)
+				if (Session["TablaGrafico1"] == null)
 					TablaGrafico = new List<string>();
-				return (List<string>)Session["TablaGrafico"];
+				return (List<string>)Session["TablaGrafico1"];
 			}
 			set
-			{ Session["TablaGrafico"] = value; }
+			{
+				Session["TablaGrafico1"] = value;
+			}
+		}
+
+		public List<TablaGrafico> TablaPropiaGrafico
+		{
+			get
+			{
+				if (Session["TablaGrafico"] == null)
+					TablaPropiaGrafico = new List<TablaGrafico>();
+				return (List<TablaGrafico>)Session["TablaGrafico"];
+			}
+			set
+			{
+				Session["TablaGrafico"] = value;
+			}
 		}
 		#endregion
 
@@ -273,7 +289,10 @@ namespace EDUAR_UI.UserControls
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnExportar_Click(object sender, EventArgs e)
 		{
-			ExportPDF.ExportarGraficoPDF(tituloReporte, ObjSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados, nombrePNG, TablaGrafico);
+			if (TablaPropiaGrafico.Count > 0)
+				ExportPDF.ExportarGraficoPDF(tituloReporte, ObjSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados, nombrePNG, TablaPropiaGrafico);
+			else
+				ExportPDF.ExportarGraficoPDF(tituloReporte, ObjSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados, nombrePNG, TablaGrafico);
 		}
 		#endregion
 
