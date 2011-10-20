@@ -190,6 +190,7 @@ namespace EDUAR_UI
 
 				if (!Page.IsPostBack)
 				{
+					TablaPropiaGrafico = null;
 					CargarPresentacion();
 					BLRptSancionesAlumnoPeriodo objBLRptSanciones = new BLRptSancionesAlumnoPeriodo();
 					//objBLRptSanciones.GetRptSancionesAlumnoPeriodo(null);

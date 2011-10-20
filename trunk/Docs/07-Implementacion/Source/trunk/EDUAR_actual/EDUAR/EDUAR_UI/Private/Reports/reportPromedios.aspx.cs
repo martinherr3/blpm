@@ -294,6 +294,7 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
+					TablaPropiaGrafico = null;
 					CargarPresentacion();
 					divReporte.Visible = false;
 					btnBuscar.Visible = true;

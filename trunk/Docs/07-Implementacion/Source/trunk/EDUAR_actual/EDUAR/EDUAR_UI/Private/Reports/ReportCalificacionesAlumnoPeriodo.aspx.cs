@@ -164,6 +164,7 @@ namespace EDUAR_UI
 
 				if (!Page.IsPostBack)
 				{
+					TablaPropiaGrafico = null;
 					CargarPresentacion();
 					divFiltros.Visible = true;
 					divReporte.Visible = false;
