@@ -353,7 +353,7 @@ namespace EDUAR_UI
 				Double sumaNotas = 0;
 				rptResultado.graficoReporte.LimpiarSeries();
 				var serie = new List<RptPromedioCalificacionesPeriodo>();
-
+                rptResultado.graficoReporte.habilitarTorta = false;
 				foreach (var item in listaAsignatura)
 				{
 					sumaNotas = 0;
