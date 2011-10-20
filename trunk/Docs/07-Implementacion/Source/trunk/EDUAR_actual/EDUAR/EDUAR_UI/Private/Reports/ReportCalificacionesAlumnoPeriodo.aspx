@@ -112,9 +112,9 @@
                 </td>
             </tr>
         </table>
+        <script type="text/javascript">            $(".chzn-select").chosen();</script>
     </div>
     <div id="divReporte" runat="server">
         <rep:Reporte ID="rptCalificaciones" runat="server" EnableViewState="true"></rep:Reporte>
     </div>
-    <script type="text/javascript">        $(".chzn-select").chosen();</script>
 </asp:Content>

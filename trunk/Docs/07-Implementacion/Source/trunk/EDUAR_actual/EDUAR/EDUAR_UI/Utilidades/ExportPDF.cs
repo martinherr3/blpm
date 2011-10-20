@@ -46,7 +46,7 @@ namespace EDUAR_UI.Utilidades
 			int columnCount = dtReporte.Columns.Count;
 			int rowCount = dtReporte.Rows.Count;
 
-			Document documento = new Document(PageSize.A4, 10, 10, 70, 50);
+            Document documento = new Document(PageSize.A4, 10, 10, 80, 50);
 			PdfWriter writerPdf = PdfWriter.GetInstance(documento, HttpContext.Current.Response.OutputStream);
 			writerPdf.PageEvent = ev;
 			documento.Open();
@@ -89,7 +89,7 @@ namespace EDUAR_UI.Utilidades
 			}
 
 			PdfPTable grdTable = new PdfPTable(columnCount);
-			Font LetraTituloTabla = FontFactory.GetFont(FontFactory.HELVETICA, 9, Font.BOLDITALIC, BaseColor.DARK_GRAY);
+			Font LetraTituloTabla = FontFactory.GetFont(FontFactory.HELVETICA, 9, Font.BOLDITALIC, BaseColor.BLUE);
 			float[] espacios = new float[columnCount];
 			for (int i = 0; i < columnCount; i++)
 			{
@@ -99,7 +99,7 @@ namespace EDUAR_UI.Utilidades
 			grdTable.SetWidths(espacios);
 			grdTable.WidthPercentage = 90;
 
-			//Cremos las cabeceras de la tabla
+			//Creamos las cabeceras de la tabla
 			//Adicionamos las cabeceras a la tabla
 			foreach (DataColumn columna in dtReporte.Columns)
 			{
@@ -109,6 +109,8 @@ namespace EDUAR_UI.Utilidades
 			Font LetraDefecto = FontFactory.GetFont(FontFactory.HELVETICA, 8, Font.NORMAL);
 
 			grdTable.CompleteRow();
+
+            grdTable.HeaderRows = 1;
 
 			foreach (DataRow fila in dtReporte.Rows)
 			{
@@ -149,7 +151,7 @@ namespace EDUAR_UI.Utilidades
 			objBLPersona.GetPersonaByEntidad();
 			usuario = objBLPersona.Data;
 
-			Document documento = new Document(PageSize.A4, 10, 10, 70, 50);
+            Document documento = new Document(PageSize.A4, 10, 10, 80, 50);
 			PdfWriter writerPdf = PdfWriter.GetInstance(documento, HttpContext.Current.Response.OutputStream);
 			writerPdf.PageEvent = ev;
 			documento.Open();
@@ -225,7 +227,7 @@ namespace EDUAR_UI.Utilidades
 			objBLPersona.GetPersonaByEntidad();
 			usuario = objBLPersona.Data;
 
-			Document documento = new Document(PageSize.A4, 10, 10, 70, 50);
+            Document documento = new Document(PageSize.A4, 10, 10, 80, 50);
 
 			PdfWriter writerPdf = PdfWriter.GetInstance(documento, HttpContext.Current.Response.OutputStream);
 			writerPdf.PageEvent = ev;
@@ -347,7 +349,7 @@ namespace EDUAR_UI.Utilidades
 
 			public override void OnStartPage(PdfWriter writer, Document document)
 			{
-				cb.PdfDocument.SetMargins(10, 10, 70, 50);
+				cb.PdfDocument.SetMargins(10, 10, 80, 50);
 			}
 
 			// we override the onEndPage method
@@ -364,15 +366,15 @@ namespace EDUAR_UI.Utilidades
 				cb.BeginText();
 				cb.SetTextMatrix(280, 300);
 				ColumnText ct = new ColumnText(cb);
-				ct.SetSimpleColumn(Titulo, documento.Left, 0, documento.Right, documento.Top + 33, 0, Element.ALIGN_CENTER);
+				ct.SetSimpleColumn(Titulo, documento.Left, 0, documento.Right, documento.Top + 38, 0, Element.ALIGN_CENTER);
 				ct.Go();
 
 				ColumnText ci = new ColumnText(cb);
-				ci.SetSimpleColumn(tipo, documento.Left, 0, documento.Right, documento.Top + 16, 0, Element.ALIGN_CENTER);
+				ci.SetSimpleColumn(tipo, documento.Left, 0, documento.Right, documento.Top + 20, 0, Element.ALIGN_CENTER);
 				ci.Go();
 
 				ColumnText cf = new ColumnText(cb);
-				cf.SetSimpleColumn(fechas, documento.Left, 0, documento.Right, documento.Top + 1, 0, Element.ALIGN_CENTER);
+				cf.SetSimpleColumn(fechas, documento.Left, 0, documento.Right, documento.Top + 5, 0, Element.ALIGN_CENTER);
 				cf.Go();
 				cb.EndText();
 				#endregion
@@ -383,10 +385,10 @@ namespace EDUAR_UI.Utilidades
 				cb.BeginText();
 				cb.SetFontAndSize(helv, 12);
 
-				cb.SetTextMatrix(270, 30);
+				cb.SetTextMatrix(255, 30);
 				cb.ShowText(text);
 				cb.EndText();
-				cb.AddTemplate(total, 345, 30);
+				cb.AddTemplate(total, 330, 30);
 
 				cb.RestoreState();
 			}

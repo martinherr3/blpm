@@ -178,6 +178,21 @@ namespace EDUAR_UI.UserControls
 				Session["TablaGrafico"] = value;
 			}
 		}
+
+        public bool habilitarTorta
+        {
+            get
+            {
+                if (Session["habilitarTorta"] == null)
+                    habilitarTorta = true;
+                return (bool)Session["habilitarTorta"];
+            }
+            set
+            {
+                Session["habilitarTorta"] = value;
+                btnTorta.Visible = value;
+            }
+        }
 		#endregion
 
 		#region --[Eventos]--
@@ -491,7 +506,7 @@ namespace EDUAR_UI.UserControls
 				Chart1.Series[item.NombreSerie].Points.DataBind(item.Datos.DefaultView, item.ColumnaNombre, item.ColumnaValor, "");
 			}
 			Chart1.Titles.Add(Titulo);
-			btnTorta.Visible = true;
+			btnTorta.Visible = habilitarTorta;
 			if (ListaSeries.Count > 1) btnTorta.Visible = false;
 
 			_IsListado = false;

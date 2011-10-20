@@ -226,6 +226,7 @@ namespace EDUAR_UI.UserControls
 
                 if (!Page.IsPostBack)
                 {
+                    grafico.habilitarTorta = true;
                     tituloReporte = Page.Title;
                     btnPDF.Visible = false;
                     btnGraficar.Visible = false;
@@ -406,7 +407,7 @@ namespace EDUAR_UI.UserControls
         public event VentanaBotonClickHandler ExportarPDFClick;
         public event VentanaBotonClickHandler VolverClick;
         public event VentanaBotonClickHandler GraficarClick;
-		public event PaginarGrillaHandler PaginarGrilla;
+        public event PaginarGrillaHandler PaginarGrilla;
         public event OrdenarGrillaHandler OrdenarGrilla;
 
         /// <summary>

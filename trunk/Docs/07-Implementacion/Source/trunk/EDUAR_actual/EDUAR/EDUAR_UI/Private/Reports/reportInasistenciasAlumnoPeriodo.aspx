@@ -105,9 +105,9 @@
                 </td>
             </tr>
         </table>
+        <script type="text/javascript">            $(".chzn-select").chosen();</script>
     </div>
     <div id="divReporte" runat="server">
         <rep:Reporte ID="rptInasistencias" runat="server"></rep:Reporte>
     </div>
-    <script type="text/javascript">        $(".chzn-select").chosen();</script>
 </asp:Content>
