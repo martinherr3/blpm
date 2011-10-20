@@ -166,6 +166,7 @@ namespace EDUAR_UI
 
 				if (!Page.IsPostBack)
 				{
+					TablaPropiaGrafico = null;
 					CargarPresentacion();
 					//BLRptInasistenciasAlumnoPeriodo objBLRptInasistencias = new BLRptInasistenciasAlumnoPeriodo();
 					//objBLRptInasistencias.GetRptInasistenciasAlumnoPeriodo(null);
