@@ -204,7 +204,7 @@ namespace EDUAR_BusinessLogic.Security
 				else
 				{
 					MembershipUser usuario = Membership.GetUser(Data.Usuario.Nombre);
-					if (usuario.IsLockedOut)
+					if (usuario != null && usuario.IsLockedOut)
 						throw new CustomizedException("El usuario se encuentra bloqueado.", null,
 														  enuExceptionType.SecurityException);
 					else
