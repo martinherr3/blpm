@@ -21,8 +21,8 @@
                                 </h2>
                             </td>
                             <td style="width: 20%; text-align: right" rowspan="2">
-                                <asp:Image ID="Image1" ImageUrl="~/Images/web/address-book.png" runat="server" AlternateText="Información de Contacto"
-                                    ToolTip="Información de Contacto" />
+                                <asp:Image ID="Image1" ImageUrl="~/Images/web/new-user.png" runat="server" AlternateText="Nuevo Usuario"
+                                    ToolTip="Nuevo Usuario" />
                             </td>
                         </tr>
                         <tr>

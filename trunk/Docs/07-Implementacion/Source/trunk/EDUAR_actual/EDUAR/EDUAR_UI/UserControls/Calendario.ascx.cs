@@ -809,6 +809,12 @@ namespace EDUAR_UI.UserControls
 					throw new CustomizedException("La fecha seleccionada corresponde a un día laborable.", null, enuExceptionType.ValidationException);
 				}
 		}
+
+		public void setSelectedDate(DateTime fechaDesde,DateTime fechaHasta)
+		{
+			calExtFechaDesde_DA.SelectedDate = fechaDesde;
+			calExtFechaHasta_DA.SelectedDate = fechaHasta;
+		}
 		#endregion
 	}
 }

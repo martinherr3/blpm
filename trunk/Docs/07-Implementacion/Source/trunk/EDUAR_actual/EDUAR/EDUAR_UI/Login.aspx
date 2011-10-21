@@ -63,63 +63,75 @@
         <table>
             <tr>
                 <td class="contenedormenu">
-                    <!-- MENU -->
-                    <%--<asp:TreeView ID="trvMenu" runat="server" CollapseImageToolTip="Contraer" ExpandImageToolTip="Expander"
-                        Visible="false">
-                        <HoverNodeStyle />
-                        <RootNodeStyle />
-                        <NodeStyle />
-                        <LeafNodeStyle />
-                    </asp:TreeView>--%>
-                    <!-- FIN MENU -->
                 </td>
                 <td style="width: 85%; min-height: 800px; height: auto; vertical-align: top">
                     <div class="main">
-                        <h2>
-                            Iniciar sesión
-                        </h2>
-                        <p class="ui-widget">
-                            Especifique su nombre de usuario y contraseña.
-                            <asp:HyperLink ID="RegisterHyperLink" runat="server" EnableViewState="false">Registrarse</asp:HyperLink>
-                            si no tiene una cuenta.
-                        </p>
-                        <p class="ui-widget">
-                            Si ha olvidado su clave de ingreso haga click
-                            <asp:HyperLink ID="ForgotPasswordHyperLink" runat="server" EnableViewState="false">Aquí</asp:HyperLink>
-                        </p>
-                        <asp:Login ID="LoginUser" runat="server" EnableViewState="false" RenderOuterTable="false"
-                            OnAuthenticate="LoginUsuario_Authenticate">
-                            <LayoutTemplate>
-                                <span class="failureNotification">
-                                    <asp:Literal ID="FailureText" runat="server"></asp:Literal>
-                                </span>
-                                <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification"
-                                    ValidationGroup="LoginUserValidationGroup" />
-                                <div class="accountInfo">
-                                    <fieldset class="login">
-                                        <legend>Información de cuenta</legend>
-                                        <p class="ui-widget">
-                                            <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Nombre de usuario:</asp:Label>
-                                            <asp:TextBox ID="UserName" runat="server" CssClass="textEntry"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName"
-                                                CssClass="failureNotification" ErrorMessage="El nombre de usuario es obligatorio."
-                                                ToolTip="El nombre de usuario es obligatorio." ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
-                                        </p>
-                                        <p class="ui-widget">
-                                            <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Contraseña:</asp:Label>
-                                            <asp:TextBox ID="Password" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"
-                                                CssClass="failureNotification" ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña es obligatoria."
-                                                ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
-                                        </p>
-                                    </fieldset>
-                                    <p class="submitButton">
-                                        <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Iniciar sesión"
-                                            ValidationGroup="LoginUserValidationGroup" />
+                        <table width="100%" cellpadding="1" cellspacing="5" border="0">
+                            <tr>
+                                <td style="width: 80%; vertical-align: text-top">
+                                    <h2>
+                                        Iniciar Sesión<hr />
+                                    </h2>
+                                </td>
+                                <td style="width: 20%; text-align: right" rowspan="2">
+                                    <asp:Image ID="Image1" ImageUrl="~/Images/web/login.png" runat="server" AlternateText="Iniciar Sesión"
+                                        ToolTip="Iniciar Sesión" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 80%">
+                                    <p class="ui-widget">
+                                        Especifique su nombre de usuario y contraseña.
+                                        <asp:HyperLink ID="RegisterHyperLink" runat="server" EnableViewState="false">Registrarse</asp:HyperLink>
+                                        si no tiene una cuenta.
                                     </p>
-                                </div>
-                            </LayoutTemplate>
-                        </asp:Login>
+                                </td>
+                            </tr>
+                        </table>
+                        <table width="100%" cellpadding="1" cellspacing="5" border="0">
+                            <tr>
+                                <td style="width: 100%">
+                                    <p class="ui-widget">
+                                        Si ha olvidado su clave de ingreso haga click
+                                        <asp:HyperLink ID="ForgotPasswordHyperLink" runat="server" EnableViewState="false">Aquí</asp:HyperLink>
+                                    </p>
+                                    <asp:Login ID="LoginUser" runat="server" EnableViewState="false" RenderOuterTable="false"
+                                        OnAuthenticate="LoginUsuario_Authenticate">
+                                        <LayoutTemplate>
+                                            <span class="failureNotification">
+                                                <asp:Literal ID="FailureText" runat="server"></asp:Literal>
+                                            </span>
+                                            <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification"
+                                                ValidationGroup="LoginUserValidationGroup" />
+                                            <div class="accountInfo">
+                                                <fieldset class="login">
+                                                    <legend>Información de cuenta</legend>
+                                                    <p class="ui-widget">
+                                                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Nombre de usuario:</asp:Label>
+                                                        <asp:TextBox ID="UserName" runat="server" CssClass="textEntry"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName"
+                                                            CssClass="failureNotification" ErrorMessage="El nombre de usuario es obligatorio."
+                                                            ToolTip="El nombre de usuario es obligatorio." ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
+                                                    </p>
+                                                    <p class="ui-widget">
+                                                        <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Contraseña:</asp:Label>
+                                                        <asp:TextBox ID="Password" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
+                                                        <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"
+                                                            CssClass="failureNotification" ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña es obligatoria."
+                                                            ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
+                                                    </p>
+                                                </fieldset>
+                                                <p class="submitButton">
+                                                    <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Iniciar sesión"
+                                                        ValidationGroup="LoginUserValidationGroup" />
+                                                </p>
+                                            </div>
+                                        </LayoutTemplate>
+                                    </asp:Login>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </td>
             </tr>
         </table>

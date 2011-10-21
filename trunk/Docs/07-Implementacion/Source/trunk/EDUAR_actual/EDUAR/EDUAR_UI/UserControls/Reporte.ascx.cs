@@ -407,7 +407,7 @@ namespace EDUAR_UI.UserControls
         public event VentanaBotonClickHandler ExportarPDFClick;
         public event VentanaBotonClickHandler VolverClick;
         public event VentanaBotonClickHandler GraficarClick;
-        public event PaginarGrillaHandler PaginarGrilla;
+		public event PaginarGrillaHandler PaginarGrilla;
         public event OrdenarGrillaHandler OrdenarGrilla;
 
         /// <summary>

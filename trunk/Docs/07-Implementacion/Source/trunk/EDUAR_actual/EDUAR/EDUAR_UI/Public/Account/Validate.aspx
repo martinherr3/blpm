@@ -1,5 +1,5 @@
-﻿<%@ Page Title="Validar Usuario" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
-    CodeBehind="Validate.aspx.cs" Inherits="EDUAR_UI.Validate" %>
+﻿<%@ Page Title="Validar Usuario" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+    AutoEventWireup="true" CodeBehind="Validate.aspx.cs" Inherits="EDUAR_UI.Validate" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -11,12 +11,28 @@
         <ContentTemplate>
             <asp:UpdatePanel ID="udpDatosValidar" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <h2>
-                        Registrarme</h2>
-                    <p class="ui-widget">
-                        Necesitamos validar su identidad para poder generarle un usuario, por favor, responda
-                        las preguntas a continuación.</p>
-                    <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
+                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+                        <tr>
+                            <td style="width: 80%; vertical-align: text-top">
+                                <h2>
+                                    Registrarme<hr />
+                                </h2>
+                            </td>
+                            <td style="width: 20%; text-align: right" rowspan="2">
+                                <asp:Image ID="Image1" ImageUrl="~/Images/web/validate.png" runat="server" AlternateText="Registrarme"
+                                    ToolTip="Registrarme" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%">
+                                <p class="ui-widget">
+                                    Necesitamos validar su identidad para poder generarle un usuario, por favor, responda
+                                    las preguntas a continuación.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
                         <tr>
                             <td style="width: 25%">
                                 <asp:Label ID="lblTipoDocumento" Text="Tipo de Documento" runat="server" />
@@ -62,70 +78,6 @@
                     <asp:AsyncPostBackTrigger ControlID="btnValidar" EventName="Click" />
                 </Triggers>
             </asp:UpdatePanel>
-            <%--            <asp:UpdatePanel ID="udpRecover" runat="server" UpdateMode="Conditional" Visible="false">
-                <ContentTemplate>
-                    <h2>
-                        Nueva clave de acceso</h2>
-                    <p class="ui-widget">
-                        Para obtener una nueva clave de acceso responde a la siguiente pregunta.</p>
-                    <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td>
-                                <asp:Literal ID="Literal1" Text="Pregunta Secreta" runat="server" />
-                            </td>
-                            <td>
-                                <asp:Label ID="lblPregunta" Text="" runat="server" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Literal ID="Literal2" Text="Respuesta" runat="server" />
-                            </td>
-                            <td>
-                                <asp:TextBox ID="txtRespuesta" runat="server" /><asp:ImageButton ID="btnRecoverPassword"
-                                    ImageUrl="~/Images/botonSiguiente.png" runat="server" ToolTip="Siguiente" OnClick="btnRecoverPassword_Click"
-                                    ImageAlign="AbsMiddle" />
-                            </td>
-                        </tr>
-                    </table>
-                </ContentTemplate>
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="btnRecoverPassword" EventName="Click" />
-                </Triggers>
-            </asp:UpdatePanel>
-            <asp:UpdatePanel ID="udpNewPassword" runat="server" UpdateMode="Conditional" Visible="false">
-                <ContentTemplate>
-                    <h2>
-                        Nueva clave de acceso</h2>
-                    <p class="ui-widget">
-                        Ingrese su nueva clave de acceso.</p>
-                    <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td>
-                                <asp:Literal ID="Literal3" Text="Nueva Contraseña" runat="server" />
-                            </td>
-                            <td>
-                                <asp:TextBox runat="server" ID="txtPassword" TextMode="Password" /><asp:CompareValidator
-                                    ID="CompareValidator1" runat="server" ErrorMessage="Las contraseñas no son iguales"
-                                    ControlToCompare="txtPassword" ControlToValidate="txtPasswordConfirm"></asp:CompareValidator>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Literal ID="Literal4" Text="Repita la Contraseña" runat="server" />
-                            </td>
-                            <td>
-                                <asp:TextBox runat="server" ID="txtPasswordConfirm" TextMode="Password" />&nbsp;<asp:ImageButton
-                                    ID="btnConfirmarPassword" ImageUrl="~/Images/botonSiguiente.png" runat="server"
-                                    ToolTip="Siguiente" OnClick="btnConfirmarPassword_Click" ImageAlign="AbsMiddle" />
-                            </td>
-                        </tr>
-                    </table>
-                </ContentTemplate>
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="btnConfirmarPassword" EventName="Click" />
-                </Triggers>
-            </asp:UpdatePanel>--%>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
