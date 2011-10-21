@@ -1,14 +1,14 @@
-﻿<%@ Page Title="Histórico Rendimiento" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+﻿<%@ Page Title="Rendimiento Académico General" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="reportRendimiento.aspx.cs" Inherits="EDUAR_UI.reportRendimiento" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
-<%--<%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>--%>
 <%@ Register Src="~/UserControls/Reporte.ascx" TagName="Reporte" TagPrefix="rep" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Rendimiento</h2>
+    <h2>Rendimiento Académico General</h2>
     <br />
     <div id="divFiltros" runat="server" style="width: 800px">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
@@ -19,6 +19,7 @@
                 </td>
             </tr>
         </table>
+
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
                 <td valign="top" class="TDCriterios25">
@@ -48,6 +49,7 @@
                     </asp:UpdatePanel>
                 </td>
             </tr>
+<%--            
             <tr>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
@@ -69,22 +71,7 @@
                 <td valign="top" class="TDCriterios25">
                 </td>
             </tr>
-            <tr>
-                <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblAlumno" runat="server" Text="Alumno:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td valign="top" class="TDCriterios75" colspan="3">
-                    <asp:UpdatePanel ID="udpAlumno" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:DropDownList ID="ddlAlumno" runat="server">
-                            </asp:DropDownList>
-                        </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
-                        </Triggers>
-                    </asp:UpdatePanel>
-                </td>
-            </tr>
+--%>
             <tr>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
@@ -103,6 +90,7 @@
             </tr>
         </table>
     </div>
+
     <div id="divReporte" runat="server">
         <rep:Reporte ID="rptCalificaciones" runat="server"></rep:Reporte>
     </div>

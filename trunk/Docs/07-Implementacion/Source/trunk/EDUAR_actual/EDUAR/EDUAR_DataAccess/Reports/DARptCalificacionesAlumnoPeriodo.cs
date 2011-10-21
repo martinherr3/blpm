@@ -105,26 +105,18 @@ namespace EDUAR_DataAccess.Reports
 		{
 			try
 			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_PromedioHistoricoCalificacionesAlumno");
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ComparativoCalificacionesConsolidado");
 				if (entidad != null)
 				{
-					if (entidad.idAlumno > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAlumno", DbType.Int32, entidad.idAlumno);
-					if (entidad.idAsignatura > 0)
+                    if (entidad.idAsignatura > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.idAsignatura);
-					if (entidad.idCurso > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.idCurso);
+                    //if (entidad.idCurso > 0)
+                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.idCurso);
 					if (entidad.idNivel > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32, entidad.idNivel);
 					if (entidad.idCicloLectivo > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
-					if (entidad.idInstanciaEvaluacion > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idInstanciaEvaluacion", DbType.Int32, entidad.idInstanciaEvaluacion);
-					if (ValidarFechaSQL(entidad.fechaDesde))
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaDesde);
-					if (ValidarFechaSQL(entidad.fechaHasta))
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaHasta);
-					if (!string.IsNullOrEmpty(entidad.username))
+                    if (!string.IsNullOrEmpty(entidad.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.username);
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
@@ -135,11 +127,10 @@ namespace EDUAR_DataAccess.Reports
 				{
 					objReporte = new RptRendimientoHistorico();
 
-					objReporte.alumno = reader["alumno"].ToString();
-					objReporte.asignatura = reader["asignatura"].ToString();
-					objReporte.periodo = reader["periodo"].ToString();
-					objReporte.promedio = reader["promedio"].ToString();
-					//objReporte.instancia = reader["Instancia"].ToString();
+                    objReporte.asignatura = reader["Asignatura"].ToString();
+                    objReporte.ciclolectivo = reader["CicloLectivo"].ToString();
+                    objReporte.curso = reader["Curso"].ToString();
+                    objReporte.promedio = reader["Promedio"].ToString();
 
 					listaReporte.Add(objReporte);
 				}
