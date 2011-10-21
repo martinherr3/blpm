@@ -65,7 +65,7 @@ namespace EDUAR_Utility.Enumeraciones
 
 	}//end enumExceptionType
 
-	public enum enumRoles : int
+	public enum enumRoles
 	{
 		Anonimo = 0,
 		Administrador = 1,
