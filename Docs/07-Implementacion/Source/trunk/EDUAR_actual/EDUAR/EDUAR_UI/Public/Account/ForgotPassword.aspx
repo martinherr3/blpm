@@ -10,11 +10,27 @@
         <ContentTemplate>
             <asp:UpdatePanel ID="udpEmail" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <h2>
-                        Olvidé Mi Clave</h2>
-                    <p class="ui-widget">
-                        Recupere los datos de acceso a su cuenta. Para ello, ingrese su dirección de e-mail.</p>
-                    <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
+                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+                        <tr>
+                            <td style="width: 80%; vertical-align: text-top">
+                                <h2>
+                                    Olvidé Mi Clave<hr />
+                                </h2>
+                            </td>
+                            <td style="width: 20%; text-align: right" rowspan="2">
+                                <asp:Image ID="Image1" ImageUrl="~/Images/web/password.png" runat="server" AlternateText="Olvidé Mi Clave"
+                                    ToolTip="Olvidé Mi Clave" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%">
+                                <p class="ui-widget">
+                                    Recupere los datos de acceso a su cuenta. Para ello, ingrese su dirección de e-mail.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
                         <tr>
                             <td style="width: 15%">
                                 <asp:Label ID="Label1" Text="Email" runat="server" />
@@ -36,11 +52,27 @@
             </asp:UpdatePanel>
             <asp:UpdatePanel ID="udpRecover" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-                    <h2>
-                        Nueva Clave De Acceso</h2>
-                    <p class="ui-widget">
-                        Para obtener una nueva clave de acceso responde a la siguiente pregunta.</p>
-                    <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
+                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+                        <tr>
+                            <td style="width: 80%; vertical-align: text-top">
+                                <h2>
+                                    Nueva Clave De Acceso<hr />
+                                </h2>
+                            </td>
+                            <td style="width: 20%; text-align: right" rowspan="2">
+                                <asp:Image ID="Image2" ImageUrl="~/Images/web/password.png" runat="server" AlternateText="Olvidé Mi Clave"
+                                    ToolTip="Olvidé Mi Clave" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%">
+                                <p class="ui-widget">
+                                    Para obtener una nueva clave de acceso responde a la siguiente pregunta.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
                         <tr>
                             <td>
                                 <asp:Literal Text="Pregunta Secreta" runat="server" />
@@ -54,9 +86,9 @@
                                 <asp:Literal Text="Respuesta" runat="server" />
                             </td>
                             <td>
-                                <asp:TextBox ID="txtRespuesta" runat="server" ViewStateMode="Disabled" /><asp:ImageButton ID="btnRecoverPassword"
-                                    ImageUrl="~/Images/botonSiguiente.png" runat="server" ToolTip="Siguiente" OnClick="btnRecoverPassword_Click"
-                                    ImageAlign="AbsMiddle" />
+                                <asp:TextBox ID="txtRespuesta" runat="server" ViewStateMode="Disabled" /><asp:ImageButton
+                                    ID="btnRecoverPassword" ImageUrl="~/Images/botonSiguiente.png" runat="server"
+                                    ToolTip="Siguiente" OnClick="btnRecoverPassword_Click" ImageAlign="AbsMiddle" />
                             </td>
                         </tr>
                     </table>
@@ -67,17 +99,34 @@
             </asp:UpdatePanel>
             <asp:UpdatePanel ID="udpNewPassword" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-                    <h2>
-                        Nueva clave de acceso</h2>
-                    <p class="ui-widget">
-                        Ingrese su nueva clave de acceso.</p>
-                    <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
+                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+                        <tr>
+                            <td style="width: 80%; vertical-align: text-top">
+                                <h2>
+                                    Nueva Clave De Acceso<hr />
+                                </h2>
+                            </td>
+                            <td style="width: 20%; text-align: right" rowspan="2">
+                                <asp:Image ID="Image3" ImageUrl="~/Images/web/password.png" runat="server" AlternateText="Olvidé Mi Clave"
+                                    ToolTip="Olvidé Mi Clave" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80%">
+                                <p class="ui-widget">
+                                    Ingrese su nueva clave de acceso.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
                         <tr>
                             <td>
                                 <asp:Literal Text="Nueva Contraseña" runat="server" />
                             </td>
                             <td>
-                                <asp:TextBox runat="server" ID="txtPassword" TextMode="Password" /><asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Las contraseñas no son iguales"
+                                <asp:TextBox runat="server" ID="txtPassword" TextMode="Password" /><asp:CompareValidator
+                                    ID="CompareValidator1" runat="server" ErrorMessage="Las contraseñas no son iguales"
                                     ControlToCompare="txtPassword" ControlToValidate="txtPasswordConfirm"></asp:CompareValidator>
                             </td>
                         </tr>

@@ -11,9 +11,9 @@ using EDUAR_Entities;
 using EDUAR_Entities.Security;
 using EDUAR_Entities.Shared;
 using EDUAR_UI.Shared;
+using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
-using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {

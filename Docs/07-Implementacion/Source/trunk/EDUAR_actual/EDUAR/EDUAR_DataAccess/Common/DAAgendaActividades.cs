@@ -10,6 +10,9 @@ using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_DataAccess.Common
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public class DAAgendaActividades : DataAccesBase<AgendaActividades>
 	{
 		#region --[Atributos]--
@@ -29,6 +32,11 @@ namespace EDUAR_DataAccess.Common
 		#endregion
 
 		#region --[Métodos Públicos]--
+		/// <summary>
+		/// Gets the agenda actividades.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
 		public List<AgendaActividades> GetAgendaActividades(AgendaActividades entidad)
 		{
 			try
@@ -151,7 +159,6 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
-
 		/// <summary>
 		/// Gets the reuniones agenda.
 		/// </summary>
@@ -213,7 +220,6 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
-
 
 		/// <summary>
 		/// Gets the excursiones agenda.
@@ -277,6 +283,223 @@ namespace EDUAR_DataAccess.Common
 			catch (Exception ex)
 			{
 				throw new CustomizedException(string.Format("Fallo en {0} - GetExcursionesAgenda2()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the eventos agenda.
+		/// </summary>
+		/// <param name="idAgendaActividades">The id agenda actividades.</param>
+		/// <returns></returns>
+		public List<EventoAgenda> GetEventosAgenda(int idAgendaActividades)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoAgenda_Select");
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, idAgendaActividades);
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<EventoAgenda> listaEventos = new List<EventoAgenda>();
+				EventoAgenda objEvento = null;
+				while (reader.Read())
+				{
+					objEvento = new EventoAgenda();
+
+					objEvento.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividades"]);
+					objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
+					objEvento.usuario.nombre = reader["nombre"].ToString();
+					objEvento.usuario.apellido = reader["apellido"].ToString();
+					objEvento.activo = Convert.ToBoolean(reader["activo"].ToString());
+					objEvento.fechaAlta = Convert.ToDateTime(reader["fechaAlta"].ToString());
+					objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
+					objEvento.descripcion = reader["descripcion"].ToString();
+					objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
+					listaEventos.Add(objEvento);
+				}
+				return listaEventos;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Verificars the agenda evaluacion.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <param name="idAsignatura">The id asignatura.</param>
+		/// <returns></returns>
+		public bool VerificarAgendaEvaluacion(EventoAgenda entidad, int idAsignatura)
+		{
+			//TODO: Verificar que se pueda definir una evaluación de una aisgnatura diferente en un mismo día.
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Evaluacion_VerificarDisponibilidadAgenda");
+
+				if (ValidarFechaSQL(entidad.fechaEvento))
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fechaEvento", DbType.DateTime, entidad.fechaEvento);
+				if (entidad.idAgendaActividad > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
+				if (idAsignatura > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idAsignaturaCurso", DbType.Int32, idAsignatura);
+				if (entidad.idEventoAgenda > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				while (reader.Read())
+				{
+					return false;
+				}
+				return true;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Verificars the agenda excursiones.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public bool VerificarAgendaExcursiones(EventoAgenda entidad)
+		{
+			//TODO: Verificar que se pueda definir una evaluación de una aisgnatura diferente en un mismo día.
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Excursion_VerificarDisponibilidadAgenda");
+
+				if (ValidarFechaSQL(entidad.fechaEvento))
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fechaEvento", DbType.DateTime, entidad.fechaEvento);
+				if (entidad.idAgendaActividad > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
+				if (entidad.idEventoAgenda > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				while (reader.Read())
+				{
+					return false;
+				}
+				return true;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Verificars the agenda reuniones.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public bool VerificarAgendaReuniones(EventoAgenda entidad)
+		{
+			bool disponible = true;
+			int tipoEvento = entidad.tipoEventoAgenda.idTipoEventoAgenda;
+
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ReunionValidarDisponibilidad_Select");
+
+				if (tipoEvento == (int)enumEventoAgendaType.Reunion)
+				{
+					if (entidad.fechaEvento != null)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fecha", DbType.DateTime, entidad.fechaEvento);
+					if (entidad.idEventoAgenda > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
+
+					IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+					while (reader.Read())
+					{
+						disponible = false;
+					}
+					//disponible = true;
+				}
+
+				return disponible;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgendaReuniones()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgendaReuniones()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the agenda actividades by alumno.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<EventoAgenda> GetAgendaActividadesByAlumno(Alumno entidad, DateTime fechaDesde, DateTime fechaHasta)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AgendaByUsuario_Select");
+				if (!string.IsNullOrEmpty(entidad.username))
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioAlumno", DbType.String, entidad.username);
+				if (ValidarFechaSQL(fechaDesde))
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, fechaDesde);
+				if (ValidarFechaSQL(fechaHasta))
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, fechaHasta);
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				//AgendaActividades objAgendaActividades = null;
+				List<EventoAgenda> listaEventos = new List<EventoAgenda>();
+				EventoAgenda objEvento = null;
+				while (reader.Read())
+				{
+					objEvento = new EventoAgenda();
+
+					objEvento.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividades"]);
+					objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
+					objEvento.usuario.nombre = reader["nombre"].ToString();
+					objEvento.usuario.apellido = reader["apellido"].ToString();
+					objEvento.activo = Convert.ToBoolean(reader["activo"].ToString());
+					objEvento.fechaAlta = Convert.ToDateTime(reader["fechaAlta"].ToString());
+					objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
+					objEvento.descripcion = reader["descripcion"].ToString();
+					objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
+					listaEventos.Add(objEvento);
+				}
+				return listaEventos;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAgendaActividadesByAlumno()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAgendaActividadesByAlumno()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
@@ -423,159 +646,6 @@ namespace EDUAR_DataAccess.Common
 		{
 			throw new NotImplementedException();
 		}
-
-		/// <summary>
-		/// Gets the eventos agenda.
-		/// </summary>
-		/// <param name="idAgendaActividades">The id agenda actividades.</param>
-		/// <returns></returns>
-		public List<EventoAgenda> GetEventosAgenda(int idAgendaActividades)
-		{
-			try
-			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoAgenda_Select");
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, idAgendaActividades);
-				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-
-				List<EventoAgenda> listaEventos = new List<EventoAgenda>();
-				EventoAgenda objEvento = null;
-				while (reader.Read())
-				{
-					objEvento = new EventoAgenda();
-
-					objEvento.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividades"]);
-					objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
-					objEvento.usuario.nombre = reader["nombre"].ToString();
-					objEvento.usuario.apellido = reader["apellido"].ToString();
-					objEvento.activo = Convert.ToBoolean(reader["activo"].ToString());
-					objEvento.fechaAlta = Convert.ToDateTime(reader["fechaAlta"].ToString());
-					objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
-					objEvento.descripcion = reader["descripcion"].ToString();
-					objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
-					listaEventos.Add(objEvento);
-				}
-				return listaEventos;
-			}
-			catch (SqlException ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
-									ex, enuExceptionType.SqlException);
-			}
-			catch (Exception ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
-									ex, enuExceptionType.DataAccesException);
-			}
-		}
-
-		public bool VerificarAgendaEvaluacion(EventoAgenda entidad, int idAsignatura)
-		{
-			//TODO: Verificar que se pueda definir una evaluación de una aisgnatura diferente en un mismo día.
-			try
-			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Evaluacion_VerificarDisponibilidadAgenda");
-
-				if (ValidarFechaSQL(entidad.fechaEvento))
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fechaEvento", DbType.DateTime, entidad.fechaEvento);
-				if (entidad.idAgendaActividad > 0)
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
-				if (idAsignatura > 0)
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idAsignaturaCurso", DbType.Int32, idAsignatura);
-				if (entidad.idEventoAgenda > 0)
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
-				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-
-				while (reader.Read())
-				{
-					return false;
-				}
-				return true;
-			}
-			catch (SqlException ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda()", ClassName),
-									ex, enuExceptionType.SqlException);
-			}
-			catch (Exception ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda()", ClassName),
-									ex, enuExceptionType.DataAccesException);
-			}
-		}
-
-		public bool VerificarAgendaExcursiones(EventoAgenda entidad)
-		{
-			//TODO: Verificar que se pueda definir una evaluación de una aisgnatura diferente en un mismo día.
-			try
-			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Excursion_VerificarDisponibilidadAgenda");
-
-				if (ValidarFechaSQL(entidad.fechaEvento))
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fechaEvento", DbType.DateTime, entidad.fechaEvento);
-				if (entidad.idAgendaActividad > 0)
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
-				if (entidad.idEventoAgenda > 0)
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
-				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-
-				while (reader.Read())
-				{
-					return false;
-				}
-				return true;
-			}
-			catch (SqlException ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda()", ClassName),
-									ex, enuExceptionType.SqlException);
-			}
-			catch (Exception ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda()", ClassName),
-									ex, enuExceptionType.DataAccesException);
-			}
-		}
-
-		public bool VerificarAgendaReuniones(EventoAgenda entidad)
-		{
-			bool disponible = true;
-			int tipoEvento = entidad.tipoEventoAgenda.idTipoEventoAgenda;
-
-			try
-			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ReunionValidarDisponibilidad_Select");
-
-				if (tipoEvento == (int)enumEventoAgendaType.Reunion)
-				{
-					if (entidad.fechaEvento != null)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "fecha", DbType.DateTime, entidad.fechaEvento);
-					if (entidad.idEventoAgenda > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "idEventoAgenda", DbType.Int32, entidad.idEventoAgenda);
-
-					IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-
-					while (reader.Read())
-					{
-						disponible = false;
-					}
-					//disponible = true;
-				}
-
-				return disponible;
-			}
-			catch (SqlException ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgendaReuniones()", ClassName),
-									ex, enuExceptionType.SqlException);
-			}
-			catch (Exception ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgendaReuniones()", ClassName),
-									ex, enuExceptionType.DataAccesException);
-			}
-		}
-
 		#endregion
-
 	}
 }

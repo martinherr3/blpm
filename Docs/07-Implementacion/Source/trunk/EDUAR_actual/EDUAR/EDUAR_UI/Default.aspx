@@ -5,11 +5,24 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <h2>
-        EDU@R 2.0
-    </h2>
-    <p class="ui-widget">
-        Sistema de Comunicación y Explotación de Información Educativa.
-    </p>
-    <%--<asp:Image ImageUrl="~/Images/prueba.gif" runat="server" />--%>
+    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+        <tr>
+            <td style="width: 80%; vertical-align: text-top">
+                <h2>
+                    EDU@R 2.0<hr />
+                </h2>
+            </td>
+            <td style="width: 20%; text-align: right" rowspan="2">
+                <asp:Image ID="Image1" ImageUrl="~/Images/web/default.png" runat="server" AlternateText="Página de Inicio"
+                    ToolTip="Página de Inicio" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80%">
+                <p class="ui-widget">
+                    Sistema de Comunicación y Explotación de Información Educativa.
+                </p>
+            </td>
+        </tr>
+    </table>
 </asp:Content>
