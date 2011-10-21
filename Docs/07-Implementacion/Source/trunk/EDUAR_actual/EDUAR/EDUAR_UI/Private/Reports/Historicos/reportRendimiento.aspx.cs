@@ -224,66 +224,66 @@ namespace EDUAR_UI
 			{ Master.ManageExceptions(ex); }
 		}
 
-		/// <summary>
-		/// BTNs the graficar.
-		/// </summary>
-		/// <param name="sender">The sender.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void btnGraficar(object sender, EventArgs e)
-		{
-			try
-			{
-				GenerarDatosGrafico();
-				AccionPagina = enumAcciones.Limpiar;
-				rptCalificaciones.graficoReporte.LimpiarSeries();
+        ///// <summary>
+        ///// BTNs the graficar.
+        ///// </summary>
+        ///// <param name="sender">The sender.</param>
+        ///// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void btnGraficar(object sender, EventArgs e)
+        {
+            try
+            {
+                //GenerarDatosGrafico();
+                AccionPagina = enumAcciones.Limpiar;
+                rptCalificaciones.graficoReporte.LimpiarSeries();
 
-				var serie = new List<RptRendimientoHistorico>();
-				if (Convert.ToInt16(ddlAlumno.SelectedItem.Value) > 0)
-				{
-					//obtengo solo las notas del alumno seleccionado
-					var listaParcial = listaReporte.FindAll(p => p.alumno == ddlAlumno.SelectedItem.Text);
-					var porAnio = from c in listaParcial
-								  group c by c.periodo into g
-								  select new { Periodo = g.Key, Rendimiento = g.Average(p => Convert.ToDouble(p.promedio)) };
+                var serie = new List<RptRendimientoHistorico>();
+                if (Convert.ToInt16(ddlAsignatura.SelectedItem.Value) > 0)
+                {
+                    //obtengo solo las notas del curso asociado
+                    var listaParcial = listaReporte.FindAll(p => p.asignatura == ddlAsignatura.SelectedItem.Text);
+                    var porCurso = from c in listaParcial
+                                  group c by c.curso into g
+                                  select new { Curso = g.Key, Rendimiento = g.Average(p => Convert.ToDouble(p.promedio)) };
 
-					foreach (var item in porAnio)
-					{
-						serie.Add(new RptRendimientoHistorico
-						{
-							promedio = item.Rendimiento.ToString(CultureInfo.InvariantCulture),
-							alumno = item.Periodo
-						});
-					}
-				}
+                    foreach (var item in porCurso)
+                    {
+                        serie.Add(new RptRendimientoHistorico
+                        {
+                            promedio = item.Rendimiento.ToString(CultureInfo.InvariantCulture),
+                            curso = item.Curso
+                        });
+                    }
+                }
 
 
-				//foreach (var item in listaAsignatura)
-				//{
-				//    sumaNotas = 0;
-				//    var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre);
-				//    if (listaParcial.Count > 0)
-				//    {
-				//        foreach (var nota in listaParcial)
-				//        {
-				//            sumaNotas += Convert.ToInt16(nota.calificacion);
-				//        }
-				//        serie.Add(new RptCalificacionesAlumnoPeriodo
-				//        {
-				//            calificacion = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
-				//            asignatura = item.nombre
-				//        });
-				//    }
-				//}
-				DataTable dt = UIUtilidades.BuildDataTable<RptRendimientoHistorico>(serie);
-				rptCalificaciones.graficoReporte.AgregarSerie("Histórico", dt, "alumno", "promedio");
-				rptCalificaciones.graficoReporte.Titulo = "Promedio Histórico \n" + ddlAlumno.SelectedItem.Text;
+                //foreach (var item in listaAsignatura)
+                //{
+                //    sumaNotas = 0.0;
+                //    var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre);
+                //    if (listaParcial.Count > 0)
+                //    {
+                //        foreach (var nota in listaParcial)
+                //        {
+                //            sumaNotas += Convert.ToInt16(nota.promedio);
+                //        }
+                //        serie.Add(new RptRendimientoHistorico
+                //        {
+                //            promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
+                //            asignatura = item.nombre
+                //        });
+                //    }
+                //}
+                DataTable dt = UIUtilidades.BuildDataTable<RptRendimientoHistorico>(serie);
+                rptCalificaciones.graficoReporte.AgregarSerie("Histórico", dt, "alumno", "promedio");
+                //rptCalificaciones.graficoReporte.Titulo = "Promedio Histórico \n" + ddlAlumno.SelectedItem.Text;
 
-				rptCalificaciones.graficoReporte.GraficarBarra();
-				rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
-			}
-			catch (Exception ex)
-			{ Master.ManageExceptions(ex); }
-		}
+                rptCalificaciones.graficoReporte.GraficarBarra();
+                rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
+        }
 
 		/// <summary>
 		/// Paginars the grilla.
@@ -314,57 +314,50 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlCicloLectivo_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			try
-			{
-				AccionPagina = enumAcciones.Limpiar;
-				ddlNivel.Items.Clear();
-				ddlCurso.Items.Clear();
-				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+        protected void ddlCicloLectivo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                AccionPagina = enumAcciones.Limpiar;
+                //ddlCurso.Items.Clear();
+                //int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
 
-				BLNivel objBLNivel = new BLNivel();
-				List<Nivel> listaNiveles = new List<Nivel>();
-				listaNiveles = objBLNivel.GetByCursoCicloLectivo(idCicloLectivo);
-				UIUtilidades.BindCombo<Nivel>(ddlNivel, listaNiveles, "idNivel", "nombre", true);
-				CargarComboCursos(idCicloLectivo, ddlCurso);
-				if (Convert.ToInt16(ddlCicloLectivo.SelectedValue) > 0)
-				{
-					ddlNivel.Enabled = true;
-					ddlCurso.Enabled = true;
-				}
-				else
-				{
-					ddlNivel.Items.Clear();
-					ddlNivel.Enabled = false;
-					ddlCurso.Items.Clear();
-					ddlCurso.Enabled = false;
-				}
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
-		}
+                //CargarComboCursos(idCicloLectivo, ddlCurso);
+                //if (Convert.ToInt16(ddlCicloLectivo.SelectedValue) > 0)
+                //{
 
-		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ddlNivel control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlNivel_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			try
-			{
-				AccionPagina = enumAcciones.Limpiar;
-				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-				CargarComboCursos(idCicloLectivo, ddlCurso);
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
-		}
+                //    ddlCurso.Enabled = true;
+                //}
+                //else
+                //{
+                //    ddlCurso.Items.Clear();
+                //    ddlCurso.Enabled = false;
+                //}
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+         //<summary>
+         //Handles the SelectedIndexChanged event of the ddlNivel control.
+         //</summary>
+         //<param name="sender">The source of the event.</param>
+         //<param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void ddlNivel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                AccionPagina = enumAcciones.Limpiar;
+                int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+                //CargarComboCursos(idCicloLectivo, ddlCurso);
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
 
 		/// <summary>
 		/// Handles the SelectedIndexChanged event of the ddlCurso control.
@@ -376,7 +369,7 @@ namespace EDUAR_UI
 			try
 			{
 				AccionPagina = enumAcciones.Limpiar;
-				CargarComboAsignatura();
+				//CargarComboAsignatura();
 			}
 			catch (Exception ex)
 			{
@@ -420,19 +413,14 @@ namespace EDUAR_UI
 					filtroReporte.idNivel = Convert.ToInt32(ddlNivel.SelectedValue);
 					filtros.AppendLine("- Nivel: " + ddlNivel.SelectedItem.Text);
 				}
-				if (ddlCurso.Items.Count > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0)
-				{
-					filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-					filtros.AppendLine("- Curso: " + ddlCurso.SelectedItem.Text);
-				}
-				if (Convert.ToInt32(ddlAlumno.SelectedValue) > 0)
-				{
-					filtroReporte.idAlumno = Convert.ToInt32(ddlAlumno.SelectedValue);
-					filtros.AppendLine("- Alumno: " + ddlAlumno.SelectedItem.Text);
-				}
+                //if (ddlCurso.Items.Count > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0)
+                //{
+                //    filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+                //    filtros.AppendLine("- Curso: " + ddlCurso.SelectedItem.Text);
+                //}
 
-				if (Context.User.IsInRole(enumRoles.Docente.ToString()))
-					filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+				//if (Context.User.IsInRole(enumRoles.Docente.ToString()))
+				//	filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
 				BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
 				listaReporte = objBLReporte.GetRptRendimientoHistorico(filtroReporte);
@@ -457,8 +445,8 @@ namespace EDUAR_UI
 			List<Curso> listaCurso = new List<Curso>();
 			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
 
-			CargarAlumnos();
-			CargarComboAsignatura();
+            CargarNiveles();
+            CargarComboAsignatura();
 
 			//ddlAsignatura.Enabled = false;
 		}
@@ -468,27 +456,27 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="idCicloLectivo">The id ciclo lectivo.</param>
 		/// <param name="ddlCurso">The DDL curso.</param>
-		private void CargarComboCursos(int idCicloLectivo, DropDownList ddlCurso)
-		{
-			if (idCicloLectivo > 0)
-			{
-				List<Curso> listaCurso = new List<Curso>();
-				BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-				Asignatura objAsignatura = new Asignatura();
-				objAsignatura.curso.cicloLectivo.idCicloLectivo = idCicloLectivo;
+        //private void CargarComboCursos(int idCicloLectivo, DropDownList ddlCurso)
+        //{
+        //    if (idCicloLectivo > 0)
+        //    {
+        //        List<Curso> listaCurso = new List<Curso>();
+        //        BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
 
-				if (User.IsInRole(enumRoles.Docente.ToString()))
-					objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+        //        listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
 
-				listaCurso = objBLCicloLectivo.GetCursosByAsignatura(objAsignatura);
-				UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
-				ddlCurso.Enabled = true;
-			}
-			else
-			{
-				ddlCurso.Enabled = false;
-			}
-		}
+
+        //        //if (User.IsInRole(enumRoles.Docente.ToString()))
+        //        //	objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+        //        UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
+        //        ddlCurso.Enabled = true;
+        //    }
+        //    else
+        //    {
+        //        ddlCurso.Enabled = false;
+        //    }
+        //}
 
 		/// <summary>
 		/// Cargars the combo asignatura.
@@ -496,8 +484,6 @@ namespace EDUAR_UI
 		private void CargarComboAsignatura()
 		{
 			BLAsignatura objBLAsignatura = new BLAsignatura();
-			//Asignatura materia = new Asignatura();
-			//materia.curso.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
 			//if (User.IsInRole(enumRoles.Docente.ToString()))
 			//materia.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			listaAsignatura = objBLAsignatura.GetAsignaturas(null);
@@ -508,81 +494,56 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Cargars the alumnos.
+		/// Cargars the niveles.
 		/// </summary>
 		/// <param name="idCurso">The id curso.</param>
-		private void CargarAlumnos()
+		private void CargarNiveles()
 		{
-			BLAlumno objBLAlumno = new BLAlumno();
-			UIUtilidades.BindCombo<Alumno>(ddlAlumno, objBLAlumno.GetAlumnos(null), "idAlumno", "apellido", "nombre", true);
-			ddlAlumno.Enabled = true;
+			BLNivel objBLNivel = new BLNivel();
+			UIUtilidades.BindCombo<Nivel>(ddlNivel, objBLNivel.GetNiveles(), "idNivel", "nombre", true);
+			
+            ddlNivel.Enabled = true;
 		}
 
-		/// <summary>
-		/// Generars the datos grafico.
-		/// </summary>
-		private void GenerarDatosGrafico()
-		{
-			var cantAlumnos =
-				from p in listaReporte
-				group p by p.alumno into g
-				select new { Alumno = g.Key, Cantidad = g.Count() };
+        ///// <summary>
+        ///// Generars the datos grafico.
+        ///// </summary>
+        private void GenerarDatosGrafico()
+        {
+            var cantAsignaturas =
+                from p in listaReporte
+                group p by p.asignatura into g
+                select new { Asignatura = g.Key, Cantidad = g.Count() };
 
-			TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
+            //TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
 
-			//TablaGrafico.Add("- Cantidad de Calificaciones: " + listaReporte.Count.ToString());
+            TablaGrafico.Add("- Cantidad de Asignaturas: " + listaReporte.Count.ToString());
 
-			//var fechaMin =
-			//   from p in listaReporte
-			//   group p by p.alumno into g
-			//   select new { Alumno = g.Key, Fecha = g.Min(p => p.fecha) };
+            //var fechaMin =
+            //   from p in listaReporte
+            //   group p by p.alumno into g
+            //   select new { Alumno = g.Key, Fecha = g.Min(p => p.fecha) };
 
-			//var fechaMax =
-			//   from p in listaReporte
-			//   group p by p.alumno into g
-			//   select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
+            //var fechaMax =
+            //   from p in listaReporte
+            //   group p by p.alumno into g
+            //   select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
 
-			//TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
+            //TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
 
-			var topPromedio =
-			   (from p in listaReporte
-				group p by p.asignatura into g
-				orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
-				select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct().Take(3);
+            var topPromedio =
+               (from p in listaReporte
+                group p by p.asignatura into g
+                orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
+                select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct().Take(3);
 
-			TablaGrafico.Add("- Top 3 Materias con mejor desempeño:");
-			foreach (var item in topPromedio)
-			{
-				TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString());
-			}
-
-			var worstPromedio =
-			   (from p in listaReporte
-				group p by p.asignatura into g
-				orderby g.Average(p => Convert.ToDouble(p.promedio)) ascending
-				select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct().Take(3);
-
-			TablaGrafico.Add("- Top 3 Materias con bajo desempeño:");
-			foreach (var item in worstPromedio)
-			{
-				TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString());
-			}
-
-			if (!(Convert.ToInt16(ddlAlumno.SelectedItem.Value) > 0))
-			{
-				var worstAlumnos =
-				   (from p in listaReporte
-					group p by p.alumno into g
-					orderby g.Average(p => Convert.ToDouble(p.promedio)) ascending
-					select new { Alumno = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct().Take(3);
-
-				TablaGrafico.Add("- Top 3 de Alumnos a observar:");
-				foreach (var item in worstAlumnos)
-				{
-					TablaGrafico.Add(item.Alumno + " - Promedio General: " + item.Promedio.ToString("#.##"));
-				}
-			}
-		}
+            TablaGrafico.Add("- Top 3 Materias con mejor desempeño:");
+            foreach (var item in topPromedio)
+            {
+                TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString());
+            }
+            
+        }
 		#endregion
 
 	}

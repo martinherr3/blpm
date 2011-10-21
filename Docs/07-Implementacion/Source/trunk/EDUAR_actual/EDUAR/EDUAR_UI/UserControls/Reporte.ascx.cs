@@ -336,10 +336,10 @@ namespace EDUAR_UI.UserControls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
         void PaginandoGrilla(object sender, GridViewPageEventArgs e)
         {
-            GrillaReporte.DataSource = sortDataView(GrillaReporte.DataSource as DataView, true);
-            GrillaReporte.PageIndex = e.NewPageIndex;
-            GrillaReporte.DataBind();
-            //onPaginandoGrilla(PaginarGrilla, e);
+            //GrillaReporte.DataSource = sortDataView(GrillaReporte.DataSource as DataView, true);
+            //GrillaReporte.PageIndex = e.NewPageIndex;
+            //GrillaReporte.DataBind();
+            onPaginandoGrilla(PaginarGrilla, e);
         }
 
         protected void OrdenandoGrilla(object sender, GridViewSortEventArgs e)
