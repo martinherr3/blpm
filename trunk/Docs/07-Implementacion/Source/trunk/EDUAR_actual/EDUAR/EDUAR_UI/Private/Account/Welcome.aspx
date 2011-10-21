@@ -25,8 +25,18 @@
             </td>
         </tr>
     </table>
-    <%--<asp:UpdatePanel ID="udpDIV" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>--%>
+    <asp:UpdatePanel ID="udpFechas" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="right">
+                        <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
+                            ImageUrl="~/Images/botonBuscar.png" />
+                    </td>
+                </tr>
+            </table>
+        </ContentTemplate>
+    </asp:UpdatePanel>
     <div id="divAlumno" runat="server" visible="false">
         <table width="100%" cellpadding="1" cellspacing="5" border="0">
             <tr>
@@ -39,18 +49,6 @@
         </table>
         <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
-                <asp:UpdatePanel ID="udpFechas" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
-                        <table class="tablaInterna" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td align="right">
-                                    <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
-                                        ImageUrl="~/Images/botonBuscar.png" />
-                                </td>
-                            </tr>
-                        </table>
-                    </ContentTemplate>
-                </asp:UpdatePanel>
                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                     <tr>
                         <td valign="top" colspan="4" class="TDCriterios100">
