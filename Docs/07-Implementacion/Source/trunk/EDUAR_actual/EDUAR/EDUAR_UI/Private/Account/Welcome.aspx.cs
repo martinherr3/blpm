@@ -36,6 +36,31 @@ namespace EDUAR_UI
 			}
 			set { ViewState["propAgenda"] = value; }
 		}
+
+		/// <summary>
+		/// Gets or sets the lista cursos.
+		/// </summary>
+		/// <value>
+		/// The lista cursos.
+		/// </value>
+		public List<Curso> listaCursos
+		{
+			get
+			{
+				if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
+				{
+					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+
+					Asignatura objFiltro = new Asignatura();
+					objFiltro.curso.cicloLectivo = cicloLectivoActual;
+					//nombre del usuario logueado
+					objFiltro.docente.username = User.Identity.Name;
+					listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
+				}
+				return (List<Curso>)ViewState["listaCursos"];
+			}
+			set { ViewState["listaCursos"] = value; }
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -80,9 +105,40 @@ namespace EDUAR_UI
 					//        break;
 					//    }
 					//}
+
+
+					if (User.IsInRole(enumRoles.Alumno.ToString())
+						||
+						User.IsInRole(enumRoles.Docente.ToString()))
+					{
+						divAgenda.Visible = true;
+						if (User.IsInRole(enumRoles.Docente.ToString()))
+						{
+							UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
+						}
+						else
+						{
+							lblCurso.Visible = false;
+							ddlCurso.Visible = false;
+						}
+					}
 					fechas.startDate = cicloLectivoActual.fechaInicio;
 					fechas.endDate = cicloLectivoActual.fechaFin;
 					fechas.setSelectedDate(DateTime.Now, DateTime.Now.AddDays(15));
+
+					BLMensaje objBLMensaje = new BLMensaje();
+					List<Mensaje> objMensajes = new List<Mensaje>();
+					objMensajes = objBLMensaje.GetMensajes(new Mensaje() { destinatario = new Persona() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, activo = true });
+					objMensajes = objMensajes.FindAll(p => p.leido == false);
+					if (objMensajes.Count > 0)
+					{
+						string mensaje = objMensajes.Count == 1 ? "mensaje" : "mensajes";
+
+						lblMensajes.Text = lblMensajes.Text.Replace("<MENSAJES>", objMensajes.Count.ToString());
+						lblMensajes.Text = lblMensajes.Text.Replace("<MSJ_STRING>", mensaje);
+					}
+					else
+						divMensajes.Visible = false;
 					CargarAgenda();
 				}
 				else
@@ -92,6 +148,7 @@ namespace EDUAR_UI
 							(fechas.ValorFechaHasta != null) ? (DateTime)fechas.ValorFechaHasta : DateTime.Now.AddDays(15));
 				}
 				//this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
+
 			}
 			catch (Exception ex)
 			{
@@ -167,6 +224,23 @@ namespace EDUAR_UI
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
 		}
+
+		/// <summary>
+		/// Handles the Click event of the btnMensaje control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnMensaje_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				Response.Redirect("~/Private/Mensajes/MsjeEntrada.aspx", false);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 		#endregion
 
 		#region --[Métodos Privados]
@@ -198,10 +272,15 @@ namespace EDUAR_UI
 			switch (obj)
 			{
 				case enumRoles.Alumno:
-					listaEventos = objBLAgenda.GetAgendaActividadesByAlumno(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, fechaDesde, fechaHasta);
+					listaEventos = objBLAgenda.GetAgendaActividadesByRol(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, null, null, fechaDesde, fechaHasta);
 					break;
 				case enumRoles.Docente:
-					listaEventos = objBLAgenda.GetAgendaActividadesByAlumno(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, fechaDesde, fechaHasta);
+					if (Convert.ToInt16(ddlCurso.SelectedValue) > 0)
+					{
+						CursoCicloLectivo objCurso = new CursoCicloLectivo();
+						objCurso.idCursoCicloLectivo = Convert.ToInt16(ddlCurso.SelectedValue);
+						listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
+					}
 					break;
 				default:
 					break;

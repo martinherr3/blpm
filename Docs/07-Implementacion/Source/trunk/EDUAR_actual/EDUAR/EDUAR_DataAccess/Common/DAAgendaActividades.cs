@@ -457,15 +457,19 @@ namespace EDUAR_DataAccess.Common
 		/// <summary>
 		/// Gets the agenda actividades by alumno.
 		/// </summary>
-		/// <param name="entidad">The entidad.</param>
+		/// <param name="alumno">The entidad.</param>
 		/// <returns></returns>
-		public List<EventoAgenda> GetAgendaActividadesByAlumno(Alumno entidad, DateTime fechaDesde, DateTime fechaHasta)
+		public List<EventoAgenda> GetAgendaActividadesByRol(Alumno alumno, Docente docente, CursoCicloLectivo curso, DateTime fechaDesde, DateTime fechaHasta)
 		{
 			try
 			{
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AgendaByUsuario_Select");
-				if (!string.IsNullOrEmpty(entidad.username))
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioAlumno", DbType.String, entidad.username);
+				if (alumno != null && !string.IsNullOrEmpty(alumno.username))
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioAlumno", DbType.String, alumno.username);
+				if (docente != null && !string.IsNullOrEmpty(docente.username))
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioDocente", DbType.String, docente.username);
+				if (curso != null && curso.idCursoCicloLectivo > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int16, curso.idCursoCicloLectivo);
 				if (ValidarFechaSQL(fechaDesde))
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, fechaDesde);
 				if (ValidarFechaSQL(fechaHasta))

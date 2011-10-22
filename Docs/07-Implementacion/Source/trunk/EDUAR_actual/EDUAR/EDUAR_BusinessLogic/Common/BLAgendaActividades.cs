@@ -360,11 +360,11 @@ namespace EDUAR_BusinessLogic.Common
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public List<EventoAgenda> GetAgendaActividadesByAlumno(Alumno entidad, DateTime fechaDesde, DateTime fechaHasta)
+		public List<EventoAgenda> GetAgendaActividadesByRol(Alumno alumno, Docente docente, CursoCicloLectivo curso, DateTime fechaDesde, DateTime fechaHasta)
 		{
 			try
 			{
-				return DataAcces.GetAgendaActividadesByAlumno(entidad, fechaDesde, fechaHasta);
+				return DataAcces.GetAgendaActividadesByRol(alumno, docente, curso, fechaDesde, fechaHasta);
 			}
 			catch (CustomizedException ex)
 			{
@@ -378,5 +378,4 @@ namespace EDUAR_BusinessLogic.Common
 		}
 		#endregion
 	}
-
 }

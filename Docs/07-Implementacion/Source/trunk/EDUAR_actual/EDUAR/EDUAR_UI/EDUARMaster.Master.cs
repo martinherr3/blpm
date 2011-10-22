@@ -45,6 +45,11 @@ namespace EDUAR_UI
 		#endregion
 
 		#region --[Eventos]--
+		/// <summary>
+		/// Handles the Load event of the Page control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			try
@@ -103,6 +108,11 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the btnMensaje control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnMensaje_Click(object sender, EventArgs e)
 		{
 			try
@@ -250,6 +260,11 @@ namespace EDUAR_UI
 				OnBotonClickAviso(BotonAvisoCancelar, e);
 		}
 
+		/// <summary>
+		/// Handles the OnItemBound event of the NavigationMenu control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="args">The <see cref="System.Web.UI.WebControls.MenuEventArgs"/> instance containing the event data.</param>
 		protected void NavigationMenu_OnItemBound(object sender, MenuEventArgs args)
 		{
 			args.Item.ImageUrl = ((SiteMapNode)args.Item.DataItem)["ImageUrl"];
