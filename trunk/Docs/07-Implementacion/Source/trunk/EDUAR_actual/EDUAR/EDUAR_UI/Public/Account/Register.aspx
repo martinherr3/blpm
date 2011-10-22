@@ -5,7 +5,8 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <asp:CreateUserWizard ID="RegisterUser" runat="server" EnableViewState="false" OnCreatedUser="RegisterUser_CreatedUser">
+    <asp:CreateUserWizard ID="RegisterUser" runat="server" EnableViewState="false" OnCreatedUser="RegisterUser_CreatedUser"
+        ContinueDestinationPageUrl="~/Private/Account/Welcome.aspx" >
         <LayoutTemplate>
             <asp:PlaceHolder ID="wizardStepPlaceholder" runat="server"></asp:PlaceHolder>
             <asp:PlaceHolder ID="navigationPlaceholder" runat="server"></asp:PlaceHolder>
@@ -93,7 +94,7 @@
                                         </p>
                                         <p class="ui-widget">
                                             <asp:Label runat="server" AssociatedControlID="Answer" ID="AnswerLabel">Respuesta Secreta:</asp:Label>
-                                            <asp:TextBox runat="server" ID="Answer" CssClass="textEntry"></asp:TextBox>
+                                            <asp:TextBox runat="server" ID="Answer" CssClass="textEntry" ViewStateMode="Disabled"></asp:TextBox>
                                             <asp:RequiredFieldValidator runat="server" ControlToValidate="Answer" CssClass="failureNotification"
                                                 ToolTip="Respuesta Secreta requerida." ID="AnswerRequired" ValidationGroup="Createuserwizard1"
                                                 ErrorMessage="La Respuesta Secreta es Requerida.">*</asp:RequiredFieldValidator>
@@ -108,6 +109,8 @@
                         </tr>
                     </table>
                 </ContentTemplate>
+                <CustomNavigationTemplate>
+                </CustomNavigationTemplate>
             </asp:CreateUserWizardStep>
         </WizardSteps>
     </asp:CreateUserWizard>
