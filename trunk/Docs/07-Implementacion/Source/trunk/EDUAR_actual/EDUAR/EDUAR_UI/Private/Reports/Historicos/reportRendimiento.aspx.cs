@@ -116,6 +116,54 @@ namespace EDUAR_UI
         //        ViewState["listaAsignatura"] = value;
         //    }
         //}
+
+		/// <summary>
+		/// Gets or sets the lista ciclo lectivo.
+		/// </summary>
+		/// <value>
+		/// The lista ciclo lectivo.
+		/// </value>
+		public List<CicloLectivo> listaCicloLectivo
+		{
+			get
+			{
+				if (ViewState["listaCicloLectivo"] == null)
+				{
+					listaCicloLectivo = new List<CicloLectivo>();
+					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+					listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
+				}
+				return (List<CicloLectivo>)ViewState["listaCicloLectivo"];
+			}
+			set
+			{
+				ViewState["listaCicloLectivo"] = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the lista niveles.
+		/// </summary>
+		/// <value>
+		/// The lista niveles.
+		/// </value>
+		public List<Nivel> listaNiveles
+		{
+			get
+			{
+				if (ViewState["listaNiveles"] == null)
+				{
+					listaNiveles = new List<Nivel>();
+					BLNivel objBLNivel = new BLNivel();
+					listaNiveles = objBLNivel.GetNiveles();
+				}
+				return (List<Nivel>)ViewState["listaNiveles"];
+			}
+			set
+			{
+				ViewState["listaNiveles"] = value;
+			}
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -395,14 +443,10 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarCombos()
 		{
-			List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
-			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-			listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
-
 			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
 
             CargarNiveles();
-            CargarComboAsignatura();
+			//CargarComboAsignatura();
 		}
 
 		/// <summary>
@@ -410,15 +454,6 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarComboAsignatura()
 		{
-            //BLAsignatura objBLAsignatura = new BLAsignatura();
-            ////if (User.IsInRole(enumRoles.Docente.ToString()))
-            ////materia.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-            //listaAsignatura = objBLAsignatura.GetAsignaturas(null);
-            //UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignatura, "idAsignatura", "nombre", true);
-            //ddlAsignatura.Enabled = false;
-            //if (ddlAsignatura.Items.Count > 0)
-            //    ddlAsignatura.Enabled = true;
-
             ddlAsignatura.Items.Clear();
 
             BLAsignatura objBLAsignatura = new BLAsignatura();
@@ -447,8 +482,7 @@ namespace EDUAR_UI
 		/// <param name="idCurso">The id curso.</param>
 		private void CargarNiveles()
 		{
-			BLNivel objBLNivel = new BLNivel();
-			UIUtilidades.BindCombo<Nivel>(ddlNivel, objBLNivel.GetNiveles(), "idNivel", "nombre", true);
+			UIUtilidades.BindCombo<Nivel>(ddlNivel, listaNiveles, "idNivel", "nombre", true);
 			
             ddlNivel.Enabled = true;
 		}
