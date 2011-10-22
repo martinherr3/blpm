@@ -126,6 +126,49 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+        /// <summary>
+        /// Gets the asignaturas por ciclo lectivo y nivel.
+        /// </summary>
+        /// <param name="asignatura">The entidad.</param>
+        /// <returns></returns>
+        public List<Asignatura> GetAsignaturasNivelCicloLectivo(int idCicloLectivo, int idNivel)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AsignaturasPorNivelCicloLectivo_select");
+
+                if (idNivel > 0)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32,idNivel);
+                if (idCicloLectivo > 0)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, idCicloLectivo);
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<Asignatura> listaAsignaturas = new List<Asignatura>();
+                Asignatura objAsignatura;
+                while (reader.Read())
+                {
+                    objAsignatura = new Asignatura();
+
+                    objAsignatura.idAsignatura = Convert.ToInt32(reader["idAsignatura"]);
+                    objAsignatura.nombre = reader["nombreAsignatura"].ToString();
+
+                    listaAsignaturas.Add(objAsignatura);
+                }
+                return listaAsignaturas;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivelCicloLectivo()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivelCicloLectivo()", ClassName),
+                                    ex, enuExceptionType.DataAccesException); 
+            }
+        }
 		#endregion
 
 		#region --[Implementación métodos heredados]--
