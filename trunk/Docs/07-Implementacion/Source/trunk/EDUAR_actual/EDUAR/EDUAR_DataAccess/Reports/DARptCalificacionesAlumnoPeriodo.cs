@@ -108,8 +108,8 @@ namespace EDUAR_DataAccess.Reports
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ComparativoCalificacionesConsolidado");
 				if (entidad != null)
 				{
-                    if (entidad.idAsignatura > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.idAsignatura);
+                    //if (entidad.idAsignatura > 0)
+                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.idAsignatura);
                     //if (entidad.idCurso > 0)
                     //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.idCurso);
 					if (entidad.idNivel > 0)
@@ -118,7 +118,18 @@ namespace EDUAR_DataAccess.Reports
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
                     if (!string.IsNullOrEmpty(entidad.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.username);
-				}
+
+                    string asignaturasParam = string.Empty;
+                    if (entidad.listaAsignaturas.Count > 0)
+                    {
+                        foreach (Asignatura asignatura in entidad.listaAsignaturas)
+                            asignaturasParam += string.Format("{0},", asignatura.idAsignatura);
+
+                        asignaturasParam = asignaturasParam.Substring(0, asignaturasParam.Length - 1);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaAsignaturas", DbType.String, asignaturasParam);
+                    }
+                
+                }
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				List<RptRendimientoHistorico> listaReporte = new List<RptRendimientoHistorico>();
