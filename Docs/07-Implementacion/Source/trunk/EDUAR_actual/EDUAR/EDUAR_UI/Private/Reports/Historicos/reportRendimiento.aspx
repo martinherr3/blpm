@@ -67,29 +67,6 @@
                     </asp:UpdatePanel>
                 </td>
             </tr>
-<%--            
-            <tr>
-                <td valign="top" class="TDCriterios25">
-                    <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                    <asp:UpdatePanel ID="udpCurso" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:DropDownList ID="ddlCurso" runat="server" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged"
-                                AutoPostBack="True" Enabled="false">
-                            </asp:DropDownList>
-                        </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
-                        </Triggers>
-                    </asp:UpdatePanel>
-                </td>
-                <td valign="top" class="TDCriterios25">
-                </td>
-                <td valign="top" class="TDCriterios25">
-                </td>
-            </tr>
---%>
             <tr>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>

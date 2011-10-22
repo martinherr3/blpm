@@ -291,20 +291,19 @@ namespace EDUAR_UI
             try
             {
                 AccionPagina = enumAcciones.Limpiar;
-                //ddlCurso.Items.Clear();
-                //int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+                ddlAsignatura.Items.Clear();
 
-                //CargarComboCursos(idCicloLectivo, ddlCurso);
-                //if (Convert.ToInt16(ddlCicloLectivo.SelectedValue) > 0)
-                //{
+                CargarComboAsignatura();
 
-                //    ddlCurso.Enabled = true;
-                //}
-                //else
-                //{
-                //    ddlCurso.Items.Clear();
-                //    ddlCurso.Enabled = false;
-                //}
+                if (Convert.ToInt16(ddlCicloLectivo.SelectedValue) > 0)
+                {
+                    ddlAsignatura.Disabled = false;
+                }
+                else
+                {
+                    ddlAsignatura.Items.Clear();
+                    ddlAsignatura.Disabled = true;
+                }
             }
             catch (Exception ex)
             {
@@ -322,32 +321,14 @@ namespace EDUAR_UI
             try
             {
                 AccionPagina = enumAcciones.Limpiar;
-                int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-                //CargarComboCursos(idCicloLectivo, ddlCurso);
+                
+                CargarComboAsignatura();
             }
             catch (Exception ex)
             {
                 Master.ManageExceptions(ex);
             }
         }
-
-		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ddlCurso control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			try
-			{
-				AccionPagina = enumAcciones.Limpiar;
-				//CargarComboAsignatura();
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
-		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -369,13 +350,6 @@ namespace EDUAR_UI
 			{
 				filtroReporte = new FilCalificacionesAlumnoPeriodo();
 				StringBuilder filtros = new StringBuilder();
-
-                //if (ddlAsignatura.SelectedIndex > 0)
-                //{
-                //    filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
-                //    filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
-                //}
-
 
                 List<Asignatura> listaAsignatura = new List<Asignatura>();
                 foreach (System.Web.UI.WebControls.ListItem item in ddlAsignatura.Items)
@@ -401,11 +375,6 @@ namespace EDUAR_UI
 					filtroReporte.idNivel = Convert.ToInt32(ddlNivel.SelectedValue);
 					filtros.AppendLine("- Nivel: " + ddlNivel.SelectedItem.Text);
 				}
-                //if (ddlCurso.Items.Count > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0)
-                //{
-                //    filtroReporte.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-                //    filtros.AppendLine("- Curso: " + ddlCurso.SelectedItem.Text);
-                //}
 
 				//if (Context.User.IsInRole(enumRoles.Docente.ToString()))
 				//	filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
@@ -430,41 +399,11 @@ namespace EDUAR_UI
 			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
 			listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
 
-			List<Curso> listaCurso = new List<Curso>();
 			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
 
             CargarNiveles();
             CargarComboAsignatura();
-
-			//ddlAsignatura.Enabled = false;
 		}
-
-		/// <summary>
-		/// Cargars the combo cursos.
-		/// </summary>
-		/// <param name="idCicloLectivo">The id ciclo lectivo.</param>
-		/// <param name="ddlCurso">The DDL curso.</param>
-        //private void CargarComboCursos(int idCicloLectivo, DropDownList ddlCurso)
-        //{
-        //    if (idCicloLectivo > 0)
-        //    {
-        //        List<Curso> listaCurso = new List<Curso>();
-        //        BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-
-        //        listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
-
-
-        //        //if (User.IsInRole(enumRoles.Docente.ToString()))
-        //        //	objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-
-        //        UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
-        //        ddlCurso.Enabled = true;
-        //    }
-        //    else
-        //    {
-        //        ddlCurso.Enabled = false;
-        //    }
-        //}
 
 		/// <summary>
 		/// Cargars the combo asignatura.
@@ -480,14 +419,25 @@ namespace EDUAR_UI
             //if (ddlAsignatura.Items.Count > 0)
             //    ddlAsignatura.Enabled = true;
 
-                        // Ordena la lista alfabéticamente por la descripción
+            ddlAsignatura.Items.Clear();
+
+            BLAsignatura objBLAsignatura = new BLAsignatura();
+ 
+            int idNivel = Convert.ToInt32(ddlNivel.SelectedValue);
+            int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+
+            listaAsignatura = objBLAsignatura.GetAsignaturasNivelCicloLectivo(idCicloLectivo, idNivel);
+            
+            // Ordena la lista alfabéticamente por la descripción
             listaAsignatura.Sort((p, q) => string.Compare(p.nombre, q.nombre));
 
-            // Carga el combo de tipo de asistencia para filtrar
-            foreach (Asignatura item in listaAsignatura)
+            foreach (Asignatura asignatura in listaAsignatura)
             {
-                ddlAsignatura.Items.Add(new System.Web.UI.WebControls.ListItem(item.nombre, item.idAsignatura.ToString()));
+                ddlAsignatura.Items.Add(new System.Web.UI.WebControls.ListItem(asignatura.nombre, asignatura.idAsignatura.ToString()));
             }
+
+            if (ddlAsignatura.Items.Count > 0)
+                ddlAsignatura.Disabled = false;
 
 		}
 
