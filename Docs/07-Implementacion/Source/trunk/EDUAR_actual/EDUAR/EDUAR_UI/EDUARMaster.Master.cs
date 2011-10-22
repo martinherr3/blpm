@@ -51,7 +51,7 @@ namespace EDUAR_UI
 			{
 				//Llama a la funcionalidad que redirecciona a la pagina de Login cuando finaliza el tiempo de session
 				((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
-				
+
 				if (ObjSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty)
 					HttpContext.Current.User = null;
 
@@ -191,7 +191,6 @@ namespace EDUAR_UI
 					if (node.Url != string.Empty)
 						objMenuItem.NavigateUrl = node.Url;
 
-					//objMenuItem.Value = TreeNodeSelectAction.Expand; 
 					//Recorre los nodos hijos
 					foreach (SiteMapNode nodeChild in node.ChildNodes)
 					{
@@ -201,7 +200,8 @@ namespace EDUAR_UI
 						MenuItem objMenuItemChild = new MenuItem(nodeChild.Title) { NavigateUrl = nodeChild.Url };
 						objMenuItem.ChildItems.Add(objMenuItemChild);
 					}
-					NavigationMenu.Items.Add(objMenuItem);
+					if (objMenuItem.ChildItems.Count > 0 || objMenuItem.Text.Contains("Inicio"))
+						NavigationMenu.Items.Add(objMenuItem);
 				}
 			}
 		}
@@ -492,7 +492,8 @@ namespace EDUAR_UI
 						TreeNode objTreeNodeChild = new TreeNode(nodeChild.Title) { NavigateUrl = nodeChild.Url };
 						objTreeNode.ChildNodes.Add(objTreeNodeChild);
 					}
-					trvMenu.Nodes.Add(objTreeNode);
+					if (objTreeNode.ChildNodes.Count > 0 || objTreeNode.Text.Contains("Inicio"))
+						trvMenu.Nodes.Add(objTreeNode);
 				}
 				trvMenu.ExpandAll();
 			}
