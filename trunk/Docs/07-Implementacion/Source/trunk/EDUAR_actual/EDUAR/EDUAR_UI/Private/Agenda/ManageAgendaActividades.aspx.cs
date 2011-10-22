@@ -79,14 +79,32 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista cursos.
 		/// </value>
+		//public List<Curso> listaCursos
+		//{
+		//    get
+		//    {
+		//        if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
+		//        {
+		//            BLCurso objCurso = new BLCurso();
+		//            listaCursos = objCurso.GetCursosCicloLectivo(new Curso() { cicloLectivo = cicloLectivoActual });
+		//        }
+		//        return (List<Curso>)ViewState["listaCursos"];
+		//    }
+		//    set { ViewState["listaCursos"] = value; }
+		//}
 		public List<Curso> listaCursos
 		{
 			get
 			{
 				if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
 				{
-					BLCurso objCurso = new BLCurso();
-					listaCursos = objCurso.GetCursosCicloLectivo(new Curso() { cicloLectivo = cicloLectivoActual });
+					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+
+					Asignatura objFiltro = new Asignatura();
+					objFiltro.curso.cicloLectivo = cicloLectivoActual;
+					//nombre del usuario logueado
+					objFiltro.docente.username = User.Identity.Name;
+					listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
 				}
 				return (List<Curso>)ViewState["listaCursos"];
 			}
