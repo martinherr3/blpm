@@ -39,6 +39,24 @@ namespace EDUAR_UI
 			}
 		}
 
+        public List<Asignatura> listaAsignatura
+        {
+            get
+            {
+                if (ViewState["listaAsignatura"] == null)
+                {
+                    listaAsignatura = new List<Asignatura>();
+                    BLAsignatura objBLAsignatura = new BLAsignatura();
+                    listaAsignatura = objBLAsignatura.GetAsignaturas(null);
+                }
+                return (List<Asignatura>)ViewState["listaAsignatura"];
+            }
+            set
+            {
+                ViewState["listaAsignatura"] = value;
+            }
+        }
+
 		/// <summary>
 		/// Gets or sets the lista calificaciones.
 		/// </summary>
@@ -85,19 +103,19 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista sanciones.
 		/// </value>
-		public List<Asignatura> listaAsignatura
-		{
-			get
-			{
-				if (ViewState["listaAsignatura"] == null)
-					listaAsignatura = new List<Asignatura>();
-				return (List<Asignatura>)ViewState["listaAsignatura"];
-			}
-			set
-			{
-				ViewState["listaAsignatura"] = value;
-			}
-		}
+        //public List<Asignatura> listaAsignatura
+        //{
+        //    get
+        //    {
+        //        if (ViewState["listaAsignatura"] == null)
+        //            listaAsignatura = new List<Asignatura>();
+        //        return (List<Asignatura>)ViewState["listaAsignatura"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["listaAsignatura"] = value;
+        //    }
+        //}
 		#endregion
 
 		#region --[Eventos]--
@@ -233,53 +251,7 @@ namespace EDUAR_UI
         {
             try
             {
-                //GenerarDatosGrafico();
-                AccionPagina = enumAcciones.Limpiar;
-                rptCalificaciones.graficoReporte.LimpiarSeries();
 
-                var serie = new List<RptRendimientoHistorico>();
-                if (Convert.ToInt16(ddlAsignatura.SelectedItem.Value) > 0)
-                {
-                    //obtengo solo las notas del curso asociado
-                    var listaParcial = listaReporte.FindAll(p => p.asignatura == ddlAsignatura.SelectedItem.Text);
-                    var porCurso = from c in listaParcial
-                                  group c by c.curso into g
-                                  select new { Curso = g.Key, Rendimiento = g.Average(p => Convert.ToDouble(p.promedio)) };
-
-                    foreach (var item in porCurso)
-                    {
-                        serie.Add(new RptRendimientoHistorico
-                        {
-                            promedio = item.Rendimiento.ToString(CultureInfo.InvariantCulture),
-                            curso = item.Curso
-                        });
-                    }
-                }
-
-
-                //foreach (var item in listaAsignatura)
-                //{
-                //    sumaNotas = 0.0;
-                //    var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre);
-                //    if (listaParcial.Count > 0)
-                //    {
-                //        foreach (var nota in listaParcial)
-                //        {
-                //            sumaNotas += Convert.ToInt16(nota.promedio);
-                //        }
-                //        serie.Add(new RptRendimientoHistorico
-                //        {
-                //            promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
-                //            asignatura = item.nombre
-                //        });
-                //    }
-                //}
-                DataTable dt = UIUtilidades.BuildDataTable<RptRendimientoHistorico>(serie);
-                rptCalificaciones.graficoReporte.AgregarSerie("Histórico", dt, "alumno", "promedio");
-                //rptCalificaciones.graficoReporte.Titulo = "Promedio Histórico \n" + ddlAlumno.SelectedItem.Text;
-
-                rptCalificaciones.graficoReporte.GraficarBarra();
-                rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
@@ -398,11 +370,27 @@ namespace EDUAR_UI
 				filtroReporte = new FilCalificacionesAlumnoPeriodo();
 				StringBuilder filtros = new StringBuilder();
 
-				if (ddlAsignatura.SelectedIndex > 0)
-				{
-					filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
-					filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
-				}
+                //if (ddlAsignatura.SelectedIndex > 0)
+                //{
+                //    filtroReporte.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
+                //    filtros.AppendLine("- Asignatura: " + ddlAsignatura.SelectedItem.Text);
+                //}
+
+
+                List<Asignatura> listaAsignatura = new List<Asignatura>();
+                foreach (System.Web.UI.WebControls.ListItem item in ddlAsignatura.Items)
+                {
+                    if (item.Selected)
+                    {
+                        if (!filtros.ToString().Contains("- Asignatura"))
+                            filtros.AppendLine("- Asignatura");
+                        filtros.AppendLine(" * " + item.Text);
+                        listaAsignatura.Add(new Asignatura() { idAsignatura = Convert.ToInt16(item.Value) });
+                    }
+                }
+                filtroReporte.listaAsignaturas = listaAsignatura;
+
+
 				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0)
 				{
 					filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
@@ -483,14 +471,24 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarComboAsignatura()
 		{
-			BLAsignatura objBLAsignatura = new BLAsignatura();
-			//if (User.IsInRole(enumRoles.Docente.ToString()))
-			//materia.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-			listaAsignatura = objBLAsignatura.GetAsignaturas(null);
-			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignatura, "idAsignatura", "nombre", true);
-			ddlAsignatura.Enabled = false;
-			if (ddlAsignatura.Items.Count > 0)
-				ddlAsignatura.Enabled = true;
+            //BLAsignatura objBLAsignatura = new BLAsignatura();
+            ////if (User.IsInRole(enumRoles.Docente.ToString()))
+            ////materia.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+            //listaAsignatura = objBLAsignatura.GetAsignaturas(null);
+            //UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignatura, "idAsignatura", "nombre", true);
+            //ddlAsignatura.Enabled = false;
+            //if (ddlAsignatura.Items.Count > 0)
+            //    ddlAsignatura.Enabled = true;
+
+                        // Ordena la lista alfabéticamente por la descripción
+            listaAsignatura.Sort((p, q) => string.Compare(p.nombre, q.nombre));
+
+            // Carga el combo de tipo de asistencia para filtrar
+            foreach (Asignatura item in listaAsignatura)
+            {
+                ddlAsignatura.Items.Add(new System.Web.UI.WebControls.ListItem(item.nombre, item.idAsignatura.ToString()));
+            }
+
 		}
 
 		/// <summary>

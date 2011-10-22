@@ -8,6 +8,24 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    
+    <script type="text/javascript">
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+        function EndRequestHandler(sender, args) {
+            if (args.get_error() == undefined) {
+                alertTest();
+            }
+        }
+
+        function alertTest() {
+            $(document).ready(function () {
+                $(".chzn-select").chosen();
+            });
+        }
+
+        alertTest();    
+    </script>
+
     <h2>Rendimiento Académico General</h2>
     <br />
     <div id="divFiltros" runat="server" style="width: 800px">
@@ -77,18 +95,13 @@
                     <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="top" class="TDCriterios75" colspan="3">
-                    <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="true">
-                            </asp:DropDownList>
-                        </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
-                        </Triggers>
-                    </asp:UpdatePanel>
+                    <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
+                        runat="server" id="ddlAsignatura" enableviewstate="true">
+                    </select>
                 </td>
             </tr>
         </table>
+        <script type="text/javascript">$(".chzn-select").chosen();</script>
     </div>
 
     <div id="divReporte" runat="server">

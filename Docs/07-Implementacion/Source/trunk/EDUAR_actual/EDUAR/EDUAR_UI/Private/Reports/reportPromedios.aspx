@@ -162,7 +162,7 @@
                 </td>
             </tr>
         </table>
-        <script type="text/javascript">            $(".chzn-select").chosen();</script>
+        <script type="text/javascript">$(".chzn-select").chosen();</script>
     </div>
     <div id="divReporte" runat="server">
         <rep:Reporte ID="rptResultado" runat="server"></rep:Reporte>
