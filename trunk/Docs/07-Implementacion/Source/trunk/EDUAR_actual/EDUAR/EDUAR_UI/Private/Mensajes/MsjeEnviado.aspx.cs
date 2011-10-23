@@ -329,7 +329,7 @@ namespace EDUAR_UI
 			pds.DataSource = dt.DefaultView;
 			pds.AllowPaging = true;
 			pds.PageSize = Convert.ToInt16(ddlPageSize.SelectedValue);
-			pds.CurrentPageIndex = CurrentPage;
+			pds.CurrentPageIndex = (CurrentPage > pds.PageCount) ? (pds.PageCount - 1) : CurrentPage;
 			lnkbtnNext.Visible = !pds.IsLastPage;
 			lnkbtnLast.Visible = !pds.IsLastPage;
 			lnkbtnPrevious.Visible = !pds.IsFirstPage;

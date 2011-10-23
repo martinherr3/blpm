@@ -129,6 +129,7 @@ namespace EDUAR_UI
 				}
 				if (destino)
 				{
+					int idCursoCicloLectivo = 0;
 					//Docente: a personas o cursos
 					if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
 					{
@@ -136,6 +137,7 @@ namespace EDUAR_UI
 						{
 							case "0":
 								AlumnoCurso objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
+								idCursoCicloLectivo = Convert.ToInt32(ddlDestino.Value);
 								BLAlumno objBLAlumno = new BLAlumno();
 								List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
 								ddlDestino.Items.Clear();
@@ -153,7 +155,7 @@ namespace EDUAR_UI
 								break;
 						}
 					}
-					EnviarMensaje();
+					EnviarMensaje(idCursoCicloLectivo);
 				}
 				else
 				{
@@ -221,7 +223,6 @@ namespace EDUAR_UI
 				{
 					case "0":
 						ddlDestino.Items.Add(new ListItem(ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));
-						//ddlDestino.Items.FindByValue(ddlCurso.SelectedItem.Value).Selected = true;
 						break;
 					case "1":
 						objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
@@ -240,7 +241,6 @@ namespace EDUAR_UI
 						CargarDestinos(lista);
 						break;
 					case "2":
-						//objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
 						objCurso = new AlumnoCurso();
 						objCurso.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
 						BLTutor objBLTutor = new BLTutor();
@@ -278,29 +278,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//ddlDestino.Items.Clear();
-				////AlumnoCurso objCurso = null;
-				//List<Persona> lista = null;
-				////Persona persona = null;
-				//switch (rdlDestAlumno.SelectedValue)
-				//{
-				//    //Mensaje a todo el curso
-				//    case "0":
-				//        ddlDestino.Items.Add(new ListItem(ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));
-				//        ddlDestino.Items.FindByValue(ddlCurso.SelectedItem.Value).Selected = true;
-				//        break;
-				//    //Mensaje a mis docentes
-				//    case "1":
-				//        Alumno objAlumno = new Alumno { username = ObjDTSessionDataUI.ObjDTUsuario.Nombre };
-				//        BLAlumno objBLAlumno = new BLAlumno(objAlumno);
-
-				//        lista = objBLAlumno.GetDocentesAlumno();
-				//        CargarDestinos(lista);
-				//        break;
-				//    default:
-				//        break;
-				//}
-				//udpFiltros.Update();
 			}
 			catch (Exception ex)
 			{
@@ -323,7 +300,6 @@ namespace EDUAR_UI
 			if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
 			{
 				divDocente.Visible = true;
-				//divAlumno.Visible = false;
 				CargarComboCursos();
 				rdlDestinatarios.Enabled = false;
 				ddlDestino.Disabled = true;
@@ -332,11 +308,6 @@ namespace EDUAR_UI
 			//Alumno: a SUS docentes o su curso
 			if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
 			{
-				//divDocente.Visible = false;
-				//divAlumno.Visible = true;
-				//rdlDestAlumno.Enabled = true;
-				//ddlDestino.Disabled = true;
-
 				Alumno objAlumno = new Alumno { username = ObjSessionDataUI.ObjDTUsuario.Nombre };
 				BLAlumno objBLAlumno = new BLAlumno(objAlumno);
 				lista = objBLAlumno.GetDocentesAlumno(cicloLectivoActual);
@@ -372,7 +343,6 @@ namespace EDUAR_UI
 				lista = objpersona.GetPersonas(new Persona() { activo = true });
 			}
 
-
 			if (lista != null)
 			{
 				CargarDestinos(lista);
@@ -407,23 +377,13 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarComboCursos()
 		{
-			//Asignatura asignatura = new Asignatura();
-			//asignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-			//BLAsignatura objBLAsignatura = new BLAsignatura(asignatura);
-			//List<Asignatura> lista = objBLAsignatura.GetAsignaturasCurso(asignatura);
-			//List<Curso> listaCurso = new List<Curso>();
-			//foreach (Asignatura item in lista)
-			//{
-			//    listaCurso.Add(item.curso);
-			//}
 			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
-			//UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
 		}
 
 		/// <summary>
 		/// Enviars the mensaje.
 		/// </summary>
-		private void EnviarMensaje()
+		private void EnviarMensaje(int idCursoCicloLectivo)
 		{
 			Mensaje objMensaje = new Mensaje();
 
@@ -432,6 +392,7 @@ namespace EDUAR_UI
 			objMensaje.remitente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			objMensaje.fechaEnvio = DateTime.Now;
 			objMensaje.horaEnvio = Convert.ToDateTime(DateTime.Now.Hour + ":" + DateTime.Now.Minute);
+			objMensaje.cursoCicloLectivo.idCursoCicloLectivo = idCursoCicloLectivo;
 
 			Persona destinatario;
 			int cantidad = 0;
