@@ -129,6 +129,29 @@ namespace EDUAR_DataAccess.Common
 		{
 			try
 			{
+				return GetCursoAlumno(entidad, 0);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCursoAlumno()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCursoAlumno()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the curso alumno.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public AlumnoCursoCicloLectivo GetCursoAlumno(Alumno entidad, int idCicloLectivo)
+		{
+			try
+			{
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AlumnosPorCurso_Select");
 				if (entidad != null)
 				{
@@ -136,6 +159,8 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
 					if (entidad.idAlumno > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAlumno", DbType.Int32, entidad.idAlumno);
+					if (idCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, idCicloLectivo);
 					if (entidad.listaTutores.Count > 0 && !string.IsNullOrEmpty(entidad.listaTutores[0].username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usernameTutor", DbType.String, entidad.listaTutores[0].username);
 				}
@@ -157,6 +182,8 @@ namespace EDUAR_DataAccess.Common
 					objAlumnoCurso.alumno.idPersona = Convert.ToInt32(reader["idPersona"]);
 					//objAlumnoCurso.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					objAlumnoCurso.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
+					objAlumnoCurso.cursoCicloLectivo.curso.nombre = reader["curso"].ToString();
+					objAlumnoCurso.cursoCicloLectivo.curso.nivel.nombre = reader["nivel"].ToString();
 					return objAlumnoCurso;
 				}
 				return null;
@@ -212,6 +239,8 @@ namespace EDUAR_DataAccess.Common
 					objAlumnoCurso.alumno.idPersona = Convert.ToInt32(reader["idPersona"]);
 					//objAlumnoCurso.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					objAlumnoCurso.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
+					objAlumnoCurso.cursoCicloLectivo.curso.nombre = reader["curso"].ToString();
+					objAlumnoCurso.cursoCicloLectivo.curso.nivel.nombre = reader["nivel"].ToString();
 					listaAlumnos.Add(objAlumnoCurso);
 				}
 				return listaAlumnos;
