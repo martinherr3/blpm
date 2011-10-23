@@ -1,7 +1,9 @@
-﻿using EDUAR_Entities.Shared;
+﻿using System;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
+	[Serializable]
 	public class AlumnoCursoCicloLectivo : DTBase
 	{
 		public int idAlumnoCursoCicloLectivo { get; set; }

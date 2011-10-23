@@ -8,6 +8,7 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
 using System.Collections.Generic;
+using System.Data;
 
 namespace EDUAR_UI
 {
@@ -61,6 +62,28 @@ namespace EDUAR_UI
 			}
 			set { ViewState["listaCursos"] = value; }
 		}
+
+		/// <summary>
+		/// Gets or sets the lista alumnos.
+		/// </summary>
+		/// <value>
+		/// The lista alumnos.
+		/// </value>
+		public List<AlumnoCursoCicloLectivo> listaAlumnos
+		{
+			get
+			{
+				if (ViewState["listaAlumnos"] == null)
+				{
+					List<Tutor> lista = new List<Tutor>();
+					lista.Add(new Tutor() { username = User.Identity.Name });
+					BLAlumno objBLAlumno = new BLAlumno(new Alumno() { listaTutores = lista });
+					listaAlumnos = objBLAlumno.GetAlumnosTutor(cicloLectivoActual);
+				}
+				return (List<AlumnoCursoCicloLectivo>)ViewState["listaAlumnos"];
+			}
+			set { ViewState["listaAlumnos"] = value; }
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -106,22 +129,35 @@ namespace EDUAR_UI
 					//    }
 					//}
 
-
-					if (User.IsInRole(enumRoles.Alumno.ToString())
-						||
-						User.IsInRole(enumRoles.Docente.ToString()))
+					if (User.IsInRole(enumRoles.Alumno.ToString()))
+					{
+						habilitarAlumno(false);
+						habilitarCurso(false);
+						divAgenda.Visible = true;
+						lblCurso.Visible = false;
+						ddlCurso.Visible = false;
+					}
+					if (User.IsInRole(enumRoles.Docente.ToString()))
 					{
 						divAgenda.Visible = true;
-						if (User.IsInRole(enumRoles.Docente.ToString()))
-						{
-							UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
-						}
-						else
-						{
-							lblCurso.Visible = false;
-							ddlCurso.Visible = false;
-						}
+						habilitarAlumno(false);
+						UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
 					}
+					if (User.IsInRole(enumRoles.Tutor.ToString()))
+					{
+						divAgenda.Visible = true;
+						habilitarCurso(false);
+						ddlAlumnos.Items.Clear();
+						ddlAlumnos.DataSource = null;
+						foreach (AlumnoCursoCicloLectivo item in listaAlumnos)
+						{
+							ddlAlumnos.Items.Insert(ddlAlumnos.Items.Count, new ListItem(item.alumno.apellido + " " + item.alumno.nombre, item.alumno.idAlumno.ToString()));
+						}
+						UIUtilidades.SortByText(ddlAlumnos);
+						ddlAlumnos.Items.Insert(0, new ListItem("Seleccione", "-1"));
+						ddlAlumnos.SelectedValue = "-1";
+					}
+
 					fechas.startDate = cicloLectivoActual.fechaInicio;
 					fechas.endDate = cicloLectivoActual.fechaFin;
 					fechas.setSelectedDate(DateTime.Now, DateTime.Now.AddDays(15));
@@ -282,6 +318,14 @@ namespace EDUAR_UI
 						listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
 					}
 					break;
+				case enumRoles.Tutor:
+					if (Convert.ToInt16(ddlAlumnos.SelectedValue) > 0)
+					{
+						CursoCicloLectivo objCurso = new CursoCicloLectivo();
+						objCurso.idCursoCicloLectivo = (listaAlumnos.Find(p => p.alumno.idAlumno == Convert.ToInt16(ddlAlumnos.SelectedValue))).cursoCicloLectivo.idCursoCicloLectivo;
+						listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
+					}
+					break;
 				default:
 					break;
 			}
@@ -295,6 +339,26 @@ namespace EDUAR_UI
 		{
 			gvwAgenda.DataSource = UIUtilidades.BuildDataTable<EventoAgenda>(propAgenda.listaEventos).DefaultView;
 			gvwAgenda.DataBind();
+		}
+
+		/// <summary>
+		/// Habilitars the curso.
+		/// </summary>
+		/// <param name="mostrar">if set to <c>true</c> [mostrar].</param>
+		private void habilitarCurso(bool mostrar)
+		{
+			lblCurso.Visible = mostrar;
+			ddlCurso.Visible = mostrar;
+		}
+
+		/// <summary>
+		/// Habilitars the alumno.
+		/// </summary>
+		/// <param name="mostrar">if set to <c>true</c> [mostrar].</param>
+		private void habilitarAlumno(bool mostrar)
+		{
+			lblAlumnos.Visible = mostrar;
+			ddlAlumnos.Visible = mostrar;
 		}
 		#endregion
 	}

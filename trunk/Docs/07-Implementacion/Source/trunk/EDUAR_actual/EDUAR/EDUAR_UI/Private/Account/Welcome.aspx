@@ -20,22 +20,22 @@
         </tr>
         <tr>
             <td style="width: 80%">
-                <p class="ui-widget">
-                    <div id="divMensajes" runat="server">
-                        <table width="100%" cellpadding="1" cellspacing="5" border="0">
-                            <tr>
-                                <td style="width: 30%">
+                <div id="divMensajes" runat="server">
+                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+                        <tr>
+                            <td style="width: 30%">
+                                <p class="ui-widget">
                                     <asp:Label ID="lblMensajes" Text="Tienes <MENSAJES> <MSJ_STRING> sin leer!!!" runat="server"
-                                        Font-Bold="true" />
-                                </td>
-                                <td style="width: 70%">
+                                        Font-Bold="true" /></p>
+                            </td>
+                            <td style="width: 70%">
+                                <p class="ui-widget">
                                     <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl="~/Images/mail-new-message.gif"
-                                        OnClick="btnMensaje_Click" />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </p>
+                                        OnClick="btnMensaje_Click" /></p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </td>
         </tr>
     </table>
@@ -66,7 +66,7 @@
                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                     <tr>
                         <td valign="top" colspan="4" class="TDCriterios100">
-                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
                                     <cal:Calendario ID="fechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
                                         EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
@@ -82,9 +82,25 @@
                             <asp:Label ID="lblCurso" runat="server" Text="Curso:"></asp:Label>
                         </td>
                         <td valign="top" class="TDCriterios75" colspan="3">
-                            <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                            <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
                                     <asp:DropDownList ID="ddlCurso" runat="server">
+                                    </asp:DropDownList>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
+                                </Triggers>
+                            </asp:UpdatePanel>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" class="TDCriterios25">
+                            <asp:Label ID="lblAlumnos" runat="server" Text="Alumno:"></asp:Label>
+                        </td>
+                        <td valign="top" class="TDCriterios75" colspan="3">
+                            <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:DropDownList ID="ddlAlumnos" runat="server">
                                     </asp:DropDownList>
                                 </ContentTemplate>
                                 <Triggers>

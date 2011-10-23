@@ -13,6 +13,32 @@ namespace EDUAR_UI
 {
 	public partial class MsjeRedactar : EDUARBasePage
 	{
+		#region --[Propiedades]
+		/// <summary>
+		/// Gets or sets the lista cursos.
+		/// </summary>
+		/// <value>
+		/// The lista cursos.
+		/// </value>
+		public List<Curso> listaCursos
+		{
+			get
+			{
+				if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
+				{
+					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+
+					Asignatura objFiltro = new Asignatura();
+					objFiltro.curso.cicloLectivo = cicloLectivoActual;
+					//nombre del usuario logueado
+					objFiltro.docente.username = User.Identity.Name;
+					listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
+				}
+				return (List<Curso>)ViewState["listaCursos"];
+			}
+			set { ViewState["listaCursos"] = value; }
+		}
+		#endregion
 		#region --[Eventos]--
 		/// <summary>
 		/// Método que se ejecuta al dibujar los controles de la página.
@@ -92,7 +118,16 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				if (ddlDestino.SelectedIndex > 0)
+				bool destino = false;
+				foreach (ListItem item in ddlDestino.Items)
+				{
+					if (item.Selected)
+					{
+						destino = true;
+						break;
+					}
+				}
+				if (destino)
 				{
 					//Docente: a personas o cursos
 					if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
@@ -186,7 +221,7 @@ namespace EDUAR_UI
 				{
 					case "0":
 						ddlDestino.Items.Add(new ListItem(ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));
-						ddlDestino.Items.FindByValue(ddlCurso.SelectedItem.Value).Selected = true;
+						//ddlDestino.Items.FindByValue(ddlCurso.SelectedItem.Value).Selected = true;
 						break;
 					case "1":
 						objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
@@ -205,7 +240,9 @@ namespace EDUAR_UI
 						CargarDestinos(lista);
 						break;
 					case "2":
-						objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
+						//objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
+						objCurso = new AlumnoCurso();
+						objCurso.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
 						BLTutor objBLTutor = new BLTutor();
 						List<Tutor> listaTutores = objBLTutor.GetTutoresPorCurso(objCurso);
 						ddlDestino.Items.Clear();
@@ -371,16 +408,17 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarComboCursos()
 		{
-			Asignatura asignatura = new Asignatura();
-			asignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-			BLAsignatura objBLAsignatura = new BLAsignatura(asignatura);
-			List<Asignatura> lista = objBLAsignatura.GetAsignaturasCurso(asignatura);
-			List<Curso> listaCurso = new List<Curso>();
-			foreach (Asignatura item in lista)
-			{
-				listaCurso.Add(item.curso);
-			}
-			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
+			//Asignatura asignatura = new Asignatura();
+			//asignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+			//BLAsignatura objBLAsignatura = new BLAsignatura(asignatura);
+			//List<Asignatura> lista = objBLAsignatura.GetAsignaturasCurso(asignatura);
+			//List<Curso> listaCurso = new List<Curso>();
+			//foreach (Asignatura item in lista)
+			//{
+			//    listaCurso.Add(item.curso);
+			//}
+			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
+			//UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
 		}
 
 		/// <summary>

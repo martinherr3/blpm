@@ -66,31 +66,22 @@
                     </tr>
                 </table>
             </div>
-            <%--<div id="divAlumno" runat="server" visible="false">
-                <table class="tablaInterna" width="100%">
-                    <tr>
-                        <td valign="top">
-                            Destinatarios:
-                        </td>
-                        <td rowspan="3">
-                            <asp:RadioButtonList ID="rdlDestAlumno" runat="server" OnSelectedIndexChanged="rdlDestAlumno_OnSelectedIndexChanged"
-                                AutoPostBack="true">
-                                <asp:ListItem Text="Curso" Value="0" />
-                                <asp:ListItem Text="Seleccionar Docente" Value="1" Enabled="true" />
-                            </asp:RadioButtonList>
-                        </td>
-                    </tr>
-                </table>
-            </div>--%>
             <table class="tablaInterna" width="100%">
                 <tr>
                     <td class="TD20">
                         Destinatarios
                     </td>
                     <td class="TD80">
-                        <select data-placeholder="Seleccione los destinatarios" style="width: 600px;" multiple="true"
-                            class="chzn-select" runat="server" id="ddlDestino" enableviewstate="true">
-                        </select>
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <select data-placeholder="Seleccione los destinatarios" style="width: 600px;" multiple="true"
+                                    class="chzn-select" runat="server" id="ddlDestino" enableviewstate="true">
+                                </select>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:PostBackTrigger ControlID="ddlDestino" />
+                            </Triggers>
+                        </asp:UpdatePanel>
                     </td>
                 </tr>
                 <tr>
