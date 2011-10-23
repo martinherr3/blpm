@@ -339,8 +339,7 @@ namespace EDUAR_UI
 
 				Alumno objAlumno = new Alumno { username = ObjSessionDataUI.ObjDTUsuario.Nombre };
 				BLAlumno objBLAlumno = new BLAlumno(objAlumno);
-
-				lista = objBLAlumno.GetDocentesAlumno();
+				lista = objBLAlumno.GetDocentesAlumno(cicloLectivoActual);
 			}
 
 			//Tutor: docentes de sus alumnos
@@ -349,7 +348,7 @@ namespace EDUAR_UI
 				Tutor objTutor = new Tutor();
 				objTutor.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 				BLTutor objBLTutor = new BLTutor(objTutor);
-				lista = objBLTutor.GetDocentesAlumnos();
+				lista = objBLTutor.GetDocentesAlumnos(cicloLectivoActual);
 			}
 
 			//Administrativo: a tutores
