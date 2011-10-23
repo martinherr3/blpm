@@ -42,6 +42,48 @@ namespace EDUAR_UI
 			}
 			set { Session["ObjSessionDataUI"] = value; }
 		}
+
+		/// <summary>
+		/// Gets or sets the obj session persona.
+		/// </summary>
+		/// <value>
+		/// The obj session persona.
+		/// </value>
+		public Persona objSessionPersona
+		{
+			get
+			{
+				if (Session["objSessionPersona"] == null)
+				{
+					BLPersona objBLPersona = new BLPersona(new Persona() { username = ObjSessionDataUI.ObjDTUsuario.Nombre });
+					objBLPersona.GetPersonaByEntidad();
+					//objSessionPersona = new Persona();
+					objSessionPersona = objBLPersona.Data;
+				}
+				return (Persona)Session["objSessionPersona"];
+			}
+			set { Session["objSessionPersona"] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the ciclo lectivo actual.
+		/// </summary>
+		/// <value>
+		/// The ciclo lectivo actual.
+		/// </value>
+		public CicloLectivo cicloLectivoActual
+		{
+			get
+			{
+				if (ViewState["cicloLectivoActual"] == null)
+				{
+					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+					cicloLectivoActual = objBLCicloLectivo.GetCicloLectivoActual();
+				}
+				return (CicloLectivo)ViewState["cicloLectivoActual"];
+			}
+			set { ViewState["cicloLectivoActual"] = value; }
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -66,6 +108,10 @@ namespace EDUAR_UI
 					if (HttpContext.Current.User.Identity.IsAuthenticated)
 					{
 						//NavigationMenu.DataSource = SiteMapEDUAR;
+
+						divInfo.Visible = true;
+
+						CargaInforUsuario();
 
 						StringBuilder s = new StringBuilder();
 						string er;
@@ -105,6 +151,58 @@ namespace EDUAR_UI
 			catch (Exception ex)
 			{
 				ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Cargas the infor usuario.
+		/// </summary>
+		private void CargaInforUsuario()
+		{
+			lblUsuario.Text = objSessionPersona.nombre + " " + objSessionPersona.apellido;
+			lblRol.Text = ObjSessionDataUI.ObjDTUsuario.ListaRoles[0].Nombre + ": ";
+
+			if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
+			{
+				BLAlumno objBLAlumno = new BLAlumno(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre });
+				AlumnoCursoCicloLectivo objCurso = objBLAlumno.GetCursoActualAlumno(cicloLectivoActual);
+				lblCursosAsignados.Text = "Curso Actual: " + objCurso.cursoCicloLectivo.curso.nivel.nombre + "  " + objCurso.cursoCicloLectivo.curso.nombre;
+			}
+			if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+			{
+				BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+				Asignatura objFiltro = new Asignatura();
+				objFiltro.curso.cicloLectivo = cicloLectivoActual;
+				//nombre del usuario logueado
+				objFiltro.docente.username = HttpContext.Current.User.Identity.Name;
+				List<Curso> listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
+				string cursos = string.Empty;
+				if (listaCursos.Count > 0) cursos = "Cursos: <br />";
+				foreach (Curso item in listaCursos)
+				{
+					if (!cursos.Contains(item.nombre))
+					{
+						cursos += item.nombre + " <br />";
+					}
+				}
+				lblCursosAsignados.Text = cursos;
+			}
+			if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
+			{
+				List<Tutor> lista = new List<Tutor>();
+				lista.Add(new Tutor() { username = HttpContext.Current.User.Identity.Name });
+				BLAlumno objBLAlumno = new BLAlumno(new Alumno() { listaTutores = lista });
+				List<AlumnoCursoCicloLectivo> listaAlumnos = objBLAlumno.GetAlumnosTutor(cicloLectivoActual);
+				string cursos = string.Empty;
+				if (listaAlumnos.Count > 0) cursos = "Cursos: \n";
+				foreach (AlumnoCursoCicloLectivo item in listaAlumnos)
+				{
+					if (!cursos.Contains(item.cursoCicloLectivo.curso.nivel.nombre + "  " + item.cursoCicloLectivo.curso.nombre))
+					{
+						cursos += item.cursoCicloLectivo.curso.nivel.nombre + "  " + item.cursoCicloLectivo.curso.nombre + " \n";
+					}
+				}
+				lblCursosAsignados.Text = cursos;
 			}
 		}
 

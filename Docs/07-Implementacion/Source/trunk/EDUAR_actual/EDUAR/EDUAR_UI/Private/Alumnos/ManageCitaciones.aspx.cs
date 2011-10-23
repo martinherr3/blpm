@@ -211,7 +211,7 @@ namespace EDUAR_UI
 			{
 				AccionPagina = enumAcciones.Nuevo;
 				LimpiarCampos();
-                propCitacion = new Citacion();
+				propCitacion = new Citacion();
 				CargarCombosEdicion();
 				esNuevo = true;
 				btnGuardar.Visible = true;
@@ -329,6 +329,10 @@ namespace EDUAR_UI
 			try
 			{
 				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+				if (idCicloLectivo <= 0)
+					ddlCurso.Items.Clear();
+				ddlTutores.Items.Clear();
+				ddlTutores.Enabled = false;
 				CargarComboCursos(idCicloLectivo, ddlCurso);
 			}
 			catch (Exception ex)
@@ -366,7 +370,7 @@ namespace EDUAR_UI
 			try
 			{
 				int idCursoCicloLectivo = Convert.ToInt32(ddlCursoEdit.SelectedValue);
-                CargarComboTutor(idCursoCicloLectivo, propCicloLectivo.idCicloLectivo, ddlTutorEdit);
+				CargarComboTutor(idCursoCicloLectivo, propCicloLectivo.idCicloLectivo, ddlTutorEdit);
 			}
 			catch (Exception ex)
 			{
@@ -453,12 +457,22 @@ namespace EDUAR_UI
 		{
 			if (idCicloLectivo > 0)
 			{
-				List<Curso> listaCurso = new List<Curso>();
 				BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-				Curso objCurso = new Curso();
-
-				listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
-				UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
+				List<Curso> listaCursos = new List<Curso>();
+				if (User.IsInRole(enumRoles.Docente.ToString()))
+				{
+					Asignatura objFiltro = new Asignatura();
+					objFiltro.curso.cicloLectivo = cicloLectivoActual;
+					//nombre del usuario logueado
+					objFiltro.docente.username = User.Identity.Name;
+					listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
+				}
+				else
+				{
+					Curso objCurso = new Curso();
+					listaCursos = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
+				}
+				UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "nombre", true);
 				ddlCurso.Enabled = true;
 			}
 			else
@@ -472,14 +486,14 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="idCurso">The id curso.</param>
 		/// <param name="ddlTutor">The DDL tutor.</param>
-        private void CargarComboTutor(int idCursoCicloLectivo, int idCicloLectivo, DropDownList ddlTutor)
+		private void CargarComboTutor(int idCursoCicloLectivo, int idCicloLectivo, DropDownList ddlTutor)
 		{
-            if (idCursoCicloLectivo > 0)
+			if (idCursoCicloLectivo > 0)
 			{
 				List<Tutor> listaTutores = new List<Tutor>();
 				BLTutor objBLTutor = new BLTutor();
 				AlumnoCurso objFiltro = new AlumnoCurso();
-                objFiltro.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(idCursoCicloLectivo);
+				objFiltro.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(idCursoCicloLectivo);
 				objFiltro.curso.cicloLectivo.idCicloLectivo = Convert.ToInt32(idCicloLectivo);
 				listaTutores = objBLTutor.GetTutoresPorCurso(objFiltro);
 				UIUtilidades.BindCombo<Tutor>(ddlTutor, listaTutores, "idTutor", "apellido", "nombre", true);
