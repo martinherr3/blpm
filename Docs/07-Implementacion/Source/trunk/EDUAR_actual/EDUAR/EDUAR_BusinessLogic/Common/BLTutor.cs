@@ -228,7 +228,8 @@ namespace EDUAR_BusinessLogic.Common
 					listaPersonasSec = objBLAlumno.GetDocentesAlumno();
 					foreach (Persona itemPersona in listaPersonasSec)
 					{
-						listaPersonas.Add(itemPersona);
+						if (!listaPersonas.Exists(p => p.idPersona == itemPersona.idPersona))
+							listaPersonas.Add(itemPersona);
 					}
 				}
 
@@ -241,6 +242,36 @@ namespace EDUAR_BusinessLogic.Common
 			catch (Exception ex)
 			{
 				throw new CustomizedException(string.Format("Fallo en {0} - GetDocentesAlumnos", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the alumnos tutor.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<AlumnoCursoCicloLectivo> GetAlumnosTutor(Tutor entidad)
+		{
+			try
+			{
+				List<Alumno> listaAlumnos = DataAcces.GetAlumnosTutor(entidad);
+				BLAlumno objBLAlumno= new BLAlumno();
+				List<AlumnoCursoCicloLectivo> listaAlumnoCurso = new List<AlumnoCursoCicloLectivo>();
+				foreach (var item in listaAlumnos)
+				{
+					objBLAlumno.Data = item;
+					listaAlumnoCurso.Add(objBLAlumno.GetCursoAlumno());
+				}
+				return listaAlumnoCurso;
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnosTutor", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
 		}

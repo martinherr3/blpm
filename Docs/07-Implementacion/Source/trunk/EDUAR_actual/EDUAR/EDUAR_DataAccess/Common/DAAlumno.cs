@@ -125,7 +125,7 @@ namespace EDUAR_DataAccess.Common
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public AlumnoCurso GetCursoAlumno(Alumno entidad)
+		public AlumnoCursoCicloLectivo GetCursoAlumno(Alumno entidad)
 		{
 			try
 			{
@@ -134,14 +134,18 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (!string.IsNullOrEmpty(entidad.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
+					if (entidad.idAlumno > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAlumno", DbType.Int32, entidad.idAlumno);
+					if (entidad.listaTutores.Count > 0 && !string.IsNullOrEmpty(entidad.listaTutores[0].username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usernameTutor", DbType.String, entidad.listaTutores[0].username);
 				}
 
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-				AlumnoCurso objAlumnoCurso = null;
+				AlumnoCursoCicloLectivo objAlumnoCurso = null;
 				while (reader.Read())
 				{
-					objAlumnoCurso = new AlumnoCurso();
+					objAlumnoCurso = new AlumnoCursoCicloLectivo();
 					objAlumnoCurso.alumno.idAlumno = Convert.ToInt32(reader["idAlumno"]);
 					objAlumnoCurso.alumno.nombre = reader["nombre"].ToString();
 					objAlumnoCurso.alumno.apellido = reader["apellido"].ToString();
@@ -151,11 +155,66 @@ namespace EDUAR_DataAccess.Common
 						objAlumnoCurso.alumno.fechaBaja = (DateTime)reader["fechaBaja"];
 					objAlumnoCurso.alumno.activo = Convert.ToBoolean(reader["activo"]);
 					objAlumnoCurso.alumno.idPersona = Convert.ToInt32(reader["idPersona"]);
-					objAlumnoCurso.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
+					//objAlumnoCurso.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					objAlumnoCurso.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					return objAlumnoCurso;
 				}
 				return null;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCursoAlumno()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCursoAlumno()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the curso alumno.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<AlumnoCursoCicloLectivo> GetAlumnosTutor(Alumno entidad, int idCicloLectivo)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TutorAlumnosPorCurso_Select");
+				if (entidad != null)
+				{
+					if (!string.IsNullOrEmpty(entidad.username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
+					if (entidad.idAlumno > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAlumno", DbType.Int32, entidad.idAlumno);
+					if (idCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, idCicloLectivo);
+					if (entidad.listaTutores.Count > 0 && !string.IsNullOrEmpty(entidad.listaTutores[0].username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usernameTutor", DbType.String, entidad.listaTutores[0].username);
+				}
+
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+				List<AlumnoCursoCicloLectivo> listaAlumnos = new List<AlumnoCursoCicloLectivo>();
+				AlumnoCursoCicloLectivo objAlumnoCurso = null;
+				while (reader.Read())
+				{
+					objAlumnoCurso = new AlumnoCursoCicloLectivo();
+					objAlumnoCurso.alumno.idAlumno = Convert.ToInt32(reader["idAlumno"]);
+					objAlumnoCurso.alumno.nombre = reader["nombre"].ToString();
+					objAlumnoCurso.alumno.apellido = reader["apellido"].ToString();
+					if (!string.IsNullOrEmpty(reader["fechaAlta"].ToString()))
+						objAlumnoCurso.alumno.fechaAlta = (DateTime)reader["fechaAlta"];
+					if (!string.IsNullOrEmpty(reader["fechaBaja"].ToString()))
+						objAlumnoCurso.alumno.fechaBaja = (DateTime)reader["fechaBaja"];
+					objAlumnoCurso.alumno.activo = Convert.ToBoolean(reader["activo"]);
+					objAlumnoCurso.alumno.idPersona = Convert.ToInt32(reader["idPersona"]);
+					//objAlumnoCurso.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
+					objAlumnoCurso.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
+					listaAlumnos.Add(objAlumnoCurso);
+				}
+				return listaAlumnos;
 			}
 			catch (SqlException ex)
 			{
