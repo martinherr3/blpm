@@ -211,13 +211,15 @@ namespace EDUAR_BusinessLogic.Common
 		/// Gets the docentes alumno.
 		/// </summary>
 		/// <returns></returns>
-		public List<Persona> GetDocentesAlumno()
+		public List<Persona> GetDocentesAlumno(CicloLectivo cicloLectivoActual)
 		{
 			try
 			{
-				AlumnoCursoCicloLectivo objCurso = this.GetCursoAlumno();
+				AlumnoCursoCicloLectivo objAsignaturas = this.GetCursoActualAlumno(cicloLectivoActual);
+
 				BLAsignatura objBLAsignatura = new BLAsignatura();
-				Asignatura objAsignatura = new Asignatura(objCurso.cursoCicloLectivo.idCursoCicloLectivo);
+				Asignatura objAsignatura = new Asignatura();
+				objAsignatura.cursoCicloLectivo = objAsignaturas.cursoCicloLectivo;
 				List<Asignatura> listaAsignatura =  objBLAsignatura.GetAsignaturasCurso(objAsignatura);
 				Persona objDocente = null;
 				List<Persona> listaDocentes = new List<Persona>();

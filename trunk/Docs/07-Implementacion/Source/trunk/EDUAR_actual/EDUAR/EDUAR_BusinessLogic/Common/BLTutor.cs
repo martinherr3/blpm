@@ -212,7 +212,7 @@ namespace EDUAR_BusinessLogic.Common
 		/// Gets the docentes alumnos.
 		/// </summary>
 		/// <returns></returns>
-		public List<Persona> GetDocentesAlumnos()
+		public List<Persona> GetDocentesAlumnos(CicloLectivo cicloLectivoActual)
 		{
 			try
 			{
@@ -225,7 +225,7 @@ namespace EDUAR_BusinessLogic.Common
 				{
 					objBLAlumno = new BLAlumno(item);
 					listaPersonasSec = new List<Persona>();
-					listaPersonasSec = objBLAlumno.GetDocentesAlumno();
+					listaPersonasSec = objBLAlumno.GetDocentesAlumno(cicloLectivoActual);
 					foreach (Persona itemPersona in listaPersonasSec)
 					{
 						if (!listaPersonas.Exists(p => p.idPersona == itemPersona.idPersona))
@@ -256,7 +256,7 @@ namespace EDUAR_BusinessLogic.Common
 			try
 			{
 				List<Alumno> listaAlumnos = DataAcces.GetAlumnosTutor(entidad);
-				BLAlumno objBLAlumno= new BLAlumno();
+				BLAlumno objBLAlumno = new BLAlumno();
 				List<AlumnoCursoCicloLectivo> listaAlumnoCurso = new List<AlumnoCursoCicloLectivo>();
 				foreach (var item in listaAlumnos)
 				{
