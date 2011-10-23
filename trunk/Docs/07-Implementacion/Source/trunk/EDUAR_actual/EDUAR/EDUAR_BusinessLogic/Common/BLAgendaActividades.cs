@@ -364,7 +364,20 @@ namespace EDUAR_BusinessLogic.Common
 		{
 			try
 			{
-				return DataAcces.GetAgendaActividadesByRol(alumno, docente, curso, fechaDesde, fechaHasta);
+				if (alumno != null && !string.IsNullOrEmpty(alumno.username))
+				{
+					AlumnoCursoCicloLectivo objAlumno = new AlumnoCursoCicloLectivo();
+					objAlumno.alumno = alumno;
+					BLAlumno objBLAlumno = new BLAlumno(alumno);
+					objAlumno = objBLAlumno.GetCursoAlumno();
+					Data.cursoCicloLectivo.idCursoCicloLectivo = objAlumno.cursoCicloLectivo.idCursoCicloLectivo;
+				}
+				if (curso != null)
+				{
+					Data.cursoCicloLectivo.idCursoCicloLectivo = curso.idCursoCicloLectivo;
+				}
+				this.GetAgendaCurso(fechaDesde, fechaHasta);
+				return Data.listaEventos;
 			}
 			catch (CustomizedException ex)
 			{
@@ -373,6 +386,30 @@ namespace EDUAR_BusinessLogic.Common
 			catch (Exception ex)
 			{
 				throw new CustomizedException(string.Format("Fallo en {0} - GetAgendaActividadesByAlumno", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the agenda curso.
+		/// </summary>
+		/// <param name="agenda">The agenda.</param>
+		/// <param name="fechaDesde">The fecha desde.</param>
+		/// <param name="fechaHasta">The fecha hasta.</param>
+		private void GetAgendaCurso(DateTime fechaDesde, DateTime fechaHasta)
+		{
+			try
+			{
+				Data = DataAcces.GetById(Data);
+				Data.listaEventos = DataAcces.GetEventosAgenda(Data.idAgendaActividad, fechaDesde, fechaHasta);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAgendaCurso", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
 		}

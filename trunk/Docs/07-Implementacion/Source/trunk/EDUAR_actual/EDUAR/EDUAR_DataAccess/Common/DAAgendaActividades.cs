@@ -59,6 +59,7 @@ namespace EDUAR_DataAccess.Common
 					if (entidad.activo)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 				}
+
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				List<AgendaActividades> listaAgendaActividades = new List<AgendaActividades>();
@@ -296,8 +297,37 @@ namespace EDUAR_DataAccess.Common
 		{
 			try
 			{
+				return GetEventosAgenda(idAgendaActividades, new DateTime(), new DateTime());
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEventosAgenda()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEventosAgenda()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the eventos agenda.
+		/// </summary>
+		/// <param name="idAgendaActividades">The id agenda actividades.</param>
+		/// <returns></returns>
+		public List<EventoAgenda> GetEventosAgenda(int idAgendaActividades, DateTime fechaDesde, DateTime fechaHasta)
+		{
+			try
+			{
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EventoAgenda_Select");
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, idAgendaActividades);
+
+				if (ValidarFechaSQL(fechaDesde))
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, fechaDesde);
+				if (ValidarFechaSQL(fechaHasta))
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, fechaHasta);
+
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				List<EventoAgenda> listaEventos = new List<EventoAgenda>();
@@ -321,12 +351,12 @@ namespace EDUAR_DataAccess.Common
 			}
 			catch (SqlException ex)
 			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEventosAgenda()", ClassName),
 									ex, enuExceptionType.SqlException);
 			}
 			catch (Exception ex)
 			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetById()", ClassName),
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEventosAgenda()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
@@ -453,60 +483,6 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
-
-		/// <summary>
-		/// Gets the agenda actividades by alumno.
-		/// </summary>
-		/// <param name="alumno">The entidad.</param>
-		/// <returns></returns>
-		public List<EventoAgenda> GetAgendaActividadesByRol(Alumno alumno, Docente docente, CursoCicloLectivo curso, DateTime fechaDesde, DateTime fechaHasta)
-		{
-			try
-			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AgendaByUsuario_Select");
-				if (alumno != null && !string.IsNullOrEmpty(alumno.username))
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioAlumno", DbType.String, alumno.username);
-				if (docente != null && !string.IsNullOrEmpty(docente.username))
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioDocente", DbType.String, docente.username);
-				if (curso != null && curso.idCursoCicloLectivo > 0)
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int16, curso.idCursoCicloLectivo);
-				if (ValidarFechaSQL(fechaDesde))
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, fechaDesde);
-				if (ValidarFechaSQL(fechaHasta))
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, fechaHasta);
-				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-
-				//AgendaActividades objAgendaActividades = null;
-				List<EventoAgenda> listaEventos = new List<EventoAgenda>();
-				EventoAgenda objEvento = null;
-				while (reader.Read())
-				{
-					objEvento = new EventoAgenda();
-
-					objEvento.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividades"]);
-					objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
-					objEvento.usuario.nombre = reader["nombre"].ToString();
-					objEvento.usuario.apellido = reader["apellido"].ToString();
-					objEvento.activo = Convert.ToBoolean(reader["activo"].ToString());
-					objEvento.fechaAlta = Convert.ToDateTime(reader["fechaAlta"].ToString());
-					objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"].ToString());
-					objEvento.descripcion = reader["descripcion"].ToString();
-					objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
-					listaEventos.Add(objEvento);
-				}
-				return listaEventos;
-			}
-			catch (SqlException ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetAgendaActividadesByAlumno()", ClassName),
-									ex, enuExceptionType.SqlException);
-			}
-			catch (Exception ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetAgendaActividadesByAlumno()", ClassName),
-									ex, enuExceptionType.DataAccesException);
-			}
-		}
 		#endregion
 
 		#region --[Implementación métodos heredados]--
@@ -532,6 +508,8 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AgendaActividades_Select");
 				if (entidad.idAgendaActividad > 0)
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividad", DbType.Int32, entidad.idAgendaActividad);
+				if (entidad.cursoCicloLectivo.idCursoCicloLectivo > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.idCursoCicloLectivo);
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				AgendaActividades objAgendaActividades = null;
