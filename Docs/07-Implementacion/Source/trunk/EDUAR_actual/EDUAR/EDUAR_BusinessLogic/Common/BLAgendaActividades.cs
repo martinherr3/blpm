@@ -369,13 +369,14 @@ namespace EDUAR_BusinessLogic.Common
 					AlumnoCursoCicloLectivo objAlumno = new AlumnoCursoCicloLectivo();
 					objAlumno.alumno = alumno;
 					BLAlumno objBLAlumno = new BLAlumno(alumno);
-					objAlumno = objBLAlumno.GetCursoAlumno();
+					objAlumno = objBLAlumno.GetCursoActualAlumno(curso.cicloLectivo);
 					Data.cursoCicloLectivo.idCursoCicloLectivo = objAlumno.cursoCicloLectivo.idCursoCicloLectivo;
 				}
-				if (curso != null)
-				{
-					Data.cursoCicloLectivo.idCursoCicloLectivo = curso.idCursoCicloLectivo;
-				}
+				else
+					if (curso != null)
+					{
+						Data.cursoCicloLectivo.idCursoCicloLectivo = curso.idCursoCicloLectivo;
+					}
 				this.GetAgendaCurso(fechaDesde, fechaHasta);
 				return Data.listaEventos;
 			}

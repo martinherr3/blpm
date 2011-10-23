@@ -304,16 +304,17 @@ namespace EDUAR_UI
 			if (fechas.ValorFechaHasta != null)
 				fechaHasta = (DateTime)fechas.ValorFechaHasta;
 			enumRoles obj = (enumRoles)Enum.Parse(typeof(enumRoles), ObjSessionDataUI.ObjDTUsuario.ListaRoles[0].Nombre);
+			CursoCicloLectivo objCurso = new CursoCicloLectivo();
 			List<EventoAgenda> listaEventos = new List<EventoAgenda>();
 			switch (obj)
 			{
 				case enumRoles.Alumno:
-					listaEventos = objBLAgenda.GetAgendaActividadesByRol(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, null, null, fechaDesde, fechaHasta);
+					objCurso.cicloLectivo = cicloLectivoActual;
+					listaEventos = objBLAgenda.GetAgendaActividadesByRol(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, null, objCurso, fechaDesde, fechaHasta);
 					break;
 				case enumRoles.Docente:
 					if (Convert.ToInt16(ddlCurso.SelectedValue) > 0)
 					{
-						CursoCicloLectivo objCurso = new CursoCicloLectivo();
 						objCurso.idCursoCicloLectivo = Convert.ToInt16(ddlCurso.SelectedValue);
 						listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
 					}
@@ -321,7 +322,6 @@ namespace EDUAR_UI
 				case enumRoles.Tutor:
 					if (Convert.ToInt16(ddlAlumnos.SelectedValue) > 0)
 					{
-						CursoCicloLectivo objCurso = new CursoCicloLectivo();
 						objCurso.idCursoCicloLectivo = (listaAlumnos.Find(p => p.alumno.idAlumno == Convert.ToInt16(ddlAlumnos.SelectedValue))).cursoCicloLectivo.idCursoCicloLectivo;
 						listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
 					}
