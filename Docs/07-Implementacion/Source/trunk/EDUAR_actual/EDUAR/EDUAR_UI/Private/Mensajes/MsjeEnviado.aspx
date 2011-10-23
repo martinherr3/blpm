@@ -39,16 +39,16 @@
                                     <table border="0" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td valign="middle">
-                                                <asp:CheckBox ID="checkEliminar" Text='<%# Eval("idMensajeDestinatario")%>' runat="server"
+                                                <asp:CheckBox ID="checkEliminar" Text='<%# Eval("idMensaje")%>' runat="server"
                                                     CssClass="HiddenText" Width="30px" ClientIDMode="Static" />
                                             </td>
                                             <td>
                                                 <asp:ImageButton ImageUrl="~/Images/Grillas/mail-mark-read-2.png" runat="server"
                                                     ID="btnLeer" AlternateText="Leer" ToolTip="Leer" ImageAlign="TextTop" CommandName="Leer"
-                                                    CommandArgument='<%# Bind("idMensajeDestinatario") %>' />
+                                                    CommandArgument='<%# Bind("idMensaje") %>' />
                                                 <asp:ImageButton ImageUrl="~/Images/Grillas/mail-delete-2.png" runat="server" ID="btnEliminar"
                                                     AlternateText="Eliminar" ToolTip="Eliminar" ImageAlign="TextTop" CommandName="Eliminar"
-                                                    CommandArgument='<%# Bind("idMensajeDestinatario") %>' />
+                                                    CommandArgument='<%# Bind("idMensaje") %>' />
                                             </td>
                                         </tr>
                                     </table>

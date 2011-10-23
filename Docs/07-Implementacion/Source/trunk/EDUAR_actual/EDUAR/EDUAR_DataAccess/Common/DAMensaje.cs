@@ -66,6 +66,8 @@ namespace EDUAR_DataAccess.Common
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@asuntoMensaje", DbType.String, entidad.asuntoMensaje);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@textoMensaje", DbType.String, entidad.textoMensaje);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+					if (entidad.cursoCicloLectivo.idCursoCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.idCursoCicloLectivo);
 
 					Transaction.DBcomand.Parameters["@idMensaje"].Direction = ParameterDirection.Output;
 
@@ -230,9 +232,9 @@ namespace EDUAR_DataAccess.Common
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		public void EliminarMensaje(Mensaje entidad)
-        {
-            try
-            {
+		{
+			try
+			{
 				if (entidad.idMensajeDestinatario > 0)
 				{
 					using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("MensajeDestinatario_Update"))
@@ -262,18 +264,18 @@ namespace EDUAR_DataAccess.Common
 								Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
 						}
 					}
-            }
-            catch (SqlException ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - EliminarMensaje()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - EliminarMensaje()", ClassName),
-                                    ex, enuExceptionType.DataAccesException);
-            }
-        }
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - EliminarMensaje()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - EliminarMensaje()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 
 		/// <summary>
 		/// Eliminars the mensaje.
