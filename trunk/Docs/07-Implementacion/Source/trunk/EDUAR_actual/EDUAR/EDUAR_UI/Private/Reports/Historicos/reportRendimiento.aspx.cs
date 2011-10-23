@@ -39,24 +39,6 @@ namespace EDUAR_UI
 			}
 		}
 
-        public List<Asignatura> listaAsignatura
-        {
-            get
-            {
-                if (ViewState["listaAsignatura"] == null)
-                {
-                    listaAsignatura = new List<Asignatura>();
-                    BLAsignatura objBLAsignatura = new BLAsignatura();
-                    listaAsignatura = objBLAsignatura.GetAsignaturas(null);
-                }
-                return (List<Asignatura>)ViewState["listaAsignatura"];
-            }
-            set
-            {
-                ViewState["listaAsignatura"] = value;
-            }
-        }
-
 		/// <summary>
 		/// Gets or sets the lista calificaciones.
 		/// </summary>
@@ -98,50 +80,6 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Gets or sets the lista asignaturas.
-		/// </summary>
-		/// <value>
-		/// The lista sanciones.
-		/// </value>
-        //public List<Asignatura> listaAsignatura
-        //{
-        //    get
-        //    {
-        //        if (ViewState["listaAsignatura"] == null)
-        //            listaAsignatura = new List<Asignatura>();
-        //        return (List<Asignatura>)ViewState["listaAsignatura"];
-        //    }
-        //    set
-        //    {
-        //        ViewState["listaAsignatura"] = value;
-        //    }
-        //}
-
-		/// <summary>
-		/// Gets or sets the lista ciclo lectivo.
-		/// </summary>
-		/// <value>
-		/// The lista ciclo lectivo.
-		/// </value>
-		public List<CicloLectivo> listaCicloLectivo
-		{
-			get
-			{
-				if (ViewState["listaCicloLectivo"] == null)
-				{
-					listaCicloLectivo = new List<CicloLectivo>();
-					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-					listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
-				}
-				return (List<CicloLectivo>)ViewState["listaCicloLectivo"];
-			}
-			set
-			{
-				ViewState["listaCicloLectivo"] = value;
-			}
-		}
-
-		/// <summary>
 		/// Gets or sets the lista niveles.
 		/// </summary>
 		/// <value>
@@ -164,6 +102,42 @@ namespace EDUAR_UI
 				ViewState["listaNiveles"] = value;
 			}
 		}
+
+        public List<Asignatura> listaAsignatura
+        {
+            get
+            {
+                if (ViewState["listaAsignatura"] == null)
+                {
+                    listaAsignatura = new List<Asignatura>();
+                    BLAsignatura objBLAsignatura = new BLAsignatura();
+                    listaAsignatura = objBLAsignatura.GetAsignaturas(null);
+                }
+                return (List<Asignatura>)ViewState["listaAsignatura"];
+            }
+            set
+            {
+                ViewState["listaAsignatura"] = value;
+            }
+        }
+
+        public List<CicloLectivo> listaCicloLectivo
+        {
+            get
+            {
+                if (ViewState["listaCicloLectivo"] == null)
+                {
+                    listaCicloLectivo = new List<CicloLectivo>();
+                    BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+                    listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
+                }
+                return (List<CicloLectivo>)ViewState["listaCicloLectivo"];
+            }
+            set
+            {
+                ViewState["listaCicloLectivo"] = value;
+            }
+        }
 		#endregion
 
 		#region --[Eventos]--
@@ -329,36 +303,6 @@ namespace EDUAR_UI
 			}
 		}
 
-		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ddlCicloLectivo control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ddlCicloLectivo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                AccionPagina = enumAcciones.Limpiar;
-                ddlAsignatura.Items.Clear();
-
-                CargarComboAsignatura();
-
-                if (Convert.ToInt16(ddlCicloLectivo.SelectedValue) > 0)
-                {
-                    ddlAsignatura.Disabled = false;
-                }
-                else
-                {
-                    ddlAsignatura.Items.Clear();
-                    ddlAsignatura.Disabled = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
-
          //<summary>
          //Handles the SelectedIndexChanged event of the ddlNivel control.
          //</summary>
@@ -412,13 +356,26 @@ namespace EDUAR_UI
                 }
                 filtroReporte.listaAsignaturas = listaAsignatura;
 
+                //if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0)
+                //{
+                //    filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+                //    filtros.AppendLine("- Ciclo Lectivo: " + ddlCicloLectivo.SelectedItem.Text);
+                //}
 
-				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0)
-				{
-					filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-					filtros.AppendLine("- Ciclo Lectivo: " + ddlCicloLectivo.SelectedItem.Text);
-				}
-				if (ddlNivel.Items.Count > 0 && Convert.ToInt32(ddlNivel.SelectedValue) > 0)
+                List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
+                foreach (System.Web.UI.WebControls.ListItem item in ddlCicloLectivo.Items)
+                {
+                    if (item.Selected)
+                    {
+                        if (!filtros.ToString().Contains("- Ciclo Lectivo"))
+                            filtros.AppendLine("- Ciclo Lectivo");
+                        filtros.AppendLine(" * " + item.Text);
+                        listaCicloLectivo.Add(new CicloLectivo() { idCicloLectivo = Convert.ToInt16(item.Value) });
+                    }
+                }
+                filtroReporte.listaCicloLectivo = listaCicloLectivo;
+
+                if (ddlNivel.Items.Count > 0 && Convert.ToInt32(ddlNivel.SelectedValue) > 0)
 				{
 					filtroReporte.idNivel = Convert.ToInt32(ddlNivel.SelectedValue);
 					filtros.AppendLine("- Nivel: " + ddlNivel.SelectedItem.Text);
@@ -443,11 +400,33 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarCombos()
 		{
-			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
-
+			//UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
+            CargarComboCicloLectivo();
             CargarNiveles();
-			//CargarComboAsignatura();
+			CargarComboAsignatura();
 		}
+
+        private void CargarComboCicloLectivo()
+        {
+            ddlCicloLectivo.Items.Clear();
+
+            BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+
+            listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
+
+            // Ordena la lista alfabéticamente por la descripción
+            listaCicloLectivo.Sort((p, q) => string.Compare(p.nombre, q.nombre));
+
+            foreach (CicloLectivo cicloLectivo in listaCicloLectivo)
+            {
+                ddlCicloLectivo.Items.Add(new System.Web.UI.WebControls.ListItem(cicloLectivo.nombre, cicloLectivo.idCicloLectivo.ToString()));
+            }
+
+            if (ddlCicloLectivo.Items.Count > 0)
+                ddlCicloLectivo.Disabled = false;
+        }
+
+
 
 		/// <summary>
 		/// Cargars the combo asignatura.
@@ -459,7 +438,8 @@ namespace EDUAR_UI
             BLAsignatura objBLAsignatura = new BLAsignatura();
  
             int idNivel = Convert.ToInt32(ddlNivel.SelectedValue);
-            int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+            //int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+            int idCicloLectivo = 0;
 
             listaAsignatura = objBLAsignatura.GetAsignaturasNivelCicloLectivo(idCicloLectivo, idNivel);
             

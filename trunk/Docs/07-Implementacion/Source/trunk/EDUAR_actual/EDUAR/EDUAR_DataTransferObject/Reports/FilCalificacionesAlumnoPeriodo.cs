@@ -17,10 +17,12 @@ namespace EDUAR_Entities.Reports
         public DateTime fechaHasta { get; set; }
 		public string username { get; set; }
 		public List<Asignatura> listaAsignaturas { get; set; }
+        public List<CicloLectivo> listaCicloLectivo { get; set; }
         
 		public FilCalificacionesAlumnoPeriodo()
         {
 			listaAsignaturas = new List<Asignatura>();
+            listaCicloLectivo = new List<CicloLectivo>();
         }
     }
 }
