@@ -108,14 +108,9 @@ namespace EDUAR_DataAccess.Reports
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ComparativoCalificacionesConsolidado");
 				if (entidad != null)
 				{
-                    //if (entidad.idAsignatura > 0)
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.idAsignatura);
-                    //if (entidad.idCurso > 0)
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.idCurso);
-					if (entidad.idNivel > 0)
+                    if (entidad.idNivel > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32, entidad.idNivel);
-					if (entidad.idCicloLectivo > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
+                    
                     if (!string.IsNullOrEmpty(entidad.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.username);
 
@@ -128,7 +123,16 @@ namespace EDUAR_DataAccess.Reports
                         asignaturasParam = asignaturasParam.Substring(0, asignaturasParam.Length - 1);
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaAsignaturas", DbType.String, asignaturasParam);
                     }
-                
+
+                    string ciclosLectivosParam = string.Empty;
+                    if (entidad.listaCicloLectivo.Count > 0)
+                    {
+                        foreach (CicloLectivo cicloLectivo in entidad.listaCicloLectivo)
+                            ciclosLectivosParam += string.Format("{0},", cicloLectivo.idCicloLectivo);
+
+                        ciclosLectivosParam = ciclosLectivosParam.Substring(0, ciclosLectivosParam.Length - 1);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaCicloLectivo", DbType.String, ciclosLectivosParam);
+                    }
                 }
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

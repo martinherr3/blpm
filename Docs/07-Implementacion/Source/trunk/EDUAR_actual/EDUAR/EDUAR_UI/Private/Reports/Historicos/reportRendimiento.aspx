@@ -42,9 +42,13 @@
                 <td valign="top" class="TDCriterios25">
                     <asp:UpdatePanel ID="udpCicloLectivo" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
-                            </asp:DropDownList>
+                            <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
+                                runat="server" id="ddlCicloLectivo" enableviewstate="true">
+                            </select>
                         </ContentTemplate>
+                            <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlNivel" EventName="SelectedIndexChanged" />
+                        </Triggers>
                     </asp:UpdatePanel>
                 </td>
                 <td valign="top" class="TDCriterios25">
@@ -57,9 +61,9 @@
                                 AutoPostBack="True" Enabled="false">
                             </asp:DropDownList>
                         </ContentTemplate>
-                        <Triggers>
+<%--                        <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
-                        </Triggers>
+                        </Triggers>--%>
                     </asp:UpdatePanel>
                 </td>
             </tr>
