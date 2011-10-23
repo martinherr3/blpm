@@ -264,16 +264,98 @@ namespace EDUAR_UI
 			{ Master.ManageExceptions(ex); }
 		}
 
-        ///// <summary>
-        ///// BTNs the graficar.
-        ///// </summary>
-        ///// <param name="sender">The sender.</param>
-        ///// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <summary>
+        /// BTNs the graficar.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void btnGraficar(object sender, EventArgs e)
         {
             try
             {
+                GenerarDatosGrafico();
+                AccionPagina = enumAcciones.Limpiar;
+                double sumaNotas = 0;
+                rptCalificaciones.graficoReporte.LimpiarSeries();
+                string alumno = string.Empty;
 
+                if (ddlAsignatura.SelectedIndex > 0)
+                { // so reporte   distribucion de calificaciones por asignatura 
+                    foreach (ListItem itemAsig in ddlAsignatura.Items)
+                    {
+                        if (itemAsig.Selected)
+                        {
+                            var serie = new List<RptRendimientoHistorico>();
+                            foreach (ListItem itemCiclo in ddlCicloLectivo.Items)
+                            {
+                                sumaNotas = 0;
+                                var listaParcial = listaReporte.FindAll(p => p.asignatura == itemAsig.Text && p.ciclolectivo == itemCiclo.Text);
+
+                                if (listaParcial.Count > 0)
+                                {
+                                    foreach (var nota in listaParcial)
+                                    {
+                                        sumaNotas += Convert.ToDouble(nota.promedio);
+                                    }
+
+                                    serie.Add(new RptRendimientoHistorico
+                                    {
+                                        promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
+                                        ciclolectivo = itemCiclo.Text
+                                    });
+                                }
+                            }
+                            if (serie != null && serie.Count > 0)
+                            {
+                                DataTable dt = UIUtilidades.BuildDataTable<RptRendimientoHistorico>(serie);
+                                rptCalificaciones.graficoReporte.AgregarSerie(itemAsig.Text, dt, "ciclolectivo", "promedio");
+                            }
+                        }
+                        rptCalificaciones.graficoReporte.Titulo = "Promedio de Calificaciones por Asignatura \n";
+                    }
+
+                }
+                else
+                { // promedio de calificaciones por año por asignatura
+
+                    foreach (ListItem itemCiclo in ddlCicloLectivo.Items)
+                    {
+                        if (itemCiclo.Selected)
+                        {
+                            var serie = new List<RptRendimientoHistorico>();
+                            foreach (var item in listaAsignatura)
+                            {
+                                sumaNotas = 0;
+                                var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre && p.ciclolectivo == itemCiclo.Text);
+
+                                if (listaParcial.Count > 0)
+                                {
+                                    foreach (var nota in listaParcial)
+                                    {
+                                        sumaNotas += Convert.ToDouble(nota.promedio);
+                                    }
+
+                                    serie.Add(new RptRendimientoHistorico
+                                    {
+                                        promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
+                                        asignatura = item.nombre
+
+                                    });
+                                }
+                            }
+                            if (serie != null && serie.Count > 0)
+                            {
+                                DataTable dt = UIUtilidades.BuildDataTable<RptRendimientoHistorico>(serie);
+                                rptCalificaciones.graficoReporte.AgregarSerie(itemCiclo.Text, dt, "asignatura", "promedio");
+                            }                            
+                        }
+                   }
+                    rptCalificaciones.graficoReporte.Titulo = "Promedio de Calificaciones por Ciclo Lectivo \n";
+
+                }
+                GenerarDatosGrafico();
+                rptCalificaciones.graficoReporte.GraficarLinea ();
+                rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
