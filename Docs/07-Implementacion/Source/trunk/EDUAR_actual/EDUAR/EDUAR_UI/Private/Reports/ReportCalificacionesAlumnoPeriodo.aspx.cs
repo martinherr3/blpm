@@ -295,9 +295,9 @@ namespace EDUAR_UI
 								// En alumno envio la nota y en calificación la cantidad de esa nota que se produjo
 								rptCalificaciones.graficoReporte.AgregarSerie(asignatura.Text, dt, "asignatura", "calificacion");
 							}
-
 						}
 					}
+
 					rptCalificaciones.graficoReporte.Titulo = "Distribución de Calificaciones \n" + alumno;
 				}
 				else
@@ -321,10 +321,29 @@ namespace EDUAR_UI
 							});
 						}
 					}
+
 					DataTable dt = UIUtilidades.BuildDataTable<RptCalificacionesAlumnoPeriodo>(serie);
-					rptCalificaciones.graficoReporte.AgregarSerie("Promedios", dt, "asignatura", "calificacion");
+					rptCalificaciones.graficoReporte.AgregarSerie("Promedio", dt, "asignatura", "calificacion");
+
+					BLValoresEscalaCalificacion objBLNivelAprobacion = new BLValoresEscalaCalificacion();
+					ValoresEscalaCalificacion escala = new ValoresEscalaCalificacion();
+					escala = objBLNivelAprobacion.GetNivelProbacion();
+
+					List<ValoresEscalaCalificacion> listaEscala = new List<ValoresEscalaCalificacion>();
+					foreach (RptCalificacionesAlumnoPeriodo item in serie)
+					{
+						listaEscala.Add(new ValoresEscalaCalificacion
+						{
+							valor = escala.valor,
+							nombre = item.asignatura
+						});
+					}
+					DataTable dtEscala = UIUtilidades.BuildDataTable<ValoresEscalaCalificacion>(listaEscala);
+					rptCalificaciones.graficoReporte.AgregarSerie("Nivel de Aprobación (" + escala.nombre + ")", dtEscala, "nombre", "valor", true);
+
 					rptCalificaciones.graficoReporte.Titulo = "Promedio Por Asignatura \n" + ddlCurso.SelectedItem.Text + " - " + ddlCicloLectivo.SelectedItem.Text + alumno;
 				}
+
 				GenerarDatosGrafico();
 				rptCalificaciones.graficoReporte.GraficarBarra();
 				rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
@@ -561,11 +580,12 @@ namespace EDUAR_UI
 		/// </summary>
 		private void GenerarDatosGrafico()
 		{
+			TablaPropiaGrafico = new List<TablaGrafico>();
 			TablaGrafico tabla3 = new TablaGrafico();
 			tabla3.listaCuerpo = new List<List<string>>();
 			List<string> encabezado3 = new List<string>();
 			List<string> fila3 = new List<string>();
-			
+
 			var fechaMin =
 			   from p in listaReporte
 			   group p by p.alumno into g
@@ -760,11 +780,11 @@ namespace EDUAR_UI
 				List<string> encabezado7 = new List<string>();
 				List<List<string>> filasTabla7 = new List<List<string>>();
 				List<string> fila7 = new List<string>();
-				
+
 				tabla7.titulo = "Top 3 de Alumnos con mejores Promedios";
 				encabezado7.Add("Alumno");
 				encabezado7.Add("Promedio General");
-				
+
 				//TablaGrafico.Add("- Top 3 de Alumnos con mejores notas:");
 				foreach (var item in worstAlumnos)
 				{

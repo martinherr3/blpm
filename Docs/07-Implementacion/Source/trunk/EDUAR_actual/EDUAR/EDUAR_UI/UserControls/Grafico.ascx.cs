@@ -89,9 +89,11 @@ namespace EDUAR_UI.UserControls
 			public string ColumnaValor;
 			public string ColumnaNombre;
 			public string NombreSerie;
-
+			public bool esLineal;
 			public MiSerie()
-			{ }
+			{
+				esLineal = false;
+			}
 		}
 
 		/// <summary>
@@ -179,20 +181,20 @@ namespace EDUAR_UI.UserControls
 			}
 		}
 
-        public bool habilitarTorta
-        {
-            get
-            {
-                if (Session["habilitarTorta"] == null)
-                    habilitarTorta = true;
-                return (bool)Session["habilitarTorta"];
-            }
-            set
-            {
-                Session["habilitarTorta"] = value;
-                btnTorta.Visible = value;
-            }
-        }
+		public bool habilitarTorta
+		{
+			get
+			{
+				if (Session["habilitarTorta"] == null)
+					habilitarTorta = true;
+				return (bool)Session["habilitarTorta"];
+			}
+			set
+			{
+				Session["habilitarTorta"] = value;
+				btnTorta.Visible = value;
+			}
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -319,14 +321,27 @@ namespace EDUAR_UI.UserControls
 		/// <param name="dt">The dt.</param>
 		/// <param name="ColumnaNombre">The columna nombre.</param>
 		/// <param name="ColumnaValor">The columna valor.</param>
-		public void AgregarSerie(string serie, DataTable dt, string ColumnaNombre, string ColumnaValor)
+		public void AgregarSerie(string serie, DataTable dt, string ColumnaNombre, string ColumnaValor, bool esLineal)
 		{
 			MiSerie serieNueva = new MiSerie();
 			serieNueva.NombreSerie = serie;
 			serieNueva.Datos = dt;
 			serieNueva.ColumnaNombre = ColumnaNombre;
 			serieNueva.ColumnaValor = ColumnaValor;
+			serieNueva.esLineal = esLineal;
 			ListaSeries.Add(serieNueva);
+		}
+
+		/// <summary>
+		/// Agregars the serie.
+		/// </summary>
+		/// <param name="serie">The serie.</param>
+		/// <param name="dt">The dt.</param>
+		/// <param name="ColumnaNombre">The columna nombre.</param>
+		/// <param name="ColumnaValor">The columna valor.</param>
+		public void AgregarSerie(string serie, DataTable dt, string ColumnaNombre, string ColumnaValor)
+		{
+			AgregarSerie(serie, dt, ColumnaNombre, ColumnaValor, false);
 		}
 
 		/// <summary>
@@ -337,21 +352,31 @@ namespace EDUAR_UI.UserControls
 			foreach (MiSerie item in ListaSeries)
 			{
 				Chart1.Series.Add(item.NombreSerie);
-				Chart1.Series[item.NombreSerie].Color = GetRandomColor();
 				Chart1.Series[item.NombreSerie].BackGradientStyle = GradientStyle.DiagonalLeft;
 				Chart1.Series[item.NombreSerie].ShadowOffset = 2;
 				Chart1.Series[item.NombreSerie].ToolTip = "#VALX: #VALY";
 
-				// Set series chart type
-				Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Column;
+				if (item.esLineal)
+				{
+					Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Point;
+					Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
+					Chart1.Series[item.NombreSerie].Color = Color.Black;
+					Chart1.Series[item.NombreSerie].BorderWidth = 2;
+				}
+				else
+				{	// Set series chart type
+					Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Column;
+					Chart1.Series[item.NombreSerie].IsValueShownAsLabel = true;
+					Chart1.Series[item.NombreSerie].Color = GetRandomColor();
+				}
 
 				// Set series point width
-				Chart1.Series[item.NombreSerie]["PointWidth"] = "1.0";
+					Chart1.Series[item.NombreSerie]["PointWidth"] = "1.0";
 
 				// Show data points labels
 				//Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
 
-				Chart1.Series[item.NombreSerie].IsValueShownAsLabel = true;
+				//Chart1.Series[item.NombreSerie].IsValueShownAsLabel = true;
 				Chart1.Series[item.NombreSerie].IsVisibleInLegend = true;
 
 				// Set data points label style
@@ -364,7 +389,6 @@ namespace EDUAR_UI.UserControls
 			// Disable X axis margin
 			//Chart1.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = false;
 			Chart1.ChartAreas["ChartArea1"].AxisX.IsMarginVisible = true;
-
 			Chart1.ChartAreas["ChartArea1"].Area3DStyle.Enable3D = false;
 			Graficar();
 		}
@@ -377,18 +401,25 @@ namespace EDUAR_UI.UserControls
 			foreach (MiSerie item in ListaSeries)
 			{
 				Chart1.Series.Add(item.NombreSerie);
-				Chart1.Series[item.NombreSerie].Color = GetRandomColor();
-				Chart1.Series[item.NombreSerie].BorderWidth = 4;
 				Chart1.Series[item.NombreSerie].ShadowOffset = 2;
 				Chart1.Series[item.NombreSerie].IsVisibleInLegend = true;
 				Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #VALY";
 
-				// Set series chart type
-				Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Line;
-
-				// Set point labels
-				Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
-
+				if (item.esLineal)
+				{	// Set point labels
+					Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Point;
+					Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;
+					Chart1.Series[item.NombreSerie].Color = Color.Black;
+					Chart1.Series[item.NombreSerie].BorderWidth = 2;
+				}
+				else
+				{
+					// Set series chart type
+					Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Line;
+					Chart1.Series[item.NombreSerie].BorderWidth = 4;
+					Chart1.Series[item.NombreSerie].IsValueShownAsLabel = true;
+					Chart1.Series[item.NombreSerie].Color = GetRandomColor();
+				}
 				// Enable 3D, and show data point marker lines
 				Chart1.Series[item.NombreSerie]["ShowMarkerLines"] = "True";
 			}

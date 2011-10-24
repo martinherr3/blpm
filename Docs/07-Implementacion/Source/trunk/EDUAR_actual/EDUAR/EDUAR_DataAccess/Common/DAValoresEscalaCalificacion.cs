@@ -1,6 +1,10 @@
 ﻿using System;
 using EDUAR_DataAccess.Shared;
 using EDUAR_Entities;
+using EDUAR_Utility.Excepciones;
+using EDUAR_Utility.Enumeraciones;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace EDUAR_DataAccess.Common
 {
@@ -60,6 +64,50 @@ namespace EDUAR_DataAccess.Common
         #endregion
 
         #region --[Métodos Públicos]--
+		/// <summary>
+		/// Gets the nivel probacion.
+		/// </summary>
+		/// <returns></returns>
+		public ValoresEscalaCalificacion GetNivelProbacion()
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("NivelAprobacion_Select");
+				//if (entidad != null)
+				//{
+				//    if (!string.IsNullOrEmpty(entidad.username))
+				//        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
+				//    if (entidad.activo != null)
+				//        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+				//}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				ValoresEscalaCalificacion valorEscala;
+				while (reader.Read())
+				{
+					valorEscala = new ValoresEscalaCalificacion();
+					valorEscala.nombre = reader["nombre"].ToString();
+					valorEscala.idValorEscalaCalificacion = Convert.ToInt32(reader["idValorEscalaCalificacion"]);
+					valorEscala.descripcion = reader["descripcion"].ToString();
+					valorEscala.aprobado =(bool)reader["aprobado"];
+					valorEscala.activo =(bool)reader["activo"];
+					valorEscala.valor = reader["valor"].ToString();
+
+					return valorEscala;
+				}
+				return null;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetNivelProbacion()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetNivelProbacion()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
         #endregion
     }
 }

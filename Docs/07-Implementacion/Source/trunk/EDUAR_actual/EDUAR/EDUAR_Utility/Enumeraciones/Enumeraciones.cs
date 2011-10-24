@@ -115,7 +115,9 @@ namespace EDUAR_Utility.Enumeraciones
 		SendUserPass,
 		PreguntaDefault,
 		BaseDeDatosOrigenDEV,
-        BaseDeDatosOrigenDEVDesdeRemoto
+        BaseDeDatosOrigenDEVDesdeRemoto,
+		SancionesExpulsion,
+		LimiteInasistencias
 	}
 
 	public enum enumEscalasCalificaciones
