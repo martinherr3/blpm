@@ -650,7 +650,7 @@ namespace EDUAR_SI_DataAccess
 
 					foreach (AsignaturaCicloLectivo item in listaAsignatura)
 					{
-						command.Parameters.AddWithValue("idAsignaturaCicloLectivo", 0);
+						//command.Parameters.AddWithValue("idAsignaturaCicloLectivo", 0);
 						command.Parameters.AddWithValue("idAsignaturaCicloLectivoTransaccional", item.idAsignaturaCicloLectivoTransaccional);
 						command.Parameters.AddWithValue("idAsignatura", item.asignatura.idAsignaturaTransaccional);
 						command.Parameters.AddWithValue("idDocente", item.docente.IdPersonalTransaccional);

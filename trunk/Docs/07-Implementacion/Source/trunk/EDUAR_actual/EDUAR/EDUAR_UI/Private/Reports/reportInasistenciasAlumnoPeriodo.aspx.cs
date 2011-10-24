@@ -13,6 +13,7 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_BusinessLogic.Shared;
 
 namespace EDUAR_UI
 {
@@ -283,6 +284,20 @@ namespace EDUAR_UI
 						rptInasistencias.graficoReporte.AgregarSerie(ddlAlumno.SelectedItem.Text, dt, "motivo", "alumno");
 						rptInasistencias.graficoReporte.Titulo = "Inasistencias " + ddlAlumno.SelectedItem.Text;
 					}
+
+					string escala = BLConfiguracionGlobal.ObtenerConfiguracion(EDUAR_Utility.Enumeraciones.enumConfiguraciones.LimiteInasistencias);
+
+					List<ValoresEscalaCalificacion> listaEscala = new List<ValoresEscalaCalificacion>();
+					foreach (RptInasistenciasAlumnoPeriodo item in serie)
+					{
+						listaEscala.Add(new ValoresEscalaCalificacion
+						{
+							valor = escala,
+							nombre = item.motivo
+						});
+					}
+					DataTable dtEscala = UIUtilidades.BuildDataTable<ValoresEscalaCalificacion>(listaEscala);
+					rptInasistencias.graficoReporte.AgregarSerie("Máximo de Faltas (" + escala + ")", dtEscala, "nombre", "valor", true);
 				}
 				else
 				{

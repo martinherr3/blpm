@@ -13,6 +13,7 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_BusinessLogic.Shared;
 
 namespace EDUAR_UI
 {
@@ -371,6 +372,20 @@ namespace EDUAR_UI
 						rptSanciones.graficoReporte.AgregarSerie(ddlAlumno.SelectedItem.Text, dt, "tipo", "cantidad");
 						rptSanciones.graficoReporte.Titulo = "Sanciones " + ddlAlumno.SelectedItem.Text;
 					}
+
+					string escala = BLConfiguracionGlobal.ObtenerConfiguracion(EDUAR_Utility.Enumeraciones.enumConfiguraciones.LimiteInasistencias);
+
+					List<ValoresEscalaCalificacion> listaEscala = new List<ValoresEscalaCalificacion>();
+					foreach (RptSancionesAlumnoPeriodo item in serie)
+					{
+						listaEscala.Add(new ValoresEscalaCalificacion
+						{
+							valor = escala,
+							nombre = item.tipo
+						});
+					}
+					DataTable dtEscala = UIUtilidades.BuildDataTable<ValoresEscalaCalificacion>(listaEscala);
+					rptSanciones.graficoReporte.AgregarSerie("Nivel de Expulsión (" + escala + ")", dtEscala, "nombre", "valor", true);
 				}
 				else
 				{
