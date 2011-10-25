@@ -84,7 +84,8 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEventoAgenda") %>'
-                                ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />
+                                ToolTip='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? "Editar Excursión" : "La Excursión sólo es editable para su organizador" %>'
+                                ImageUrl='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? "~/Images/Grillas/action_edit.png" : "~/Images/Grillas/lock.png" %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fecha">

@@ -176,6 +176,8 @@ namespace EDUAR_DataAccess.Common
 					objCitacion.organizador.IdPersonal = Convert.ToInt32(reader["idOrganizador"]);
 					objCitacion.organizador.nombre = reader["nombreOrganizador"].ToString();
 					objCitacion.organizador.apellido = reader["apellidoOrganizador"].ToString();
+					if (!string.IsNullOrEmpty(reader["usernameOrganizador"].ToString()))
+						objCitacion.organizador.username = reader["usernameOrganizador"].ToString();
 					objCitacion.tutor.idTutor = Convert.ToInt32(reader["idTutor"]);
 					objCitacion.tutor.nombre = reader["nombreTutor"].ToString();
 					objCitacion.tutor.apellido = reader["apellidoTutor"].ToString();

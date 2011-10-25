@@ -122,6 +122,7 @@
     <Content Include="Images\Graficar.png" />
     <Content Include="Images\Grillas\action_delete.png" />
     <Content Include="Images\Grillas\action_new.png" />
+    <Content Include="Images\Grillas\lock.png" />
     <Content Include="Images\Grillas\mail-delete-2.png" />
     <Content Include="Images\Grillas\mail-mark-read-2.png" />
     <Content Include="Images\Grillas\mail-reply-2.png" />

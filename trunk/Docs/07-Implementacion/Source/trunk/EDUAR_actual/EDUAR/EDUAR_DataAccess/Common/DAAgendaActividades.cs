@@ -144,6 +144,8 @@ namespace EDUAR_DataAccess.Common
 					objEvento.tipoEventoAgenda.idTipoEventoAgenda = Convert.ToInt32(reader["idTipoEvento"]);
 					objEvento.usuario.nombre = reader["nombre"].ToString();
 					objEvento.usuario.apellido = reader["apellido"].ToString();
+					if (!string.IsNullOrEmpty(reader["usernameOrganizador"].ToString()))
+						objEvento.usuario.username = reader["usernameOrganizador"].ToString();
 					listaEventos.Add(objEvento);
 				}
 				return listaEventos;
@@ -206,6 +208,8 @@ namespace EDUAR_DataAccess.Common
 					objEvento.horario = Convert.ToDateTime(reader["horario"].ToString());
 					objEvento.usuario.nombre = reader["nombre"].ToString();
 					objEvento.usuario.apellido = reader["apellido"].ToString();
+					if (!string.IsNullOrEmpty(reader["usernameOrganizador"].ToString()))
+						objEvento.usuario.username = reader["usernameOrganizador"].ToString();
 					listaEventos.Add(objEvento);
 				}
 				return listaEventos;
@@ -271,7 +275,8 @@ namespace EDUAR_DataAccess.Common
 					objEvento.destino = reader["destino"].ToString();
 					objEvento.usuario.nombre = reader["nombre"].ToString();
 					objEvento.usuario.apellido = reader["apellido"].ToString();
-
+					if (!string.IsNullOrEmpty(reader["usernameOrganizador"].ToString()))
+						objEvento.usuario.username = reader["usernameOrganizador"].ToString();
 					listaEventos.Add(objEvento);
 				}
 				return listaEventos;

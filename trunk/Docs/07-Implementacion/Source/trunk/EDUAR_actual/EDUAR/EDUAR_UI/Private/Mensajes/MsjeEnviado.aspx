@@ -135,7 +135,7 @@
                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                             <td class="TDCriterios50">
-                                <asp:Label ID="Label1" Text="Remitente: " runat="server" Font-Bold="true" /><asp:Literal
+                                <asp:Label ID="Label1" Text="Destinatario: " runat="server" Font-Bold="true" /><asp:Literal
                                     ID="litRemitente" Text="" runat="server" />
                             </td>
                             <td class="TDCriterios50">

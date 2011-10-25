@@ -389,7 +389,7 @@ namespace EDUAR_UI
 			LimpiarCampos();
 			CargarCombos();
 			udpEdit.Visible = false;
-			btnVolver.Visible = true;
+			btnVolver.Visible = false;
 			btnGuardar.Visible = false;
 			udpFiltrosBusqueda.Visible = true;
 			btnNuevo.Visible = true;
@@ -524,6 +524,8 @@ namespace EDUAR_UI
 			Citacion entidad = new Citacion();
 			entidad.fechaEventoDesde = Convert.ToDateTime(calfechas.ValorFechaDesde);
 			entidad.fechaEventoHasta = Convert.ToDateTime(calfechas.ValorFechaHasta);
+			entidad.motivoCitacion.idMotivoCitacion = Convert.ToInt32(ddlMotivoCitacion.SelectedValue);
+			entidad.tutor.idTutor = (!string.IsNullOrEmpty(ddlTutores.SelectedValue)) ? Convert.ToInt32(ddlTutores.SelectedValue) : 0;
 			entidad.activo = chkActivo.Checked;
 			propFiltroCitacion = entidad;
 			BuscarCitacion(entidad);
