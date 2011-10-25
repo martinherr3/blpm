@@ -275,6 +275,30 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+        /// <summary>
+        /// Gets the alumnos tutor.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Alumno> GetAlumnosDeTutor(Tutor entidad)
+        {
+            try
+            {
+                List<Alumno> listaAlumnos = DataAcces.GetAlumnosTutor(entidad);
+              
+                return listaAlumnos;
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnosTutor", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
 		#endregion
 	}
 }

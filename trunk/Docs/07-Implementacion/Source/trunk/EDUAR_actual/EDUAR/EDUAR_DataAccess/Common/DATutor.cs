@@ -184,6 +184,9 @@ namespace EDUAR_DataAccess.Common
 					objAlumno = new Alumno();
 					objAlumno.idAlumno = Convert.ToInt32(reader["idAlumno"]);
 
+                    objAlumno.nombre = reader["nombre"].ToString();
+                    objAlumno.apellido = reader["apellido"].ToString();
+
 					listaAlumnos.Add(objAlumno);
 				}
 				return listaAlumnos;
