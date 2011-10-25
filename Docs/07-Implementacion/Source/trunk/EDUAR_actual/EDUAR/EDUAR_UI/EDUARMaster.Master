@@ -17,34 +17,35 @@
     <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js"></script>
     <script type="text/javascript">
-        function timerEvent() {
-            callServerTask();
-            setTimeout("timerEvent()", 120000);
-            return false;
-        }
+//        function timerEvent() {
+//            callServerTask();
+//            setTimeout("timerEvent()", 120000);
+//            return false;
+//        }
 
-        function callServerTask() {
-            WebForm_DoCallback('__Page', clientTime(''),
-                        putCallbackResult, null, clientErrorCallback, true);
-        }
+//        function callServerTask() {
+//            WebForm_DoCallback('__Page', clientTime(''),
+//                        putCallbackResult, null, clientErrorCallback, true);
+//        }
 
-        function putCallbackResult(callbackResult) {
-            var info = document.getElementById('div_CallbackResult');
-            info.innerHTML = callbackResult;
-        }
+//        function putCallbackResult(callbackResult) {
+//            var info = document.getElementById('div_CallbackResult');
+//            info.innerHTML = callbackResult;
+//        }
 
-        function clientErrorCallback(error, context) {
-            //            alert('Callback failed! ' + error);
-        }
+//        function clientErrorCallback(error, context) {
+//            //            alert('Callback failed! ' + error);
+//        }
 
-        function clientTime() {
+//        function clientTime() {
 
-        }
+//        }
     </script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
-<body onload="javascript:setTimeout('timerEvent()', 1);" style="background-color: White">
+<%--<body onload="javascript:setTimeout('timerEvent()', 1);" style="background-color: White">--%>
+<body style="background-color: White">
     <form runat="server">
     <asp:ScriptManager ID="scmManager" runat="server" AsyncPostBackTimeout="9000" EnablePartialRendering="true"
         ScriptMode="Release" LoadScriptsBeforeUI="false" EnableScriptLocalization="true"
@@ -105,13 +106,13 @@
                                     <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; text-align: center">
                                         <tr>
                                             <td style="width: 50%">
-                                                Bienvenido(a) <span class="bold">
+                                                Bienvenido(a) <br /><span class="bold">
                                                     <asp:LoginName ID="HeadLoginName" runat="server" />
                                                 </span>!
-                                                <div id="div_CallbackResult">
+                                                <%--<div id="div_CallbackResult">
                                                     <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl="" OnClick="btnMensaje_Click"
                                                         Style="margin-right: 50px; text-align: center" />
-                                                </div>
+                                                </div>--%>
                                             </td>
                                             <td align="center" style="">
                                                 <asp:ImageButton ID="btnLogout" ImageUrl="~/Images/web/user-online.png" OnClick="btnLogout_Click"
@@ -157,7 +158,7 @@
                     </asp:TreeView>
                     <!-- FIN MENU -->
                 </td>
-                <td style="width: 85%; min-height: 800px; height: auto; vertical-align: top">
+                <td style="width: 85%; min-height: 1000px; height: auto; vertical-align: top">
                     <div class="main">
                         <asp:ContentPlaceHolder ID="MainContent" runat="server">
                         </asp:ContentPlaceHolder>

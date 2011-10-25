@@ -112,7 +112,8 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idCitacion") %>'
-                                ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />
+                                ToolTip='<%#DataBinder.Eval(Container.DataItem, "organizador.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? "Editar Citación" : "La Citación sólo es editable para su organizador" %>'
+                                ImageUrl='<%#DataBinder.Eval(Container.DataItem, "organizador.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? "~/Images/Grillas/action_edit.png" : "~/Images/Grillas/lock.png" %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fecha">
@@ -200,8 +201,10 @@
                                 <asp:DropDownList ID="ddlCursoEdit" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCursoEdit_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TDCriterios25"></td>
-                            <td valign="top" class="TDCriterios25"></td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
+                            <td valign="top" class="TDCriterios25">
+                            </td>
                         </tr>
                         <tr>
                             <td valign="top" class="TDCriterios25">

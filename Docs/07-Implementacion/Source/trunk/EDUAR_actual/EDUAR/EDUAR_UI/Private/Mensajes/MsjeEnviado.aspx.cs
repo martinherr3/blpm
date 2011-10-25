@@ -125,6 +125,11 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void VentanaAceptar(object sender, EventArgs e)
 		{
 			try
@@ -133,7 +138,7 @@ namespace EDUAR_UI
 				{
 					case enumAcciones.Eliminar:
 						AccionPagina = enumAcciones.Limpiar;
-						Mensaje objMensaje = listaMensajes.Find(p => p.idMensajeDestinatario == propMensaje.idMensajeDestinatario);
+						Mensaje objMensaje = listaMensajes.Find(p => p.idMensaje == propMensaje.idMensajeDestinatario);
 						//objMensaje.idMensaje = idMensaje;
 						objMensaje.activo = false;
 						objMensaje.idMensajeDestinatario = 0;
@@ -181,11 +186,12 @@ namespace EDUAR_UI
 							item.BackColor = Color.Transparent;
 						}
 						objMensaje = new Mensaje();
-						objMensaje = listaMensajes.Find(p => p.idMensajeDestinatario == idMensajeDestinatario);
+						objMensaje = listaMensajes.Find(p => p.idMensaje == idMensajeDestinatario);
 
 						litAsunto.Text = objMensaje.asuntoMensaje;
 						litFecha.Text = objMensaje.fechaEnvio.ToShortDateString() + " " + objMensaje.horaEnvio.Hour.ToString() + ":" + objMensaje.horaEnvio.Minute.ToString();
-						litRemitente.Text = objMensaje.remitente.apellido + "  " + objMensaje.remitente.nombre + " <b>(" + objMensaje.destinatario.tipoPersona.nombre + ")</b>";
+						litRemitente.Text = objMensaje.destinatario.nombre + "  " + objMensaje.destinatario.apellido;
+						if (!objMensaje.destinatario.nombre.Contains("-")) litRemitente.Text += " <b>(" + objMensaje.destinatario.tipoPersona.nombre + ")</b>";
 						litContenido.Text = objMensaje.textoMensaje;
 						divContenido.Visible = true;
 						divPaginacion.Visible = true;

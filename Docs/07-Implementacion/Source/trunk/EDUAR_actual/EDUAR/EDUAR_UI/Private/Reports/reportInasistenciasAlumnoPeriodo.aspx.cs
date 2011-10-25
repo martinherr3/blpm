@@ -426,9 +426,13 @@ namespace EDUAR_UI
 			{
 				filtroReporte = new FilInasistenciasAlumnoPeriodo();
 				StringBuilder filtros = new StringBuilder();
-				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlCurso.SelectedValue) > 0)
+				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 /*&& Convert.ToInt32(ddlCurso.SelectedValue) > 0*/)
 				{
-					filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
+					filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text);
+
+					if (Convert.ToInt32(ddlCurso.SelectedValue) > 0)
+						filtros.AppendLine(" - Curso: " + ddlCurso.SelectedItem.Text);
+
 					if (fechas.ValorFechaDesde != null)
 					{
 						filtros.AppendLine("- Fecha Desde: " + ((DateTime)fechas.ValorFechaDesde).ToShortDateString());
@@ -472,7 +476,7 @@ namespace EDUAR_UI
 						}
 					}
 					filtroReporte.listaTiposAsistencia = listaTipoAsistencia;
-					
+
 					// Se utiliza para que solo devuelva alumnos del docente logueado
 					if (Context.User.IsInRole(enumRoles.Docente.ToString()))
 						filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
@@ -511,7 +515,7 @@ namespace EDUAR_UI
 
 			// Ordena la lista alfabéticamente por la descripción
 			listaTipoAsistencia.Sort((p, q) => string.Compare(p.descripcion, q.descripcion));
-			
+
 			// Carga el combo de tipo de asistencia para filtrar
 			foreach (TipoAsistencia item in listaTipoAsistencia)
 			{
@@ -558,7 +562,7 @@ namespace EDUAR_UI
 				group p by p.alumno into g
 				select new { Alumno = g.Key, Cantidad = g.Count() };
 
-			TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
+			//TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
 
 			var fechaMin =
 			   from p in listaReporte
@@ -570,7 +574,25 @@ namespace EDUAR_UI
 			   group p by p.alumno into g
 			   select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
 
-			TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
+			//TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
+
+			TablaPropiaGrafico = new List<TablaGrafico>();
+			TablaGrafico tabla3 = new TablaGrafico();
+			tabla3.listaCuerpo = new List<List<string>>();
+			List<string> encabezado3 = new List<string>();
+			List<string> fila3 = new List<string>();
+
+			tabla3.titulo = "Periodo Analizado: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString();
+
+			encabezado3.Add("Cantidad de Alumnos");
+			fila3.Add(cantAlumnos.Count().ToString());
+
+			//encabezado3.Add("Inasistencias Totales");
+			//fila3.Add(listaReporteInasistencias.Count().ToString());
+
+			tabla3.listaEncabezados = encabezado3;
+			tabla3.listaCuerpo.Add(fila3);
+			TablaPropiaGrafico.Add(tabla3);
 
 			var worstAlumnos =
 				 (from p in listaReporte
@@ -578,11 +600,28 @@ namespace EDUAR_UI
 				  orderby g.Count() descending
 				  select new { Alumno = g.Key, Faltas = g.Count() }).Distinct().Take(3);
 
-			TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad de Inasistencias:");
+			TablaGrafico tabla2 = new TablaGrafico();
+			tabla2.listaCuerpo = new List<List<string>>();
+			List<string> encabezado2 = new List<string>();
+			List<List<string>> filasTabla2 = new List<List<string>>();
+			List<string> fila2 = new List<string>();
+
+			tabla2.titulo = "Top 3 de Alumnos a observar";
+			encabezado2.Add("Alumno");
+			encabezado2.Add("Inasistencias");
+
+			//TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad de Inasistencias:");
 			foreach (var item in worstAlumnos)
 			{
-				TablaGrafico.Add("Alumno: " + item.Alumno + " - Cantidad de Inasistencias: " + item.Faltas);
+				//TablaGrafico.Add("Alumno: " + item.Alumno + " - Cantidad de Inasistencias: " + item.Faltas);
+				fila2 = new List<string>();
+				fila2.Add(item.Alumno);
+				fila2.Add(item.Faltas.ToString());
+				filasTabla2.Add(fila2);
 			}
+			tabla2.listaEncabezados = encabezado2;
+			tabla2.listaCuerpo = filasTabla2;
+			TablaPropiaGrafico.Add(tabla2);
 
 			var FaltasPorMotivo =
 				  (from p in listaReporte
@@ -590,11 +629,29 @@ namespace EDUAR_UI
 				   orderby g.Count() descending
 				   select new { Motivo = g.Key, Faltas = g.Count() }).Distinct().Take(3);
 
-			TablaGrafico.Add("- Cantidad de Inasistencias según Motivo:");
+			//TablaGrafico.Add("- Cantidad de Inasistencias según Motivo:");
+
+			TablaGrafico tabla4 = new TablaGrafico();
+			tabla4.listaCuerpo = new List<List<string>>();
+			List<string> encabezado4 = new List<string>();
+			List<List<string>> filasTabla4 = new List<List<string>>();
+			List<string> fila4 = new List<string>();
+
+			tabla4.titulo = "Cantidad de Inasistencias según Motivo";
+			encabezado4.Add("Motivo");
+			encabezado4.Add("Cantidad");
+
 			foreach (var item in FaltasPorMotivo)
 			{
-				TablaGrafico.Add("Motivo de Ausencia: " + item.Motivo + " - Cantidad de Ocurrencias: " + item.Faltas);
+				//TablaGrafico.Add("Motivo de Ausencia: " + item.Motivo + " - Cantidad de Ocurrencias: " + item.Faltas);
+				fila4 = new List<string>();
+				fila4.Add(item.Motivo);
+				fila4.Add(item.Faltas.ToString());
+				filasTabla4.Add(fila4);
 			}
+			tabla4.listaEncabezados = encabezado4;
+			tabla4.listaCuerpo = filasTabla4;
+			TablaPropiaGrafico.Add(tabla4);
 
 			var worstAlumnosByMotivo =
 			(from p in listaReporte
@@ -602,11 +659,30 @@ namespace EDUAR_UI
 			 orderby g.Count() descending
 			 select new { Alumno = g.Key.alumno, Motivo = g.Key.motivo, Faltas = g.Count() }).Distinct().Take(3);
 
-			TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad y Motivo de Inasistencias:");
+			//TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad y Motivo de Inasistencias:");
+			TablaGrafico tabla5 = new TablaGrafico();
+			tabla5.listaCuerpo = new List<List<string>>();
+			List<string> encabezado5 = new List<string>();
+			List<List<string>> filasTabla5 = new List<List<string>>();
+			List<string> fila5 = new List<string>();
+
+			tabla5.titulo = "Top 3 de Alumnos a observar por Cantidad y Motivo de Inasistencias";
+			encabezado5.Add("Alumno");
+			encabezado5.Add("Motivo");
+			encabezado5.Add("Cantidad");
+
 			foreach (var item in worstAlumnosByMotivo)
 			{
-				TablaGrafico.Add("Alumno: " + item.Alumno + " Motivo: " + item.Motivo + " - Cantidad de Inasistencias: " + item.Faltas);
+				//TablaGrafico.Add("Alumno: " + item.Alumno + " Motivo: " + item.Motivo + " - Cantidad de Inasistencias: " + item.Faltas);
+				fila5 = new List<string>();
+				fila5.Add(item.Alumno);
+				fila5.Add(item.Motivo);
+				fila5.Add(item.Faltas.ToString());
+				filasTabla5.Add(fila5);
 			}
+			tabla5.listaEncabezados = encabezado5;
+			tabla5.listaCuerpo = filasTabla5;
+			TablaPropiaGrafico.Add(tabla5);
 		}
 
 		#endregion

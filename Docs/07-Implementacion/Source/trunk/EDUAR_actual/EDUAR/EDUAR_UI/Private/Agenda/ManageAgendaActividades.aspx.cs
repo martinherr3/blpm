@@ -102,8 +102,9 @@ namespace EDUAR_UI
 
 					Asignatura objFiltro = new Asignatura();
 					objFiltro.curso.cicloLectivo = cicloLectivoActual;
-					//nombre del usuario logueado
-					objFiltro.docente.username = User.Identity.Name;
+					if (User.IsInRole(enumRoles.Docente.ToString()))
+						//nombre del usuario logueado
+						objFiltro.docente.username = User.Identity.Name;
 					listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
 				}
 				return (List<Curso>)ViewState["listaCursos"];

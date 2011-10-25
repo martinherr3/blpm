@@ -14,6 +14,7 @@ using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using System.Linq;
 using EDUAR_BusinessLogic.Shared;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -1112,9 +1113,13 @@ namespace EDUAR_UI
 			{
 				List<Curso> listaCurso = new List<Curso>();
 				BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-				Curso objCurso = new Curso();
-				listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
+				Asignatura objAsignatura = new Asignatura();
+				objAsignatura.curso.cicloLectivo.idCicloLectivo = idCicloLectivo;
 
+				if (User.IsInRole(enumRoles.Docente.ToString()))
+					objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+				listaCurso = objBLCicloLectivo.GetCursosByAsignatura(objAsignatura);
 				UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
 
 				ddlCurso.Enabled = true;
@@ -1155,6 +1160,7 @@ namespace EDUAR_UI
 			listaAsignatura = objBLAsignatura.GetAsignaturasCurso(materia);
 
 			listaAsignatura.Sort((p, q) => string.Compare(p.nombre, q.nombre));
+			ddlAsignatura.Items.Clear();
 
 			foreach (Asignatura asignatura in listaAsignatura)
 			{
@@ -1404,16 +1410,9 @@ namespace EDUAR_UI
 				group p by p.alumno into g
 				select new { Alumno = g.Key, Cantidad = g.Count() };
 
-			//TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
-
-			//if (listaReporteInasistencias.Count() > 0)
-			//    TablaGrafico.Add("- Periodo de notas: " + listaReporteInasistencias[0].periodo);
-
-			//TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
 			encabezado3.Add("Cantidad de Alumnos");
 			fila3.Add(cantAlumnos.Count().ToString());
 
-			//TablaGrafico.Add("- Cantidad de Calificaciones: " + listaReporte.Count.ToString());
 			encabezado3.Add("Inasistencias Totales");
 			fila3.Add(listaReporteInasistencias.Count().ToString());
 
@@ -1433,15 +1432,12 @@ namespace EDUAR_UI
 			List<List<string>> filasTabla2 = new List<List<string>>();
 			List<string> fila2 = new List<string>();
 
-			//TablaGrafico.Add("- Desviacion Estandar por materia: ");
 			tabla2.titulo = "Top 3 de Alumnos a observar";
 			encabezado2.Add("Alumno");
 			encabezado2.Add("Inasistencias");
 
-			//TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad de Inasistencias:");
 			foreach (var item in worstAlumnos)
 			{
-				//TablaGrafico.Add("Alumno: " + item.Alumno + " - Cantidad de Inasistencias: " + item.Faltas);
 				fila2 = new List<string>();
 				fila2.Add(item.Alumno);
 				fila2.Add(item.Faltas.ToString());
@@ -1450,35 +1446,6 @@ namespace EDUAR_UI
 			tabla2.listaEncabezados = encabezado2;
 			tabla2.listaCuerpo = filasTabla2;
 			TablaPropiaGrafico.Add(tabla2);
-
-			//var FaltasPorMotivo =
-			//      (from p in listaReporteInasistencias
-			//       group p by p.motivo into g
-			//       orderby g.Count() descending
-			//       select new { Motivo = g.Key, Faltas = g.Count() }).Distinct().Take(3);
-
-			//TablaGrafico tabla4 = new TablaGrafico();
-			//tabla4.listaCuerpo = new List<List<string>>();
-			//List<string> encabezado4 = new List<string>();
-			//List<List<string>> filasTabla4 = new List<List<string>>();
-			//List<string> fila4 = new List<string>();
-
-			//tabla4.titulo = "Cantidad de Inasistencias según Motivo";
-			//encabezado4.Add("Motivo de Ausencia");
-			//encabezado4.Add("Ocurrencias");
-
-			////TablaGrafico.Add("- Cantidad de Inasistencias según Motivo:");
-			//foreach (var item in FaltasPorMotivo)
-			//{
-			//    //TablaGrafico.Add("Motivo de Ausencia: " + item.Motivo + " - Cantidad de Ocurrencias: " + item.Faltas);
-			//    fila4 = new List<string>();
-			//    fila4.Add(item.Motivo);
-			//    fila4.Add(item.Faltas.ToString());
-			//    filasTabla4.Add(fila4);
-			//}
-			//tabla4.listaEncabezados = encabezado4;
-			//tabla4.listaCuerpo = filasTabla4;
-			//TablaPropiaGrafico.Add(tabla4);
 
 			var worstAlumnosByMotivo =
 			(from p in listaReporteInasistencias
@@ -1530,7 +1497,7 @@ namespace EDUAR_UI
 				group p by p.alumno into g
 				select new { Alumno = g.Key, Cantidad = g.Count() };
 
-			TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
+			//TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
 
 			//if (listaReporteSanciones.Count() > 0)
 			//    TablaGrafico.Add("- Periodo de notas: " + listaReporteSanciones[0].periodo);
@@ -1635,7 +1602,6 @@ namespace EDUAR_UI
 			tabla5.listaCuerpo = filasTabla5;
 			TablaPropiaGrafico.Add(tabla5);
 
-
 			var worstAlumnosByMotivo =
 			(from p in listaReporteSanciones
 			 group p by new { p.alumno, p.motivo } into g
@@ -1682,7 +1648,7 @@ namespace EDUAR_UI
 
 			tabla7.titulo = "Top 3 de Alumnos a observar por Cantidad y Tipo de Sanciones";
 			encabezado7.Add("Alumno");
-			encabezado7.Add("Motivo");
+			encabezado7.Add("Tipo");
 			encabezado7.Add("Cantidad");
 
 			foreach (var item in worstAlumnosByTipo)

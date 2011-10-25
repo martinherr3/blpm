@@ -12,7 +12,7 @@
         Use el formulario siguiente para cambiar la contraseña.
     </p>
     <p class="ui-widget">
-        Las contraseñas nuevas deben tener una longitud mínima de
+        La contraseña debe ser alfanumérica y tener una longitud mínima de
         <%= Membership.MinRequiredPasswordLength %>
         caracteres.
     </p>
@@ -54,13 +54,13 @@
                     </p>
                 </fieldset>
                 <p class="submitButton">
-                    <table>
+                    <table width="100%" style="text-align: right">
                         <tr>
-                            <td>
+                            <td style="width: 80%">
                                 <asp:Button ID="CancelPushButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                     Text="Cancelar" />
                             </td>
-                            <td>
+                             <td style="width: 20%">
                                 <asp:Button ID="ChangePasswordPushButton" runat="server" CommandName="ChangePassword"
                                     Text="Cambiar contraseña" ValidationGroup="ChangeUserPasswordValidationGroup" />
                             </td>

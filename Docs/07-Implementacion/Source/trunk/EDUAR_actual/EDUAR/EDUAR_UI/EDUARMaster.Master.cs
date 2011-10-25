@@ -107,28 +107,26 @@ namespace EDUAR_UI
 				else
 					if (HttpContext.Current.User.Identity.IsAuthenticated)
 					{
-						//NavigationMenu.DataSource = SiteMapEDUAR;
-
 						divInfo.Visible = true;
 
 						CargaInforUsuario();
 
-						StringBuilder s = new StringBuilder();
-						string er;
+						#region --[Mensajes en header]--
+						//StringBuilder s = new StringBuilder();
+						//string er;
 						//  configura los llamados a RaiseCallbackEvent y GetCallbackResult
-						er = Page.ClientScript.GetCallbackEventReference(this, "clientTime('')", "putCallbackResult", "null", "clientErrorCallback", true);
+						//er = Page.ClientScript.GetCallbackEventReference(this, "clientTime('')", "putCallbackResult", "null", "clientErrorCallback", true);
 
 						//  funcion que llama a RaiseCallbackEvent
-						s.Append(" function callServerTask() { ");
-						s.Append((er + ";"));
-						s.Append(" } ");
-
-						//  inserta el script en la pgina
-						Page.ClientScript.RegisterClientScriptBlock(
-							 this.GetType(), "callServerTask", s.ToString(), true);
-
+						//s.Append(" function callServerTask() { ");
+						//s.Append((er + ";"));
+						//s.Append(" } ");
+						////  inserta el script en la pgina
+						//Page.ClientScript.RegisterClientScriptBlock(
+						//     this.GetType(), "callServerTask", s.ToString(), true);
 						//  NOTA:
 						//  La función callServerTask() es llamada desde la function timerEvent()
+						#endregion
 					}
 					else
 					{
@@ -178,11 +176,17 @@ namespace EDUAR_UI
 				List<Curso> listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
 				string cursos = string.Empty;
 				if (listaCursos.Count > 0) cursos = "Cursos: <br />";
+				int i = 1;
+				listaCursos.Sort((p, q) => string.Compare(p.nombre, q.nombre));
 				foreach (Curso item in listaCursos)
 				{
 					if (!cursos.Contains(item.nombre))
 					{
-						cursos += item.nombre + " <br />";
+						if (i % 2 == 0)
+							cursos += item.nombre + " <br />";
+						else
+							cursos += item.nombre + " - ";
+						i++;
 					}
 				}
 				lblCursosAsignados.Text = cursos;
@@ -534,25 +538,28 @@ namespace EDUAR_UI
 					List<Mensaje> objMensajes = new List<Mensaje>();
 					objMensajes = objBLMensaje.GetMensajes(new Mensaje() { destinatario = new Persona() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, activo = true });
 					objMensajes = objMensajes.FindAll(p => p.leido == false);
-					boton.Visible = true;
-					if (objMensajes.Count > 0)
+					if (boton != null)
 					{
-						boton.ImageUrl = "/EDUAR_UI/Images/mail-new-message.gif";
-						//link.AlternateText = "Nuevo Mensaje!";
-						boton.ToolTip = "Nuevo Mensaje!";
+						boton.Visible = true;
+						if (objMensajes.Count > 0)
+						{
+							boton.ImageUrl = "/EDUAR_UI/Images/mail-new-message.gif";
+							//link.AlternateText = "Nuevo Mensaje!";
+							boton.ToolTip = "Nuevo Mensaje!";
+						}
+						else
+						{
+							boton.ImageUrl = "/EDUAR_UI/Images/mail-inbox.png";
+							//btnMail.AlternateText = "Mensajes";
+							boton.ToolTip = "Mensajes";
+						}
+						//boton.NavigateUrl = "Private/Mensajes/MsjeEntrada.aspx";
+						boton.RenderControl(htm);
+						htm.Flush();
+						//htm = new HtmlTextWriter(sr);
+						//boton.RenderControl(htm);
+						//htm.Flush();
 					}
-					else
-					{
-						boton.ImageUrl = "/EDUAR_UI/Images/mail-inbox.png";
-						//btnMail.AlternateText = "Mensajes";
-						boton.ToolTip = "Mensajes";
-					}
-					//boton.NavigateUrl = "Private/Mensajes/MsjeEntrada.aspx";
-					boton.RenderControl(htm);
-					htm.Flush();
-					//htm = new HtmlTextWriter(sr);
-					//boton.RenderControl(htm);
-					//htm.Flush();
 				}
 				else
 				{
