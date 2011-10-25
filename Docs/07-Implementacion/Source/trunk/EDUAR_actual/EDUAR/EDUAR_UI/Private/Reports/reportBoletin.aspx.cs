@@ -980,16 +980,14 @@ namespace EDUAR_UI
 			StringBuilder filtros = new StringBuilder();
 			if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlAlumnosTutor.SelectedValue) > 0)
 			{
-				//filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
-
 				filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
 
 
 				filtroReporte.idAlumno = 0;
                 if (miAlumno != null)
-                    //filtroReporte.idAlumno = Convert.ToInt32(ddlAlumnosTutor.SelectedValue);
-                    filtroReporte.idAlumno = miAlumno.idAlumno;
-
+                {    
+                    filtroReporte.idAlumno = Convert.ToInt32(ddlAlumnosTutor.SelectedValue);
+                }
                 BLRptPromedioCalificacionesPeriodo objBLReporte = new BLRptPromedioCalificacionesPeriodo();
                 listaReporte = objBLReporte.GetRptPromedioCalificaciones(filtroReporte);
 
