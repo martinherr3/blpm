@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Globalization;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_BusinessLogic.Reports;
+using EDUAR_BusinessLogic.Shared;
 using EDUAR_Entities;
 using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
-using System.Linq;
-using EDUAR_BusinessLogic.Shared;
 using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
