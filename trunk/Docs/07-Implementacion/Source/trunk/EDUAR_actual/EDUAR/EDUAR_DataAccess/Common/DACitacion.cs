@@ -160,6 +160,8 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
 					if (ValidarFechaSQL(entidad.fechaEventoHasta))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
+					if (!string.IsNullOrEmpty(entidad.tutor.username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioTutor", DbType.String, entidad.tutor.username);
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

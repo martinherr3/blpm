@@ -121,6 +121,7 @@
     <Content Include="Images\firefox.png" />
     <Content Include="Images\Graficar.png" />
     <Content Include="Images\Grillas\action_delete.png" />
+    <Content Include="Images\Grillas\action_lookup.png" />
     <Content Include="Images\Grillas\action_new.png" />
     <Content Include="Images\Grillas\lock.png" />
     <Content Include="Images\Grillas\mail-delete-2.png" />
@@ -177,6 +178,7 @@
     <Content Include="Private\Agenda\ManageExcursiones.aspx" />
     <Content Include="Private\Agenda\RegisterEventoInstitucional.aspx" />
     <Content Include="Private\Agenda\ManageReuniones.aspx" />
+    <Content Include="Private\Alumnos\CitacionesTutores.aspx" />
     <Content Include="Private\Alumnos\ManageCitaciones.aspx" />
     <Content Include="Private\Mensajes\MsjeEntrada.aspx" />
     <Content Include="Private\Mensajes\MsjeEnviado.aspx" />
@@ -366,6 +368,13 @@
     </Compile>
     <Compile Include="Private\Agenda\ManageReuniones.aspx.designer.cs">
       <DependentUpon>ManageReuniones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Alumnos\CitacionesTutores.aspx.cs">
+      <DependentUpon>CitacionesTutores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Alumnos\CitacionesTutores.aspx.designer.cs">
+      <DependentUpon>CitacionesTutores.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Alumnos\ManageCitaciones.aspx.cs">
       <DependentUpon>ManageCitaciones.aspx</DependentUpon>

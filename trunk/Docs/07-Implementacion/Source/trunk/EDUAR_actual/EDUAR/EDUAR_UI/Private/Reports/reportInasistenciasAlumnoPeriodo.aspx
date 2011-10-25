@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Reporte Inasistencias" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="reportInasistenciasAlumnoPeriodo.aspx.cs"
-    Inherits="EDUAR_UI.ReportInasistenciasAlumnoPeriodo" %>
+    Inherits="EDUAR_UI.ReportInasistenciasAlumnoPeriodo" EnableEventValidation="false" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>

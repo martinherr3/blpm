@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Reporte Calificaciones" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="reportCalificacionesAlumnoPeriodo.aspx.cs"
-    Inherits="EDUAR_UI.ReportCalificacionesAlumnoPeriodo" %>
+    Inherits="EDUAR_UI.ReportCalificacionesAlumnoPeriodo" EnableEventValidation="false" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
@@ -27,6 +27,8 @@
     <h2>
         Consultar Calificaciones</h2>
     <br />
+    <asp:ValidationSummary ID="vlsValidador" runat="server" CssClass="failureNotification"
+        ValidationGroup="Validador" />
     <div id="divFiltros" runat="server">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
@@ -61,6 +63,9 @@
                             </asp:DropDownList>
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                    <%--<asp:RequiredFieldValidator ID="cicloLectivoRequired" runat="server" ControlToValidate="ddlCicloLectivo"
+                        CssClass="failureNotification" ErrorMessage="Debe seleccionar un Ciclo Lectivo."
+                        ToolTip="Debe seleccionar un Ciclo Lectivo." ValidationGroup="vlsValidador">*</asp:RequiredFieldValidator>--%>
                 </td>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
@@ -76,6 +81,9 @@
                             <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
                         </Triggers>
                     </asp:UpdatePanel>
+                    <%--<asp:RequiredFieldValidator ID="ddlCursoValidator" runat="server" ControlToValidate="ddlCurso"
+                        CssClass="failureNotification" ErrorMessage="Debe seleccionar un Curso." ToolTip="Debe seleccionar un Curso."
+                        ValidationGroup="vlsValidador">*</asp:RequiredFieldValidator>--%>
                 </td>
             </tr>
             <tr>
