@@ -28,8 +28,8 @@
             <siteMapNode url="~/Private/Reports/reportPromedios.aspx" title="Informes consolidados" roles="Administrador,Director,Docente,Psicopedagogo" />
            <siteMapNode url="~/Private/Reports/reportBoletin.aspx" title="Boletin de Calificaciones" roles="Administrador, Tutor, Alumno" />
         </siteMapNode>
-          <siteMapNode url="" title="Historicos" roles="Administrador" >
-              <siteMapNode url="~/Private/Reports/Historicos/reportRendimiento.aspx" title="Rendimiento" roles="Administrador" />
+          <siteMapNode url="" title="Historicos" roles="Administrador,Director" >
+              <siteMapNode url="~/Private/Reports/Historicos/reportRendimiento.aspx" title="Rendimiento" roles="Administrador,Director" />
           </siteMapNode>
         <siteMapNode url="" title="Roles" roles="Administrador" >
             <siteMapNode url="~/Private/Account/Profiles.aspx" title="Administrar" roles="Administrador" />
