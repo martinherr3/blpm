@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web.UI.WebControls;
@@ -12,7 +13,6 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
-using System.Globalization;
 
 namespace EDUAR_UI
 {
@@ -103,41 +103,41 @@ namespace EDUAR_UI
 			}
 		}
 
-        public List<Asignatura> listaAsignatura
-        {
-            get
-            {
-                if (ViewState["listaAsignatura"] == null)
-                {
-                    listaAsignatura = new List<Asignatura>();
-                    BLAsignatura objBLAsignatura = new BLAsignatura();
-                    listaAsignatura = objBLAsignatura.GetAsignaturas(null);
-                }
-                return (List<Asignatura>)ViewState["listaAsignatura"];
-            }
-            set
-            {
-                ViewState["listaAsignatura"] = value;
-            }
-        }
+		public List<Asignatura> listaAsignatura
+		{
+			get
+			{
+				if (ViewState["listaAsignatura"] == null)
+				{
+					listaAsignatura = new List<Asignatura>();
+					BLAsignatura objBLAsignatura = new BLAsignatura();
+					listaAsignatura = objBLAsignatura.GetAsignaturas(null);
+				}
+				return (List<Asignatura>)ViewState["listaAsignatura"];
+			}
+			set
+			{
+				ViewState["listaAsignatura"] = value;
+			}
+		}
 
-        public List<CicloLectivo> listaCicloLectivo
-        {
-            get
-            {
-                if (ViewState["listaCicloLectivo"] == null)
-                {
-                    listaCicloLectivo = new List<CicloLectivo>();
-                    BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-                    listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
-                }
-                return (List<CicloLectivo>)ViewState["listaCicloLectivo"];
-            }
-            set
-            {
-                ViewState["listaCicloLectivo"] = value;
-            }
-        }
+		public List<CicloLectivo> listaCicloLectivo
+		{
+			get
+			{
+				if (ViewState["listaCicloLectivo"] == null)
+				{
+					listaCicloLectivo = new List<CicloLectivo>();
+					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+					listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
+				}
+				return (List<CicloLectivo>)ViewState["listaCicloLectivo"];
+			}
+			set
+			{
+				ViewState["listaCicloLectivo"] = value;
+			}
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -264,102 +264,119 @@ namespace EDUAR_UI
 			{ Master.ManageExceptions(ex); }
 		}
 
-        /// <summary>
-        /// BTNs the graficar.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void btnGraficar(object sender, EventArgs e)
-        {
-            try
-            {
-                GenerarDatosGrafico();
-                AccionPagina = enumAcciones.Limpiar;
-                double sumaNotas = 0;
-                rptCalificaciones.graficoReporte.LimpiarSeries();
-                string alumno = string.Empty;
+		/// <summary>
+		/// BTNs the graficar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void btnGraficar(object sender, EventArgs e)
+		{
+			try
+			{
+				//GenerarDatosGrafico();
+				AccionPagina = enumAcciones.Limpiar;
+				double sumaNotas = 0;
+				rptCalificaciones.graficoReporte.LimpiarSeries();
+				string alumno = string.Empty;
 
-                if (ddlAsignatura.SelectedIndex > 0)
-                { // so reporte   distribucion de calificaciones por asignatura 
-                    foreach (ListItem itemAsig in ddlAsignatura.Items)
-                    {
-                        if (itemAsig.Selected)
-                        {
-                            var serie = new List<RptRendimientoHistorico>();
-                            foreach (ListItem itemCiclo in ddlCicloLectivo.Items)
-                            {
-                                sumaNotas = 0;
-                                var listaParcial = listaReporte.FindAll(p => p.asignatura == itemAsig.Text && p.ciclolectivo == itemCiclo.Text);
+				if (ddlAsignatura.SelectedIndex > 0)
+				{ // so reporte   distribucion de calificaciones por asignatura 
+					foreach (ListItem itemAsig in ddlAsignatura.Items)
+					{
+						if (itemAsig.Selected)
+						{
+							var serie = new List<RptRendimientoHistorico>();
+							foreach (ListItem itemCiclo in ddlCicloLectivo.Items)
+							{
+								sumaNotas = 0;
+								var listaParcial = listaReporte.FindAll(p => p.asignatura == itemAsig.Text && p.ciclolectivo == itemCiclo.Text);
 
-                                if (listaParcial.Count > 0)
-                                {
-                                    foreach (var nota in listaParcial)
-                                    {
-                                        sumaNotas += Convert.ToDouble(nota.promedio);
-                                    }
+								if (listaParcial.Count > 0)
+								{
+									foreach (var nota in listaParcial)
+									{
+										sumaNotas += Convert.ToDouble(nota.promedio);
+									}
 
-                                    serie.Add(new RptRendimientoHistorico
-                                    {
-                                        promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
-                                        ciclolectivo = itemCiclo.Text
-                                    });
-                                }
-                            }
-                            if (serie != null && serie.Count > 0)
-                            {
-                                DataTable dt = UIUtilidades.BuildDataTable<RptRendimientoHistorico>(serie);
-                                rptCalificaciones.graficoReporte.AgregarSerie(itemAsig.Text, dt, "ciclolectivo", "promedio");
-                            }
-                        }
-                        rptCalificaciones.graficoReporte.Titulo = "Promedio de Calificaciones por Asignatura \n";
-                    }
+									serie.Add(new RptRendimientoHistorico
+									{
+										promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
+										ciclolectivo = itemCiclo.Text
+									});
+								}
+							}
+							if (serie != null && serie.Count > 0)
+							{
+								DataTable dt = UIUtilidades.BuildDataTable<RptRendimientoHistorico>(serie);
+								rptCalificaciones.graficoReporte.AgregarSerie(itemAsig.Text, dt, "ciclolectivo", "promedio");
+							}
+						}
+						rptCalificaciones.graficoReporte.Titulo = "Promedio de Calificaciones por Asignatura \n";
+					}
 
-                }
-                else
-                { // promedio de calificaciones por año por asignatura
+				}
+				else
+				{ // promedio de calificaciones por año por asignatura
+					var Ciclos = (from p in listaReporte
+								  group p by p.ciclolectivo into g
+								  //orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
+								  select new { CicloLectivo = g.Key }).Distinct();
 
-                    foreach (ListItem itemCiclo in ddlCicloLectivo.Items)
-                    {
-                        if (itemCiclo.Selected)
-                        {
-                            var serie = new List<RptRendimientoHistorico>();
-                            foreach (var item in listaAsignatura)
-                            {
-                                sumaNotas = 0;
-                                var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre && p.ciclolectivo == itemCiclo.Text);
+					//foreach (ListItem itemCiclo in ddlCicloLectivo.Items)
+					var serie = new List<RptRendimientoHistorico>();
 
-                                if (listaParcial.Count > 0)
-                                {
-                                    foreach (var nota in listaParcial)
-                                    {
-                                        sumaNotas += Convert.ToDouble(nota.promedio);
-                                    }
+					foreach (var itemCiclo in Ciclos)
+					{
+						//if (itemCiclo.Selected)
+						//{
+						//foreach (var item in listaAsignatura)
+						//{
 
-                                    serie.Add(new RptRendimientoHistorico
-                                    {
-                                        promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
-                                        asignatura = item.nombre
+						var Promedio =
+					   (from p in listaReporte
+						where p.ciclolectivo == itemCiclo.CicloLectivo
+						group p by p.ciclolectivo into g
+						//orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
+						select new { CicloLectivo = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct();
 
-                                    });
-                                }
-                            }
-                            if (serie != null && serie.Count > 0)
-                            {
-                                DataTable dt = UIUtilidades.BuildDataTable<RptRendimientoHistorico>(serie);
-                                rptCalificaciones.graficoReporte.AgregarSerie(itemCiclo.Text, dt, "asignatura", "promedio");
-                            }                            
-                        }
-                   }
-                    rptCalificaciones.graficoReporte.Titulo = "Promedio de Calificaciones por Ciclo Lectivo \n";
+						//sumaNotas = 0;
+						////var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre && p.ciclolectivo == itemCiclo.CicloLectivo);
+						//var listaParcial = listaReporte.FindAll(p => p.ciclolectivo == itemCiclo.CicloLectivo);
 
-                }
-                GenerarDatosGrafico();
-                rptCalificaciones.graficoReporte.GraficarLinea ();
-                rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
-            }
-            catch (Exception ex)
-            { Master.ManageExceptions(ex); }
-        }
+						//if (listaParcial.Count > 0)
+						{
+							//foreach (var nota in listaParcial)
+							//{
+							//    sumaNotas += Convert.ToDouble(nota.promedio);
+							//}
+							foreach (var item in Promedio)
+							{
+								serie.Add(new RptRendimientoHistorico
+								{
+									//promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
+									promedio = Math.Round(item.Promedio, 2).ToString(CultureInfo.InvariantCulture),
+									asignatura = item.CicloLectivo
+								});
+							}
+							//}
+						}
+						//}
+					}
+					if (serie != null && serie.Count > 0)
+					{
+						DataTable dt = UIUtilidades.BuildDataTable<RptRendimientoHistorico>(serie);
+						rptCalificaciones.graficoReporte.AgregarSerie("Promedios", dt, "asignatura", "promedio");
+					}
+					rptCalificaciones.graficoReporte.Titulo = "Promedio de Calificaciones por Ciclo Lectivo \n";
+					rptCalificaciones.graficoReporte.habilitarTorta = false;
+				}
+				GenerarDatosGrafico();
+				rptCalificaciones.graficoReporte.GraficarLinea();
+				rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
+		}
 
 		/// <summary>
 		/// Paginars the grilla.
@@ -385,24 +402,24 @@ namespace EDUAR_UI
 			}
 		}
 
-         //<summary>
-         //Handles the SelectedIndexChanged event of the ddlNivel control.
-         //</summary>
-         //<param name="sender">The source of the event.</param>
-         //<param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ddlNivel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                AccionPagina = enumAcciones.Limpiar;
-                
-                CargarComboAsignatura();
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
+		//<summary>
+		//Handles the SelectedIndexChanged event of the ddlNivel control.
+		//</summary>
+		//<param name="sender">The source of the event.</param>
+		//<param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void ddlNivel_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				AccionPagina = enumAcciones.Limpiar;
+
+				CargarComboAsignatura();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -425,39 +442,39 @@ namespace EDUAR_UI
 				filtroReporte = new FilCalificacionesAlumnoPeriodo();
 				StringBuilder filtros = new StringBuilder();
 
-                List<Asignatura> listaAsignatura = new List<Asignatura>();
-                foreach (System.Web.UI.WebControls.ListItem item in ddlAsignatura.Items)
-                {
-                    if (item.Selected)
-                    {
-                        if (!filtros.ToString().Contains("- Asignatura"))
-                            filtros.AppendLine("- Asignatura");
-                        filtros.AppendLine(" * " + item.Text);
-                        listaAsignatura.Add(new Asignatura() { idAsignatura = Convert.ToInt16(item.Value) });
-                    }
-                }
-                filtroReporte.listaAsignaturas = listaAsignatura;
+				List<Asignatura> listaAsignatura = new List<Asignatura>();
+				foreach (System.Web.UI.WebControls.ListItem item in ddlAsignatura.Items)
+				{
+					if (item.Selected)
+					{
+						if (!filtros.ToString().Contains("- Asignatura"))
+							filtros.AppendLine("- Asignatura");
+						filtros.AppendLine(" * " + item.Text);
+						listaAsignatura.Add(new Asignatura() { idAsignatura = Convert.ToInt16(item.Value) });
+					}
+				}
+				filtroReporte.listaAsignaturas = listaAsignatura;
 
-                //if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0)
-                //{
-                //    filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-                //    filtros.AppendLine("- Ciclo Lectivo: " + ddlCicloLectivo.SelectedItem.Text);
-                //}
+				//if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0)
+				//{
+				//    filtroReporte.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+				//    filtros.AppendLine("- Ciclo Lectivo: " + ddlCicloLectivo.SelectedItem.Text);
+				//}
 
-                List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
-                foreach (System.Web.UI.WebControls.ListItem item in ddlCicloLectivo.Items)
-                {
-                    if (item.Selected)
-                    {
-                        if (!filtros.ToString().Contains("- Ciclo Lectivo"))
-                            filtros.AppendLine("- Ciclo Lectivo");
-                        filtros.AppendLine(" * " + item.Text);
-                        listaCicloLectivo.Add(new CicloLectivo() { idCicloLectivo = Convert.ToInt16(item.Value) });
-                    }
-                }
-                filtroReporte.listaCicloLectivo = listaCicloLectivo;
+				List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
+				foreach (System.Web.UI.WebControls.ListItem item in ddlCicloLectivo.Items)
+				{
+					if (item.Selected)
+					{
+						if (!filtros.ToString().Contains("- Ciclo Lectivo"))
+							filtros.AppendLine("- Ciclo Lectivo");
+						filtros.AppendLine(" * " + item.Text);
+						listaCicloLectivo.Add(new CicloLectivo() { idCicloLectivo = Convert.ToInt16(item.Value) });
+					}
+				}
+				filtroReporte.listaCicloLectivo = listaCicloLectivo;
 
-                if (ddlNivel.Items.Count > 0 && Convert.ToInt32(ddlNivel.SelectedValue) > 0)
+				if (ddlNivel.Items.Count > 0 && Convert.ToInt32(ddlNivel.SelectedValue) > 0)
 				{
 					filtroReporte.idNivel = Convert.ToInt32(ddlNivel.SelectedValue);
 					filtros.AppendLine("- Nivel: " + ddlNivel.SelectedItem.Text);
@@ -483,30 +500,30 @@ namespace EDUAR_UI
 		private void CargarCombos()
 		{
 			//UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
-            CargarComboCicloLectivo();
-            CargarNiveles();
+			CargarComboCicloLectivo();
+			CargarNiveles();
 			CargarComboAsignatura();
 		}
 
-        private void CargarComboCicloLectivo()
-        {
-            ddlCicloLectivo.Items.Clear();
+		private void CargarComboCicloLectivo()
+		{
+			ddlCicloLectivo.Items.Clear();
 
-            BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
 
-            listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
+			listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(null);
 
-            // Ordena la lista alfabéticamente por la descripción
-            listaCicloLectivo.Sort((p, q) => string.Compare(p.nombre, q.nombre));
+			// Ordena la lista alfabéticamente por la descripción
+			listaCicloLectivo.Sort((p, q) => string.Compare(p.nombre, q.nombre));
 
-            foreach (CicloLectivo cicloLectivo in listaCicloLectivo)
-            {
-                ddlCicloLectivo.Items.Add(new System.Web.UI.WebControls.ListItem(cicloLectivo.nombre, cicloLectivo.idCicloLectivo.ToString()));
-            }
+			foreach (CicloLectivo cicloLectivo in listaCicloLectivo)
+			{
+				ddlCicloLectivo.Items.Add(new System.Web.UI.WebControls.ListItem(cicloLectivo.nombre, cicloLectivo.idCicloLectivo.ToString()));
+			}
 
-            if (ddlCicloLectivo.Items.Count > 0)
-                ddlCicloLectivo.Disabled = false;
-        }
+			if (ddlCicloLectivo.Items.Count > 0)
+				ddlCicloLectivo.Disabled = false;
+		}
 
 
 
@@ -515,26 +532,26 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarComboAsignatura()
 		{
-            ddlAsignatura.Items.Clear();
+			ddlAsignatura.Items.Clear();
 
-            BLAsignatura objBLAsignatura = new BLAsignatura();
- 
-            int idNivel = Convert.ToInt32(ddlNivel.SelectedValue);
-            //int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-            int idCicloLectivo = 0;
+			BLAsignatura objBLAsignatura = new BLAsignatura();
 
-            listaAsignatura = objBLAsignatura.GetAsignaturasNivelCicloLectivo(idCicloLectivo, idNivel);
-            
-            // Ordena la lista alfabéticamente por la descripción
-            listaAsignatura.Sort((p, q) => string.Compare(p.nombre, q.nombre));
+			int idNivel = Convert.ToInt32(ddlNivel.SelectedValue);
+			//int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+			int idCicloLectivo = 0;
 
-            foreach (Asignatura asignatura in listaAsignatura)
-            {
-                ddlAsignatura.Items.Add(new System.Web.UI.WebControls.ListItem(asignatura.nombre, asignatura.idAsignatura.ToString()));
-            }
+			listaAsignatura = objBLAsignatura.GetAsignaturasNivelCicloLectivo(idCicloLectivo, idNivel);
 
-            if (ddlAsignatura.Items.Count > 0)
-                ddlAsignatura.Disabled = false;
+			// Ordena la lista alfabéticamente por la descripción
+			listaAsignatura.Sort((p, q) => string.Compare(p.nombre, q.nombre));
+
+			foreach (Asignatura asignatura in listaAsignatura)
+			{
+				ddlAsignatura.Items.Add(new System.Web.UI.WebControls.ListItem(asignatura.nombre, asignatura.idAsignatura.ToString()));
+			}
+
+			if (ddlAsignatura.Items.Count > 0)
+				ddlAsignatura.Disabled = false;
 
 		}
 
@@ -545,50 +562,185 @@ namespace EDUAR_UI
 		private void CargarNiveles()
 		{
 			UIUtilidades.BindCombo<Nivel>(ddlNivel, listaNiveles, "idNivel", "nombre", true);
-			
-            ddlNivel.Enabled = true;
+
+			ddlNivel.Enabled = true;
 		}
 
-        ///// <summary>
-        ///// Generars the datos grafico.
-        ///// </summary>
-        private void GenerarDatosGrafico()
-        {
-            var cantAsignaturas =
-                from p in listaReporte
-                group p by p.asignatura into g
-                select new { Asignatura = g.Key, Cantidad = g.Count() };
+		///// <summary>
+		///// Generars the datos grafico.
+		///// </summary>
+		private void GenerarDatosGrafico()
+		{
+			var cantAsignaturas =
+				from p in listaReporte
+				group p by p.asignatura into g
+				select new { Asignatura = g.Key, Cantidad = g.Count() };
 
-            //TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
+			//TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
 
-            TablaGrafico.Add("- Cantidad de Asignaturas: " + listaReporte.Count.ToString());
+			TablaGrafico.Add("- Registros Totales: " + listaReporte.Count.ToString());
 
-            //var fechaMin =
-            //   from p in listaReporte
-            //   group p by p.alumno into g
-            //   select new { Alumno = g.Key, Fecha = g.Min(p => p.fecha) };
+			TablaPropiaGrafico = new List<TablaGrafico>();
+			TablaGrafico tabla3 = new TablaGrafico();
+			tabla3.listaCuerpo = new List<List<string>>();
+			List<string> encabezado3 = new List<string>();
+			List<string> fila3 = new List<string>();
+			tabla3.titulo = "Periodos Analizados: \n";
 
-            //var fechaMax =
-            //   from p in listaReporte
-            //   group p by p.alumno into g
-            //   select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
+			foreach (ListItem item in ddlCicloLectivo.Items)
+			{
+				if (item.Selected)
+				{
+					tabla3.titulo += item.Value + "\n";
+				}
+			}
 
-            //TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
+			tabla3.listaEncabezados = encabezado3;
+			tabla3.listaCuerpo.Add(fila3);
+			TablaPropiaGrafico.Add(tabla3);
 
-            var topPromedio =
-               (from p in listaReporte
-                group p by p.asignatura into g
-                orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
-                select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct().Take(3);
+			//if (!string.IsNullOrEmpty(ddlAsignatura.Value) && Convert.ToInt32(ddlAsignatura.Value) > 0)
+			//{
+			//    #region --[Recorrer Ciclos Lectivos Seleccionados]--
+			//    var Ciclos = (from p in listaReporte
+			//                  group p by p.ciclolectivo into g
+			//                  //orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
+			//                  select new { CicloLectivo = g.Key }).Distinct();
 
-            TablaGrafico.Add("- Top 3 Materias con mejor desempeño:");
-            foreach (var item in topPromedio)
-            {
-                TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString());
-            }
-            
-        }
+			//    foreach (var item in Ciclos)
+			//    {
+			//        TablaGrafico tabla2 = new TablaGrafico();
+			//        tabla2.listaCuerpo = new List<List<string>>();
+			//        List<string> encabezado2 = new List<string>();
+			//        List<List<string>> filasTabla2 = new List<List<string>>();
+			//        List<string> fila2 = new List<string>();
+
+			//        tabla2.titulo = "Top 3 Materias de Mejor Desempeño " + item.CicloLectivo;
+			//        encabezado2.Add("Asignatura");
+			//        encabezado2.Add("Promedio");
+			//        //encabezado2.Add("Ciclo Lectivo");
+			//        var topPromedio =
+			//           (from p in listaReporte
+			//            where p.ciclolectivo == item.CicloLectivo
+			//            group p by p.asignatura into g
+			//            orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
+			//            select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct().Take(3);
+
+			//        //TablaGrafico.Add("- Top 3 Materias con mejor desempeño por Ciclo Lectivo:");
+			//        foreach (var materia in topPromedio)
+			//        {
+			//            //TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString());
+			//            fila2 = new List<string>();
+			//            fila2.Add(materia.Asignatura);
+			//            fila2.Add(materia.Promedio.ToString("#.00"));
+			//            //fila2.Add(item.Text);
+			//            filasTabla2.Add(fila2);
+			//        }
+			//        if (filasTabla2.Count > 0)
+			//        {
+			//            tabla2.listaEncabezados = encabezado2;
+			//            tabla2.listaCuerpo = filasTabla2;
+			//            TablaPropiaGrafico.Add(tabla2);
+			//        }
+
+			//        TablaGrafico tabla4 = new TablaGrafico();
+			//        tabla4.listaCuerpo = new List<List<string>>();
+			//        List<string> encabezado4 = new List<string>();
+			//        List<List<string>> filasTabla4 = new List<List<string>>();
+			//        List<string> fila4 = new List<string>();
+
+			//        tabla4.titulo = "Top 3 Materias de Bajo Desempeño " + item.CicloLectivo;
+			//        encabezado4.Add("Asignatura");
+			//        encabezado4.Add("Promedio");
+			//        //encabezado4.Add("Ciclo Lectivo");
+			//        var lowPromedio =
+			//           (from p in listaReporte
+			//            where p.ciclolectivo == item.CicloLectivo
+			//            group p by p.asignatura into g
+			//            orderby g.Average(p => Convert.ToDouble(p.promedio)) ascending
+			//            select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct().Take(3);
+
+			//        //TablaGrafico.Add("- Top 3 Materias con mejor desempeño por Ciclo Lectivo:");
+			//        foreach (var materia in lowPromedio)
+			//        {
+			//            //TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString());
+			//            fila4 = new List<string>();
+			//            fila4.Add(materia.Asignatura);
+			//            fila4.Add(materia.Promedio.ToString("#.00"));
+			//            //fila4.Add(item.Text);
+			//            filasTabla4.Add(fila4);
+			//        }
+			//        if (filasTabla4.Count > 0)
+			//        {
+			//            tabla4.listaEncabezados = encabezado4;
+			//            tabla4.listaCuerpo = filasTabla4;
+			//            TablaPropiaGrafico.Add(tabla4);
+			//        }
+			//    }
+			//    #endregion
+			//}
+			//else
+			{
+				TablaGrafico tabla2 = new TablaGrafico();
+				tabla2.listaCuerpo = new List<List<string>>();
+				List<string> encabezado2 = new List<string>();
+				List<List<string>> filasTabla2 = new List<List<string>>();
+				List<string> fila2 = new List<string>();
+
+				var Ciclos =
+				   (from p in listaReporte
+					group p by p.ciclolectivo into g
+					//orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
+					select new { CicloLectivo = g.Key }).Distinct();
+
+				var Asignaturas =
+				   (from p in listaReporte
+					group p by p.asignatura into g
+					//orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
+					select new { Asignatura = g.Key }).Distinct();
+
+				tabla2.titulo = "Desempeño Por Ciclo Lectivo ";
+				//encabezado2.Add("Promedio");
+				encabezado2.Add("Asignatura");
+
+				foreach (var item in Ciclos)
+				{
+					encabezado2.Add(item.CicloLectivo);
+				}
+
+				foreach (var materia in Asignaturas)
+				{
+					fila2 = new List<string>();
+					fila2.Add(materia.Asignatura);
+					foreach (var item in Ciclos)
+					{
+						//encabezado2.Add(item.CicloLectivo);
+
+						var Promedio =
+						   (from p in listaReporte
+							where p.ciclolectivo == item.CicloLectivo && p.asignatura == materia.Asignatura
+							group p by p.asignatura into g
+							//orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
+							select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct();
+
+						foreach (var itemPromedio in Promedio)
+						{
+							fila2.Add(itemPromedio.Promedio.ToString("#.00"));
+							//fila2.Add(item.Text);
+						}
+						if (Promedio.Count() == 0)
+							fila2.Add(string.Empty);
+					}
+					filasTabla2.Add(fila2);
+				}
+				if (filasTabla2.Count > 0)
+				{
+					tabla2.listaEncabezados = encabezado2;
+					tabla2.listaCuerpo = filasTabla2;
+					TablaPropiaGrafico.Add(tabla2);
+				}
+			}
+		}
 		#endregion
-
 	}
 }

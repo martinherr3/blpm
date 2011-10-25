@@ -25,7 +25,7 @@
     <h2>
         Rendimiento Académico General</h2>
     <br />
-    <div id="divFiltros" runat="server" style="width: 800px">
+    <div id="divFiltros" runat="server">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td align="right">
@@ -46,7 +46,7 @@
                                 runat="server" id="ddlCicloLectivo" enableviewstate="true">
                             </select>
                         </ContentTemplate>
-                            <Triggers>
+                        <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlNivel" EventName="SelectedIndexChanged" />
                         </Triggers>
                     </asp:UpdatePanel>
@@ -61,7 +61,7 @@
                                 AutoPostBack="True" Enabled="false">
                             </asp:DropDownList>
                         </ContentTemplate>
-<%--                        <Triggers>
+                        <%--                        <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
                         </Triggers>--%>
                     </asp:UpdatePanel>
