@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="Informe consolidado" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="reportPromedios.aspx.cs" Inherits="EDUAR_UI.reportPromedios" %>
+    AutoEventWireup="true" CodeBehind="reportPromedios.aspx.cs" Inherits="EDUAR_UI.reportPromedios"
+    EnableEventValidation="false" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Reporte.ascx" TagName="Reporte" TagPrefix="rep" %>
@@ -162,7 +163,7 @@
                 </td>
             </tr>
         </table>
-        <script type="text/javascript">$(".chzn-select").chosen();</script>
+        <script type="text/javascript">            $(".chzn-select").chosen();</script>
     </div>
     <div id="divReporte" runat="server">
         <rep:Reporte ID="rptResultado" runat="server"></rep:Reporte>

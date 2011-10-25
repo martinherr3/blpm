@@ -609,44 +609,66 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				bool faltanDatos = false;
-				switch (rdlAccion.SelectedValue)
+				string mensaje = ValidarPagina(rdlAccion.SelectedValue);
+				if (string.IsNullOrEmpty(mensaje))
 				{
-					case "0":
-						if (BuscarPromedios())
-						{
-							divFiltros.Visible = false;
-						}
-						else { faltanDatos = true; }
-						break;
-					case "1":
-						if (BuscarInasistencias())
-						{
-							divFiltros.Visible = false;
-						}
-						else { faltanDatos = true; }
-						break;
-					case "2":
-						if (BuscarSanciones())
-						{
-							divFiltros.Visible = false;
-						}
-						else { faltanDatos = true; }
-						break;
-					default:
-						break;
-				}
-				if (faltanDatos)
-				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
-				else
-				{
+					switch (rdlAccion.SelectedValue)
+					{
+						case "0":
+							if (BuscarPromedios())
+							{
+								divFiltros.Visible = false;
+							}
+							break;
+						case "1":
+							if (BuscarInasistencias())
+							{
+								divFiltros.Visible = false;
+							}
+							break;
+						case "2":
+							if (BuscarSanciones())
+							{
+								divFiltros.Visible = false;
+							}
+							break;
+						default:
+							break;
+					}
 					divReporte.Visible = true;
 					btnBuscar.Visible = false; //Se supone que no es mas necesario
 					divAccion.Visible = false;
 				}
+				else
+				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosFaltantes + mensaje, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
+		}
+
+		private string ValidarPagina(string opcion)
+		{
+			string mensaje = string.Empty;
+
+			switch (opcion)
+			{
+				case "0":
+					if (string.IsNullOrEmpty(ddlCicloLectivo.SelectedValue) || Convert.ToInt32(ddlCicloLectivo.SelectedValue) <= 0)
+						mensaje = "- Ciclo Lectivo<br />";
+					if (string.IsNullOrEmpty(ddlCurso.SelectedValue) || Convert.ToInt32(ddlCurso.SelectedValue) <= 0)
+						mensaje += "- Curso<br />";
+					break;
+				case "1":
+				case "2":
+					if (string.IsNullOrEmpty(ddlCicloLectivo.SelectedValue) || Convert.ToInt32(ddlCicloLectivo.SelectedValue) <= 0)
+						mensaje = "- Ciclo Lectivo<br />";
+					//if (string.IsNullOrEmpty(ddlCurso.SelectedValue) || Convert.ToInt32(ddlCurso.SelectedValue) <= 0)
+					//    mensaje += "- Curso<br />";
+					break;
+				default:
+					break;
+			}
+			return mensaje;
 		}
 
 		/// <summary>
@@ -930,7 +952,7 @@ namespace EDUAR_UI
 			if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 /*&& Convert.ToInt32(ddlCurso.SelectedValue) > 0*/)
 			{
 				filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text);
-				
+
 				if (Convert.ToInt32(ddlCurso.SelectedValue) > 0)
 					filtros.AppendLine(" - Curso: " + ddlCurso.SelectedItem.Text);
 

@@ -9,6 +9,7 @@
         </siteMapNode>
         <siteMapNode url="" title="Alumnos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
             <siteMapNode url="~/Private/Alumnos/ManageCitaciones.aspx" title="Citaciones" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo,Preceptor" />
+            <siteMapNode url="~/Private/Alumnos/CitacionesTutores.aspx" title="Citaciones" roles="Tutor" />
         </siteMapNode>
         <siteMapNode url="" title="Mensajes" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
             <siteMapNode url="~/Private/Mensajes/MsjeEntrada.aspx" title="Recibidos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>

@@ -201,15 +201,21 @@ namespace EDUAR_UI
 			try
 			{
 				fechas.ValidarRangoDesdeHasta(false);
-				AccionPagina = enumAcciones.Buscar;
-				if (BuscarCalificaciones())
+				string mensaje = ValidarPagina();
+				if (mensaje == string.Empty)
 				{
-					AccionPagina = enumAcciones.Limpiar;
-					divFiltros.Visible = false;
-					divReporte.Visible = true;
+					AccionPagina = enumAcciones.Buscar;
+					if (BuscarCalificaciones())
+					{
+						AccionPagina = enumAcciones.Limpiar;
+						divFiltros.Visible = false;
+						divReporte.Visible = true;
+					}
+					else
+					{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
 				}
 				else
-				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
+				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosFaltantes + mensaje, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -387,9 +393,22 @@ namespace EDUAR_UI
 			{
 				AccionPagina = enumAcciones.Limpiar;
 				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-				fechas.startDate = listaCicloLectivo.Find(p => p.idCicloLectivo == idCicloLectivo).fechaInicio;
-				fechas.endDate = listaCicloLectivo.Find(p => p.idCicloLectivo == idCicloLectivo).fechaFin;
-				CargarComboCursos(idCicloLectivo, ddlCurso);
+				if (idCicloLectivo > 0)
+				{
+					fechas.startDate = listaCicloLectivo.Find(p => p.idCicloLectivo == idCicloLectivo).fechaInicio;
+					fechas.endDate = listaCicloLectivo.Find(p => p.idCicloLectivo == idCicloLectivo).fechaFin;
+					CargarComboCursos(idCicloLectivo, ddlCurso);
+				}
+				else
+				{
+					if (ddlCurso.Items.Count > 0)
+					{
+						ddlCurso.Items.Clear();
+						ddlCurso.Enabled = false;
+					}
+				}
+				ddlAsignatura.Items.Clear();
+				ddlAlumno.Items.Clear();
 			}
 			catch (Exception ex)
 			{
@@ -409,6 +428,7 @@ namespace EDUAR_UI
 				AccionPagina = enumAcciones.Limpiar;
 				CargarAlumnos(Convert.ToInt32(ddlCurso.SelectedValue));
 				ddlAlumno.Enabled = true;
+				ddlAsignatura.Items.Clear();
 				CargarComboAsignatura();
 			}
 			catch (Exception ex)
@@ -488,6 +508,21 @@ namespace EDUAR_UI
 			}
 			else
 				return false;
+		}
+
+		/// <summary>
+		/// Validars the pagina.
+		/// </summary>
+		/// <returns></returns>
+		private string ValidarPagina()
+		{
+			string mensaje = string.Empty;
+
+			if (string.IsNullOrEmpty(ddlCicloLectivo.SelectedValue) || Convert.ToInt32(ddlCicloLectivo.SelectedValue) <= 0)
+				mensaje = "- Ciclo Lectivo<br />";
+			if (string.IsNullOrEmpty(ddlCurso.SelectedValue) || Convert.ToInt32(ddlCurso.SelectedValue) <= 0)
+				mensaje += "- Curso<br />";
+			return mensaje;
 		}
 
 		/// <summary>

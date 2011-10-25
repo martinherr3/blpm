@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="Reporte Sanciones" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="reportSancionesAlumnoPeriodo.aspx.cs" Inherits="EDUAR_UI.ReportSancionesAlumnoPeriodo" %>
+    AutoEventWireup="true" CodeBehind="reportSancionesAlumnoPeriodo.aspx.cs" Inherits="EDUAR_UI.ReportSancionesAlumnoPeriodo"
+    EnableEventValidation="false" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>

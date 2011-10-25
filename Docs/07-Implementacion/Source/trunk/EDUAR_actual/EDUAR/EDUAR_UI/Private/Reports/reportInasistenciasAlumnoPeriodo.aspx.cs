@@ -206,13 +206,19 @@ namespace EDUAR_UI
 			try
 			{
 				fechas.ValidarRangoDesdeHasta(false);
-				if (BuscarInasistencias())
+				string mensaje = ValidarPagina();
+				if (mensaje == string.Empty)
 				{
-					divFiltros.Visible = false;
-					divReporte.Visible = true;
+					if (BuscarInasistencias())
+					{
+						divFiltros.Visible = false;
+						divReporte.Visible = true;
+					}
+					else
+					{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
 				}
 				else
-				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
+				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosFaltantes + mensaje, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -364,9 +370,17 @@ namespace EDUAR_UI
 			try
 			{
 				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-				fechas.startDate = listaCicloLectivo.Find(p => p.idCicloLectivo == idCicloLectivo).fechaInicio;
-				fechas.endDate = listaCicloLectivo.Find(p => p.idCicloLectivo == idCicloLectivo).fechaFin;
-				CargarComboCursos(idCicloLectivo, ddlCurso);
+				if (idCicloLectivo > 0)
+				{
+					fechas.startDate = listaCicloLectivo.Find(p => p.idCicloLectivo == idCicloLectivo).fechaInicio;
+					fechas.endDate = listaCicloLectivo.Find(p => p.idCicloLectivo == idCicloLectivo).fechaFin;
+					CargarComboCursos(idCicloLectivo, ddlCurso);
+				}
+				else
+				{
+					ddlCurso.SelectedIndex = 0;
+					ddlCurso.Enabled = false;
+				}
 				ddlAlumno.Items.Clear();
 				ddlAlumno.Enabled = false;
 			}
@@ -685,6 +699,20 @@ namespace EDUAR_UI
 			TablaPropiaGrafico.Add(tabla5);
 		}
 
+		/// <summary>
+		/// Validars the pagina.
+		/// </summary>
+		/// <returns></returns>
+		private string ValidarPagina()
+		{
+			string mensaje = string.Empty;
+
+			if (string.IsNullOrEmpty(ddlCicloLectivo.SelectedValue) || Convert.ToInt32(ddlCicloLectivo.SelectedValue) <= 0)
+				mensaje = "- Ciclo Lectivo<br />";
+			//if (string.IsNullOrEmpty(ddlCurso.SelectedValue) || Convert.ToInt32(ddlCurso.SelectedValue) <= 0)
+			//    mensaje += "- Curso<br />";
+			return mensaje;
+		}
 		#endregion
 	}
 }
