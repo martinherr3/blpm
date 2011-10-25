@@ -552,6 +552,7 @@ namespace EDUAR_UI
 			if (User.IsInRole(enumRoles.Docente.ToString()))
 				materia.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			listaAsignatura = objBLAsignatura.GetAsignaturasCurso(materia);
+            ddlAsignatura.Items.Clear();
 
 			listaAsignatura.Sort((p, q) => string.Compare(p.nombre, q.nombre));
 
