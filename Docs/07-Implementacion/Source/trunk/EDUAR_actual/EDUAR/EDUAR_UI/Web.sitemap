@@ -20,12 +20,13 @@
             <siteMapNode url="~/Private/Account/ChangePassword.aspx" title="Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
             <siteMapNode url="~/Private/Account/ChangeQuestion.aspx" title="Pregunta Secreta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
         </siteMapNode>
-        <siteMapNode url="" title="Reportes" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo,Preceptor,Tutor" >
+        <siteMapNode url="" title="Reportes" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo,Preceptor,Tutor, Alumno" >
             <siteMapNode url="~/Private/Reports/reportAccesos.aspx" title="Accesos" roles="Administrador" />
             <siteMapNode url="~/Private/Reports/reportCalificacionesAlumnoPeriodo.aspx" title="Calificaciones" roles="Administrador,Director,Docente,Psicopedagogo" />
             <siteMapNode url="~/Private/Reports/reportInasistenciasAlumnoPeriodo.aspx" title="Inasistencias" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" />
             <siteMapNode url="~/Private/Reports/reportSancionesAlumnoPeriodo.aspx" title="Sanciones" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" />
             <siteMapNode url="~/Private/Reports/reportPromedios.aspx" title="Informes consolidados" roles="Administrador,Director,Docente,Psicopedagogo" />
+           <siteMapNode url="~/Private/Reports/reportBoletin.aspx" title="Boletin de Calificaciones" roles="Administrador, Tutor, Alumno" />
         </siteMapNode>
           <siteMapNode url="" title="Historicos" roles="Administrador" >
               <siteMapNode url="~/Private/Reports/Historicos/reportRendimiento.aspx" title="Rendimiento" roles="Administrador" />
