@@ -476,12 +476,13 @@ namespace EDUAR_BusinessLogic.Security
 					if (!Roles.RoleExists(Data.Rol.Nombre))
 					{
 						Roles.CreateRole(Data.Rol.Nombre);
+						
 						Data.Rol = dataAccess.GetRol(Data.Rol);
 					}
 					else
 					{
-						throw new CustomizedException(string.Format("Fallo en {0} - GuardarRol - el rol {1} ya existe.", ClassName, Data.Rol.Nombre), null,
-													 enuExceptionType.BusinessLogicException);
+						throw new CustomizedException(string.Format("El rol {1} ya existe.", Data.Rol.Nombre), null,
+													 enuExceptionType.ValidationException);
 					}
 				}
 				dataAccess.UpdateRol(Data.Rol);
