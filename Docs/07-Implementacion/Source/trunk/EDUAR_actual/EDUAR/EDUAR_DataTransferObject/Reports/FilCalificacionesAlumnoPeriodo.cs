@@ -13,6 +13,7 @@ namespace EDUAR_Entities.Reports
 		public int idCicloLectivo { get; set; }
         public int idAsignatura { get; set; }
         public int idInstanciaEvaluacion { get; set; }
+		public int idPeriodo { get; set; }
         public DateTime fechaDesde { get; set; }
         public DateTime fechaHasta { get; set; }
 		public string username { get; set; }

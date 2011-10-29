@@ -285,9 +285,7 @@ namespace EDUAR_BusinessLogic.Common
         {
             try
             {
-                List<Alumno> listaAlumnos = DataAcces.GetAlumnosTutor(entidad);
-              
-                return listaAlumnos;
+				return DataAcces.GetAlumnosTutor(entidad);
             }
             catch (CustomizedException ex)
             {
@@ -295,7 +293,7 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnosTutor", ClassName), ex,
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnosDeTutor", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
