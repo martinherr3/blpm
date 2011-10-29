@@ -54,7 +54,9 @@ namespace EDUAR_DataAccess.Reports
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaHasta);
 					if (!string.IsNullOrEmpty(entidad.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.username);
-					
+					if (entidad.idPeriodo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPeriodo", DbType.Int32, entidad.idPeriodo);
+
 					string asignaturasParam = string.Empty;
 					if (entidad.listaAsignaturas.Count > 0)
 					{

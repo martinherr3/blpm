@@ -37,6 +37,7 @@
             <table class="tablaInterna" cellpadding="1" cellspacing="5">
                 <tr>
                     <td>
+                        <asp:Label ID="lblFiltros" Text="" runat="server" CssClass="lblCriterios" />
                     </td>
                 </tr>
             </table>

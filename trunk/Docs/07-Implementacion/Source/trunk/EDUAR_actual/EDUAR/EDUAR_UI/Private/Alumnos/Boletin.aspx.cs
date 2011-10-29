@@ -165,17 +165,23 @@ namespace EDUAR_UI
 		}
 
 
-		public Alumno miAlumno
+		/// <summary>
+		/// Gets or sets the alumno actual.
+		/// </summary>
+		/// <value>
+		/// The alumno actual.
+		/// </value>
+		public AlumnoCursoCicloLectivo alumnoActual
 		{
 			get
 			{
-				if (ViewState["miAlumno"] == null)
-					miAlumno = new Alumno();
-				return (Alumno)ViewState["miAlumno"];
+				if (ViewState["alumnoActual"] == null)
+					alumnoActual = new AlumnoCursoCicloLectivo();
+				return (AlumnoCursoCicloLectivo)ViewState["alumnoActual"];
 			}
 			set
 			{
-				ViewState["miAlumno"] = value;
+				ViewState["alumnoActual"] = value;
 			}
 		}
 
@@ -200,23 +206,25 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Gets or sets the lista asignaturas.
+		/// Gets or sets the lista alumnos.
 		/// </summary>
 		/// <value>
-		/// The lista sanciones.
+		/// The lista alumnos.
 		/// </value>
-		public List<Alumno> listaAlumnos
+		public List<AlumnoCursoCicloLectivo> listaAlumnos
 		{
 			get
 			{
 				if (ViewState["listaAlumnos"] == null)
-					listaAlumnos = new List<Alumno>();
-				return (List<Alumno>)ViewState["listaAlumnos"];
+				{
+					List<Tutor> lista = new List<Tutor>();
+					lista.Add(new Tutor() { username = User.Identity.Name });
+					BLAlumno objBLAlumno = new BLAlumno(new Alumno() { listaTutores = lista });
+					listaAlumnos = objBLAlumno.GetAlumnosTutor(cicloLectivoActual);
+				}
+				return (List<AlumnoCursoCicloLectivo>)ViewState["listaAlumnos"];
 			}
-			set
-			{
-				ViewState["listaAlumnos"] = value;
-			}
+			set { ViewState["listaAlumnos"] = value; }
 		}
 
 
@@ -323,7 +331,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-
 				rptResultado.ExportarPDFClick += (ExportarPDF);
 				rptResultado.VolverClick += (VolverReporte);
 				rptResultado.PaginarGrilla += (PaginarGrilla);
@@ -331,31 +338,11 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
-					if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
-					{
-						BLTutor objTutor = new BLTutor();
-
-						objTutor.GetTutores(new Tutor() { username = HttpContext.Current.User.Identity.Name });
-						listaAlumnos = objTutor.GetAlumnosDeTutor(new Tutor() { username = HttpContext.Current.User.Identity.Name });
-
-					}
-
-					if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
-					{
-						BLAlumno objAlumnos = new BLAlumno();
-
-						Alumno a = new Alumno();
-
-						AlumnoCurso alu = new AlumnoCurso();
-						alu.alumno = new Alumno();
-						alu.alumno.username = HttpContext.Current.User.Identity.Name;
-
-						listaAlumnos = objAlumnos.GetAlumnos(alu).GetRange(0, 1);
-					}
-
-					TablaPropiaGrafico = null;
+					CargarPresentacionPorRol();
 					CargarPresentacion();
+					rptResultado.verBotonGrafico = false;
 				}
+				//valida que las listas no sean null
 				CargarGrillaResultado();
 			}
 			catch (Exception ex)
@@ -385,42 +372,38 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				string aux = objSessionPersona.apellido;
-				bool faltanDatos = false;
-				switch (rdlAccion.SelectedValue)
+				string mensaje = ValidarPagina(rdlAccion.SelectedValue);
+				if (string.IsNullOrEmpty(mensaje))
 				{
-					case "0":
-						if (BuscarCalificaciones())
-						{
-							divFiltros.Visible = false;
-						}
-						else { faltanDatos = true; }
-						break;
-					case "1":
-						if (BuscarInasistencias())
-						{
-							divFiltros.Visible = false;
-						}
-						else { faltanDatos = true; }
-						break;
-					case "2":
-						if (BuscarSanciones())
-						{
-							divFiltros.Visible = false;
-						}
-						else { faltanDatos = true; }
-						break;
-					default:
-						break;
-				}
-				if (faltanDatos)
-				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
-				else
-				{
+					switch (rdlAccion.SelectedValue)
+					{
+						case "0":
+							if (BuscarCalificaciones())
+							{
+								divFiltros.Visible = false;
+							}
+							break;
+						case "1":
+							if (BuscarInasistencias())
+							{
+								divFiltros.Visible = false;
+							}
+							break;
+						case "2":
+							if (BuscarSanciones())
+							{
+								divFiltros.Visible = false;
+							}
+							break;
+						default:
+							break;
+					}
 					divReporte.Visible = true;
 					btnBuscar.Visible = false; //Se supone que no es mas necesario
 					divAccion.Visible = false;
 				}
+				else
+				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosFaltantes + mensaje, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -507,7 +490,10 @@ namespace EDUAR_UI
 				int idAlumno = 0;
 				int.TryParse(ddlAlumnosTutor.SelectedValue, out idAlumno);
 				if (idAlumno > 0)
-					miAlumno.idAlumno = idAlumno;
+				{
+					AlumnoCursoCicloLectivo item = listaAlumnos.Find(p => p.alumno.idAlumno == idAlumno);
+					CargarComboAsignatura(item.cursoCicloLectivo.idCursoCicloLectivo);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -517,6 +503,38 @@ namespace EDUAR_UI
 		#endregion
 
 		#region --[Métodos Privados]--
+		/// <summary>
+		/// Cargars the presentacion por rol.
+		/// </summary>
+		private void CargarPresentacionPorRol()
+		{
+			if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
+			{
+				ddlAlumnosTutor.Items.Clear();
+				ddlAlumnosTutor.DataSource = null;
+				foreach (AlumnoCursoCicloLectivo item in listaAlumnos)
+				{
+					ddlAlumnosTutor.Items.Insert(ddlAlumnosTutor.Items.Count, new ListItem(item.alumno.apellido + " " + item.alumno.nombre, item.alumno.idAlumno.ToString()));
+				}
+				UIUtilidades.SortByText(ddlAlumnosTutor);
+				ddlAlumnosTutor.Items.Insert(0, new ListItem("Seleccione", "-1"));
+				ddlAlumnosTutor.SelectedValue = "-1";
+			}
+
+			if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
+			{
+				alumnoActual.alumno.username = HttpContext.Current.User.Identity.Name;
+				BLAlumno objBLAlumnos = new BLAlumno(alumnoActual.alumno);
+				alumnoActual = objBLAlumnos.GetCursoActualAlumno(cicloLectivoActual);
+				ddlAlumnosTutor.Items.Clear();
+				ddlAlumnosTutor.Items.Insert(ddlAlumnosTutor.Items.Count, new ListItem(alumnoActual.alumno.apellido + " " + alumnoActual.alumno.nombre, alumnoActual.alumno.idAlumno.ToString()));
+				ddlAlumnosTutor.Visible = false;
+				lblAlumnos.Visible = false;
+				CargarComboAsignatura(alumnoActual.cursoCicloLectivo.idCursoCicloLectivo);
+			}
+			CargarComboPeriodos(cicloLectivoActual.idCicloLectivo, ddlPeriodo);
+		}
+
 		/// <summary>
 		/// Cargars the valores en controles.
 		/// </summary>
@@ -543,13 +561,9 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPresentacion()
 		{
-			ddlAlumnosTutor.Items.Clear();
-			CargarCombos();
 			btnBuscar.Visible = true;
 			divAccion.Visible = true;
 			divReporte.Visible = false;
-			udpPeriodo.Visible = false;
-			lblPeriodo.Visible = false;
 		}
 
 		/// <summary>
@@ -558,11 +572,32 @@ namespace EDUAR_UI
 		private bool BuscarCalificaciones()
 		{
 			StringBuilder filtros = new StringBuilder();
-			int alumno = 0;
-			int.TryParse(ddlAlumnosTutor.SelectedValue, out alumno);
-			if (alumno > 0)
+			int idAlumno = 0;
+			int.TryParse(ddlAlumnosTutor.SelectedValue, out idAlumno);
+			if (idAlumno > 0)
 			{
-				filtroReporte.idAlumno = alumno;
+				filtroReporte.idAlumno = idAlumno;
+				filtros.AppendLine("- Alumno: " + ddlAlumnosTutor.SelectedItem.Text);
+
+				List<Asignatura> listaAsignatura = new List<Asignatura>();
+				foreach (System.Web.UI.WebControls.ListItem item in ddlAsignatura.Items)
+				{
+					if (item.Selected)
+					{
+						if (!filtros.ToString().Contains("- Asignatura"))
+							filtros.AppendLine("- Asignatura");
+						filtros.AppendLine(" * " + item.Text);
+						listaAsignatura.Add(new Asignatura() { idAsignatura = Convert.ToInt16(item.Value) });
+					}
+				}
+				filtroReporte.listaAsignaturas = listaAsignatura;
+
+				int idPeriodo = 0;
+				int.TryParse(ddlPeriodo.SelectedValue, out idPeriodo);
+				if (idPeriodo > 0)
+					filtros.AppendLine("- Periodo: " + ddlPeriodo.SelectedItem.Text);
+				filtroReporte.idPeriodo = idPeriodo;
+
 				BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
 				listaReporte = objBLReporte.GetRptCalificacionesAlumnoPeriodo(filtroReporte);
 
@@ -584,28 +619,18 @@ namespace EDUAR_UI
 		private bool BuscarInasistencias()
 		{
 			StringBuilder filtros = new StringBuilder();
-			//if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlAlumnosTutor.SelectedValue) > 0)
+			int idAlumno = 0;
+			int.TryParse(ddlAlumnosTutor.SelectedValue, out idAlumno);
+			if (idAlumno > 0)
 			{
-				//filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
+				filtroReporteIncidencias.idAlumno = idAlumno;
+				filtros.AppendLine("- Alumno: " + ddlAlumnosTutor.SelectedItem.Text);
 
-
-				filtroReporteIncidencias.idAlumno = 0;
-				if (ddlAlumnosTutor.SelectedIndex > 0)
-					filtroReporteIncidencias.idAlumno = Convert.ToInt32(ddlAlumnosTutor.SelectedValue);
-
-				//List<TipoAsistencia> listaTipoAsistencia = new List<TipoAsistencia>();
-				//foreach (System.Web.UI.WebControls.ListItem item in ddlAsistencia.Items)
-				//{
-				//    if (item.Selected)
-				//    {
-				//        if (!filtros.ToString().Contains("- Tipo de Inasistencia"))
-				//            filtros.AppendLine("- Tipo de Inasistencia");
-				//        filtros.AppendLine(" * " + item.Text);
-				//        listaTipoAsistencia.Add(new TipoAsistencia() { idTipoAsistencia = Convert.ToInt16(item.Value) });
-				//    }
-				//}
-				filtroReporteIncidencias.listaTiposAsistencia = listaTipoAsistencia;
-
+				int idPeriodo = 0;
+				int.TryParse(ddlPeriodo.SelectedValue, out idPeriodo);
+				if (idPeriodo > 0)
+					filtros.AppendLine("- Periodo: " + ddlPeriodo.SelectedItem.Text);
+				filtroReporteIncidencias.idPeriodo = idPeriodo;
 
 				BLRptConsolidadoInasistenciasPeriodo objBLReporte = new BLRptConsolidadoInasistenciasPeriodo();
 				listaReporteInasistencias = objBLReporte.GetRptConsolidadoInasistencias(filtroReporteIncidencias);
@@ -618,8 +643,8 @@ namespace EDUAR_UI
 
 				return true;
 			}
-			//else
-			//    return false;
+			else
+				return false;
 		}
 
 		/// <summary>
@@ -628,80 +653,32 @@ namespace EDUAR_UI
 		private bool BuscarSanciones()
 		{
 			StringBuilder filtros = new StringBuilder();
-			//if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 && Convert.ToInt32(ddlAlumnosTutor.SelectedValue) > 0)
-			//{
-			//filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text + " - Curso: " + ddlCurso.SelectedItem.Text);
-
-			//filtroReporteIncidencias.idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-
-			//filtroReporteIncidencias.idCurso = 0;
-			//if (ddlCurso.SelectedIndex > 0)
-			//    filtroReporteIncidencias.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-
-			//filtroReporteIncidencias.idPeriodo = 0;
-			//if (ddlPeriodo.SelectedIndex > 0)
-			//    filtroReporteIncidencias.idPeriodo = Convert.ToInt32(ddlPeriodo.SelectedValue);
-
-			filtroReporteIncidencias.idAlumno = 0;
-			if (ddlAlumnosTutor.SelectedIndex > 0)
-				filtroReporteIncidencias.idAlumno = Convert.ToInt32(ddlAlumnosTutor.SelectedValue);
-
-			#region --[Tipo Sanción]--
-			//List<TipoSancion> listaTipoSancionSelect = new List<TipoSancion>();
-			//foreach (System.Web.UI.WebControls.ListItem item in ddlTipoSancion.Items)
-			//{
-			//    if (item.Selected)
-			//    {
-			//        if (!filtros.ToString().Contains("- Tipo de Sanción"))
-			//            filtros.AppendLine("- Tipo de Sanción");
-			//        filtros.AppendLine(" * " + item.Text);
-			//        listaTipoSancionSelect.Add(new TipoSancion() { idTipoSancion = Convert.ToInt16(item.Value) });
-			//    }
-			//}
-			//filtroReporteIncidencias.listaTipoSancion = listaTipoSancionSelect;
-			#endregion
-
-			#region --[Motivo Sanción]--
-			List<MotivoSancion> listaMotivoSancionSelect = new List<MotivoSancion>();
-			//foreach (System.Web.UI.WebControls.ListItem item in ddlMotivoSancion.Items)
-			//{
-			//    if (item.Selected)
-			//    {
-			//        if (!filtros.ToString().Contains("- Motivo de Sanción"))
-			//            filtros.AppendLine("- Motivo de Sanción");
-			//        filtros.AppendLine(" * " + item.Text);
-			//        listaMotivoSancionSelect.Add(new MotivoSancion() { idMotivoSancion = Convert.ToInt16(item.Value) });
-			//    }
-			//}
-			//filtroReporteIncidencias.listaMotivoSancion = listaMotivoSancionSelect;
-			#endregion
-
-			BLRptConsolidadoSancionesPeriodo objBLReporte = new BLRptConsolidadoSancionesPeriodo();
-			listaReporteSanciones = objBLReporte.GetRptConsolidadoSanciones(filtroReporteIncidencias);
-
-			listaReporteSanciones.Sort((p, q) => String.Compare(p.alumno, q.alumno));
-
-			filtrosAplicados = filtros.ToString();
-
-			rptResultado.CargarReporte<RptConsolidadoSancionesPeriodo>(listaReporteSanciones);
-
-			return true;
-			//}
-			//else
-			//    return false;
-		}
-
-		/// <summary>
-		/// Cargars the combos.
-		/// </summary>
-		private void CargarCombos()
-		{
-			UIUtilidades.BindCombo<Alumno>(ddlAlumnosTutor, listaAlumnos, "idAlumno", "apellido", "nombre", true);
-
-			if (ddlAlumnosTutor.Items.Count > 0)
+			int idAlumno = 0;
+			int.TryParse(ddlAlumnosTutor.SelectedValue, out idAlumno);
+			if (idAlumno > 0)
 			{
-				ddlAlumnosTutor.SelectedIndex = 1;
+				filtroReporteIncidencias.idAlumno = idAlumno;
+				filtros.AppendLine("- Alumno: " + ddlAlumnosTutor.SelectedItem.Text);
+
+				int idPeriodo = 0;
+				int.TryParse(ddlPeriodo.SelectedValue, out idPeriodo);
+				if (idPeriodo > 0)
+					filtros.AppendLine("- Periodo: " + ddlPeriodo.SelectedItem.Text);
+				filtroReporteIncidencias.idPeriodo = idPeriodo;
+
+				BLRptConsolidadoSancionesPeriodo objBLReporte = new BLRptConsolidadoSancionesPeriodo();
+				listaReporteSanciones = objBLReporte.GetRptConsolidadoSanciones(filtroReporteIncidencias);
+
+				listaReporteSanciones.Sort((p, q) => String.Compare(p.alumno, q.alumno));
+
+				filtrosAplicados = filtros.ToString();
+
+				rptResultado.CargarReporte<RptConsolidadoSancionesPeriodo>(listaReporteSanciones);
+
+				return true;
 			}
+			else
+				return false;
 		}
 
 		/// <summary>
@@ -726,20 +703,25 @@ namespace EDUAR_UI
 		/// <summary>
 		/// Cargars the combo asignatura.
 		/// </summary>
-		private void CargarComboAsignatura()
+		private void CargarComboAsignatura(int idCursoCicloLectivo)
 		{
-			//BLAsignatura objBLAsignatura = new BLAsignatura();
-			//Asignatura materia = new Asignatura();
-			//materia.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
-			//listaAsignatura = objBLAsignatura.GetAsignaturasCurso(materia);
+			BLAlumno objBLAlumno = new BLAlumno();
+			AlumnoCursoCicloLectivo objAlumno = new AlumnoCursoCicloLectivo();
+			objAlumno.cursoCicloLectivo.idCursoCicloLectivo = idCursoCicloLectivo;
+			objAlumno.cursoCicloLectivo.cicloLectivo = cicloLectivoActual;
 
-			//listaAsignatura.Sort((p, q) => string.Compare(p.nombre, q.nombre));
-			//ddlAsignatura.Items.Clear();
+			BLAsignatura objBLAsignatura = new BLAsignatura();
+			Asignatura materia = new Asignatura();
+			materia.cursoCicloLectivo.idCursoCicloLectivo = idCursoCicloLectivo;
+			listaAsignatura = objBLAsignatura.GetAsignaturasCurso(materia);
 
-			//foreach (Asignatura asignatura in listaAsignatura)
-			//{
-			//    ddlAsignatura.Items.Add(new System.Web.UI.WebControls.ListItem(asignatura.nombre, asignatura.idAsignatura.ToString()));
-			//}
+			listaAsignatura.Sort((p, q) => string.Compare(p.nombre, q.nombre));
+			ddlAsignatura.Items.Clear();
+
+			foreach (Asignatura asignatura in listaAsignatura)
+			{
+				ddlAsignatura.Items.Add(new System.Web.UI.WebControls.ListItem(asignatura.nombre, asignatura.idAsignatura.ToString()));
+			}
 
 			if (ddlAsignatura.Items.Count > 0)
 				ddlAsignatura.Disabled = false;
@@ -753,32 +735,26 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				CargarPresentacion();
+
 				switch (rdlAccion.SelectedValue)
 				{
 					case "0":
-						CargarPresentacion();
-						divReporte.Visible = false;
-						btnBuscar.Visible = true;
-						divAccion.Visible = true;
-						divFiltros.Visible = true;
+						lblAsignatura.Visible = true;
+						ddlAsignatura.Visible = true;
 						break;
 					case "1":
-						CargarPresentacion();
-						divReporte.Visible = false;
-						btnBuscar.Visible = true;
-						divAccion.Visible = true;
-						divFiltros.Visible = true;
-						break;
 					case "2":
-						CargarPresentacion();
-						divReporte.Visible = false;
-						btnBuscar.Visible = true;
-						divAccion.Visible = true;
-						divFiltros.Visible = true;
+						lblAsignatura.Visible = false;
+						ddlAsignatura.Visible = false;
 						break;
 					default:
 						break;
 				}
+				divReporte.Visible = false;
+				btnBuscar.Visible = true;
+				divAccion.Visible = true;
+				divFiltros.Visible = true;
 			}
 			catch (Exception ex)
 			{
@@ -808,6 +784,37 @@ namespace EDUAR_UI
 				default:
 					break;
 			}
+		}
+
+		/// <summary>
+		/// Validars the pagina.
+		/// </summary>
+		/// <param name="opcion">The opcion.</param>
+		/// <returns></returns>
+		private string ValidarPagina(string opcion)
+		{
+			string mensaje = string.Empty;
+			int idAlumno = 0;
+			int.TryParse(ddlAlumnosTutor.SelectedValue, out idAlumno);
+			if (!(idAlumno > 0))
+				mensaje += "- Alumno<br />";
+			//switch (opcion)
+			//{
+			//    case "0":
+			//        if (string.IsNullOrEmpty(ddlCurso.SelectedValue) || Convert.ToInt32(ddlCurso.SelectedValue) <= 0)
+			//            mensaje += "- Curso<br />";
+			//        break;
+			//    case "1":
+			//    case "2":
+			//        if (string.IsNullOrEmpty(ddlCicloLectivo.SelectedValue) || Convert.ToInt32(ddlCicloLectivo.SelectedValue) <= 0)
+			//            mensaje = "- Ciclo Lectivo<br />";
+			//        //if (string.IsNullOrEmpty(ddlCurso.SelectedValue) || Convert.ToInt32(ddlCurso.SelectedValue) <= 0)
+			//        //    mensaje += "- Curso<br />";
+			//        break;
+			//    default:
+			//        break;
+			//}
+			return mensaje;
 		}
 		#endregion
 	}

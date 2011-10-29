@@ -220,7 +220,7 @@ namespace EDUAR_BusinessLogic.Common
 				BLAsignatura objBLAsignatura = new BLAsignatura();
 				Asignatura objAsignatura = new Asignatura();
 				objAsignatura.cursoCicloLectivo = objAsignaturas.cursoCicloLectivo;
-				List<Asignatura> listaAsignatura =  objBLAsignatura.GetAsignaturasCurso(objAsignatura);
+				List<Asignatura> listaAsignatura = objBLAsignatura.GetAsignaturasCurso(objAsignatura);
 				Persona objDocente = null;
 				List<Persona> listaDocentes = new List<Persona>();
 				foreach (Asignatura item in listaAsignatura)
@@ -266,6 +266,11 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
 
+		/// <summary>
+		/// Gets the curso actual alumno.
+		/// </summary>
+		/// <param name="cicloLectivo">The ciclo lectivo.</param>
+		/// <returns></returns>
 		public AlumnoCursoCicloLectivo GetCursoActualAlumno(CicloLectivo cicloLectivo)
 		{
 			try
@@ -278,7 +283,30 @@ namespace EDUAR_BusinessLogic.Common
 			}
 			catch (Exception ex)
 			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnosTutor", ClassName), ex,
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCursoActualAlumno", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the asignaturas alumno.
+		/// </summary>
+		/// <param name="cicloLectivo">The ciclo lectivo.</param>
+		/// <returns></returns>
+		public List<AsignaturaCicloLectivo> GetAsignaturasAlumno(AlumnoCursoCicloLectivo alumnoCursoCicloLectivo)
+		{
+			try
+			{
+				//return DataAcces.GetCursoAlumno(Data, cicloLectivo.idCicloLectivo);
+				return new List<AsignaturaCicloLectivo>();
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasAlumno", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
