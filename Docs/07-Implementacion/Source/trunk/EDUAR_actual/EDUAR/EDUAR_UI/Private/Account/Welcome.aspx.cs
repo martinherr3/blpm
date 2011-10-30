@@ -9,6 +9,7 @@ using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Constantes;
 
 namespace EDUAR_UI
 {
@@ -244,15 +245,14 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				fechas.ValidarRangoDesdeHasta(false);
-				CargarAgenda();
-				//if (BuscarSanciones())
-				//{
-				//    divFiltros.Visible = false;
-				//    divReporte.Visible = true;
-				//}
-				//else
-				//{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosRequeridos, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
+				string mensaje = ValidarPagina();
+				if (mensaje == string.Empty)
+				{
+					fechas.ValidarRangoDesdeHasta(false);
+					CargarAgenda();
+				}
+				else
+				{ Master.MostrarMensaje("Faltan Datos", UIConstantesGenerales.MensajeDatosFaltantes + mensaje, EDUAR_Utility.Enumeraciones.enumTipoVentanaInformacion.Advertencia); }
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -356,6 +356,36 @@ namespace EDUAR_UI
 		{
 			lblAlumnos.Visible = mostrar;
 			ddlAlumnos.Visible = mostrar;
+		}
+
+		/// <summary>
+		/// Validars the pagina.
+		/// </summary>
+		/// <returns></returns>
+		private string ValidarPagina()
+		{
+			string mensaje = string.Empty;
+			enumRoles obj = (enumRoles)Enum.Parse(typeof(enumRoles), ObjSessionDataUI.ObjDTUsuario.ListaRoles[0].Nombre);
+			switch (obj)
+			{
+				case enumRoles.Alumno:
+					break;
+				case enumRoles.Docente:
+					int idCurso = 0;
+					int.TryParse(ddlCurso.SelectedValue, out idCurso);
+					if (!(idCurso > 0))
+						mensaje = "- Curso<br />";
+					break;
+				case enumRoles.Tutor:
+					int idAlumno = 0;
+					int.TryParse(ddlAlumnos.SelectedValue, out idAlumno);
+					if (!(idAlumno > 0))
+						mensaje = "- Alumno<br />";
+					break;
+				default:
+					break;
+			}
+			return mensaje;
 		}
 		#endregion
 	}
