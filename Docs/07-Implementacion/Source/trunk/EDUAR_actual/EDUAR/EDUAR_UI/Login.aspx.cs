@@ -65,6 +65,7 @@ namespace EDUAR_UI
 						propSeguridad.Usuario.Nombre = user;
 						objBLSeguridad = new BLSeguridad(propSeguridad);
 						objBLSeguridad.GetUsuario();
+						ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
 						//ObjDTSessionDataUI.ObjDTUsuario.Password = objBLSeguridad.Data.Usuario.Password;
 						Response.Redirect("~/Public/Account/ForgotPassword.aspx", false);
 					}

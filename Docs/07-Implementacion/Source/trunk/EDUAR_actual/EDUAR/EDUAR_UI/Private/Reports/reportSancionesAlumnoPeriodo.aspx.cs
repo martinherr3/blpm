@@ -191,7 +191,7 @@ namespace EDUAR_UI
 
                 if (!Page.IsPostBack)
                 {
-                    TablaPropiaGrafico = null;
+                    TablaGrafico = null;
                     CargarPresentacion();
                     BLRptSancionesAlumnoPeriodo objBLRptSanciones = new BLRptSancionesAlumnoPeriodo();
                     //objBLRptSanciones.GetRptSancionesAlumnoPeriodo(null);
@@ -477,7 +477,7 @@ namespace EDUAR_UI
                group p by p.alumno into g
                select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
 
-            TablaPropiaGrafico = new List<TablaGrafico>();
+            TablaGrafico = new List<TablaGrafico>();
             TablaGrafico tabla3 = new TablaGrafico();
             tabla3.listaCuerpo = new List<List<string>>();
             List<string> encabezado3 = new List<string>();
@@ -488,10 +488,10 @@ namespace EDUAR_UI
             fila3.Add(cantAlumnos.Count().ToString());
             tabla3.listaEncabezados = encabezado3;
             tabla3.listaCuerpo.Add(fila3);
-            TablaPropiaGrafico.Add(tabla3);
+            TablaGrafico.Add(tabla3);
 
             // Calcular Promedio y Desviacion Standard por tipo de Sanciones
-            TablaGrafico.Add("- Desviacion Estandar por tipo de Sanciones: ");
+			//TablaGrafico.Add("- Desviacion Estandar por tipo de Sanciones: ");
             TablaGrafico tabla2 = new TablaGrafico();
             tabla2.listaCuerpo = new List<List<string>>();
             List<string> encabezado2 = new List<string>();
@@ -500,7 +500,7 @@ namespace EDUAR_UI
 
             tabla2.titulo = "Desviacion Estandar por Tipo de Sanción";
             encabezado2.Add("Alumno");
-            encabezado2.Add("Sanciones");
+            encabezado2.Add("Promedio de Sanciones por Ocurrencia");
             encabezado2.Add("Desviación");
 
             double sumaSanciones, promedio, desvStd, dif, cociente, sumaDifCuad = 0;
@@ -542,7 +542,7 @@ namespace EDUAR_UI
             }
             tabla2.listaEncabezados = encabezado2;
             tabla2.listaCuerpo = filasTabla2;
-            TablaPropiaGrafico.Add(tabla2);
+            TablaGrafico.Add(tabla2);
 
             var worstAlumnos =
                  (from p in listaReporte
@@ -572,7 +572,7 @@ namespace EDUAR_UI
                 }
                 tabla4.listaEncabezados = encabezado4;
                 tabla4.listaCuerpo = filasTabla4;
-                TablaPropiaGrafico.Add(tabla4);
+                TablaGrafico.Add(tabla4);
             }
             var SancionesPorTipo =
                   (from p in listaReporte
@@ -601,7 +601,7 @@ namespace EDUAR_UI
             }
             tabla5.listaEncabezados = encabezado5;
             tabla5.listaCuerpo = filasTabla5;
-            TablaPropiaGrafico.Add(tabla5);
+            TablaGrafico.Add(tabla5);
 
             var SancionesPorMotivo =
                   (from p in listaReporte
@@ -629,7 +629,7 @@ namespace EDUAR_UI
             }
             tabla6.listaEncabezados = encabezado6;
             tabla6.listaCuerpo = filasTabla6;
-            TablaPropiaGrafico.Add(tabla6);
+            TablaGrafico.Add(tabla6);
 
             var worstAlumnosByMotivo = (from p in listaReporte
                                         group p by new { p.alumno, p.motivo } into g
@@ -660,7 +660,7 @@ namespace EDUAR_UI
                 }
                 tabla7.listaEncabezados = encabezado7;
                 tabla7.listaCuerpo = filasTabla7;
-                TablaPropiaGrafico.Add(tabla7);
+                TablaGrafico.Add(tabla7);
             }
 
             var worstAlumnosByTipo = (from p in listaReporte
@@ -692,7 +692,7 @@ namespace EDUAR_UI
                 }
                 tabla8.listaEncabezados = encabezado8;
                 tabla8.listaCuerpo = filasTabla8;
-                TablaPropiaGrafico.Add(tabla8);
+                TablaGrafico.Add(tabla8);
             }
         }
         #endregion

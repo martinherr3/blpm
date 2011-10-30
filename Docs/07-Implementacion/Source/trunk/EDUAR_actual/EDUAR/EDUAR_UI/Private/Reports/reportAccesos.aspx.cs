@@ -143,7 +143,7 @@ namespace EDUAR_UI
 
 				if (!Page.IsPostBack)
 				{
-					TablaPropiaGrafico = null;
+					TablaGrafico = null;
 					CargarPresentacion();
 					BLRptAccesos objBLAcceso = new BLRptAccesos();
 					objBLAcceso.GetRptAccesos(null);

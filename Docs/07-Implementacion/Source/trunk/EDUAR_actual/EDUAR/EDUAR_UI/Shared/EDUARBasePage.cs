@@ -123,23 +123,6 @@ namespace EDUAR_UI.Shared
 		}
 
 		/// <summary>
-		/// Contiene información detallada sobre el gráfico que puede generarse
-		/// </summary>
-		public List<string> TablaGrafico
-		{
-			get
-			{
-				if (Session["TablaGrafico1"] == null)
-					TablaGrafico = new List<string>();
-				return (List<string>)Session["TablaGrafico1"];
-			}
-			set
-			{
-				Session["TablaGrafico1"] = value;
-			}
-		}
-
-		/// <summary>
 		/// Gets or sets the ciclo lectivo actual.
 		/// </summary>
 		/// <value>
@@ -165,12 +148,12 @@ namespace EDUAR_UI.Shared
 		/// <value>
 		/// The tabla propia grafico.
 		/// </value>
-		public List<TablaGrafico> TablaPropiaGrafico
+		public List<TablaGrafico> TablaGrafico
 		{
 			get
 			{
 				if (Session["TablaGrafico"] == null)
-					TablaPropiaGrafico = new List<TablaGrafico>();
+					TablaGrafico = new List<TablaGrafico>();
 				return (List<TablaGrafico>)Session["TablaGrafico"];
 			}
 			set

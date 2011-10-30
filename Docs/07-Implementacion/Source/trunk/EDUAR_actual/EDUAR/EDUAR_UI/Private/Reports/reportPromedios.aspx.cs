@@ -296,7 +296,7 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
-					TablaPropiaGrafico = null;
+					TablaGrafico = null;
 					CargarPresentacion();
 					divReporte.Visible = false;
 					btnBuscar.Visible = true;
@@ -1302,7 +1302,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void GenerarDatosGraficoCalificaciones()
 		{
-			TablaPropiaGrafico = new List<TablaGrafico>();
+			TablaGrafico = new List<TablaGrafico>();
 			TablaGrafico tabla3 = new TablaGrafico();
 			tabla3.listaCuerpo = new List<List<string>>();
 			List<string> encabezado3 = new List<string>();
@@ -1325,7 +1325,7 @@ namespace EDUAR_UI
 
 			tabla3.listaEncabezados = encabezado3;
 			tabla3.listaCuerpo.Add(fila3);
-			TablaPropiaGrafico.Add(tabla3);
+			TablaGrafico.Add(tabla3);
 
 			if (ddlAsignatura.Items.Count == 0 || Convert.ToInt32(ddlAsignatura.SelectedIndex) < 0)
 			{
@@ -1359,7 +1359,7 @@ namespace EDUAR_UI
 					}
 					tabla2.listaEncabezados = encabezado2;
 					tabla2.listaCuerpo = filasTabla2;
-					TablaPropiaGrafico.Add(tabla2);
+					TablaGrafico.Add(tabla2);
 				}
 
 				var worstPromedio =
@@ -1394,7 +1394,7 @@ namespace EDUAR_UI
 					}
 					tabla4.listaEncabezados = encabezado4;
 					tabla4.listaCuerpo = filasTabla4;
-					TablaPropiaGrafico.Add(tabla4);
+					TablaGrafico.Add(tabla4);
 				}
 			}
 
@@ -1429,7 +1429,7 @@ namespace EDUAR_UI
 					}
 					tabla5.listaEncabezados = encabezado5;
 					tabla5.listaCuerpo = filasTabla5;
-					TablaPropiaGrafico.Add(tabla5);
+					TablaGrafico.Add(tabla5);
 				}
 			}
 		}
@@ -1439,7 +1439,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void GenerarDatosGraficoInasistencias()
 		{
-			TablaPropiaGrafico = new List<TablaGrafico>();
+			TablaGrafico = new List<TablaGrafico>();
 			TablaGrafico tabla3 = new TablaGrafico();
 			tabla3.listaCuerpo = new List<List<string>>();
 			List<string> encabezado3 = new List<string>();
@@ -1460,7 +1460,7 @@ namespace EDUAR_UI
 
 			tabla3.listaEncabezados = encabezado3;
 			tabla3.listaCuerpo.Add(fila3);
-			TablaPropiaGrafico.Add(tabla3);
+			TablaGrafico.Add(tabla3);
 
 			var worstAlumnos =
 				 (from p in listaReporteInasistencias
@@ -1489,7 +1489,7 @@ namespace EDUAR_UI
 				}
 				tabla2.listaEncabezados = encabezado2;
 				tabla2.listaCuerpo = filasTabla2;
-				TablaPropiaGrafico.Add(tabla2);
+				TablaGrafico.Add(tabla2);
 			}
 
 			var worstAlumnosByMotivo =
@@ -1523,7 +1523,7 @@ namespace EDUAR_UI
 				}
 				tabla5.listaEncabezados = encabezado5;
 				tabla5.listaCuerpo = filasTabla5;
-				TablaPropiaGrafico.Add(tabla5);
+				TablaGrafico.Add(tabla5);
 			}
 		}
 
@@ -1532,7 +1532,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void GenerarDatosGraficoSanciones()
 		{
-			TablaPropiaGrafico = new List<TablaGrafico>();
+			TablaGrafico = new List<TablaGrafico>();
 			TablaGrafico tabla3 = new TablaGrafico();
 			tabla3.listaCuerpo = new List<List<string>>();
 			List<string> encabezado3 = new List<string>();
@@ -1559,7 +1559,7 @@ namespace EDUAR_UI
 
 			tabla3.listaEncabezados = encabezado3;
 			tabla3.listaCuerpo.Add(fila3);
-			TablaPropiaGrafico.Add(tabla3);
+			TablaGrafico.Add(tabla3);
 
 			var worstAlumnos =
 				 (from p in listaReporteSanciones
@@ -1592,7 +1592,7 @@ namespace EDUAR_UI
 				}
 				tabla2.listaEncabezados = encabezado2;
 				tabla2.listaCuerpo = filasTabla2;
-				TablaPropiaGrafico.Add(tabla2);
+				TablaGrafico.Add(tabla2);
 			}
 
 			var SancionesPorTipo =
@@ -1623,7 +1623,7 @@ namespace EDUAR_UI
 			}
 			tabla4.listaEncabezados = encabezado4;
 			tabla4.listaCuerpo = filasTabla4;
-			TablaPropiaGrafico.Add(tabla4);
+			TablaGrafico.Add(tabla4);
 
 			var SancionesPorMotivo = (from p in listaReporteSanciones
 									  group p by p.motivo into g
@@ -1650,7 +1650,7 @@ namespace EDUAR_UI
 			}
 			tabla5.listaEncabezados = encabezado5;
 			tabla5.listaCuerpo = filasTabla5;
-			TablaPropiaGrafico.Add(tabla5);
+			TablaGrafico.Add(tabla5);
 
 			var worstAlumnosByMotivo = (from p in listaReporteSanciones
 										group p by new { p.alumno, p.motivo } into g
@@ -1682,7 +1682,7 @@ namespace EDUAR_UI
 				}
 				tabla6.listaEncabezados = encabezado6;
 				tabla6.listaCuerpo = filasTabla6;
-				TablaPropiaGrafico.Add(tabla6);
+				TablaGrafico.Add(tabla6);
 			}
 			var worstAlumnosByTipo =
 			(from p in listaReporteSanciones
@@ -1715,7 +1715,7 @@ namespace EDUAR_UI
 				}
 				tabla7.listaEncabezados = encabezado7;
 				tabla7.listaCuerpo = filasTabla7;
-				TablaPropiaGrafico.Add(tabla7);
+				TablaGrafico.Add(tabla7);
 			}
 		}
 
