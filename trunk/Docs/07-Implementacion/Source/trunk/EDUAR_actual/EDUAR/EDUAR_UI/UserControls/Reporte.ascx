@@ -44,7 +44,8 @@
             <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-                        AutoGenerateColumns="false" Width="100%" AllowSorting="true" AllowPaging="true" PageSize="30" OnRowCreated="gvwReporte_RowCreated">
+                        AutoGenerateColumns="false" Width="100%" AllowPaging="true"
+                        PageSize="30">
                     </asp:GridView>
                     <asp:Label ID="lblSinDatos" runat="server" Text="La consulta no produjo resultados."
                         Visible="false"></asp:Label>

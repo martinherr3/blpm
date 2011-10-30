@@ -144,95 +144,6 @@ namespace EDUAR_UI.UserControls
 		}
 		#endregion
 
-		public DataView sortDataView(DataView dataView, bool isPageIndexChanging)
-		{
-			try
-			{
-				//if (!string.IsNullOrEmpty(GridSampleSortExpression))
-
-				if (isPageIndexChanging)
-				{
-					dataView.Sort = string.Format("{0} {1}",
-					GridSampleSortExpression,
-					GridSampleSortDirection);
-				}
-				else
-				{
-					dataView.Sort = string.Format("{0} {1}",
-					GridSampleSortExpression,
-					getSortDirection());
-				}
-			}
-			catch (Exception ex)
-			{ throw ex; }
-
-			return dataView;
-		}
-
-
-		protected void gvwReporte_RowCreated(Object sender, GridViewRowEventArgs e)
-		{
-
-			// Use the RowType property to determine whether the 
-			// row being created is the header row. 
-			if (e.Row.RowType == DataControlRowType.Header)
-			{
-				// Call the GetSortColumnIndex helper method to determine
-				// the index of the column being sorted.
-				int sortColumnIndex = GetSortColumnIndex();
-
-				if (sortColumnIndex != -1)
-				{
-					// Call the AddSortImage helper method to add
-					// a sort direction image to the appropriate
-					// column header. 
-					AddSortImage(sortColumnIndex, e.Row);
-				}
-			}
-		}
-
-		// This is a helper method used to determine the index of the
-		// column being sorted. If no column is being sorted, -1 is returned.
-		int GetSortColumnIndex()
-		{
-
-			// Iterate through the Columns collection to determine the index
-			// of the column being sorted.
-			foreach (DataControlField field in gvwReporte.Columns)
-			{
-				if (field.SortExpression == gvwReporte.SortExpression)
-				{
-					return gvwReporte.Columns.IndexOf(field);
-				}
-			}
-
-			return -1;
-		}
-
-		// This is a helper method used to add a sort direction
-		// image to the header of the column being sorted.
-		void AddSortImage(int columnIndex, GridViewRow headerRow)
-		{
-
-			// Create the sorting image based on the sort direction.
-			Image sortImage = new Image();
-			if (gvwReporte.SortDirection == SortDirection.Ascending)
-			{
-				sortImage.ImageUrl = "~/Images/view-sort-ascending.png";
-				sortImage.AlternateText = "Ascending Order";
-			}
-			else
-			{
-				sortImage.ImageUrl = "~/Images/view-sort-descending.png";
-				sortImage.AlternateText = "Descending Order";
-			}
-
-			// Add the image to the appropriate header cell.
-			headerRow.Cells[columnIndex].Controls.Add(sortImage);
-
-		}
-
-
 		#region --[Eventos]--
 		/// <summary>
 		/// Handles the Load event of the Page control.
@@ -247,7 +158,7 @@ namespace EDUAR_UI.UserControls
 				btnVolver.Click += (Volver);
 				btnGraficar.Click += (Graficar);
 				gvwReporte.PageIndexChanging += (PaginandoGrilla);
-				gvwReporte.Sorting += (OrdenandoGrilla);
+				//gvwReporte.Sorting += (OrdenandoGrilla);
 
 				if (!Page.IsPostBack)
 				{
@@ -292,7 +203,7 @@ namespace EDUAR_UI.UserControls
 				if (lista.Count != 0)
 				{
 					GrillaReporte = UIUtilidades.GenerarGrilla(lista, GrillaReporte);
-					GrillaReporte.Sorting += (OrdenandoGrilla);
+					//GrillaReporte.Sorting += (OrdenandoGrilla);
 					btnVolver.Visible = true;
 					btnPDF.Visible = true;
 					btnGraficar.Visible = verBotonGrafico;
@@ -368,16 +279,16 @@ namespace EDUAR_UI.UserControls
 			onPaginandoGrilla(PaginarGrilla, e);
 		}
 
-		protected void OrdenandoGrilla(object sender, GridViewSortEventArgs e)
-		{
-			GridSampleSortExpression = e.SortExpression;
-			int pageIndex = GrillaReporte.PageIndex;
-			GrillaReporte.DataSource = sortDataView(GrillaReporte.DataSource as DataView, false);
-			GrillaReporte.DataBind();
-			GrillaReporte.PageIndex = pageIndex;
+		//protected void OrdenandoGrilla(object sender, GridViewSortEventArgs e)
+		//{
+		//    GridSampleSortExpression = e.SortExpression;
+		//    int pageIndex = GrillaReporte.PageIndex;
+		//    GrillaReporte.DataSource = sortDataView(GrillaReporte.DataSource as DataView, false);
+		//    GrillaReporte.DataBind();
+		//    GrillaReporte.PageIndex = pageIndex;
 
-			onOrdenandoGrilla(OrdenarGrilla, e);
-		}
+		//    onOrdenandoGrilla(OrdenarGrilla, e);
+		//}
 
 		/// <summary>
 		/// Cargars the grilla.
