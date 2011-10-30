@@ -5,11 +5,21 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Modificación de Pregunta Secreta
-    </h2>
+    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+        <tr>
+            <td style="width: 80%; vertical-align: text-top">
+                <h2>
+                    Modificar Pregunta Secreta<hr />
+                </h2>
+            </td>
+            <td style="width: 20%; text-align: right" rowspan="2">
+                <asp:Image ID="Image1" ImageUrl="~/Images/user-properties.png" runat="server" AlternateText="Modificar Pregunta Secreta"
+                    ToolTip="Modificar Pregunta Secreta" />
+            </td>
+        </tr>
+    </table>
     <p class="ui-widget">
-        Use el formulario siguiente para modificar su pregunta y respuesta secreta.
+        Utilice el siguiente formulario para modificar su pregunta y respuesta secreta.
     </p>
     <span class="failureNotification">
         <asp:Literal ID="ErrorMessage" runat="server"></asp:Literal>

@@ -661,6 +661,14 @@ TD.EncabezadoConfirmación
     padding-top: 5px;
 }
 
+.tablaInternaSinBorde
+{
+    width: 100%;
+    border: 0;
+    /*border-top: 1px solid silver;*/
+    padding-top: 5px;
+}
+
 .tablaInternaMensajes
 {
     width: 100%;

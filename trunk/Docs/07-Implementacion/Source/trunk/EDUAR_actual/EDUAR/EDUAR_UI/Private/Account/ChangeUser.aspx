@@ -1,12 +1,23 @@
-﻿<%@ Page Title="Modificar Usuario" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+﻿<%@ Page Title="Modificar Usuarios" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="ChangeUser.aspx.cs" Inherits="EDUAR_UI.ChangeUser" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Modificar Usuario</h2>
+    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+        <tr>
+            <td style="width: 80%; vertical-align: text-top">
+                <h2>
+                    Modificar Usuarios<hr />
+                </h2>
+            </td>
+            <td style="width: 20%; text-align: right" rowspan="2">
+                <asp:Image ID="Image1" ImageUrl="~/Images/user-properties.png" runat="server" AlternateText="Modificar Usuarios"
+                    ToolTip="Modificar Usuarios" />
+            </td>
+        </tr>
+    </table>
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">

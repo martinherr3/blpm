@@ -137,6 +137,7 @@
     <Content Include="Images\Paginador\go-next-view.png" />
     <Content Include="Images\Paginador\go-previous-view.png" />
     <Content Include="Images\prueba.gif" />
+    <Content Include="Images\user-properties.png" />
     <Content Include="Images\ventanaConfirmacion.png" />
     <Content Include="Images\view-sort-ascending.png" />
     <Content Include="Images\view-sort-descending.png" />
