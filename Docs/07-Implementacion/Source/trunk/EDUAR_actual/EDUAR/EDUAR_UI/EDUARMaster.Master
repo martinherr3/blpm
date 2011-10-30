@@ -17,29 +17,29 @@
     <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js"></script>
     <script type="text/javascript">
-//        function timerEvent() {
-//            callServerTask();
-//            setTimeout("timerEvent()", 120000);
-//            return false;
-//        }
+        //        function timerEvent() {
+        //            callServerTask();
+        //            setTimeout("timerEvent()", 120000);
+        //            return false;
+        //        }
 
-//        function callServerTask() {
-//            WebForm_DoCallback('__Page', clientTime(''),
-//                        putCallbackResult, null, clientErrorCallback, true);
-//        }
+        //        function callServerTask() {
+        //            WebForm_DoCallback('__Page', clientTime(''),
+        //                        putCallbackResult, null, clientErrorCallback, true);
+        //        }
 
-//        function putCallbackResult(callbackResult) {
-//            var info = document.getElementById('div_CallbackResult');
-//            info.innerHTML = callbackResult;
-//        }
+        //        function putCallbackResult(callbackResult) {
+        //            var info = document.getElementById('div_CallbackResult');
+        //            info.innerHTML = callbackResult;
+        //        }
 
-//        function clientErrorCallback(error, context) {
-//            //            alert('Callback failed! ' + error);
-//        }
+        //        function clientErrorCallback(error, context) {
+        //            //            alert('Callback failed! ' + error);
+        //        }
 
-//        function clientTime() {
+        //        function clientTime() {
 
-//        }
+        //        }
     </script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
@@ -67,7 +67,7 @@
                     </td>
                     <td style="width: 40%">
                         <div id="divInfo" runat="server" visible="false" style="vertical-align: text-top">
-                            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; text-align: center">
+                            <table border="0" cellpadding="1" cellspacing="5" style="width: 100%; text-align: center">
                                 <tr>
                                     <td>
                                         <asp:Label ID="lblRol" Text="" runat="server" />
@@ -106,9 +106,11 @@
                                     <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; text-align: center">
                                         <tr>
                                             <td style="width: 50%">
-                                                Bienvenido(a) <br /><span class="bold">
+                                                Bienvenido(a)
+                                                <br />
+                                                <span class="bold">
                                                     <asp:LoginName ID="HeadLoginName" runat="server" />
-                                                </span>!
+                                                    ! </span>
                                                 <%--<div id="div_CallbackResult">
                                                     <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl="" OnClick="btnMensaje_Click"
                                                         Style="margin-right: 50px; text-align: center" />
@@ -121,10 +123,14 @@
                                         </tr>
                                         <tr>
                                             <td style="width: 50%;">
+                                                <%--<asp:Image ID="Image1" ImageUrl="~/Images/help.png" runat="server" AlternateText="Ayuda"
+                                                    ToolTip="Ayuda" />--%>
+                                                <asp:HyperLink ID="linkAyuda" NavigateUrl="" ImageUrl="~/Images/help.png" runat="server"
+                                                    ToolTip="Ayuda" Style="cursor: pointer" Target="_blank" />
                                             </td>
                                             <td align="center" style="width: 50%">
                                                 [
-                                                <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutText="Cerrar sesión" OnLoggingOut="HeadLoginStatus_LoggingOut" />
+                                                <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutText="Cerrar Sesión" OnLoggingOut="HeadLoginStatus_LoggingOut" />
                                                 ]
                                             </td>
                                         </tr>
