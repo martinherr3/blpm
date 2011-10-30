@@ -139,7 +139,7 @@ namespace EDUAR_UI
 				rptAccesos.VolverClick += (VolverReporte);
 				rptAccesos.PaginarGrilla += (PaginarGrilla);
 				rptAccesos.GraficarClick += (btnGraficar);
-				rptAccesos.OrdenarGrilla += (OrdenarGrilla);
+				//rptAccesos.OrdenarGrilla += (OrdenarGrilla);
 
 				if (!Page.IsPostBack)
 				{
@@ -214,6 +214,11 @@ namespace EDUAR_UI
 			{ Master.ManageExceptions(ex); }
 		}
 
+		/// <summary>
+		/// BTNs the graficar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnGraficar(object sender, EventArgs e)
 		{
 			try
@@ -352,15 +357,6 @@ namespace EDUAR_UI
 			{
 				Master.ManageExceptions(ex);
 			}
-		}
-
-		protected void OrdenarGrilla(object sender, GridViewSortEventArgs e)
-		{
-			rptAccesos.GridSampleSortExpression = e.SortExpression;
-			int pageIndex = rptAccesos.GrillaReporte.PageIndex;
-			rptAccesos.GrillaReporte.DataSource = rptAccesos.sortDataView(rptAccesos.GrillaReporte.DataSource as DataView, false);
-			rptAccesos.GrillaReporte.DataBind();
-			rptAccesos.GrillaReporte.PageIndex = pageIndex;
 		}
 		#endregion
 
