@@ -578,9 +578,9 @@ namespace EDUAR_UI
 
 			//TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
 
-			TablaGrafico.Add("- Registros Totales: " + listaReporte.Count.ToString());
+			//TablaGrafico.Add("- Registros Totales: " + listaReporte.Count.ToString());
 
-			TablaPropiaGrafico = new List<TablaGrafico>();
+			TablaGrafico = new List<TablaGrafico>();
 			TablaGrafico tabla3 = new TablaGrafico();
 			tabla3.listaCuerpo = new List<List<string>>();
 			List<string> encabezado3 = new List<string>();
@@ -597,7 +597,7 @@ namespace EDUAR_UI
 
 			tabla3.listaEncabezados = encabezado3;
 			tabla3.listaCuerpo.Add(fila3);
-			TablaPropiaGrafico.Add(tabla3);
+			TablaGrafico.Add(tabla3);
 
 			//if (!string.IsNullOrEmpty(ddlAsignatura.Value) && Convert.ToInt32(ddlAsignatura.Value) > 0)
 			//{
@@ -737,7 +737,7 @@ namespace EDUAR_UI
 				{
 					tabla2.listaEncabezados = encabezado2;
 					tabla2.listaCuerpo = filasTabla2;
-					TablaPropiaGrafico.Add(tabla2);
+					TablaGrafico.Add(tabla2);
 				}
 			}
 		}

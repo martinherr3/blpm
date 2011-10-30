@@ -9,6 +9,8 @@ using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
 using System.Collections.Generic;
 using System.Data;
+using EDUAR_Entities.Security;
+using EDUAR_BusinessLogic.Security;
 
 namespace EDUAR_UI
 {
@@ -119,15 +121,12 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
-					//string divID = "div" + ObjSessionDataUI.ObjDTUsuario.ListaRoles[0].Nombre;
-					//foreach (Control item in Page.Form.Controls)
-					//{
-					//    if (item.ID.Equals("MainContent") && (HtmlGenericControl)item.FindControl(divID) != null)
-					//    {
-					//        ((HtmlGenericControl)item.FindControl(divID)).Visible = true;
-					//        break;
-					//    }
-					//}
+					//Cargo en sesión los datos del usuario logueado
+					DTSeguridad propSeguridad = new DTSeguridad();
+					propSeguridad.Usuario.Nombre = User.Identity.Name;
+					BLSeguridad objBLSeguridad =  new BLSeguridad(propSeguridad);
+					objBLSeguridad.GetUsuario();
+					ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
 
 					if (User.IsInRole(enumRoles.Alumno.ToString()))
 					{

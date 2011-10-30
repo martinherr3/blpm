@@ -20,6 +20,7 @@
         <siteMapNode url="" title="Mi Cuenta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
             <siteMapNode url="~/Private/Account/ChangePassword.aspx" title="Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
             <siteMapNode url="~/Private/Account/ChangeQuestion.aspx" title="Pregunta Secreta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
+            <siteMapNode url="~/Private/Account/ChangeEmail.aspx" title="Actualizar Email" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
         </siteMapNode>
         <siteMapNode url="" title="Reportes" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo,Preceptor" >
             <siteMapNode url="~/Private/Reports/reportAccesos.aspx" title="Accesos" roles="Administrador" />

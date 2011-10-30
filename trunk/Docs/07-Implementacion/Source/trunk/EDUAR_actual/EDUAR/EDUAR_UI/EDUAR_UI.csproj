@@ -167,6 +167,7 @@
     <Content Include="Images\web\user-online.png" />
     <Content Include="Images\web\validate.png" />
     <Content Include="Images\web\vision.png" />
+    <Content Include="Private\Account\ChangeEmail.aspx" />
     <Content Include="Private\Account\ChangeQuestion.aspx" />
     <Content Include="Private\Account\ChangeRolAccess.aspx" />
     <Content Include="Private\Account\ChangeUser.aspx" />
@@ -286,6 +287,13 @@
     </Compile>
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Account\ChangeEmail.aspx.cs">
+      <DependentUpon>ChangeEmail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Account\ChangeEmail.aspx.designer.cs">
+      <DependentUpon>ChangeEmail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Account\ChangeQuestion.aspx.cs">
       <DependentUpon>ChangeQuestion.aspx</DependentUpon>

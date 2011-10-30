@@ -73,7 +73,6 @@ namespace EDUAR_UI
 						Response.Redirect("~/Public/Account/ForgotPassword.aspx", false);
 					}
 				}
-
 			}
 			catch (Exception ex)
 			{

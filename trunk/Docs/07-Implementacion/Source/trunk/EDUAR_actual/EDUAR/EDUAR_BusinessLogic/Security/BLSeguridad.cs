@@ -103,6 +103,7 @@ namespace EDUAR_BusinessLogic.Security
 				//Data.Usuario.Password = user.GetPassword();
 				Data.Usuario.Aprobado = user.IsApproved;
 				Data.Usuario.PaswordPregunta = user.PasswordQuestion;
+				Data.Usuario.Email = user.Email;
 
 				ObtenerRolesUsuario();
 			}
@@ -476,7 +477,7 @@ namespace EDUAR_BusinessLogic.Security
 					if (!Roles.RoleExists(Data.Rol.Nombre))
 					{
 						Roles.CreateRole(Data.Rol.Nombre);
-						
+
 						Data.Rol = dataAccess.GetRol(Data.Rol);
 					}
 					else
@@ -639,6 +640,33 @@ namespace EDUAR_BusinessLogic.Security
 			catch (Exception ex)
 			{
 				throw new CustomizedException(string.Format("Fallo en {0} - RecuperarPassword", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
+		/// <summary>
+		/// Actualizars the email.
+		/// </summary>
+		public void ActualizarEmail()
+		{
+			try
+			{
+				MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
+				user.Email = Data.Usuario.Email;
+				Membership.UpdateUser(user);
+			}
+			catch (ProviderException ex)
+			{
+				throw new CustomizedException(string.Format("El email {0} ya se encuentra registrado", Data.Usuario.Email), ex,
+												  enuExceptionType.ValidationException);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - ActualizarEmail", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
 		}

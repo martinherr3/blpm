@@ -167,7 +167,7 @@ namespace EDUAR_UI
 
                 if (!Page.IsPostBack)
                 {
-                    TablaPropiaGrafico = null;
+                    TablaGrafico = null;
                     CargarPresentacion();
                     //BLRptInasistenciasAlumnoPeriodo objBLRptInasistencias = new BLRptInasistenciasAlumnoPeriodo();
                     //objBLRptInasistencias.GetRptInasistenciasAlumnoPeriodo(null);
@@ -590,7 +590,7 @@ namespace EDUAR_UI
 
             //TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
 
-            TablaPropiaGrafico = new List<TablaGrafico>();
+            TablaGrafico = new List<TablaGrafico>();
             TablaGrafico tabla3 = new TablaGrafico();
             tabla3.listaCuerpo = new List<List<string>>();
             List<string> encabezado3 = new List<string>();
@@ -606,7 +606,7 @@ namespace EDUAR_UI
 
             tabla3.listaEncabezados = encabezado3;
             tabla3.listaCuerpo.Add(fila3);
-            TablaPropiaGrafico.Add(tabla3);
+            TablaGrafico.Add(tabla3);
 
             var worstAlumnos =
                  (from p in listaReporte
@@ -637,7 +637,7 @@ namespace EDUAR_UI
                 }
                 tabla2.listaEncabezados = encabezado2;
                 tabla2.listaCuerpo = filasTabla2;
-                TablaPropiaGrafico.Add(tabla2);
+                TablaGrafico.Add(tabla2);
             }
             
             var FaltasPorMotivo =
@@ -668,7 +668,7 @@ namespace EDUAR_UI
             }
             tabla4.listaEncabezados = encabezado4;
             tabla4.listaCuerpo = filasTabla4;
-            TablaPropiaGrafico.Add(tabla4);
+            TablaGrafico.Add(tabla4);
 
             var worstAlumnosByMotivo =
             (from p in listaReporte
@@ -701,7 +701,7 @@ namespace EDUAR_UI
                 }
                 tabla5.listaEncabezados = encabezado5;
                 tabla5.listaCuerpo = filasTabla5;
-                TablaPropiaGrafico.Add(tabla5);
+                TablaGrafico.Add(tabla5);
             }
         }
 

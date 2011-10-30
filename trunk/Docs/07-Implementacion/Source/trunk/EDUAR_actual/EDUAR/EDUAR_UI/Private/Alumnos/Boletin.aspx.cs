@@ -592,6 +592,8 @@ namespace EDUAR_UI
 				}
 				filtroReporte.listaAsignaturas = listaAsignatura;
 
+				filtroReporte.idCicloLectivo = cicloLectivoActual.idCicloLectivo;
+
 				int idPeriodo = 0;
 				int.TryParse(ddlPeriodo.SelectedValue, out idPeriodo);
 				if (idPeriodo > 0)
@@ -626,6 +628,8 @@ namespace EDUAR_UI
 				filtroReporteIncidencias.idAlumno = idAlumno;
 				filtros.AppendLine("- Alumno: " + ddlAlumnosTutor.SelectedItem.Text);
 
+				filtroReporte.idCicloLectivo = cicloLectivoActual.idCicloLectivo;
+
 				int idPeriodo = 0;
 				int.TryParse(ddlPeriodo.SelectedValue, out idPeriodo);
 				if (idPeriodo > 0)
@@ -659,6 +663,8 @@ namespace EDUAR_UI
 			{
 				filtroReporteIncidencias.idAlumno = idAlumno;
 				filtros.AppendLine("- Alumno: " + ddlAlumnosTutor.SelectedItem.Text);
+
+				filtroReporte.idCicloLectivo = cicloLectivoActual.idCicloLectivo;
 
 				int idPeriodo = 0;
 				int.TryParse(ddlPeriodo.SelectedValue, out idPeriodo);
