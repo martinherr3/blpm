@@ -294,7 +294,7 @@ namespace EDUAR_UI
 				control.LogoutPageUrl = "~/Login.aspx";
 				control.LogoutAction = LogoutAction.RedirectToLoginPage;
 				Response.Cookies.Clear();
-				HttpContext.Current.User = null;
+				//HttpContext.Current.User = null;
 				Session.Abandon();
 				FormsAuthentication.SignOut();
 			}
