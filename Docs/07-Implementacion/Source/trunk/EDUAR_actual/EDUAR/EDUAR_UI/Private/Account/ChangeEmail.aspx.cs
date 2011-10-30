@@ -13,7 +13,6 @@ namespace EDUAR_UI
 	{
 		#region --[Atributos]--
 		private BLSeguridad atrBLSeguridad;
-		private BLPersona atrBLPersona;
 		#endregion
 
 		#region --[Propiedades]--

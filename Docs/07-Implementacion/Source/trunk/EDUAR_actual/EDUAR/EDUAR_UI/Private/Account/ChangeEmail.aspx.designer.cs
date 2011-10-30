@@ -13,6 +13,15 @@ namespace EDUAR_UI {
     public partial class ChangeEmail {
         
         /// <summary>
+        /// Control Image1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image1;
+        
+        /// <summary>
         /// Control udpFiltros.
         /// </summary>
         /// <remarks>
@@ -22,13 +31,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpFiltros;
         
         /// <summary>
-        /// Control btnGuardar.
+        /// Control ErrorMessage.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnGuardar;
+        protected global::System.Web.UI.WebControls.Literal ErrorMessage;
         
         /// <summary>
         /// Control RegisterUserValidationSummary.
@@ -67,7 +76,7 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblEmailActual;
         
         /// <summary>
-        /// Control lblNuevo Email.
+        /// Control lblNuevoEmail.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
@@ -92,6 +101,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator EmailRequired;
+        
+        /// <summary>
+        /// Control btnGuardar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
         
         /// <summary>
         /// Propiedad Master.

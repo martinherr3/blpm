@@ -1,15 +1,25 @@
-﻿<%@ Page Title="Cambiar contraseña" Language="C#" MasterPageFile="~/EDUARMaster.master"
+﻿<%@ Page Title="Modificar contraseña" Language="C#" MasterPageFile="~/EDUARMaster.master"
     AutoEventWireup="true" CodeBehind="ChangePassword.aspx.cs" Inherits="EDUAR_UI.ChangePassword" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <h2>
-        Cambiar contraseña
-    </h2>
+    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+        <tr>
+            <td style="width: 80%; vertical-align: text-top">
+                <h2>
+                    Modificar contraseña<hr />
+                </h2>
+            </td>
+            <td style="width: 20%; text-align: right" rowspan="2">
+                <asp:Image ID="Image1" ImageUrl="~/Images/user-properties.png" runat="server" AlternateText="Modificar contraseña"
+                    ToolTip="Modificar contraseña" />
+            </td>
+        </tr>
+    </table>
     <p class="ui-widget">
-        Use el formulario siguiente para cambiar la contraseña.
+        Utilice el siguiente formulario para modificar su contraseña.
     </p>
     <p class="ui-widget">
         La contraseña debe ser alfanumérica y tener una longitud mínima de
@@ -60,7 +70,7 @@
                                 <asp:Button ID="CancelPushButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                     Text="Cancelar" />
                             </td>
-                             <td style="width: 20%">
+                            <td style="width: 20%">
                                 <asp:Button ID="ChangePasswordPushButton" runat="server" CommandName="ChangePassword"
                                     Text="Cambiar contraseña" ValidationGroup="ChangeUserPasswordValidationGroup" />
                             </td>
