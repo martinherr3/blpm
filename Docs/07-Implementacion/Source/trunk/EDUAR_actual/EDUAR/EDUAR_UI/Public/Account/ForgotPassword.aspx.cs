@@ -65,10 +65,12 @@ namespace EDUAR_UI
             try
             {
                 Master.BotonAvisoAceptar += (VentanaAceptar);
-
+				
                 if (!Page.IsPostBack)
                 {
-                    propSeguridad = new DTSeguridad();
+					Response.Cookies.Clear();
+					HttpContext.Current.User = null;
+					propSeguridad = new DTSeguridad();
                     if (ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial == true)
                     {
                         ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial = false;
@@ -100,7 +102,7 @@ namespace EDUAR_UI
         {
             try
             {
-                Response.Redirect("~/Default.aspx", false);
+				Response.Redirect("~/Private/Account/Welcome.aspx", false);
             }
             catch (Exception ex)
             {

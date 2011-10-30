@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using EDUAR_UI.Utilidades;
+using System.Web;
 
 namespace EDUAR_UI
 {
@@ -48,7 +49,5 @@ namespace EDUAR_UI
 			// o SQLServer, el evento no se genera.
 			Session.Abandon();
 		}
-
-
 	}
 }

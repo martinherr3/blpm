@@ -99,7 +99,7 @@ namespace EDUAR_UI
 				//Llama a la funcionalidad que redirecciona a la pagina de Login cuando finaliza el tiempo de session
 				((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
 
-				if (ObjSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty)
+				if (HttpContext.Current.User == null || (ObjSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty))
 				{
 					HttpContext.Current.User = null;
 					ObjSessionDataUI = null;
@@ -132,7 +132,8 @@ namespace EDUAR_UI
 						if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
 							rol = enumRoles.Tutor.ToString();
 
-						((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")).NavigateUrl = string.Format("~/Private/Manuales/{0}/index.htm", rol);
+						if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")) != null)
+							((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")).NavigateUrl = string.Format("~/Private/Manuales/{0}/index.htm", rol);
 
 						#region --[Mensajes en header]--
 						//StringBuilder s = new StringBuilder();
@@ -265,8 +266,13 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				Session.Abandon();
+				HttpContext.Current = null;
+				ObjSessionDataUI = null;
+				objSessionPersona = null;
+				FormsAuthentication.SignOut();
 				HeadLoginStatus_LoggingOut(sender, null);
-				Response.Redirect("~/Login.aspx", false);
+				Response.Redirect("~/Default.aspx", false);
 			}
 			catch (Exception ex)
 			{
@@ -287,7 +293,9 @@ namespace EDUAR_UI
 				LoginStatus control = ((LoginStatus)Page.Master.FindControl("HeadLoginView").FindControl("HeadLoginStatus"));
 				control.LogoutPageUrl = "~/Login.aspx";
 				control.LogoutAction = LogoutAction.RedirectToLoginPage;
-				Session.Clear();
+				Response.Cookies.Clear();
+				HttpContext.Current.User = null;
+				Session.Abandon();
 				FormsAuthentication.SignOut();
 			}
 			catch (Exception ex)
