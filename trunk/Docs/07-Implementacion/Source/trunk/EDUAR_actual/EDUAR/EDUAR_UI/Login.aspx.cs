@@ -60,12 +60,12 @@ namespace EDUAR_UI
 					if (Request.Params["const"] != null)
 					{
 						string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString());
-						ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial = true;
 						ObjSessionDataUI.ObjDTUsuario.Nombre = user;
 						propSeguridad.Usuario.Nombre = user;
 						objBLSeguridad = new BLSeguridad(propSeguridad);
 						objBLSeguridad.GetUsuario();
 						ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
+						ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial = true;
 						//ObjDTSessionDataUI.ObjDTUsuario.Password = objBLSeguridad.Data.Usuario.Password;
 						Response.Redirect("~/Public/Account/ForgotPassword.aspx", false);
 					}
@@ -140,7 +140,7 @@ namespace EDUAR_UI
 					FormsAuthentication.SetAuthCookie(LoginUser.UserName.Trim(), false);
 					ObjSessionDataUI.ObjDTUsuario = objDTSeguridad.Usuario;
 					if (ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial)
-						Response.Redirect("~/Private/Account/ChangePassword.aspx", true);
+						Response.Redirect("~/Private/Account/ChangePassword.aspx", false);
 				}
 				else
 				{

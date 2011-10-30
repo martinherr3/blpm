@@ -1,16 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
+using EDUAR_BusinessLogic.Security;
 using EDUAR_Entities;
+using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
-using System.Collections.Generic;
-using System.Data;
-using EDUAR_Entities.Security;
-using EDUAR_BusinessLogic.Security;
 
 namespace EDUAR_UI
 {
@@ -124,7 +122,7 @@ namespace EDUAR_UI
 					//Cargo en sesión los datos del usuario logueado
 					DTSeguridad propSeguridad = new DTSeguridad();
 					propSeguridad.Usuario.Nombre = User.Identity.Name;
-					BLSeguridad objBLSeguridad =  new BLSeguridad(propSeguridad);
+					BLSeguridad objBLSeguridad = new BLSeguridad(propSeguridad);
 					objBLSeguridad.GetUsuario();
 					ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
 
