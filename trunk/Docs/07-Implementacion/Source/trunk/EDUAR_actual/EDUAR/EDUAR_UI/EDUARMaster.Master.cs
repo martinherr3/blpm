@@ -111,6 +111,27 @@ namespace EDUAR_UI
 
 						CargaInforUsuario();
 
+						// ~/Private/Manuales/{0}/index.htm
+						string rol = string.Empty;
+						if (HttpContext.Current.User.IsInRole(enumRoles.Administrador.ToString()))
+							rol = enumRoles.Administrador.ToString();
+						if (HttpContext.Current.User.IsInRole(enumRoles.Administrativo.ToString()))
+							rol = enumRoles.Administrativo.ToString();
+						if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
+							rol = enumRoles.Alumno.ToString();
+						if (HttpContext.Current.User.IsInRole(enumRoles.Director.ToString()))
+							rol = enumRoles.Director.ToString();
+						if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+							rol = enumRoles.Docente.ToString();
+						if (HttpContext.Current.User.IsInRole(enumRoles.Preceptor.ToString()))
+							rol = enumRoles.Preceptor.ToString();
+						if (HttpContext.Current.User.IsInRole(enumRoles.Psicopedagogo.ToString()))
+							rol = enumRoles.Psicopedagogo.ToString();
+						if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
+							rol = enumRoles.Tutor.ToString();
+
+						((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")).NavigateUrl = string.Format("~/Private/Manuales/{0}/index.htm", rol);
+
 						#region --[Mensajes en header]--
 						//StringBuilder s = new StringBuilder();
 						//string er;
