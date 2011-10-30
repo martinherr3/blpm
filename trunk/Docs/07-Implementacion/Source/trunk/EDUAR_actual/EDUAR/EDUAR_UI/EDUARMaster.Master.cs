@@ -100,8 +100,10 @@ namespace EDUAR_UI
 				((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
 
 				if (ObjSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty)
+				{
 					HttpContext.Current.User = null;
-
+					ObjSessionDataUI = null;
+				}
 				if (HttpContext.Current.User == null)
 					NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
 				else

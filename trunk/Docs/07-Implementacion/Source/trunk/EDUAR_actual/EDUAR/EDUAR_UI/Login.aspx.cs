@@ -137,9 +137,10 @@ namespace EDUAR_UI
 					e.Authenticated = true;
 					FormsAuthentication.SignOut();
 					FormsAuthentication.Initialize();
-					FormsAuthentication.SetAuthCookie(LoginUser.UserName.Trim(), true);
+					FormsAuthentication.SetAuthCookie(LoginUser.UserName.Trim(), false);
 					ObjSessionDataUI.ObjDTUsuario = objDTSeguridad.Usuario;
-					//Response.Redirect(FormsAuthentication.GetRedirectUrl("~/Private/Account/Welcome.aspx", false));
+					if (ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial)
+						Response.Redirect("~/Private/Account/ChangePassword.aspx", true);
 				}
 				else
 				{

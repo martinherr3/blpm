@@ -185,6 +185,14 @@
     <Content Include="Private\Alumnos\CitacionesTutores.aspx" />
     <Content Include="Private\Alumnos\ManageCitaciones.aspx" />
     <Content Include="Private\Alumnos\Boletin.aspx" />
+    <Content Include="Private\Manuales\Administrador\index.htm" />
+    <Content Include="Private\Manuales\Administrativo\index.htm" />
+    <Content Include="Private\Manuales\Alumno\index.htm" />
+    <Content Include="Private\Manuales\Director\index.htm" />
+    <Content Include="Private\Manuales\Docente\index.htm" />
+    <Content Include="Private\Manuales\Preceptor\index.htm" />
+    <Content Include="Private\Manuales\Psicopedagogo\index.htm" />
+    <Content Include="Private\Manuales\Tutor\index.htm" />
     <Content Include="Private\Mensajes\MsjeEntrada.aspx" />
     <Content Include="Private\Mensajes\MsjeEnviado.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
@@ -624,7 +632,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Private\Manuales\Docente\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EDUARMaster.Master" />
@@ -670,6 +677,15 @@
     <Content Include="Private\Agenda\web.config" />
     <Content Include="Private\Mensajes\web.config" />
     <Content Include="Public\Account\web.config" />
+    <Content Include="Private\Manuales\web.config" />
+    <Content Include="Private\Manuales\Docente\web.config" />
+    <Content Include="Private\Manuales\Tutor\web.config" />
+    <Content Include="Private\Manuales\Psicopedagogo\web.config" />
+    <Content Include="Private\Manuales\Preceptor\web.config" />
+    <Content Include="Private\Manuales\Director\web.config" />
+    <Content Include="Private\Manuales\Alumno\web.config" />
+    <Content Include="Private\Manuales\Administrativo\web.config" />
+    <Content Include="Private\Manuales\Administrador\web.config" />
     <None Include="Scripts\css\blitzer\images\Thumbs.db" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>

@@ -170,11 +170,11 @@
                                                     <asp:DropDownList runat="server" ID="ddlMeses" OnSelectedIndexChanged="ddlMeses_SelectedIndexChanged"
                                                         AutoPostBack="true">
                                                     </asp:DropDownList>
-                                                </td>
-                                                <td>
-                                                    <asp:DropDownList runat="server" ID="ddlDia">
+                                                    <asp:DropDownList runat="server" ID="ddlDia" Enabled="false">
                                                     </asp:DropDownList>
                                                 </td>
+                                               <%--<td>
+                                                </td>--%>
                                             </tr>
                                         </table>
                                     </ContentTemplate>
