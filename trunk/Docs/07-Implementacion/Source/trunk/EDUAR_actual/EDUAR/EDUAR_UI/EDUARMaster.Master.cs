@@ -266,13 +266,14 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				UIUtilidades.EliminarArchivosSession(Session.SessionID);
+				Response.Cookies.Clear();
 				Session.Abandon();
-				HttpContext.Current = null;
+				//HttpContext.Current = null;
 				ObjSessionDataUI = null;
 				objSessionPersona = null;
 				FormsAuthentication.SignOut();
-				HeadLoginStatus_LoggingOut(sender, null);
-				Response.Redirect("~/Default.aspx", false);
+				Response.Redirect("~/Login.aspx", false);
 			}
 			catch (Exception ex)
 			{
