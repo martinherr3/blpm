@@ -310,6 +310,28 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+        /// <summary>
+        /// Gets the alumnos por niveles y ciclos lectivos.
+        /// </summary>
+        /// <param name="cicloLectivo">The ciclo lectivo.</param>
+        /// <returns></returns>
+        public List<Alumno> GetAlumnosNivelCicloLectivo(List<CicloLectivo> cicloLectivo, List<Nivel> nivel)
+        {
+            try
+            {
+                return DataAcces.GetAlumnosNivelCicloLectivo(cicloLectivo,nivel);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnosNivelCicloLectivo", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
 		#endregion
 	}
 }
