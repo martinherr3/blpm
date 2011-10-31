@@ -291,9 +291,9 @@ namespace EDUAR_UI
                 rptPromediosAnalizados.graficoReporte.LimpiarSeries();
 				string alumno = string.Empty;
 
-				if (ddlAsignatura.SelectedIndex > 0)
-				{ // so reporte   distribucion de calificaciones por asignatura 
-					foreach (ListItem itemAsig in ddlAsignatura.Items)
+				if (ddlAlumno.SelectedIndex > 0)
+				{ // so reporte   distribucion de calificaciones por alumno 
+					foreach (ListItem itemAsig in ddlAlumno.Items)
 					{
 						if (itemAsig.Selected)
 						{
@@ -301,7 +301,7 @@ namespace EDUAR_UI
 							foreach (ListItem itemCiclo in ddlCicloLectivo.Items)
 							{
 								sumaNotas = 0;
-								var listaParcial = listaReporteAnalisis.FindAll(p => p.asignatura == itemAsig.Text && p.ciclolectivo == itemCiclo.Text);
+								var listaParcial = listaReporteAnalisis.FindAll(p => p.alumno == itemAsig.Text && p.ciclolectivo == itemCiclo.Text);
 
 								if (listaParcial.Count > 0)
 								{
@@ -323,11 +323,45 @@ namespace EDUAR_UI
                                 rptPromediosAnalizados.graficoReporte.AgregarSerie(itemAsig.Text, dt, "ciclolectivo", "promedio");
 							}
 						}
-                        rptPromediosAnalizados.graficoReporte.Titulo = "Promedio de Calificaciones por Asignatura \n";
+                        rptPromediosAnalizados.graficoReporte.Titulo = "Promedio de Calificaciones por Alumno \n";
 					}
-
 				}
-				else
+                if (ddlAsignatura.SelectedIndex > 0 && ddlAlumno.SelectedIndex < 0)
+                { // so reporte   distribucion de calificaciones por alumno 
+                    foreach (ListItem itemAsig in ddlAsignatura.Items)
+                    {
+                        if (itemAsig.Selected)
+                        {
+                            var serie = new List<RptRendimientoHistorico>();
+                            foreach (ListItem itemCiclo in ddlCicloLectivo.Items)
+                            {
+                                sumaNotas = 0;
+                                var listaParcial = listaReporteAnalisis.FindAll(p => p.asignatura == itemAsig.Text && p.ciclolectivo == itemCiclo.Text);
+
+                                if (listaParcial.Count > 0)
+                                {
+                                    foreach (var nota in listaParcial)
+                                    {
+                                        sumaNotas += Convert.ToDouble(nota.promedio);
+                                    }
+
+                                    serie.Add(new RptRendimientoHistorico
+                                    {
+                                        promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
+                                        ciclolectivo = itemCiclo.Text
+                                    });
+                                }
+                            }
+                            if (serie != null && serie.Count > 0)
+                            {
+                                DataTable dt = UIUtilidades.BuildDataTable<RptRendimientoHistorico>(serie);
+                                rptPromediosAnalizados.graficoReporte.AgregarSerie(itemAsig.Text, dt, "ciclolectivo", "promedio");
+                            }
+                        }
+                        rptPromediosAnalizados.graficoReporte.Titulo = "Promedio de Calificaciones por Asignatura \n";
+                    }
+                }
+				if (ddlAlumno.SelectedIndex < 0 && ddlNivel.SelectedIndex <0)
 				{ // promedio de calificaciones por año por asignatura
 					var Ciclos = (from p in listaReporteAnalisis
 								  group p by p.ciclolectivo into g
@@ -348,19 +382,10 @@ namespace EDUAR_UI
 					   (from p in listaReporteAnalisis
 						where p.ciclolectivo == itemCiclo.CicloLectivo
 						group p by p.ciclolectivo into g
-						//orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
-						select new { CicloLectivo = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct();
 
-						//sumaNotas = 0;
-						////var listaParcial = listaReporte.FindAll(p => p.asignatura == item.nombre && p.ciclolectivo == itemCiclo.CicloLectivo);
-						//var listaParcial = listaReporte.FindAll(p => p.ciclolectivo == itemCiclo.CicloLectivo);
+                        select new { CicloLectivo = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct();
 
-						//if (listaParcial.Count > 0)
 						{
-							//foreach (var nota in listaParcial)
-							//{
-							//    sumaNotas += Convert.ToDouble(nota.promedio);
-							//}
 							foreach (var item in Promedio)
 							{
 								serie.Add(new RptRendimientoHistorico
@@ -382,7 +407,8 @@ namespace EDUAR_UI
                     rptPromediosAnalizados.graficoReporte.Titulo = "Promedio de Calificaciones por Ciclo Lectivo \n";
                     rptPromediosAnalizados.graficoReporte.habilitarTorta = false;
 				}
-				GenerarDatosGrafico();
+				
+                GenerarDatosGrafico();
                 rptPromediosAnalizados.graficoReporte.GraficarLinea();
                 rptPromediosAnalizados.CargarReporte<RptAnalisisCicloLectivoCursoAsignaturaAlumno>(listaReporteAnalisis);
 			}
