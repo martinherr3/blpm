@@ -45,17 +45,17 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista calificaciones.
 		/// </value>
-		public List<RptRendimientoHistorico> listaReporte
+		public List<RptRendimientoHistorico> listaReporteRendimiento
 		{
 			get
 			{
-				if (Session["listaReporte"] == null)
-					listaReporte = new List<RptRendimientoHistorico>();
-				return (List<RptRendimientoHistorico>)Session["listaReporte"];
+				if (Session["listaReporteRendimiento"] == null)
+					listaReporteRendimiento = new List<RptRendimientoHistorico>();
+				return (List<RptRendimientoHistorico>)Session["listaReporteRendimiento"];
 			}
 			set
 			{
-				Session["listaReporte"] = value;
+				Session["listaReporteRendimiento"] = value;
 			}
 		}
 
@@ -182,8 +182,8 @@ namespace EDUAR_UI
 					divFiltros.Visible = true;
 					divReporte.Visible = false;
 				}
-				if (listaReporte != null)
-					rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
+				if (listaReporteRendimiento != null)
+					rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporteRendimiento);
 			}
 			catch (Exception ex)
 			{
@@ -289,7 +289,7 @@ namespace EDUAR_UI
 							foreach (ListItem itemCiclo in ddlCicloLectivo.Items)
 							{
 								sumaNotas = 0;
-								var listaParcial = listaReporte.FindAll(p => p.asignatura == itemAsig.Text && p.ciclolectivo == itemCiclo.Text);
+								var listaParcial = listaReporteRendimiento.FindAll(p => p.asignatura == itemAsig.Text && p.ciclolectivo == itemCiclo.Text);
 
 								if (listaParcial.Count > 0)
 								{
@@ -317,7 +317,7 @@ namespace EDUAR_UI
 				}
 				else
 				{ // promedio de calificaciones por año por asignatura
-					var Ciclos = (from p in listaReporte
+					var Ciclos = (from p in listaReporteRendimiento
 								  group p by p.ciclolectivo into g
 								  //orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
 								  select new { CicloLectivo = g.Key }).Distinct();
@@ -333,7 +333,7 @@ namespace EDUAR_UI
 						//{
 
 						var Promedio =
-					   (from p in listaReporte
+					   (from p in listaReporteRendimiento
 						where p.ciclolectivo == itemCiclo.CicloLectivo
 						group p by p.ciclolectivo into g
 						//orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
@@ -372,7 +372,7 @@ namespace EDUAR_UI
 				}
 				GenerarDatosGrafico();
 				rptCalificaciones.graficoReporte.GraficarLinea();
-				rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
+				rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporteRendimiento);
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -393,7 +393,7 @@ namespace EDUAR_UI
 				{
 					rptCalificaciones.GrillaReporte.PageIndex = pagina;
 
-					rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
+					rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporteRendimiento);
 				}
 			}
 			catch (Exception ex)
@@ -484,10 +484,10 @@ namespace EDUAR_UI
 				//	filtroReporte.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
 				BLRptCalificacionesAlumnoPeriodo objBLReporte = new BLRptCalificacionesAlumnoPeriodo();
-				listaReporte = objBLReporte.GetRptRendimientoHistorico(filtroReporte);
+				listaReporteRendimiento = objBLReporte.GetRptRendimientoHistorico(filtroReporte);
 				filtrosAplicados = filtros.ToString();
 
-				rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporte);
+				rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporteRendimiento);
 				return true;
 			}
 			else
@@ -572,7 +572,7 @@ namespace EDUAR_UI
 		private void GenerarDatosGrafico()
 		{
 			var cantAsignaturas =
-				from p in listaReporte
+				from p in listaReporteRendimiento
 				group p by p.asignatura into g
 				select new { Asignatura = g.Key, Cantidad = g.Count() };
 
@@ -688,13 +688,13 @@ namespace EDUAR_UI
 				List<string> fila2 = new List<string>();
 
 				var Ciclos =
-				   (from p in listaReporte
+				   (from p in listaReporteRendimiento
 					group p by p.ciclolectivo into g
 					//orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
 					select new { CicloLectivo = g.Key }).Distinct();
 
 				var Asignaturas =
-				   (from p in listaReporte
+				   (from p in listaReporteRendimiento
 					group p by p.asignatura into g
 					//orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
 					select new { Asignatura = g.Key }).Distinct();
@@ -717,7 +717,7 @@ namespace EDUAR_UI
 						//encabezado2.Add(item.CicloLectivo);
 
 						var Promedio =
-						   (from p in listaReporte
+						   (from p in listaReporteRendimiento
 							where p.ciclolectivo == item.CicloLectivo && p.asignatura == materia.Asignatura
 							group p by p.asignatura into g
 							//orderby g.Average(p => Convert.ToDouble(p.promedio)) descending
