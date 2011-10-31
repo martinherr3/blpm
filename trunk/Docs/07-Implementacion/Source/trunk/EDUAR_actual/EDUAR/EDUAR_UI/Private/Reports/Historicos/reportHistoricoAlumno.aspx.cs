@@ -487,7 +487,7 @@ namespace EDUAR_UI
                         listaAlumno.Add(new Alumno() { idAlumno = Convert.ToInt16(item.Value) });
                     }
                 }
-                filtroAnalisis.listaNiveles = listaNiveles;
+                filtroAnalisis.listaAlumnos = listaAlumno;
 
 				BLRptAnalisisAgrupadosCicloLectivoCursoAsignaturaAlumno objBLReporte = new BLRptAnalisisAgrupadosCicloLectivoCursoAsignaturaAlumno();
 				listaReporte = objBLReporte.GetRptAnalisisCicloLectivoCursoAsignaturaAlumno(filtroAnalisis);
