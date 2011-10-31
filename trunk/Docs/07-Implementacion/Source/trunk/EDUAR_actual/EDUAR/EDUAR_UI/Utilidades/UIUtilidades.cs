@@ -536,7 +536,7 @@ namespace EDUAR_UI.Utilidades
 		public string titulo { get; set; }
 		public List<string> listaEncabezados { get; set; }
 		public List<List<string>> listaCuerpo { get; set; }
-
+		public List<string> listaPie { get; set; }
 		//public TablaGrafico()
 		//{
 		//    listaCuerpo = new List<List<string>>();
