@@ -1,5 +1,5 @@
-﻿<%@ Page Title="Análisis de promedios por Ciclo Lectivo, Curso, Asignatura y Alumno" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx.cs" Inherits="EDUAR_UI.reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno" %>
+﻿<%@ Page Title="Histórico Alumno" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+    AutoEventWireup="true" CodeBehind="reportHistoricoAlumno.aspx.cs" Inherits="EDUAR_UI.reportHistoricoAlumno" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Reporte.ascx" TagName="Reporte" TagPrefix="rep" %>
@@ -22,10 +22,10 @@
 
         alertTest();    
     </script>
-    <h2>Análisis de promedios por Ciclo Lectivo, Curso, Asignatura y Alumno</h2>
+    <h2>
+        Histórico Por Ciclo Lectivo, Curso, Asignatura y Alumno</h2>
     <br />
     <div id="divFiltros" runat="server">
-        
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td align="right">
@@ -34,7 +34,6 @@
                 </td>
             </tr>
         </table>
-
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
                 <td valign="top" class="TDCriterios25">

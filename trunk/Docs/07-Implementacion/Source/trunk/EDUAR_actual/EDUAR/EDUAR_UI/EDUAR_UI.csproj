@@ -196,7 +196,7 @@
     <Content Include="Private\Mensajes\MsjeEntrada.aspx" />
     <Content Include="Private\Mensajes\MsjeEnviado.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
-    <Content Include="Private\Reports\Analisis\reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx" />
+    <Content Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx" />
     <Content Include="Private\Reports\Historicos\reportRendimiento.aspx" />
     <Content Include="Private\Reports\PrintReport.aspx" />
     <Content Include="Private\Reports\reportAccesos.aspx" />
@@ -432,12 +432,12 @@
     <Compile Include="Private\Mensajes\MsjeRedactar.aspx.designer.cs">
       <DependentUpon>MsjeRedactar.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Private\Reports\Analisis\reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx.cs">
-      <DependentUpon>reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx</DependentUpon>
+    <Compile Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx.cs">
+      <DependentUpon>reportHistoricoAlumno.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Private\Reports\Analisis\reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx.designer.cs">
-      <DependentUpon>reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx</DependentUpon>
+    <Compile Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx.designer.cs">
+      <DependentUpon>reportHistoricoAlumno.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Reports\Historicos\reportRendimiento.aspx.cs">
       <DependentUpon>reportRendimiento.aspx</DependentUpon>
@@ -694,6 +694,7 @@
     <Content Include="Private\Manuales\Alumno\web.config" />
     <Content Include="Private\Manuales\Administrativo\web.config" />
     <Content Include="Private\Manuales\Administrador\web.config" />
+    <Content Include="Private\Reports\Historicos\web.config" />
     <None Include="Scripts\css\blitzer\images\Thumbs.db" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>
