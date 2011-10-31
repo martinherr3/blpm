@@ -256,6 +256,64 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+        /// <summary>
+        /// Gets the alumnos por niveles y ciclos lectivos.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Alumno> GetAlumnosNivelCicloLectivo(List<CicloLectivo> cicloLectivo, List<Nivel> nivel)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AlumnosPorNivelCicloLectivo_select");
+                if (cicloLectivo != null && nivel != null)
+                {
+                    string ciclosLectivosParam = string.Empty;
+                    if (cicloLectivo.Count > 0)
+                    {
+                        foreach (CicloLectivo unCicloLectivo in cicloLectivo)
+                            ciclosLectivosParam += string.Format("{0},", unCicloLectivo.idCicloLectivo);
+
+                        ciclosLectivosParam = ciclosLectivosParam.Substring(0, ciclosLectivosParam.Length - 1);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaCicloLectivo", DbType.String, ciclosLectivosParam);
+                    }
+
+                    string nivelesParam = string.Empty;
+                    if (nivel.Count > 0)
+                    {
+                        foreach (Nivel unNivel in nivel)
+                            nivelesParam += string.Format("{0},", unNivel.idNivel);
+
+                        nivelesParam = nivelesParam.Substring(0, nivelesParam.Length - 1);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaNivel", DbType.String, nivelesParam);
+                    }
+                }
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+                List<Alumno> listaAlumnos = new List<Alumno>();
+                Alumno objAlumno = null;
+                while (reader.Read())
+                {
+                    objAlumno = new Alumno();
+                    objAlumno.idAlumno = Convert.ToInt32(reader["idAlumno"]);
+                    objAlumno.nombre = reader["Nombre"].ToString();
+                    
+                    listaAlumnos.Add(objAlumno);
+                }
+                return listaAlumnos;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnosNivelCicloLectivo()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAlumnosNivelCicloLectivo()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
 		#endregion
 	}
 }

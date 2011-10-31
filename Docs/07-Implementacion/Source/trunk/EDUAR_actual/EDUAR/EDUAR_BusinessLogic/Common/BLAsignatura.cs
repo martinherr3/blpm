@@ -225,6 +225,28 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+        /// <summary>
+        /// Gets the asignaturas curso.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Asignatura> GetAsignaturasNivelesCiclosLectivos(List<CicloLectivo> cicloLectivo, List<Nivel> nivel)
+        {
+            try
+            {
+                return DataAcces.GetAsignaturasNivelesCiclosLectivos(cicloLectivo, nivel);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivelesCiclosLectivos", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }

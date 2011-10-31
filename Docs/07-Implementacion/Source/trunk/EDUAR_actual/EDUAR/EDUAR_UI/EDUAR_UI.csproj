@@ -196,6 +196,7 @@
     <Content Include="Private\Mensajes\MsjeEntrada.aspx" />
     <Content Include="Private\Mensajes\MsjeEnviado.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
+    <Content Include="Private\Reports\Analisis\reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx" />
     <Content Include="Private\Reports\Historicos\reportRendimiento.aspx" />
     <Content Include="Private\Reports\PrintReport.aspx" />
     <Content Include="Private\Reports\reportAccesos.aspx" />
@@ -430,6 +431,13 @@
     </Compile>
     <Compile Include="Private\Mensajes\MsjeRedactar.aspx.designer.cs">
       <DependentUpon>MsjeRedactar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Reports\Analisis\reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx.cs">
+      <DependentUpon>reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Reports\Analisis\reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx.designer.cs">
+      <DependentUpon>reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Reports\Historicos\reportRendimiento.aspx.cs">
       <DependentUpon>reportRendimiento.aspx</DependentUpon>

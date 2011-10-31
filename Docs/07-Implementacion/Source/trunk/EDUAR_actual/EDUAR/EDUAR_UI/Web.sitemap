@@ -32,6 +32,9 @@
           <siteMapNode url="" title="Historicos" roles="Administrador,Director" >
               <siteMapNode url="~/Private/Reports/Historicos/reportRendimiento.aspx" title="Rendimiento" roles="Administrador,Director" />
           </siteMapNode>
+        <siteMapNode url="" title="Análisis agrupados" roles="Administrador,Director" >
+          <siteMapNode url="~/Private/Reports/Analisis/reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno.aspx" title="Histórico alumno, curso y asignatura" roles="Administrador,Director" />
+        </siteMapNode>
         <siteMapNode url="" title="Roles" roles="Administrador" >
             <siteMapNode url="~/Private/Account/Profiles.aspx" title="Administrar" roles="Administrador" />
             <!--<siteMapNode url="~/Private/Account/ChangeRolAccess.aspx" title="Nivel Acceso" roles="Administrador" visible="false" />-->

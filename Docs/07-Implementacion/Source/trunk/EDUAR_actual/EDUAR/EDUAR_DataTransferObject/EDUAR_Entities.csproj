@@ -123,6 +123,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reports\RptAnalisisCicloLectivoCursoAsignaturaAlumno.cs" />
+    <Compile Include="Reports\FilAnalisisAgrupados.cs" />
     <Compile Include="Reports\RptPromedioCalificacionesAsignaturaCursoPeriodo.cs" />
     <Compile Include="Reports\RptConsolidadoSancionesPeriodo.cs" />
     <Compile Include="Reports\RptConsolidadoInasistenciasPeriodo.cs" />
