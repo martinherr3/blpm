@@ -46,7 +46,7 @@ namespace EDUAR_UI.Utilidades
 			int columnCount = dtReporte.Columns.Count;
 			int rowCount = dtReporte.Rows.Count;
 
-            Document documento = new Document(PageSize.A4, 10, 10, 80, 50);
+			Document documento = new Document(PageSize.A4, 10, 10, 80, 50);
 			PdfWriter writerPdf = PdfWriter.GetInstance(documento, HttpContext.Current.Response.OutputStream);
 			writerPdf.PageEvent = ev;
 			documento.Open();
@@ -110,7 +110,7 @@ namespace EDUAR_UI.Utilidades
 
 			grdTable.CompleteRow();
 
-            grdTable.HeaderRows = 1;
+			grdTable.HeaderRows = 1;
 
 			foreach (DataRow fila in dtReporte.Rows)
 			{
@@ -151,7 +151,7 @@ namespace EDUAR_UI.Utilidades
 			objBLPersona.GetPersonaByEntidad();
 			usuario = objBLPersona.Data;
 
-            Document documento = new Document(PageSize.A4, 10, 10, 80, 50);
+			Document documento = new Document(PageSize.A4, 10, 10, 80, 50);
 			PdfWriter writerPdf = PdfWriter.GetInstance(documento, HttpContext.Current.Response.OutputStream);
 			writerPdf.PageEvent = ev;
 			documento.Open();
@@ -227,7 +227,7 @@ namespace EDUAR_UI.Utilidades
 			objBLPersona.GetPersonaByEntidad();
 			usuario = objBLPersona.Data;
 
-            Document documento = new Document(PageSize.A4, 10, 10, 80, 50);
+			Document documento = new Document(PageSize.A4, 10, 10, 80, 50);
 
 			PdfWriter writerPdf = PdfWriter.GetInstance(documento, HttpContext.Current.Response.OutputStream);
 			writerPdf.PageEvent = ev;
@@ -295,6 +295,15 @@ namespace EDUAR_UI.Utilidades
 						foreach (var celda in fila)
 						{
 							tabla.AddCell(new PdfPCell(new Phrase(celda.ToString(), font10N)));
+						}
+						tabla.CompleteRow();
+					}
+
+					if (item.listaPie != null)
+					{
+						foreach (var celdaFooter in item.listaPie)
+						{
+							tabla.AddCell(new PdfPCell(new Phrase(celdaFooter.ToString(), font12B)));
 						}
 						tabla.CompleteRow();
 					}
