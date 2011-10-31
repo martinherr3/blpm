@@ -16,7 +16,7 @@ using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
-    public partial class reportAnalisisAgrupadoCicloLectivoCursoAsignaturaAlumno : EDUARBasePage
+    public partial class reportHistoricoAlumno : EDUARBasePage
 	{
 		#region --[Propiedades]--
 		/// <summary>
@@ -441,8 +441,8 @@ namespace EDUAR_UI
 				{
 					if (item.Selected)
 					{
-                        if (!filtros.ToString().Contains("- Asignatura(s)"))
-                            filtros.AppendLine("- Asignatura(s)");
+                        if (!filtros.ToString().Contains("- Asignatura"))
+                            filtros.AppendLine("- Asignatura");
 						filtros.AppendLine(" * " + item.Text);
 						listaAsignatura.Add(new Asignatura() { idAsignatura = Convert.ToInt16(item.Value) });
 					}
@@ -454,8 +454,8 @@ namespace EDUAR_UI
 				{
 					if (item.Selected)
 					{
-                        if (!filtros.ToString().Contains("- Ciclo(s) Lectivo(s)"))
-                            filtros.AppendLine("- Ciclo(s) Lectivo(s)");
+                        if (!filtros.ToString().Contains("- Ciclo Lectivo"))
+                            filtros.AppendLine("- Ciclo Lectivo");
 						filtros.AppendLine(" * " + item.Text);
 						listaCicloLectivo.Add(new CicloLectivo() { idCicloLectivo = Convert.ToInt16(item.Value) });
 					}
@@ -468,8 +468,8 @@ namespace EDUAR_UI
                 {
                     if (item.Selected)
                     {
-                        if (!filtros.ToString().Contains("- Nivel(es)"))
-                            filtros.AppendLine("- Nivel(es)");
+                        if (!filtros.ToString().Contains("- Nivel"))
+                            filtros.AppendLine("- Nivel");
                         filtros.AppendLine(" * " + item.Text);
                         listaNivel.Add(new Nivel() { idNivel = Convert.ToInt16(item.Value) });
                     }
@@ -481,8 +481,8 @@ namespace EDUAR_UI
                 {
                     if (item.Selected)
                     {
-                        if (!filtros.ToString().Contains("- Alumno(s)"))
-                            filtros.AppendLine("- Alumno(s)");
+                        if (!filtros.ToString().Contains("- Alumno"))
+                            filtros.AppendLine("- Alumno");
                         filtros.AppendLine(" * " + item.Text);
                         listaAlumno.Add(new Alumno() { idAlumno = Convert.ToInt16(item.Value) });
                     }
