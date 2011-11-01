@@ -87,13 +87,13 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista consolidada inasistencias.
 		/// </value>
-		public List<RptConsolidadoInasistenciasPeriodo> listaReporteInasistencias
+		public List<RptInasistenciasAlumnoPeriodo> listaReporteInasistencias
 		{
 			get
 			{
 				if (Session["listaConsolidadaInasistencias"] == null)
-					listaReporteInasistencias = new List<RptConsolidadoInasistenciasPeriodo>();
-				return (List<RptConsolidadoInasistenciasPeriodo>)Session["listaConsolidadaInasistencias"];
+					listaReporteInasistencias = new List<RptInasistenciasAlumnoPeriodo>();
+				return (List<RptInasistenciasAlumnoPeriodo>)Session["listaConsolidadaInasistencias"];
 			}
 			set
 			{
@@ -107,13 +107,13 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista consolidada sanciones.
 		/// </value>
-		public List<RptConsolidadoSancionesPeriodo> listaReporteSanciones
+		public List<RptSancionesAlumnoPeriodo> listaReporteSanciones
 		{
 			get
 			{
 				if (Session["listaConsolidadaSanciones"] == null)
-					listaReporteSanciones = new List<RptConsolidadoSancionesPeriodo>();
-				return (List<RptConsolidadoSancionesPeriodo>)Session["listaConsolidadaSanciones"];
+					listaReporteSanciones = new List<RptSancionesAlumnoPeriodo>();
+				return (List<RptSancionesAlumnoPeriodo>)Session["listaConsolidadaSanciones"];
 			}
 			set
 			{
@@ -463,10 +463,10 @@ namespace EDUAR_UI
 						rptResultado.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
 						break;
 					case "1":
-						rptResultado.CargarReporte<RptConsolidadoInasistenciasPeriodo>(listaReporteInasistencias);
+						rptResultado.CargarReporte<RptInasistenciasAlumnoPeriodo>(listaReporteInasistencias);
 						break;
 					case "2":
-						rptResultado.CargarReporte<RptConsolidadoSancionesPeriodo>(listaReporteSanciones);
+						rptResultado.CargarReporte<RptSancionesAlumnoPeriodo>(listaReporteSanciones);
 						break;
 					default:
 						break;
@@ -636,14 +636,14 @@ namespace EDUAR_UI
 					filtros.AppendLine("- Periodo: " + ddlPeriodo.SelectedItem.Text);
 				filtroReporteIncidencias.idPeriodo = idPeriodo;
 
-				BLRptConsolidadoInasistenciasPeriodo objBLReporte = new BLRptConsolidadoInasistenciasPeriodo();
-				listaReporteInasistencias = objBLReporte.GetRptConsolidadoInasistencias(filtroReporteIncidencias);
+				BLRptInasistenciasAlumnoPeriodo objBLReporte = new BLRptInasistenciasAlumnoPeriodo();
+				listaReporteInasistencias = objBLReporte.GetRptInasistenciasAlumnoPeriodo(filtroReporteIncidencias);
 
 				listaReporteInasistencias.Sort((p, q) => String.Compare(p.alumno, q.alumno));
 
 				filtrosAplicados = filtros.ToString();
 
-				rptResultado.CargarReporte<RptConsolidadoInasistenciasPeriodo>(listaReporteInasistencias);
+				rptResultado.CargarReporte<RptInasistenciasAlumnoPeriodo>(listaReporteInasistencias);
 
 				return true;
 			}
@@ -672,14 +672,14 @@ namespace EDUAR_UI
 					filtros.AppendLine("- Periodo: " + ddlPeriodo.SelectedItem.Text);
 				filtroReporteIncidencias.idPeriodo = idPeriodo;
 
-				BLRptConsolidadoSancionesPeriodo objBLReporte = new BLRptConsolidadoSancionesPeriodo();
-				listaReporteSanciones = objBLReporte.GetRptConsolidadoSanciones(filtroReporteIncidencias);
+				BLRptSancionesAlumnoPeriodo objBLReporte = new BLRptSancionesAlumnoPeriodo();
+				listaReporteSanciones = objBLReporte.GetRptSancionesAlumnoPeriodo(filtroReporteIncidencias);
 
 				listaReporteSanciones.Sort((p, q) => String.Compare(p.alumno, q.alumno));
 
 				filtrosAplicados = filtros.ToString();
 
-				rptResultado.CargarReporte<RptConsolidadoSancionesPeriodo>(listaReporteSanciones);
+				rptResultado.CargarReporte<RptSancionesAlumnoPeriodo>(listaReporteSanciones);
 
 				return true;
 			}
@@ -781,11 +781,11 @@ namespace EDUAR_UI
 					break;
 				case "1":
 					if (listaReporteInasistencias != null)
-						rptResultado.CargarReporte<RptConsolidadoInasistenciasPeriodo>(listaReporteInasistencias);
+						rptResultado.CargarReporte<RptInasistenciasAlumnoPeriodo>(listaReporteInasistencias);
 					break;
 				case "2":
 					if (listaReporteSanciones != null)
-						rptResultado.CargarReporte<RptConsolidadoSancionesPeriodo>(listaReporteSanciones);
+						rptResultado.CargarReporte<RptSancionesAlumnoPeriodo>(listaReporteSanciones);
 					break;
 				default:
 					break;
