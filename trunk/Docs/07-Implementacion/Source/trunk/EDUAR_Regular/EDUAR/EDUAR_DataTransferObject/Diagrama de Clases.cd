@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="EventoInstitucional" Collapsed="true">
+    <Position X="23" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgBAAAASAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAQI=</HashCode>
+      <FileName>DataTransferObjects\Package Agenda\EventoInstitucional.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotivoCitacion" Collapsed="true">
+    <Position X="23" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Agenda\MotivoCitacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TipoEventoInstitucional" Collapsed="true">
+    <Position X="21.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Agenda\TipoEventoInstitucional.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Foro" Collapsed="true">
+    <Position X="16" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACABAAABAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Comunicaciones\Foro.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Post" Collapsed="true">
+    <Position X="14.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAABAAAAAAAAAAAAAAAAAQAAAAAAAAAAEI=</HashCode>
+      <FileName>DataTransferObjects\Package Comunicaciones\Post.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Topico" Collapsed="true">
+    <Position X="24.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAACAEAAAAAAAAAAAQAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Comunicaciones\Topico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Clasificacion" Collapsed="true">
+    <Position X="23" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Encuestas\Clasificacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Encuesta" Collapsed="true">
+    <Position X="16" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAICAAAAACAAAAAgAAAAAAAAAAAAAAAAAAECQ=</HashCode>
+      <FileName>DataTransferObjects\Package Encuestas\Encuesta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Escala" Collapsed="true">
+    <Position X="17.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Encuestas\Escala.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ponderacion" Collapsed="true">
+    <Position X="24.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Encuestas\Ponderacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pregunta" Collapsed="true">
+    <Position X="16" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAIAgAAAAAAAAAAAAAAAAAAAAIAAACAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Encuestas\Pregunta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mensaje" Collapsed="true">
+    <Position X="19.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAABAAAAAAAAAAIAAAAAAAABAAAAAAI=</HashCode>
+      <FileName>DataTransferObjects\Package Comunicaciones\Mensaje.cs</FileName>
+      <NewMemberFileName>DataTransferObjects\Package Mensajeria\Mensaje.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TipoNovedad" Collapsed="true">
+    <Position X="23" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Novedades Aulicas\TipoNovedad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Perfil" Collapsed="true">
+    <Position X="17.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAgAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Perfiles\Perfil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Permiso" Collapsed="true">
+    <Position X="21.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAACAAAQCAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Perfiles\Permiso.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Usuario" Collapsed="true">
+    <Position X="14.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASABAACAAAgAAAAAAAAAAQCAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Perfiles\Usuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BibliografiaRecomendadaContenido" Collapsed="true">
+    <Position X="16" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAACAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Planificacion Clases\BibliografiaRecomendadaContenido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClaseDictada" Collapsed="true">
+    <Position X="21.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAAAAEAAAAEAAAAAARAAAAAAAAgAAAAAEA=</HashCode>
+      <FileName>DataTransferObjects\Package Planificacion Clases\ClaseDictada.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Contenido" Collapsed="true">
+    <Position X="24.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAACAAAAAAAAABAAAAAAAAAAAAAACAAAEAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Planificacion Clases\Contenido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Orientacion" Collapsed="true">
+    <Position X="16" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAACAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Planificacion Clases\Orientacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Periodo" Collapsed="true">
+    <Position X="19.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>DataTransferObjects\Package Planificacion Clases\Periodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TemaContenido" Collapsed="true">
+    <Position X="19.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Planificacion Clases\TemaContenido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EscalaCalificacion" Collapsed="true">
+    <Position X="19.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>DataTransferObjects\Package Principales\EscalaCalificacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotivoAusencia" Collapsed="true">
+    <Position X="21.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Principales\MotivoAusencia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MotivoSancion" Collapsed="true">
+    <Position X="24.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataTransferObjects\Package Principales\MotivoSancion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ValoresEscalaCalificacion" Collapsed="true">
+    <Position X="16" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>DataTransferObjects\Package Principales\ValoresEscalaCalificacion.cs</FileName>
+      <NewMemberFileName>DataTransferObjects\Package Usuarios\ValoresEscalaCalificacion.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
