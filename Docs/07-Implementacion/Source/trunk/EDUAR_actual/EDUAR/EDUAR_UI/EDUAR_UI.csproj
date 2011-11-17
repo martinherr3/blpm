@@ -102,6 +102,7 @@
     <Content Include="DLL\itextsharp.xtra.dll" />
     <Content Include="favicon.ico" />
     <Content Include="Images\404.png" />
+    <Content Include="Images\botonCalcular.png" />
     <Content Include="Images\botonEnviarMail.png" />
     <Content Include="Images\botonEvaluacion.png" />
     <Content Include="Images\botonExcursion.png" />
@@ -202,6 +203,7 @@
     <Content Include="Private\Reports\reportAccesos.aspx" />
     <Content Include="Private\Reports\reportCalificacionesAlumnoPeriodo.aspx" />
     <Content Include="Private\Reports\reportInasistenciasAlumnoPeriodo.aspx" />
+    <Content Include="Private\Reports\reportIndicadores.aspx" />
     <Content Include="Private\Reports\reportPromedios.aspx" />
     <Content Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx" />
     <Content Include="Public\Account\ForgotPassword.aspx" />
@@ -473,6 +475,13 @@
     </Compile>
     <Compile Include="Private\Reports\reportInasistenciasAlumnoPeriodo.aspx.designer.cs">
       <DependentUpon>reportInasistenciasAlumnoPeriodo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Reports\reportIndicadores.aspx.cs">
+      <DependentUpon>reportIndicadores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Reports\reportIndicadores.aspx.designer.cs">
+      <DependentUpon>reportIndicadores.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Reports\reportPromedios.aspx.cs">
       <DependentUpon>reportPromedios.aspx</DependentUpon>
