@@ -277,6 +277,7 @@
     <Content Include="Scripts\JQuery.js" />
     <Content Include="Scripts\jquery.maskedinput-1.3.js" />
     <Content Include="UserControls\Calendario.ascx" />
+    <Content Include="UserControls\Criterio.ascx" />
     <Content Include="UserControls\Editor.ascx" />
     <Content Include="UserControls\Grafico.ascx" />
     <Content Include="UserControls\Hora.ascx" />
@@ -609,6 +610,13 @@
     <Compile Include="UserControls\Calendario.ascx.designer.cs">
       <DependentUpon>Calendario.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Criterio.ascx.cs">
+      <DependentUpon>Criterio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Criterio.ascx.designer.cs">
+      <DependentUpon>Criterio.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Editor.ascx.cs">
       <DependentUpon>Editor.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -645,6 +653,7 @@
       <DependentUpon>VentanaInfo.ascx</DependentUpon>
     </Compile>
     <Compile Include="Utilidades\ExportPDF.cs" />
+    <Compile Include="Utilidades\Promethee.cs" />
     <Compile Include="Utilidades\UIUtilidades.cs" />
   </ItemGroup>
   <ItemGroup>
