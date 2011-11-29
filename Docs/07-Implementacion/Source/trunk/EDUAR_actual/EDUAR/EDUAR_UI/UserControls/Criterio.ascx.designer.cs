@@ -7,129 +7,171 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace EDUAR_UI {
+namespace EDUAR_UI.UserControls {
     
     
-    public partial class reportIndicadores {
+    public partial class Criterio {
         
         /// <summary>
-        /// Control lblCicloLectivo.
+        /// Control txtCriterio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCicloLectivo;
+        protected global::System.Web.UI.WebControls.TextBox txtCriterio;
         
         /// <summary>
-        /// Control divAccion.
+        /// Control maskCriterio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAccion;
+        protected global::AjaxControlToolkit.MaskedEditExtender maskCriterio;
         
         /// <summary>
-        /// Control btnCalcular.
+        /// Control extCriterio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnCalcular;
+        protected global::AjaxControlToolkit.PopupControlExtender extCriterio;
         
         /// <summary>
-        /// Control divFiltros.
+        /// Control Panel1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divFiltros;
+        protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
-        /// Control lblCurso.
+        /// Control Label1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurso;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// Control ddlCurso.
+        /// Control pseudoCriterio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCurso;
+        protected global::System.Web.UI.WebControls.RadioButtonList pseudoCriterio;
         
         /// <summary>
-        /// Control lblCalificaciones.
+        /// Control udpLimites.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCalificaciones;
+        protected global::System.Web.UI.UpdatePanel udpLimites;
         
         /// <summary>
-        /// Control criterioCalificacion.
+        /// Control lblLimiteIndiferencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::EDUAR_UI.UserControls.Criterio criterioCalificacion;
+        protected global::System.Web.UI.WebControls.Label lblLimiteIndiferencia;
         
         /// <summary>
-        /// Control lblInasistencias.
+        /// Control txtLimiteIndiferencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInasistencias;
+        protected global::System.Web.UI.WebControls.TextBox txtLimiteIndiferencia;
         
         /// <summary>
-        /// Control criterioInasistencia.
+        /// Control MaskedEditExtender1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::EDUAR_UI.UserControls.Criterio criterioInasistencia;
+        protected global::AjaxControlToolkit.MaskedEditExtender MaskedEditExtender1;
         
         /// <summary>
-        /// Control lblSanciones.
+        /// Control lblLimitePreferencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSanciones;
+        protected global::System.Web.UI.WebControls.Label lblLimitePreferencia;
         
         /// <summary>
-        /// Control criterioSancion.
+        /// Control txtLimitePreferencia.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::EDUAR_UI.UserControls.Criterio criterioSancion;
+        protected global::System.Web.UI.WebControls.TextBox txtLimitePreferencia;
         
         /// <summary>
-        /// Propiedad Master.
+        /// Control MaskedEditExtender2.
         /// </summary>
         /// <remarks>
-        /// Propiedad generada automáticamente.
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        public new EDUAR_UI.EDUARMaster Master {
-            get {
-                return ((EDUAR_UI.EDUARMaster)(base.Master));
-            }
-        }
+        protected global::AjaxControlToolkit.MaskedEditExtender MaskedEditExtender2;
+        
+        /// <summary>
+        /// Control lblLimiteSigma.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLimiteSigma;
+        
+        /// <summary>
+        /// Control txtLimiteSigma.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtLimiteSigma;
+        
+        /// <summary>
+        /// Control MaskedEditExtender3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.MaskedEditExtender MaskedEditExtender3;
+        
+        /// <summary>
+        /// Control Label2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
+        /// Control rdlSentido.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rdlSentido;
     }
 }
