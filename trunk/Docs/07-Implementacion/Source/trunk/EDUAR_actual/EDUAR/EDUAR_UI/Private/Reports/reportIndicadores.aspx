@@ -64,5 +64,32 @@
                 </td>
             </tr>
         </table>
+        <br />
+        <br />
+        <asp:UpdatePanel runat="server" ID="udpResultado" UpdateMode="Conditional">
+            <ContentTemplate>
+                <asp:Label ID="lblResultado" Text="Se muestra la grilla de resultados de Preorden Parcial"
+                    runat="server" Visible="false" Font-Bold="true" />
+                <asp:GridView ID="gvwResultado" runat="server" CssClass="DatosLista" AllowPaging="True"
+                    Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" OnPageIndexChanging="gvwResultado_PageIndexChanging"
+                    PageSize="15">
+                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                    <EditRowStyle BackColor="#999999" />
+                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" HorizontalAlign="Center" />
+                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                    <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                    <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                    <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                </asp:GridView>
+            </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="btnCalcular" EventName="Click" />
+                <asp:PostBackTrigger ControlID="gvwResultado" />
+            </Triggers>
+        </asp:UpdatePanel>
     </div>
 </asp:Content>

@@ -50,6 +50,7 @@ namespace EDUAR_DataAccess.Reports
 
 					objReporte.alumnoNombre = reader["nombre"].ToString();
 					objReporte.alumnoApellido = reader["apellido"].ToString();
+					objReporte.idAlumno = int.Parse(reader["idAlumno"].ToString());
 					objReporte.promedio = decimal.Parse(reader["Promedio"].ToString());
 					objReporte.inasistencias = decimal.Parse(reader["Inasistencias"].ToString());
 					objReporte.sanciones = int.Parse(reader["Sanciones"].ToString());

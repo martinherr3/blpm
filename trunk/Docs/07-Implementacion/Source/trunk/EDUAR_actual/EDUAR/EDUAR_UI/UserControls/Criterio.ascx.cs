@@ -193,5 +193,22 @@ namespace EDUAR_UI.UserControls
 			txtLimiteSigma.Text = string.Empty;
 		}
 		#endregion
+
+		#region --[Métodos Públicos]--
+		/// <summary>
+		/// Obteners the valores.
+		/// </summary>
+		/// <returns></returns>
+		public Promethee obtenerValores()
+		{
+			Promethee datos = new Promethee();
+			datos.limiteIndiferencia = limiteIndiferencia;
+			datos.limitePreferencia = limitePreferencia;
+			datos.limiteSigma = limiteSigma;
+			datos.tipoFuncion = TipoFuncionPreferencia;
+			datos.pesoCriterio = pesoCriterio;
+			return datos;
+		}
+		#endregion
 	}
 }
