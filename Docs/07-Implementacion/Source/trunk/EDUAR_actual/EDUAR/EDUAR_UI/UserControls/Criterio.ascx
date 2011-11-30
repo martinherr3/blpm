@@ -6,8 +6,8 @@
 </cc1:MaskedEditExtender>
 <cc1:PopupControlExtender ID="extCriterio" runat="server" TargetControlID="txtCriterio"
     PopupControlID="Panel1" Position="Right" />
-<asp:Panel runat="server" ID="Panel1">
-    <table width="120%">
+<asp:Panel runat="server" ID="Panel1" BackColor="#EDEDED" Width="500px">
+    <table width="100%">
         <tr>
             <td style="width: 60%">
                 &nbsp;<asp:Label ID="Label1" Text="Función de Preferencia:" runat="server" Font-Bold="true"
@@ -19,7 +19,7 @@
                     <asp:ListItem Text="Level Criterio" Value="4" />
                     <asp:ListItem Text="Preferencia Lineal y Área de Indiferencia" Value="5" />
                     <asp:ListItem Text="Pseudo Criterio con Preferencia Lineal" Value="3" />
-                    <asp:ListItem Text="Verdadero Criterio" Value="1" />
+                    <asp:ListItem Text="Verdadero Criterio" Value="1" Selected="True" />
                 </asp:RadioButtonList>
                 <asp:UpdatePanel ID="udpLimites" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                     <ContentTemplate>
@@ -33,7 +33,7 @@
                                         Visible="false" />
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtLimiteIndiferencia" runat="server" Visible="false" CssClass="EstiloTxtCorto80"/>
+                                    <asp:TextBox ID="txtLimiteIndiferencia" runat="server" Visible="false" CssClass="EstiloTxtCorto80" />
                                     <cc1:MaskedEditExtender runat="server" ID="MaskedEditExtender1" Mask="9999,99" MaskType="Number"
                                         InputDirection="RightToLeft" AcceptNegative="None" DisplayMoney="None" TargetControlID="txtLimiteIndiferencia">
                                     </cc1:MaskedEditExtender>
@@ -48,7 +48,7 @@
                                         Visible="false" />
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtLimitePreferencia" runat="server" Visible="false" CssClass="EstiloTxtCorto80"/>
+                                    <asp:TextBox ID="txtLimitePreferencia" runat="server" Visible="false" CssClass="EstiloTxtCorto80" />
                                     <cc1:MaskedEditExtender runat="server" ID="MaskedEditExtender2" Mask="9999,99" MaskType="Number"
                                         InputDirection="RightToLeft" AcceptNegative="None" DisplayMoney="None" TargetControlID="txtLimitePreferencia">
                                     </cc1:MaskedEditExtender>
@@ -60,7 +60,7 @@
                                     <asp:Label ID="lblLimiteSigma" Text="Sigma (&sigma;):" runat="server" Visible="false" />
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="txtLimiteSigma" runat="server" Visible="false" CssClass="EstiloTxtCorto80"/>
+                                    <asp:TextBox ID="txtLimiteSigma" runat="server" Visible="false" CssClass="EstiloTxtCorto80" />
                                     <cc1:MaskedEditExtender runat="server" ID="MaskedEditExtender3" Mask="9999,99" MaskType="Number"
                                         InputDirection="RightToLeft" AcceptNegative="None" DisplayMoney="None" TargetControlID="txtLimiteSigma">
                                     </cc1:MaskedEditExtender>
@@ -77,7 +77,7 @@
                 <asp:Label ID="Label2" Text="Sentido de Optimización:" runat="server" Font-Bold="true"
                     Font-Italic="true" />
                 <asp:RadioButtonList ID="rdlSentido" runat="server">
-                    <asp:ListItem Text="Maximizar" Value="1" />
+                    <asp:ListItem Text="Maximizar" Value="1" Selected="True" />
                     <asp:ListItem Text="Minimizar" Value="0" />
                 </asp:RadioButtonList>
             </td>

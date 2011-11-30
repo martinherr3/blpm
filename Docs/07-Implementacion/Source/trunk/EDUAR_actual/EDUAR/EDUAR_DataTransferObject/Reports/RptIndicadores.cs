@@ -9,6 +9,7 @@ namespace EDUAR_Entities.Reports
 
         public string alumnoNombre { get; set; }
 		public string alumnoApellido { get; set; }
+		public int idAlumno { get; set; }
         public decimal promedio { get; set; }
 		public int sanciones { get; set; }
 		public decimal inasistencias { get; set; }
