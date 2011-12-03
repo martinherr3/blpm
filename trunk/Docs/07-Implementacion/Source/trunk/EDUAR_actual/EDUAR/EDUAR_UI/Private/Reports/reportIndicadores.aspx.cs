@@ -9,6 +9,7 @@ using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
+using System.Linq;
 
 namespace EDUAR_UI
 {
@@ -134,6 +135,7 @@ namespace EDUAR_UI
 				int.TryParse(ddlCurso.SelectedValue, out idCursoCicloLectivo);
 				if (idCursoCicloLectivo > 0)
 				{
+					lblResultado.Text = string.Empty;
 					AccionPagina = enumAcciones.Buscar;
 					obtenerDatos(idCursoCicloLectivo);
 				}
@@ -201,7 +203,25 @@ namespace EDUAR_UI
 			BLRptIndicadores objBLIndicadores = new BLRptIndicadores();
 
 			List<RptIndicadores> lista = objBLIndicadores.GetRptIndicadores(objFiltroReporte);
-			AplicarMetodo(lista);
+
+			string validacion = criterioCalificacion.ValidarMétodo();
+
+			if (string.IsNullOrEmpty(validacion))
+			{
+				validacion = criterioInasistencia.ValidarMétodo();
+				if (string.IsNullOrEmpty(validacion))
+				{
+					validacion = criterioSancion.ValidarMétodo();
+					if (string.IsNullOrEmpty(validacion))
+						AplicarMetodo(lista);
+					else
+						Master.MostrarMensaje("Criterio de Sanciones", validacion, enumTipoVentanaInformacion.Advertencia);
+				}
+				else
+					Master.MostrarMensaje("Criterio de Inasistencias", validacion, enumTipoVentanaInformacion.Advertencia);
+			}
+			else
+				Master.MostrarMensaje("Criterio de Calificación", validacion, enumTipoVentanaInformacion.Advertencia);
 		}
 
 		/// <summary>
@@ -326,6 +346,7 @@ namespace EDUAR_UI
 			decimal valorInasistencia = 0;
 			decimal valorSancion = 0;
 			decimal sumaPesos = valoresCalificacion.pesoCriterio + valoresInasistencia.pesoCriterio + valoresSancion.pesoCriterio;
+			int nroFila;
 			foreach (DataRow item in tablaPaso1.Rows)
 			{
 				alternativas = item[0].ToString().Split('-');
@@ -333,8 +354,7 @@ namespace EDUAR_UI
 				//item 1: columna
 				int.TryParse(alternativas[0], out indexFila);
 				int.TryParse(alternativas[1], out indexColumna);
-
-				int nroFila = tablaPaso2.Rows.IndexOf(tablaPaso2.Select("Alternativas=" + indexFila.ToString())[0]);
+				nroFila = tablaPaso2.Rows.IndexOf(tablaPaso2.Select("Alternativas='" + indexFila.ToString() + "'")[0]);
 
 				valorCalificacion = (item[1] != DBNull.Value) ? Convert.ToDecimal(item[1]) : 0;
 				valorInasistencia = (item[2] != DBNull.Value) ? Convert.ToDecimal(item[2]) : 0;
@@ -354,20 +374,14 @@ namespace EDUAR_UI
 			{
 				acumuladorFila = 0;
 				acumuladorColumna = 0;
-				try
+
+				for (int j = 1; j < tablaPaso2.Columns.Count - 1; j++)
 				{
-					for (int j = 1; j < tablaPaso2.Columns.Count - 1; j++)
-					{
-						acumuladorFila += (tablaPaso2.Rows[i][j] != DBNull.Value) ? Convert.ToDecimal(tablaPaso2.Rows[i][j]) : 0;
-						acumuladorColumna += (tablaPaso2.Rows[j][i + 1] != DBNull.Value) ? Convert.ToDecimal(tablaPaso2.Rows[j][i + 1]) : 0;
-					}
-					tablaPaso2.Rows[i][tablaPaso2.Columns.Count - 1] = acumuladorFila;
-					tablaPaso2.Rows[tablaPaso2.Rows.Count - 1][i + 1] = acumuladorColumna;
+					acumuladorFila += (tablaPaso2.Rows[i][j] != DBNull.Value) ? Convert.ToDecimal(tablaPaso2.Rows[i][j]) : 0;
+					acumuladorColumna += (tablaPaso2.Rows[j][i + 1] != DBNull.Value) ? Convert.ToDecimal(tablaPaso2.Rows[j][i + 1]) : 0;
 				}
-				catch (Exception ex)
-				{
-					throw ex;
-				}
+				tablaPaso2.Rows[i][tablaPaso2.Columns.Count - 1] = acumuladorFila;
+				tablaPaso2.Rows[tablaPaso2.Rows.Count - 1][i + 1] = acumuladorColumna;
 			}
 			#endregion
 
@@ -383,6 +397,15 @@ namespace EDUAR_UI
 
 			#endregion
 
+			#region --[Top 3 Alumnos]--
+			for (int i = 0; i < 3; i++)
+			{
+				var alumno = from p in lista
+							 where p.idAlumno == Convert.ToInt32(tablaResultado.Rows[i][0])
+							 select p.idAlumno + " - " + p.alumnoApellido + " " + p.alumnoNombre;
+				lblResultado.Text += alumno.ElementAt(0).ToString() + "<br />";
+			}
+			#endregion
 		}
 
 		private DataTable GenerateTransposedTable(DataTable inputTable)
@@ -419,8 +442,12 @@ namespace EDUAR_UI
 			return outputTable;
 		}
 
+		/// <summary>
+		/// Cargars the grilla.
+		/// </summary>
 		private void CargarGrilla()
 		{
+			lblResultadoGrilla.Visible = true;
 			lblResultado.Visible = true;
 			gvwResultado.DataSource = tablaResultado.DefaultView;
 			gvwResultado.DataBind();

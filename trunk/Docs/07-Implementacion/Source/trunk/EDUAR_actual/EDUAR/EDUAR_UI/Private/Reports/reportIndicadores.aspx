@@ -65,11 +65,11 @@
             </tr>
         </table>
         <br />
-        <br />
         <asp:UpdatePanel runat="server" ID="udpResultado" UpdateMode="Conditional">
             <ContentTemplate>
-                <asp:Label ID="lblResultado" Text="Se muestra la grilla de resultados de Preorden Parcial"
-                    runat="server" Visible="false" Font-Bold="true" />
+                <asp:Label ID="lblResultadoGrilla" Text="Se muestra la grilla de resultados de Preorden Parcial"
+                    runat="server" Visible="false" Font-Bold="true" /><br />
+                <asp:Label ID="lblResultado" Text="" runat="server" CssClass="lblCriterios"  Visible="false" />
                 <asp:GridView ID="gvwResultado" runat="server" CssClass="DatosLista" AllowPaging="True"
                     Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" OnPageIndexChanging="gvwResultado_PageIndexChanging"
                     PageSize="15">

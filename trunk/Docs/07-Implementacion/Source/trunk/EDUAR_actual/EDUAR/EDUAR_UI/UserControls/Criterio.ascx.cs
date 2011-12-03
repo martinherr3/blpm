@@ -83,7 +83,7 @@ namespace EDUAR_UI.UserControls
 			get
 			{
 				decimal peso = 0;
-				decimal.TryParse(txtCriterio.Text.Replace('.',','), out peso);
+				decimal.TryParse(txtCriterio.Text.Replace('.', ','), out peso);
 				return peso;
 			}
 			set
@@ -208,6 +208,55 @@ namespace EDUAR_UI.UserControls
 			datos.tipoFuncion = TipoFuncionPreferencia;
 			datos.pesoCriterio = pesoCriterio;
 			return datos;
+		}
+
+		/// <summary>
+		/// Validars the método.
+		/// </summary>
+		/// <returns></returns>
+		public string ValidarMétodo()
+		{
+			string mensaje = string.Empty;
+			switch (pseudoCriterio.SelectedValue)
+			{
+				case "1":
+					break;
+				case "2":
+					if (limiteIndiferencia <= 0)
+						mensaje = "Debe ingresar un valor para el límite de Indiferencia.";
+					break;
+				case "3":
+					if (limitePreferencia <= 0)
+						mensaje = "Debe ingresar un valor para el límite de Preferencia.";
+					break;
+				case "4":
+					if (limitePreferencia <= 0 && limiteIndiferencia <= 0)
+						mensaje = "Debe ingresar un valor para el límte de Indiferencia y el límite de Preferencia.";
+					else
+						if (limiteIndiferencia <= 0)
+							mensaje = "Debe ingresar un valor para el límite de Indiferencia.";
+						else
+							if (limitePreferencia <= 0)
+								mensaje = "Debe ingresar un valor para el límite de Preferencia.";
+					break;
+				case "5":
+					if (limitePreferencia <= 0 && limiteIndiferencia <= 0)
+						mensaje = "Debe ingresar un valor para el límte de Indiferencia y el límite de Preferencia.";
+					else
+						if (limiteIndiferencia <= 0)
+							mensaje = "Debe ingresar un valor para el límite de Indiferencia.";
+						else
+							if (limitePreferencia <= 0)
+								mensaje = "Debe ingresar un valor para el límite de Preferencia.";
+					break;
+				case "6":
+					if (limiteSigma <= 0)
+						mensaje = "Debe ingresar un valor para sigma.";
+					break;
+				default:
+					break;
+			}
+			return mensaje;
 		}
 		#endregion
 	}
