@@ -73,16 +73,15 @@
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="gvwResultado" runat="server" CssClass="DatosLista" AllowPaging="True"
-                            AllowSorting="True" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None"
+                            AllowSorting="True" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="true"
                             OnPageIndexChanging="gvwResultado_PageIndexChanging" PageSize="15" OnSorting="gvwResultado_Sorting"
-                            OnRowCreated="gvwResultado_RowCreated" OnRowDeleted="gvwResultado_RowDeleted"
-                            OnRowDeleting="gvwResultado_RowDeleting">
+                            OnRowCreated="gvwResultado_RowCreated" OnRowDataBound="gvwResultado_RowDataBound">
                             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                             <EditRowStyle BackColor="#999999" />
-                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="SlateGray" />
+                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                             <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Height="24px" />
                             <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" HorizontalAlign="Center"/>
                             <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                             <SortedAscendingCellStyle BackColor="#E9E7E2" />
                             <SortedAscendingHeaderStyle BackColor="#506C8C" />
