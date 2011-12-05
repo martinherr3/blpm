@@ -69,26 +69,35 @@
             <ContentTemplate>
                 <asp:Label ID="lblResultadoGrilla" Text="Se muestra la grilla de resultados de Preorden Parcial"
                     runat="server" Visible="false" Font-Bold="true" /><br />
-                <asp:Label ID="lblResultado" Text="" runat="server" CssClass="lblCriterios"  Visible="false" />
-                <asp:GridView ID="gvwResultado" runat="server" CssClass="DatosLista" AllowPaging="True"
-                    Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" OnPageIndexChanging="gvwResultado_PageIndexChanging"
-                    PageSize="15">
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                    <EditRowStyle BackColor="#999999" />
-                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" HorizontalAlign="Center" />
-                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                    <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                    <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                    <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-                </asp:GridView>
+                <asp:Label ID="lblResultado" Text="" runat="server" CssClass="lblCriterios" Visible="false" />
+                <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
+                        <asp:GridView ID="gvwResultado" runat="server" CssClass="DatosLista" AllowPaging="True"
+                            AllowSorting="True" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None"
+                            OnPageIndexChanging="gvwResultado_PageIndexChanging" PageSize="15" OnSorting="gvwResultado_Sorting"
+                            OnRowCreated="gvwResultado_RowCreated" OnRowDeleted="gvwResultado_RowDeleted"
+                            OnRowDeleting="gvwResultado_RowDeleting">
+                            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                            <EditRowStyle BackColor="#999999" />
+                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="SlateGray" />
+                            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Height="24px" />
+                            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" HorizontalAlign="Center" />
+                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                            <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                            <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                            <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                        </asp:GridView>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </ContentTemplate>
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="btnCalcular" EventName="Click" />
-                <asp:PostBackTrigger ControlID="gvwResultado" />
+                <asp:AsyncPostBackTrigger ControlID="gvwResultado" EventName="PageIndexChanging" />
+                <asp:AsyncPostBackTrigger ControlID="gvwResultado" EventName="Sorting" />
+                <asp:AsyncPostBackTrigger ControlID="gvwResultado" EventName="RowCreated" />
+                <asp:AsyncPostBackTrigger ControlID="gvwResultado" EventName="RowDeleting" />
             </Triggers>
         </asp:UpdatePanel>
     </div>

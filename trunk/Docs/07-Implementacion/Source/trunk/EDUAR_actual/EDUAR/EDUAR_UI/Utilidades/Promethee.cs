@@ -30,7 +30,7 @@ namespace EDUAR_UI.Utilidades
 		/// <param name="configuracion">The configuracion.</param>
 		/// <param name="diferencia">The diferencia.</param>
 		/// <returns></returns>
-		public static decimal obtenerSigma(Promethee configuracion, decimal diferencia)
+		public static decimal obtenerValorFuncPreferencia(Promethee configuracion, decimal diferencia)
 		{
 			decimal retorno = 0;
 			switch (configuracion.tipoFuncion)
