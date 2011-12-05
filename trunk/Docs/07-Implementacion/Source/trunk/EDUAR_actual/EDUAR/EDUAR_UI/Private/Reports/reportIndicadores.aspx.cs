@@ -39,6 +39,20 @@ namespace EDUAR_UI
 			}
 		}
 
+		public DataTable tablaPaso3
+		{
+			get
+			{
+				if (Session["tablaPaso3"] == null)
+					Session["tablaPaso3"] = new DataTable();
+				return (DataTable)Session["tablaPaso3"];
+			}
+			set
+			{
+				Session["tablaPaso3"] = value;
+			}
+		}
+
 		private SortDirection GridViewSortDirection
 		{
 			get
@@ -196,6 +210,11 @@ namespace EDUAR_UI
 			//CargarGrilla();
 		}
 
+		/// <summary>
+		/// Handles the Sorting event of the gvwResultado control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewSortEventArgs"/> instance containing the event data.</param>
 		protected void gvwResultado_Sorting(object sender, GridViewSortEventArgs e)
 		{
 			isSort = true;
@@ -235,9 +254,6 @@ namespace EDUAR_UI
 					AddSortImage(sortColumnIndex, e.Row);
 				}
 			}
-			if (e.Row.Cells[0].Text == "SuperacionSaliente")
-			{
-			}
 		}
 
 		// to set the height of row.
@@ -250,6 +266,19 @@ namespace EDUAR_UI
 		{
 			e.Row.Height = Unit.Pixel(24);
 			e.Row.VerticalAlign = VerticalAlign.Middle;
+
+			if (e.Row.RowType == DataControlRowType.Footer)
+			{
+				e.Row.Cells[0].Text = tablaPaso3.Rows[0][0].ToString();
+				e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
+				e.Row.Cells[0].VerticalAlign = VerticalAlign.Middle;
+				for (int i = 1; i < e.Row.Cells.Count - 1; i++)
+				{
+					e.Row.Cells[i].Text = tablaPaso3.Rows[0][i].ToString();
+					e.Row.Cells[i].HorizontalAlign = HorizontalAlign.Center;
+					e.Row.Cells[i].VerticalAlign = VerticalAlign.Middle;
+				}
+			}
 		}
 		#endregion
 
@@ -422,7 +451,6 @@ namespace EDUAR_UI
 					if (valorFuncPreferencia >= 0) fila["Sancion"] = valorFuncPreferencia;
 					else fila["Sancion"] = DBNull.Value;
 					#endregion
-					//fila.AcceptChanges();
 					tablaPaso1.Rows.Add(fila);
 				}
 			}
@@ -431,7 +459,7 @@ namespace EDUAR_UI
 			// Paso 2: Expresar la intensidad de la preferencia de la alternativa Xi comparada con Xk
 			#region --[Paso 2]--
 			DataTable tablaPaso2 = new DataTable("Promethee2");
-			tablaPaso2.Columns.Add("Alternativas");
+			tablaPaso2.Columns.Add("Alternativas", System.Type.GetType("System.Decimal"));
 			DataRow nuevaFila;
 			for (int i = 0; i < lista.Count; i++)
 			{
@@ -440,7 +468,7 @@ namespace EDUAR_UI
 				tablaPaso2.Rows.Add(nuevaFila);
 				tablaPaso2.Rows[i]["Alternativas"] = lista[i].idAlumno.ToString();
 			}
-			tablaPaso2.Columns.Add("SuperacionEntrante", System.Type.GetType("System.Decimal"));
+			tablaPaso2.Columns.Add("FlujoEntrante", System.Type.GetType("System.Decimal"));
 
 			string[] alternativas;
 			int indexFila = 0;
@@ -465,46 +493,48 @@ namespace EDUAR_UI
 				tablaPaso2.Rows[nroFila][indexColumna.ToString()] = Math.Round((valorCalificacion * valoresCalificacion.pesoCriterio + valorInasistencia * valoresInasistencia.pesoCriterio + valorSancion * valoresSancion.pesoCriterio
 					/ (sumaPesos)), 2);
 			}
-			nuevaFila = tablaPaso2.NewRow();
-			nuevaFila[0] = "SuperacionSaliente";
-			tablaPaso2.Rows.Add(nuevaFila);
 			#endregion
 
 			// Paso 3: Expresar como Xi supera a las demás alternativas y cómo es superada por las otras.
 			#region --[Paso 3]--
+			tablaPaso3 = new DataTable("Promethee2");
+			tablaPaso3 = tablaPaso2.Clone();
+			tablaPaso3.Columns[0].DataType = System.Type.GetType("System.String");
+			nuevaFila = tablaPaso3.NewRow();
+			nuevaFila[0] = "FlujoSaliente";
+			tablaPaso3.Rows.Add(nuevaFila);
+
 			decimal acumuladorFila, acumuladorColumna;
-			for (int i = 0; i < tablaPaso2.Rows.Count - 1; i++)
+			for (int i = 0; i < tablaPaso2.Rows.Count; i++)
 			{
 				acumuladorFila = 0;
 				acumuladorColumna = 0;
 
-				for (int j = 1; j < tablaPaso2.Columns.Count - 1; j++)
+				for (int j = 1; j < tablaPaso2.Columns.Count - 2; j++)
 				{
 					acumuladorFila += (tablaPaso2.Rows[i][j] != DBNull.Value) ? Convert.ToDecimal(tablaPaso2.Rows[i][j]) : 0;
 					acumuladorColumna += (tablaPaso2.Rows[j][i + 1] != DBNull.Value) ? Convert.ToDecimal(tablaPaso2.Rows[j][i + 1]) : 0;
 				}
 				tablaPaso2.Rows[i][tablaPaso2.Columns.Count - 1] = acumuladorFila;
-				tablaPaso2.Rows[tablaPaso2.Rows.Count - 1][i + 1] = acumuladorColumna;
+				tablaPaso3.Rows[0][i + 1] = acumuladorColumna;
 			}
 			#endregion
 
 			// Paso 4: Obtener el Preorden deseado
 			#region --[Paso 4]--
-			tablaPaso2.DefaultView.Sort = "SuperacionEntrante DESC";
-
-			//tablaResultado = tablaPaso2.DefaultView.ToTable();
-			#endregion
+			tablaPaso2.DefaultView.Sort = "FlujoEntrante DESC";
 
 			#region --[Paso 4.1]--
 			// Paso 4.1: Obtener el Preorden Total
 			tablaPaso2.Columns.Add("FlujoNeto", System.Type.GetType("System.Decimal"));
-			for (int i = 0; i < tablaPaso2.Rows.Count - 1; i++)
+			for (int i = 0; i < tablaPaso2.Rows.Count; i++)
 			{
 				tablaPaso2.Rows[i][tablaPaso2.Columns.Count - 1] = Convert.ToDecimal(tablaPaso2.Rows[i][tablaPaso2.Columns.Count - 2])
-					- Convert.ToDecimal(tablaPaso2.Rows[tablaPaso2.Rows.Count - 1][i + 1]);
+					- Convert.ToDecimal(tablaPaso3.Rows[0][i + 1]);
 			}
 
 			tablaResultado = tablaPaso2.DefaultView.ToTable();
+			#endregion
 			#endregion
 
 			CargarGrilla();
@@ -518,6 +548,9 @@ namespace EDUAR_UI
 				lblResultado.Text += alumno.ElementAt(0).ToString() + "<br />";
 			}
 			#endregion
+			tablaPaso3.Columns.Add("FlujoNeto", System.Type.GetType("System.Decimal"));
+			tablaPaso3.Rows[0][tablaPaso3.Columns.Count - 2] = DBNull.Value;
+			tablaPaso3.Rows[0][tablaPaso3.Columns.Count - 1] = DBNull.Value;
 		}
 
 		/// <summary>
@@ -530,7 +563,6 @@ namespace EDUAR_UI
 
 			gvwResultado.DataSource = tablaResultado.DefaultView;
 			gvwResultado.DataBind();
-			gvwResultado.Rows[gvwResultado.Rows.Count - 1].RowType = DataControlRowType.Footer;
 			udpResultado.Update();
 		}
 
@@ -592,44 +624,14 @@ namespace EDUAR_UI
 			//bool eliminar = false;
 			if (dataTable != null)
 			{
-				//if (dataTable.Rows[dataTable.Rows.Count - 1][0].ToString() == "SuperacionSaliente")
-				//{
-				//    eliminar = true;
-				//    for (int i = 0; i < dataTable.Rows[dataTable.Rows.Count - 1].ItemArray.Count(); i++)
-				//    {
-				//        filaPie[i] = dataTable.Rows[dataTable.Rows.Count - 1].ItemArray[i];
-				//    }
-				//    dataTable.Rows.RemoveAt(dataTable.Rows.Count - 1);
-				//}
-
 				DataView dataView = new DataView(dataTable);
 				dataView.Sort = sortExpression + direction;
-				
-				//if (eliminar)
-				//{
-				//    DataRowView newDRV = dataView.AddNew();
-				//    for (int i = 0; i < filaPie.ItemArray.Count(); i++)
-				//    {
-				//        newDRV[i] = filaPie[i];
-				//    }
-				//    newDRV.EndEdit();
-				//}
-				//dataView.RowStateFilter = DataViewRowState.Added | DataViewRowState.ModifiedCurrent;
+
 				gvwResultado.DataSource = dataView;
 				gvwResultado.DataBind();
 				udpResultado.Update();
 			}
 		}
 		#endregion
-
-		protected void gvwResultado_RowDeleting(object sender, GridViewDeleteEventArgs e)
-		{
-
-		}
-
-		protected void gvwResultado_RowDeleted(object sender, GridViewDeletedEventArgs e)
-		{
-
-		}
 	}
 }
