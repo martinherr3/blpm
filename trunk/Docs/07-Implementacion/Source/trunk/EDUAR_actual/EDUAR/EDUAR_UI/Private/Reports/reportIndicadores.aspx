@@ -67,8 +67,8 @@
         <br />
         <asp:UpdatePanel runat="server" ID="udpResultado" UpdateMode="Conditional">
             <ContentTemplate>
-                <asp:Label ID="lblResultadoGrilla" Text="Se muestra la grilla de resultados de Preorden Parcial"
-                    runat="server" Visible="false" Font-Bold="true" /><br />
+                <%--<asp:Label ID="lblResultadoGrilla" Text="Se muestra la grilla de resultados de Preorden Parcial"
+                    runat="server" Visible="false" Font-Bold="true" /><br />--%>
                 <asp:Label ID="lblResultado" Text="" runat="server" CssClass="lblCriterios" Visible="false" />
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>

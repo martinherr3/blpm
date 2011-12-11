@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Criterio.ascx.cs" Inherits="EDUAR_UI.UserControls.Criterio" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:TextBox ID="txtCriterio" runat="server" CssClass="EstiloTxtCorto80" />
+<asp:ImageButton ImageUrl="~/Images/Grillas/action_enable.png" AlternateText="Habilitado" ToolTip="Habilitado"
+    ID="btnDesHabilitar" runat="server" onclick="btnDesHabilitar_Click" ImageAlign="AbsMiddle" />
 <cc1:MaskedEditExtender runat="server" ID="maskCriterio" Mask="99,99" MaskType="Number"
     InputDirection="RightToLeft" AcceptNegative="None" DisplayMoney="None" TargetControlID="txtCriterio">
 </cc1:MaskedEditExtender>
@@ -19,7 +21,7 @@
                     <asp:ListItem Text="Level Criterio" Value="4" />
                     <asp:ListItem Text="Preferencia Lineal y Área de Indiferencia" Value="5" />
                     <asp:ListItem Text="Pseudo Criterio con Preferencia Lineal" Value="3" />
-                    <asp:ListItem Text="Verdadero Criterio" Value="1" Selected="True" />
+                    <asp:ListItem Text="Verdadero Criterio" Value="1" />
                 </asp:RadioButtonList>
                 <asp:UpdatePanel ID="udpLimites" runat="server" UpdateMode="Conditional" RenderMode="Inline">
                     <ContentTemplate>

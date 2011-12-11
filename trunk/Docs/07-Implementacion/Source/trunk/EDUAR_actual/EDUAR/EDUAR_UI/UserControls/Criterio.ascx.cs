@@ -125,12 +125,44 @@ namespace EDUAR_UI.UserControls
 				return true;
 			}
 		}
+
+		/// <summary>
+		/// Gets or sets a value indicating whether [habilitar criterio].
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if [habilitar criterio]; otherwise, <c>false</c>.
+		/// </value>
+		public bool habilitarCriterio
+		{
+			get
+			{
+				return txtCriterio.Enabled;
+			}
+			set
+			{
+				txtCriterio.Enabled = value;
+				if (value)
+				{
+					btnDesHabilitar.ImageUrl = "~/Images/Grillas/action_enable.png";
+					btnDesHabilitar.ToolTip = "Habilitado";
+					btnDesHabilitar.AlternateText = "Habilitado";
+				}
+				else
+				{
+					btnDesHabilitar.ImageUrl = "~/Images/Grillas/action_delete.png";
+					btnDesHabilitar.ToolTip = "Deshabilitado";
+					btnDesHabilitar.AlternateText = "Deshabilitado";
+				}
+				btnDesHabilitar.ImageAlign = ImageAlign.AbsMiddle;
+			}
+		}
 		#endregion
 
 		#region --[Eventos]--
 		protected void Page_Load(object sender, EventArgs e)
 		{
-
+			//if (!Page.IsPostBack)
+			//    pseudoCriterio.SelectedValue = "1";
 		}
 
 		/// <summary>
@@ -182,6 +214,16 @@ namespace EDUAR_UI.UserControls
 			{
 				throw ex; //Master.ManageExceptions(ex);
 			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnDesHabilitar control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.ImageClickEventArgs"/> instance containing the event data.</param>
+		protected void btnDesHabilitar_Click(object sender, ImageClickEventArgs e)
+		{
+			habilitarCriterio = !habilitarCriterio;
 		}
 		#endregion
 
@@ -254,8 +296,12 @@ namespace EDUAR_UI.UserControls
 						mensaje = "Debe ingresar un valor para sigma.";
 					break;
 				default:
+					mensaje = "Debe seleccionar una Función de Preferencia para el Criterio.";
 					break;
 			}
+			if (mensaje == string.Empty)
+				if (string.IsNullOrEmpty(txtCriterio.Text))
+					mensaje = "Debe ingresar un peso para el Criterio";
 			return mensaje;
 		}
 		#endregion

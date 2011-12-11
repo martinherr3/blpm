@@ -63,6 +63,17 @@ namespace EDUAR_UI
 			}
 			set { ViewState["sortDirection"] = value; }
 		}
+
+		private List<RptIndicadores> lista
+		{
+			get
+			{
+				if (ViewState["lista"] == null)
+					ViewState["lista"] = null;
+				return (List<RptIndicadores>)ViewState["lista"];
+			}
+			set { ViewState["lista"] = value; }
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -169,9 +180,15 @@ namespace EDUAR_UI
 				int.TryParse(ddlCurso.SelectedValue, out idCursoCicloLectivo);
 				if (idCursoCicloLectivo > 0)
 				{
-					lblResultado.Text = string.Empty;
-					AccionPagina = enumAcciones.Buscar;
-					obtenerDatos(idCursoCicloLectivo);
+					string validacion = ValidarPagina();
+					if (string.IsNullOrEmpty(validacion))
+					{
+						lblResultado.Text = string.Empty;
+						AccionPagina = enumAcciones.Buscar;
+						obtenerDatos(idCursoCicloLectivo);
+					}
+					else
+						Master.MostrarMensaje("Criterios Insuficientes", validacion, enumTipoVentanaInformacion.Advertencia);
 				}
 				else
 					Master.MostrarMensaje("Advertencia", "Debe seleccionar un curso.", enumTipoVentanaInformacion.Advertencia);
@@ -180,6 +197,11 @@ namespace EDUAR_UI
 			{ Master.ManageExceptions(ex); }
 		}
 
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwResultado control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
 		protected void gvwResultado_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 			gvwResultado.PageIndex = e.NewPageIndex;
@@ -207,7 +229,6 @@ namespace EDUAR_UI
 			{
 				SortGridView("DateRequest", DESCENDING);
 			}
-			//CargarGrilla();
 		}
 
 		/// <summary>
@@ -236,6 +257,11 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the RowCreated event of the gvwResultado control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewRowEventArgs"/> instance containing the event data.</param>
 		protected void gvwResultado_RowCreated(object sender, GridViewRowEventArgs e)
 		{
 			//Use the RowType property to determine whether the 
@@ -267,6 +293,35 @@ namespace EDUAR_UI
 			e.Row.Height = Unit.Pixel(24);
 			e.Row.VerticalAlign = VerticalAlign.Middle;
 
+			//Permito que solo se ordene por la última columna de la grilla - Flujo Neto
+			if (e.Row.RowType == DataControlRowType.Header)
+			{
+				for (int i = 0; i < e.Row.Cells.Count - 1; i++) //excepto la que queremos dejar disponible.
+				{
+					LinkButton lb = (LinkButton)e.Row.Cells[i].Controls[0];
+					string title = lb.Text;
+					Label lbl = new Label();
+					lbl.Text = title;
+					e.Row.Cells[i].Controls.Clear();
+					e.Row.Cells[i].Controls.Add(lbl);
+				}
+				if (lista != null)
+				{
+					for (int i = 1; i < e.Row.Cells.Count - 2; i++)
+					{
+						Label lb = (Label)e.Row.Cells[i].Controls[0];
+						RptIndicadores alumno = new RptIndicadores();
+						alumno = lista.Find(p => p.idAlumno == Convert.ToInt16(lb.Text));
+						string nombre = alumno.alumnoApellido + " " + alumno.alumnoNombre;
+						lb.Text = nombre.Replace(" ", "<br />");
+					}
+				}
+			}
+			if (e.Row.RowType == DataControlRowType.DataRow)
+			{
+				string nombre = e.Row.Cells[0].Text;
+				e.Row.Cells[0].Text = nombre.Replace(" ", "<br />");
+			}
 			if (e.Row.RowType == DataControlRowType.Footer)
 			{
 				e.Row.Cells[0].Text = tablaPaso3.Rows[0][0].ToString();
@@ -331,26 +386,40 @@ namespace EDUAR_UI
 			objFiltroReporte.idCursoCicloLectivo = idCursoCicloLectivo;
 			BLRptIndicadores objBLIndicadores = new BLRptIndicadores();
 
-			List<RptIndicadores> lista = objBLIndicadores.GetRptIndicadores(objFiltroReporte);
+			lista = objBLIndicadores.GetRptIndicadores(objFiltroReporte);
 
 			string validacion = criterioCalificacion.ValidarMétodo();
-
-			if (string.IsNullOrEmpty(validacion))
+			bool datosValidos = true;
+			if (criterioCalificacion.habilitarCriterio)
 			{
-				validacion = criterioInasistencia.ValidarMétodo();
-				if (string.IsNullOrEmpty(validacion))
+				if (!string.IsNullOrEmpty(validacion))
 				{
-					validacion = criterioSancion.ValidarMétodo();
-					if (string.IsNullOrEmpty(validacion))
-						AplicarMetodo(lista);
-					else
-						Master.MostrarMensaje("Criterio de Sanciones", validacion, enumTipoVentanaInformacion.Advertencia);
+					datosValidos = false;
+					Master.MostrarMensaje("Criterio de Calificación", validacion, enumTipoVentanaInformacion.Advertencia);
 				}
-				else
-					Master.MostrarMensaje("Criterio de Inasistencias", validacion, enumTipoVentanaInformacion.Advertencia);
 			}
-			else
-				Master.MostrarMensaje("Criterio de Calificación", validacion, enumTipoVentanaInformacion.Advertencia);
+
+			validacion = criterioInasistencia.ValidarMétodo();
+			if (criterioInasistencia.habilitarCriterio)
+			{
+				if (!string.IsNullOrEmpty(validacion))
+				{
+					datosValidos = false;
+					Master.MostrarMensaje("Criterio de Inasistencias", validacion, enumTipoVentanaInformacion.Advertencia);
+				}
+			}
+
+			validacion = criterioSancion.ValidarMétodo();
+			if (criterioSancion.habilitarCriterio)
+			{
+				if (!string.IsNullOrEmpty(validacion))
+				{
+					datosValidos = false;
+					Master.MostrarMensaje("Criterio de Sanciones", validacion, enumTipoVentanaInformacion.Advertencia);
+				}
+			}
+
+			if (datosValidos) AplicarMetodo(lista);
 		}
 
 		/// <summary>
@@ -359,14 +428,23 @@ namespace EDUAR_UI
 		/// <param name="lista">The lista.</param>
 		private void AplicarMetodo(List<RptIndicadores> lista)
 		{
-			Promethee valoresCalificacion = criterioCalificacion.obtenerValores();
-			Promethee valoresInasistencia = criterioInasistencia.obtenerValores();
-			Promethee valoresSancion = criterioSancion.obtenerValores();
+			Promethee valoresCalificacion = new Promethee(), valoresInasistencia = new Promethee(), valoresSancion = new Promethee();
+
+			if (criterioCalificacion.habilitarCriterio)
+				valoresCalificacion = criterioCalificacion.obtenerValores();
+			if (criterioInasistencia.habilitarCriterio)
+				valoresInasistencia = criterioInasistencia.obtenerValores();
+			if (criterioSancion.habilitarCriterio)
+				valoresSancion = criterioSancion.obtenerValores();
 
 			decimal diferenciaCriterio = 0;
 			decimal valorFuncPreferencia = 0;
 			DataTable tablaPaso1 = new DataTable("Promethee1");
-			tablaPaso1.Columns.Add("Alternativas");
+			tablaPaso1.Columns.Add("Alumnos");
+			//if (criterioCalificacion.habilitarCriterio) tablaPaso1.Columns.Add("Calificacion", System.Type.GetType("System.Decimal"));
+			//if (criterioInasistencia.habilitarCriterio) tablaPaso1.Columns.Add("Inasistencia", System.Type.GetType("System.Decimal"));
+			//if (criterioSancion.habilitarCriterio) tablaPaso1.Columns.Add("Sancion", System.Type.GetType("System.Decimal"));
+
 			tablaPaso1.Columns.Add("Calificacion", System.Type.GetType("System.Decimal"));
 			tablaPaso1.Columns.Add("Inasistencia", System.Type.GetType("System.Decimal"));
 			tablaPaso1.Columns.Add("Sancion", System.Type.GetType("System.Decimal"));
@@ -381,74 +459,86 @@ namespace EDUAR_UI
 				foreach (RptIndicadores alumno in filtro)
 				{
 					fila = tablaPaso1.NewRow();
-					fila["Alternativas"] = item.idAlumno.ToString() + "-" + alumno.idAlumno.ToString();
+					fila["Alumnos"] = item.idAlumno.ToString() + "-" + alumno.idAlumno.ToString();
 
 					#region --[Promedios]--
-					valorFuncPreferencia = -1;
-					diferenciaCriterio = 0;
-					if (criterioCalificacion.esMaximzante)
+					if (criterioCalificacion.habilitarCriterio)
 					{
-						if (item.promedio >= alumno.promedio)
+						valorFuncPreferencia = -1;
+						diferenciaCriterio = 0;
+						if (criterioCalificacion.esMaximzante)
 						{
-							diferenciaCriterio = Math.Abs(item.promedio - alumno.promedio);
-							valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresCalificacion, diferenciaCriterio);
+							if (item.promedio >= alumno.promedio)
+							{
+								diferenciaCriterio = Math.Abs(item.promedio - alumno.promedio);
+								valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresCalificacion, diferenciaCriterio);
+							}
 						}
-					}
-					else
-					{
-						if (item.promedio <= alumno.promedio)
+						else
 						{
-							diferenciaCriterio = Math.Abs(item.promedio - alumno.promedio);
-							valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresCalificacion, diferenciaCriterio);
+							if (item.promedio <= alumno.promedio)
+							{
+								diferenciaCriterio = Math.Abs(item.promedio - alumno.promedio);
+								valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresCalificacion, diferenciaCriterio);
+							}
 						}
+						if (valorFuncPreferencia >= 0) fila["Calificacion"] = valorFuncPreferencia;
+						else fila["Calificacion"] = DBNull.Value;
 					}
-					if (valorFuncPreferencia >= 0) fila["Calificacion"] = valorFuncPreferencia;
 					else fila["Calificacion"] = DBNull.Value;
 					#endregion
 
 					#region --[Inasistencias]--
-					valorFuncPreferencia = -1;
-					diferenciaCriterio = 0;
-					if (criterioInasistencia.esMaximzante)
+					if (criterioInasistencia.habilitarCriterio)
 					{
-						if (item.inasistencias >= alumno.inasistencias)
+						valorFuncPreferencia = -1;
+						diferenciaCriterio = 0;
+						if (criterioInasistencia.esMaximzante)
 						{
-							diferenciaCriterio = Math.Abs(item.inasistencias - alumno.inasistencias);
-							valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresInasistencia, diferenciaCriterio);
+							if (item.inasistencias >= alumno.inasistencias)
+							{
+								diferenciaCriterio = Math.Abs(item.inasistencias - alumno.inasistencias);
+								valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresInasistencia, diferenciaCriterio);
+							}
 						}
-					}
-					else
-					{
-						if (item.inasistencias <= alumno.inasistencias)
+						else
 						{
-							diferenciaCriterio = Math.Abs(item.inasistencias - alumno.inasistencias);
-							valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresInasistencia, diferenciaCriterio);
+							if (item.inasistencias <= alumno.inasistencias)
+							{
+								diferenciaCriterio = Math.Abs(item.inasistencias - alumno.inasistencias);
+								valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresInasistencia, diferenciaCriterio);
+							}
 						}
+						if (valorFuncPreferencia >= 0) fila["Inasistencia"] = valorFuncPreferencia;
+						else fila["Inasistencia"] = DBNull.Value;
 					}
-					if (valorFuncPreferencia >= 0) fila["Inasistencia"] = valorFuncPreferencia;
 					else fila["Inasistencia"] = DBNull.Value;
 					#endregion
 
 					#region --[Sanciones]--
-					valorFuncPreferencia = -1;
-					diferenciaCriterio = 0;
-					if (criterioSancion.esMaximzante)
+					if (criterioSancion.habilitarCriterio)
 					{
-						if (item.sanciones >= alumno.sanciones)
+						valorFuncPreferencia = -1;
+						diferenciaCriterio = 0;
+						if (criterioSancion.esMaximzante)
 						{
-							diferenciaCriterio = Math.Abs(item.sanciones - alumno.sanciones);
-							valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresSancion, diferenciaCriterio);
+							if (item.sanciones >= alumno.sanciones)
+							{
+								diferenciaCriterio = Math.Abs(item.sanciones - alumno.sanciones);
+								valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresSancion, diferenciaCriterio);
+							}
 						}
-					}
-					else
-					{
-						if (item.sanciones <= alumno.sanciones)
+						else
 						{
-							diferenciaCriterio = Math.Abs(item.sanciones - alumno.sanciones);
-							valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresSancion, diferenciaCriterio);
+							if (item.sanciones <= alumno.sanciones)
+							{
+								diferenciaCriterio = Math.Abs(item.sanciones - alumno.sanciones);
+								valorFuncPreferencia = Promethee.obtenerValorFuncPreferencia(valoresSancion, diferenciaCriterio);
+							}
 						}
+						if (valorFuncPreferencia >= 0) fila["Sancion"] = valorFuncPreferencia;
+						else fila["Sancion"] = DBNull.Value;
 					}
-					if (valorFuncPreferencia >= 0) fila["Sancion"] = valorFuncPreferencia;
 					else fila["Sancion"] = DBNull.Value;
 					#endregion
 					tablaPaso1.Rows.Add(fila);
@@ -459,14 +549,15 @@ namespace EDUAR_UI
 			// Paso 2: Expresar la intensidad de la preferencia de la alternativa Xi comparada con Xk
 			#region --[Paso 2]--
 			DataTable tablaPaso2 = new DataTable("Promethee2");
-			tablaPaso2.Columns.Add("Alternativas", System.Type.GetType("System.Decimal"));
+			tablaPaso2.Columns.Add("Alumnos");
 			DataRow nuevaFila;
 			for (int i = 0; i < lista.Count; i++)
 			{
 				tablaPaso2.Columns.Add(lista[i].idAlumno.ToString(), System.Type.GetType("System.Decimal"));
+				//tablaPaso2.Columns.Add(lista[i].alumnoApellido + ", " + lista[i].alumnoNombre, System.Type.GetType("System.String"));
 				nuevaFila = tablaPaso2.NewRow();
 				tablaPaso2.Rows.Add(nuevaFila);
-				tablaPaso2.Rows[i]["Alternativas"] = lista[i].idAlumno.ToString();
+				tablaPaso2.Rows[i]["Alumnos"] = lista[i].idAlumno.ToString();
 			}
 			tablaPaso2.Columns.Add("FlujoEntrante", System.Type.GetType("System.Decimal"));
 
@@ -476,8 +567,14 @@ namespace EDUAR_UI
 			decimal valorCalificacion = 0;
 			decimal valorInasistencia = 0;
 			decimal valorSancion = 0;
-			decimal sumaPesos = valoresCalificacion.pesoCriterio + valoresInasistencia.pesoCriterio + valoresSancion.pesoCriterio;
+			//decimal sumaPesos = valoresCalificacion.pesoCriterio + valoresInasistencia.pesoCriterio + valoresSancion.pesoCriterio;
+			decimal sumaPesos = 0;
+			if (criterioCalificacion.habilitarCriterio) sumaPesos += valoresCalificacion.pesoCriterio;
+			if (criterioInasistencia.habilitarCriterio) sumaPesos += valoresInasistencia.pesoCriterio;
+			if (criterioSancion.habilitarCriterio) sumaPesos += valoresSancion.pesoCriterio;
+
 			int nroFila;
+			decimal valorAcumulado = 0;
 			foreach (DataRow item in tablaPaso1.Rows)
 			{
 				alternativas = item[0].ToString().Split('-');
@@ -485,13 +582,19 @@ namespace EDUAR_UI
 				//item 1: columna
 				int.TryParse(alternativas[0], out indexFila);
 				int.TryParse(alternativas[1], out indexColumna);
-				nroFila = tablaPaso2.Rows.IndexOf(tablaPaso2.Select("Alternativas='" + indexFila.ToString() + "'")[0]);
+				nroFila = tablaPaso2.Rows.IndexOf(tablaPaso2.Select("Alumnos='" + indexFila.ToString() + "'")[0]);
 
-				valorCalificacion = (item[1] != DBNull.Value) ? Convert.ToDecimal(item[1]) : 0;
+				if (criterioCalificacion.habilitarCriterio)
+					valorCalificacion = (item[1] != DBNull.Value) ? Convert.ToDecimal(item[1]) : 0;
 				valorInasistencia = (item[2] != DBNull.Value) ? Convert.ToDecimal(item[2]) : 0;
 				valorSancion = (item[3] != DBNull.Value) ? Convert.ToDecimal(item[3]) : 0;
-				tablaPaso2.Rows[nroFila][indexColumna.ToString()] = Math.Round((valorCalificacion * valoresCalificacion.pesoCriterio + valorInasistencia * valoresInasistencia.pesoCriterio + valorSancion * valoresSancion.pesoCriterio
-					/ (sumaPesos)), 2);
+				if (criterioCalificacion.habilitarCriterio)
+					valorAcumulado += (valorCalificacion * valoresCalificacion.pesoCriterio);
+				if (criterioInasistencia.habilitarCriterio)
+					valorAcumulado += (valorInasistencia * valoresInasistencia.pesoCriterio);
+				if (criterioSancion.habilitarCriterio)
+					valorAcumulado += (valorSancion * valoresSancion.pesoCriterio);
+				tablaPaso2.Rows[nroFila][indexColumna.ToString()] = Math.Round((valorAcumulado / (sumaPesos)), 2);
 			}
 			#endregion
 
@@ -533,20 +636,28 @@ namespace EDUAR_UI
 					- Convert.ToDecimal(tablaPaso3.Rows[0][i + 1]);
 			}
 
+			tablaPaso2.DefaultView.Sort = "FlujoNeto DESC";
 			tablaResultado = tablaPaso2.DefaultView.ToTable();
 			#endregion
 			#endregion
 
+			for (int i = 0; i < tablaResultado.Rows.Count; i++)
+			{
+				RptIndicadores alumno = new RptIndicadores();
+				alumno = lista.Find(p => p.idAlumno == Convert.ToInt16(tablaResultado.Rows[i][0].ToString()));
+				tablaResultado.Rows[i][0] = alumno.alumnoApellido + " " + alumno.alumnoNombre;
+			}
+
 			CargarGrilla();
 
 			#region --[Top 3 Alumnos]--
-			for (int i = 0; i < 3; i++)
-			{
-				var alumno = from p in lista
-							 where p.idAlumno == Convert.ToInt32(tablaResultado.Rows[i][0])
-							 select p.idAlumno + " - " + p.alumnoApellido + " " + p.alumnoNombre;
-				lblResultado.Text += alumno.ElementAt(0).ToString() + "<br />";
-			}
+			//for (int i = 0; i < 3; i++)
+			//{
+			//    var alumno = from p in lista
+			//                 where p.idAlumno == Convert.ToInt32(tablaResultado.Rows[i][0])
+			//                 select p.idAlumno + " - " + p.alumnoApellido + " " + p.alumnoNombre;
+			//    lblResultado.Text += alumno.ElementAt(0).ToString() + "<br />";
+			//}
 			#endregion
 			tablaPaso3.Columns.Add("FlujoNeto", System.Type.GetType("System.Decimal"));
 			tablaPaso3.Rows[0][tablaPaso3.Columns.Count - 2] = DBNull.Value;
@@ -558,7 +669,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarGrilla()
 		{
-			lblResultadoGrilla.Visible = true;
+			//lblResultadoGrilla.Visible = true;
 			lblResultado.Visible = true;
 
 			gvwResultado.DataSource = tablaResultado.DefaultView;
@@ -631,6 +742,24 @@ namespace EDUAR_UI
 				gvwResultado.DataBind();
 				udpResultado.Update();
 			}
+		}
+
+		/// <summary>
+		/// Validars the pagina.
+		/// </summary>
+		/// <returns></returns>
+		private string ValidarPagina()
+		{
+			int cantCriterios = 0;
+			if (criterioCalificacion.habilitarCriterio)
+				cantCriterios++;
+			if (criterioInasistencia.habilitarCriterio)
+				cantCriterios++;
+			if (criterioSancion.habilitarCriterio)
+				cantCriterios++;
+			if (cantCriterios < 2)
+				return "Debe habilitar al menos 2 criterios.";
+			return string.Empty;
 		}
 		#endregion
 	}
