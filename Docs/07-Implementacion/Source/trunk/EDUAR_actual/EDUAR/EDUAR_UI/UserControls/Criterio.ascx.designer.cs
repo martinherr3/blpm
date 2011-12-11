@@ -22,6 +22,15 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.WebControls.TextBox txtCriterio;
         
         /// <summary>
+        /// Control btnDesHabilitar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnDesHabilitar;
+        
+        /// <summary>
         /// Control maskCriterio.
         /// </summary>
         /// <remarks>

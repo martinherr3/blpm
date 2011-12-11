@@ -123,6 +123,7 @@
     <Content Include="Images\firefox.png" />
     <Content Include="Images\Graficar.png" />
     <Content Include="Images\Grillas\action_delete.png" />
+    <Content Include="Images\Grillas\action_enable.png" />
     <Content Include="Images\Grillas\action_lookup.png" />
     <Content Include="Images\Grillas\action_new.png" />
     <Content Include="Images\Grillas\lock.png" />
