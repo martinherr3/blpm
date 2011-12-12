@@ -16,8 +16,10 @@
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td align="right">
+                    <asp:ImageButton ID="btnExcel" OnClick="btnExcel_Click" runat="server" ToolTip="Exportar a Excel"
+                        ImageUrl="~/Images/ExportarExcel.png" AlternateText="Exportar a Excel" Enabled="true" />
                     <asp:ImageButton ID="btnCalcular" OnClick="btnCalcular_Click" runat="server" ToolTip="Calcular"
-                        ImageUrl="~/Images/botonCalcular.png" />
+                        AlternateText="Calcular" ImageUrl="~/Images/botonCalcular.png" />
                 </td>
             </tr>
         </table>
@@ -73,15 +75,15 @@
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="gvwResultado" runat="server" CssClass="DatosLista" AllowPaging="True"
-                            AllowSorting="True" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="true"
-                            OnPageIndexChanging="gvwResultado_PageIndexChanging" PageSize="15" OnSorting="gvwResultado_Sorting"
-                            OnRowCreated="gvwResultado_RowCreated" OnRowDataBound="gvwResultado_RowDataBound">
+                            AllowSorting="True" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None"
+                            ShowFooter="true" OnPageIndexChanging="gvwResultado_PageIndexChanging" PageSize="15"
+                            OnSorting="gvwResultado_Sorting" OnRowCreated="gvwResultado_RowCreated" OnRowDataBound="gvwResultado_RowDataBound">
                             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                             <EditRowStyle BackColor="#999999" />
                             <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
                             <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Height="24px" />
                             <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" HorizontalAlign="Center"/>
+                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" HorizontalAlign="Center" />
                             <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                             <SortedAscendingCellStyle BackColor="#E9E7E2" />
                             <SortedAscendingHeaderStyle BackColor="#506C8C" />

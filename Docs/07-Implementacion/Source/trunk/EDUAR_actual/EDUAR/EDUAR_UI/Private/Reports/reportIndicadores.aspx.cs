@@ -11,6 +11,11 @@ using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
 using System.Linq;
 using System.Web.UI;
+using System.IO;
+using NPOI.HSSF.UserModel;
+using NPOI.HPSF;
+using NPOI.POIFS.FileSystem;
+using NPOI.SS.UserModel;
 
 namespace EDUAR_UI
 {
@@ -168,6 +173,136 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
+		/// Handles the Click event of the btnExcel control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnExcel_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				string filename = "Indicadores " + ddlCurso.SelectedItem.Text + " " + cicloLectivoActual.nombre + ".xls";
+				filename = filename.Replace(" ", "_");
+				Response.ContentType = "application/vnd.ms-excel";
+				Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", filename));
+				Response.Clear();
+
+				InitializeWorkbook();
+				GenerateData();
+				Response.BinaryWrite(WriteToStream().GetBuffer());
+				Response.End();
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
+		}
+
+		HSSFWorkbook hssfworkbook;
+
+		MemoryStream WriteToStream()
+		{
+			//Write the stream data of workbook to the root directory
+			MemoryStream file = new MemoryStream();
+			hssfworkbook.Write(file);
+			return file;
+		}
+
+		void GenerateData()
+		{
+			ISheet hojaExcel = hssfworkbook.CreateSheet("Resultado");
+
+			//hojaExcel.CreateRow(0).CreateCell(0).SetCellValue("Resultado");
+			int idxAux = 0;
+			IRow fila = hojaExcel.CreateRow(idxAux);
+			idxAux++;
+			RptIndicadores alumno = null;
+			int idAlumno = 0;
+			string nombre = string.Empty;
+
+			IFont unaFuente = hssfworkbook.CreateFont();
+			unaFuente.FontName = "Tahoma";
+			unaFuente.FontHeightInPoints = 8;
+
+			IFont fuenteEncabezado = hssfworkbook.CreateFont();
+			fuenteEncabezado.FontName = "Tahoma";
+			fuenteEncabezado.FontHeightInPoints = 10;
+			fuenteEncabezado.Boldweight = 20;
+
+			ICellStyle unEstiloDecimal = hssfworkbook.CreateCellStyle();
+			IDataFormat format = hssfworkbook.CreateDataFormat();
+			unEstiloDecimal.DataFormat = format.GetFormat("0.00");
+			unEstiloDecimal.SetFont(unaFuente);
+
+			//--Agrego los encabezados--
+			#region --[Encabezados]--
+			for (int i = 0; i < tablaResultado.Columns.Count; i++)
+			{
+				fila.CreateCell(i).CellStyle.Alignment = HorizontalAlignment.CENTER;
+				nombre = tablaResultado.Columns[i].ColumnName;
+				alumno = new RptIndicadores();
+				int.TryParse(tablaResultado.Columns[i].ColumnName, out idAlumno);
+				if (idAlumno > 0)
+				{
+					alumno = lista.Find(p => p.idAlumno == Convert.ToInt16(idAlumno));
+					nombre = alumno.alumnoApellido + " " + alumno.alumnoNombre;
+				}
+				fila.CreateCell(i).SetCellValue(nombre);
+				fila.Cells[i].CellStyle.SetFont(fuenteEncabezado);
+				hojaExcel.AutoSizeColumn(i);
+			}
+			#endregion
+
+			//Agrego los datos
+			#region --[Datos]--
+			decimal valorDato = 0;
+			try
+			{
+				for (int i = 0; i < tablaResultado.Rows.Count; i++)
+				{
+					fila = hojaExcel.CreateRow(idxAux);
+					idxAux++;
+
+					for (int j = 0; j < tablaResultado.Columns.Count; j++)
+					{
+						//fila.CreateCell(j).SetCellValue(tablaResultado.Rows[i][j].ToString());
+						try
+						{
+							valorDato = decimal.Parse(tablaResultado.Rows[i][j].ToString());
+							fila.CreateCell(j).SetCellValue(Convert.ToDouble(valorDato));
+							fila.Cells[j].CellStyle = unEstiloDecimal;
+							fila.Cells[j].SetCellType(CellType.NUMERIC);
+						}
+						catch
+						{
+							fila.CreateCell(j).SetCellValue(tablaResultado.Rows[i][j].ToString());
+							fila.Cells[j].CellStyle.SetFont(fuenteEncabezado);
+						}
+					}
+				}
+				hojaExcel.AutoSizeColumn(0);
+			}
+			catch (Exception ex)
+			{ throw ex; }
+
+			#endregion
+		}
+
+
+		void InitializeWorkbook()
+		{
+			hssfworkbook = new HSSFWorkbook();
+
+			//create a entry of DocumentSummaryInformation
+			DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
+			dsi.Company = "EDU@R 2.0";
+			hssfworkbook.DocumentSummaryInformation = dsi;
+
+			//create a entry of SummaryInformation
+			SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
+			si.Subject = "Archivo generado medinte la librería NPOI";
+			hssfworkbook.SummaryInformation = si;
+		}
+
+		/// <summary>
 		/// Handles the Click event of the btnBuscar control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -186,6 +321,7 @@ namespace EDUAR_UI
 						lblResultado.Text = string.Empty;
 						AccionPagina = enumAcciones.Buscar;
 						obtenerDatos(idCursoCicloLectivo);
+						btnExcel.Enabled = true;
 					}
 					else
 						Master.MostrarMensaje("Criterios Insuficientes", validacion, enumTipoVentanaInformacion.Advertencia);
@@ -584,8 +720,7 @@ namespace EDUAR_UI
 				int.TryParse(alternativas[1], out indexColumna);
 				nroFila = tablaPaso2.Rows.IndexOf(tablaPaso2.Select("Alumnos='" + indexFila.ToString() + "'")[0]);
 
-				if (criterioCalificacion.habilitarCriterio)
-					valorCalificacion = (item[1] != DBNull.Value) ? Convert.ToDecimal(item[1]) : 0;
+				valorCalificacion = (item[1] != DBNull.Value) ? Convert.ToDecimal(item[1]) : 0;
 				valorInasistencia = (item[2] != DBNull.Value) ? Convert.ToDecimal(item[2]) : 0;
 				valorSancion = (item[3] != DBNull.Value) ? Convert.ToDecimal(item[3]) : 0;
 				if (criterioCalificacion.habilitarCriterio)
