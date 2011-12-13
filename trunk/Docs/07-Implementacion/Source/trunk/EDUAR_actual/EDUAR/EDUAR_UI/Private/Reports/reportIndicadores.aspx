@@ -16,6 +16,8 @@
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td align="right">
+                    <asp:ImageButton ID="btnExportarPDF" OnClick="btnExportarPDF_Click" runat="server" ToolTip="Exportar a PDF"
+                        ImageUrl="~/Images/ExportarPDF.png" AlternateText="Exportar a PDF" Enabled="true" />
                     <asp:ImageButton ID="btnExcel" OnClick="btnExcel_Click" runat="server" ToolTip="Exportar a Excel"
                         ImageUrl="~/Images/ExportarExcel.png" AlternateText="Exportar a Excel" Enabled="true" />
                     <asp:ImageButton ID="btnCalcular" OnClick="btnCalcular_Click" runat="server" ToolTip="Calcular"
@@ -69,14 +71,14 @@
         <br />
         <asp:UpdatePanel runat="server" ID="udpResultado" UpdateMode="Conditional">
             <ContentTemplate>
-                <%--<asp:Label ID="lblResultadoGrilla" Text="Se muestra la grilla de resultados de Preorden Parcial"
-                    runat="server" Visible="false" Font-Bold="true" /><br />--%>
+                <asp:Label ID="lblResultadoGrilla" Text="Resultados obtenidos en orden Descendente"
+                    runat="server" Visible="false" Font-Bold="true" /><br />
                 <asp:Label ID="lblResultado" Text="" runat="server" CssClass="lblCriterios" Visible="false" />
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="gvwResultado" runat="server" CssClass="DatosLista" AllowPaging="True"
                             AllowSorting="True" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None"
-                            ShowFooter="true" OnPageIndexChanging="gvwResultado_PageIndexChanging" PageSize="15"
+                            ShowFooter="false" OnPageIndexChanging="gvwResultado_PageIndexChanging" PageSize="15"
                             OnSorting="gvwResultado_Sorting" OnRowCreated="gvwResultado_RowCreated" OnRowDataBound="gvwResultado_RowDataBound">
                             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                             <EditRowStyle BackColor="#999999" />
