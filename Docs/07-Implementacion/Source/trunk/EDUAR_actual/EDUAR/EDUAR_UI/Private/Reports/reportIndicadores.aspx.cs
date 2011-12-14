@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_BusinessLogic.Reports;
@@ -9,12 +11,8 @@ using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
-using System.Linq;
-using System.Web.UI;
-using System.IO;
-using NPOI.HSSF.UserModel;
 using NPOI.HPSF;
-using NPOI.POIFS.FileSystem;
+using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 
 namespace EDUAR_UI
@@ -856,27 +854,10 @@ namespace EDUAR_UI
 		/// </summary>
 		void GenerateData()
 		{
-			ISheet hojaExcel = excelFile.CreateSheet("Resultado");
-
 			IFont fuenteTitulo = excelFile.CreateFont();
 			fuenteTitulo.FontName = "Calibri";
 			//fuenteTitulo.FontHeight = (short)FontSize.Large.GetHashCode();
 			fuenteTitulo.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
-			NPOI.SS.Util.CellRangeAddress rango = new NPOI.SS.Util.CellRangeAddress(0, 0, 0, tablaResultado.Columns.Count - 1);
-			hojaExcel.AddMergedRegion(rango);
-			hojaExcel.AutoSizeColumn(0);
-
-			int idxAux = 0;
-			IRow fila = hojaExcel.CreateRow(idxAux);
-			fila.CreateCell(idxAux).SetCellValue(lblResultadoGrilla.Text);
-			fila.Cells[idxAux].CellStyle.SetFont(fuenteTitulo);
-			idxAux++;
-
-			fila = hojaExcel.CreateRow(idxAux);
-			idxAux++;
-			RptIndicadores alumno = null;
-			int idAlumno = 0;
-			string nombre = string.Empty;
 
 			IFont unaFuente = excelFile.CreateFont();
 			unaFuente.FontName = "Tahoma";
@@ -891,6 +872,83 @@ namespace EDUAR_UI
 			IDataFormat format = excelFile.CreateDataFormat();
 			unEstiloDecimal.DataFormat = format.GetFormat("0.00");
 			unEstiloDecimal.SetFont(unaFuente);
+
+			ISheet hojaUno = excelFile.CreateSheet("Datos");
+
+			IRow filaEncabezado = hojaUno.CreateRow(1);
+			filaEncabezado.CreateCell(0);
+			filaEncabezado.CreateCell(1).SetCellValue("Pesos");
+			filaEncabezado.Cells[1].CellStyle.SetFont(fuenteTitulo);
+			filaEncabezado.CreateCell(2).SetCellValue("Función de Preferencia");
+			filaEncabezado.Cells[2].CellStyle.SetFont(fuenteTitulo);
+			filaEncabezado.CreateCell(3).SetCellValue("Optimización");
+			filaEncabezado.Cells[3].CellStyle.SetFont(fuenteTitulo);
+
+			int idxUno = 2;
+			IRow filaCriterio = hojaUno.CreateRow(idxUno);
+			if (criterioCalificacion.habilitarCriterio)
+			{
+				filaCriterio.CreateCell(0).SetCellValue("Criterio Calificación");
+				filaCriterio.Cells[0].CellStyle.SetFont(fuenteTitulo);
+				filaCriterio.CreateCell(1).SetCellValue(Convert.ToDouble(criterioCalificacion.pesoCriterio));
+				filaCriterio.Cells[1].CellStyle = unEstiloDecimal;
+				filaCriterio.Cells[1].SetCellType(CellType.NUMERIC);
+				filaCriterio.CreateCell(2).SetCellValue(criterioCalificacion.TipoFuncionPreferencia.ToString());
+				filaCriterio.CreateCell(3).SetCellValue((criterioCalificacion.esMaximzante) ? "Maximizante" : "Minimizante");
+				idxUno++;
+			}
+
+			filaCriterio = hojaUno.CreateRow(idxUno);
+			if (criterioInasistencia.habilitarCriterio)
+			{
+				filaCriterio.CreateCell(0).SetCellValue("Criterio Inasistencia");
+				filaCriterio.Cells[0].CellStyle.SetFont(fuenteTitulo);
+				filaCriterio.CreateCell(1).SetCellValue(Convert.ToDouble(criterioInasistencia.pesoCriterio));
+				filaCriterio.Cells[1].CellStyle = unEstiloDecimal;
+				filaCriterio.Cells[1].SetCellType(CellType.NUMERIC);
+				filaCriterio.CreateCell(2).SetCellValue(criterioInasistencia.TipoFuncionPreferencia.ToString());
+				filaCriterio.CreateCell(3).SetCellValue((criterioInasistencia.esMaximzante) ? "Maximizante" : "Minimizante");
+				idxUno++;
+			}
+
+			filaCriterio = hojaUno.CreateRow(idxUno);
+			if (criterioSancion.habilitarCriterio)
+			{
+				filaCriterio.CreateCell(0).SetCellValue("Criterio Sanción");
+				filaCriterio.Cells[0].CellStyle.SetFont(fuenteTitulo);
+				filaCriterio.CreateCell(1).SetCellValue(Convert.ToDouble(criterioSancion.pesoCriterio));
+				filaCriterio.Cells[1].CellStyle = unEstiloDecimal;
+				filaCriterio.Cells[1].SetCellType(CellType.NUMERIC);
+				filaCriterio.CreateCell(2).SetCellValue(criterioSancion.TipoFuncionPreferencia.ToString());
+				filaCriterio.CreateCell(3).SetCellValue((criterioSancion.esMaximzante) ? "Maximizante" : "Minimizante");
+				idxUno++;
+			}
+
+			hojaUno.AutoSizeColumn(0);
+			hojaUno.AutoSizeColumn(1);
+			hojaUno.AutoSizeColumn(2);
+			hojaUno.AutoSizeColumn(3);
+
+			ISheet hojaExcel = excelFile.CreateSheet("Resultado");
+
+			NPOI.SS.Util.CellRangeAddress rango = new NPOI.SS.Util.CellRangeAddress(0, 0, 0, tablaResultado.Columns.Count - 1);
+			hojaExcel.AddMergedRegion(rango);
+			hojaExcel.AutoSizeColumn(0);
+			hojaExcel.AutoSizeColumn(1);
+
+			int idxAux = 0;
+			IRow fila = hojaExcel.CreateRow(idxAux);
+			fila.CreateCell(idxAux).SetCellValue(lblResultadoGrilla.Text);
+			fila.Cells[idxAux].CellStyle.SetFont(fuenteTitulo);
+			idxAux++;
+
+			fila = hojaExcel.CreateRow(idxAux);
+			idxAux++;
+			RptIndicadores alumno = null;
+			int idAlumno = 0;
+			string nombre = string.Empty;
+
+
 			hojaExcel.AutoSizeColumn(0);
 
 			//--Agrego los encabezados--
