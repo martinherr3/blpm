@@ -670,6 +670,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\TMP\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EDUARMaster.Master" />

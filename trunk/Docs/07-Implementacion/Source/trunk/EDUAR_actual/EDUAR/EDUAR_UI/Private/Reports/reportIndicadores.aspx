@@ -16,8 +16,9 @@
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td align="right">
-                    <asp:ImageButton ID="btnExportarPDF" OnClick="btnExportarPDF_Click" runat="server" ToolTip="Exportar a PDF"
-                        ImageUrl="~/Images/ExportarPDF.png" AlternateText="Exportar a PDF" Enabled="true" />
+                    <asp:ImageButton ID="btnExportarPDF" OnClick="btnExportarPDF_Click" runat="server"
+                        ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png" AlternateText="Exportar a PDF"
+                        Enabled="true" />
                     <asp:ImageButton ID="btnExcel" OnClick="btnExcel_Click" runat="server" ToolTip="Exportar a Excel"
                         ImageUrl="~/Images/ExportarExcel.png" AlternateText="Exportar a Excel" Enabled="true" />
                     <asp:ImageButton ID="btnCalcular" OnClick="btnCalcular_Click" runat="server" ToolTip="Calcular"
@@ -32,13 +33,24 @@
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                 </td>
-                <td valign="top" class="TDCriterios75">
+                <td valign="top" class="TDCriterios25">
                     <asp:DropDownList ID="ddlCurso" runat="server">
+                    </asp:DropDownList>
+                </td>
+                <td valign="top" class="TDCriterios25">
+                    <asp:Label ID="lblAlumnos" runat="server" Text="Obtener los primeros:" CssClass="lblCriterios"></asp:Label>
+                </td>
+                <td valign="top" class="TDCriterios25">
+                    <asp:DropDownList ID="ddlTop" runat="server">
+                        <asp:ListItem Text="3" Value="3" />
+                        <asp:ListItem Text="5" Value="5" />
+                        <asp:ListItem Text="10" Value="10" />
+                        <asp:ListItem Text="Todos" Value="0" />
                     </asp:DropDownList>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td colspan="4">
                     <h3>
                         Criterios y Pesos</h3>
                 </td>
@@ -47,24 +59,27 @@
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblCalificaciones" Text="Calificaciones" runat="server" CssClass="lblCriterios" />
                 </td>
-                <td valign="top" class="TDCriterios75">
-                    <cri:Criterio ID="criterioCalificacion" runat="server"></cri:Criterio>
+                <td valign="top" class="TDCriterios75" colspan="3">
+                    <cri:Criterio ID="criterioCalificacion" runat="server" nombreCriterio="Calificaciones"
+                        esMaximzante="true"></cri:Criterio>
                 </td>
             </tr>
             <tr>
                 <td>
                     <asp:Label ID="lblInasistencias" Text="Inasistencias" runat="server" CssClass="lblCriterios" />
                 </td>
-                <td>
-                    <cri:Criterio ID="criterioInasistencia" runat="server"></cri:Criterio>
+                <td colspan="3">
+                    <cri:Criterio ID="criterioInasistencia" runat="server" nombreCriterio="Inasistencias"
+                        esMaximzante="false"></cri:Criterio>
                 </td>
             </tr>
             <tr>
                 <td>
                     <asp:Label ID="lblSanciones" Text="Sanciones" runat="server" CssClass="lblCriterios" />
                 </td>
-                <td>
-                    <cri:Criterio ID="criterioSancion" runat="server"></cri:Criterio>
+                <td colspan="3">
+                    <cri:Criterio ID="criterioSancion" runat="server" nombreCriterio="Sanciones" esMaximzante="false">
+                    </cri:Criterio>
                 </td>
             </tr>
         </table>
@@ -92,6 +107,11 @@
                             <SortedDescendingCellStyle BackColor="#FFFDF8" />
                             <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
                         </asp:GridView>
+                        <br />
+                        <div style="width: 100%; text-align: center">
+                            <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
+                                Visible="false" Style="text-align: center" />
+                        </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </ContentTemplate>
