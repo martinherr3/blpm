@@ -328,7 +328,7 @@ namespace EDUAR_UI
 				var TopAlumno = from p in lista
 								where p.alumnoApellido + " " + p.alumnoNombre == tablaResultado.Rows[i][0].ToString()
 								//orderby p.promedio descending
-								select p.alumnoApellido + " " + p.alumnoNombre;
+								select p.alumnoApellido.Trim() + " " + p.alumnoNombre.Trim();
 				//lblResultado.Text += alumno.ElementAt(0).ToString() + "<br />";
 				switch (i)
 				{
@@ -558,7 +558,7 @@ namespace EDUAR_UI
 						Label lb = (Label)e.Row.Cells[i].Controls[0];
 						RptIndicadores alumno = new RptIndicadores();
 						alumno = lista.Find(p => p.idAlumno == Convert.ToInt16(lb.Text));
-						string nombre = alumno.alumnoApellido + " " + alumno.alumnoNombre;
+						string nombre = alumno.alumnoApellido.Trim() + " " + alumno.alumnoNombre.Trim();
 						lb.Text = nombre.Replace(" ", "<br />");
 					}
 				}
@@ -918,7 +918,7 @@ namespace EDUAR_UI
 				{
 					RptIndicadores alumno = new RptIndicadores();
 					alumno = lista.Find(p => p.idAlumno == Convert.ToInt16(tablaResultado.Rows[i][0].ToString()));
-					tablaResultado.Rows[i][0] = alumno.alumnoApellido + " " + alumno.alumnoNombre;
+					tablaResultado.Rows[i][0] = alumno.alumnoApellido.Trim() + " " + alumno.alumnoNombre.Trim();
 				}
 				tablaResultado.Columns.Remove("FlujoEntrante");
 
@@ -1165,13 +1165,13 @@ namespace EDUAR_UI
 				if (indexFila > 0)
 				{
 					alumno = lista.Find(p => p.idAlumno == Convert.ToInt16(indexFila));
-					nombre = alumno.alumnoApellido + " " + alumno.alumnoNombre;
+					nombre = alumno.alumnoApellido.Trim() + " " + alumno.alumnoNombre.Trim();
 				}
 
 				if (indexColumna > 0)
 				{
 					alumno = lista.Find(p => p.idAlumno == Convert.ToInt16(indexColumna));
-					nombre += " - " + alumno.alumnoApellido + " " + alumno.alumnoNombre;
+					nombre += " - " + alumno.alumnoApellido.Trim() + " " + alumno.alumnoNombre.Trim();
 				}
 				tabla.Rows[i][0] = nombre;
 			}
@@ -1188,7 +1188,7 @@ namespace EDUAR_UI
 				if (indexFila > 0)
 				{
 					alumno = lista.Find(p => p.idAlumno == Convert.ToInt16(indexFila));
-					nombre = alumno.alumnoApellido + " " + alumno.alumnoNombre;
+					nombre = alumno.alumnoApellido.Trim() + " " + alumno.alumnoNombre.Trim();
 				}
 				tabla.Rows[i][0] = nombre;
 			}
@@ -1269,7 +1269,7 @@ namespace EDUAR_UI
 				if (idAlumno > 0)
 				{
 					alumno = lista.Find(p => p.idAlumno == Convert.ToInt16(idAlumno));
-					nombre = alumno.alumnoApellido + " " + alumno.alumnoNombre;
+					nombre = alumno.alumnoApellido.Trim() + " " + alumno.alumnoNombre.Trim();
 				}
 				fila.CreateCell(i).SetCellValue(nombre);
 				fila.Cells[i].CellStyle.SetFont(fuenteEncabezado);
