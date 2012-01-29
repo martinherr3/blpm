@@ -8,6 +8,7 @@ using EDUAR_UI.Shared;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -139,6 +140,7 @@ namespace EDUAR_UI
 					FormsAuthentication.Initialize();
 					FormsAuthentication.SetAuthCookie(LoginUser.UserName.Trim(), false);
 					ObjSessionDataUI.ObjDTUsuario = objDTSeguridad.Usuario;
+					UIUtilidades.EliminarArchivosSession(Session.SessionID);
 					if (ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial)
 						Response.Redirect("~/Private/Account/ChangePassword.aspx", false);
 				}

@@ -85,6 +85,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.DropDownList ddlCurso;
         
         /// <summary>
+        /// Control lblAlumnos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAlumnos;
+        
+        /// <summary>
+        /// Control ddlTop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTop;
+        
+        /// <summary>
         /// Control lblCalificaciones.
         /// </summary>
         /// <remarks>
@@ -173,6 +191,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvwResultado;
+        
+        /// <summary>
+        /// Control imgPodio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgPodio;
         
         /// <summary>
         /// Propiedad Master.

@@ -10,8 +10,14 @@ namespace EDUAR_UI.UserControls
 {
 	public partial class Criterio : UserControl
 	{
-		#region --[Propiedades]--
+		#region --[Atributos]--
+		/// <summary>
+		/// 
+		/// </summary>
+		private string nombre;
+		#endregion
 
+		#region --[Propiedades]--
 		/// <summary>
 		/// Gets or sets the limite indiferencia.
 		/// </summary>
@@ -109,8 +115,9 @@ namespace EDUAR_UI.UserControls
 			}
 		}
 
+
 		/// <summary>
-		/// Gets a value indicating whether [es maximzante].
+		/// Gets or sets a value indicating whether [es maximzante].
 		/// </summary>
 		/// <value>
 		///   <c>true</c> if [es maximzante]; otherwise, <c>false</c>.
@@ -123,6 +130,10 @@ namespace EDUAR_UI.UserControls
 				if (rdlSentido.SelectedValue == "0")
 					return false;
 				return true;
+			}
+			set
+			{
+				rdlSentido.SelectedValue = value.GetHashCode().ToString();
 			}
 		}
 
@@ -155,6 +166,12 @@ namespace EDUAR_UI.UserControls
 				}
 				btnDesHabilitar.ImageAlign = ImageAlign.AbsMiddle;
 			}
+		}
+
+		public string nombreCriterio
+		{
+			get { return this.nombre; }
+			set { nombre = value; }
 		}
 		#endregion
 
@@ -301,7 +318,10 @@ namespace EDUAR_UI.UserControls
 			}
 			if (mensaje == string.Empty)
 				if (string.IsNullOrEmpty(txtCriterio.Text))
-					mensaje = "Debe ingresar un peso para el Criterio";
+					mensaje = "Debe ingresar un peso para el Criterio.";
+			if (mensaje != string.Empty)
+				mensaje = "Criterio " + nombreCriterio + ".<br />" + mensaje;
+
 			return mensaje;
 		}
 		#endregion

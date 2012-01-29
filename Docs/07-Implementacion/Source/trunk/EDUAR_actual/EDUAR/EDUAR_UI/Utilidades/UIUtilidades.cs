@@ -7,6 +7,8 @@ using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_Utility.Enumeraciones;
+using System.Web;
+
 
 namespace EDUAR_UI.Utilidades
 {
@@ -189,13 +191,30 @@ namespace EDUAR_UI.Utilidades
 		/// <param name="sessionID">The session ID.</param>
 		public static void EliminarArchivosSession(string sessionID)
 		{
+			GC.WaitForPendingFinalizers();
+			GC.Collect();
 			string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oTmpPath"];
+			string ImgPath = System.Configuration.ConfigurationManager.AppSettings["oImgPath"];
 			var archivo = "Grafico_" + sessionID + ".png";
 			if (Directory.Exists(TmpPath))
 			{
 				foreach (string item in Directory.GetFiles(TmpPath, archivo, SearchOption.TopDirectoryOnly))
 				{
 					File.Delete(item);
+				}
+				archivo = "Podio_" + sessionID + ".png";
+				foreach (string item in Directory.GetFiles(ImgPath, archivo, SearchOption.TopDirectoryOnly))
+				{
+					File.Delete(item);
+				}
+				if (HttpContext.Current != null)
+				{
+					ImgPath = "~/Images/TMP";
+					string miruta = HttpContext.Current.Server.MapPath(ImgPath).ToString();
+					foreach (string item in Directory.GetFiles(miruta, archivo, SearchOption.TopDirectoryOnly))
+					{
+						File.Delete(item);
+					}
 				}
 			}
 		}
