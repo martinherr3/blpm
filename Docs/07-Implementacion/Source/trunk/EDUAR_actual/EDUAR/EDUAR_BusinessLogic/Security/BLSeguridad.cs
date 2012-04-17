@@ -229,6 +229,7 @@ namespace EDUAR_BusinessLogic.Security
 		{
 			try
 			{
+				Data.Usuario.Nombre = Membership.GetUserNameByEmail(Data.Usuario.Email);
 				MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
 				Data.Usuario.PaswordRespuesta = user.GetPassword(Data.Usuario.PaswordRespuesta);
 			}
