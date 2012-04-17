@@ -578,7 +578,10 @@ namespace EDUAR_UI
 				//calFechaEvento.Fecha.Text = entidad.fechaEvento.ToShortDateString();
 				ddlMeses.SelectedValue = entidad.fechaEvento.Month.ToString();
 				if (ddlDia.Items.FindByValue(entidad.fechaEvento.Day.ToString()) != null)
+				{
 					ddlDia.SelectedValue = entidad.fechaEvento.Day.ToString();
+					ddlDia.Enabled = true;
+				}
 				else
 					ddlDia.SelectedIndex = 0;
 				ddlAsignaturaEdit.SelectedValue = entidad.asignatura.idAsignatura.ToString();
