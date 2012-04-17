@@ -775,7 +775,7 @@ namespace EDUAR_UI.UserControls
 			{
 				//Valida que la fecha final no sea anterior a la fecha del día
 				if (boolFechaDesdeCorrecta)
-					if (fechaDesde.Date <= DateTime.Now.Date)
+					if (fechaDesde.Date < DateTime.Now.Date)
 					{
 						string campoDesde = lblFechaDesde_DA.Text;
 						if (lblFechaDesde_DA.Text.Trim().Length == 0)
@@ -784,6 +784,16 @@ namespace EDUAR_UI.UserControls
 						if (lblFechaHasta_DA.Text.Trim().Length == 0)
 							campoHasta = "";
 						throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha no puede ser anterior a la fecha actual.", (campoDesde + " " + campoHasta).Trim()), null, enuExceptionType.ValidationException);
+					}
+                    else if (fechaDesde.Date == DateTime.Now.Date)
+					{
+						string campoDesde = lblFechaDesde_DA.Text;
+						if (lblFechaDesde_DA.Text.Trim().Length == 0)
+							campoDesde = "Fecha";
+						string campoHasta = lblFechaHasta_DA.Text;
+						if (lblFechaHasta_DA.Text.Trim().Length == 0)
+							campoHasta = "";
+						throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha no puede ser equivalente a la fecha actual.", (campoDesde + " " + campoHasta).Trim()), null, enuExceptionType.ValidationException);
 					}
 			}
 		}
