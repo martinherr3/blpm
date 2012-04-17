@@ -43,7 +43,7 @@
                         </tr>
                         <tr>
                             <td style="width: 50%;">
-                                <asp:Label ID="lblUserNameBusqeuda" runat="server" Text="Usuario:"></asp:Label>
+                                <asp:Label ID="lblUserNameBusqueda" runat="server" Text="Usuario:"></asp:Label>
                             </td>
                             <td valign="top">
                                 <asp:TextBox ID="txtUsernameBusqueda" runat="server" Text=""></asp:TextBox>
@@ -84,8 +84,7 @@
         <ContentTemplate>
             <asp:GridView ID="gvwUsuarios" runat="server" PagerSettings-Visible="true" BorderStyle="Solid"
                 OnRowCommand="gvwUsuarios_RowCommand" Width="100%" AutoGenerateColumns="False"
-                AllowPaging="True" DataKeyNames="Nombre">
-                <EmptyDataRowStyle HorizontalAlign="Center" />
+                AllowPaging="True" DataKeyNames="Nombre" SkinID="gridviewSkinPagerListado" OnPageIndexChanging="gvwUsuarios_PageIndexChanging">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
