@@ -449,7 +449,7 @@ namespace EDUAR_UI
 			propEvento = listaEventos.Find(c => c.idEventoAgenda == idEventoAgenda);
             
             txtDescripcionEdit.Text = propEvento.descripcion;
-            txtHoraEdit.Text = Convert.ToDateTime(propEvento.horario).ToShortTimeString();
+            txtHoraEdit.Text = Convert.ToDateTime(propEvento.horario).ToString("HH:mm");
             calFechaEvento.Fecha.Text = Convert.ToDateTime(propEvento.fechaEvento).ToShortDateString();
             chkActivoEdit.Checked = propEvento.activo;
 		}

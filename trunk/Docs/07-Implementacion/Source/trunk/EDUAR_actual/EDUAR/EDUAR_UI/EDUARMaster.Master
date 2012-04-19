@@ -140,6 +140,12 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="3" style="width: 25%">
+                        Usted está aqu&iacute;: <asp:SiteMapPath ID="SiteMapPath1" runat="server" ShowToolTips="true">
+                        </asp:SiteMapPath>
+                    </td>
+                </tr>
             </table>
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
@@ -151,27 +157,10 @@
                     SiteMapProvider="AnonymusXmlSiteMapProvider" />
             </div>
         </div>
-        <table>
-            <tr>
-                <td class="contenedormenu">
-                    <!-- MENU -->
-                    <asp:TreeView ID="trvMenu" runat="server" CollapseImageToolTip="Contraer" ExpandImageToolTip="Expander"
-                        Visible="false">
-                        <HoverNodeStyle />
-                        <RootNodeStyle />
-                        <NodeStyle />
-                        <LeafNodeStyle />
-                    </asp:TreeView>
-                    <!-- FIN MENU -->
-                </td>
-                <td style="width: 85%; min-height: 1000px; height: auto; vertical-align: top">
-                    <div class="main">
-                        <asp:ContentPlaceHolder ID="MainContent" runat="server">
-                        </asp:ContentPlaceHolder>
-                    </div>
-                </td>
-            </tr>
-        </table>
+        <div class="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
         <div class="clear">
             <table style="width: 100%">
                 <tr>

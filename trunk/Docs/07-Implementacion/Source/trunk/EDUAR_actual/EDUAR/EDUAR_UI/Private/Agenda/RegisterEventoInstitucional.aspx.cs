@@ -436,7 +436,7 @@ namespace EDUAR_UI
 		{
 			EventoInstitucional evento = listaEvento.Find(c => c.idEventoInstitucional == idEventoInstitucional);
 			txtDescripcionEdit.Text = evento.detalle;
-			txtHoraEdit.Text = Convert.ToDateTime(evento.hora).ToShortTimeString();
+			txtHoraEdit.Text = Convert.ToDateTime(evento.hora).ToString("HH:mm");
 			calFechaEdit.Fecha.Text = Convert.ToDateTime(evento.fecha).ToShortDateString();
 			txtTituloEdit.Text = evento.titulo;
 			txtLugarEdit.Text = evento.lugar;
