@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
-    <siteMapNode url="" title="EDUAR" description="Portal EDUAR" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
+    <siteMapNode url="~/" title="EDUAR" description="Portal EDUAR" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
         <siteMapNode url="~/Private/Account/Welcome.aspx" title="Inicio" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" >
         </siteMapNode>
         <siteMapNode url="" title="Agenda" roles="Administrador,Docente" >

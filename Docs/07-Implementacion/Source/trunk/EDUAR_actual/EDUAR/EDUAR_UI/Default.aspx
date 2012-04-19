@@ -9,7 +9,8 @@
         <tr>
             <td style="width: 80%; vertical-align: text-top">
                 <h2>
-                    EDU@R 2.0<hr />
+                    EDU@R 2.0
+                    <hr />
                 </h2>
             </td>
             <td style="width: 20%; text-align: right" rowspan="2">

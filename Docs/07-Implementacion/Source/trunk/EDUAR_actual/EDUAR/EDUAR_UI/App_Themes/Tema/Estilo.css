@@ -91,16 +91,14 @@ first child of the left and right table columns */
 {
     width: 90%;
     background-color: #fff;
-    margin: 0px auto 0px auto;
-    /*text-align: center;*/
+    margin: 0px auto 0px auto; /*text-align: center;*/
 }
 
 .header
 {
     position: relative;
     margin: 0px;
-    padding: 0px; /*background: #4b6c9e;*/
-    /*background-color: #A2B5CD;*/
+    padding: 0px; /*background: #4b6c9e;*/ /*background-color: #A2B5CD;*/
     width: 100%;
     min-width: 1000px;
 }
@@ -121,9 +119,9 @@ first child of the left and right table columns */
     padding: 0px 12px;
     margin: 12px 8px 8px 8px;
     min-height: 600px;
-    width: 90%;
-    min-width: 900px;
-    vertical-align:text-top;
+    min-width: 1000px;
+    vertical-align: text-top;
+    text-align: center;
 }
 
 .leftCol
@@ -272,8 +270,7 @@ div.accountInfo
     font-size: 1.1em;
     display: block;
     text-align: right;
-    padding: 10px;
-    /*color: #1E1E1E;*/
+    padding: 10px; /*color: #1E1E1E;*/
     font-weight: 100;
 }
 
@@ -668,8 +665,7 @@ TD.EncabezadoConfirmación
 .tablaInternaSinBorde
 {
     width: 100%;
-    border: 0;
-    /*border-top: 1px solid silver;*/
+    border: 0; /*border-top: 1px solid silver;*/
     padding-top: 5px;
 }
 

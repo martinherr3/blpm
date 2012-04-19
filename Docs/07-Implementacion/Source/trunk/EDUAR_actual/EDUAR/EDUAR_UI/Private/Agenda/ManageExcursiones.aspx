@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Administrar Excursiones" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="ManageExcursiones.aspx.cs" Inherits="EDUAR_UI.ManageExcursiones"
-    Theme="Tema" StylesheetTheme="Tema" %>
+    Theme="Tema" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
@@ -96,14 +96,14 @@
                             <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("fechaEvento","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="HoraDesde">
+                    <asp:TemplateField HeaderText="Hora Desde">
                         <HeaderStyle HorizontalAlign="Center" Width="20%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblHoraDesde" runat="server" Text='<%# Bind("horaDesde","{0:HH:mm}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="HoraHasta">
+                    <asp:TemplateField HeaderText="Hora Hasta">
                         <HeaderStyle HorizontalAlign="Center" Width="20%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>

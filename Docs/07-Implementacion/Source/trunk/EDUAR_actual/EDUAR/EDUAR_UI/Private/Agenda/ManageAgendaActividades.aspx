@@ -37,7 +37,8 @@
                         <tr>
                             <td>
                                 <h3>
-                                    Buscar Agenda de Actividades -  <asp:Label ID="lblCicloLectivoValor" Text="" runat="server" /></h3>
+                                    Buscar Agenda de Actividades -
+                                    <asp:Label ID="lblCicloLectivoValor" Text="" runat="server" /></h3>
                             </td>
                         </tr>
                         <tr>
@@ -139,24 +140,25 @@
                         OnPageIndexChanging="gvwAgenda_PageIndexChanging">
                         <Columns>
                             <asp:TemplateField HeaderText="Evento">
-                                <HeaderStyle HorizontalAlign="left" Width="20%" />
+                                <HeaderStyle HorizontalAlign="left" Width="10%" />
                                 <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblEventoGrilla" runat="server" Text='<%# Bind("tipoEventoAgenda.descripcion") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Fecha">
-                                <HeaderStyle HorizontalAlign="center" Width="20%" />
+                                <HeaderStyle HorizontalAlign="center" Width="10%" />
                                 <ItemStyle HorizontalAlign="center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# Bind("fechaEvento","{0:d}") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Descripcion">
-                                <HeaderStyle HorizontalAlign="left" Width="20%" />
+                                <HeaderStyle HorizontalAlign="left" Width="40%" />
                                 <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblDescripcionGrilla" runat="server" Text='<%# Bind("descripcion") %>'></asp:Label>
+                                    <%--<asp:Label ID="lblDescripcionGrilla" runat="server" Text='<%# String.Format("{0}",Eval("descripcion")).Substring(0, 10) + " ..."%>'
+                                        ToolTip='<%# Bind("descripcion") %>'></asp:Label>--%>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Organizador">

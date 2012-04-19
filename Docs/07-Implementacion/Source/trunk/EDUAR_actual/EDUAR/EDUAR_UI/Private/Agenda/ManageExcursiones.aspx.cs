@@ -454,8 +454,8 @@ namespace EDUAR_UI
 
             txtDescripcionEdit.Text = propEvento.descripcion;
             txtDestinoEdit.Text = propEvento.destino;
-            txtHoraDesdeEdit.Text = Convert.ToDateTime(propEvento.horaDesde).ToShortTimeString();
-            txtHoraHastaEdit.Text = Convert.ToDateTime(propEvento.horaHasta).ToShortTimeString();
+			txtHoraDesdeEdit.Text = Convert.ToDateTime(propEvento.horaDesde).ToString("HH:mm");
+			txtHoraHastaEdit.Text = Convert.ToDateTime(propEvento.horaHasta).ToString("HH:mm");
             calFechaEvento.Fecha.Text = Convert.ToDateTime(propEvento.fechaEvento).ToShortDateString();
             chkActivoEdit.Checked = propEvento.activo;
         }

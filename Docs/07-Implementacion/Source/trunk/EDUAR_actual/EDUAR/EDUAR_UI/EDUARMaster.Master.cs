@@ -104,7 +104,10 @@ namespace EDUAR_UI
 					ObjSessionDataUI = null;
 				}
 				if (HttpContext.Current.User == null)
+				{
 					NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
+					SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
+				}
 				else
 					if (HttpContext.Current.User.Identity.IsAuthenticated)
 					{
@@ -154,6 +157,7 @@ namespace EDUAR_UI
 					else
 					{
 						NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
+						SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
 					}
 
 				NavigationMenu.MenuItemDataBound += (NavigationMenu_OnItemBound);
@@ -329,7 +333,7 @@ namespace EDUAR_UI
 				{
 					if (!ValidarNodo(node))
 						continue;
-					trvMenu.Visible = true;
+					//trvMenu.Visible = true;
 					MenuItem objMenuItem = new MenuItem(node.Title);
 					if (node.Url != string.Empty)
 						objMenuItem.NavigateUrl = node.Url;
@@ -628,7 +632,7 @@ namespace EDUAR_UI
 				{
 					if (!ValidarNodo(node))
 						continue;
-					trvMenu.Visible = true;
+					//trvMenu.Visible = true;
 					TreeNode objTreeNode = new TreeNode(node.Title);
 					if (node.Url != string.Empty)
 						objTreeNode.NavigateUrl = node.Url;
@@ -643,10 +647,10 @@ namespace EDUAR_UI
 						TreeNode objTreeNodeChild = new TreeNode(nodeChild.Title) { NavigateUrl = nodeChild.Url };
 						objTreeNode.ChildNodes.Add(objTreeNodeChild);
 					}
-					if (objTreeNode.ChildNodes.Count > 0 || objTreeNode.Text.Contains("Inicio"))
-						trvMenu.Nodes.Add(objTreeNode);
+					if (objTreeNode.ChildNodes.Count > 0 || objTreeNode.Text.Contains("Inicio")) { }
+						//trvMenu.Nodes.Add(objTreeNode);
 				}
-				trvMenu.ExpandAll();
+				//trvMenu.ExpandAll();
 			}
 		}
 
