@@ -3,8 +3,8 @@
     <siteMapNode url="~/" title="EDUAR" description="Portal EDUAR" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
         <siteMapNode url="~/Private/Account/Welcome.aspx" title="Inicio" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" >
         </siteMapNode>
-        <siteMapNode url="" title="Agenda" roles="Administrador,Docente" >
-            <siteMapNode url="~/Private/Agenda/ManageAgendaActividades.aspx" title="Actividades" roles="Administrador,Docente,Director" />
+        <siteMapNode url="" title="Agenda" roles="Administrador,Docente,Director" >
+            <siteMapNode url="~/Private/Agenda/ManageAgendaActividades.aspx" title="Actividades" roles="Administrador,Docente" />
             <siteMapNode url="~/Private/Agenda/RegisterEventoInstitucional.aspx" title="Eventos" roles="Administrador,Director" />
         </siteMapNode>
         <siteMapNode url="" title="Alumnos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
