@@ -8,14 +8,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Evaluaciones
-        <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
-    <br />
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
+                    <td>
+                        <h2>
+                            Evaluaciones
+                            <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
+                        <br />
+                    </td>
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
@@ -45,30 +47,26 @@
                     </table>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD100px">
                                 <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios75" colspan="3">
+                            <td valign="top" style="width: 500px">
                                 <asp:DropDownList ID="ddlAsignatura" runat="server">
                                 </asp:DropDownList>
                             </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" colspan="4" class="TDCriterios100">
-                                <cal:Calendario ID="calfechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
-                                    EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD50px">
                                 <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD50px">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
                             </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
-                            <td valign="top" class="TDCriterios25">
+                        </tr>
+                    </table>
+                    <table width="600px" cellpadding="1" cellspacing="5">
+                        <tr>
+                            <td valign="top" class="TDCriterios100">
+                                <cal:Calendario ID="calfechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
+                                    EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
                             </td>
                         </tr>
                     </table>
@@ -98,13 +96,6 @@
                                 ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Asignatura">
-                        <HeaderStyle HorizontalAlign="left" Width="20%" />
-                        <ItemStyle HorizontalAlign="left" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblEventoGrilla" runat="server" Text='<%# Bind("asignatura.nombre") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fecha">
                         <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="center" />
@@ -112,8 +103,15 @@
                             <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# Bind("fechaEvento","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Asignatura">
+                        <HeaderStyle HorizontalAlign="left" Width="30%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblEventoGrilla" runat="server" Text='<%# Bind("asignatura.nombre") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Organizador">
-                        <HeaderStyle HorizontalAlign="left" Width="20%" />
+                        <HeaderStyle HorizontalAlign="left" Width="15%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblOrganizador" runat="server" Text='<%# String.Format("{0} {1}", Eval("usuario.nombre"), Eval("usuario.apellido")) %>'></asp:Label>
@@ -173,7 +171,7 @@
                                                     <asp:DropDownList runat="server" ID="ddlDia" Enabled="false">
                                                     </asp:DropDownList>
                                                 </td>
-                                               <%--<td>
+                                                <%--<td>
                                                 </td>--%>
                                             </tr>
                                         </table>

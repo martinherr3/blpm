@@ -807,6 +807,31 @@ TD.EncabezadoConfirmación
     text-align: justify;
 }
 
+.TD50px
+{
+    width: 50px;
+}
+
+.TD100px
+{
+    width: 100px;
+}
+
+.TD110px
+{
+    width: 110px;
+}
+
+.TD140px
+{
+    width: 140px;
+}
+
+.TD250px
+{
+    width: 250px;
+}
+
 /* ESTILOS PARA TEXTBOX! */
 
 .EstiloTxtCorto100
