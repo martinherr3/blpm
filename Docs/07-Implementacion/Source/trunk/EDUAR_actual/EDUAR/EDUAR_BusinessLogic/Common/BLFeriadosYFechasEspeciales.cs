@@ -191,6 +191,49 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+        /// <summary>
+		/// Validars the hora (que sea en horario de funcionamiento del establecimiento educativo).
+		/// </summary>
+		/// <param name="hora">hora.</param>
+		/// <returns></returns>
+        public bool ValidarHora(DateTime hora)
+        {
+            bool retValue = false;
+            DateTime horaDesde, horaHasta;
+
+            try
+            {
+                horaDesde = DataAcces.getHorarioInicio();
+
+                horaHasta = DataAcces.getHorarioFinalizacion();
+
+                if (hora <= horaDesde || hora > horaHasta)
+                {
+                    throw new CustomizedException(string.Format("El horario debe ser dentro de la franja horaria laborable desde las: " + horaDesde.Hour + ":" + horaDesde.Minute + "hs hasta las " + horaHasta.Hour + ":" + horaHasta.Minute + "hs.", ClassName), null,
+                        enuExceptionType.ValidationException);
+                }
+                else
+                {
+                    retValue = true;
+                }
+
+                
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetFeriadosYFechasEspecialess", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+
+
+            return (retValue);
+        }
+
 		#endregion
 	}
 }

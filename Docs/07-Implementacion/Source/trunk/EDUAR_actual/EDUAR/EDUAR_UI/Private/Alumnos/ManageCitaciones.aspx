@@ -216,10 +216,10 @@
                                 </asp:DropDownList>
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblActivoEdit" runat="server" Text="Activo:"></asp:Label>
+                                <asp:Label ID="lblActivoEdit" runat="server" Text="Activo:" ToolTip="Setear en activo cuando la citacion este en curso, porque aparecera como Citacion al tutor"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
-                                <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="true" />
+                                <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="true" ToolTip="Setear en activo cuando la citacion este en curso, porque aparecera como Citacion al tutor" />
                             </td>
                         </tr>
                         <tr>

@@ -630,6 +630,16 @@ namespace EDUAR_UI
             BLFeriadosYFechasEspeciales objBLFeriado = new BLFeriadosYFechasEspeciales();
             objBLFeriado.ValidarFecha(Convert.ToDateTime(calFechaEvento.ValorFecha));
 
+
+            String aux = txtHoraEdit.Text;
+            String []aux2 = aux.Split(':');
+            
+            
+            objBLFeriado.ValidarHora(new DateTime(System.DateTime.Now.Year,System.DateTime.Now.Month,System.DateTime.Now.Day,int.Parse(aux2[0]),int.Parse(aux2[1]), 0));
+
+
+
+
             if (txtDescripcionEdit.Text.Trim().Length == 0)
                 mensaje = "- Descripcion<br />";
             if (calFechaEvento.Fecha.Text.Trim().Length == 0)
