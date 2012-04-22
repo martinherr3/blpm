@@ -178,7 +178,7 @@ namespace EDUAR_UI
                 esNuevo = true;
                 btnGuardar.Visible = true;
                 btnBuscar.Visible = false;
-                btnVolver.Visible = false;
+                btnVolver.Visible = true;
                 btnNuevo.Visible = false;
                 gvwPerfiles.Visible = false;
                 udpEditRoles.Visible = false;

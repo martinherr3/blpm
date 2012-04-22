@@ -26,11 +26,13 @@
     </script>
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-            <h2>
-                <asp:Label ID="lblTitulo" Text="Nuevo Mensaje" runat="server" /></h2>
-            <br />
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
+                    <td>
+                        <h2>
+                            <asp:Label ID="lblTitulo" Text="Nuevo Mensaje" runat="server" /></h2>
+                        <br />
+                    </td>
                     <td align="right">
                         <asp:ImageButton ID="btnEnviar" OnClick="btnEnviar_Click" runat="server" ToolTip="Enviar"
                             ImageUrl="~/Images/botonEnviarMail.png" />

@@ -8,13 +8,15 @@
 <asp:Content ID="ContentHeader" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="ContentBody" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Evento Institucional</h2>
-    <br />
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
+                    <td>
+                        <h2>
+                            Evento Institucional</h2>
+                        <br />
+                    </td>
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" ValidationGroup="ValidarBusqueda" />
@@ -44,53 +46,43 @@
                     </table>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD100px">
                                 <asp:Label ID="lblLugar" runat="server" Text="Lugar:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios75" colspan="3">
+                            <td valign="top" colspan="3">
                                 <asp:TextBox runat="server" ID="txtLugar" CssClass="EstiloTxtLargo250"></asp:TextBox>
                             </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label runat="server" ID="lblTitulo" Text="Título:"></asp:Label>
-                            </td>
-                            <td class="TDCriterios75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtTitulo" CssClass="EstiloTxtLargo250"></asp:TextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD100px">
                                 <asp:Label runat="server" ID="Label15" Text="Tipo de Evento:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top">
                                 <asp:DropDownList runat="server" ID="ddlTipoEvento">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD100px">
                                 <asp:Label ID="Label12" runat="server" Text="Solo Activos:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="false" />
                             </td>
                         </tr>
                         <tr>
-                            <td class="TDCriterios50" colspan="2">
-                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                    <tr>
-                                        <td valign="top" class="TDCriterios50">
-                                            <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
-                                        </td>
-                                        <td valign="top" class="TDCriterios50" style="padding-left: 3px">
-                                            <cal:Calendario ID="calfecha" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
-                                        </td>
-                                    </tr>
-                                </table>
+                            <td valign="top" class="TD100px">
+                                <asp:Label runat="server" ID="lblTitulo" Text="Título:"></asp:Label>
                             </td>
-                            <td valign="middle" class="TDCriterios25">
+                            <td colspan="3">
+                                <asp:TextBox runat="server" ID="txtTitulo" CssClass="EstiloTxtLargo250"></asp:TextBox>
+                            </td>
+                            <td class="TD100px">
+                                <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
+                            </td>
+                            <td valign="top" class="TD100px" style="padding-left: 3px">
+                                <cal:Calendario ID="calfecha" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
+                            </td>
+                            <td valign="middle" class="TD100px">
                                 <asp:Label runat="server" ID="lblHora" Text="Hora:"></asp:Label>
                             </td>
-                            <td valign="middle" class="TDCriterios25">
+                            <td valign="middle">
                                 <hor:Hora ID="txtHora" runat="server" />
                             </td>
                         </tr>
@@ -127,18 +119,12 @@
                             <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("fecha","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Tipo de Evento">
-                        <HeaderStyle HorizontalAlign="left" Width="20%" />
+                    <asp:TemplateField HeaderText="Evento">
+                        <HeaderStyle HorizontalAlign="left" Width="40%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblTipoEvento" runat="server" Text='<%# Bind("tipoEventoInstitucional.descripcion") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Titulo">
-                        <HeaderStyle HorizontalAlign="left" Width="20%" />
-                        <ItemStyle HorizontalAlign="left" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblTitulo" runat="server" Text='<%# Bind("titulo") %>'></asp:Label>
+                            <asp:Label ID="lblTipoEvento" runat="server" Text='<%# TruncateString(String.Format("{0} - {1}", Eval("tipoEventoInstitucional.descripcion"), Eval("titulo")))%>'
+                                ToolTip='<%# String.Format("{0} - {1}", Eval("tipoEventoInstitucional.descripcion"), Eval("titulo"))%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Lugar">
@@ -183,62 +169,56 @@
                     </table>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD110px">
                                 <asp:Label ID="Label1" runat="server" Text="Lugar:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios75" colspan="3">
+                            <td valign="top" colspan="3">
                                 <asp:TextBox runat="server" ID="txtLugarEdit" CssClass="EstiloTxtLargo250"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD110px">
                                 <asp:Label runat="server" ID="Label2" Text="Título:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios75" colspan="3">
+                            <td valign="top" colspan="3">
                                 <asp:TextBox runat="server" ID="txtTituloEdit" CssClass="EstiloTxtLargo250"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD110px">
                                 <asp:Label runat="server" ID="Label13" Text="Tipo de Evento:"></asp:Label>
                             </td>
-                            <td class="TDCriterios25">
+                            <td class="TD250px">
                                 <asp:DropDownList runat="server" ID="ddlTipoEventoEdit">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD110px">
                                 <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top">
                                 <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TDCriterios50" colspan="2">
-                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                    <tr>
-                                        <td class="TDCriterios50">
-                                            <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
-                                        </td>
-                                        <td class="TDCriterios50" style="padding-left: 3px">
-                                            <cal:Calendario ID="calFechaEdit" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda"
-                                                MensajeErrorValidacion="Fecha Inválida" />
-                                        </td>
-                                    </tr>
-                                </table>
+                            <td class="TD110px">
+                                <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td class="TD100px" style="padding-left: 3px">
+                                <cal:Calendario ID="calFechaEdit" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda"
+                                    MensajeErrorValidacion="Fecha Inválida" />
+                            </td>
+                            <td valign="top" class="TD110px">
                                 <asp:Label runat="server" ID="Label4" Text="Hora:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top">
                                 <hor:Hora ID="txtHoraEdit" runat="server" Text="" />
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD110px">
                                 <asp:Label runat="server" ID="Label9" Text="Descripción:"></asp:Label>
                             </td>
-                            <td class="TDCriterios75" colspan="3">
+                            <td colspan="3">
                                 <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="500px" TextMode="MultiLine"
                                     CssClass="EstiloTxtExtraLarge500" Rows="5"></asp:TextBox>
                             </td>

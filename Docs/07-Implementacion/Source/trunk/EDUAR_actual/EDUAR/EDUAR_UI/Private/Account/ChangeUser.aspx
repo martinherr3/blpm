@@ -5,23 +5,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <table width="100%" cellpadding="1" cellspacing="5" border="0">
-        <tr>
-            <td style="width: 80%; vertical-align: text-top">
-                <h2>
-                    Modificar Usuarios<hr />
-                </h2>
-            </td>
-            <td style="width: 20%; text-align: right" rowspan="2">
-                <asp:Image ID="Image1" ImageUrl="~/Images/user-properties.png" runat="server" AlternateText="Modificar Usuarios"
-                    ToolTip="Modificar Usuarios" />
-            </td>
-        </tr>
-    </table>
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
+                    <td>
+                        <h2>
+                            Modificar Usuario
+                        </h2>
+                        <br />
+                    </td>
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
@@ -42,7 +35,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="width: 50%;">
+                            <td class="TD100px">
                                 <asp:Label ID="lblUserNameBusqueda" runat="server" Text="Usuario:"></asp:Label>
                             </td>
                             <td valign="top">
@@ -50,7 +43,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top">
+                            <td class="TD100px">
                                 <asp:Label ID="lblHabilitadoBusqueda" runat="server" Text="Habilitado:"></asp:Label>
                             </td>
                             <td valign="top">
@@ -58,12 +51,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top">
+                            <td class="TD100px">
                                 <asp:Label ID="lblRolesBusqueda" runat="server" Text="Rol:"></asp:Label>
                             </td>
                             <td valign="top">
-                                <%--<asp:CheckBoxList ID="chkListRolesBusqueda" TabIndex="2" runat="server">
-                            </asp:CheckBoxList>--%>
                                 <asp:DropDownList ID="ddlListRolesBusqueda" runat="server" TabIndex="2">
                                 </asp:DropDownList>
                             </td>
@@ -79,11 +70,11 @@
             <asp:AsyncPostBackTrigger ControlID="gvwUsuarios" EventName="RowCommand" />
         </Triggers>
     </asp:UpdatePanel>
-    <br />
+   
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwUsuarios" runat="server" PagerSettings-Visible="true" BorderStyle="Solid"
-                OnRowCommand="gvwUsuarios_RowCommand" Width="100%" AutoGenerateColumns="False"
+                OnRowCommand="gvwUsuarios_RowCommand" Width="500px" AutoGenerateColumns="False"
                 AllowPaging="True" DataKeyNames="Nombre" SkinID="gridviewSkinPagerListado" OnPageIndexChanging="gvwUsuarios_PageIndexChanging">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
@@ -107,42 +98,30 @@
                 <ContentTemplate>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td colspan="2">
-                                <h3>
-                                    Modificar Usuario</h3>
+                            <td valign="top" class="TD100px">
+                                <asp:Label ID="lblUsuario" runat="server" Text="Usuario:"></asp:Label>
+                            </td>
+                            <td valign="top">
+                                <asp:Label ID="lblUserName" runat="server" Font-Bold="true"></asp:Label>
                             </td>
                         </tr>
                         <tr>
-                            <td style="width: 50%; vertical-align: text-top">
-                                <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                                    <tr>
-                                        <td valign="top">
-                                            <asp:Label ID="lblUsuario" runat="server" Text="Usuario:"></asp:Label>
-                                        </td>
-                                        <td valign="top">
-                                            <asp:Label ID="lblUserName" runat="server" Font-Bold="true"></asp:Label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <asp:Label ID="lblBloquear" runat="server" Text="Habilitado:"></asp:Label>
-                                        </td>
-                                        <td>
-                                            <asp:CheckBox ID="chkHabilitado" runat="server" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td valign="top">
-                                            <asp:Label ID="lblRoles" runat="server" Text="Rol:"></asp:Label>
-                                        </td>
-                                        <td valign="top">
-                                            <asp:DropDownList ID="ddlListRoles" runat="server" TabIndex="7">
-                                            </asp:DropDownList>
-                                            <%--<asp:CheckBoxList ID="chkListRoles" TabIndex="7" runat="server">
+                            <td class="TD100px">
+                                <asp:Label ID="lblBloquear" runat="server" Text="Habilitado:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:CheckBox ID="chkHabilitado" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TD100px">
+                                <asp:Label ID="lblRoles" runat="server" Text="Rol:"></asp:Label>
+                            </td>
+                            <td valign="top">
+                                <asp:DropDownList ID="ddlListRoles" runat="server" TabIndex="7">
+                                </asp:DropDownList>
+                                <%--<asp:CheckBoxList ID="chkListRoles" TabIndex="7" runat="server">
                                             </asp:CheckBoxList>--%>
-                                        </td>
-                                    </tr>
-                                </table>
                             </td>
                         </tr>
                     </table>

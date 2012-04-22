@@ -8,14 +8,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Mensajes Recibidos
-        <br />
-    </h2>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
+                    <td>
+                        <h2>
+                            Mensajes Recibidos
+                            <br />
+                        </h2>
+                    </td>
                     <td align="right">
                         <asp:ImageButton ID="btnEnviar" OnClick="btnEnviar_Click" runat="server" ToolTip="Enviar"
                             ImageUrl="~/Images/botonEnviarMail.png" Visible="false" />
@@ -63,7 +65,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remitente">
-                                <HeaderStyle HorizontalAlign="left" Width="20%" />
+                                <HeaderStyle HorizontalAlign="left" Width="15%" />
                                 <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblRemitente" runat="server" Text='<%# String.Format("{0} {1}", Eval("remitente.nombre"), Eval("remitente.apellido")) %>'
@@ -73,7 +75,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Asunto">
-                                <HeaderStyle HorizontalAlign="left" Width="20%" />
+                                <HeaderStyle HorizontalAlign="left" Width="50%" />
                                 <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblAsunto" runat="server" Text='<%# Eval("asuntoMensaje") %>' Font-Bold='<%# Boolean.Parse(Eval("leido").ToString()) ? false : true  %>'></asp:Label>

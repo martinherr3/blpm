@@ -5,23 +5,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <table width="100%" cellpadding="1" cellspacing="5" border="0">
-        <tr>
-            <td style="width: 80%; vertical-align: text-top">
-                <h2>
-                    Modificar Perfiles<hr />
-                </h2>
-            </td>
-            <td style="width: 20%; text-align: right" rowspan="2">
-                <asp:Image ID="Image1" ImageUrl="~/Images/user-properties.png" runat="server" AlternateText="Modificar Perfiles"
-                    ToolTip="Modificar Perfiles" />
-            </td>
-        </tr>
-    </table>
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
+                    <td>
+                        <h2>
+                            Modificar Perfiles
+                        </h2>
+                        <br />
+                    </td>
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
@@ -108,7 +101,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top">
+                            <td valign="top" class="TD100px">
                                 <asp:Label ID="lblNombre" runat="server" Text="Nombre:"></asp:Label>
                             </td>
                             <td valign="top">
@@ -116,8 +109,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top">
-                                <asp:Label ID="lblDescripcion" runat="server" Text="Descripcion:"></asp:Label>
+                            <td valign="top" class="TD100px">
+                                <asp:Label ID="lblDescripcion" runat="server" Text="Descripción:"></asp:Label>
                             </td>
                             <td valign="top">
                                 <asp:TextBox runat="server" ID="txtDescripcion" CssClass="txtMultilinea" TextMode="MultiLine"

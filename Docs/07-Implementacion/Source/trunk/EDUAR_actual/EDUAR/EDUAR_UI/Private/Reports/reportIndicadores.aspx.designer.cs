@@ -13,15 +13,6 @@ namespace EDUAR_UI {
     public partial class reportIndicadores {
         
         /// <summary>
-        /// Control lblCicloLectivo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCicloLectivo;
-        
-        /// <summary>
         /// Control divAccion.
         /// </summary>
         /// <remarks>
@@ -29,6 +20,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAccion;
+        
+        /// <summary>
+        /// Control lblCicloLectivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCicloLectivo;
         
         /// <summary>
         /// Control btnExportarPDF.
