@@ -10,11 +10,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-            <h2>
-                <asp:Label ID="lblTitulo" Text="Actividades" runat="server" /></h2>
-            <br />
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
+                    <td>
+                        <h2>
+                            <asp:Label ID="lblTitulo" Text="Actividades" runat="server" /></h2>
+                        <br />
+                    </td>
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
@@ -34,54 +36,32 @@
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
+                        <%--<tr>
                             <td>
                                 <h3>
                                     Buscar Agenda de Actividades -
-                                    <asp:Label ID="lblCicloLectivoValor" Text="" runat="server" /></h3>
+                                    
                             </td>
-                        </tr>
+                        </tr>--%>
                         <tr>
                             <td class="TD100">
                                 <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
                             </td>
                         </tr>
                     </table>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                    <table border="0" cellpadding="1" cellspacing="5">
                         <tr>
-                            <%--<td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:"></asp:Label>
+                            <td valign="top" style="width: 50px">
+                                <asp:Label ID="lblCurso" runat="server" Text="Curso:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </td>--%>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblLugar" runat="server" Text="Curso:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios75" colspan="3">
+                            <td valign="top" style="width: 200px">
                                 <asp:DropDownList ID="ddlCurso" runat="server">
                                 </asp:DropDownList>
                             </td>
                         </tr>
-                        <%--<tr>
-                            <td valign="top" class="TDCriterios20">
-                                <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios40">
-                                <cal:Calendario ID="calfecha" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:CheckBox ID="chkActivo" runat="server" Checked="true" Enabled="false" />
-                            </td>
-                        </tr>--%>
                     </table>
                 </ContentTemplate>
                 <Triggers>
-                    <%--<asp:PostBackTrigger ControlID="ddlCicloLectivo" />--%>
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
                 </Triggers>
             </asp:UpdatePanel>
@@ -93,7 +73,7 @@
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
-                AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idAgendaActividad"
+                AutoGenerateColumns="false" AllowPaging="true" Width="500px" DataKeyNames="idAgendaActividad"
                 OnRowCommand="gvwReporte_RowCommand" OnPageIndexChanging="gvwReporte_PageIndexChanging">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
@@ -104,15 +84,15 @@
                                 ToolTip="Editar Evento" ImageUrl="~/Images/Grillas/action_edit.png" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Ciclo Lectivo">
+                    <%--<asp:TemplateField HeaderText="Ciclo Lectivo">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblCicloLectivoGrilla" runat="server" Text='<%# Bind("cursoCicloLectivo.cicloLectivo.nombre") %>'></asp:Label>
                         </ItemTemplate>
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="Curso">
-                        <HeaderStyle HorizontalAlign="left" Width="20%" />
+                        <HeaderStyle HorizontalAlign="left" Width="50%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblCursoGrilla" runat="server" Text='<%# Bind("cursoCicloLectivo.curso.nombre") %>'></asp:Label>

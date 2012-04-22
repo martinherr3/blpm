@@ -325,7 +325,7 @@ namespace EDUAR_UI
 					case "Editar":
 						propAgenda.idAgendaActividad = Convert.ToInt32(e.CommandArgument.ToString());
 						CargaAgenda();
-						lblTitulo.Text = "Agenda del Curso: " + propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
+						lblTitulo.Text = "Agenda " + propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
 						break;
 				}
 			}
@@ -449,7 +449,8 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarCombos(DropDownList ddlCurso)
 		{
-			lblCicloLectivoValor.Text = cicloLectivoActual.nombre;
+			//lblCicloLectivoValor.Text = cicloLectivoActual.nombre;
+			lblTitulo.Text = "Actividades - " + cicloLectivoActual.nombre;
 
 			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
 

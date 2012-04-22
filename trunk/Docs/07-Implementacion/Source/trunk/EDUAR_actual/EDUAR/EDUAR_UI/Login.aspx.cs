@@ -81,6 +81,53 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
+		/// Handles the PreRender event of the siteMapPathEDUAR control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void NavigationMenu_PreRender(object sender, EventArgs e)
+		{
+			//SiteMapNodeItem sepItem = new SiteMapNodeItem(-1, SiteMapNodeItemType.PathSeparator);
+			//ITemplate sepTemplate = NavigationMenu.TemplateControl;
+			//if (sepTemplate == null)
+			//{
+			//    Literal separator = new Literal { Text = siteMapPathEDUAR.PathSeparator };
+			//    sepItem.Controls.Add(separator);
+			//}
+			//else
+			//    sepTemplate.InstantiateIn(sepItem);
+
+			//sepItem.ApplyStyle(siteMapPathEDUAR.PathSeparatorStyle);
+
+			SiteMapDataSource mapaActual = (SiteMapDataSource)NavigationMenu.DataSource;
+
+			if (mapaActual.Provider.RootNode != null)
+			{
+				foreach (SiteMapNode node in mapaActual.Provider.RootNode.ChildNodes)
+				{
+					if (!ValidarNodo(node))
+						continue;
+					//trvMenu.Visible = true;
+					MenuItem objMenuItem = new MenuItem(node.Title);
+					if (node.Url != string.Empty)
+						objMenuItem.NavigateUrl = node.Url;
+
+					//Recorre los nodos hijos
+					foreach (SiteMapNode nodeChild in node.ChildNodes)
+					{
+						if (!ValidarNodo(nodeChild))
+							continue;
+
+						MenuItem objMenuItemChild = new MenuItem(nodeChild.Title) { NavigateUrl = nodeChild.Url };
+						objMenuItem.ChildItems.Add(objMenuItemChild);
+					}
+					if (objMenuItem.ChildItems.Count > 0 || objMenuItem.Text.Contains("Inicio"))
+						NavigationMenu.Items.Add(objMenuItem);
+				}
+			}
+		}
+
+		/// <summary>
 		/// Handles the OnItemBound event of the NavigationMenu control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>

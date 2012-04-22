@@ -404,7 +404,8 @@ namespace EDUAR_UI
 		/// <param name="args">The <see cref="System.Web.UI.WebControls.MenuEventArgs"/> instance containing the event data.</param>
 		protected void NavigationMenu_OnItemBound(object sender, MenuEventArgs args)
 		{
-			args.Item.ImageUrl = ((SiteMapNode)args.Item.DataItem)["ImageUrl"];
+			if (!string.IsNullOrEmpty(((SiteMapNode)args.Item.DataItem)["ImageUrl"]))
+				args.Item.ImageUrl = ((SiteMapNode)args.Item.DataItem)["ImageUrl"];
 		}
 
 		#endregion
@@ -648,7 +649,7 @@ namespace EDUAR_UI
 						objTreeNode.ChildNodes.Add(objTreeNodeChild);
 					}
 					if (objTreeNode.ChildNodes.Count > 0 || objTreeNode.Text.Contains("Inicio")) { }
-						//trvMenu.Nodes.Add(objTreeNode);
+					//trvMenu.Nodes.Add(objTreeNode);
 				}
 				//trvMenu.ExpandAll();
 			}
