@@ -137,8 +137,8 @@
                                 <HeaderStyle HorizontalAlign="left" Width="40%" />
                                 <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>
-                                    <%--<asp:Label ID="lblDescripcionGrilla" runat="server" Text='<%# String.Format("{0}",Eval("descripcion")).Substring(0, 10) + " ..."%>'
-                                        ToolTip='<%# Bind("descripcion") %>'></asp:Label>--%>
+                                    <asp:Label ID="lblDescripcionGrilla" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "descripcion").ToString())%>'
+                                        ToolTip='<%# Bind("descripcion") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Organizador">

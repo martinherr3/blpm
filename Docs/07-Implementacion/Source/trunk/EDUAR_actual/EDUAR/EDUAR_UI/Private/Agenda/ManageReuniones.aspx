@@ -8,14 +8,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Reuniones
-        <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
-    <br />
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
+                    <td>
+                        <h2>
+                            Reuniones
+                            <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
+                        <br />
+                    </td>
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
@@ -45,21 +47,21 @@
                     </table>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" colspan="4" class="TDCriterios100">
-                                <cal:Calendario ID="calfechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
-                                    EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD110px">
                                 <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD50px">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                        </tr>
+                    </table>
+                    <table width="480px" cellpadding="1" cellspacing="5">
+                        <tr>
+                            <td valign="top" class="TDCriterios100">
+                                <cal:Calendario ID="calfechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
+                                    EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
                             </td>
                         </tr>
                     </table>
@@ -90,28 +92,29 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fecha">
-                        <HeaderStyle HorizontalAlign="Center" Width="20%" />
+                        <HeaderStyle HorizontalAlign="Center" Width="15%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblFecha" runat="server" Text='<%# String.Format("{0} {1} hs.", Eval("fechaEvento","{0:d}"), Eval("horario","{0:HH:mm}")) %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Descripcion">
-                        <HeaderStyle HorizontalAlign="left" Width="20%" />
+                        <HeaderStyle HorizontalAlign="left" Width="30%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblDescripcion" runat="server" Text='<%# Bind("descripcion") %>'></asp:Label>
+                            <asp:Label ID="lblDescripcion" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "descripcion").ToString())%>'
+                                ToolTip='<%# Bind("descripcion") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Organizador">
-                        <HeaderStyle HorizontalAlign="left" Width="20%" />
+                        <HeaderStyle HorizontalAlign="left" Width="15%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblOrganizador" runat="server" Text='<%# String.Format("{0} {1}", Eval("usuario.nombre"), Eval("usuario.apellido")) %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Activo">
-                        <HeaderStyle HorizontalAlign="left" Width="10%" />
+                        <HeaderStyle HorizontalAlign="Center" Width="5%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblActivo" runat="server" Text='<%# Boolean.Parse(Eval("activo").ToString()) ? "Sí" : "No"  %>'></asp:Label>

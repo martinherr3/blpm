@@ -312,6 +312,13 @@ namespace EDUAR_UI.Shared
             }
             catch (Exception) { }
         }
+
+		protected string TruncateString(string strText)
+		{
+			if (strText.Length > 60)
+				return strText.Substring(0, 60) + " ...";
+			return strText;
+		}
         #endregion
     }
 }
