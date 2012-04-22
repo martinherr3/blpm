@@ -203,6 +203,9 @@ namespace EDUAR_UI.Utilidades
 					File.Delete(item);
 				}
 				archivo = "Podio_" + sessionID + ".png";
+			}
+			if (Directory.Exists(ImgPath))
+			{
 				foreach (string item in Directory.GetFiles(ImgPath, archivo, SearchOption.TopDirectoryOnly))
 				{
 					File.Delete(item);
