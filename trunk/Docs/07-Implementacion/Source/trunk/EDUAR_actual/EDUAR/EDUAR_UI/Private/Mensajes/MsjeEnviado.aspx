@@ -7,12 +7,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Mensajes Enviados
-        <br />
-    </h2>
     <table class="tablaInterna" cellpadding="0" cellspacing="0">
         <tr>
+            <td>
+                <h2>
+                    Mensajes Enviados
+                </h2>
+                <br />
+            </td>
             <td align="right">
                 <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Eliminar Seleccionados"
                     AlternateText="Eliminar Seleccionados" ImageUrl="~/Images/mail-delete.png" OnClick="btnEliminar_Click" />
@@ -39,8 +41,8 @@
                                     <table border="0" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td valign="middle">
-                                                <asp:CheckBox ID="checkEliminar" Text='<%# Eval("idMensaje")%>' runat="server"
-                                                    CssClass="HiddenText" Width="30px" ClientIDMode="Static" />
+                                                <asp:CheckBox ID="checkEliminar" Text='<%# Eval("idMensaje")%>' runat="server" CssClass="HiddenText"
+                                                    Width="30px" ClientIDMode="Static" />
                                             </td>
                                             <td>
                                                 <asp:ImageButton ImageUrl="~/Images/Grillas/mail-mark-read-2.png" runat="server"
@@ -129,8 +131,9 @@
                     </tr>
                 </table>
             </div>
-           <div id="divContenido" runat="server" style="padding: 5px 5px 5px 5px; border-top: 1px solid black;
-                border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black; overflow: visible">
+            <div id="divContenido" runat="server" style="padding: 5px 5px 5px 5px; border-top: 1px solid black;
+                border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black;
+                overflow: visible">
                 <div style="min-height: 250px; height: auto; overflow: visible">
                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>

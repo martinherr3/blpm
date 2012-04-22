@@ -119,7 +119,7 @@ namespace EDUAR_UI
                     propPersona.idTipoPersona = 1;
                     CargarPresentacion();
                     CargarCamposFiltros();
-                    CargarGrilla();
+					BuscarFiltrando();
                 }
             }
             catch (Exception ex)
@@ -306,6 +306,7 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarPresentacion()
         {
+			lblNombreApellido.Text = string.Empty;
             btnBuscar.Visible = true;
             btnGuardar.Visible = false;
             btnVolver.Visible = false;
@@ -345,7 +346,7 @@ namespace EDUAR_UI
         private void BuscarPersona(Persona objPersona)
         {
             atrBLPersona = new BLPersona(objPersona);
-            propListaPersonas = atrBLPersona.GetPersonas(objPersona);
+            propListaPersonas = atrBLPersona.GetPersonas(objPersona, true);
             CargarGrilla();
         }
 
@@ -372,7 +373,7 @@ namespace EDUAR_UI
             atrBLPersona.Data = propPersona;
             atrBLPersona.GetById();
             Persona objPersona = atrBLPersona.Data;
-            lblNombreApellido.Text = objPersona.nombre + " " + objPersona.apellido;
+            lblNombreApellido.Text = " - " + objPersona.nombre + " " + objPersona.apellido;
             txtUserName.Text = string.Empty;
             txtEmailUsuario.Text = objPersona.email;
             lblPreguntaUsuario.Text = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PreguntaDefault);

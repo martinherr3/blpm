@@ -22,30 +22,30 @@
 
         alertTest();    
     </script>
-    <h2>
-        Boletín Académico</h2>
-    <br />
     <div id="divAccion" runat="server">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
-                <td align="left">
+                <td>
+                    <h2>
+                        Boletín Académico</h2>
+                    <br />
                 </td>
                 <td align="right" rowspan="2">
                     <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                         ImageUrl="~/Images/botonBuscar.png" />
                 </td>
             </tr>
-            <tr>
+            <%--<tr>
                 <td align="left">
                 </td>
-            </tr>
+            </tr>--%>
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5" border="0">
             <tr>
-                <td valign="top" class="TDCriterios25">
+                <td valign="top" class="TD100px">
                     <asp:Label ID="lblAccion" runat="server" Text="Consultar:" Font-Bold="true" CssClass="lblCriterios"></asp:Label>
                 </td>
-                <td rowspan="3" class="TDCriterios75">
+                <td rowspan="3">
                     <asp:RadioButtonList ID="rdlAccion" runat="server" OnSelectedIndexChanged="rdlAccion_OnSelectedIndexChanged"
                         AutoPostBack="true">
                         <asp:ListItem Text="Calificaciones" Value="0" Selected="true" />
@@ -59,7 +59,7 @@
     <div id="divFiltros" runat="server">
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
-                <td>
+                <td class="TD100px">
                     <asp:Label ID="lblAlumnos" runat="server" Text="Alumno:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td>
@@ -68,10 +68,10 @@
                 </td>
             </tr>
             <tr>
-                <td valign="top" class="TDCriterios25">
+                <td valign="top" class="TD100px">
                     <asp:Label ID="lblPeriodo" runat="server" Text="Periodo:" CssClass="lblCriterios"></asp:Label>
                 </td>
-                <td valign="top" class="TDCriterios25">
+                <td valign="top">
                     <asp:UpdatePanel ID="udpPeriodo" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:DropDownList ID="ddlPeriodo" runat="server">
@@ -79,14 +79,12 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </td>
-                <td class="TDCriterios50" colspan="2">
-                </td>
             </tr>
             <tr>
-                <td valign="top" class="TDCriterios25">
+                <td valign="top" class="TD100px">
                     <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                 </td>
-                <td valign="top" class="TDCriterios75" colspan="3">
+                <td valign="top">
                     <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"

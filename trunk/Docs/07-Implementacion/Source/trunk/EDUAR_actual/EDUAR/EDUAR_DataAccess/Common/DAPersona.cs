@@ -29,12 +29,15 @@ namespace EDUAR_DataAccess.Common
 		#endregion
 
 		#region --[Métodos Publicos]--
+		public List<Persona> GetPersonas(Persona entidad)
+		{ return GetPersonas(entidad, false); }
+
 		/// <summary>
 		/// Gets the personas.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public List<Persona> GetPersonas(Persona entidad)
+		public List<Persona> GetPersonas(Persona entidad, bool bNoRegistrado)
 		{
 			try
 			{
@@ -75,7 +78,9 @@ namespace EDUAR_DataAccess.Common
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, DBNull.Value);
 				if (entidad.idTipoPersona > 0)
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
-
+				//Lo utilizo para buscar los usuarios que no tiene asociado un username
+				if(bNoRegistrado)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@bNoRegistrado", DbType.Boolean, bNoRegistrado);
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				List<Persona> listaPersonas = new List<Persona>();

@@ -181,6 +181,29 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+		/// <summary>
+		/// Gets the personas.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<Persona> GetPersonas(Persona entidad, bool bNoRegistrado)
+		{
+			try
+			{
+				return DataAcces.GetPersonas(entidad, bNoRegistrado);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetPersonas", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
         /// <summary>
         /// Gets the by id.
         /// </summary>

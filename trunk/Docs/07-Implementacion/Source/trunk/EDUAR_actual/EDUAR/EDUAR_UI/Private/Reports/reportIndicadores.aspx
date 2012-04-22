@@ -8,13 +8,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Indicadores Generales de Desempeño -
-        <asp:Label ID="lblCicloLectivo" Text="" runat="server" /></h2>
-    <br />
     <div id="divAccion" runat="server">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
+                <td>
+                    <h2>
+                        Indicadores Generales de Desempeño -
+                        <asp:Label ID="lblCicloLectivo" Text="" runat="server" /></h2>
+                    <br />
+                </td>
                 <td align="right">
                     <asp:ImageButton ID="btnExportarPDF" OnClick="btnExportarPDF_Click" runat="server"
                         ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png" AlternateText="Exportar a PDF"

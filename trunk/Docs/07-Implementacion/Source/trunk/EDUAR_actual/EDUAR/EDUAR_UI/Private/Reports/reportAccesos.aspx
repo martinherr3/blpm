@@ -24,12 +24,14 @@
 
         alertTest();    
     </script>
-    <h2>
-        Consultar Accesos</h2>
-    <br />
     <div id="divFiltros" runat="server">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
+                <td>
+                    <h2>
+                        Consultar Accesos</h2>
+                    <br />
+                </td>
                 <td align="right">
                     <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                         ImageUrl="~/Images/botonBuscar.png" />
@@ -38,13 +40,7 @@
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
-                <td valign="top" colspan="4" class="TDCriterios100">
-                    <cal:Calendario ID="fechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
-                        EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
-                </td>
-            </tr>
-            <tr>
-                <td valign="top" class="TDCriterios25">
+                <td valign="middle" class="TD110px">
                     <asp:Label ID="lblPagina" runat="server" Text="Página:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td>
@@ -54,15 +50,21 @@
                 </td>
             </tr>
             <tr>
-                <td valign="top" class="TDCriterios25">
+                <td valign="middle" class="TD110px">
                     <asp:Label ID="lblRolesBusqueda" runat="server" Text="Roles:"></asp:Label>
                 </td>
-                <td valign="top" class="TDCriterios75" colspan="3">
-                    <%--<asp:CheckBoxList ID="chkListRolesBusqueda" TabIndex="2" runat="server">
-                    </asp:CheckBoxList><br />--%>
+                <td valign="middle">
                     <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
                         runat="server" id="ddlRoles" enableviewstate="true">
                     </select>
+                </td>
+            </tr>
+        </table>
+        <table width="490px" cellpadding="1" cellspacing="5">
+            <tr>
+                <td valign="top" class="TDCriterios100">
+                    <cal:Calendario ID="fechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
+                        EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
                 </td>
             </tr>
         </table>

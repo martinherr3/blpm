@@ -8,14 +8,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Citaciones
-        <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
-    <br />
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
+                    <td>
+                        <h2>
+                            Citaciones
+                            <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
+                        <br />
+                    </td>
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
@@ -45,49 +47,51 @@
                     </table>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" colspan="4" class="TDCriterios100">
-                                <cal:Calendario ID="calfechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
-                                    EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD140px">
                                 <asp:Label ID="Label2" runat="server" Text="Motivo de Citación:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD250px">
                                 <asp:DropDownList ID="ddlMotivoCitacion" runat="server">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD100px">
                                 <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD140px">
                                 <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD250px">
                                 <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD100px">
                                 <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top">
                                 <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TD140px">
                                 <asp:Label ID="Label1" runat="server" Text="Tutores:" CssClass="lblCriterios"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios75" colspan="3">
+                            <td valign="top">
                                 <asp:DropDownList ID="ddlTutores" runat="server" CssClass="EstiloTxtLargo250">
                                 </asp:DropDownList>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="600px" cellpadding="1" cellspacing="5">
+                        <tr>
+                            <td valign="top" colspan="4" class="TDCriterios100">
+                                <cal:Calendario ID="calfechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
+                                    EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
                             </td>
                         </tr>
                     </table>
