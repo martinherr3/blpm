@@ -30,7 +30,7 @@
         <table class="TablaExternaGrafico" border="0" cellpadding="0" cellspacing="0" visible="true"
             width="646px">
             <tr>
-                <td id="TDBotonera" runat="server" width="646px" align="center">
+                <td id="TDBotonera" runat="server" style="width: 646px" align="center">
                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                             <td style="width: 50%; background-color: White">
@@ -71,7 +71,7 @@
                 <td id="TDGrafico" runat="server" visible="false">
                     <div id="divChart" runat="server" style="height: 450px">
                         <asp:Chart ID="Chart1" runat="server" Height="400px" Width="646px" ImageType="Png"
-                            AntiAliasing="All" BorderDashStyle="Solid" BackSecondaryColor="White" Palette="BrightPastel"
+                            AntiAliasing="All" BorderlineDashStyle="Solid" BackSecondaryColor="White" Palette="BrightPastel"
                             RenderType="ImageTag" BackGradientStyle="TopBottom" BackColor="#D3D3D3" BorderWidth="2"
                             BorderColor="26, 59, 105">
                             <Legends>
