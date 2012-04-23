@@ -5,12 +5,19 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+    <table class="tablaInterna" cellpadding="0" cellspacing="0">
         <tr>
             <td style="width: 80%; vertical-align: text-top">
                 <h2>
-                    Modificar contraseña<hr />
+                    Modificar contraseña
                 </h2>
+				<br />
+				<table class="tablaInterna" cellpadding="0" cellspacing="0">
+					<tr>
+						<td>
+						</td>
+					</tr>
+				</table>
             </td>
             <td style="width: 20%; text-align: right" rowspan="2">
                 <asp:Image ID="Image1" ImageUrl="~/Images/user-properties.png" runat="server" AlternateText="Modificar contraseña"

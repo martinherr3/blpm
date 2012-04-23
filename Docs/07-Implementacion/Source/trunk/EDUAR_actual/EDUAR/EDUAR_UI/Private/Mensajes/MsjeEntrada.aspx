@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Bandeja de Entrada" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="MsjeEntrada.aspx.cs" Inherits="EDUAR_UI.MsjeEntrada"
-    Theme="Tema" StylesheetTheme="Tema" %>
+	AutoEventWireup="true" CodeBehind="MsjeEntrada.aspx.cs" Inherits="EDUAR_UI.MsjeEntrada"
+	Theme="Tema" StylesheetTheme="Tema" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxtoolkit" %>
 <%@ Register Src="~/UserControls/Editor.ascx" TagName="Editor" TagPrefix="edi" %>
@@ -8,15 +8,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
+	<asp:updatepanel id="udpGrilla" runat="server" updatemode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>
                         <h2>
                             Mensajes Recibidos
-                            <br />
                         </h2>
+						<br />
                     </td>
                     <td align="right">
                         <asp:ImageButton ID="btnEnviar" OnClick="btnEnviar_Click" runat="server" ToolTip="Enviar"
@@ -28,7 +28,12 @@
                     </td>
                 </tr>
             </table>
-            <hr />
+            <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+					</td>
+				</tr>
+			</table>
             <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
@@ -204,5 +209,5 @@
         </ContentTemplate>
         <Triggers>
         </Triggers>
-    </asp:UpdatePanel>
+    </asp:updatepanel>
 </asp:Content>

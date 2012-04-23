@@ -399,9 +399,17 @@ namespace EDUAR_UI
         {
             try
             {
-                //int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-                CargarAlumnos(Convert.ToInt32(ddlCurso.SelectedValue));
-                ddlAlumno.Enabled = true;
+                int idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
+                if (idCurso > 0)
+                {
+                    CargarAlumnos(idCurso);
+                    ddlAlumno.Enabled = true;
+                }
+                else
+                {
+                    ddlAlumno.SelectedIndex = 0;
+                    ddlAlumno.Enabled = false;
+                }
             }
             catch (Exception ex)
             {
