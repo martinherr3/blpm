@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Transactions;
 using System.Web.Security;
@@ -57,15 +58,18 @@ namespace EDUAR_BusinessLogic.Security
 		/// </summary>
 		private void ObtenerRolesUsuario()
 		{
-			//Obtengo todos los roles del usuario y los cargo en el Data.
+            GetRoles();
 			string[] arrRoles = Roles.GetRolesForUser(Data.Usuario.Nombre);
 
 			foreach (string rolUsuario in arrRoles)
 			{
-				DTRol objDTRol = new DTRol { Nombre = rolUsuario, NombreCorto = rolUsuario.ToLower() };
-				//Obtiene el IDRol desde la enumeracion enumRoles
-				objDTRol.ID = Enum.Parse(typeof(enumRoles), rolUsuario).GetHashCode();
-				Data.Usuario.ListaRoles.Add(objDTRol);
+                foreach (DTRol rol in Data.ListaRoles)
+                {
+                    if (rolUsuario == rol.Nombre || rolUsuario == rolUsuario.ToLower())
+                    {
+                        Data.Usuario.ListaRoles.Add(rol);
+                    }
+                }
 			}
 		}
 
