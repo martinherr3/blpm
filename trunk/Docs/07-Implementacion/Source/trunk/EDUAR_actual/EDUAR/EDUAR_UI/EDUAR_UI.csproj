@@ -50,12 +50,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\AntiXSSLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="DayPilot">
-      <HintPath>DLL\DayPilot.dll</HintPath>
-    </Reference>
-    <Reference Include="DayPilot.MonthPicker">
-      <HintPath>DLL\DayPilot.MonthPicker.dll</HintPath>
-    </Reference>
     <Reference Include="Ext.Net, Version=1.3.0.1840, Culture=neutral, PublicKeyToken=2e12ce3d0176cd87, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\Ext.Net.dll</HintPath>
@@ -278,83 +272,6 @@
     <Content Include="Scripts\cleditor\jquery.cleditor.css" />
     <Content Include="Scripts\cleditor\jquery.cleditor.js" />
     <Content Include="Scripts\cleditor\jquery.cleditor.min.js" />
-    <Content Include="Scripts\codebase\connector\connector.js" />
-    <Content Include="Scripts\codebase\dhtmlxscheduler.css" />
-    <Content Include="Scripts\codebase\dhtmlxscheduler.js" />
-    <Content Include="Scripts\codebase\dhtmlxscheduler_debug.js" />
-    <Content Include="Scripts\codebase\dhtmlxscheduler_glossy.css" />
-    <Content Include="Scripts\codebase\dhtmlxscheduler_mobile.css" />
-    <Content Include="Scripts\codebase\dhtmlxscheduler_mobile.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_active_links.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_agenda_view.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_collision.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_cookie.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_editors.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_expand.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_html_templates.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_key_nav.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_limit.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_map_view.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_minical.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_multiselect.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_multisource.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_offline.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_outerdrag.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_pdf.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_readonly.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_recurring.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_serialize.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_timeline.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_tooltip.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_touch.css" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_touch.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_treetimeline.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_units.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_url.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_week_agenda.js" />
-    <Content Include="Scripts\codebase\ext\dhtmlxscheduler_year_view.js" />
-    <Content Include="Scripts\codebase\imgs\buttons.png" />
-    <Content Include="Scripts\codebase\imgs\but_repeat.gif" />
-    <Content Include="Scripts\codebase\imgs\calendar.gif" />
-    <Content Include="Scripts\codebase\imgs\clock_big.gif" />
-    <Content Include="Scripts\codebase\imgs\clock_small.gif" />
-    <Content Include="Scripts\codebase\imgs\colapce-expand-icon.gif" />
-    <Content Include="Scripts\codebase\imgs\controls.gif" />
-    <Content Include="Scripts\codebase\imgs\databg.png" />
-    <Content Include="Scripts\codebase\imgs\databg_now.png" />
-    <Content Include="Scripts\codebase\imgs\icon.png" />
-    <Content Include="Scripts\codebase\imgs\loading.gif" />
-    <Content Include="Scripts\codebase\imgs_glossy\blue_tab.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\blue_tab_wide.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\buttons.gif" />
-    <Content Include="Scripts\codebase\imgs_glossy\but_repeat.gif" />
-    <Content Include="Scripts\codebase\imgs_glossy\calendar.gif" />
-    <Content Include="Scripts\codebase\imgs_glossy\clock_big.gif" />
-    <Content Include="Scripts\codebase\imgs_glossy\clock_small.gif" />
-    <Content Include="Scripts\codebase\imgs_glossy\colapce-expand-icon.gif" />
-    <Content Include="Scripts\codebase\imgs_glossy\controlls5.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\databg.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\databg_now.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\event-bg.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\icon.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\left-separator.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\left-time-bg.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\lightbox.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\loading.gif" />
-    <Content Include="Scripts\codebase\imgs_glossy\move.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\multi-days-bg.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\second-top-days-bg.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\top-days-bg.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\top-separator.gif" />
-    <Content Include="Scripts\codebase\imgs_glossy\white_tab.png" />
-    <Content Include="Scripts\codebase\imgs_glossy\white_tab_wide.png" />
-    <Content Include="Scripts\codebase\imgs_mobile\add.png" />
-    <Content Include="Scripts\codebase\imgs_mobile\arrow_left.png" />
-    <Content Include="Scripts\codebase\imgs_mobile\arrow_right.png" />
-    <Content Include="Scripts\codebase\imgs_mobile\event.png" />
-    <Content Include="Scripts\codebase\imgs_mobile\event_focus.png" />
-    <Content Include="Scripts\codebase\imgs_mobile\noevents.png" />
-    <Content Include="Scripts\codebase\readme.txt" />
     <Content Include="Scripts\css\blitzer\images\ui-bg_diagonals-thick_75_f3d8d8_40x40.png" />
     <Content Include="Scripts\css\blitzer\images\ui-bg_dots-small_65_a6a6a6_2x2.png" />
     <Content Include="Scripts\css\blitzer\images\ui-bg_flat_0_333333_40x100.png" />
@@ -846,22 +763,6 @@
     <Content Include="Private\Manuales\Administrativo\web.config" />
     <Content Include="Private\Manuales\Administrador\web.config" />
     <Content Include="Private\Reports\Historicos\web.config" />
-    <None Include="Scripts\codebase\connector\base_connector.php" />
-    <None Include="Scripts\codebase\connector\combo_connector.php" />
-    <None Include="Scripts\codebase\connector\crosslink_connector.php" />
-    <None Include="Scripts\codebase\connector\dataprocessor.php" />
-    <None Include="Scripts\codebase\connector\db_common.php" />
-    <None Include="Scripts\codebase\connector\db_mssql.php" />
-    <None Include="Scripts\codebase\connector\db_mysqli.php" />
-    <None Include="Scripts\codebase\connector\db_oracle.php" />
-    <None Include="Scripts\codebase\connector\db_pdo.php" />
-    <None Include="Scripts\codebase\connector\db_postgre.php" />
-    <None Include="Scripts\codebase\connector\grid_connector.php" />
-    <None Include="Scripts\codebase\connector\scheduler_connector.php" />
-    <None Include="Scripts\codebase\connector\tools.php" />
-    <None Include="Scripts\codebase\connector\treegrid_connector.php" />
-    <None Include="Scripts\codebase\connector\tree_connector.php" />
-    <None Include="Scripts\codebase\connector\update.php" />
     <None Include="Scripts\css\blitzer\images\Thumbs.db" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>
