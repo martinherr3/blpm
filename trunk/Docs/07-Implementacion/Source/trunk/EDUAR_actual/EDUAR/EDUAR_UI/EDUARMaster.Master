@@ -56,6 +56,8 @@
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js" />
         </Scripts>
     </asp:ScriptManager>
+        <ext:ResourceManager ID="ResourceManager1" runat="server" IDMode="Explicit" InitScriptMode="Linked"
+        RemoveViewState="true" Namespace="CompanyX" />
     <div class="page">
         <div class="header">
             <table border="0" cellpadding="1" cellspacing="5" style="width: 1020px;">

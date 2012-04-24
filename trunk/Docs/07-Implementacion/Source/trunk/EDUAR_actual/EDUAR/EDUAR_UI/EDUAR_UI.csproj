@@ -56,6 +56,14 @@
     <Reference Include="DayPilot.MonthPicker">
       <HintPath>DLL\DayPilot.MonthPicker.dll</HintPath>
     </Reference>
+    <Reference Include="Ext.Net, Version=1.3.0.1840, Culture=neutral, PublicKeyToken=2e12ce3d0176cd87, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Ext.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Ext.Net.Utilities, Version=1.3.0.39155, Culture=neutral, PublicKeyToken=2c34ac34702a3c23, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Ext.Net.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlSanitizationLibrary, Version=4.0.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\HtmlSanitizationLibrary.dll</HintPath>
@@ -76,6 +84,10 @@
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPOI, Version=1.2.4.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -107,9 +119,15 @@
     <Content Include="DLL\AjaxControlToolkit.dll" />
     <Content Include="DLL\AjaxControlToolkit.resources.dll" />
     <Content Include="DLL\AntiXSSLibrary.dll" />
+    <Content Include="DLL\Ext.Net.dll" />
+    <Content Include="DLL\Ext.Net.Utilities.dll" />
+    <Content Include="DLL\Ext.Net.Utilities.xml" />
+    <Content Include="DLL\Ext.Net.xml" />
     <Content Include="DLL\HtmlSanitizationLibrary.dll" />
     <Content Include="DLL\Ionic.Zip.dll" />
     <Content Include="DLL\itextsharp.dll" />
+    <Content Include="DLL\Newtonsoft.Json.dll" />
+    <Content Include="DLL\Newtonsoft.Json.xml" />
     <Content Include="DLL\NPOI.dll" />
     <Content Include="DLL\SanitizerProviders.dll" />
     <Content Include="Error.aspx" />
@@ -372,6 +390,11 @@
     <Content Include="Scripts\jquery-ui-1.8.16.custom.min.js" />
     <Content Include="Scripts\JQuery.js" />
     <Content Include="Scripts\jquery.maskedinput-1.3.js" />
+    <Content Include="Shared\Code\RemoteService.asmx" />
+    <Content Include="Shared\Common\EventsViewer.ascx" />
+    <Content Include="Shared\resources\css\main.css" />
+    <Content Include="Shared\resources\js\common.js" />
+    <Content Include="Shared\resources\js\override.js" />
     <Content Include="UserControls\Calendario.ascx" />
     <Content Include="UserControls\Criterio.ascx" />
     <Content Include="UserControls\Editor.ascx" />
@@ -531,13 +554,6 @@
     <Compile Include="Private\Mensajes\MsjeRedactar.aspx.designer.cs">
       <DependentUpon>MsjeRedactar.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Private\Planning\Planificacion.aspx.cs">
-      <DependentUpon>Planificacion.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Planning\Planificacion.aspx.designer.cs">
-      <DependentUpon>Planificacion.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx.cs">
       <DependentUpon>reportHistoricoAlumno.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -696,6 +712,18 @@
     <Compile Include="Public\General\Organizacion.aspx.designer.cs">
       <DependentUpon>Organizacion.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Shared\Code\Data.cs" />
+    <Compile Include="Shared\Code\RemoteService.asmx.cs">
+      <DependentUpon>RemoteService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Shared\Common\EventsViewer.ascx.cs">
+      <DependentUpon>EventsViewer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shared\Common\EventsViewer.ascx.designer.cs">
+      <DependentUpon>EventsViewer.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Shared\EDUARBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -762,6 +790,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\TMP\" />
+    <Folder Include="Shared\resources\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EDUARMaster.Master" />
