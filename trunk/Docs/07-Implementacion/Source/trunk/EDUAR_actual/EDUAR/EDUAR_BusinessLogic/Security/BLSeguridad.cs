@@ -65,7 +65,7 @@ namespace EDUAR_BusinessLogic.Security
 			{
                 foreach (DTRol rol in Data.ListaRoles)
                 {
-                    if (rolUsuario == rol.Nombre || rolUsuario == rolUsuario.ToLower())
+                    if (rolUsuario == rol.Nombre || rolUsuario == rol.Nombre.ToLower())
                     {
                         Data.Usuario.ListaRoles.Add(rol);
                     }
