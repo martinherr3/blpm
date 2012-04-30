@@ -5,6 +5,23 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript">
+        //<!-- WPJD37: Copiar esto-->
+        Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+        function EndRequestHandler(sender, args) {
+            if (args.get_error() == undefined) {
+                alertTest();
+            }
+        }
+
+        function alertTest() {
+            $(document).ready(function () {
+                $(".chzn-select").chosen();
+            });
+        }
+
+        alertTest();    
+    </script>
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
@@ -39,8 +56,10 @@
                                 <asp:Label ID="lblUserNameBusqueda" runat="server" Text="Usuario:"></asp:Label>
                             </td>
                             <td valign="top">
-                                <asp:TextBox ID="txtUsernameBusqueda" runat="server" Text=""></asp:TextBox>
-                            </td>
+                                <select data-placeholder="Seleccione" style="width: 100%" multiple="false" class="chzn-select"
+                                    runat="server" id="ddlUser" enableviewstate="true">
+                                </select>
+                           </td>
                         </tr>
                         <tr>
                             <td class="TD100px">
@@ -137,5 +156,8 @@
             <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="gvwUsuarios" EventName="RowCommand" />
         </Triggers>
+      
     </asp:UpdatePanel>
+     <script type="text/javascript">         $(".chzn-select").chosen();</script>
+
 </asp:Content>
