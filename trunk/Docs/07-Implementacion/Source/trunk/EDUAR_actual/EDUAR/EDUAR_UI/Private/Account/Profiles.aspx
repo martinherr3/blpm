@@ -22,6 +22,7 @@
                             ImageUrl="~/Images/botonNuevo.png" />
                         <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                             ImageUrl="~/Images/botonGuardar.png" />
+
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                             ImageUrl="~/Images/botonVolver.png" />
                     </td>
@@ -137,7 +138,10 @@
                                 <asp:Label ID="lblNuevoRol" runat="server" Text="Nombre:"></asp:Label>
                             </td>
                             <td valign="top">
-                                <asp:TextBox ID="txtNuevoRol" runat="server" />
+                                <asp:TextBox ID="txtNuevoRol" runat="server"/>
+                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtNuevoRol"
+                    ErrorMessage="(*) Debe Ingresar un nombre para el nuevo perfil"></asp:RequiredFieldValidator>
+
                             </td>
                         </tr>
                         <tr>
@@ -147,14 +151,20 @@
                             <td valign="top">
                                 <asp:TextBox runat="server" ID="txtNuevaDescripcion" CssClass="txtMultilinea" TextMode="MultiLine"
                                     MaxLength="256" />
+
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtNuevoRol"
+                                    ErrorMessage="(**) Debe Ingresar una descripcion para el nuevo perfil"></asp:RequiredFieldValidator>
+
+
                             </td>
                         </tr>
                     </table>
                 </ContentTemplate>
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
-                </Triggers>
+                </Triggers>          
             </asp:UpdatePanel>
+              
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
