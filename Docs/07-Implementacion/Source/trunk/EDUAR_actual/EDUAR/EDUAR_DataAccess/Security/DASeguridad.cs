@@ -277,16 +277,18 @@ namespace EDUAR_DataAccess.Security
 				transaction.DataBase.AddInParameter(transaction.DBcomand, "@ApplicationName", DbType.String, objDTSeguridad.Aplicacion);
 				transaction.DataBase.AddInParameter(transaction.DBcomand, "@UserName", DbType.String, objDTSeguridad.Usuario.Nombre);
 				transaction.DataBase.AddInParameter(transaction.DBcomand, "@IsApproved", DbType.Boolean, objDTSeguridad.Usuario.Aprobado);
+				
 				IDataReader reader = transaction.DataBase.ExecuteReader(transaction.DBcomand);
 				objDTSeguridad = new DTSeguridad();
 				DTUsuario usuario;
 				while (reader.Read())
 				{
-					usuario = new DTUsuario()
-					{
-						Nombre = reader["UserName"].ToString(),
-						Aprobado = (bool)reader["IsApproved"]
-					};
+
+                    usuario = new DTUsuario();
+                    usuario.ID = reader["UserId"].ToString();
+                    usuario.Nombre = reader["UserName"].ToString();
+                    usuario.Aprobado = (bool)reader["IsApproved"];
+
 					objDTSeguridad.ListaUsuarios.Add(usuario);
 				}
 				return objDTSeguridad;

@@ -29,6 +29,14 @@ namespace EDUAR_Entities.Security
         #endregion
 
         #region --[Propiedades]--
+
+
+        /// <summary>
+        /// ID Usuario
+        /// </summary>
+        [DataMember]
+        public string ID { get; set; }
+
         /// <summary>
         /// Nombre Usuario
         /// </summary>
