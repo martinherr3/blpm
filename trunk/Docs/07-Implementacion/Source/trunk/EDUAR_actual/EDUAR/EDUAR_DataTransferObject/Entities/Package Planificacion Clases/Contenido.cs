@@ -6,55 +6,33 @@
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
 
-using EDUAR_Entities.Shared;
 using System;
+using System.Collections.Generic;
+using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
-    [Serializable]
-    public class Contenido: DTBase
-    {
-        public int idContenido { get; set; }
-        private BibliografiaRecomendadaContenido _bibliografia;
-        private TemaContenido _temas;
+	[Serializable]
+	public class Contenido : DTBase
+	{
+		public int idContenido { get; set; }
+		public string descripcion { get; set; }
+		public AsignaturaCicloLectivo asignaturaCicloLectivo { get; set; }
+		public BibliografiaRecomendada bibliografia { get; set; }
+		public List<TemaContenido> listaContenidos { get; set; }
 
-        public Contenido()
-        {
+		public Contenido()
+		{
+			asignaturaCicloLectivo = new AsignaturaCicloLectivo();
+		}
 
-        }
+		~Contenido()
+		{
 
-        ~Contenido()
-        {
+		}
 
-        }
+		public virtual void Dispose()
+		{
 
-        public virtual void Dispose()
-        {
-
-        }
-
-        public BibliografiaRecomendadaContenido bibliografia
-        {
-            get
-            {
-                return _bibliografia;
-            }
-            set
-            {
-                _bibliografia = value;
-            }
-        }
-
-        public TemaContenido temas
-        {
-            get
-            {
-                return _temas;
-            }
-            set
-            {
-                _temas = value;
-            }
-        }
-
-    }//end Contenido
+		}
+	}//end Contenido
 }

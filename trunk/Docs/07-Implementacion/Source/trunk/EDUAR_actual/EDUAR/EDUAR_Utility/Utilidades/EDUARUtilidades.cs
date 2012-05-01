@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace EDUAR_Utility.Utilidades
 {
@@ -29,5 +31,26 @@ namespace EDUAR_Utility.Utilidades
             else
             { return false; }
         }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public static class Helper
+		{
+			/// <summary>
+			/// Encodes the password.
+			/// </summary>
+			/// <param name="originalPassword">The original password.</param>
+			/// <returns></returns>
+			public static string EncodePassword(string originalPassword)
+			{
+				SHA1 sha1 = new SHA1CryptoServiceProvider();
+
+				byte[] inputBytes = (new UnicodeEncoding()).GetBytes(originalPassword);
+				byte[] hash = sha1.ComputeHash(inputBytes);
+
+				return Convert.ToBase64String(hash);
+			}
+		}
     }
 }

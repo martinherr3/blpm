@@ -8,6 +8,8 @@ using EDUAR_DataAccess.Shared;
 using EDUAR_Entities.Security;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using System.Security.Cryptography;
+using EDUAR_Utility.Utilidades;
 
 namespace EDUAR_DataAccess.Security
 {
@@ -474,6 +476,43 @@ namespace EDUAR_DataAccess.Security
 													   ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+		public bool Autenticar(string usuario, string password)
+		{
+			try
+			{
+				const string sql = @"SELECT COUNT(*)
+								FROM aspnet_Membership 
+								INNER JOIN
+									aspnet_Users ON aspnet_Membership.UserId = aspnet_Users.UserId
+								WHERE aspnet_Users.UserName = @nombre AND aspnet_Membership.Password = @password";
+
+
+				transaction.DBcomand = transaction.DataBase.GetSqlStringCommand(sql);
+				transaction.DataBase.AddInParameter(transaction.DBcomand, "@nombre", DbType.String, usuario);
+
+				string hash = EDUARUtilidades.Helper.EncodePassword(string.Concat(usuario, password));
+				transaction.DataBase.AddInParameter(transaction.DBcomand, "@password", DbType.String, hash);
+
+				int valor = Convert.ToInt32(transaction.DBcomand.ExecuteScalar());
+
+				if (valor == 0)
+					return false;
+				else
+					return true;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Autenticar()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Autenticar()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
 		#endregion
 
 		/// <summary>

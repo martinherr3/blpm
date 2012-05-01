@@ -50,6 +50,7 @@ namespace EDUAR_BusinessLogic.Security
             string cipherText = Convert.ToBase64String(cipherTextBytes);
             return cipherText;
         }
+
         #endregion
 
         #region Desencriptar

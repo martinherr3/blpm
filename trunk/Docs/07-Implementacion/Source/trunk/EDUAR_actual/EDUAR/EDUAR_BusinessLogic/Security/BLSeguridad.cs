@@ -58,7 +58,7 @@ namespace EDUAR_BusinessLogic.Security
 		/// </summary>
 		private void ObtenerRolesUsuario()
 		{
-            GetRoles();
+			GetRoles();
 			string[] arrRoles = Roles.GetRolesForUser(Data.Usuario.Nombre);
 
 			foreach (string rolUsuario in arrRoles)
@@ -193,6 +193,10 @@ namespace EDUAR_BusinessLogic.Security
 			try
 			{
 				Data.Usuario.UsuarioValido = Membership.ValidateUser(Data.Usuario.Nombre, Data.Usuario.Password);
+				//TODO: para guardar password encriptada con hash
+				//DASeguridad dataAcces = new DASeguridad();
+				//Data.Usuario.UsuarioValido = dataAcces.Autenticar(Data.Usuario.Nombre, Data.Usuario.Password);
+
 
 				if (Data.Usuario.UsuarioValido)
 				{
@@ -290,6 +294,8 @@ namespace EDUAR_BusinessLogic.Security
 
 				//Crea el nuevo usuario
 				MembershipCreateStatus status;
+				//TODO: para guardar la password encriptada con hasH
+				//string password = EDUARUtilidades.Helper.EncodePassword(string.Concat(Data.Usuario.Nombre, Data.Usuario.Password));
 				MembershipUser newUser = Membership.CreateUser(Data.Usuario.Nombre, Data.Usuario.Password, Data.Usuario.Email, Data.Usuario.PaswordPregunta, Data.Usuario.PaswordRespuesta, Data.Usuario.Aprobado, out status);
 
 				//Valida el estado del usuario creado.

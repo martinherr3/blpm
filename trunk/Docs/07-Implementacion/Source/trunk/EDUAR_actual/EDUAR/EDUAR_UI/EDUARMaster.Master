@@ -56,8 +56,6 @@
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js" />
         </Scripts>
     </asp:ScriptManager>
-        <ext:ResourceManager ID="ResourceManager1" runat="server" IDMode="Explicit" InitScriptMode="Linked"
-        RemoveViewState="true" Namespace="CompanyX" />
     <div class="page">
         <div class="header">
             <table border="0" cellpadding="1" cellspacing="5" style="width: 1020px;">
@@ -89,17 +87,31 @@
                                             <td style="width: 50%">
                                             </td>
                                             <td align="center" style="width: 50%">
-                                                <a href="~/Login.aspx" id="A1" runat="server" style="text-decoration: none">
+                                                <asp:UpdatePanel ID="udpImgIniciarSesion" runat="server" UpdateMode="Conditional">
+                                                    <ContentTemplate>
+                                                        <asp:ImageButton ImageUrl="~/Images/web/user-offline.png" ID="imgIniciarSesion" runat="server" ToolTip="Iniciar Sesión"
+                                                            Style="cursor: pointer" />
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                                <%--<a href="~/Login.aspx" id="A1" runat="server" style="text-decoration: none">
                                                     <asp:Image ID="Image1" ImageUrl="~/Images/web/user-offline.png" runat="server" AlternateText="Iniciar Sesión"
-                                                        ToolTip="Iniciar Sesión" /></a>
+                                                        ToolTip="Iniciar Sesión" /></a>--%>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td style="width: 50%">
                                             </td>
                                             <td align="center" style="width: 50%">
-                                                [ <a href="~/Login.aspx" id="HeadLoginStatus" runat="server">Iniciar Sesión</a>
-                                                ]
+                                                <asp:UpdatePanel ID="udpHeadLoginStatus" runat="server" UpdateMode="Conditional">
+                                                    <ContentTemplate>
+                                                        [
+                                                        <asp:HyperLink ID="HeadLoginStatus" NavigateUrl="" runat="server" Text="Iniciar Sesión"
+                                                            Style="cursor: pointer" />
+                                                        ]
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                                <%--<a href=''
+                                                    id="HeadLoginStatus" runat="server">Iniciar Sesión</a>--%>
                                             </td>
                                         </tr>
                                     </table>
@@ -144,7 +156,8 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="width: 25%">
-                        Usted está aqu&iacute;: <asp:SiteMapPath ID="SiteMapPath1" runat="server" ShowToolTips="true">
+                        Usted está aqu&iacute;:
+                        <asp:SiteMapPath ID="SiteMapPath1" runat="server" ShowToolTips="true">
                         </asp:SiteMapPath>
                     </td>
                 </tr>

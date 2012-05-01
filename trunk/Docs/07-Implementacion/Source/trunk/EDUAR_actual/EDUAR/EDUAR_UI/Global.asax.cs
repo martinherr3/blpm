@@ -22,15 +22,41 @@ namespace EDUAR_UI
 
 		void Application_Error(object sender, EventArgs e)
 		{
-            // Código que se ejecuta al producirse un error no controlado
+			// Código que se ejecuta al producirse un error no controlado
 			//string error = "Se produjo un error: \n" +
-            //if (Server.GetLastError() != null)
-            //{
-            //    Application["CurrentError"] = Server.GetLastError().Message.ToString();
-            //    Application["CurrentErrorDetalle"] = Server.GetLastError().ToString();
-            //}
-            ////Response.Redirect("~/Error.aspx", false);
-            //Server.Transfer("~/Error.aspx");
+			//if (Server.GetLastError() != null)
+			//{
+			//    Application["CurrentError"] = Server.GetLastError().Message.ToString();
+			//    Application["CurrentErrorDetalle"] = Server.GetLastError().ToString();
+			//}
+			////Response.Redirect("~/Error.aspx", false);
+			//Server.Transfer("~/Error.aspx");
+		}
+
+		protected void Application_BeginRequest(Object sender, EventArgs e)
+		{
+			switch (Request.Url.Scheme)
+			{
+				case "https":
+					if (Request.Url.PathAndQuery.Contains("Public") || Request.Url.PathAndQuery.Contains("Default") ||
+						Request.Url.PathAndQuery.Contains("About") || Request.Url.PathAndQuery.Contains("Error"))
+					{
+						var path = "http://" + Request.Url.Host + Request.Url.PathAndQuery;
+						Response.Status = "301 Moved Permanently";
+						Response.AddHeader("Location", path);
+					}
+					else
+						Response.AddHeader("Strict-Transport-Security", "max-age=300");
+					break;
+				case "http":
+					if (Request.Url.PathAndQuery.Contains("Login") || Request.Url.PathAndQuery.Contains("Private"))
+					{
+						var path = "https://" + Request.Url.Host + Request.Url.PathAndQuery;
+						Response.Status = "301 Moved Permanently";
+						Response.AddHeader("Location", path);
+					}
+					break;
+			}
 		}
 
 		void Session_Start(object sender, EventArgs e)
