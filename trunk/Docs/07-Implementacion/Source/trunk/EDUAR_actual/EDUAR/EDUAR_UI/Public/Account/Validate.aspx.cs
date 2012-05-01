@@ -145,6 +145,11 @@ namespace EDUAR_UI
                         AccionPagina = enumAcciones.Redirect;
                         Master.MostrarMensaje("Ya posee usuario", UIConstantesGenerales.MensajeUsuarioExiste, enumTipoVentanaInformacion.Advertencia);
                     }
+                    else if (objBLPersona.Data.activo == false)
+                    {
+                        AccionPagina = enumAcciones.Salir;
+                        Master.MostrarMensaje("Usuario no activo", UIConstantesGenerales.MensajeLoginUsuarioNoActivo, enumTipoVentanaInformacion.Advertencia);
+                    }
                     else
                         Response.Redirect("~/Public/Account/Register.aspx", false);
                 }

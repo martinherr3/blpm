@@ -56,7 +56,7 @@
                                 <asp:Label ID="lblUserNameBusqueda" runat="server" Text="Usuario:"></asp:Label>
                             </td>
                             <td valign="top">
-                                <select data-placeholder="Seleccione" style="width: 100%" multiple="false" class="chzn-select"
+                                <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
                                     runat="server" id="ddlUser" enableviewstate="true">
                                 </select>
                            </td>
