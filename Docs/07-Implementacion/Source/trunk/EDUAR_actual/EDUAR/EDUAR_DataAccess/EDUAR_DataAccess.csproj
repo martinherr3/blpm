@@ -91,7 +91,7 @@
     <Compile Include="Common\DAModulo.cs" />
     <Compile Include="Common\DADiasHorarios.cs" />
     <Compile Include="Common\DAContenido.cs" />
-    <Compile Include="Common\DABibliografiaRecomendadaContenido.cs" />
+    <Compile Include="Common\DABibliografiaRecomendada.cs" />
     <Compile Include="Common\DAUsuario.cs" />
     <Compile Include="Common\DASeccion.cs" />
     <Compile Include="Common\DAPermiso.cs" />

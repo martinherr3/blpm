@@ -84,7 +84,7 @@
     <Compile Include="Entities\Package Perfiles\Perfil.cs" />
     <Compile Include="Entities\Package Perfiles\Permiso.cs" />
     <Compile Include="Entities\Package Perfiles\Usuario.cs" />
-    <Compile Include="Entities\Package Planificacion Clases\BibliografiaRecomendadaContenido.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\BibliografiaRecomendada.cs" />
     <Compile Include="Entities\Package Planificacion Clases\Contenido.cs" />
     <Compile Include="Entities\Package Planificacion Clases\DiasHorarios.cs" />
     <Compile Include="Entities\Package Planificacion Clases\Orientacion.cs" />

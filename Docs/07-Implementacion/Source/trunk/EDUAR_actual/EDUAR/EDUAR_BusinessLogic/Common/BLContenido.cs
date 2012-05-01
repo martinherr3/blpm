@@ -141,7 +141,20 @@ namespace EDUAR_BusinessLogic.Common
 
         public override void Delete()
         {
-            throw new NotImplementedException();
+			try
+			{
+				DataAcces = new DAContenido();
+				DataAcces.Delete(Data);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
         }
 
         public override void Delete(DATransaction objDATransaction)
@@ -180,6 +193,29 @@ namespace EDUAR_BusinessLogic.Common
         //                                      enuExceptionType.BusinessLogicException);
         //    }
         //}
-        #endregion
-    }
+
+		/// <summary>
+		/// Gets the by asignatura ciclo lectivo.
+		/// </summary>
+		/// <param name="objFiltro">The obj filtro.</param>
+		/// <returns></returns>
+		public List<Contenido> GetByAsignaturaCicloLectivo(Contenido objFiltro)
+		{
+			try
+			{
+				return DataAcces.GetContenidos(objFiltro);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetByAsignaturaCicloLectivo", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+		#endregion
+
+	}
 }

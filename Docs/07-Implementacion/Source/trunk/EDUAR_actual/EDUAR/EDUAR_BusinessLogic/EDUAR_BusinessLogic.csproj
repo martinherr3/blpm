@@ -74,7 +74,7 @@
     <Compile Include="Common\BLPermiso.cs" />
     <Compile Include="Common\BLSeccion.cs" />
     <Compile Include="Common\BLUsuario.cs" />
-    <Compile Include="Common\BLBibliografiaRecomendadaContenido.cs" />
+    <Compile Include="Common\BLBibliografiaRecomendada.cs" />
     <Compile Include="Common\BLContenido.cs" />
     <Compile Include="Common\BLDiasHorarios.cs" />
     <Compile Include="Common\BLModulo.cs" />

@@ -107,6 +107,8 @@ namespace EDUAR_UI
 				{
 					NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
 					SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
+
+					CargarURLIniciarSesion();
 				}
 				else
 					if (HttpContext.Current.User.Identity.IsAuthenticated)
@@ -158,8 +160,9 @@ namespace EDUAR_UI
 					{
 						NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
 						SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
-					}
 
+						CargarURLIniciarSesion();
+					}
 				NavigationMenu.MenuItemDataBound += (NavigationMenu_OnItemBound);
 				NavigationMenu.DataBind();
 
@@ -177,6 +180,22 @@ namespace EDUAR_UI
 			{
 				ManageExceptions(ex);
 			}
+		}
+
+		private void CargarURLIniciarSesion()
+		{
+			string urlSecure = "https://" + Request.ServerVariables["SERVER_NAME"] + Request.ApplicationPath + "/Login.aspx";
+			ImageButton boton = ((ImageButton)Page.Master.FindControl("HeadLoginView").FindControl("imgIniciarSesion"));
+			boton.PostBackUrl= urlSecure;
+
+			UpdatePanel udpHeadLoginStatus = ((UpdatePanel)Page.Master.FindControl("HeadLoginView").FindControl("udpImgIniciarSesion"));
+			udpHeadLoginStatus.Update();
+
+			HyperLink link = ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("HeadLoginStatus"));
+			link.NavigateUrl = urlSecure;
+
+			udpHeadLoginStatus = ((UpdatePanel)Page.Master.FindControl("HeadLoginView").FindControl("udpHeadLoginStatus"));
+			udpHeadLoginStatus.Update();
 		}
 
 		/// <summary>

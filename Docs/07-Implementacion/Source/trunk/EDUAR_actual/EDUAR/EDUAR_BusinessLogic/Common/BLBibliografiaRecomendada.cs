@@ -1,46 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using EDUAR_BusinessLogic.Shared;
+using System.Linq;
+using System.Text;
 using EDUAR_DataAccess.Common;
-using EDUAR_DataAccess.Shared;
 using EDUAR_Entities;
+using EDUAR_BusinessLogic.Shared;
 using EDUAR_Entities.Shared;
-using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_DataAccess.Shared;
 
 namespace EDUAR_BusinessLogic.Common
 {
-    public class BLAcceso : BusinessLogicBase<Acceso, DAAcceso>
+    public class BLBibliografiaRecomendada : BusinessLogicBase<BibliografiaRecomendada, DABibliografiaRecomendada>
     {
         #region --[Constante]--
-        private const string ClassName = "BLAcceso";
+        private const string ClassName = "BLBibliografiaRecomendada";
         #endregion
 
         #region --[Constructores]--
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLAcceso(DTBase objAcceso)
+        public BLBibliografiaRecomendada(DTBase objBibliografiaRecomendada)
         {
-            Data = (Acceso)objAcceso;
+            Data = (BibliografiaRecomendada)objBibliografiaRecomendada;
         }
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public BLAcceso()
+        public BLBibliografiaRecomendada()
         {
-            Data = new Acceso();
+            Data = new BibliografiaRecomendada();
         }
         #endregion
 
         #region --[Propiedades Override]--
-        protected override sealed DAAcceso DataAcces
+        protected override sealed DABibliografiaRecomendada DataAcces
         {
             get { return dataAcces; }
             set { dataAcces = value; }
         }
 
-        public override sealed Acceso Data
+        public override sealed BibliografiaRecomendada Data
         {
             get { return data; }
             set { data = value; }
@@ -85,10 +87,10 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                int idAcceso = 0;
+                int idBibliografiaRecomendada = 0;
 
-                if (Data.idAcceso == 0)
-                    DataAcces.Create(Data, out idAcceso);
+                if (Data.idBibliografiaRecomendada == 0)
+                    DataAcces.Create(Data, out idBibliografiaRecomendada);
                 else
                     DataAcces.Update(Data);
 
@@ -118,8 +120,8 @@ namespace EDUAR_BusinessLogic.Common
             try
             {
                 //Si no viene el Id es porque se esta creando la entidad
-                DataAcces = new DAAcceso(objDATransaction);
-                if (Data.idAcceso == 0)
+                DataAcces = new DABibliografiaRecomendada(objDATransaction);
+                if (Data.idBibliografiaRecomendada == 0)
                     DataAcces.Create(Data);
                 else
                 {
@@ -146,7 +148,7 @@ namespace EDUAR_BusinessLogic.Common
         {
             try
             {
-                DataAcces = new DAAcceso(objDATransaction);
+                DataAcces = new DABibliografiaRecomendada(objDATransaction);
                 DataAcces.Delete(Data);
             }
             catch (CustomizedException ex)
@@ -162,22 +164,22 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        public List<Acceso> GetAccesos(Acceso entidad)
-        {
-            try
-            {
-                return DataAcces.GetAccesos(entidad);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetAccesos", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
+        //public List<BibliografiaRecomendada> GetBibliografiaRecomendadas(BibliografiaRecomendada entidad)
+        //{
+        //    try
+        //    {
+        //        return DataAcces.GetBibliografiaRecomendadas(entidad);
+        //    }
+        //    catch (CustomizedException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new CustomizedException(string.Format("Fallo en {0} - GetBibliografiaRecomendadas", ClassName), ex,
+        //                                      enuExceptionType.BusinessLogicException);
+        //    }
+        //}
         #endregion
     }
 }

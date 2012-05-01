@@ -73,9 +73,6 @@
                                     ID="DatePicker1" 
                                     runat="server" 
                                     Cls="ext-cal-nav-picker">
-                                    <Listeners>
-                                        <Select Fn="CompanyX.setStartDate" Scope="CompanyX" />
-                                    </Listeners>
                                 </ext:DatePicker>
                             </Items>
                             <TopBar>
@@ -86,7 +83,6 @@
                                             runat="server" 
                                             Text="Save All Events" 
                                             Icon="Disk" 
-                                            OnClientClick="CompanyX.record.saveAll();" 
                                             />
                                     </Items>
                                 </ext:Toolbar>
@@ -111,9 +107,6 @@
                                 runat="server" 
                                 DateFormat="M$"
                                 SaveMappings="false">
-                                <Proxy>
-                                    <ext:HttpProxy Url="../../Shared/Code/RemoteService.asmx/GetEvents" Json="true" />
-                                </Proxy>
                                 <Reader>
                                     <ext:JsonReader Root="d" />
                                 </Reader>
@@ -124,16 +117,6 @@
                                 ShowWeekLinks="true" 
                                 ShowWeekNumbers="true" 
                                 />  
-                            <Listeners>
-                                <ViewChange  Fn="CompanyX.viewChange" Scope="CompanyX" />
-                                <EventClick  Fn="CompanyX.record.show" Scope="CompanyX" />
-                                <DayClick    Fn="CompanyX.dayClick" Scope="CompanyX" />
-                                <RangeSelect Fn="CompanyX.rangeSelect" Scope="CompanyX" />
-
-                                <EventMove   Fn="CompanyX.record.move" Scope="CompanyX" />
-                                <EventResize Fn="CompanyX.record.resize" Scope="CompanyX" />
-                                <EventDelete Fn="CompanyX.record.remove" />
-                            </Listeners>                          
                         </ext:CalendarPanel>
                     </Items>
                 </ext:Panel>
