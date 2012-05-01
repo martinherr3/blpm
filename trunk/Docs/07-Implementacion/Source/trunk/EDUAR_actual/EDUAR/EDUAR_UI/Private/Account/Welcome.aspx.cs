@@ -10,13 +10,14 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Constantes;
+using System.Web;
 
 namespace EDUAR_UI
 {
 	public partial class Welcome : EDUARBasePage
 	{
 		#region --[Atributos]--
-
+        private BLSeguridad objBLSeguridad;
 		#endregion
 
 		#region --[Propiedades]--
@@ -123,7 +124,7 @@ namespace EDUAR_UI
 					//Cargo en sesión los datos del usuario logueado
 					DTSeguridad propSeguridad = new DTSeguridad();
 					propSeguridad.Usuario.Nombre = User.Identity.Name;
-					BLSeguridad objBLSeguridad = new BLSeguridad(propSeguridad);
+					objBLSeguridad = new BLSeguridad(propSeguridad);
 					objBLSeguridad.GetUsuario();
 					ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
 
@@ -300,32 +301,33 @@ namespace EDUAR_UI
 				fechaDesde = (DateTime)fechas.ValorFechaDesde;
 			if (fechas.ValorFechaHasta != null)
 				fechaHasta = (DateTime)fechas.ValorFechaHasta;
-			enumRoles obj = (enumRoles)Enum.Parse(typeof(enumRoles), ObjSessionDataUI.ObjDTUsuario.ListaRoles[0].Nombre);
-			CursoCicloLectivo objCurso = new CursoCicloLectivo();
-			List<EventoAgenda> listaEventos = new List<EventoAgenda>();
-			switch (obj)
-			{
-				case enumRoles.Alumno:
-					objCurso.cicloLectivo = cicloLectivoActual;
-					listaEventos = objBLAgenda.GetAgendaActividadesByRol(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, null, objCurso, fechaDesde, fechaHasta);
-					break;
-				case enumRoles.Docente:
-					if (Convert.ToInt16(ddlCurso.SelectedValue) > 0)
-					{
-						objCurso.idCursoCicloLectivo = Convert.ToInt16(ddlCurso.SelectedValue);
-						listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
-					}
-					break;
-				case enumRoles.Tutor:
-					if (Convert.ToInt16(ddlAlumnos.SelectedValue) > 0)
-					{
-						objCurso.idCursoCicloLectivo = (listaAlumnos.Find(p => p.alumno.idAlumno == Convert.ToInt16(ddlAlumnos.SelectedValue))).cursoCicloLectivo.idCursoCicloLectivo;
-						listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
-					}
-					break;
-				default:
-					break;
-			}
+			
+            CursoCicloLectivo objCurso = new CursoCicloLectivo();
+            List<EventoAgenda> listaEventos = new List<EventoAgenda>();
+
+            if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
+            {
+
+                objCurso.cicloLectivo = cicloLectivoActual;
+                listaEventos = objBLAgenda.GetAgendaActividadesByRol(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, null, objCurso, fechaDesde, fechaHasta);
+            }
+            else if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+            {
+                if (Convert.ToInt16(ddlCurso.SelectedValue) > 0)
+                {
+                    objCurso.idCursoCicloLectivo = Convert.ToInt16(ddlCurso.SelectedValue);
+                    listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
+                }
+ 
+            }
+            else if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
+            {
+                if (Convert.ToInt16(ddlAlumnos.SelectedValue) > 0)
+                {
+                    objCurso.idCursoCicloLectivo = (listaAlumnos.Find(p => p.alumno.idAlumno == Convert.ToInt16(ddlAlumnos.SelectedValue))).cursoCicloLectivo.idCursoCicloLectivo;
+                    listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
+                }
+            }                
 			propAgenda.listaEventos = listaEventos;
 		}
 
@@ -365,26 +367,21 @@ namespace EDUAR_UI
 		private string ValidarPagina()
 		{
 			string mensaje = string.Empty;
-			enumRoles obj = (enumRoles)Enum.Parse(typeof(enumRoles), ObjSessionDataUI.ObjDTUsuario.ListaRoles[0].Nombre);
-			switch (obj)
-			{
-				case enumRoles.Alumno:
-					break;
-				case enumRoles.Docente:
-					int idCurso = 0;
-					int.TryParse(ddlCurso.SelectedValue, out idCurso);
-					if (!(idCurso > 0))
-						mensaje = "- Curso<br />";
-					break;
-				case enumRoles.Tutor:
-					int idAlumno = 0;
-					int.TryParse(ddlAlumnos.SelectedValue, out idAlumno);
-					if (!(idAlumno > 0))
-						mensaje = "- Alumno<br />";
-					break;
-				default:
-					break;
-			}
+
+            if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+            {
+                int idCurso = 0;
+                int.TryParse(ddlCurso.SelectedValue, out idCurso);
+                if (!(idCurso > 0))
+                    mensaje = "- Curso<br />";
+            }
+            else if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
+            {
+                int idAlumno = 0;
+                int.TryParse(ddlAlumnos.SelectedValue, out idAlumno);
+                if (!(idAlumno > 0))
+                mensaje = "- Alumno<br />";
+            }           
 			return mensaje;
 		}
 		#endregion
