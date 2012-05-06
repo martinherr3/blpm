@@ -7,6 +7,7 @@ using System.Configuration.Provider;
 using System.Security.Cryptography;
 using EDUAR_BusinessLogic.Shared;
 using EDUAR_DataAccess.Security;
+using EDUAR_DataAccess.Common;
 using EDUAR_Entities.Security;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
@@ -681,6 +682,50 @@ namespace EDUAR_BusinessLogic.Security
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+        public List<DTRol> GetRolesByTipoPersona(int tipoPersona)
+        {
+            List<DTRol> retListRoles = new List<DTRol>();
+            List<String> roles = new List<String>();
+
+            this.GetRoles();
+
+            try
+            {
+                //DASeguridad dataAcces = new DASeguridad();
+                //D = dataAcces.GetRoles(Data);
+                DAPersona dataAccessPersona = new DAPersona();
+                roles = dataAccessPersona.GetRolesByTipoPersona(tipoPersona);
+
+
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRoles", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+
+            foreach (DTRol rol in Data.ListaRoles)
+            {
+                foreach (String rolUser in roles)
+                {
+                    if (rolUser.ToLower() == rol.NombreCorto || rolUser == rol.NombreCorto)
+                    {
+                        retListRoles.Add(rol);
+                    }
+
+                }
+
+            }
+
+            return (retListRoles);
+
+        }
+        
 		#endregion
 	}
 }

@@ -212,6 +212,38 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+        public List<String> GetRolesByTipoPersona(int idTipoPersona)
+        {
+            List<String> retList = new List<String>();
+
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TipoPersonaRol_Select");
+
+                if (idTipoPersona != null)
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, idTipoPersona);
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+                Persona objPersona;
+
+                while (reader.Read())
+                {
+                    retList.Add(reader["nombreRol"].ToString());
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRolesByTipoPersona()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTolesByTipoPersona()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            return (retList);
+        }
 		#endregion
 
 		#region --[Implementación métodos heredados]--
@@ -423,6 +455,11 @@ namespace EDUAR_DataAccess.Common
 													   ex, enuExceptionType.DataAccesException);
 			}
 		}
+         
+        
+
 		#endregion
 	}
+
+  
 }
