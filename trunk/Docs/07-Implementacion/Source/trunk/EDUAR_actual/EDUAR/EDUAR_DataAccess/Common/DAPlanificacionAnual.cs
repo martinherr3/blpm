@@ -4,18 +4,18 @@ using EDUAR_Entities;
 
 namespace EDUAR_DataAccess.Common
 {
-    public class DAPlanificacionAnualAsignatura : DataAccesBase<PlanificacionAnualAsignatura>
+    public class DAPlanificacionAnual : DataAccesBase<PlanificacionAnual>
     {
         #region --[Atributos]--
-        private const string ClassName = "DAPlanificacionAnualAsignatura";
+        private const string ClassName = "DAPlanificacionAnual";
         #endregion
 
         #region --[Constructor]--
-        public DAPlanificacionAnualAsignatura()
+        public DAPlanificacionAnual()
         {
         }
 
-        public DAPlanificacionAnualAsignatura(DATransaction objDATransaction)
+        public DAPlanificacionAnual(DATransaction objDATransaction)
             : base(objDATransaction)
         {
 
@@ -33,27 +33,27 @@ namespace EDUAR_DataAccess.Common
             get { throw new NotImplementedException(); }
         }
 
-        public override PlanificacionAnualAsignatura GetById(PlanificacionAnualAsignatura entidad)
+        public override PlanificacionAnual GetById(PlanificacionAnual entidad)
         {
             throw new NotImplementedException();
         }
 
-        public override void Create(PlanificacionAnualAsignatura entidad)
+        public override void Create(PlanificacionAnual entidad)
         {
             throw new NotImplementedException();
         }
 
-        public override void Create(PlanificacionAnualAsignatura entidad, out int identificador)
+        public override void Create(PlanificacionAnual entidad, out int identificador)
         {
             throw new NotImplementedException();
         }
 
-        public override void Update(PlanificacionAnualAsignatura entidad)
+        public override void Update(PlanificacionAnual entidad)
         {
             throw new NotImplementedException();
         }
 
-        public override void Delete(PlanificacionAnualAsignatura entidad)
+        public override void Delete(PlanificacionAnual entidad)
         {
             throw new NotImplementedException();
         }

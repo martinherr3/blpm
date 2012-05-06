@@ -89,9 +89,9 @@
     <Compile Include="Entities\Package Planificacion Clases\DiasHorarios.cs" />
     <Compile Include="Entities\Package Planificacion Clases\Orientacion.cs" />
     <Compile Include="Entities\Package Planificacion Clases\Plan.cs" />
-    <Compile Include="Entities\Package Planificacion Clases\PlanificacionAnualAsignatura.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\PlanificacionAnual.cs" />
     <Compile Include="Entities\Package Planificacion Clases\TemaContenido.cs" />
-    <Compile Include="Entities\Package Planificacion Clases\TemasPlanificadosAsignatura.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\TemaPlanificacionAnual.cs" />
     <Compile Include="Entities\Package Principales\Asignatura.cs" />
     <Compile Include="Entities\Package Principales\Calificacion.cs" />
     <Compile Include="Entities\Package Principales\Curso.cs" />

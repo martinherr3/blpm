@@ -12,7 +12,7 @@ using EDUAR_DataAccess.Shared;
 
 namespace EDUAR_BusinessLogic.Common
 {
-    public class BLTemasPlanificadosAsignatura : BusinessLogicBase<TemasPlanificadosAsignatura, DATemasPlanificadosAsignatura>
+    public class BLTemaPlanificacionAnual : BusinessLogicBase<TemaPlanificacionAnual, DATemaPlanificacionAnual>
     {
         #region --[Constante]--
         private const string ClassName = "BLTemasPlanificadosAsignatura";
@@ -22,27 +22,27 @@ namespace EDUAR_BusinessLogic.Common
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLTemasPlanificadosAsignatura(DTBase objTemasPlanificadosAsignatura)
+        public BLTemaPlanificacionAnual(DTBase objTemasPlanificadosAsignatura)
         {
-            Data = (TemasPlanificadosAsignatura)objTemasPlanificadosAsignatura;
+            Data = (TemaPlanificacionAnual)objTemasPlanificadosAsignatura;
         }
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public BLTemasPlanificadosAsignatura()
+        public BLTemaPlanificacionAnual()
         {
-            Data = new TemasPlanificadosAsignatura();
+            Data = new TemaPlanificacionAnual();
         }
         #endregion
 
         #region --[Propiedades Override]--
-        protected override sealed DATemasPlanificadosAsignatura DataAcces
+        protected override sealed DATemaPlanificacionAnual DataAcces
         {
             get { return dataAcces; }
             set { dataAcces = value; }
         }
 
-        public override sealed TemasPlanificadosAsignatura Data
+        public override sealed TemaPlanificacionAnual Data
         {
             get { return data; }
             set { data = value; }
@@ -87,10 +87,10 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                int idTemasPlanificadosAsignatura = 0;
+				int idTemaPlanificacion = 0;
 
-                if (Data.idTemasPlanificadosAsignatura == 0)
-                    DataAcces.Create(Data, out idTemasPlanificadosAsignatura);
+				if (Data.idTemaPlanificacion == 0)
+					DataAcces.Create(Data, out idTemaPlanificacion);
                 else
                     DataAcces.Update(Data);
 
@@ -120,8 +120,8 @@ namespace EDUAR_BusinessLogic.Common
             try
             {
                 //Si no viene el Id es porque se esta creando la entidad
-                DataAcces = new DATemasPlanificadosAsignatura(objDATransaction);
-                if (Data.idTemasPlanificadosAsignatura == 0)
+                DataAcces = new DATemaPlanificacionAnual(objDATransaction);
+				if (Data.idTemaPlanificacion == 0)
                     DataAcces.Create(Data);
                 else
                 {
@@ -148,7 +148,7 @@ namespace EDUAR_BusinessLogic.Common
         {
             try
             {
-                DataAcces = new DATemasPlanificadosAsignatura(objDATransaction);
+                DataAcces = new DATemaPlanificacionAnual(objDATransaction);
                 DataAcces.Delete(Data);
             }
             catch (CustomizedException ex)
