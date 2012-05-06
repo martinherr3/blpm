@@ -4,24 +4,6 @@
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxtoolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <style type="text/css">
-        .modalBackground
-        {
-            background-color: #D3D3D3;
-            filter: alpha(opacity=70);
-            opacity: 0.7;
-        }
-        .CajaDialogo
-        {
-            background-color: #FFF;
-            border-width: 5px;
-            border-style: outset;
-            width: 400px; /*font-weight: bold;
-            font-style: italic;*/
-            border-color: #87CEFA;
-            padding: 0px;
-        }
-    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div id="divAccion" runat="server">

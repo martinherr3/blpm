@@ -186,7 +186,7 @@ namespace EDUAR_UI
 		{
 			string urlSecure = "https://" + Request.ServerVariables["SERVER_NAME"] + Request.ApplicationPath + "/Login.aspx";
 			ImageButton boton = ((ImageButton)Page.Master.FindControl("HeadLoginView").FindControl("imgIniciarSesion"));
-			boton.PostBackUrl= urlSecure;
+			boton.PostBackUrl = urlSecure;
 
 			UpdatePanel udpHeadLoginStatus = ((UpdatePanel)Page.Master.FindControl("HeadLoginView").FindControl("udpImgIniciarSesion"));
 			udpHeadLoginStatus.Update();
@@ -334,18 +334,6 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void NavigationMenu_PreRender(object sender, EventArgs e)
 		{
-			//SiteMapNodeItem sepItem = new SiteMapNodeItem(-1, SiteMapNodeItemType.PathSeparator);
-			//ITemplate sepTemplate = NavigationMenu.TemplateControl;
-			//if (sepTemplate == null)
-			//{
-			//    Literal separator = new Literal { Text = siteMapPathEDUAR.PathSeparator };
-			//    sepItem.Controls.Add(separator);
-			//}
-			//else
-			//    sepTemplate.InstantiateIn(sepItem);
-
-			//sepItem.ApplyStyle(siteMapPathEDUAR.PathSeparatorStyle);
-
 			if (SiteMapEDUAR.Provider.RootNode != null)
 			{
 				foreach (SiteMapNode node in SiteMapEDUAR.Provider.RootNode.ChildNodes)
@@ -356,7 +344,7 @@ namespace EDUAR_UI
 					MenuItem objMenuItem = new MenuItem(node.Title);
 					if (node.Url != string.Empty)
 						objMenuItem.NavigateUrl = node.Url;
-
+					
 					//Recorre los nodos hijos
 					foreach (SiteMapNode nodeChild in node.ChildNodes)
 					{
@@ -370,6 +358,43 @@ namespace EDUAR_UI
 						NavigationMenu.Items.Add(objMenuItem);
 				}
 			}
+			if (SiteMapAnonymusEDUAR.Provider.RootNode != null)
+			{
+				foreach (SiteMapNode node in SiteMapAnonymusEDUAR.Provider.RootNode.ChildNodes)
+				{
+					if (!ValidarNodo(node, false))
+					{
+						NavigationMenu.Items.Remove(NavigationMenu.FindItem(node.Title));
+						continue;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Valida si el nodo se debe mostrar. 
+		/// Puede tener el atributo visible=false o puede que el perfil del usuario lo permita.
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		private bool ValidarNodo(SiteMapNode node, bool checkRol)
+		{
+			//Si el nodo está marcado como visible False es porque solo se utiliza para que sea visible 
+			//en el menu superior y no se debe mostrar en el menu lateral
+			Boolean isVisible;
+			if (bool.TryParse(node["visible"], out isVisible) && !isVisible)
+				return false;
+
+			if (checkRol)
+			{
+				foreach (DTRol rolUsuario in ObjSessionDataUI.ObjDTUsuario.ListaRoles)
+				{
+					if (node.Roles.Contains(rolUsuario.Nombre))
+						return true;
+				}
+				return false;
+			}
+			return true;
 		}
 
 		/// <summary>
@@ -380,18 +405,7 @@ namespace EDUAR_UI
 		/// <returns></returns>
 		protected Boolean ValidarNodo(SiteMapNode node)
 		{
-			//Si el nodo está marcado como visible False es porque solo se utiliza para que sea visible 
-			//en el menu superior y no se debe mostrar en el menu lateral
-			Boolean isVisible;
-			if (bool.TryParse(node["visible"], out isVisible) && !isVisible)
-				return false;
-
-			foreach (DTRol rolUsuario in ObjSessionDataUI.ObjDTUsuario.ListaRoles)
-			{
-				if (node.Roles.Contains(rolUsuario.Nombre))
-					return true;
-			}
-			return false;
+			return ValidarNodo(node,true);
 		}
 
 		/// <summary>
@@ -652,7 +666,6 @@ namespace EDUAR_UI
 				{
 					if (!ValidarNodo(node))
 						continue;
-					//trvMenu.Visible = true;
 					TreeNode objTreeNode = new TreeNode(node.Title);
 					if (node.Url != string.Empty)
 						objTreeNode.NavigateUrl = node.Url;
@@ -668,9 +681,7 @@ namespace EDUAR_UI
 						objTreeNode.ChildNodes.Add(objTreeNodeChild);
 					}
 					if (objTreeNode.ChildNodes.Count > 0 || objTreeNode.Text.Contains("Inicio")) { }
-					//trvMenu.Nodes.Add(objTreeNode);
 				}
-				//trvMenu.ExpandAll();
 			}
 		}
 

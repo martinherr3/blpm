@@ -223,10 +223,10 @@
     <Content Include="Private\Reports\reportIndicadores.aspx" />
     <Content Include="Private\Reports\reportPromedios.aspx" />
     <Content Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx" />
-    <Content Include="Public\Account\ForgotPassword.aspx" />
+    <Content Include="Private\Account\ForgotPassword.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Private\Account\RegisterUser.aspx" />
-    <Content Include="Public\Account\Register.aspx" />
+    <Content Include="Private\Account\Register.aspx" />
     <Content Include="Images\botonBuscar.png" />
     <Content Include="Images\botonGuardar.png" />
     <Content Include="Images\Grillas\action_edit.png" />
@@ -239,7 +239,7 @@
     <Content Include="App_Themes\Tema\Estilo.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Public\Account\Validate.aspx" />
+    <Content Include="Private\Account\Validate.aspx" />
     <Content Include="Public\General\Contactos.aspx" />
     <Content Include="Public\General\Docentes.aspx" />
     <Content Include="Public\General\Historia.aspx" />
@@ -529,11 +529,11 @@
     <Compile Include="Private\Reports\reportSancionesAlumnoPeriodo.aspx.designer.cs">
       <DependentUpon>reportSancionesAlumnoPeriodo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Public\Account\ForgotPassword.aspx.cs">
+    <Compile Include="Private\Account\ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Public\Account\ForgotPassword.aspx.designer.cs">
+    <Compile Include="Private\Account\ForgotPassword.aspx.designer.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
@@ -550,11 +550,11 @@
     <Compile Include="Private\Account\RegisterUser.aspx.designer.cs">
       <DependentUpon>RegisterUser.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Public\Account\Register.aspx.cs">
+    <Compile Include="Private\Account\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Public\Account\Register.aspx.designer.cs">
+    <Compile Include="Private\Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
@@ -568,11 +568,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Public\Account\Validate.aspx.cs">
+    <Compile Include="Private\Account\Validate.aspx.cs">
       <DependentUpon>Validate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Public\Account\Validate.aspx.designer.cs">
+    <Compile Include="Private\Account\Validate.aspx.designer.cs">
       <DependentUpon>Validate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Public\General\Contactos.aspx.cs">
@@ -734,7 +734,6 @@
     <Content Include="Private\Alumnos\web.config" />
     <Content Include="Private\Agenda\web.config" />
     <Content Include="Private\Mensajes\web.config" />
-    <Content Include="Public\Account\web.config" />
     <Content Include="Private\Manuales\web.config" />
     <Content Include="Private\Manuales\Docente\web.config" />
     <Content Include="Private\Manuales\Tutor\web.config" />

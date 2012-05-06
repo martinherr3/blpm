@@ -43,9 +43,9 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				RegisterHyperLink.NavigateUrl = "~/Public/Account/Validate.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
+				RegisterHyperLink.NavigateUrl = "~/Private/Account/Validate.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
 
-				ForgotPasswordHyperLink.NavigateUrl = "~/Public/Account/ForgotPassword.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
+				ForgotPasswordHyperLink.NavigateUrl = "~/Private/Account/ForgotPassword.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
 
 				HttpContext.Current.User = null;
 				NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
@@ -60,7 +60,7 @@ namespace EDUAR_UI
 					BLSeguridad objBLSeguridad = new BLSeguridad(propSeguridad);
 					if (Request.Params["const"] != null)
 					{
-						string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString());
+						string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString().Replace(' ','+'));
 						ObjSessionDataUI.ObjDTUsuario.Nombre = user;
 						propSeguridad.Usuario.Nombre = user;
 						objBLSeguridad = new BLSeguridad(propSeguridad);
@@ -68,7 +68,7 @@ namespace EDUAR_UI
 						ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
 						ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial = true;
 						//ObjDTSessionDataUI.ObjDTUsuario.Password = objBLSeguridad.Data.Usuario.Password;
-						Response.Redirect("~/Public/Account/ForgotPassword.aspx", false);
+						Response.Redirect("~/Private/Account/ForgotPassword.aspx", false);
 					}
 				}
 				ventanaInfoLogin.Visible = false;
@@ -87,18 +87,6 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void NavigationMenu_PreRender(object sender, EventArgs e)
 		{
-			//SiteMapNodeItem sepItem = new SiteMapNodeItem(-1, SiteMapNodeItemType.PathSeparator);
-			//ITemplate sepTemplate = NavigationMenu.TemplateControl;
-			//if (sepTemplate == null)
-			//{
-			//    Literal separator = new Literal { Text = siteMapPathEDUAR.PathSeparator };
-			//    sepItem.Controls.Add(separator);
-			//}
-			//else
-			//    sepTemplate.InstantiateIn(sepItem);
-
-			//sepItem.ApplyStyle(siteMapPathEDUAR.PathSeparatorStyle);
-
 			SiteMapDataSource mapaActual = (SiteMapDataSource)NavigationMenu.DataSource;
 
 			if (mapaActual.Provider.RootNode != null)
@@ -125,6 +113,17 @@ namespace EDUAR_UI
 						NavigationMenu.Items.Add(objMenuItem);
 				}
 			}
+			if (SiteMapAnonymusEDUAR.Provider.RootNode != null)
+			{
+				foreach (SiteMapNode node in SiteMapAnonymusEDUAR.Provider.RootNode.ChildNodes)
+				{
+					if (!ValidarNodo(node, false))
+					{
+						NavigationMenu.Items.Remove(NavigationMenu.FindItem(node.Title));
+						continue;
+					}
+				}
+			}
 		}
 
 		/// <summary>
@@ -143,7 +142,7 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="node"></param>
 		/// <returns></returns>
-		protected Boolean ValidarNodo(SiteMapNode node)
+		private bool ValidarNodo(SiteMapNode node, bool checkRol)
 		{
 			//Si el nodo está marcado como visible False es porque solo se utiliza para que sea visible 
 			//en el menu superior y no se debe mostrar en el menu lateral
@@ -151,12 +150,27 @@ namespace EDUAR_UI
 			if (bool.TryParse(node["visible"], out isVisible) && !isVisible)
 				return false;
 
-			foreach (DTRol rolUsuario in ObjSessionDataUI.ObjDTUsuario.ListaRoles)
+			if (checkRol)
 			{
-				if (node.Roles.Contains(rolUsuario.Nombre))
-					return true;
+				foreach (DTRol rolUsuario in ObjSessionDataUI.ObjDTUsuario.ListaRoles)
+				{
+					if (node.Roles.Contains(rolUsuario.Nombre))
+						return true;
+				}
+				return false;
 			}
-			return false;
+			return true;
+		}
+
+		/// <summary>
+		/// Valida si el nodo se debe mostrar. 
+		/// Puede tener el atributo visible=false o puede que el perfil del usuario lo permita.
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		protected Boolean ValidarNodo(SiteMapNode node)
+		{
+			return ValidarNodo(node, true);
 		}
 
 		/// <summary>
