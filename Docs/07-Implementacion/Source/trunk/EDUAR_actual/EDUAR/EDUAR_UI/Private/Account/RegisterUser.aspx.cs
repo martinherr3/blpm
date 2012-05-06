@@ -322,6 +322,7 @@ namespace EDUAR_UI
         private void CargarCamposFiltros()
         {
             atrBLSeguridad.GetRoles();
+
             UIUtilidades.BindCombo<DTRol>(ddlListRoles, atrBLSeguridad.Data.ListaRoles, "NombreCorto", "Nombre", true);
             UIUtilidades.BindComboTipoPersona(ddlTipoUsuario);
         }
@@ -378,6 +379,10 @@ namespace EDUAR_UI
             txtEmailUsuario.Text = objPersona.email;
             lblPreguntaUsuario.Text = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PreguntaDefault);
             lblRespuestaUsuario.Text = objPersona.numeroDocumento.ToString();
+
+            atrBLSeguridad = new BLSeguridad(propSeguridad);
+           
+            UIUtilidades.BindCombo<DTRol>(ddlListRoles, atrBLSeguridad.GetRolesByTipoPersona(objPersona.tipoPersona.idTipoPersona), "NombreCorto", "Nombre", true);
 
             udpRoles.Visible = true;
             udpRoles.Update();
@@ -449,6 +454,8 @@ namespace EDUAR_UI
             }
             return true;
         }
+
+
         #endregion
     }
 }
