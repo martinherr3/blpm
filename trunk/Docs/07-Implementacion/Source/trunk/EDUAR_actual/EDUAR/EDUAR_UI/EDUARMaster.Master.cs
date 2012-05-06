@@ -344,7 +344,7 @@ namespace EDUAR_UI
 					MenuItem objMenuItem = new MenuItem(node.Title);
 					if (node.Url != string.Empty)
 						objMenuItem.NavigateUrl = node.Url;
-					
+
 					//Recorre los nodos hijos
 					foreach (SiteMapNode nodeChild in node.ChildNodes)
 					{
@@ -358,17 +358,18 @@ namespace EDUAR_UI
 						NavigationMenu.Items.Add(objMenuItem);
 				}
 			}
-			if (SiteMapAnonymusEDUAR.Provider.RootNode != null)
-			{
-				foreach (SiteMapNode node in SiteMapAnonymusEDUAR.Provider.RootNode.ChildNodes)
+			else
+				if (SiteMapAnonymusEDUAR.Provider.RootNode != null)
 				{
-					if (!ValidarNodo(node, false))
+					foreach (SiteMapNode node in SiteMapAnonymusEDUAR.Provider.RootNode.ChildNodes)
 					{
-						NavigationMenu.Items.Remove(NavigationMenu.FindItem(node.Title));
-						continue;
+						if (!ValidarNodo(node, false))
+						{
+							NavigationMenu.Items.Remove(NavigationMenu.FindItem(node.Title));
+							continue;
+						}
 					}
 				}
-			}
 		}
 
 		/// <summary>
@@ -405,7 +406,7 @@ namespace EDUAR_UI
 		/// <returns></returns>
 		protected Boolean ValidarNodo(SiteMapNode node)
 		{
-			return ValidarNodo(node,true);
+			return ValidarNodo(node, true);
 		}
 
 		/// <summary>
