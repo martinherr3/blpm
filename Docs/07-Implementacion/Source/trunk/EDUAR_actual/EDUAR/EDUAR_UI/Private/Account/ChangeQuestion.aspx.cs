@@ -102,7 +102,9 @@ namespace EDUAR_UI
                 }
                 else
                     if (AccionPagina == enumAcciones.Salir)
-                        Response.Redirect("~/Default.aspx", false);
+                    {
+                        Response.Redirect("~/Private/Account/Welcome.aspx", false);
+                    }                      
             }
             catch (Exception ex)
             {
