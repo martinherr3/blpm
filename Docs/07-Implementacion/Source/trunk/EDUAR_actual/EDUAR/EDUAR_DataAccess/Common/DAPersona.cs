@@ -221,11 +221,11 @@ namespace EDUAR_DataAccess.Common
             {
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TipoPersonaRol_Select");
 
-                if (idTipoPersona != null)
+				//if (idTipoPersona != null)
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, idTipoPersona);
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-                Persona objPersona;
+				//Persona objPersona;
 
                 while (reader.Read())
                 {

@@ -12,37 +12,37 @@ using EDUAR_DataAccess.Shared;
 
 namespace EDUAR_BusinessLogic.Common
 {
-    public class BLPlanificacionAnualAsignatura : BusinessLogicBase<PlanificacionAnualAsignatura, DAPlanificacionAnualAsignatura>
+    public class BLPlanificacionAnual : BusinessLogicBase<PlanificacionAnual, DAPlanificacionAnual>
     {
         #region --[Constante]--
-        private const string ClassName = "BLPlanificacionAnualAsignatura";
+        private const string ClassName = "BLPlanificacionAnual";
         #endregion
 
         #region --[Constructores]--
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLPlanificacionAnualAsignatura(DTBase objPlanificacionAnualAsignatura)
+        public BLPlanificacionAnual(DTBase objPlanificacionAnual)
         {
-            Data = (PlanificacionAnualAsignatura)objPlanificacionAnualAsignatura;
+            Data = (PlanificacionAnual)objPlanificacionAnual;
         }
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public BLPlanificacionAnualAsignatura()
+        public BLPlanificacionAnual()
         {
-            Data = new PlanificacionAnualAsignatura();
+            Data = new PlanificacionAnual();
         }
         #endregion
 
         #region --[Propiedades Override]--
-        protected override sealed DAPlanificacionAnualAsignatura DataAcces
+        protected override sealed DAPlanificacionAnual DataAcces
         {
             get { return dataAcces; }
             set { dataAcces = value; }
         }
 
-        public override sealed PlanificacionAnualAsignatura Data
+        public override sealed PlanificacionAnual Data
         {
             get { return data; }
             set { data = value; }
@@ -87,10 +87,10 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                int idPlanificacionAnualAsignatura = 0;
+                int idPlanificacionAnual = 0;
 
-                if (Data.idPlanificacionAnualAsignatura == 0)
-                    DataAcces.Create(Data, out idPlanificacionAnualAsignatura);
+                if (Data.idPlanificacionAnual == 0)
+                    DataAcces.Create(Data, out idPlanificacionAnual);
                 else
                     DataAcces.Update(Data);
 
@@ -120,8 +120,8 @@ namespace EDUAR_BusinessLogic.Common
             try
             {
                 //Si no viene el Id es porque se esta creando la entidad
-                DataAcces = new DAPlanificacionAnualAsignatura(objDATransaction);
-                if (Data.idPlanificacionAnualAsignatura == 0)
+                DataAcces = new DAPlanificacionAnual(objDATransaction);
+				if (Data.idPlanificacionAnual == 0)
                     DataAcces.Create(Data);
                 else
                 {
@@ -148,7 +148,7 @@ namespace EDUAR_BusinessLogic.Common
         {
             try
             {
-                DataAcces = new DAPlanificacionAnualAsignatura(objDATransaction);
+                DataAcces = new DAPlanificacionAnual(objDATransaction);
                 DataAcces.Delete(Data);
             }
             catch (CustomizedException ex)
@@ -164,11 +164,11 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<PlanificacionAnualAsignatura> GetPlanificacionAnualAsignaturas(PlanificacionAnualAsignatura entidad)
+        //public List<PlanificacionAnual> GetPlanificacionAnuals(PlanificacionAnual entidad)
         //{
         //    try
         //    {
-        //        return DataAcces.GetPlanificacionAnualAsignaturas(entidad);
+        //        return DataAcces.GetPlanificacionAnuals(entidad);
         //    }
         //    catch (CustomizedException ex)
         //    {
@@ -176,7 +176,7 @@ namespace EDUAR_BusinessLogic.Common
         //    }
         //    catch (Exception ex)
         //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetPlanificacionAnualAsignaturas", ClassName), ex,
+        //        throw new CustomizedException(string.Format("Fallo en {0} - GetPlanificacionAnuals", ClassName), ex,
         //                                      enuExceptionType.BusinessLogicException);
         //    }
         //}

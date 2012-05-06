@@ -82,10 +82,10 @@
     <Compile Include="Common\DACicloLectivo.cs" />
     <Compile Include="Common\DACalificacion.cs" />
     <Compile Include="Common\DAAsistencia.cs" />
-    <Compile Include="Common\DATemasPlanificadosAsignatura.cs" />
+    <Compile Include="Common\DATemaPlanificacionAnual.cs" />
     <Compile Include="Common\DAAlumnoCurso.cs" />
     <Compile Include="Common\DATemaContenido.cs" />
-    <Compile Include="Common\DAPlanificacionAnualAsignatura.cs" />
+    <Compile Include="Common\DAPlanificacionAnual.cs" />
     <Compile Include="Common\DAPlan.cs" />
     <Compile Include="Common\DAOrientacion.cs" />
     <Compile Include="Common\DAModulo.cs" />

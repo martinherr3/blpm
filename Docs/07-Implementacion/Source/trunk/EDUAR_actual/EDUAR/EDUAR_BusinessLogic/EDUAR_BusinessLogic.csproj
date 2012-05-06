@@ -80,9 +80,9 @@
     <Compile Include="Common\BLModulo.cs" />
     <Compile Include="Common\BLOrientacion.cs" />
     <Compile Include="Common\BLPlan.cs" />
-    <Compile Include="Common\BLPlanificacionAnualAsignatura.cs" />
+    <Compile Include="Common\BLPlanificacionAnual.cs" />
     <Compile Include="Common\BLTemaContenido.cs" />
-    <Compile Include="Common\BLTemasPlanificadosAsignatura.cs" />
+    <Compile Include="Common\BLTemaPlanificacionAnual.cs" />
     <Compile Include="Common\BLAlumnoCurso.cs" />
     <Compile Include="Common\BLAsistencia.cs" />
     <Compile Include="Common\BLCalificacion.cs" />

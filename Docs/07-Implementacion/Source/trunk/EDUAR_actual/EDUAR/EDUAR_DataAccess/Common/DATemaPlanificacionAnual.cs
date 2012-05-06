@@ -4,18 +4,18 @@ using EDUAR_Entities;
 
 namespace EDUAR_DataAccess.Common
 {
-    public class DATemasPlanificadosAsignatura : DataAccesBase<TemasPlanificadosAsignatura>
+    public class DATemaPlanificacionAnual : DataAccesBase<TemaPlanificacionAnual>
     {
         #region --[Atributos]--
         private const string ClassName = "DATemasPlanificadosAsignatura";
         #endregion
 
         #region --[Constructor]--
-        public DATemasPlanificadosAsignatura()
+        public DATemaPlanificacionAnual()
         {
         }
 
-        public DATemasPlanificadosAsignatura(DATransaction objDATransaction)
+        public DATemaPlanificacionAnual(DATransaction objDATransaction)
             : base(objDATransaction)
         {
 
@@ -33,27 +33,27 @@ namespace EDUAR_DataAccess.Common
             get { throw new NotImplementedException(); }
         }
 
-        public override TemasPlanificadosAsignatura GetById(TemasPlanificadosAsignatura entidad)
+        public override TemaPlanificacionAnual GetById(TemaPlanificacionAnual entidad)
         {
             throw new NotImplementedException();
         }
 
-        public override void Create(TemasPlanificadosAsignatura entidad)
+        public override void Create(TemaPlanificacionAnual entidad)
         {
             throw new NotImplementedException();
         }
 
-        public override void Create(TemasPlanificadosAsignatura entidad, out int identificador)
+        public override void Create(TemaPlanificacionAnual entidad, out int identificador)
         {
             throw new NotImplementedException();
         }
 
-        public override void Update(TemasPlanificadosAsignatura entidad)
+        public override void Update(TemaPlanificacionAnual entidad)
         {
             throw new NotImplementedException();
         }
 
-        public override void Delete(TemasPlanificadosAsignatura entidad)
+        public override void Delete(TemaPlanificacionAnual entidad)
         {
             throw new NotImplementedException();
         }
