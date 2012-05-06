@@ -14,5 +14,10 @@
         <siteMapNode url="~/Public/General/Novedades.aspx" title="Novedades" ImageUrl="~/Images/web/novedades.png"/>
         <siteMapNode url="~/Public/General/Contactos.aspx" title="Contacto" ImageUrl="~/Images/web/contacto.png"/>
         <siteMapNode url="~/About.aspx" title="Acerca De" ImageUrl="~/Images/web/about.png"/>
+        <siteMapNode url="" title="Usuarios" visible="false">
+            <siteMapNode url="~/Private/Account/Register.aspx" title="Registrar"/>
+            <siteMapNode url="~/Private/Account/ForgotPassword.aspx" title="Olvidé Mi Clave"/>
+            <siteMapNode url="~/Private/Account/Validate.aspx" title="Validar Usuario"/>
+        </siteMapNode>
     </siteMapNode>
 </siteMap>

@@ -107,7 +107,7 @@ namespace EDUAR_UI
                 {
 
                     case enumAcciones.Redirect:
-                        Response.Redirect("~/Public/Account/ForgotPassword.aspx", false);
+						Response.Redirect("~/Private/Account/ForgotPassword.aspx", false);
                         break;
                     default:
                         Response.Redirect("~/Default.aspx", false);
@@ -151,7 +151,7 @@ namespace EDUAR_UI
                         Master.MostrarMensaje("Usuario no activo", UIConstantesGenerales.MensajeLoginUsuarioNoActivo, enumTipoVentanaInformacion.Advertencia);
                     }
                     else
-                        Response.Redirect("~/Public/Account/Register.aspx", false);
+						Response.Redirect("~/Private/Account/Register.aspx", false);
                 }
             }
             catch (Exception ex)

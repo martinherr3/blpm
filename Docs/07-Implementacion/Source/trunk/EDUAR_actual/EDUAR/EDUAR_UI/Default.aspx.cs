@@ -70,7 +70,7 @@ namespace EDUAR_UI
 						propSeguridad.Usuario.Nombre = user;
 						objBLSeguridad = new BLSeguridad(propSeguridad);
 						objBLSeguridad.GetUsuario();
-						Response.Redirect("~/Public/Account/ForgotPassword.aspx", false);
+						Response.Redirect("~/Private/Account/ForgotPassword.aspx", false);
 					}
 				}
 			}
