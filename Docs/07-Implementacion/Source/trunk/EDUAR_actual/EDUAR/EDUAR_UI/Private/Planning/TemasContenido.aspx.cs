@@ -47,49 +47,49 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista contenido.
 		/// </value>
-		protected List<EDUAR_Entities.Contenido> listaContenido
+		protected List<TemaContenido> listaTemaContenido
 		{
 			get
 			{
-				if (ViewState["listaContenido"] == null)
-					ViewState["listaContenido"] = new List<EDUAR_Entities.Contenido>();
-				return (List<EDUAR_Entities.Contenido>)ViewState["listaContenido"];
+				if (ViewState["listaTemaContenido"] == null)
+					ViewState["listaTemaContenido"] = new List<TemaContenido>();
+				return (List<TemaContenido>)ViewState["listaTemaContenido"];
 			}
-			set { ViewState["listaContenido"] = value; }
+			set { ViewState["listaTemaContenido"] = value; }
 		}
 
 		/// <summary>
-		/// Gets or sets the id asignatura curso.
+		/// Gets or sets the id tema contenido.
 		/// </summary>
 		/// <value>
-		/// The id asignatura curso.
+		/// The id tema contenido.
 		/// </value>
-		public int idAsignaturaCurso
+		public int idTemaContenido
 		{
 			get
 			{
-				if (ViewState["idAsignaturaCurso"] == null)
-					ViewState["idAsignaturaCurso"] = 0;
-				return (int)ViewState["idAsignaturaCurso"];
+				if (ViewState["idTemaContenido"] == null)
+					ViewState["idTemaContenido"] = 0;
+				return (int)ViewState["idTemaContenido"];
 			}
-			set { ViewState["idAsignaturaCurso"] = value; }
+			set { ViewState["idTemaContenido"] = value; }
 		}
 
 		/// <summary>
-		/// Gets or sets the id contenido.
+		/// Gets or sets the contenido editar.
 		/// </summary>
 		/// <value>
-		/// The id contenido.
+		/// The contenido editar.
 		/// </value>
-		public int idContenido
+		public EDUAR_Entities.Contenido contenidoEditar
 		{
 			get
 			{
-				if (Session["idContenido"] == null)
-					Session["idContenido"] = 0;
-				return (int)Session["idContenido"];
+				if (Session["contenidoEditar"] == null)
+					Session["contenidoEditar"] = new EDUAR_Entities.Contenido();
+				return (EDUAR_Entities.Contenido)Session["contenidoEditar"];
 			}
-			set { Session["idContenido"] = value; }
+			set { Session["contenidoEditar"] = value; }
 		}
 		#endregion
 
@@ -186,6 +186,23 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
+		/// Handles the Click event of the btnVolver control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnVolverContenido_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				Response.Redirect("~/Private/Planning/Contenido.aspx", true);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
 		/// Handles the Click event of the btnGuardar control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -196,77 +213,18 @@ namespace EDUAR_UI
 			{
 				if (!string.IsNullOrEmpty(txtDescripcion.Text))
 				{
-					EDUAR_Entities.Contenido nuevoContenido = new EDUAR_Entities.Contenido();
-					nuevoContenido.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
-					nuevoContenido.descripcion = txtDescripcion.Text;
-					nuevoContenido.idContenido = idContenido;
+					TemaContenido nuevoContenido = new TemaContenido();
+					nuevoContenido.idTemaContenido = idTemaContenido;
+					nuevoContenido.detalle = txtDescripcion.Text;
+					nuevoContenido.idContenido = contenidoEditar.idContenido;
+					nuevoContenido.obligatorio = chkObligatorio.Checked;
+					nuevoContenido.titulo = txtTitulo.Text;
 
 					GuardarContenido(nuevoContenido);
 				}
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
-		}
-
-		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ddlCurso control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			try
-			{
-				int idCursoCicloLectivo = 0;
-				int.TryParse(ddlCurso.SelectedValue, out idCursoCicloLectivo);
-				if (idCursoCicloLectivo > 0)
-					CargarComboAsignatura(idCursoCicloLectivo);
-				else
-				{
-					ddlAsignatura.SelectedIndex = 0;
-					ddlAsignatura.Items.Clear();
-				}
-				ddlAsignatura.Enabled = idCursoCicloLectivo > 0;
-				udpAsignatura.Update();
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
-		}
-
-		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ddlAsignatura control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlAsignatura_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			try
-			{
-				int idAsignatura = 0;
-				int.TryParse(ddlAsignatura.SelectedValue, out idAsignatura);
-				btnNuevo.Visible = idAsignatura > 0;
-				if (idAsignatura > 0)
-				{
-					idAsignaturaCurso = idAsignatura;
-					CargarContenido(idAsignatura);
-				}
-				udpBotonera.Update();
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
-		}
-
-		private void CargarContenido(int idAsignaturaCicloLectivo)
-		{
-			EDUAR_Entities.Contenido objContenido = new EDUAR_Entities.Contenido();
-			objContenido.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCicloLectivo;
-			BLContenido objBL = new BLContenido();
-			listaContenido = objBL.GetByAsignaturaCicloLectivo(objContenido);
-			CargarGrilla();
 		}
 
 		protected void gvwContenido_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -281,22 +239,24 @@ namespace EDUAR_UI
 				switch (e.CommandName)
 				{
 					case "Editar":
-						lblTitulo.Text = "Editar Contenido";
-						idContenido = Convert.ToInt32(e.CommandArgument.ToString());
-						var lista = listaContenido.Find(p => p.idContenido == idContenido);
-						txtDescripcion.Text = lista.descripcion;
+						lblTitulo.Text = "Editar Tema";
+						idTemaContenido = Convert.ToInt32(e.CommandArgument.ToString());
+						var lista = listaTemaContenido.Find(p => p.idTemaContenido == idTemaContenido);
+						txtDescripcion.Text = lista.detalle;
+						txtTitulo.Text = lista.titulo;
+						chkObligatorio.Checked = lista.obligatorio;
 						udpBotonera.Update();
 						mpeContenido.Show();
 						break;
 					case "Eliminar":
 						AccionPagina = enumAcciones.Eliminar;
-						idContenido = Convert.ToInt32(e.CommandArgument.ToString());
+						idTemaContenido = Convert.ToInt32(e.CommandArgument.ToString());
 						EliminarContenido();
 						break;
-					case "Temas":
-						AccionPagina = enumAcciones.Redirect;
-						Response.Redirect("TemasContenido.aspx", false);
-						break;
+					//case "Temas":
+					//    AccionPagina = enumAcciones.Redirect;
+					//    Response.Redirect("TemasContenido.aspx", false);
+					//    break;
 				}
 			}
 			catch (Exception ex)
@@ -313,25 +273,12 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPresentacion()
 		{
-			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
+			//UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
 			pnlNuevoContenido.Attributes["display"] = "none";
 			//pnlNuevoContenido.Visible = false;
-
+			lblTemas.Text = "Temas - " + contenidoEditar.descripcion;
+			CargarContenido(contenidoEditar.idContenido);
 			udpBotonera.Update();
-		}
-
-		/// <summary>
-		/// Cargars the asignaturas.
-		/// </summary>
-		private void CargarComboAsignatura(int idCursoCicloLectivo)
-		{
-			List<Asignatura> listaAsignaturas = new List<Asignatura>();
-			BLAsignatura objBLAsignatura = new BLAsignatura();
-			CursoCicloLectivo curso = new CursoCicloLectivo();
-			curso.idCursoCicloLectivo = idCursoCicloLectivo;
-			listaAsignaturas = objBLAsignatura.GetAsignaturasCurso(new Asignatura() { cursoCicloLectivo = curso });
-			if (listaAsignaturas != null && listaAsignaturas.Count > 0)
-				UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignaturas, "idAsignatura", "Nombre", true);
 		}
 
 		/// <summary>
@@ -339,7 +286,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarGrilla()
 		{
-			gvwContenido.DataSource = UIUtilidades.BuildDataTable<EDUAR_Entities.Contenido>(listaContenido).DefaultView;
+			gvwContenido.DataSource = UIUtilidades.BuildDataTable<TemaContenido>(listaTemaContenido).DefaultView;
 			gvwContenido.DataBind();
 			udpGrilla.Update();
 		}
@@ -348,17 +295,19 @@ namespace EDUAR_UI
 		/// Guardars the contenido.
 		/// </summary>
 		/// <param name="nuevoContenido">The nuevo contenido.</param>
-		private void GuardarContenido(EDUAR_Entities.Contenido nuevoContenido)
+		private void GuardarContenido(TemaContenido nuevoContenido)
 		{
-			BLContenido objBLContenido = new BLContenido(nuevoContenido);
-			objBLContenido.Save();
+			BLTemaContenido objBLTemaContenido = new BLTemaContenido(nuevoContenido);
+			objBLTemaContenido.Save();
 
-			lblTitulo.Text = "Nuevo Contenido";
+			lblTitulo.Text = "Nuevo Tema";
 			txtDescripcion.Text = string.Empty;
-			idContenido = 0;
+			txtTitulo.Text = string.Empty;
+			chkObligatorio.Checked = true;
+			idTemaContenido = 0;
 			pnlNuevoContenido.Attributes["display"] = "none";
 			udpBotonera.Update();
-			CargarContenido(idAsignaturaCurso);
+			CargarContenido(contenidoEditar.idContenido);
 		}
 
 		/// <summary>
@@ -366,12 +315,25 @@ namespace EDUAR_UI
 		/// </summary>
 		private void EliminarContenido()
 		{
-			EDUAR_Entities.Contenido objEliminar = new EDUAR_Entities.Contenido();
-			objEliminar.idContenido = idContenido;
-			BLContenido ojbBLContenido = new BLContenido(objEliminar);
+			TemaContenido objEliminar = new TemaContenido();
+			objEliminar.idTemaContenido = idTemaContenido;
+			BLTemaContenido ojbBLContenido = new BLTemaContenido(objEliminar);
 			ojbBLContenido.Delete();
 
-			CargarContenido(idAsignaturaCurso);
+			CargarContenido(contenidoEditar.idContenido);
+		}
+
+		/// <summary>
+		/// Cargars the contenido.
+		/// </summary>
+		/// <param name="idAsignaturaCicloLectivo">The id asignatura ciclo lectivo.</param>
+		private void CargarContenido(int idContenido)
+		{
+			TemaContenido objContenido = new TemaContenido();
+			objContenido.idContenido = idContenido;
+			BLTemaContenido objBL = new BLTemaContenido();
+			listaTemaContenido = objBL.GetTemasByContenido(objContenido);
+			CargarGrilla();
 		}
 		#endregion
 	}

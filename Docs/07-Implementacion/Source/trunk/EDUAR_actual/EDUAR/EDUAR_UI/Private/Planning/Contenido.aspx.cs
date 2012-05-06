@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using EDUAR_UI.Shared;
-using EDUAR_Entities;
 using EDUAR_BusinessLogic.Common;
-using EDUAR_Utility.Enumeraciones;
+using EDUAR_Entities;
+using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
-using EDUAR_Utility.Constantes;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -86,11 +83,28 @@ namespace EDUAR_UI
 		{
 			get
 			{
-				if (Session["idContenido"] == null)
-					Session["idContenido"] = 0;
-				return (int)Session["idContenido"];
+				if (ViewState["idContenido"] == null)
+					ViewState["idContenido"] = 0;
+				return (int)ViewState["idContenido"];
 			}
-			set { Session["idContenido"] = value; }
+			set { ViewState["idContenido"] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the contenido editar.
+		/// </summary>
+		/// <value>
+		/// The contenido editar.
+		/// </value>
+		public EDUAR_Entities.Contenido contenidoEditar
+		{
+			get
+			{
+				if (Session["contenidoEditar"] == null)
+					Session["contenidoEditar"] = new EDUAR_Entities.Contenido();
+				return (EDUAR_Entities.Contenido)Session["contenidoEditar"];
+			}
+			set { Session["contenidoEditar"] = value; }
 		}
 		#endregion
 
@@ -296,6 +310,8 @@ namespace EDUAR_UI
 						break;
 					case "Temas":
 						AccionPagina = enumAcciones.Redirect;
+						idContenido = Convert.ToInt32(e.CommandArgument.ToString());
+						contenidoEditar = listaContenido.Find(p => p.idContenido == idContenido);
 						Response.Redirect("TemasContenido.aspx", false);
 						break;
 				}

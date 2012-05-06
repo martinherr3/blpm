@@ -6,28 +6,30 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
- <div id="divAccion" runat="server">
+    <div id="divAccion" runat="server">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
                     <h2>
-                        Carga De Contenidos</h2>
+                        <asp:Label ID="lblTemas" Text="" runat="server" /></h2>
                     <br />
                 </td>
                 <td align="right" rowspan="2">
                     <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
-                                Visible="false" />
+                                Visible="true" />
+                            <asp:ImageButton ID="btnVolverContenido" OnClick="btnVolverContenido_Click" runat="server" ToolTip="Volver"
+                                ImageUrl="~/Images/botonVolver.png" />
                             <%--<asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                                 ImageUrl="~/Images/botonBuscar.png" />--%>
                             <asp:Panel ID="pnlNuevoContenido" runat="server" Width="500px" Style="display: none;
-                                text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+                                text-align: left; min-height: 200px" BorderStyle="Groove" CssClass="CajaDialogo">
                                 <table class="tablaInterna" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td>
                                             <h2>
-                                                <asp:Label ID="lblTitulo" Text="Nuevo Contenido" runat="server" /></h2>
+                                                <asp:Label ID="lblTitulo" Text="Nuevo Tema" runat="server" /></h2>
                                             <br />
                                         </td>
                                         <td align="right">
@@ -40,10 +42,25 @@
                                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                                     <tr>
                                         <td class="TD50px">
-                                            <asp:Label ID="Label1" Text="Descripción:" runat="server" />
+                                            <asp:Label ID="lblTituloTema" Text="Título:" runat="server" />
                                         </td>
                                         <td class="TD250px">
-                                            <asp:TextBox ID="txtDescripcion" runat="server" CssClass="EstiloTxtLargo250" />
+                                            <asp:TextBox ID="txtTitulo" runat="server" CssClass="EstiloTxtLargo250" MaxLength="100" />
+                                        </td>
+                                        <td class="TD50px">
+                                            <asp:Label ID="lblObligatorio" Text="Obligatorio:" runat="server" />
+                                        </td>
+                                        <td class="TD50px">
+                                            <asp:CheckBox ID="chkObligatorio" Text="" runat="server" Checked="true" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="TD50px" valign="top">
+                                            <asp:Label ID="lblDescripción" Text="Descripción:" runat="server" />
+                                        </td>
+                                        <td colspan="3">
+                                            <asp:TextBox ID="txtDescripcion" runat="server" CssClass="txtMultilinea99" MaxLength="1000"
+                                                TextMode="MultiLine" Height="150px" />
                                         </td>
                                     </tr>
                                 </table>
@@ -55,21 +72,28 @@
                             </ajaxtoolkit:ModalPopupExtender>
                             <script type="text/javascript">
                                 function DoPostBack() {
-                                    var descripcion = document.getElementById('<%= txtDescripcion.ClientID %>').value;
+                                    var titulo = document.getElementById('<%= txtTitulo.ClientID %>').value;
+                                    if (titulo.toString().trim() == '') {
+                                        alert('Por favor, ingrese un título válido.');
+                                    }
+                                    else {
+                                        var descripcion = document.getElementById('<%= txtDescripcion.ClientID %>').value;
 
-                                    if (descripcion.toString().trim() == '')
-                                        alert('Por favor, ingrese una descripción válida.');
-                                    else
-                                        __doPostBack('btnGuardar', 'Click');
+                                        if (descripcion.toString().trim() == '')
+                                            alert('Por favor, ingrese una descripción válida.');
+                                        else
+                                            __doPostBack('btnGuardar', 'Click');
+                                    }
                                 }
 
                                 function Cancel() {
+                                    document.getElementById('<%= txtTitulo.ClientID %>').value = '';
                                     document.getElementById('<%= txtDescripcion.ClientID %>').value = '';
                                 } 
                             </script>
                         </ContentTemplate>
                         <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
+                            <%--<asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />--%>
                             <asp:PostBackTrigger ControlID="btnGuardar" />
                             <%--<asp:PostBackTrigger ControlID="btnBuscar" />--%>
                         </Triggers>
@@ -77,65 +101,50 @@
                 </td>
             </tr>
         </table>
-    </div>
-    <div id="divFiltros" runat="server">
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+        <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
-                <td class="TD50px">
-                    <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td class="TD140px">
-                    <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
-                    </asp:DropDownList>
-                </td>
-                <td class="TD50px">
-                    <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
-                </td>
                 <td>
-                    <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false" AutoPostBack="true"
-                                OnSelectedIndexChanged="ddlAsignatura_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
-                        </Triggers>
-                    </asp:UpdatePanel>
                 </td>
             </tr>
         </table>
+    </div>
+    <div id="divFiltros" runat="server">
         <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
                 <asp:GridView ID="gvwContenido" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
-                    AutoGenerateColumns="false" AllowPaging="true" Width="500px" DataKeyNames="idContenido"
+                    AutoGenerateColumns="false" AllowPaging="true" Width="700px" DataKeyNames="idTemaContenido"
                     OnRowCommand="gvwContenido_RowCommand" OnPageIndexChanging="gvwContenido_PageIndexChanging">
                     <Columns>
                         <asp:TemplateField HeaderText="Acciones">
                             <HeaderStyle HorizontalAlign="center" Width="5%" />
                             <ItemStyle HorizontalAlign="center" />
                             <ItemTemplate>
-                            <asp:ImageButton ID="btnTemas" runat="server" CommandName="Temas" CommandArgument='<%# Bind("idContenido") %>'
-                                    ToolTip="Ver Temas" ImageUrl="~/Images/Grillas/action_new.png" />
-                                <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idContenido") %>'
+                                <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idTemaContenido") %>'
                                     ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
-                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar"
-                                    CommandArgument='<%# Bind("idContenido") %>' OnClientClick="return confirm('¿Desea eliminar el contenido seleccionado?')" />
+                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaContenido") %>'
+                                    OnClientClick="return confirm('¿Desea eliminar el tema seleccionado?')" />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Descripción">
+                        <asp:TemplateField HeaderText="Título">
                             <HeaderStyle HorizontalAlign="left" Width="50%" />
                             <ItemStyle HorizontalAlign="left" />
                             <ItemTemplate>
-                                <asp:Label ID="lblDescripcionGrilla" runat="server" Text='<%# Bind("descripcion") %>'></asp:Label>
+                                <asp:Label ID="lblDescripcionGrilla" runat="server" Text='<%# Bind("titulo") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Obligatorio">
+                            <HeaderStyle HorizontalAlign="Center" Width="10%" />
+                            <ItemStyle HorizontalAlign="Center" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblObligatorioGrilla" runat="server" Text='<%# Boolean.Parse(Eval("obligatorio").ToString()) ? "Sí" : "No"  %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </ContentTemplate>
             <Triggers>
-                <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
+                <%--<asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />--%>
             </Triggers>
         </asp:UpdatePanel>
     </div>
