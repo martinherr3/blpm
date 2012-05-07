@@ -197,21 +197,37 @@ namespace EDUAR_SI_Prueba
 			{ btnAsistencia.Enabled = true; }
 		}
 
-        private void btnDiasHorarios_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                btnDiasHorarios.Enabled = false;
-                BLImportarDiasHorarios objImportarDatos = new BLImportarDiasHorarios(ddlCadenaConexion.SelectedItem.ToString());
-                objImportarDatos.ImportarDiasHorarios();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            { btnDiasHorarios.Enabled = true; }
-        }
+		private void btnDiasHorarios_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				btnDiasHorarios.Enabled = false;
+				BLImportarDiasHorarios objImportarDatos = new BLImportarDiasHorarios(ddlCadenaConexion.SelectedItem.ToString());
+				objImportarDatos.ImportarDiasHorarios();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{ btnDiasHorarios.Enabled = true; }
+		}
+
+		private void btnInformeInasistencia_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				btnInformeInasistencia.Enabled = false;
+				BLNotificarInasistencia objNotificarInasistencia = new BLNotificarInasistencia(ddlCadenaConexion.SelectedItem.ToString());
+				objNotificarInasistencia.ProcedimientoNotificarInasistencia();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message);
+			}
+			finally
+			{ btnInformeInasistencia.Enabled = true; }
+		}
 
 	}
 }

@@ -384,8 +384,8 @@ namespace EDUAR_SI_DataAccess
                             aprobado = Convert.ToBoolean(reader["aprobado"])
                         };
                         if (valorEscala.descripcion.Contains("conceptual"))
-                        { valorEscala.idEscalaCalificacion = (int)enumEscalasCalificaciones.Conceptual; }
-                        else { valorEscala.idEscalaCalificacion = (int)enumEscalasCalificaciones.Numerica; }
+                        { valorEscala.idValorEscalaCalificacion = (int)enumEscalasCalificaciones.Conceptual; }
+                        else { valorEscala.idValorEscalaCalificacion = (int)enumEscalasCalificaciones.Numerica; }
                         listEscalaCalificacion.Add(valorEscala);
                     }
                     command.Connection.Close();
