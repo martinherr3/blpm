@@ -744,6 +744,7 @@
     <Content Include="Private\Manuales\Administrativo\web.config" />
     <Content Include="Private\Manuales\Administrador\web.config" />
     <Content Include="Private\Reports\Historicos\web.config" />
+    <Content Include="Private\Planning\web.config" />
     <None Include="Scripts\css\blitzer\images\Thumbs.db" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>

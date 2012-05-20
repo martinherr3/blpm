@@ -88,11 +88,11 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.idAsignatura);
 					if (!string.IsNullOrEmpty(entidad.nombre))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.nombre);
-                    if (entidad.cursoCicloLectivo.idCursoCicloLectivo > 0)
+					if (entidad.cursoCicloLectivo.idCursoCicloLectivo > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.idCursoCicloLectivo);
 					if (entidad.curso.cicloLectivo.idCicloLectivo > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.curso.cicloLectivo.idCicloLectivo);
-					if(!string.IsNullOrEmpty(entidad.docente.username))
+					if (entidad.docente != null && !string.IsNullOrEmpty(entidad.docente.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.docente.username);
 
 				}
@@ -127,109 +127,109 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
-        /// <summary>
-        /// Gets the asignaturas por ciclo lectivo y nivel.
-        /// </summary>
-        /// <param name="asignatura">The entidad.</param>
-        /// <returns></returns>
-        public List<Asignatura> GetAsignaturasNivelCicloLectivo(int idCicloLectivo, int idNivel)
-        {
-            try
-            {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AsignaturasPorNivelCicloLectivo_select");
+		/// <summary>
+		/// Gets the asignaturas por ciclo lectivo y nivel.
+		/// </summary>
+		/// <param name="asignatura">The entidad.</param>
+		/// <returns></returns>
+		public List<Asignatura> GetAsignaturasNivelCicloLectivo(int idCicloLectivo, int idNivel)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AsignaturasPorNivelCicloLectivo_select");
 
-                if (idNivel > 0)
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32,idNivel);
-                if (idCicloLectivo > 0)
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, idCicloLectivo);
+				if (idNivel > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32, idNivel);
+				if (idCicloLectivo > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, idCicloLectivo);
 
-                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-                List<Asignatura> listaAsignaturas = new List<Asignatura>();
-                Asignatura objAsignatura;
-                while (reader.Read())
-                {
-                    objAsignatura = new Asignatura();
+				List<Asignatura> listaAsignaturas = new List<Asignatura>();
+				Asignatura objAsignatura;
+				while (reader.Read())
+				{
+					objAsignatura = new Asignatura();
 
-                    objAsignatura.idAsignatura = Convert.ToInt32(reader["idAsignatura"]);
-                    objAsignatura.nombre = reader["nombreAsignatura"].ToString();
+					objAsignatura.idAsignatura = Convert.ToInt32(reader["idAsignatura"]);
+					objAsignatura.nombre = reader["nombreAsignatura"].ToString();
 
-                    listaAsignaturas.Add(objAsignatura);
-                }
-                return listaAsignaturas;
-            }
-            catch (SqlException ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivelCicloLectivo()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivelCicloLectivo()", ClassName),
-                                    ex, enuExceptionType.DataAccesException); 
-            }
-        }
+					listaAsignaturas.Add(objAsignatura);
+				}
+				return listaAsignaturas;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivelCicloLectivo()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivelCicloLectivo()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 
-        /// <summary>
-        /// Gets the asignaturas por ciclo lectivos y niveles multiples.
-        /// </summary>
-        /// <param name="asignatura">The entidad.</param>
-        /// <returns></returns>
-        public List<Asignatura> GetAsignaturasNivelesCiclosLectivos(List<CicloLectivo> cicloLectivo, List<Nivel> nivel)
-        {
-            try
-            {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("GetAsignaturasPorNivelesCicloLectivos_select");
+		/// <summary>
+		/// Gets the asignaturas por ciclo lectivos y niveles multiples.
+		/// </summary>
+		/// <param name="asignatura">The entidad.</param>
+		/// <returns></returns>
+		public List<Asignatura> GetAsignaturasNivelesCiclosLectivos(List<CicloLectivo> cicloLectivo, List<Nivel> nivel)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("GetAsignaturasPorNivelesCicloLectivos_select");
 
-                if (cicloLectivo != null && nivel != null)
-                {
-                    string ciclosLectivosParam = string.Empty;
-                    if (cicloLectivo.Count > 0)
-                    {
-                        foreach (CicloLectivo unCicloLectivo in cicloLectivo)
-                            ciclosLectivosParam += string.Format("{0},", unCicloLectivo.idCicloLectivo);
+				if (cicloLectivo != null && nivel != null)
+				{
+					string ciclosLectivosParam = string.Empty;
+					if (cicloLectivo.Count > 0)
+					{
+						foreach (CicloLectivo unCicloLectivo in cicloLectivo)
+							ciclosLectivosParam += string.Format("{0},", unCicloLectivo.idCicloLectivo);
 
-                        ciclosLectivosParam = ciclosLectivosParam.Substring(0, ciclosLectivosParam.Length - 1);
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaCicloLectivo", DbType.String, ciclosLectivosParam);
-                    }
+						ciclosLectivosParam = ciclosLectivosParam.Substring(0, ciclosLectivosParam.Length - 1);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaCicloLectivo", DbType.String, ciclosLectivosParam);
+					}
 
-                    string nivelesParam = string.Empty;
-                    if (nivel.Count > 0)
-                    {
-                        foreach (Nivel unNivel in nivel)
-                            nivelesParam += string.Format("{0},", unNivel.idNivel);
+					string nivelesParam = string.Empty;
+					if (nivel.Count > 0)
+					{
+						foreach (Nivel unNivel in nivel)
+							nivelesParam += string.Format("{0},", unNivel.idNivel);
 
-                        nivelesParam = nivelesParam.Substring(0, nivelesParam.Length - 1);
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaNivel", DbType.String, nivelesParam);
-                    }
-                }
+						nivelesParam = nivelesParam.Substring(0, nivelesParam.Length - 1);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaNivel", DbType.String, nivelesParam);
+					}
+				}
 
-                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-                List<Asignatura> listaAsignaturas = new List<Asignatura>();
-                Asignatura objAsignatura;
-                while (reader.Read())
-                {
-                    objAsignatura = new Asignatura();
+				List<Asignatura> listaAsignaturas = new List<Asignatura>();
+				Asignatura objAsignatura;
+				while (reader.Read())
+				{
+					objAsignatura = new Asignatura();
 
-                    objAsignatura.idAsignatura = Convert.ToInt32(reader["idAsignatura"]);
-                    objAsignatura.nombre = reader["nombreAsignatura"].ToString();
+					objAsignatura.idAsignatura = Convert.ToInt32(reader["idAsignatura"]);
+					objAsignatura.nombre = reader["nombreAsignatura"].ToString();
 
-                    listaAsignaturas.Add(objAsignatura);
-                }
-                return listaAsignaturas;
-            }
-            catch (SqlException ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivelesCiclosLectivos()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivelesCiclosLectivos()", ClassName),
-                                    ex, enuExceptionType.DataAccesException);
-            }
-        }
+					listaAsignaturas.Add(objAsignatura);
+				}
+				return listaAsignaturas;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivelesCiclosLectivos()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivelesCiclosLectivos()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 
 		#region --[Implementación métodos heredados]--

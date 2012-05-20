@@ -57,6 +57,23 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
+		/// Gets or sets the id curso.
+		/// </summary>
+		/// <value>
+		/// The id curso.
+		/// </value>
+		public int idCurso
+		{
+			get
+			{
+				if (Session["idCurso"] == null)
+					Session["idCurso"] = 0;
+				return (int)Session["idCurso"];
+			}
+			set { Session["idCurso"] = value; }
+		}
+
+		/// <summary>
 		/// Gets or sets the id asignatura curso.
 		/// </summary>
 		/// <value>
@@ -66,11 +83,11 @@ namespace EDUAR_UI
 		{
 			get
 			{
-				if (ViewState["idAsignaturaCurso"] == null)
-					ViewState["idAsignaturaCurso"] = 0;
-				return (int)ViewState["idAsignaturaCurso"];
+				if (Session["idAsignaturaCurso"] == null)
+					Session["idAsignaturaCurso"] = 0;
+				return (int)Session["idAsignaturaCurso"];
 			}
-			set { ViewState["idAsignaturaCurso"] = value; }
+			set { Session["idAsignaturaCurso"] = value; }
 		}
 
 		/// <summary>
@@ -143,6 +160,16 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
+					if (Request.UrlReferrer.AbsolutePath.Contains("TemasContenido.aspx"))
+					{
+						ddlCurso.SelectedValue = idCurso.ToString();
+						ddlAsignatura.Enabled = true;
+						CargarComboAsignatura(idCurso);
+						ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
+						ddlAsignatura.Enabled = idCurso > 0;
+						btnNuevo.Visible = idAsignaturaCurso > 0;
+						CargarContenido(idAsignaturaCurso);
+					}
 				}
 				else
 				{
@@ -235,7 +262,10 @@ namespace EDUAR_UI
 				int idCursoCicloLectivo = 0;
 				int.TryParse(ddlCurso.SelectedValue, out idCursoCicloLectivo);
 				if (idCursoCicloLectivo > 0)
+				{
+					idCurso = idCursoCicloLectivo;
 					CargarComboAsignatura(idCursoCicloLectivo);
+				}
 				else
 				{
 					ddlAsignatura.SelectedIndex = 0;
@@ -345,8 +375,11 @@ namespace EDUAR_UI
 			List<Asignatura> listaAsignaturas = new List<Asignatura>();
 			BLAsignatura objBLAsignatura = new BLAsignatura();
 			CursoCicloLectivo curso = new CursoCicloLectivo();
+			Docente docente = null;
+			if (User.IsInRole(enumRoles.Docente.ToString()))
+				docente.username = User.Identity.Name;
 			curso.idCursoCicloLectivo = idCursoCicloLectivo;
-			listaAsignaturas = objBLAsignatura.GetAsignaturasCurso(new Asignatura() { cursoCicloLectivo = curso });
+			listaAsignaturas = objBLAsignatura.GetAsignaturasCurso(new Asignatura() { cursoCicloLectivo = curso, docente = docente });
 			if (listaAsignaturas != null && listaAsignaturas.Count > 0)
 				UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignaturas, "idAsignatura", "Nombre", true);
 		}

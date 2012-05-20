@@ -6,8 +6,8 @@
         <siteMapNode url="" title="Agenda" roles="Administrador,Docente,Director" >
             <siteMapNode url="~/Private/Agenda/ManageAgendaActividades.aspx" title="Actividades" roles="Administrador,Docente" />
             <siteMapNode url="~/Private/Agenda/RegisterEventoInstitucional.aspx" title="Eventos" roles="Administrador,Director" />
-            <siteMapNode url="~/Private/Planning/Contenido.aspx" title="Contenidos" roles="Administrador,Director,Administrativo" />
-            <siteMapNode url="~/Private/Planning/TemasContenido.aspx" title="Temas Contenidos" roles="Administrador,Director,Administrativo" visible="false" />
+            <siteMapNode url="~/Private/Planning/Contenido.aspx" title="Contenidos" roles="Administrador,Director,Docente" />
+            <siteMapNode url="~/Private/Planning/TemasContenido.aspx" title="Temas Contenidos" roles="Administrador,Director,Docente" visible="false" />
             <!--<siteMapNode url="~/Private/Planning/Planificacion.aspx" title="Planificación" roles="Administrador,Director,Docente" />
             <siteMapNode url="~/Private/Planning/Calendario.aspx" title="Calendario" roles="Administrador,Director,Docente" />-->
         </siteMapNode>
