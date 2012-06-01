@@ -20,8 +20,8 @@ namespace EDUAR_Entities
 		public string estrategiasAprendizaje { get; set; }
 		public string criteriosEvaluacion { get; set; }
 		public string instrumentosEvaluacion { get; set; }
-		private DateTime? fechaInicioEstimada { get; set; }
-		private DateTime? fechaFinEstimada { get; set; }
+		public DateTime? fechaInicioEstimada { get; set; }
+		public DateTime? fechaFinEstimada { get; set; }
 		public string observaciones { get; set; }
 
 		public TemaPlanificacionAnual()

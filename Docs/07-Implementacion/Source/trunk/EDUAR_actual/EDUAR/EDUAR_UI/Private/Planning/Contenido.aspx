@@ -15,7 +15,7 @@
                     <br />
                 </td>
                 <td align="right" rowspan="2">
-                    <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
+                   <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
                                 Visible="false" />
@@ -73,7 +73,7 @@
                             <asp:PostBackTrigger ControlID="btnGuardar" />
                             <%--<asp:PostBackTrigger ControlID="btnBuscar" />--%>
                         </Triggers>
-                    </asp:UpdatePanel>
+                    </asp:UpdatePanel> 
                 </td>
             </tr>
         </table>
