@@ -1,140 +1,166 @@
-﻿<%@ Page Language="C#" %>
-<%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
+﻿<%@ Page Title="Planificaci&oacute;n de Contenidos" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+    AutoEventWireup="true" CodeBehind="Planificacion.aspx.cs" Inherits="EDUAR_UI.Planificacion" %>
 
-<script runat="server">
-    [DirectMethod(Namespace = "CompanyX")]
-    public void ShowMsg(string msg)
-    {
-        X.Msg.Notify("Message", msg).Show();
-    }
-</script>
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="Head1" runat="server">
-    <title>Remote Data Calendar - Ext.NET Examples</title>
-    
-    <ext:ResourcePlaceHolder ID="ResourcePlaceHolder1" runat="server" Mode="Style" />
-    <link rel="stylesheet" type="text/css" href="../../Shared/resources/css/main.css" />
-    
-    <ext:ResourcePlaceHolder ID="ResourcePlaceHolder2" runat="server" Mode="Script" />
-    <script type="text/javascript" src="../../Shared/resources/js/common.js"></script>
-    <script type="text/javascript" src="../../Shared/resources/js/override.js"></script>
-</head>
-<body>
-    <form id="Form1" runat="server">
-        <ext:ResourceManager ID="ResourceManager1" 
-            runat="server" 
-            ScriptMode="Debug"
-            IDMode="Explicit" 
-            InitScriptMode="Linked" 
-            RemoveViewState="true"
-            Namespace="CompanyX"
-            />
-        
-        <ext:Viewport ID="Viewport1" runat="server" Layout="Border">
-            <Items>
-                <ext:Panel ID="Panel1" 
-                    runat="server" 
-                    Height="35" 
-                    Border="false" 
-                    Region="North" 
-                    Cls="app-header" 
-                    BodyCssClass="app-header-content">
-                    <Content>
-                        <div id="app-logo">
-                            <div class="logo-top">&nbsp;</div>
-                            <div id="logo-body">&nbsp;</div>
-                            <div class="logo-bottom">&nbsp;</div>
-                        </div>
-                        <h1>My Calendar</h1>
-                        <span id="app-msg" class="x-hidden"></span>
-                    </Content>
-                </ext:Panel>
-                
-                <ext:Panel 
-                    ID="Panel2" 
-                    runat="server" 
-                    Title="..." 
-                    Layout="Border" 
-                    Region="Center" 
-                    Cls="app-center">
-                    <Items>
-                        <ext:Panel ID="Panel3" 
-                            runat="server" 
-                            Width="176" 
-                            Region="West" 
-                            Border="false" 
-                            Cls="app-west">
-                            <Items>
-                                <ext:DatePicker 
-                                    ID="DatePicker1" 
-                                    runat="server" 
-                                    Cls="ext-cal-nav-picker">
-                                </ext:DatePicker>
-                            </Items>
-                            <TopBar>
-                                <ext:Toolbar ID="Toolbar1" runat="server">
-                                    <Items>
-                                        <ext:Button 
-                                            ID="Button1"
-                                            runat="server" 
-                                            Text="Save All Events" 
-                                            Icon="Disk" 
-                                            />
-                                    </Items>
-                                </ext:Toolbar>
-                            </TopBar>
-                        </ext:Panel>
-                        
-                        <ext:CalendarPanel
-                            ID="CalendarPanel1" 
-                            runat="server"
-                            Region="Center"
-                            ActiveIndex="2"
-                            Border="false">
-                            <GroupStore ID="GroupStore1" runat="server">
-                                <Groups>
-                                    <ext:Group CalendarId="1" Title="Home" />
-                                    <ext:Group CalendarId="2" Title="Work" />
-                                    <ext:Group CalendarId="3" Title="School" />
-                                </Groups>
-                            </GroupStore>
-                            <EventStore 
-                                ID="EventStore1" 
-                                runat="server" 
-                                DateFormat="M$"
-                                SaveMappings="false">
-                                <Reader>
-                                    <ext:JsonReader Root="d" />
-                                </Reader>
-                            </EventStore>
-                            <MonthView ID="MonthView1" 
-                                runat="server" 
-                                ShowHeader="true" 
-                                ShowWeekLinks="true" 
-                                ShowWeekNumbers="true" 
-                                />  
-                        </ext:CalendarPanel>
-                    </Items>
-                </ext:Panel>
-            </Items>
-        </ext:Viewport>
-        
-        <ext:EventEditWindow 
-            ID="EventEditWindow1" 
-            runat="server"
-            Hidden="true"
-            GroupStoreID="GroupStore1">
-            <Listeners>
-                <EventAdd    Fn="CompanyX.record.add" Scope="CompanyX" />
-                <EventUpdate Fn="CompanyX.record.update" Scope="CompanyX" />
-                <EditDetails Fn="CompanyX.record.edit" Scope="CompanyX" />
-                <EventDelete Fn="CompanyX.record.remove" Scope="CompanyX" />
-            </Listeners>
-        </ext:EventEditWindow>
-    </form>
-</body>
-</html>
+<%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxtoolkit" %>
+<%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div id="divAccion" runat="server">
+        <table class="tablaInterna" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <h2>
+                        Planificaci&oacute;n de Contenidos</h2>
+                    <br />
+                </td>
+                <td align="right" rowspan="2">
+                    <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
+                                Visible="false" />
+                            <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
+                                ImageUrl="~/Images/botonBuscar.png" />
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
+                            <%--<asp:PostBackTrigger ControlID="btnGuardar" />--%>
+                            <%--<asp:PostBackTrigger ControlID="btnBuscar" />--%>
+                        </Triggers>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="divFiltros" runat="server">
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+            <tr>
+                <td class="TD140px">
+                    <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
+                </td>
+                <td class="TD140px">
+                    <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
+                    </asp:DropDownList>
+                </td>
+                <td class="TD50px">
+                    <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
+                </td>
+                <td>
+                    <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false" AutoPostBack="true"
+                                OnSelectedIndexChanged="ddlAsignatura_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <asp:UpdatePanel runat="server" ID="udpGrilla" UpdateMode="Conditional">
+        <ContentTemplate>
+            <asp:GridView ID="gvwPlanificacion" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
+                AutoGenerateColumns="false" AllowPaging="true" Width="500px" DataKeyNames="idPlanificacionAnual"
+                OnRowCommand="gvwPlanificacion_RowCommand" OnPageIndexChanging="gvwPlanificacion_PageIndexChanging">
+                <Columns>
+                    <%--<asp:TemplateField HeaderText="Acciones">
+                        <HeaderStyle HorizontalAlign="center" Width="5%" />
+                        <ItemStyle HorizontalAlign="center" />
+                        <ItemTemplate>
+                            <asp:ImageButton ID="btnTemas" runat="server" CommandName="Temas" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
+                                ToolTip="Ver Temas" ImageUrl="~/Images/Grillas/action_new.png" />
+                            <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
+                                ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
+                            <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
+                                AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
+                                OnClientClick="return confirm('¿Desea eliminar la planificación seleccionada?')" />
+                        </ItemTemplate>
+                    </asp:TemplateField>--%>
+                    <%--<asp:TemplateField HeaderText="Descripción">
+                        <HeaderStyle HorizontalAlign="left" Width="50%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblDescripcionGrilla" runat="server" Text='<%# Bind("descripcion") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>--%>
+                </Columns>
+            </asp:GridView>
+        </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
+        </Triggers>
+    </asp:UpdatePanel>
+    <asp:UpdatePanel ID="udpDivControles" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>
+            <div id="divControles" runat="server">
+                <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                    <tr>
+                        <td class="TD140px">
+                            <asp:Label ID="lblAprobada" runat="server" Text="Aprobada:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:CheckBox ID="chkAprobada" runat="server" Checked="false" Enabled="false" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TD140px">
+                            <asp:Label ID="lblFechaInicio" runat="server" Text="Fecha Inicio:"></asp:Label>
+                        </td>
+                        <td>
+                            <cal:Calendario ID="calFechaDesde" runat="server" TipoCalendario="SoloFecha" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TD140px">
+                            <asp:Label ID="lblFechaFin" runat="server" Text="Fecha Finalización:"></asp:Label>
+                        </td>
+                        <td>
+                            <cal:Calendario ID="calFechaFin" runat="server" TipoCalendario="SoloFecha" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TD250px" colspan="2">
+                            <asp:Label ID="lblCConceptuales" runat="server" Text="Contenidos Conceptuales"></asp:Label><br />
+                            <asp:TextBox ID="txtCConceptuales" runat="server" TextMode="MultiLine" Columns="75"
+                                Rows="10" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TD250px" colspan="2">
+                            <asp:Label ID="lblCProcedimentales" runat="server" Text="Contenidos Procedimentales"></asp:Label><br />
+                            <asp:TextBox ID="txtCProcedimentales" runat="server" TextMode="MultiLine" Columns="75"
+                                Rows="10" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TD250px" colspan="2">
+                            <asp:Label ID="lblCActitudinales" runat="server" Text="Contenidos Actitudinales"></asp:Label><br />
+                            <asp:TextBox ID="txtCActitudinales" runat="server" TextMode="MultiLine" Columns="75"
+                                Rows="10" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TD250px" colspan="2">
+                            <asp:Label ID="lblEstrategias" runat="server" Text="Estrategias"></asp:Label><br />
+                            <asp:TextBox ID="txtEstrategias" runat="server" TextMode="MultiLine" Columns="75"
+                                Rows="10" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TD250px" colspan="2">
+                            <asp:Label ID="lblCriteriosEvaluacion" runat="server" Text="Criterios de Evaluación"></asp:Label><br />
+                            <asp:TextBox ID="txtCriteriosEvaluacion" runat="server" TextMode="MultiLine" Columns="75"
+                                Rows="10" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </ContentTemplate>
+        <Triggers>
+        </Triggers>
+    </asp:UpdatePanel>
+</asp:Content>

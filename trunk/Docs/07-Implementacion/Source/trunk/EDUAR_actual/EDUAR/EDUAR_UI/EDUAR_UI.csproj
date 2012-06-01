@@ -213,6 +213,7 @@
     <Content Include="Private\Mensajes\MsjeEnviado.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
     <Content Include="Private\Planning\Contenido.aspx" />
+    <Content Include="Private\Planning\Planificacion.aspx" />
     <Content Include="Private\Planning\TemasContenido.aspx" />
     <Content Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx" />
     <Content Include="Private\Reports\Historicos\reportRendimiento.aspx" />
@@ -458,6 +459,13 @@
     </Compile>
     <Compile Include="Private\Planning\Contenido.aspx.designer.cs">
       <DependentUpon>Contenido.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Planning\Planificacion.aspx.cs">
+      <DependentUpon>Planificacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Planning\Planificacion.aspx.designer.cs">
+      <DependentUpon>Planificacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Planning\TemasContenido.aspx.cs">
       <DependentUpon>TemasContenido.aspx</DependentUpon>
