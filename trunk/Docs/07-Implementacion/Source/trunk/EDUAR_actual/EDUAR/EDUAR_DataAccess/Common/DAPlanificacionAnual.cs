@@ -50,7 +50,37 @@ namespace EDUAR_DataAccess.Common
 
         public override void Create(PlanificacionAnual entidad, out int identificador)
         {
-            throw new NotImplementedException();
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("PlanificacionAnual_Insert");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPlanificacionAnual", DbType.Int32, 0);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, entidad.asignaturaCicloLectivo.idAsignaturaCicloLectivo);
+				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPlan", DbType.Int32, entidad);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioCreador", DbType.String, entidad.creador.username);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, DateTime.Now);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaAprobada", DbType.Date, entidad.fechaAprobada);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@observaciones", DbType.String, entidad.observaciones);
+				
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+
+				identificador = Int32.Parse(Transaction.DBcomand.Parameters["@idPlanificacionAnual"].Value.ToString());
+
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
         }
 
         public override void Update(PlanificacionAnual entidad)

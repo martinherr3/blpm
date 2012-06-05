@@ -22,6 +22,8 @@
                                 Visible="false" />
                             <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                                 ImageUrl="~/Images/botonBuscar.png" />
+                            <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
+                                ImageUrl="~/Images/botonGuardar.png" Visible="false" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
