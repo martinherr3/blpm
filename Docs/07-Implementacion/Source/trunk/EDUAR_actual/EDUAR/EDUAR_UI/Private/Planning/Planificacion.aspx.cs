@@ -198,6 +198,22 @@ namespace EDUAR_UI
 			{ Master.ManageExceptions(ex); }
 		}
 
+		protected void btnGuardar_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				PlanificacionAnual objPlanificacion = new PlanificacionAnual();
+				objPlanificacion.creador.username = User.Identity.Name;
+				objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = Convert.ToInt16(ddlAsignatura.SelectedValue);
+				BLPlanificacionAnual objPlanificacionBL = new BLPlanificacionAnual(objPlanificacion);
+				objPlanificacionBL.Save();
+				
+				udpBotonera.Update();
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
+		}
+
 		/// <summary>
 		/// Handles the SelectedIndexChanged event of the ddlCurso control.
 		/// </summary>
@@ -220,8 +236,10 @@ namespace EDUAR_UI
 					ddlAsignatura.Items.Clear();
 				}
 				ddlAsignatura.Enabled = idCursoCicloLectivo > 0;
+				btnGuardar.Visible = false;
 				divControles.Visible = false;
 				udpAsignatura.Update();
+				udpBotonera.Update();
 				udpDivControles.Update();
 			}
 			catch (Exception ex)
@@ -246,8 +264,10 @@ namespace EDUAR_UI
 				{
 					idAsignaturaCurso = idAsignatura;
 					//CargarContenido(idAsignatura);
+					btnGuardar.Visible = true;
 					divControles.Visible = true;
 					udpDivControles.Update();
+					udpBotonera.Update();
 				}
 				udpBotonera.Update();
 			}
