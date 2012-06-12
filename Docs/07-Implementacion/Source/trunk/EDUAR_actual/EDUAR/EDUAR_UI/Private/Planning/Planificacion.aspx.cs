@@ -93,37 +93,37 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Gets or sets the id contenido.
+		/// Gets or sets the id planificacion anual.
 		/// </summary>
 		/// <value>
-		/// The id contenido.
+		/// The id planificacion anual.
 		/// </value>
-		public int idContenido
+		public int idPlanificacionAnual
 		{
 			get
 			{
-				if (ViewState["idContenido"] == null)
-					ViewState["idContenido"] = 0;
-				return (int)ViewState["idContenido"];
+				if (ViewState["idPlanificacionAnual"] == null)
+					ViewState["idPlanificacionAnual"] = 0;
+				return (int)ViewState["idPlanificacionAnual"];
 			}
-			set { ViewState["idContenido"] = value; }
+			set { ViewState["idPlanificacionAnual"] = value; }
 		}
 
 		/// <summary>
-		/// Gets or sets the contenido editar.
+		/// Gets or sets the planificacion editar.
 		/// </summary>
 		/// <value>
-		/// The contenido editar.
+		/// The planificacion editar.
 		/// </value>
-		public EDUAR_Entities.Contenido contenidoEditar
+		public PlanificacionAnual planificacionEditar
 		{
 			get
 			{
-				if (Session["contenidoEditar"] == null)
-					Session["contenidoEditar"] = new EDUAR_Entities.Contenido();
-				return (EDUAR_Entities.Contenido)Session["contenidoEditar"];
+				if (Session["planificacionEditar"] == null)
+					Session["planificacionEditar"] = new PlanificacionAnual();
+				return (PlanificacionAnual)Session["planificacionEditar"];
 			}
-			set { Session["contenidoEditar"] = value; }
+			set { Session["planificacionEditar"] = value; }
 		}
 		#endregion
 
@@ -202,12 +202,24 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				TemaPlanificacionAnual objTema = new TemaPlanificacionAnual();
+				objTema.contenidosActitudinales = txtCActitudinales.Text.Trim();
+				objTema.contenidosConceptuales = txtCConceptuales.Text.Trim();
+				objTema.contenidosProcedimentales = txtCProcedimentales.Text.Trim();
+				objTema.criteriosEvaluacion = txtCriteriosEvaluacion.Text.Trim();
+				objTema.estrategiasAprendizaje = txtEstrategias.Text.Trim();
+				objTema.fechaFinEstimada = calFechaFin.ValorFecha;
+				objTema.fechaInicioEstimada = calFechaDesde.ValorFecha;
+				objTema.instrumentosEvaluacion = txtInstrumentosEvaluacion.Text.Trim();
+
 				PlanificacionAnual objPlanificacion = new PlanificacionAnual();
-				objPlanificacion.creador.username = User.Identity.Name;
-				objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = Convert.ToInt16(ddlAsignatura.SelectedValue);
+				objPlanificacion.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
+				objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = planificacionEditar.asignaturaCicloLectivo.idAsignaturaCicloLectivo;
+				objPlanificacion.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
+				objPlanificacion.listaTemasPlanificacion.Add(objTema);
 				BLPlanificacionAnual objPlanificacionBL = new BLPlanificacionAnual(objPlanificacion);
 				objPlanificacionBL.Save();
-				
+
 				udpBotonera.Update();
 			}
 			catch (Exception ex)
@@ -263,9 +275,9 @@ namespace EDUAR_UI
 				if (idAsignatura > 0)
 				{
 					idAsignaturaCurso = idAsignatura;
-					//CargarContenido(idAsignatura);
+					ObtenerPlanificacion(idAsignatura);
 					btnGuardar.Visible = true;
-					divControles.Visible = true;
+					divControles.Visible = false;
 					udpDivControles.Update();
 					udpBotonera.Update();
 				}
@@ -275,6 +287,15 @@ namespace EDUAR_UI
 			{
 				Master.ManageExceptions(ex);
 			}
+		}
+
+		private void ObtenerPlanificacion(int idAsignatura)
+		{
+			BLPlanificacionAnual objBLPlanificacion = new BLPlanificacionAnual();
+			planificacionEditar = objBLPlanificacion.GetPlanificacionByAsignatura(idAsignatura);
+			gvwPlanificacion.DataSource = planificacionEditar.listaTemasPlanificacion;
+			gvwPlanificacion.DataBind();
+			udpGrilla.Update();
 		}
 
 		protected void gvwPlanificacion_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -288,25 +309,25 @@ namespace EDUAR_UI
 			{
 				//switch (e.CommandName)
 				//{
-					//case "Editar":
-					//    lblTitulo.Text = "Editar Contenido";
-					//    idContenido = Convert.ToInt32(e.CommandArgument.ToString());
-					//    var lista = listaContenido.Find(p => p.idContenido == idContenido);
-					//    txtDescripcion.Text = lista.descripcion;
-					//    udpBotonera.Update();
-					//    mpeContenido.Show();
-					//    break;
-					//case "Eliminar":
-					//    AccionPagina = enumAcciones.Eliminar;
-					//    idContenido = Convert.ToInt32(e.CommandArgument.ToString());
-					//    EliminarContenido();
-					//    break;
-					//case "Temas":
-					//    AccionPagina = enumAcciones.Redirect;
-					//    idContenido = Convert.ToInt32(e.CommandArgument.ToString());
-					//    contenidoEditar = listaContenido.Find(p => p.idContenido == idContenido);
-					//    Response.Redirect("TemasContenido.aspx", false);
-					//    break;
+				//case "Editar":
+				//    lblTitulo.Text = "Editar Contenido";
+				//    idContenido = Convert.ToInt32(e.CommandArgument.ToString());
+				//    var lista = listaContenido.Find(p => p.idContenido == idContenido);
+				//    txtDescripcion.Text = lista.descripcion;
+				//    udpBotonera.Update();
+				//    mpeContenido.Show();
+				//    break;
+				//case "Eliminar":
+				//    AccionPagina = enumAcciones.Eliminar;
+				//    idContenido = Convert.ToInt32(e.CommandArgument.ToString());
+				//    EliminarContenido();
+				//    break;
+				//case "Temas":
+				//    AccionPagina = enumAcciones.Redirect;
+				//    idContenido = Convert.ToInt32(e.CommandArgument.ToString());
+				//    contenidoEditar = listaContenido.Find(p => p.idContenido == idContenido);
+				//    Response.Redirect("TemasContenido.aspx", false);
+				//    break;
 				//}
 			}
 			catch (Exception ex)

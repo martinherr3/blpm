@@ -66,29 +66,36 @@
     <asp:UpdatePanel runat="server" ID="udpGrilla" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwPlanificacion" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
-                AutoGenerateColumns="false" AllowPaging="true" Width="500px" DataKeyNames="idPlanificacionAnual"
+                AutoGenerateColumns="false" AllowPaging="true" Width="500px" DataKeyNames="idTemaPlanificacion"
                 OnRowCommand="gvwPlanificacion_RowCommand" OnPageIndexChanging="gvwPlanificacion_PageIndexChanging">
                 <Columns>
-                    <%--<asp:TemplateField HeaderText="Acciones">
+                    <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
-                            <asp:ImageButton ID="btnTemas" runat="server" CommandName="Temas" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
+                            <asp:ImageButton ID="btnTemas" runat="server" CommandName="Temas" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
                                 ToolTip="Ver Temas" ImageUrl="~/Images/Grillas/action_new.png" />
-                            <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
+                            <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
                                 ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
                             <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
-                                AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
+                                AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
                                 OnClientClick="return confirm('¿Desea eliminar la planificación seleccionada?')" />
                         </ItemTemplate>
-                    </asp:TemplateField>--%>
-                    <%--<asp:TemplateField HeaderText="Descripción">
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Fecha Inicio">
                         <HeaderStyle HorizontalAlign="left" Width="50%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblDescripcionGrilla" runat="server" Text='<%# Bind("descripcion") %>'></asp:Label>
+                            <asp:Label ID="lblFechaInicioGrilla" runat="server" Text='<%# Bind("fechaInicioEstimada") %>'></asp:Label>
                         </ItemTemplate>
-                    </asp:TemplateField>--%>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Fecha Fin">
+                        <HeaderStyle HorizontalAlign="left" Width="50%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblFechaFinGrilla" runat="server" Text='<%# Bind("fechaFinEstimada") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
         </ContentTemplate>
@@ -156,6 +163,13 @@
                         <td class="TD250px" colspan="2">
                             <asp:Label ID="lblCriteriosEvaluacion" runat="server" Text="Criterios de Evaluación"></asp:Label><br />
                             <asp:TextBox ID="txtCriteriosEvaluacion" runat="server" TextMode="MultiLine" Columns="75"
+                                Rows="10" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TD250px" colspan="2">
+                            <asp:Label ID="lblInstrumentosEvaluación" runat="server" Text="Instrumentos de Evaluación"></asp:Label><br />
+                            <asp:TextBox ID="txtInstrumentosEvaluacion" runat="server" TextMode="MultiLine" Columns="75"
                                 Rows="10" />
                         </td>
                     </tr>

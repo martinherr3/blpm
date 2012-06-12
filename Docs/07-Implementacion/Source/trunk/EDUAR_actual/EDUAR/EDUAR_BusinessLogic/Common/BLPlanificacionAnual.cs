@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EDUAR_DataAccess.Common;
-using EDUAR_Entities;
 using EDUAR_BusinessLogic.Shared;
-using EDUAR_Entities.Shared;
-using EDUAR_Utility.Excepciones;
-using EDUAR_Utility.Enumeraciones;
+using EDUAR_DataAccess.Common;
 using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
+using EDUAR_Entities.Shared;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_BusinessLogic.Common
 {
@@ -94,6 +92,18 @@ namespace EDUAR_BusinessLogic.Common
 				else
 					DataAcces.Update(Data);
 
+				Data.idPlanificacionAnual = idPlanificacionAnual;
+
+				if (Data.listaTemasPlanificacion.Count > 0)
+				{
+					BLTemaPlanificacionAnual objBLPlanificacion;
+					foreach (TemaPlanificacionAnual item in Data.listaTemasPlanificacion)
+					{
+						item.idPlanificacionAnual = Data.idPlanificacionAnual;
+						objBLPlanificacion = new BLTemaPlanificacionAnual(item);
+						objBLPlanificacion.Save(DataAcces.Transaction);
+					}
+				}
 				//Se da el OK para la transaccion.
 				DataAcces.Transaction.CommitTransaction();
 			}
@@ -173,12 +183,10 @@ namespace EDUAR_BusinessLogic.Common
 		{
 			try
 			{
-				List<PlanificacionAnual> lista = GetPlanificacion(entidad);
+				List<PlanificacionAnual> lista = DataAcces.GetPlanificacion(entidad);
 				BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
 				foreach (PlanificacionAnual item in lista)
-				{
 					item.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnual(item);
-				}
 				return lista;
 			}
 			catch (CustomizedException ex)
@@ -188,6 +196,34 @@ namespace EDUAR_BusinessLogic.Common
 			catch (Exception ex)
 			{
 				throw new CustomizedException(string.Format("Fallo en {0} - GetPlanificacion", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the planificacion.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public PlanificacionAnual GetPlanificacionByAsignatura(int idAsignaturaCicloLectivo)
+		{
+			try
+			{
+				PlanificacionAnual objPlanificacion = DataAcces.GetPlanificacion(idAsignaturaCicloLectivo);
+				if (objPlanificacion != null)
+				{
+					BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
+					objPlanificacion.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnual(objPlanificacion);
+				}
+				return objPlanificacion;
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetPlanificacionByAsignatura", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
