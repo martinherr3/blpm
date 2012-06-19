@@ -139,6 +139,9 @@ namespace EDUAR_UI
 						if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")) != null)
 							((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")).NavigateUrl = string.Format("~/Private/Manuales/{0}/index.htm", rol);
 
+                        if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")) != null)
+                            ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")).NavigateUrl = string.Format("~/Private/Manuales/{0}/index.htm", rol);
+
 						#region --[Mensajes en header]--
 						//StringBuilder s = new StringBuilder();
 						//string er;
@@ -204,11 +207,14 @@ namespace EDUAR_UI
 		private void CargaInforUsuario()
 		{
 			lblUsuario.Text = objSessionPersona.nombre + " " + objSessionPersona.apellido;
-			lblRol.Text = ObjSessionDataUI.ObjDTUsuario.ListaRoles[0].Nombre + ": ";
+			lblRol.Text = ObjSessionDataUI.ObjDTUsuario.ListaRoles[0].Nombre;
+
+            if (objSessionPersona.sexo.Equals("F")) lblTratamiento.Text = "Bienvenida";
+            else lblTratamiento.Text = "Bienvenido";
 
 			if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
-			{
-				BLAlumno objBLAlumno = new BLAlumno(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre });
+			{               
+                BLAlumno objBLAlumno = new BLAlumno(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre });
 				AlumnoCursoCicloLectivo objCurso = objBLAlumno.GetCursoActualAlumno(cicloLectivoActual);
 				lblCursosAsignados.Text = "Curso Actual: " + objCurso.cursoCicloLectivo.curso.nivel.nombre + "  " + objCurso.cursoCicloLectivo.curso.nombre;
 			}
