@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using EDUAR_UI.Shared;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_Entities;
-using EDUAR_Utility.Enumeraciones;
+using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -125,6 +123,23 @@ namespace EDUAR_UI
 			}
 			set { Session["planificacionEditar"] = value; }
 		}
+
+		/// <summary>
+		/// Gets or sets the id tema planificacion.
+		/// </summary>
+		/// <value>
+		/// The id tema planificacion.
+		/// </value>
+		public int idTemaPlanificacion
+		{
+			get
+			{
+				if (ViewState["idTemaPlanificacion"] == null)
+					ViewState["idTemaPlanificacion"] = 0;
+				return (int)ViewState["idTemaPlanificacion"];
+			}
+			set { ViewState["idTemaPlanificacion"] = value; }
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -167,21 +182,6 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Handles the Click event of the btnBuscar control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void btnBuscar_Click(object sender, EventArgs e)
-		{
-			try
-			{
-
-			}
-			catch (Exception ex)
-			{ Master.ManageExceptions(ex); }
-		}
-
-		/// <summary>
 		/// Handles the Click event of the btnNuevo control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -190,14 +190,24 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//pnlNuevoContenido.Attributes["display"] = "inherit";
-				//pnlNuevoContenido.Visible = true;
+				btnGuardar.Visible = true;
+				btnVolver.Visible = true;
+				btnNuevo.Visible = false;
+				gvwPlanificacion.Visible = false;
+				divControles.Visible = true;
+				udpGrilla.Update();
+				udpDivControles.Update();
 				udpBotonera.Update();
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
 		}
 
+		/// <summary>
+		/// Handles the Click event of the btnGuardar control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnGuardar_Click(object sender, EventArgs e)
 		{
 			try
@@ -211,19 +221,44 @@ namespace EDUAR_UI
 				objTema.fechaFinEstimada = calFechaFin.ValorFecha;
 				objTema.fechaInicioEstimada = calFechaDesde.ValorFecha;
 				objTema.instrumentosEvaluacion = txtInstrumentosEvaluacion.Text.Trim();
+				if (idTemaPlanificacion > 0)
+					objTema.idTemaPlanificacion = idTemaPlanificacion;
 
 				PlanificacionAnual objPlanificacion = new PlanificacionAnual();
 				objPlanificacion.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
-				objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = planificacionEditar.asignaturaCicloLectivo.idAsignaturaCicloLectivo;
+				objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
+				//objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = planificacionEditar.asignaturaCicloLectivo.idAsignaturaCicloLectivo;
 				objPlanificacion.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
 				objPlanificacion.listaTemasPlanificacion.Add(objTema);
 				BLPlanificacionAnual objPlanificacionBL = new BLPlanificacionAnual(objPlanificacion);
 				objPlanificacionBL.Save();
-
+				idTemaPlanificacion = 0;
 				udpBotonera.Update();
+				CargarPresentacion();
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnVolver control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnVolver_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				idTemaPlanificacion = 0;
+				ddlCurso.SelectedValue = idCurso.ToString();
+				CargarComboAsignatura(idCurso);
+				ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
+				CargarPresentacion();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
 		}
 
 		/// <summary>
@@ -274,9 +309,10 @@ namespace EDUAR_UI
 				btnNuevo.Visible = idAsignatura > 0;
 				if (idAsignatura > 0)
 				{
+					idTemaPlanificacion = 0;
 					idAsignaturaCurso = idAsignatura;
 					ObtenerPlanificacion(idAsignatura);
-					btnGuardar.Visible = true;
+					btnNuevo.Visible = true;
 					divControles.Visible = false;
 					udpDivControles.Update();
 					udpBotonera.Update();
@@ -303,32 +339,54 @@ namespace EDUAR_UI
 
 		}
 
+		/// <summary>
+		/// Handles the RowCommand event of the gvwPlanificacion control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
 		protected void gvwPlanificacion_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
 			try
 			{
-				//switch (e.CommandName)
-				//{
-				//case "Editar":
-				//    lblTitulo.Text = "Editar Contenido";
-				//    idContenido = Convert.ToInt32(e.CommandArgument.ToString());
-				//    var lista = listaContenido.Find(p => p.idContenido == idContenido);
-				//    txtDescripcion.Text = lista.descripcion;
-				//    udpBotonera.Update();
-				//    mpeContenido.Show();
-				//    break;
-				//case "Eliminar":
-				//    AccionPagina = enumAcciones.Eliminar;
-				//    idContenido = Convert.ToInt32(e.CommandArgument.ToString());
-				//    EliminarContenido();
-				//    break;
-				//case "Temas":
-				//    AccionPagina = enumAcciones.Redirect;
-				//    idContenido = Convert.ToInt32(e.CommandArgument.ToString());
-				//    contenidoEditar = listaContenido.Find(p => p.idContenido == idContenido);
-				//    Response.Redirect("TemasContenido.aspx", false);
-				//    break;
-				//}
+				switch (e.CommandName)
+				{
+					case "Editar":
+						idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
+						//lblTitulo.Text = "Editar Contenido";
+						//idContenido = Convert.ToInt32(e.CommandArgument.ToString());
+						var lista = planificacionEditar.listaTemasPlanificacion.Find(p => p.idTemaPlanificacion == idTemaPlanificacion);
+						txtCActitudinales.Text = lista.contenidosActitudinales;
+						txtCConceptuales.Text = lista.contenidosConceptuales;
+						txtCProcedimentales.Text = lista.contenidosProcedimentales;
+						txtCriteriosEvaluacion.Text = lista.criteriosEvaluacion;
+						txtEstrategias.Text = lista.estrategiasAprendizaje;
+						txtInstrumentosEvaluacion.Text = lista.instrumentosEvaluacion;
+						calFechaDesde.Fecha.Text = lista.fechaInicioEstimada.ToString();
+						calFechaFin.Fecha.Text = lista.fechaFinEstimada.ToString();
+						divControles.Visible = true;
+						divFiltros.Visible = false;
+						btnGuardar.Visible = true;
+						btnNuevo.Visible = false;
+						btnVolver.Visible = true;
+						udpBotonera.Update();
+						udpGrilla.Update();
+						udpDivControles.Update();
+					//txtDescripcion.Text = lista.descripcion;
+						//udpBotonera.Update();
+						//mpeContenido.Show();
+						break;
+					case "Eliminar":
+						//AccionPagina = enumAcciones.Eliminar;
+						//idContenido = Convert.ToInt32(e.CommandArgument.ToString());
+						//EliminarContenido();
+						break;
+					case "Temas":
+						//AccionPagina = enumAcciones.Redirect;
+						//idContenido = Convert.ToInt32(e.CommandArgument.ToString());
+						//contenidoEditar = listaContenido.Find(p => p.idContenido == idContenido);
+						//Response.Redirect("TemasContenido.aspx", false);
+						break;
+				}
 			}
 			catch (Exception ex)
 			{
@@ -344,10 +402,15 @@ namespace EDUAR_UI
 		private void CargarPresentacion()
 		{
 			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
-			//pnlNuevoContenido.Attributes["display"] = "none";
-			//pnlNuevoContenido.Visible = false;
+			divFiltros.Visible = true;
 			divControles.Visible = false;
+			btnNuevo.Visible = false;
+			btnVolver.Visible = false;
+			btnGuardar.Visible = false;
+			divFiltros.Visible = true;
 			udpBotonera.Update();
+			udpDivControles.Update();
+			udpGrilla.Update();
 		}
 
 		/// <summary>

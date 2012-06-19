@@ -23,10 +23,11 @@ namespace EDUAR_Entities
 		public DateTime? fechaInicioEstimada { get; set; }
 		public DateTime? fechaFinEstimada { get; set; }
 		public string observaciones { get; set; }
+		public Asignatura asignatura { get; set; }
 
 		public TemaPlanificacionAnual()
 		{
-
+			asignatura = new Asignatura();
 		}
 
 		~TemaPlanificacionAnual()

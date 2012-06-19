@@ -199,7 +199,8 @@ namespace EDUAR_DataAccess.Common
 					DateTime fecha;
 					if (DateTime.TryParse(reader["fechaAprobada"].ToString(), out fecha))
 						objEntidad.fechaAprobada = fecha;
-					objEntidad.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"]);
+					if (DateTime.TryParse(reader["fechaCreacion"].ToString(), out fecha))
+						objEntidad.fechaCreacion = fecha;
 					objEntidad.observaciones = reader["observaciones"].ToString();
 					objEntidad.asignaturaCicloLectivo = new AsignaturaCicloLectivo()
 						{
