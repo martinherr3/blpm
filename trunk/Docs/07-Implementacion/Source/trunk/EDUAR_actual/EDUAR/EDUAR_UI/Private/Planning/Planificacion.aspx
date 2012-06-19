@@ -19,11 +19,11 @@
                     <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
-                                Visible="false" />
-                            <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
-                                ImageUrl="~/Images/botonBuscar.png" />
+                                Visible="false" OnClick="btnNuevo_Click" />
                             <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                                 ImageUrl="~/Images/botonGuardar.png" Visible="false" />
+                            <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
+                                ImageUrl="~/Images/botonVolver.png" Visible="false" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
@@ -35,69 +35,76 @@
             </tr>
         </table>
     </div>
-    <div id="divFiltros" runat="server">
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
-            <tr>
-                <td class="TD140px">
-                    <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td class="TD140px">
-                    <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
-                    </asp:DropDownList>
-                </td>
-                <td class="TD50px">
-                    <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
-                </td>
-                <td>
-                    <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false" AutoPostBack="true"
-                                OnSelectedIndexChanged="ddlAsignatura_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
-                        </Triggers>
-                    </asp:UpdatePanel>
-                </td>
-            </tr>
-        </table>
-    </div>
     <asp:UpdatePanel runat="server" ID="udpGrilla" UpdateMode="Conditional">
         <ContentTemplate>
-            <asp:GridView ID="gvwPlanificacion" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
-                AutoGenerateColumns="false" AllowPaging="true" Width="500px" DataKeyNames="idTemaPlanificacion"
-                OnRowCommand="gvwPlanificacion_RowCommand" OnPageIndexChanging="gvwPlanificacion_PageIndexChanging">
-                <Columns>
-                    <asp:TemplateField HeaderText="Acciones">
-                        <HeaderStyle HorizontalAlign="center" Width="5%" />
-                        <ItemStyle HorizontalAlign="center" />
-                        <ItemTemplate>
-                            <asp:ImageButton ID="btnTemas" runat="server" CommandName="Temas" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
-                                ToolTip="Ver Temas" ImageUrl="~/Images/Grillas/action_new.png" />
-                            <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
-                                ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
-                            <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
-                                AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
-                                OnClientClick="return confirm('¿Desea eliminar la planificación seleccionada?')" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Fecha Inicio">
-                        <HeaderStyle HorizontalAlign="left" Width="50%" />
-                        <ItemStyle HorizontalAlign="left" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblFechaInicioGrilla" runat="server" Text='<%# Bind("fechaInicioEstimada") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Fecha Fin">
-                        <HeaderStyle HorizontalAlign="left" Width="50%" />
-                        <ItemStyle HorizontalAlign="left" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblFechaFinGrilla" runat="server" Text='<%# Bind("fechaFinEstimada") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
+            <div id="divFiltros" runat="server">
+                <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                    <tr>
+                        <td class="TD140px">
+                            <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
+                        </td>
+                        <td class="TD140px">
+                            <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </td>
+                        <td class="TD50px">
+                            <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+                                    <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false" AutoPostBack="true"
+                                        OnSelectedIndexChanged="ddlAsignatura_SelectedIndexChanged">
+                                    </asp:DropDownList>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+                                </Triggers>
+                            </asp:UpdatePanel>
+                        </td>
+                    </tr>
+                </table>
+                <asp:GridView ID="gvwPlanificacion" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
+                    AutoGenerateColumns="false" AllowPaging="true" Width="500px" DataKeyNames="idTemaPlanificacion"
+                    OnRowCommand="gvwPlanificacion_RowCommand" OnPageIndexChanging="gvwPlanificacion_PageIndexChanging">
+                    <Columns>
+                        <asp:TemplateField HeaderText="Acciones">
+                            <HeaderStyle HorizontalAlign="center" Width="5%" />
+                            <ItemStyle HorizontalAlign="center" />
+                            <ItemTemplate>
+                                <asp:ImageButton ID="btnTemas" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
+                                    ToolTip="Ver Contenidos" ImageUrl="~/Images/Grillas/action_new.png" />
+                                <%--<asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
+                                ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />--%>
+                                <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
+                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
+                                    OnClientClick="return confirm('¿Desea eliminar la planificación seleccionada?')" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Asignatura">
+                            <HeaderStyle HorizontalAlign="left" Width="50%" />
+                            <ItemStyle HorizontalAlign="left" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblAsignatura" runat="server" Text='<%# Bind("asignatura.nombre") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Fecha Inicio">
+                            <HeaderStyle HorizontalAlign="left" Width="50%" />
+                            <ItemStyle HorizontalAlign="left" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblFechaInicioGrilla" runat="server" Text='<%# Bind("fechaInicioEstimada","{0:d}") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Fecha Fin">
+                            <HeaderStyle HorizontalAlign="left" Width="50%" />
+                            <ItemStyle HorizontalAlign="left" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblFechaFinGrilla" runat="server" Text='<%# Bind("fechaFinEstimada","{0:d}") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </div>
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />

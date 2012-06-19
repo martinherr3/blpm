@@ -6,6 +6,7 @@ using System.Data;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
 using System.Data.SqlClient;
+using EDUAR_Utility.Constantes;
 
 namespace EDUAR_DataAccess.Common
 {
@@ -88,9 +89,49 @@ namespace EDUAR_DataAccess.Common
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Updates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
 		public override void Update(TemaPlanificacionAnual entidad)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaPlanificacionAnual_Update");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, entidad.idTemaPlanificacion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPlanificacionAnual", DbType.Int32, entidad.idPlanificacionAnual);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@contenidosConceptuales", DbType.String, entidad.contenidosConceptuales);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@contenidosProcedimentales", DbType.String, entidad.contenidosProcedimentales);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@contenidosActitudinales", DbType.String, entidad.contenidosActitudinales);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@estrategiasAprendizaje", DbType.String, entidad.estrategiasAprendizaje);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@criteriosEvaluacion", DbType.String, entidad.criteriosEvaluacion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@instrumentosEvaluacion", DbType.String, entidad.instrumentosEvaluacion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaInicioEstimada", DbType.Date, entidad.fechaInicioEstimada);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaFinEstimada", DbType.Date, entidad.fechaFinEstimada);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@observaciones", DbType.String, entidad.observaciones);
+
+
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+			}
+			catch (SqlException ex)
+			{
+				if (ex.Number == BLConstantesGenerales.ConcurrencyErrorNumber)
+					throw new CustomizedException("No se puede modificar la planificación {0}, debido a que otro usuario lo ha modificado."
+						, ex, enuExceptionType.ConcurrencyException);
+
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+													  ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+													  ex, enuExceptionType.DataAccesException);
+			}
 		}
 
 		public override void Delete(TemaPlanificacionAnual entidad)
@@ -135,6 +176,7 @@ namespace EDUAR_DataAccess.Common
 					objEntidad.instrumentosEvaluacion = reader["instrumentosEvaluacion"].ToString();
 					objEntidad.idTemaPlanificacion = Convert.ToInt32(reader["idTemaPlanificacion"]);
 					objEntidad.observaciones = reader["observaciones"].ToString();
+					objEntidad.asignatura.nombre = reader["Asignatura"].ToString();
 					listaEntidad.Add(objEntidad);
 				}
 				return listaEntidad;
