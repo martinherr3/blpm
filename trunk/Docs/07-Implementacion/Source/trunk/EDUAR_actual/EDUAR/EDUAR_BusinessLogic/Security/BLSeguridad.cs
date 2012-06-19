@@ -713,7 +713,7 @@ namespace EDUAR_BusinessLogic.Security
             {
                 foreach (String rolUser in roles)
                 {
-                    if (rolUser.ToLower() == rol.NombreCorto || rolUser == rol.NombreCorto)
+                    if (rolUser.ToLower().Trim() == rol.NombreCorto.Trim() || rolUser.Trim() == rol.NombreCorto.Trim())
                     {
                         retListRoles.Add(rol);
                     }
