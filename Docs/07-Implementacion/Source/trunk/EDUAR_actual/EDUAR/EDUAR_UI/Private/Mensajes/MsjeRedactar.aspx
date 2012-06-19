@@ -55,7 +55,7 @@
                     </tr>
                     <tr>
                         <td valign="top">
-                            Destinatarios:
+                            Tipo de Destinatario:
                         </td>
                         <td rowspan="3">
                             <asp:RadioButtonList ID="rdlDestinatarios" runat="server" OnSelectedIndexChanged="rdlDestinatarios_OnSelectedIndexChanged"
