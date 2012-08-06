@@ -134,9 +134,33 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
+		/// <summary>
+		/// Deletes the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
 		public override void Delete(TemaPlanificacionAnual entidad)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaPlanificacionAnual_Delete");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, entidad.idTemaPlanificacion);
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
 		}
 		#endregion
 
@@ -165,6 +189,12 @@ namespace EDUAR_DataAccess.Common
 				while (reader.Read())
 				{
 					objEntidad = new TemaPlanificacionAnual();
+					DateTime objFecha;
+					if (DateTime.TryParse(reader["fechaAprobada"].ToString(), out objFecha))
+						objEntidad.fechaAprobada = objFecha;
+					else
+						objEntidad.fechaAprobada = null;
+
 					objEntidad.fechaInicioEstimada = Convert.ToDateTime(reader["fechaInicioEstimada"]);
 					objEntidad.fechaFinEstimada = Convert.ToDateTime(reader["fechaFinEstimada"]);
 					objEntidad.idPlanificacionAnual = Convert.ToInt32(reader["idPlanificacionAnual"]);

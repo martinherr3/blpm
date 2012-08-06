@@ -60,7 +60,9 @@ namespace EDUAR_DataAccess.Common
 				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPlan", DbType.Int32, entidad);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioCreador", DbType.String, entidad.creador.username);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, DateTime.Now);
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaAprobada", DbType.Date, entidad.fechaAprobada);
+				if (entidad.fechaAprobada.HasValue
+					&& ValidarFechaSQL(Convert.ToDateTime(entidad.fechaAprobada)))
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaAprobada", DbType.Date, entidad.fechaAprobada);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@observaciones", DbType.String, entidad.observaciones);
 
 
@@ -100,7 +102,8 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCreador", DbType.String, entidad.creador.idPersona);
 				if (ValidarFechaSQL(entidad.fechaCreacion))
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaCreacion);
-				if (entidad.fechaAprobada != null && ValidarFechaSQL(Convert.ToDateTime(entidad.fechaAprobada)))
+				if (entidad.fechaAprobada.HasValue
+					&& ValidarFechaSQL(Convert.ToDateTime(entidad.fechaAprobada)))
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaAprobada", DbType.Date, entidad.fechaAprobada);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@observaciones", DbType.String, entidad.observaciones);
 

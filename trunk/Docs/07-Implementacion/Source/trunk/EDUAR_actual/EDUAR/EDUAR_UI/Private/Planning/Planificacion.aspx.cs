@@ -190,7 +190,10 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				LimpiarCampos();
 				btnGuardar.Visible = true;
+				ddlAsignatura.Enabled = false;
+				ddlCurso.Enabled = false;
 				btnVolver.Visible = true;
 				btnNuevo.Visible = false;
 				gvwPlanificacion.Visible = false;
@@ -229,10 +232,13 @@ namespace EDUAR_UI
 				objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
 				//objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = planificacionEditar.asignaturaCicloLectivo.idAsignaturaCicloLectivo;
 				objPlanificacion.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
+				if (chkAprobada.Enabled && chkAprobada.Checked)
+					objPlanificacion.fechaAprobada = DateTime.Now;
 				objPlanificacion.listaTemasPlanificacion.Add(objTema);
 				BLPlanificacionAnual objPlanificacionBL = new BLPlanificacionAnual(objPlanificacion);
 				objPlanificacionBL.Save();
 				idTemaPlanificacion = 0;
+				ObtenerPlanificacion(objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo);
 				udpBotonera.Update();
 				CargarPresentacion();
 			}
@@ -250,10 +256,11 @@ namespace EDUAR_UI
 			try
 			{
 				idTemaPlanificacion = 0;
-				ddlCurso.SelectedValue = idCurso.ToString();
-				CargarComboAsignatura(idCurso);
-				ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
+				//ddlCurso.SelectedValue = idCurso.ToString();
+				//CargarComboAsignatura(idCurso);
+				//ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
 				CargarPresentacion();
+				ObtenerPlanificacion(idAsignaturaCurso);
 			}
 			catch (Exception ex)
 			{
@@ -315,7 +322,13 @@ namespace EDUAR_UI
 					btnNuevo.Visible = true;
 					divControles.Visible = false;
 					udpDivControles.Update();
-					udpBotonera.Update();
+					//udpBotonera.Update();
+				}
+				else
+				{
+					gvwPlanificacion.DataSource = null;
+					gvwPlanificacion.DataBind();
+					udpGrilla.Update();
 				}
 				udpBotonera.Update();
 			}
@@ -331,6 +344,7 @@ namespace EDUAR_UI
 			planificacionEditar = objBLPlanificacion.GetPlanificacionByAsignatura(idAsignatura);
 			gvwPlanificacion.DataSource = planificacionEditar.listaTemasPlanificacion;
 			gvwPlanificacion.DataBind();
+			gvwPlanificacion.Visible = true;
 			udpGrilla.Update();
 		}
 
@@ -352,8 +366,6 @@ namespace EDUAR_UI
 				{
 					case "Editar":
 						idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
-						//lblTitulo.Text = "Editar Contenido";
-						//idContenido = Convert.ToInt32(e.CommandArgument.ToString());
 						var lista = planificacionEditar.listaTemasPlanificacion.Find(p => p.idTemaPlanificacion == idTemaPlanificacion);
 						txtCActitudinales.Text = lista.contenidosActitudinales;
 						txtCConceptuales.Text = lista.contenidosConceptuales;
@@ -363,24 +375,30 @@ namespace EDUAR_UI
 						txtInstrumentosEvaluacion.Text = lista.instrumentosEvaluacion;
 						calFechaDesde.Fecha.Text = lista.fechaInicioEstimada.ToString();
 						calFechaFin.Fecha.Text = lista.fechaFinEstimada.ToString();
+						chkAprobada.Enabled = false;
+						if ((User.IsInRole(enumRoles.Director.ToString())
+							|| User.IsInRole(enumRoles.Administrador.ToString())
+							)
+							&& lista.fechaAprobada == null
+							)
+							chkAprobada.Enabled = true;
 						divControles.Visible = true;
-						divFiltros.Visible = false;
+						ddlCurso.Enabled = false;
+						ddlAsignatura.Enabled = false;
+						gvwPlanificacion.Visible = false;
 						btnGuardar.Visible = true;
 						btnNuevo.Visible = false;
 						btnVolver.Visible = true;
 						udpBotonera.Update();
 						udpGrilla.Update();
 						udpDivControles.Update();
-					//txtDescripcion.Text = lista.descripcion;
-						//udpBotonera.Update();
-						//mpeContenido.Show();
 						break;
 					case "Eliminar":
-						//AccionPagina = enumAcciones.Eliminar;
-						//idContenido = Convert.ToInt32(e.CommandArgument.ToString());
-						//EliminarContenido();
+						AccionPagina = enumAcciones.Eliminar;
+						idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
+						EliminarPlanificacion();
 						break;
-					case "Temas":
+					case "Consultar":
 						//AccionPagina = enumAcciones.Redirect;
 						//idContenido = Convert.ToInt32(e.CommandArgument.ToString());
 						//contenidoEditar = listaContenido.Find(p => p.idContenido == idContenido);
@@ -393,6 +411,17 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+		private void EliminarPlanificacion()
+		{
+			TemaPlanificacionAnual objEliminar = new TemaPlanificacionAnual();
+			objEliminar.idTemaPlanificacion = idTemaPlanificacion;
+			BLTemaPlanificacionAnual ojbBLTemaPlanificacion = new BLTemaPlanificacionAnual(objEliminar);
+			ojbBLTemaPlanificacion.Delete();
+
+			//CargarContenido(idAsignaturaCurso);
+		}
+
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -402,12 +431,23 @@ namespace EDUAR_UI
 		private void CargarPresentacion()
 		{
 			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
+			if (idCurso > 0)
+			{
+				ddlCurso.SelectedValue = idCurso.ToString();
+				CargarComboAsignatura(idCurso);
+				if (idAsignaturaCurso > 0)
+					ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
+				ddlAsignatura.Enabled = true;
+			}
+			else
+				ddlAsignatura.Enabled = false;
 			divFiltros.Visible = true;
 			divControles.Visible = false;
-			btnNuevo.Visible = false;
+			btnNuevo.Visible = true;
 			btnVolver.Visible = false;
 			btnGuardar.Visible = false;
 			divFiltros.Visible = true;
+			ddlCurso.Enabled = true;
 			udpBotonera.Update();
 			udpDivControles.Update();
 			udpGrilla.Update();
@@ -428,6 +468,54 @@ namespace EDUAR_UI
 			listaAsignaturas = objBLAsignatura.GetAsignaturasCurso(new Asignatura() { cursoCicloLectivo = curso, docente = docente });
 			if (listaAsignaturas != null && listaAsignaturas.Count > 0)
 				UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignaturas, "idAsignatura", "Nombre", true);
+		}
+
+		private void LimpiarCampos()
+		{
+			txtCActitudinales.Text = string.Empty;
+			txtCConceptuales.Text = string.Empty;
+			txtCProcedimentales.Text = string.Empty;
+			txtCriteriosEvaluacion.Text = string.Empty;
+			txtEstrategias.Text = string.Empty;
+			txtInstrumentosEvaluacion.Text = string.Empty;
+			calFechaDesde.LimpiarControles();
+			calFechaFin.LimpiarControles();
+			chkAprobada.Checked = false;
+			udpDivControles.Update();
+		}
+
+		protected string CheckNull(object objGrid)
+		{
+			//			if (object.ReferenceEquals(objGrid, DBNull.Value))
+			if (object.ReferenceEquals(objGrid, null))
+			{
+				return " - ";
+			}
+			else
+			{
+				return Convert.ToDateTime(objGrid).ToShortDateString();
+				//return objGrid.ToString();
+			}
+		}
+
+		protected bool CheckAprobada(object objGrid, bool editar)
+		{
+			//			if (object.ReferenceEquals(objGrid, DBNull.Value))
+			bool aux;
+			if (object.ReferenceEquals(objGrid, null))
+				aux = false;
+			else
+				aux = true;
+			if (aux && editar)
+				return false;
+			else
+			{
+				if (aux && !editar)
+					return true;
+				else if (!aux && editar)
+					return true;
+				return false;
+			}
 		}
 		#endregion
 	}

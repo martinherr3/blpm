@@ -139,9 +139,25 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
+		/// <summary>
+		/// Deletes this instance.
+		/// </summary>
         public override void Delete()
         {
-            throw new NotImplementedException();
+			try
+			{
+				DataAcces = new DATemaPlanificacionAnual();
+				DataAcces.Delete(Data);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
         }
 
         public override void Delete(DATransaction objDATransaction)
