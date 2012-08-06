@@ -92,14 +92,14 @@ namespace EDUAR_BusinessLogic.Common
 				else
 					DataAcces.Update(Data);
 
-				Data.idPlanificacionAnual = idPlanificacionAnual;
+				//if (idPlanificacionAnual > 0) Data.idPlanificacionAnual = idPlanificacionAnual;
 
 				if (Data.listaTemasPlanificacion.Count > 0)
 				{
 					BLTemaPlanificacionAnual objBLPlanificacion;
 					foreach (TemaPlanificacionAnual item in Data.listaTemasPlanificacion)
 					{
-						item.idPlanificacionAnual = Data.idPlanificacionAnual;
+						item.idPlanificacionAnual = idPlanificacionAnual > 0 ? idPlanificacionAnual : Data.idPlanificacionAnual;
 						objBLPlanificacion = new BLTemaPlanificacionAnual(item);
 						objBLPlanificacion.Save(DataAcces.Transaction);
 					}

@@ -40,14 +40,14 @@
             <div id="divFiltros" runat="server">
                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                     <tr>
-                        <td class="TD140px">
+                        <td class="TD110px">
                             <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                         </td>
                         <td class="TD140px">
                             <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
                             </asp:DropDownList>
                         </td>
-                        <td class="TD50px">
+                        <td class="TD100px">
                             <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                         </td>
                         <td>
@@ -64,46 +64,60 @@
                         </td>
                     </tr>
                 </table>
+                <br />
                 <asp:GridView ID="gvwPlanificacion" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
-                    AutoGenerateColumns="false" AllowPaging="true" Width="500px" DataKeyNames="idTemaPlanificacion"
+                    AutoGenerateColumns="false" AllowPaging="true" Width="80%" DataKeyNames="idTemaPlanificacion"
                     OnRowCommand="gvwPlanificacion_RowCommand" OnPageIndexChanging="gvwPlanificacion_PageIndexChanging">
                     <Columns>
                         <asp:TemplateField HeaderText="Acciones">
-                            <HeaderStyle HorizontalAlign="center" Width="5%" />
-                            <ItemStyle HorizontalAlign="center" />
+                            <HeaderStyle HorizontalAlign="Center" Width="10%" />
+                            <ItemStyle HorizontalAlign="Center" />
                             <ItemTemplate>
-                                <asp:ImageButton ID="btnTemas" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
-                                    ToolTip="Ver Contenidos" ImageUrl="~/Images/Grillas/action_new.png" />
-                                <%--<asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
-                                ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />--%>
+                                <asp:ImageButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
+                                    ToolTip="Planficación" AlternateText="Planficación" ImageUrl="~/Images/Grillas/action_new.png" 
+                                    Visible='<%# CheckAprobada(Eval("fechaAprobada"), true) %>'
+                                    />
+                                <asp:ImageButton ID="btnConsultar" runat="server" CommandName="Consultar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
+                                    ToolTip="Consultar" AlternateText="Consultar" ImageUrl="~/Images/Grillas/action_lookup.png"
+                                    Visible='<%# CheckAprobada(Eval("fechaAprobada"), false) %>'
+                                     />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
                                     AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
                                     OnClientClick="return confirm('¿Desea eliminar la planificación seleccionada?')" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Asignatura">
-                            <HeaderStyle HorizontalAlign="left" Width="50%" />
+                            <HeaderStyle HorizontalAlign="left" Width="45%" />
                             <ItemStyle HorizontalAlign="left" />
                             <ItemTemplate>
                                 <asp:Label ID="lblAsignatura" runat="server" Text='<%# Bind("asignatura.nombre") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Fecha Aprobación">
+                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
+                            <ItemStyle HorizontalAlign="Center" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblAprobada" runat="server" Text='<%# CheckNull(Eval("fechaAprobada"))%>'
+                                    ToolTip="Si está en blanco, indica que aún no ha sido aprobada"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Fecha Inicio">
-                            <HeaderStyle HorizontalAlign="left" Width="50%" />
-                            <ItemStyle HorizontalAlign="left" />
+                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
+                            <ItemStyle HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblFechaInicioGrilla" runat="server" Text='<%# Bind("fechaInicioEstimada","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Fecha Fin">
-                            <HeaderStyle HorizontalAlign="left" Width="50%" />
-                            <ItemStyle HorizontalAlign="left" />
+                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
+                            <ItemStyle HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblFechaFinGrilla" runat="server" Text='<%# Bind("fechaFinEstimada","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
+                <br />
             </div>
         </ContentTemplate>
         <Triggers>
