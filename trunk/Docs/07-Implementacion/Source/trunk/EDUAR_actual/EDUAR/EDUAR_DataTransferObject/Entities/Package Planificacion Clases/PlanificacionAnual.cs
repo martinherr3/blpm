@@ -20,6 +20,7 @@ namespace EDUAR_Entities
 		public DateTime? fechaAprobada { get; set; }
 		public string observaciones { get; set; }
 		public List<TemaPlanificacionAnual> listaTemasPlanificacion {get; set;}
+		public bool solicitarAprobacion { get; set; }
 
 		public PlanificacionAnual()
 		{

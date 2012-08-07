@@ -7,6 +7,7 @@ using EDUAR_Entities;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Constantes;
 
 namespace EDUAR_UI
 {
@@ -163,6 +164,11 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the Load event of the Page control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			try
@@ -173,6 +179,8 @@ namespace EDUAR_UI
 				{
 					CargarPresentacion();
 				}
+				chkAprobada.Attributes.Add("onclick", "if(!confirm('¿Desea aprobar la presente planificación?')) {return false};");
+				chkSolicitarAprobacion.Attributes.Add("onclick", "if(!confirm('¿Desea solicitar la aprobación de la presente planificación?')) {return false};");
 			}
 			catch (Exception ex)
 			{
@@ -191,6 +199,7 @@ namespace EDUAR_UI
 			try
 			{
 				LimpiarCampos();
+				DesHabilitarCampos(true);
 				btnGuardar.Visible = true;
 				ddlAsignatura.Enabled = false;
 				ddlCurso.Enabled = false;
@@ -215,32 +224,41 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				TemaPlanificacionAnual objTema = new TemaPlanificacionAnual();
-				objTema.contenidosActitudinales = txtCActitudinales.Text.Trim();
-				objTema.contenidosConceptuales = txtCConceptuales.Text.Trim();
-				objTema.contenidosProcedimentales = txtCProcedimentales.Text.Trim();
-				objTema.criteriosEvaluacion = txtCriteriosEvaluacion.Text.Trim();
-				objTema.estrategiasAprendizaje = txtEstrategias.Text.Trim();
-				objTema.fechaFinEstimada = calFechaFin.ValorFecha;
-				objTema.fechaInicioEstimada = calFechaDesde.ValorFecha;
-				objTema.instrumentosEvaluacion = txtInstrumentosEvaluacion.Text.Trim();
-				if (idTemaPlanificacion > 0)
-					objTema.idTemaPlanificacion = idTemaPlanificacion;
+				string mensaje = ValidarPagina();
+				if (string.IsNullOrEmpty(mensaje))
+				{
+					TemaPlanificacionAnual objTema = new TemaPlanificacionAnual();
+					objTema.contenidosActitudinales = txtCActitudinales.Text.Trim();
+					objTema.contenidosConceptuales = txtCConceptuales.Text.Trim();
+					objTema.contenidosProcedimentales = txtCProcedimentales.Text.Trim();
+					objTema.criteriosEvaluacion = txtCriteriosEvaluacion.Text.Trim();
+					objTema.estrategiasAprendizaje = txtEstrategias.Text.Trim();
+					objTema.fechaFinEstimada = calFechaFin.ValorFecha;
+					objTema.fechaInicioEstimada = calFechaDesde.ValorFecha;
+					objTema.instrumentosEvaluacion = txtInstrumentosEvaluacion.Text.Trim();
 
-				PlanificacionAnual objPlanificacion = new PlanificacionAnual();
-				objPlanificacion.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
-				objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
-				//objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = planificacionEditar.asignaturaCicloLectivo.idAsignaturaCicloLectivo;
-				objPlanificacion.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
-				if (chkAprobada.Enabled && chkAprobada.Checked)
-					objPlanificacion.fechaAprobada = DateTime.Now;
-				objPlanificacion.listaTemasPlanificacion.Add(objTema);
-				BLPlanificacionAnual objPlanificacionBL = new BLPlanificacionAnual(objPlanificacion);
-				objPlanificacionBL.Save();
-				idTemaPlanificacion = 0;
-				ObtenerPlanificacion(objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo);
-				udpBotonera.Update();
-				CargarPresentacion();
+					if (idTemaPlanificacion > 0)
+						objTema.idTemaPlanificacion = idTemaPlanificacion;
+
+					PlanificacionAnual objPlanificacion = new PlanificacionAnual();
+					objPlanificacion.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
+					objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
+					objPlanificacion.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
+					objPlanificacion.solicitarAprobacion = planificacionEditar.solicitarAprobacion;
+					objPlanificacion.fechaAprobada = planificacionEditar.fechaAprobada;
+					objPlanificacion.listaTemasPlanificacion.Add(objTema);
+					BLPlanificacionAnual objPlanificacionBL = new BLPlanificacionAnual(objPlanificacion);
+					objPlanificacionBL.Save();
+					idTemaPlanificacion = 0;
+					ObtenerPlanificacion(objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo);
+					udpBotonera.Update();
+					CargarPresentacion();
+				}
+				else
+				{
+					AccionPagina = enumAcciones.Error;
+					Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
+				}
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -256,9 +274,6 @@ namespace EDUAR_UI
 			try
 			{
 				idTemaPlanificacion = 0;
-				//ddlCurso.SelectedValue = idCurso.ToString();
-				//CargarComboAsignatura(idCurso);
-				//ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
 				CargarPresentacion();
 				ObtenerPlanificacion(idAsignaturaCurso);
 			}
@@ -322,10 +337,15 @@ namespace EDUAR_UI
 					btnNuevo.Visible = true;
 					divControles.Visible = false;
 					udpDivControles.Update();
-					//udpBotonera.Update();
 				}
 				else
 				{
+					LimpiarCampos();
+					divAprobacion.Visible = false;
+					chkAprobada.Enabled = false;
+					chkSolicitarAprobacion.Enabled = false;
+					chkAprobada.Checked = false;
+					chkSolicitarAprobacion.Checked = false;
 					gvwPlanificacion.DataSource = null;
 					gvwPlanificacion.DataBind();
 					udpGrilla.Update();
@@ -338,16 +358,11 @@ namespace EDUAR_UI
 			}
 		}
 
-		private void ObtenerPlanificacion(int idAsignatura)
-		{
-			BLPlanificacionAnual objBLPlanificacion = new BLPlanificacionAnual();
-			planificacionEditar = objBLPlanificacion.GetPlanificacionByAsignatura(idAsignatura);
-			gvwPlanificacion.DataSource = planificacionEditar.listaTemasPlanificacion;
-			gvwPlanificacion.DataBind();
-			gvwPlanificacion.Visible = true;
-			udpGrilla.Update();
-		}
-
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwPlanificacion control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
 		protected void gvwPlanificacion_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 
@@ -366,22 +381,8 @@ namespace EDUAR_UI
 				{
 					case "Editar":
 						idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
-						var lista = planificacionEditar.listaTemasPlanificacion.Find(p => p.idTemaPlanificacion == idTemaPlanificacion);
-						txtCActitudinales.Text = lista.contenidosActitudinales;
-						txtCConceptuales.Text = lista.contenidosConceptuales;
-						txtCProcedimentales.Text = lista.contenidosProcedimentales;
-						txtCriteriosEvaluacion.Text = lista.criteriosEvaluacion;
-						txtEstrategias.Text = lista.estrategiasAprendizaje;
-						txtInstrumentosEvaluacion.Text = lista.instrumentosEvaluacion;
-						calFechaDesde.Fecha.Text = lista.fechaInicioEstimada.ToString();
-						calFechaFin.Fecha.Text = lista.fechaFinEstimada.ToString();
-						chkAprobada.Enabled = false;
-						if ((User.IsInRole(enumRoles.Director.ToString())
-							|| User.IsInRole(enumRoles.Administrador.ToString())
-							)
-							&& lista.fechaAprobada == null
-							)
-							chkAprobada.Enabled = true;
+						DesHabilitarCampos(true);
+						CargarPlanificacion();
 						divControles.Visible = true;
 						ddlCurso.Enabled = false;
 						ddlAsignatura.Enabled = false;
@@ -399,10 +400,19 @@ namespace EDUAR_UI
 						EliminarPlanificacion();
 						break;
 					case "Consultar":
-						//AccionPagina = enumAcciones.Redirect;
-						//idContenido = Convert.ToInt32(e.CommandArgument.ToString());
-						//contenidoEditar = listaContenido.Find(p => p.idContenido == idContenido);
-						//Response.Redirect("TemasContenido.aspx", false);
+						idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
+						CargarPlanificacion();
+						DesHabilitarCampos(false);
+						divControles.Visible = true;
+						ddlCurso.Enabled = false;
+						ddlAsignatura.Enabled = false;
+						gvwPlanificacion.Visible = false;
+						btnGuardar.Visible = false;
+						btnNuevo.Visible = false;
+						btnVolver.Visible = true;
+						udpBotonera.Update();
+						udpGrilla.Update();
+						udpDivControles.Update();
 						break;
 				}
 			}
@@ -412,16 +422,60 @@ namespace EDUAR_UI
 			}
 		}
 
-		private void EliminarPlanificacion()
+		/// <summary>
+		/// Handles the CheckedChanged event of the chkAprobada control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void chkAprobada_CheckedChanged(object sender, EventArgs e)
 		{
-			TemaPlanificacionAnual objEliminar = new TemaPlanificacionAnual();
-			objEliminar.idTemaPlanificacion = idTemaPlanificacion;
-			BLTemaPlanificacionAnual ojbBLTemaPlanificacion = new BLTemaPlanificacionAnual(objEliminar);
-			ojbBLTemaPlanificacion.Delete();
+			try
+			{
+				PlanificacionAnual objAprobar = new PlanificacionAnual();
+				objAprobar.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
+				objAprobar.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
+				objAprobar.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
+				objAprobar.solicitarAprobacion = planificacionEditar.solicitarAprobacion;
+				objAprobar.fechaAprobada = DateTime.Today;
+				planificacionEditar.fechaAprobada = DateTime.Today;
+				BLPlanificacionAnual objBLAprobar = new BLPlanificacionAnual(objAprobar);
+				objBLAprobar.Save();
 
-			//CargarContenido(idAsignaturaCurso);
+				ObtenerPlanificacion(idAsignaturaCurso);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
 		}
 
+		/// <summary>
+		/// Handles the CheckedChanged event of the chkSolicitarAprobacion control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void chkSolicitarAprobacion_CheckedChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				PlanificacionAnual objAprobar = new PlanificacionAnual();
+				objAprobar.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
+				objAprobar.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
+				objAprobar.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
+				objAprobar.fechaAprobada = planificacionEditar.fechaAprobada;
+				objAprobar.solicitarAprobacion = true;
+				planificacionEditar.solicitarAprobacion = true;
+				BLPlanificacionAnual objBLAprobar = new BLPlanificacionAnual(objAprobar);
+				objBLAprobar.Save();
+
+				ObtenerPlanificacion(idAsignaturaCurso);
+
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -470,6 +524,9 @@ namespace EDUAR_UI
 				UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignaturas, "idAsignatura", "Nombre", true);
 		}
 
+		/// <summary>
+		/// Limpiars the campos.
+		/// </summary>
 		private void LimpiarCampos()
 		{
 			txtCActitudinales.Text = string.Empty;
@@ -480,10 +537,14 @@ namespace EDUAR_UI
 			txtInstrumentosEvaluacion.Text = string.Empty;
 			calFechaDesde.LimpiarControles();
 			calFechaFin.LimpiarControles();
-			chkAprobada.Checked = false;
 			udpDivControles.Update();
 		}
 
+		/// <summary>
+		/// Checks the null.
+		/// </summary>
+		/// <param name="objGrid">The obj grid.</param>
+		/// <returns></returns>
 		protected string CheckNull(object objGrid)
 		{
 			//			if (object.ReferenceEquals(objGrid, DBNull.Value))
@@ -498,6 +559,12 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Checks the aprobada.
+		/// </summary>
+		/// <param name="objGrid">The obj grid.</param>
+		/// <param name="editar">if set to <c>true</c> [editar].</param>
+		/// <returns></returns>
 		protected bool CheckAprobada(object objGrid, bool editar)
 		{
 			//			if (object.ReferenceEquals(objGrid, DBNull.Value))
@@ -517,6 +584,155 @@ namespace EDUAR_UI
 				return false;
 			}
 		}
+
+		/// <summary>
+		/// Validars the pagina.
+		/// </summary>
+		/// <returns></returns>
+		private string ValidarPagina()
+		{
+			string mensaje = string.Empty;
+			bool hayContenido = false;
+			if (txtCConceptuales.Text.Trim().Length == 0)
+				mensaje += "- Contenidos Conceptuales<br />";
+			else
+				hayContenido = true;
+			if (txtCProcedimentales.Text.Trim().Length == 0)
+				mensaje += "- Contenidos Procedimentales<br />";
+			else
+				hayContenido = true;
+			if (txtCActitudinales.Text.Trim().Length == 0)
+				mensaje += "- Contenidos Actitudinales<br />";
+			else
+				hayContenido = true;
+			if (txtEstrategias.Text.Trim().Length == 0)
+				mensaje += "- Estrategias<br />";
+			else
+				hayContenido = true;
+			if (txtCriteriosEvaluacion.Text.Trim().Length == 0)
+				mensaje += "- Criterios de Evaluación<br />";
+			else
+				hayContenido = true;
+			if (txtInstrumentosEvaluacion.Text.Trim().Length == 0)
+				mensaje += "- Instrumntos de Evaluación<br />";
+			else
+				hayContenido = true;
+
+			calFechaDesde.ValidarRangoDesde();
+			calFechaFin.ValidarRangoDesde();
+
+			if (hayContenido) return string.Empty;
+			return mensaje;
+		}
+
+		/// <summary>
+		/// Obteners the planificacion.
+		/// </summary>
+		/// <param name="idAsignatura">The id asignatura.</param>
+		private void ObtenerPlanificacion(int idAsignatura)
+		{
+			BLPlanificacionAnual objBLPlanificacion = new BLPlanificacionAnual();
+			planificacionEditar = objBLPlanificacion.GetPlanificacionByAsignatura(idAsignatura);
+			gvwPlanificacion.DataSource = planificacionEditar.listaTemasPlanificacion;
+			gvwPlanificacion.DataBind();
+			gvwPlanificacion.Visible = true;
+			ValidarAprobaciones();
+			udpGrilla.Update();
+		}
+
+		private void ValidarAprobaciones()
+		{
+			chkAprobada.Checked = false;
+			chkSolicitarAprobacion.Checked = false;
+			chkAprobada.Enabled = false;
+			chkSolicitarAprobacion.Enabled = false;
+			if (planificacionEditar.listaTemasPlanificacion.Count > 0)
+			{
+				divAprobacion.Visible = true;
+				if (planificacionEditar.fechaAprobada.HasValue)
+				{
+					chkAprobada.Enabled = false;
+					chkSolicitarAprobacion.Enabled = false;
+					chkAprobada.Checked = true;
+					chkSolicitarAprobacion.Checked = true;
+				}
+				else
+				{
+					if ((User.IsInRole(enumRoles.Director.ToString())
+					|| User.IsInRole(enumRoles.Administrador.ToString()))
+					&& planificacionEditar.solicitarAprobacion
+					)
+					{
+						chkAprobada.Enabled = true;
+						chkSolicitarAprobacion.Enabled = false;
+						chkSolicitarAprobacion.Checked = planificacionEditar.solicitarAprobacion;
+					}
+					else if ((User.IsInRole(enumRoles.Docente.ToString()) || User.IsInRole(enumRoles.Administrador.ToString()))
+						&& !planificacionEditar.solicitarAprobacion
+						&& !planificacionEditar.fechaAprobada.HasValue
+						)
+						chkSolicitarAprobacion.Enabled = true;
+				}
+			}
+			else
+				divAprobacion.Visible = false;
+		}
+
+		/// <summary>
+		/// DESs the habilitar campos.
+		/// </summary>
+		/// <param name="habilitar">if set to <c>true</c> [habilitar].</param>
+		private void DesHabilitarCampos(bool habilitar)
+		{
+			txtCActitudinales.Enabled = habilitar;
+			txtCConceptuales.Enabled = habilitar;
+			txtCProcedimentales.Enabled = habilitar;
+			txtCriteriosEvaluacion.Enabled = habilitar;
+			txtEstrategias.Enabled = habilitar;
+			txtInstrumentosEvaluacion.Enabled = habilitar;
+			calFechaDesde.Fecha.Enabled = habilitar;
+			calFechaFin.Fecha.Enabled = habilitar;
+			chkSolicitarAprobacion.Enabled = habilitar;
+		}
+
+		/// <summary>
+		/// Cargars the planificacion.
+		/// </summary>
+		private void CargarPlanificacion()
+		{
+			var lista = planificacionEditar.listaTemasPlanificacion.Find(p => p.idTemaPlanificacion == idTemaPlanificacion);
+			txtCActitudinales.Text = lista.contenidosActitudinales;
+			txtCConceptuales.Text = lista.contenidosConceptuales;
+			txtCProcedimentales.Text = lista.contenidosProcedimentales;
+			txtCriteriosEvaluacion.Text = lista.criteriosEvaluacion;
+			txtEstrategias.Text = lista.estrategiasAprendizaje;
+			txtInstrumentosEvaluacion.Text = lista.instrumentosEvaluacion;
+			calFechaDesde.Fecha.Text = lista.fechaInicioEstimada.ToString();
+			calFechaFin.Fecha.Text = lista.fechaFinEstimada.ToString();
+			chkAprobada.Enabled = false;
+			//if ((User.IsInRole(enumRoles.Director.ToString())
+			//    || User.IsInRole(enumRoles.Administrador.ToString()))
+			//    && lista.fechaAprobada == null && planificacionEditar.solicitarAprobacion
+			//    )
+			//{
+			//    chkAprobada.Enabled = true;
+			//    chkSolicitarAprobacion.Enabled = false;
+			//    chkSolicitarAprobacion.Checked = planificacionEditar.solicitarAprobacion;
+			//}
+			//chkAprobada.Checked = lista.fechaAprobada.HasValue;
+		}
+
+		/// <summary>
+		/// Eliminars the planificacion.
+		/// </summary>
+		private void EliminarPlanificacion()
+		{
+			TemaPlanificacionAnual objEliminar = new TemaPlanificacionAnual();
+			objEliminar.idTemaPlanificacion = idTemaPlanificacion;
+			BLTemaPlanificacionAnual ojbBLTemaPlanificacion = new BLTemaPlanificacionAnual(objEliminar);
+			ojbBLTemaPlanificacion.Delete();
+		}
 		#endregion
+
 	}
 }

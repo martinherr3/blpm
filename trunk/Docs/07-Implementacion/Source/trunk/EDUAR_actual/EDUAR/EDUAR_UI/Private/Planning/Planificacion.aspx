@@ -65,6 +65,28 @@
                     </tr>
                 </table>
                 <br />
+                <div id="divAprobacion" runat="server" visible="false">
+                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                        <tr>
+                            <td class="TD140px">
+                                <asp:Label ID="lblAprobada" runat="server" Text="Aprobada:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:CheckBox ID="chkAprobada" runat="server" Checked="false" Enabled="false"
+                                OnCheckedChanged="chkAprobada_CheckedChanged" AutoPostBack="true"  />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="TD140px">
+                                <asp:Label ID="lblSolicitarAprobacion" runat="server" Text="Solicitar Aprobación:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:CheckBox ID="chkSolicitarAprobacion" runat="server" Checked="false" 
+                                    OnCheckedChanged="chkSolicitarAprobacion_CheckedChanged" AutoPostBack="true" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 <asp:GridView ID="gvwPlanificacion" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                     AutoGenerateColumns="false" AllowPaging="true" Width="80%" DataKeyNames="idTemaPlanificacion"
                     OnRowCommand="gvwPlanificacion_RowCommand" OnPageIndexChanging="gvwPlanificacion_PageIndexChanging">
@@ -74,16 +96,14 @@
                             <ItemStyle HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:ImageButton ID="btnEditar" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
-                                    ToolTip="Planficación" AlternateText="Planficación" ImageUrl="~/Images/Grillas/action_new.png" 
-                                    Visible='<%# CheckAprobada(Eval("fechaAprobada"), true) %>'
-                                    />
+                                    ToolTip="Planficación" AlternateText="Planficación" ImageUrl="~/Images/Grillas/action_edit.png"
+                                    Visible='<%# CheckAprobada(Eval("fechaAprobada"), true) %>' />
                                 <asp:ImageButton ID="btnConsultar" runat="server" CommandName="Consultar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
                                     ToolTip="Consultar" AlternateText="Consultar" ImageUrl="~/Images/Grillas/action_lookup.png"
-                                    Visible='<%# CheckAprobada(Eval("fechaAprobada"), false) %>'
-                                     />
+                                    Visible='<%# CheckAprobada(Eval("fechaAprobada"), false) %>' />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
                                     AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
-                                    OnClientClick="return confirm('¿Desea eliminar la planificación seleccionada?')" />
+                                    OnClientClick="return confirm('¿Desea eliminar la planificación seleccionada?')" Visible='<%# CheckAprobada(Eval("fechaAprobada"), true) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Asignatura">
@@ -128,14 +148,6 @@
         <ContentTemplate>
             <div id="divControles" runat="server">
                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                    <tr>
-                        <td class="TD140px">
-                            <asp:Label ID="lblAprobada" runat="server" Text="Aprobada:"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:CheckBox ID="chkAprobada" runat="server" Checked="false" Enabled="false" />
-                        </td>
-                    </tr>
                     <tr>
                         <td class="TD140px">
                             <asp:Label ID="lblFechaInicio" runat="server" Text="Fecha Inicio:"></asp:Label>
