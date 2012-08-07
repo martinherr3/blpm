@@ -12,7 +12,7 @@
             <tr>
                 <td>
                     <h2>
-                        Planificaci&oacute;n de Contenidos</h2>
+                        Planificaci&oacute;n De Contenidos</h2>
                     <br />
                 </td>
                 <td align="right" rowspan="2">
@@ -69,20 +69,25 @@
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td class="TD140px">
-                                <asp:Label ID="lblAprobada" runat="server" Text="Aprobada:"></asp:Label>
+                                <asp:Label ID="lblSolicitarAprobacion" runat="server" Text="Solicitar Aprobación:"></asp:Label>
                             </td>
-                            <td>
-                                <asp:CheckBox ID="chkAprobada" runat="server" Checked="false" Enabled="false"
-                                OnCheckedChanged="chkAprobada_CheckedChanged" AutoPostBack="true"  />
+                            <td colspan="3">
+                                <asp:CheckBox ID="chkSolicitarAprobacion" runat="server" Checked="false" OnCheckedChanged="chkSolicitarAprobacion_CheckedChanged"
+                                    AutoPostBack="true" />
                             </td>
                         </tr>
                         <tr>
                             <td class="TD140px">
-                                <asp:Label ID="lblSolicitarAprobacion" runat="server" Text="Solicitar Aprobación:"></asp:Label>
+                                <asp:Label ID="lblAprobada" runat="server" Text="Aprobada:"></asp:Label>
+                            </td>
+                            <td class="TD50px">
+                                <asp:CheckBox ID="chkAprobada" runat="server" Checked="false" Enabled="false" OnCheckedChanged="chkAprobada_CheckedChanged"
+                                    AutoPostBack="true" />
+                            </td>
+                            <td class="TD250px">
+                                <asp:Label ID="lblFecha" runat="server" Text="Fecha Aprobadación: "></asp:Label>
                             </td>
                             <td>
-                                <asp:CheckBox ID="chkSolicitarAprobacion" runat="server" Checked="false" 
-                                    OnCheckedChanged="chkSolicitarAprobacion_CheckedChanged" AutoPostBack="true" />
                             </td>
                         </tr>
                     </table>
@@ -103,10 +108,11 @@
                                     Visible='<%# CheckAprobada(Eval("fechaAprobada"), false) %>' />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
                                     AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
-                                    OnClientClick="return confirm('¿Desea eliminar la planificación seleccionada?')" Visible='<%# CheckAprobada(Eval("fechaAprobada"), true) %>' />
+                                    OnClientClick="return confirm('¿Desea eliminar la planificación seleccionada?')"
+                                    Visible='<%# CheckAprobada(Eval("fechaAprobada"), true) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Asignatura">
+                        <%--<asp:TemplateField HeaderText="Asignatura">
                             <HeaderStyle HorizontalAlign="left" Width="45%" />
                             <ItemStyle HorizontalAlign="left" />
                             <ItemTemplate>
@@ -120,7 +126,7 @@
                                 <asp:Label ID="lblAprobada" runat="server" Text='<%# CheckNull(Eval("fechaAprobada"))%>'
                                     ToolTip="Si está en blanco, indica que aún no ha sido aprobada"></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                         <asp:TemplateField HeaderText="Fecha Inicio">
                             <HeaderStyle HorizontalAlign="Center" Width="15%" />
                             <ItemStyle HorizontalAlign="Center" />

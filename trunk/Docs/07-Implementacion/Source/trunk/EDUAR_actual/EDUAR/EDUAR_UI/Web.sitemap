@@ -16,8 +16,6 @@
             <siteMapNode url="~/Private/Planning/Contenido.aspx" title="Contenidos" roles="Administrador,Director,Docente" />
             <siteMapNode url="~/Private/Planning/TemasContenido.aspx" title="Temas Contenidos" roles="Administrador,Director,Docente" visible="false" />
             <siteMapNode url="~/Private/Planning/Planificacion.aspx" title="Planificación" roles="Administrador,Director,Docente" />
-            <!--<siteMapNode url="~/Private/Planning/Planificacion.aspx" title="Planificación" roles="Administrador,Director,Docente" />
-            <siteMapNode url="~/Private/Planning/Calendario.aspx" title="Calendario" roles="Administrador,Director,Docente" />-->
         </siteMapNode>
         <siteMapNode url="" title="Mensajes" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
             <siteMapNode url="~/Private/Mensajes/MsjeEntrada.aspx" title="Recibidos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>

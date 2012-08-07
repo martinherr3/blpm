@@ -130,6 +130,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAprobacion;
         
         /// <summary>
+        /// Control lblSolicitarAprobacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSolicitarAprobacion;
+        
+        /// <summary>
+        /// Control chkSolicitarAprobacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSolicitarAprobacion;
+        
+        /// <summary>
         /// Control lblAprobada.
         /// </summary>
         /// <remarks>
@@ -148,22 +166,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.CheckBox chkAprobada;
         
         /// <summary>
-        /// Control lblSolicitarAprobacion.
+        /// Control lblFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSolicitarAprobacion;
-        
-        /// <summary>
-        /// Control chkSolicitarAprobacion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkSolicitarAprobacion;
+        protected global::System.Web.UI.WebControls.Label lblFecha;
         
         /// <summary>
         /// Control gvwPlanificacion.
