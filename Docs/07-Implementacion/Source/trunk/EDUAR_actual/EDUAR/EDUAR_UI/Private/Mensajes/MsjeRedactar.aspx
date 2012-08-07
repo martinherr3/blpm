@@ -63,6 +63,8 @@
                                 <asp:ListItem Text="Curso Completo" Value="0" />
                                 <asp:ListItem Text="Seleccionar Alumnos" Value="1" Enabled="true" />
                                 <asp:ListItem Text="Seleccionar Tutores" Value="2" />
+                                 <asp:ListItem Text="Seleccionar otros Docentes" Value="3" />
+
                             </asp:RadioButtonList>
                         </td>
                     </tr>
