@@ -64,6 +64,7 @@ namespace EDUAR_DataAccess.Common
 					&& ValidarFechaSQL(Convert.ToDateTime(entidad.fechaAprobada)))
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaAprobada", DbType.Date, entidad.fechaAprobada);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@observaciones", DbType.String, entidad.observaciones);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@solicitarAprobacion", DbType.Boolean, entidad.solicitarAprobacion);
 
 
 				if (Transaction.Transaction != null)
@@ -106,6 +107,7 @@ namespace EDUAR_DataAccess.Common
 					&& ValidarFechaSQL(Convert.ToDateTime(entidad.fechaAprobada)))
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaAprobada", DbType.Date, entidad.fechaAprobada);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@observaciones", DbType.String, entidad.observaciones);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@solicitarAprobacion", DbType.Boolean, entidad.solicitarAprobacion);
 
 				if (Transaction.Transaction != null)
 					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -161,6 +163,7 @@ namespace EDUAR_DataAccess.Common
 					objEntidad.fechaAprobada = Convert.ToDateTime(reader["fechaAprobada"]);
 					objEntidad.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"]);
 					objEntidad.observaciones = reader["observaciones"].ToString();
+					objEntidad.solicitarAprobacion = Convert.ToBoolean(reader["solicitarAprobacion"]);
 					objEntidad.asignaturaCicloLectivo = new AsignaturaCicloLectivo() { idAsignaturaCicloLectivo = Convert.ToInt32(reader["idAsignaturaCicloLectivo"]) };
 					listaEntidad.Add(objEntidad);
 				}
@@ -205,6 +208,7 @@ namespace EDUAR_DataAccess.Common
 					if (DateTime.TryParse(reader["fechaCreacion"].ToString(), out fecha))
 						objEntidad.fechaCreacion = fecha;
 					objEntidad.observaciones = reader["observaciones"].ToString();
+					objEntidad.solicitarAprobacion = Convert.ToBoolean(reader["solicitarAprobacion"]);
 					objEntidad.asignaturaCicloLectivo = new AsignaturaCicloLectivo()
 						{
 							idAsignaturaCicloLectivo = Convert.ToInt32(reader["idAsignaturaCicloLectivo"]),

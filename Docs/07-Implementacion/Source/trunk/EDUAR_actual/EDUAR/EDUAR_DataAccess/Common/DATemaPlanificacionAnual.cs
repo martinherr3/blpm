@@ -111,8 +111,6 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaFinEstimada", DbType.Date, entidad.fechaFinEstimada);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@observaciones", DbType.String, entidad.observaciones);
 
-
-
 				if (Transaction.Transaction != null)
 					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
 				else
