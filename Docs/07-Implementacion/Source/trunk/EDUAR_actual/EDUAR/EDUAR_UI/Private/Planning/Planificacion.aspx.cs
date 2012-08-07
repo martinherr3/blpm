@@ -200,6 +200,7 @@ namespace EDUAR_UI
             {
                 LimpiarCampos();
                 DesHabilitarCampos(true);
+				divAprobacion.Visible = false;
                 btnGuardar.Visible = true;
                 ddlAsignatura.Enabled = false;
                 ddlCurso.Enabled = false;
@@ -301,8 +302,9 @@ namespace EDUAR_UI
                 }
                 else
                 {
-                    ddlAsignatura.SelectedIndex = 0;
-                    ddlAsignatura.Items.Clear();
+					ddlAsignatura.Enabled = false;
+					ddlAsignatura.Items.Clear();
+					ddlAsignatura.Items.Add("[Seleccione Curso]");
                 }
                 divAprobacion.Visible = false;
                 gvwPlanificacion.DataSource = null;
@@ -405,11 +407,13 @@ namespace EDUAR_UI
                         idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
                         EliminarPlanificacion();
                         ObtenerPlanificacion(idAsignaturaCurso);
+						idTemaPlanificacion = 0;
                         break;
                     case "Consultar":
                         idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
                         CargarPlanificacion();
                         DesHabilitarCampos(false);
+						divAprobacion.Visible = false;
                         divControles.Visible = true;
                         ddlCurso.Enabled = false;
                         ddlAsignatura.Enabled = false;
@@ -492,16 +496,20 @@ namespace EDUAR_UI
         private void CargarPresentacion()
         {
             UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
-            if (idCurso > 0)
-            {
-                ddlCurso.SelectedValue = idCurso.ToString();
-                CargarComboAsignatura(idCurso);
-                if (idAsignaturaCurso > 0)
-                    ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
-                ddlAsignatura.Enabled = true;
-            }
-            else
-                ddlAsignatura.Enabled = false;
+			if (idCurso > 0)
+			{
+				ddlCurso.SelectedValue = idCurso.ToString();
+				CargarComboAsignatura(idCurso);
+				if (idAsignaturaCurso > 0)
+					ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
+				ddlAsignatura.Enabled = true;
+			}
+			else
+			{
+				ddlAsignatura.Enabled = false;
+				ddlAsignatura.Items.Clear();
+				ddlAsignatura.Items.Add("[Seleccione Curso]");
+			}
             divFiltros.Visible = true;
             divControles.Visible = false;
             btnNuevo.Visible = true;
@@ -647,12 +655,16 @@ namespace EDUAR_UI
             udpGrilla.Update();
         }
 
+		/// <summary>
+		/// Validars the aprobaciones.
+		/// </summary>
         private void ValidarAprobaciones()
         {
             chkAprobada.Checked = false;
             chkSolicitarAprobacion.Checked = false;
             chkAprobada.Enabled = false;
             chkSolicitarAprobacion.Enabled = false;
+			lblFecha.Text = string.Empty;
             if (planificacionEditar.listaTemasPlanificacion.Count > 0)
             {
                 divAprobacion.Visible = true;
@@ -662,6 +674,7 @@ namespace EDUAR_UI
                     chkSolicitarAprobacion.Enabled = false;
                     chkAprobada.Checked = true;
                     chkSolicitarAprobacion.Checked = true;
+					lblFecha.Text = "Fecha de Aprobación: " + Convert.ToDateTime(planificacionEditar.fechaAprobada).ToShortDateString();
                 }
                 else
                 {
