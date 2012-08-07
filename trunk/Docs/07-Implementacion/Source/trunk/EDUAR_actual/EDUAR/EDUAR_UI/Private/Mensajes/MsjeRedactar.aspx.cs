@@ -148,9 +148,8 @@ namespace EDUAR_UI
 								}
 								break;
 							case "1":
-								break;
 							case "2":
-								break;
+							case "3":
 							default:
 								break;
 						}
@@ -215,6 +214,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+                BLDocente objDocente = null;
 				ddlDestino.Items.Clear();
 				AlumnoCurso objCurso = null;
 				List<Persona> lista = null;
@@ -257,6 +257,20 @@ namespace EDUAR_UI
 						}
 						CargarDestinos(lista);
 						break;
+                    case "3":
+                        objDocente = new BLDocente();
+                        List<Docente> listaDocentes = objDocente.GetDocentes();
+                        lista = new List<Persona>();
+                        foreach (Docente item in listaDocentes)
+						{
+							persona = new Persona();
+							persona.idPersona = item.idPersona;
+							persona.nombre = item.nombre;
+							persona.apellido = item.apellido;
+							lista.Add(persona);
+						}
+						CargarDestinos(lista);
+                        break;
 					default:
 						break;
 				}

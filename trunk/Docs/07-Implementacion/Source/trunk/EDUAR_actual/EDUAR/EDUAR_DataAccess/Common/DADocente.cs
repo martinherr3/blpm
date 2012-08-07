@@ -1,6 +1,11 @@
 ﻿using System;
 using EDUAR_DataAccess.Shared;
 using EDUAR_Entities;
+using System.Data;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using EDUAR_Utility.Excepciones;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_DataAccess.Common
 {
@@ -60,6 +65,57 @@ namespace EDUAR_DataAccess.Common
         #endregion
 
         #region --[Métodos Públicos]--
+
+        /// <summary>
+        /// Gets the alumnos.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Docente> GetDocentes(Docente entidad = null)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Docentes_Select");
+                if (entidad != null)
+                {
+                    if (entidad.IdPersonal > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersonal", DbType.Int32, entidad.IdPersonal);
+                }
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<Docente> listaDocentes = new List<Docente>();
+                Docente objDocente;
+                while (reader.Read())
+                {
+                    objDocente = new Docente();
+
+                    objDocente.IdPersonal = Convert.ToInt32(reader["idPersonal"]);
+                    objDocente.nombre = reader["nombre"].ToString();
+                    objDocente.apellido = reader["apellido"].ToString();
+                    if (!string.IsNullOrEmpty(reader["fechaAlta"].ToString()))
+                        objDocente.fechaAlta = (DateTime)reader["fechaAlta"];
+                    if (!string.IsNullOrEmpty(reader["fechaBaja"].ToString()))
+                        objDocente.fechaBaja = (DateTime)reader["fechaBaja"];
+                    objDocente.activo = Convert.ToBoolean(reader["activo"]);
+                    objDocente.idPersona = Convert.ToInt32(reader["idPersona"]);
+                    //TODO: Completar los miembros que faltan de alumno
+
+                    listaDocentes.Add(objDocente);
+                }
+                return listaDocentes;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetDocentes()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetDocentes()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
         #endregion
     }
 }
