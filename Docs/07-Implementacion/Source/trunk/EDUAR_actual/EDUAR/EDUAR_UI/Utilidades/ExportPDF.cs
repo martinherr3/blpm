@@ -63,7 +63,7 @@ namespace EDUAR_UI.Utilidades
 
 			Font font12B = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, Font.NORMAL);
 			PdfPTable grdTableEncabezado = new PdfPTable(1);
-			grdTableEncabezado.WidthPercentage = 90;
+            grdTableEncabezado.WidthPercentage = 90;
 			grdTableEncabezado.AddCell(new PdfPCell(new Phrase("- Usuario: " + usuario.apellido + " " + usuario.nombre, font12B)));
 			grdTableEncabezado.CompleteRow();
 			grdTableEncabezado.AddCell(new PdfPCell(new Phrase(filtros, font12B)));
