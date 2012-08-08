@@ -63,7 +63,7 @@ namespace EDUAR_UI.Utilidades
 
 			Font font12B = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, Font.NORMAL);
 			PdfPTable grdTableEncabezado = new PdfPTable(1);
-            grdTableEncabezado.WidthPercentage = 90;
+			grdTableEncabezado.WidthPercentage = 90;
 			grdTableEncabezado.AddCell(new PdfPCell(new Phrase("- Usuario: " + usuario.apellido + " " + usuario.nombre, font12B)));
 			grdTableEncabezado.CompleteRow();
 			grdTableEncabezado.AddCell(new PdfPCell(new Phrase(filtros, font12B)));
@@ -317,6 +317,179 @@ namespace EDUAR_UI.Utilidades
 			HttpContext.Current.Response.ContentType = "application/pdf";
 			HttpContext.Current.Response.AddHeader("content-disposition", "attachment; filename=" + strTitulo.Trim().Replace(" ", string.Empty) + "-" + fecha.Replace(' ', '_').Trim() + ".pdf");
 			HttpContext.Current.Response.Flush();
+		}
+
+		/// <summary>
+		/// Exportars the PDF planificacion.
+		/// </summary>
+		/// <param name="TituloInforme">The titulo informe.</param>
+		/// <param name="objPlanificacion">The obj planificacion.</param>
+		public static void ExportarPDFPlanificacion(string TituloInforme, PlanificacionAnual objPlanificacion)
+		{
+			itsEvents ev = new itsEvents();
+
+			Document documento = new Document(PageSize.A4, 10, 10, 80, 50);
+			PdfWriter writerPdf = PdfWriter.GetInstance(documento, HttpContext.Current.Response.OutputStream);
+			writerPdf.PageEvent = ev;
+			documento.Open();
+
+			string strTitulo = "Asignatura: " + objPlanificacion.asignaturaCicloLectivo.asignatura.nombre
+						  + "\n Curso: " + objPlanificacion.asignaturaCicloLectivo.cursoCicloLectivo.curso.nivel.nombre + " "
+						  + objPlanificacion.asignaturaCicloLectivo.cursoCicloLectivo.curso.nombre;
+
+			string fecha = DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
+
+
+
+			Font font24B = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 24, Font.BOLD, BaseColor.GRAY);
+			Phrase Titulo = new Phrase("EDU@R 2.0", font24B);
+
+			Font font15B = FontFactory.GetFont(FontFactory.HELVETICA, 15, Font.BOLD);
+			ev.tituloReporte = TituloInforme;
+			ev.fechaReporte = fecha;
+
+			Font font12 = FontFactory.GetFont(FontFactory.TIMES, 12, Font.NORMAL);
+
+			Paragraph parrafo = new Paragraph(strTitulo, font15B);
+			documento.Add(parrafo);
+
+			string strFechas;
+			if (objPlanificacion.fechaAprobada.HasValue)
+			{
+				strFechas = "Fecha Aprobación: " + Convert.ToDateTime(objPlanificacion.fechaAprobada).ToShortDateString();
+				parrafo = new Paragraph(strFechas, font15B);
+				documento.Add(parrafo);
+			}
+			else
+			{
+				Font font15R = FontFactory.GetFont(FontFactory.HELVETICA, 15, Font.BOLDITALIC, BaseColor.RED);
+				strFechas = "Pendiente de Aprobación";
+				parrafo = new Paragraph(strFechas, font15R);
+				documento.Add(parrafo);
+			}
+
+			PdfPTable tabla = new PdfPTable(1);
+			tabla.SpacingBefore = 10;
+			tabla.SpacingAfter = 0;
+			tabla.KeepTogether = true;
+			tabla.WidthPercentage = 100;
+			PdfPCell celdaTitulo = new PdfPCell(new Phrase("", font15B));
+			celdaTitulo.Border = 0;
+			celdaTitulo.BorderWidthBottom = 1;
+			tabla.AddCell(celdaTitulo);
+			tabla.CompleteRow();
+			documento.Add(tabla);
+
+			//parrafo = new Paragraph("\n", font15B);
+			//documento.Add(parrafo);
+
+			if (objPlanificacion.listaTemasPlanificacion.Count > 0)
+			{
+				int contador = 0;
+				foreach (TemaPlanificacionAnual item in objPlanificacion.listaTemasPlanificacion)
+				{
+					contador++;
+					parrafo = new Paragraph("Periodo: " + Convert.ToDateTime(item.fechaInicioEstimada).ToShortDateString() + " al " + Convert.ToDateTime(item.fechaFinEstimada).ToShortDateString(), font15B);
+					documento.Add(parrafo);
+
+					if (item.contenidosConceptuales.Trim().Length > 0)
+					{
+						parrafo = new Paragraph("Contenidos Conceptuales", font15B);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph(item.contenidosConceptuales, font12);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph("\n", font15B);
+						documento.Add(parrafo);
+					}
+
+					if (item.contenidosActitudinales.Trim().Length > 0)
+					{
+						parrafo = new Paragraph("Contenidos Actitudinales", font15B);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph(item.contenidosActitudinales, font12);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph("\n", font15B);
+						documento.Add(parrafo);
+					}
+
+					if (item.contenidosProcedimentales.Trim().Length > 0)
+					{
+						parrafo = new Paragraph("Contenidos Procedimentales", font15B);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph(item.contenidosProcedimentales, font12);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph("\n", font15B);
+						documento.Add(parrafo);
+					}
+
+					if (item.criteriosEvaluacion.Trim().Length > 0)
+					{
+						parrafo = new Paragraph("Criterios de Evaluación", font15B);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph(item.criteriosEvaluacion, font12);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph("\n", font15B);
+						documento.Add(parrafo);
+					}
+
+					if (item.estrategiasAprendizaje.Trim().Length > 0)
+					{
+						parrafo = new Paragraph("Estrategias de Aprendizaje", font15B);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph(item.estrategiasAprendizaje, font12);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph("\n", font15B);
+						documento.Add(parrafo);
+					}
+
+					if (item.instrumentosEvaluacion.Trim().Length > 0)
+					{
+						parrafo = new Paragraph("Instrumentos de Evaluación", font15B);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph(item.instrumentosEvaluacion, font12);
+						documento.Add(parrafo);
+
+						parrafo = new Paragraph("\n", font15B);
+						documento.Add(parrafo);
+					}
+
+					if (contador < objPlanificacion.listaTemasPlanificacion.Count)
+					{
+						tabla = new PdfPTable(1);
+						tabla.SpacingBefore = 10;
+						tabla.SpacingAfter = 0;
+						tabla.KeepTogether = true;
+						tabla.WidthPercentage = 100;
+						celdaTitulo = new PdfPCell(new Phrase("", font15B));
+						celdaTitulo.Border = 0;
+						celdaTitulo.BorderWidthBottom = 1;
+						tabla.AddCell(celdaTitulo);
+						tabla.CompleteRow();
+						documento.Add(tabla);
+
+						//parrafo = new Paragraph("\n", font15B);
+						//documento.Add(parrafo);
+					}
+				}
+			}
+
+
+			documento.Close();
+
+			HttpContext.Current.Response.ContentType = "application/pdf";
+			HttpContext.Current.Response.AddHeader("content-disposition", "attachment; filename=" + strTitulo.Trim().Replace(" ", string.Empty) + "-" + fecha.Replace(' ', '_').Trim() + ".pdf");
+			HttpContext.Current.Response.Flush();//HttpContext.Current.Response.End();
 		}
 
 		public class itsEvents : PdfPageEventHelper

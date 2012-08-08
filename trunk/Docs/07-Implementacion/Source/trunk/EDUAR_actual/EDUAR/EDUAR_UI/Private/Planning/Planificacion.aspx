@@ -20,6 +20,8 @@
                         <ContentTemplate>
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
                                 Visible="false" OnClick="btnNuevo_Click" />
+                            <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
+                                Visible="false" onclick="btnPDF_Click" />
                             <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                                 ImageUrl="~/Images/botonGuardar.png" Visible="false" />
                             <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
@@ -27,6 +29,7 @@
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
+                            <asp:PostBackTrigger ControlID="btnPDF" />
                             <%--<asp:PostBackTrigger ControlID="btnGuardar" />--%>
                             <%--<asp:PostBackTrigger ControlID="btnBuscar" />--%>
                         </Triggers>

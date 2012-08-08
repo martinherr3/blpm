@@ -165,6 +165,8 @@ namespace EDUAR_DataAccess.Common
 					objEntidad.observaciones = reader["observaciones"].ToString();
 					objEntidad.solicitarAprobacion = Convert.ToBoolean(reader["solicitarAprobacion"]);
 					objEntidad.asignaturaCicloLectivo = new AsignaturaCicloLectivo() { idAsignaturaCicloLectivo = Convert.ToInt32(reader["idAsignaturaCicloLectivo"]) };
+					objEntidad.asignaturaCicloLectivo.cursoCicloLectivo.curso.nombre = reader["Curso"].ToString();
+					objEntidad.asignaturaCicloLectivo.cursoCicloLectivo.curso.nivel.nombre = reader["Nivel"].ToString();
 					listaEntidad.Add(objEntidad);
 				}
 				return listaEntidad;
@@ -213,7 +215,9 @@ namespace EDUAR_DataAccess.Common
 						{
 							idAsignaturaCicloLectivo = Convert.ToInt32(reader["idAsignaturaCicloLectivo"]),
 							asignatura = new Asignatura() { nombre = reader["Asignatura"].ToString() }
-						};
+					};
+					objEntidad.asignaturaCicloLectivo.cursoCicloLectivo.curso.nombre = reader["Curso"].ToString();
+					objEntidad.asignaturaCicloLectivo.cursoCicloLectivo.curso.nivel.nombre = reader["Nivel"].ToString();
 					return objEntidad;
 				}
 				return null;
