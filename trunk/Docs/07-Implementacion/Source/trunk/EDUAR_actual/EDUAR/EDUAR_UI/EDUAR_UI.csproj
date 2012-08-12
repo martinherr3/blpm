@@ -39,9 +39,9 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=4.1.50927.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+    <Reference Include="AjaxControlToolkit, Version=4.1.60623.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL\AjaxControlToolkit.dll</HintPath>
+      <HintPath>..\packages\AjaxControlToolkit.4.1.60623\lib\40\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="AjaxControlToolkit.resources, Version=4.1.50927.0, Culture=es, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -50,6 +50,9 @@
     <Reference Include="AntiXSSLibrary, Version=4.0.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\AntiXSSLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\AjaxControlToolkit.4.1.60623\lib\40\SanitizerProviders\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="HtmlSanitizationLibrary, Version=4.0.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -77,8 +80,7 @@
       <HintPath>DLL\NPOI.dll</HintPath>
     </Reference>
     <Reference Include="SanitizerProviders, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL\SanitizerProviders.dll</HintPath>
+      <HintPath>..\packages\AjaxControlToolkit.4.1.60623\lib\40\SanitizerProviders\SanitizerProviders.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -213,7 +215,8 @@
     <Content Include="Private\Mensajes\MsjeEnviado.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
     <Content Include="Private\Planning\Contenido.aspx" />
-    <Content Include="Private\Planning\Planificacion.aspx" />
+    <Content Include="Private\Planning\PlanificacionAnual.aspx" />
+    <Content Include="Private\Planning\PlanificacionClases.aspx" />
     <Content Include="Private\Planning\TemasContenido.aspx" />
     <Content Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx" />
     <Content Include="Private\Reports\Historicos\reportRendimiento.aspx" />
@@ -460,12 +463,19 @@
     <Compile Include="Private\Planning\Contenido.aspx.designer.cs">
       <DependentUpon>Contenido.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Private\Planning\Planificacion.aspx.cs">
-      <DependentUpon>Planificacion.aspx</DependentUpon>
+    <Compile Include="Private\Planning\PlanificacionAnual.aspx.cs">
+      <DependentUpon>PlanificacionAnual.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Private\Planning\Planificacion.aspx.designer.cs">
-      <DependentUpon>Planificacion.aspx</DependentUpon>
+    <Compile Include="Private\Planning\PlanificacionAnual.aspx.designer.cs">
+      <DependentUpon>PlanificacionAnual.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Planning\PlanificacionClases.aspx.cs">
+      <DependentUpon>PlanificacionClases.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Planning\PlanificacionClases.aspx.designer.cs">
+      <DependentUpon>PlanificacionClases.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Planning\TemasContenido.aspx.cs">
       <DependentUpon>TemasContenido.aspx</DependentUpon>
@@ -753,6 +763,7 @@
     <Content Include="Private\Manuales\Administrador\web.config" />
     <Content Include="Private\Reports\Historicos\web.config" />
     <Content Include="Private\Planning\web.config" />
+    <Content Include="packages.config" />
     <None Include="Scripts\css\blitzer\images\Thumbs.db" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>
