@@ -34,6 +34,7 @@ namespace EDUAR_UI.Utilidades
 		/// <param name="addDefaultValue">if set to <c>true</c> [add default value].</param>
 		public static void BindComboMeses(DropDownList ddlEntidad, bool addDefaultValue, int startMonth)
 		{
+			ddlEntidad.Items.Clear();
 			foreach (enumMeses mes in Enum.GetValues(typeof(enumMeses)))
 			{
 				if ((int)mes > 2 && (int)mes >= startMonth)

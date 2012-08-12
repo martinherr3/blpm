@@ -985,3 +985,34 @@ TD.EncabezadoConfirmación
     border-color: #87CEFA;
     padding: 0px;
 }
+
+.temasContainer
+{
+    width: 300px;
+    padding: 3px;
+    margin: 3px;
+    border: 1px solid #666;
+    background-color: #fff;
+    cursor: move;
+    float: left;
+    text-align: center;
+}
+
+.temaSeleccionado
+{
+    padding:3px;
+    text-align: center;
+}
+        
+.divPlanificado
+{
+    float:left;
+    padding:10px;
+    text-align: center;
+    cursor: move;
+}
+        
+.highlight
+{
+    background-color:Yellow;
+}
