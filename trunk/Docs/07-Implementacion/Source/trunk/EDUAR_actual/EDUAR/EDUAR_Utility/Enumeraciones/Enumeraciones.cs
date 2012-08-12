@@ -95,7 +95,8 @@ namespace EDUAR_Utility.Enumeraciones
 		Guardar,
 		Ingresar,
 		Desbloquear,
-		Error
+		Error,
+        Enviar
 	}
 
 	/// <summary>

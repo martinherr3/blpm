@@ -99,6 +99,9 @@ namespace EDUAR_UI
 					case enumAcciones.Error:
 						//Response.Redirect("MsjeRedactar.aspx", false);
 						break;
+                    case enumAcciones.Enviar:
+                        PrepararEnvioMensaje();
+                        break;
 					default:
 						break;
 				}
@@ -109,7 +112,8 @@ namespace EDUAR_UI
 			}
 		}
 
-		/// <summary>
+
+        /// <summary>
 		/// Handles the Click event of the btnEnviar control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -129,33 +133,42 @@ namespace EDUAR_UI
 				}
 				if (destino)
 				{
-					int idCursoCicloLectivo = 0;
-					//Docente: a personas o cursos
-					if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
-					{
-						switch (rdlDestinatarios.SelectedValue)
-						{
-							case "0":
-								AlumnoCurso objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
-								idCursoCicloLectivo = Convert.ToInt32(ddlDestino.Value);
-								BLAlumno objBLAlumno = new BLAlumno();
-								List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
-								ddlDestino.Items.Clear();
-								foreach (Alumno item in listaAlumnos)
-								{
-									ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
-									ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
-								}
-								break;
-							case "1":
-							case "2":
-							case "3":
-							default:
-								break;
-						}
-					}
-					EnviarMensaje(idCursoCicloLectivo);
-				}
+                    if (txtAsunto.Value != "")
+                    {
+                        PrepararEnvioMensaje();
+                        //int idCursoCicloLectivo = 0;
+                        ////Docente: a personas o cursos
+                        //if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+                        //{
+                        //    switch (rdlDestinatarios.SelectedValue)
+                        //    {
+                        //        case "0":
+                        //            AlumnoCurso objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
+                        //            idCursoCicloLectivo = Convert.ToInt32(ddlDestino.Value);
+                        //            BLAlumno objBLAlumno = new BLAlumno();
+                        //            List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
+                        //            ddlDestino.Items.Clear();
+                        //            foreach (Alumno item in listaAlumnos)
+                        //            {
+                        //                ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
+                        //                ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
+                        //            }
+                        //            break;
+                        //        case "1":
+                        //        case "2":
+                        //        case "3":
+                        //        default:
+                        //            break;
+                        //    }
+                        //}
+                        //EnviarMensaje(idCursoCicloLectivo);
+                    }
+                    else
+                    {
+                        AccionPagina = enumAcciones.Enviar;
+                        Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeSinAsunto, enumTipoVentanaInformacion.Confirmación);
+                    }
+				}      
 				else
 				{
 					AccionPagina = enumAcciones.Error;
@@ -393,6 +406,36 @@ namespace EDUAR_UI
 		{
 			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
 		}
+
+        private void PrepararEnvioMensaje()
+        {
+            int idCursoCicloLectivo = 0;
+            //Docente: a personas o cursos
+            if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+            {
+                switch (rdlDestinatarios.SelectedValue)
+                {
+                    case "0":
+                        AlumnoCurso objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
+                        idCursoCicloLectivo = Convert.ToInt32(ddlDestino.Value);
+                        BLAlumno objBLAlumno = new BLAlumno();
+                        List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
+                        ddlDestino.Items.Clear();
+                        foreach (Alumno item in listaAlumnos)
+                        {
+                            ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
+                            ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
+                        }
+                        break;
+                    case "1":
+                    case "2":
+                    case "3":
+                    default:
+                        break;
+                }
+            }
+            EnviarMensaje(idCursoCicloLectivo);
+        }
 
 		/// <summary>
 		/// Enviars the mensaje.
