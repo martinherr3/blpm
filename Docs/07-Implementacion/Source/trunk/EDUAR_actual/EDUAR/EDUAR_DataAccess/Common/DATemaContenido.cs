@@ -157,7 +157,6 @@ namespace EDUAR_DataAccess.Common
 		#endregion
 
 		#region --[Métodos Públicos]--
-
 		/// <summary>
 		/// Gets the tema contenidos.
 		/// </summary>
@@ -167,10 +166,32 @@ namespace EDUAR_DataAccess.Common
 		{
 			try
 			{
+				return GetTemaContenidos(entidad, null);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the tema contenidos.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<TemaContenido> GetTemaContenidos(TemaContenido entidad, AsignaturaCicloLectivo objAsignatura)
+		{
+			try
+			{
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaContenido_Select");
 				if (entidad != null)
 				{
-					//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@obligatorio", DbType.Boolean, entidad.obligatorio);
 					if (!string.IsNullOrEmpty(entidad.titulo))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.titulo);
 					if (entidad.idTemaContenido > 0)
@@ -180,6 +201,10 @@ namespace EDUAR_DataAccess.Common
 					if (entidad.idContenido > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idContenido", DbType.Int32, entidad.idContenido);
 				}
+				if(objAsignatura != null)
+					if (objAsignatura.idAsignaturaCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, objAsignatura.idAsignaturaCicloLectivo);
+
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				List<TemaContenido> listaContenidos = new List<TemaContenido>();
