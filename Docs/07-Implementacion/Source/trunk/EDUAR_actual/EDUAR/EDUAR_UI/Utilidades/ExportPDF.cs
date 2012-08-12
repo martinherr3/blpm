@@ -486,9 +486,9 @@ namespace EDUAR_UI.Utilidades
 
 
 			documento.Close();
-
+			strTitulo = strTitulo.Trim().Replace("\n","_").Replace(" ", "_");
 			HttpContext.Current.Response.ContentType = "application/pdf";
-			HttpContext.Current.Response.AddHeader("content-disposition", "attachment; filename=" + strTitulo.Trim().Replace(" ", string.Empty) + "-" + fecha.Replace(' ', '_').Trim() + ".pdf");
+			HttpContext.Current.Response.AddHeader("content-disposition", "attachment; filename=" + strTitulo + "-" + fecha.Replace(' ', '_').Trim() + ".pdf");
 			HttpContext.Current.Response.Flush();//HttpContext.Current.Response.End();
 		}
 

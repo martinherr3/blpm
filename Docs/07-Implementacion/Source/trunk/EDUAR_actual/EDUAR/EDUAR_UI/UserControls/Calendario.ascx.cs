@@ -729,7 +729,10 @@ namespace EDUAR_UI.UserControls
 			bool boolFechaDesdeCorrecta = false;
 			DateTime fechaDesde;
 
-			boolFechaDesdeCorrecta = (DateTime.TryParse(txtFechaDesde.Text.Trim(), out fechaDesde));
+			if (TipoCalendario == enumTipoCalendario.SoloFecha)
+				boolFechaDesdeCorrecta = (DateTime.TryParse(txtFecha.Text.Trim(), out fechaDesde));
+			else
+				boolFechaDesdeCorrecta = (DateTime.TryParse(txtFechaDesde.Text.Trim(), out fechaDesde));
 
 			if (comprobarFechaHoy)
 			{
@@ -753,8 +756,10 @@ namespace EDUAR_UI.UserControls
 			bool boolFechaDesdeCorrecta = false;
 			DateTime fechaDesde;
 
-			if (TipoCalendario == enumTipoCalendario.SoloFecha) txtFechaDesde = txtFecha;
-			boolFechaDesdeCorrecta = (DateTime.TryParse(txtFechaDesde.Text.Trim(), out fechaDesde));
+			if (TipoCalendario == enumTipoCalendario.SoloFecha)
+				boolFechaDesdeCorrecta = (DateTime.TryParse(txtFecha.Text.Trim(), out fechaDesde));
+			else
+				boolFechaDesdeCorrecta = (DateTime.TryParse(txtFechaDesde.Text.Trim(), out fechaDesde));
 
 			if (comprobarFechaPosteriorHoy)
 			{
@@ -785,7 +790,7 @@ namespace EDUAR_UI.UserControls
 							campoHasta = "";
 						throw new CustomizedException(string.Format("Período incorrecto en {0}. La fecha no puede ser anterior a la fecha actual.", (campoDesde + " " + campoHasta).Trim()), null, enuExceptionType.ValidationException);
 					}
-                    else if (fechaDesde.Date == DateTime.Now.Date)
+					else if (fechaDesde.Date == DateTime.Now.Date)
 					{
 						string campoDesde = lblFechaDesde_DA.Text;
 						if (lblFechaDesde_DA.Text.Trim().Length == 0)
@@ -820,7 +825,7 @@ namespace EDUAR_UI.UserControls
 				}
 		}
 
-		public void setSelectedDate(DateTime fechaDesde,DateTime fechaHasta)
+		public void setSelectedDate(DateTime fechaDesde, DateTime fechaHasta)
 		{
 			calExtFechaDesde_DA.SelectedDate = fechaDesde;
 			calExtFechaHasta_DA.SelectedDate = fechaHasta;
