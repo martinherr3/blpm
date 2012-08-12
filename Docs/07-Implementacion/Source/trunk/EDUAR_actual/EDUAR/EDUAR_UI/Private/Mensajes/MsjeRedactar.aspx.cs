@@ -136,32 +136,6 @@ namespace EDUAR_UI
                     if (txtAsunto.Value != "")
                     {
                         PrepararEnvioMensaje();
-                        //int idCursoCicloLectivo = 0;
-                        ////Docente: a personas o cursos
-                        //if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
-                        //{
-                        //    switch (rdlDestinatarios.SelectedValue)
-                        //    {
-                        //        case "0":
-                        //            AlumnoCurso objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
-                        //            idCursoCicloLectivo = Convert.ToInt32(ddlDestino.Value);
-                        //            BLAlumno objBLAlumno = new BLAlumno();
-                        //            List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
-                        //            ddlDestino.Items.Clear();
-                        //            foreach (Alumno item in listaAlumnos)
-                        //            {
-                        //                ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
-                        //                ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
-                        //            }
-                        //            break;
-                        //        case "1":
-                        //        case "2":
-                        //        case "3":
-                        //        default:
-                        //            break;
-                        //    }
-                        //}
-                        //EnviarMensaje(idCursoCicloLectivo);
                     }
                     else
                     {
