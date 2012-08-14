@@ -21,7 +21,7 @@
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
                                 Visible="false" OnClick="btnNuevo_Click" />
                             <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
-                                Visible="false" onclick="btnPDF_Click" />
+                                Visible="false" OnClick="btnPDF_Click" />
                             <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                                 ImageUrl="~/Images/botonGuardar.png" Visible="false" />
                             <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
@@ -174,6 +174,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="TD250px" colspan="2" style="text-align: center; vertical-align: middle">
+                            <asp:Button ID="btnOpenSupplierSearch" runat="server" Text="Asociar Contenidos" CssClass="button"
+                                OnClick="btnOpenSupplierSearch_Click" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="TD250px" colspan="2">
                             <asp:Label ID="lblCConceptuales" runat="server" Text="Contenidos Conceptuales"></asp:Label><br />
                             <asp:TextBox ID="txtCConceptuales" runat="server" TextMode="MultiLine" Columns="75"
@@ -221,4 +227,67 @@
         <Triggers>
         </Triggers>
     </asp:UpdatePanel>
+    <asp:HiddenField ID="HiddenField1" runat="server" />
+    <ajaxtoolkit:ModalPopupExtender ID="mpeContenido" runat="server" PopupControlID="pnlContenidos"
+        TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
+    </ajaxtoolkit:ModalPopupExtender>
+    <asp:Panel ID="pnlContenidos" runat="server" Width="600px" Height="400px" Style="display: none;
+        text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+        <asp:UpdatePanel ID="udpContenidosAsociados" runat="server">
+            <ContentTemplate>
+                <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <h2>
+                                <asp:Label ID="lblTitulo" Text="Asociar Contenidos" runat="server" /></h2>
+                            <br />
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="btnGuardarPopUp" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
+                                OnClick="btnGuardarPopUp_Click" />
+                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver" ImageUrl="~/Images/PopUp/botonVolver.png"
+                                OnClick="btnVolverPopUp_Click" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr />
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <asp:GridView ID="gvwContenidos" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListadoSize10"
+                                AutoGenerateColumns="false" Width="500px" DataKeyNames="idTemaContenido"
+                                OnPageIndexChanging="gvwContenido_PageIndexChanging" OnRowDataBound="gvwContenido_RowDataBound" >
+                                <Columns>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="chkSelection" Text='<%# Eval("idTemaContenido")%>' runat="server"
+                                                CssClass="HiddenText" Width="30px" ClientIDMode="Static" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Tema">
+                                        <HeaderStyle HorizontalAlign="left" Width="75%" />
+                                        <ItemStyle HorizontalAlign="left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblTitulo" runat="server" Text='<%# Bind("Titulo") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Obligatorio">
+                                        <HeaderStyle HorizontalAlign="center" Width="20%" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblObligatorio" runat="server" Text='<%# Boolean.Parse(Eval("Obligatorio").ToString()) ? "Sí" : "No"  %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </asp:Panel>
 </asp:Content>

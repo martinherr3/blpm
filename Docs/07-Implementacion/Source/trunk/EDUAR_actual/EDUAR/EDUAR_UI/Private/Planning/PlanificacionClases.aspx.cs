@@ -350,8 +350,9 @@ namespace EDUAR_UI
 			objAsignatura.idAsignaturaCicloLectivo = idAsignaturaCurso;
 			objAsignatura.cursoCicloLectivo.cicloLectivo = base.cicloLectivoActual;
 			listaContenido = objBLTemas.GetTemasByCursoAsignatura(objAsignatura);
-			dtlContenidos.DataSource = listaContenido;
-			dtlContenidos.DataBind();
+			
+			ltvContenidos.DataSource = listaContenido;
+			ltvContenidos.DataBind();
 			udpContenidos.Update();
 		}
 
