@@ -71,7 +71,6 @@
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
                             <asp:PostBackTrigger ControlID="btnGuardar" />
-                            <%--<asp:PostBackTrigger ControlID="btnBuscar" />--%>
                         </Triggers>
                     </asp:UpdatePanel> 
                 </td>
@@ -136,8 +135,6 @@
             </ContentTemplate>
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
-                <%--<asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />--%>
-                <%--<asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />--%>
             </Triggers>
         </asp:UpdatePanel>
     </div>

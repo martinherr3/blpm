@@ -36,3 +36,15 @@ no se permite que haya varios SkinId por tipo de control en el mismo tema.
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
             
 </asp:GridView>
+
+<asp:GridView runat="server" SkinId="gridviewSkinPagerListadoSize10" CellPadding="5"
+              AutoGenerateColumns="false"
+              GridLines="Both" 
+              BorderStyle="Solid" 
+              PagerSettings-Visible="true" 
+              ShowFooter="false"
+              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="3">
+              
+              <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
+            
+</asp:GridView>

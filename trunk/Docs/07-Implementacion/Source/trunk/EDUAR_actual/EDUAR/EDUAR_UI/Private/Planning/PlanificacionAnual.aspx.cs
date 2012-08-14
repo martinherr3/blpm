@@ -46,15 +46,43 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista contenido.
 		/// </value>
-		protected List<EDUAR_Entities.Contenido> listaContenido
+		protected List<TemaContenido> listaContenido
 		{
 			get
 			{
 				if (ViewState["listaContenido"] == null)
-					ViewState["listaContenido"] = new List<EDUAR_Entities.Contenido>();
-				return (List<EDUAR_Entities.Contenido>)ViewState["listaContenido"];
+					ViewState["listaContenido"] = new List<TemaContenido>();
+				return (List<TemaContenido>)ViewState["listaContenido"];
 			}
 			set { ViewState["listaContenido"] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the lista seleccion.
+		/// </summary>
+		/// <value>
+		/// The lista seleccion.
+		/// </value>
+		protected List<TemaContenido> listaSeleccion
+		{
+			get
+			{
+				if (ViewState["listaSeleccion"] == null)
+					ViewState["listaSeleccion"] = new List<TemaContenido>();
+				return (List<TemaContenido>)ViewState["listaSeleccion"];
+			}
+			set { ViewState["listaSeleccion"] = value; }
+		}
+
+		protected List<TemaContenido> listaSeleccionGuardar
+		{
+			get
+			{
+				if (ViewState["listaSeleccionGuardar"] == null)
+					ViewState["listaSeleccionGuardar"] = new List<TemaContenido>();
+				return (List<TemaContenido>)ViewState["listaSeleccionGuardar"];
+			}
+			set { ViewState["listaSeleccionGuardar"] = value; }
 		}
 
 		/// <summary>
@@ -774,6 +802,98 @@ namespace EDUAR_UI
 			objEliminar.idTemaPlanificacion = idTemaPlanificacion;
 			BLTemaPlanificacionAnual ojbBLTemaPlanificacion = new BLTemaPlanificacionAnual(objEliminar);
 			ojbBLTemaPlanificacion.Delete();
+		}
+
+		protected void btnOpenSupplierSearch_Click(object sender, EventArgs e)
+		{
+			CargarContenidos();
+
+			mpeContenido.Show();
+
+		}
+
+		/// <summary>
+		/// Cargars the contenidos.
+		/// </summary>
+		private void CargarContenidos()
+		{
+			TemasContenido listaTemas = new TemasContenido();
+			BLTemaContenido objBLTemas = new BLTemaContenido();
+			AsignaturaCicloLectivo objAsignatura = new AsignaturaCicloLectivo();
+			objAsignatura.cursoCicloLectivo.curso.idCurso = idCurso;
+			objAsignatura.idAsignaturaCicloLectivo = idAsignaturaCurso;
+			objAsignatura.cursoCicloLectivo.cicloLectivo = base.cicloLectivoActual;
+			listaContenido = objBLTemas.GetTemasByCursoAsignatura(objAsignatura);
+
+			gvwContenidos.DataSource = listaContenido;
+			gvwContenidos.DataBind();
+		}
+
+		protected void btnVolverPopUp_Click(object sender, EventArgs e)
+		{
+			mpeContenido.Hide();
+		}
+
+		protected void btnGuardarPopUp_Click(object sender, EventArgs e)
+		{
+			GuardarSeleccion(listaSeleccionGuardar);
+			mpeContenido.Hide();
+		}
+
+		protected void gvwContenido_PageIndexChanging(object sender, GridViewPageEventArgs e)
+		{
+			GuardarSeleccion(listaSeleccion);
+			gvwContenidos.PageIndex = e.NewPageIndex;
+			CargarContenidos();
+			CargarSeleccion(listaSeleccion);
+		}
+
+		private void CargarSeleccion(List<TemaContenido> lista)
+		{
+			for (int i = 0; i < gvwContenidos.Rows.Count; i++)
+			{
+				CheckBox checkbox = (CheckBox)gvwContenidos.Rows[i].FindControl("chkSelection");
+				if (checkbox != null)
+				{
+					if (lista.Find(p => p.idTemaContenido.ToString() == checkbox.Text) != null)
+						checkbox.Checked = true;
+					else
+					{
+						checkbox.Checked = false;
+					}
+				}
+			}
+		}
+
+		private void GuardarSeleccion(List<TemaContenido> lista)
+		{
+			for (int i = 0; i < gvwContenidos.Rows.Count; i++)
+			{
+				CheckBox checkbox = (CheckBox)gvwContenidos.Rows[i].FindControl("chkSelection");
+				if (checkbox != null)
+				{
+					TemaContenido objeto = lista.Find(p => p.idTemaContenido.ToString() == checkbox.Text);
+					if (checkbox.Checked)
+						lista.Add(new TemaContenido() { idTemaContenido = Convert.ToInt32(checkbox.Text) });
+					else
+						lista.Remove(objeto);
+				}
+			}
+		}
+
+		protected void gvwContenido_RowDataBound(object sender, GridViewRowEventArgs e)
+		{
+			// We are only interested in Rows of Type DataRow
+			//if (e.Row.RowType == DataControlRowType.DataRow)
+			//{
+			//    var aux = listaSeleccion.Find(p => p.idTemaContenido.ToString() == e.Row.Cells[0].ToString());
+			//    if (aux != null)
+			//    {
+			//        // GridView Cell Rows implement INnamingContainer so we have a locate the labels inside the Rows Cells
+			//        CheckBox mylabel = (CheckBox)e.Row.Cells[0].FindControl("chkSelection");
+			//        mylabel.Checked = true;
+			//    }
+			//}
 		}
 		#endregion
 	}

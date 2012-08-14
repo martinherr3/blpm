@@ -4,91 +4,6 @@
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxtoolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <script src="../../Scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        var srcElement;
-
-        $(document).ready(function () {
-
-            $("#Button2").click(function () {
-                $("div .planificado div").remove();
-            });
-
-            $("#Button1").click(function () {
-                var data = new Array();
-                $("div .planificado div").each(function (index) {
-                    data[index] = "'" + this.innerHTML + "'";
-                });
-                $.ajax({
-                    type: 'POST',
-                    url: 'shoppingcart.aspx/PlaceOrder',
-                    contentType: "application/json; charset=utf-8",
-                    data: '{ products:[' + data.join() + ']}',
-                    dataType: 'json',
-                    success: function (results) { alert(results.d); },
-                    error: function () { alert('error'); }
-                });
-            });
-
-            $("div .divContenidos").each(function () {
-                this.addEventListener('dragstart', OnDragStart, false);
-            });
-
-            $("div .planificado").each(function () {
-                this.addEventListener('dragenter', OnDragEnter, false);
-                this.addEventListener('dragleave', OnDragLeave, false);
-                this.addEventListener('dragover', OnDragOver, false);
-                this.addEventListener('drop', OnDrop, false);
-                this.addEventListener('dragend', OnDragEnd, false);
-            });
-
-        })
-
-        function OnDragStart(e) {
-            this.style.opacity = '0.4';
-            srcElement = this;
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', $(this).find("header")[0].innerHTML);
-        }
-
-        function OnDragOver(e) {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            $(this).addClass('highlight');
-            e.dataTransfer.dropEffect = 'move';
-            return false;
-        }
-
-        function OnDragEnter(e) {
-            $(this).addClass('highlight');
-        }
-
-        function OnDragLeave(e) {
-            $(this).removeClass('highlight');
-        }
-
-        function OnDrop(e) {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            srcElement.style.opacity = '1';
-            $(this).removeClass('highlight');
-            var count = $(this).find("div[data-product-name='" + e.dataTransfer.getData('text/html') + "']").length;
-            if (count <= 0) {
-                $(this).append("<div class='temaSeleccionado' data-product-name='" + e.dataTransfer.getData('text/html') + "'>" + e.dataTransfer.getData('text/html') + "</div>");
-            }
-            else {
-                alert("This product is already added to your cart!");
-            }
-            return false;
-        }
-
-        function OnDragEnd(e) {
-            $("div .planificado").removeClass('highlight');
-            this.style.opacity = '1';
-        }    
-    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <table class="tablaInterna" cellpadding="0" cellspacing="0">
@@ -118,7 +33,7 @@
             </td>
         </tr>
     </table>
-    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+    <table class="tablaInterna">
         <tr>
             <td class="TD110px">
                 <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
@@ -172,22 +87,29 @@
     </table>
     <br />
     <div id="divContenidos" style="width: 100%; border: 0">
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+        <table class="tablaInterna">
             <tr>
                 <td style="width: 50%">
                     <asp:UpdatePanel ID="udpContenidos" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <asp:DataList ID="dtlContenidos" runat="server" Width="100%">
-                                <ItemTemplate>
-                                    <div class="temasContainer" draggable="true">
-                                        <header><%# Eval("titulo")%></header>
-                                        <%--<div><asp:Image runat="server" ID="img1" ImageUrl='<%# Eval("ImageUrl") %>' /></div>--%>
-                                        <div>
-                                            <%# Boolean.Parse(Eval("obligatorio").ToString()) ? "Sí" : "No"%></div>
-                                        <%--<div><%# Eval("Cost","Cost : ${0}") %></div>--%>
+                            <asp:ListView ID="ltvContenidos" runat="server">
+                                <LayoutTemplate>
+                                    <div id="Div1" runat="server">
+                                        <div id="itemPlaceholder" runat="server">
+                                        </div>
                                     </div>
+                                </LayoutTemplate>
+                                <EmptyDataTemplate>
+                                    <div id="Div2" runat="server">
+                                        <div id="itemPlaceholder" runat="server">
+                                            Sin Datos
+                                        </div>
+                                    </div>
+                                </EmptyDataTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="lblTitulo" runat="server" Text='<%# Eval ("Titulo") %>' />
                                 </ItemTemplate>
-                            </asp:DataList>
+                            </asp:ListView>
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
@@ -195,11 +117,6 @@
                     </asp:UpdatePanel>
                 </td>
                 <td style="width: 50%">
-                    <div id="divPlanificado" style="border: 1; width: 50%" class="planificado">
-                        <input id="Button1" type="button" value="Place Order" />
-                        <br />
-                        <input id="Button2" type="button" value="Clear Cart" />
-                    </div>
                 </td>
             </tr>
         </table>
