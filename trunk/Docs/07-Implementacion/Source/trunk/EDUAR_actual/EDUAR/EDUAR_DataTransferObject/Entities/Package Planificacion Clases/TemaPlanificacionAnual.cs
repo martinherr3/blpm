@@ -7,6 +7,7 @@
 ///////////////////////////////////////////////////////////
 using System;
 using EDUAR_Entities.Shared;
+using System.Collections.Generic;
 namespace EDUAR_Entities
 {
 	[Serializable]
@@ -25,10 +26,12 @@ namespace EDUAR_Entities
 		public string observaciones { get; set; }
 		public Asignatura asignatura { get; set; }
 		public DateTime? fechaAprobada { get; set; }
+		public List<TemaContenido> listaContenidos { get; set; }
 
 		public TemaPlanificacionAnual()
 		{
 			asignatura = new Asignatura();
+			listaContenidos = new List<TemaContenido>();
 		}
 
 		~TemaPlanificacionAnual()

@@ -41,7 +41,7 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Gets or sets the lista contenido.
+		/// Lista de TODOS los contenidos registrados
 		/// </summary>
 		/// <value>
 		/// The lista contenido.
@@ -58,7 +58,7 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Gets or sets the lista seleccion.
+		/// Lista de contenidos SELECCIONADOS
 		/// </summary>
 		/// <value>
 		/// The lista seleccion.
@@ -74,6 +74,12 @@ namespace EDUAR_UI
 			set { ViewState["listaSeleccion"] = value; }
 		}
 
+		/// <summary>
+		/// Lista de Contenidos seleccionados en el momento que presiona GUARDAR
+		/// </summary>
+		/// <value>
+		/// The lista seleccion guardar.
+		/// </value>
 		protected List<TemaContenido> listaSeleccionGuardar
 		{
 			get
@@ -287,6 +293,9 @@ namespace EDUAR_UI
 			{ Master.ManageExceptions(ex); }
 		}
 
+		/// <summary>
+		/// Guardars the planificacion.
+		/// </summary>
 		private void GuardarPlanificacion()
 		{
 			TemaPlanificacionAnual objTema = new TemaPlanificacionAnual();
@@ -298,6 +307,8 @@ namespace EDUAR_UI
 			objTema.fechaFinEstimada = calFechaFin.ValorFecha;
 			objTema.fechaInicioEstimada = calFechaDesde.ValorFecha;
 			objTema.instrumentosEvaluacion = txtInstrumentosEvaluacion.Text.Trim();
+			//objTema.listaContenidos = listaSeleccionGuardar;
+			objTema.listaContenidos = listaSeleccion;
 
 			if (idTemaPlanificacion > 0)
 				objTema.idTemaPlanificacion = idTemaPlanificacion;
@@ -537,7 +548,6 @@ namespace EDUAR_UI
 				objBLAprobar.Save();
 
 				ObtenerPlanificacion(idAsignaturaCurso);
-
 			}
 			catch (Exception ex)
 			{
@@ -781,16 +791,19 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPlanificacion()
 		{
-			var lista = planificacionEditar.listaTemasPlanificacion.Find(p => p.idTemaPlanificacion == idTemaPlanificacion);
-			txtCActitudinales.Text = lista.contenidosActitudinales;
-			txtCConceptuales.Text = lista.contenidosConceptuales;
-			txtCProcedimentales.Text = lista.contenidosProcedimentales;
-			txtCriteriosEvaluacion.Text = lista.criteriosEvaluacion;
-			txtEstrategias.Text = lista.estrategiasAprendizaje;
-			txtInstrumentosEvaluacion.Text = lista.instrumentosEvaluacion;
-			calFechaDesde.Fecha.Text = lista.fechaInicioEstimada.ToString();
-			calFechaFin.Fecha.Text = lista.fechaFinEstimada.ToString();
-			chkAprobada.Enabled = false;
+			var temaPlanificacionEditar = planificacionEditar.listaTemasPlanificacion.Find(p => p.idTemaPlanificacion == idTemaPlanificacion);
+			txtCActitudinales.Text = temaPlanificacionEditar.contenidosActitudinales;
+			txtCConceptuales.Text = temaPlanificacionEditar.contenidosConceptuales;
+			txtCProcedimentales.Text = temaPlanificacionEditar.contenidosProcedimentales;
+			txtCriteriosEvaluacion.Text = temaPlanificacionEditar.criteriosEvaluacion;
+			txtEstrategias.Text = temaPlanificacionEditar.estrategiasAprendizaje;
+			txtInstrumentosEvaluacion.Text = temaPlanificacionEditar.instrumentosEvaluacion;
+			calFechaDesde.Fecha.Text = temaPlanificacionEditar.fechaInicioEstimada.ToString();
+			calFechaFin.Fecha.Text = temaPlanificacionEditar.fechaFinEstimada.ToString();
+			chkAprobada.Enabled = !temaPlanificacionEditar.fechaAprobada.HasValue;
+			BLTemaPlanificacionAnual objBLTemaPlanificacion = new BLTemaPlanificacionAnual(temaPlanificacionEditar);
+			listaSeleccionGuardar = objBLTemaPlanificacion.ObtenerContenidos();
+			//listaSeleccion = objBLTemaPlanificacion.ObtenerContenidos();
 		}
 
 		/// <summary>
@@ -804,12 +817,16 @@ namespace EDUAR_UI
 			ojbBLTemaPlanificacion.Delete();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the btnOpenSupplierSearch control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnOpenSupplierSearch_Click(object sender, EventArgs e)
 		{
 			CargarContenidos();
-
+			CargarSeleccion(listaSeleccionGuardar);
 			mpeContenido.Show();
-
 		}
 
 		/// <summary>
@@ -836,10 +853,16 @@ namespace EDUAR_UI
 
 		protected void btnGuardarPopUp_Click(object sender, EventArgs e)
 		{
-			GuardarSeleccion(listaSeleccionGuardar);
+			//GuardarSeleccion(listaSeleccionGuardar);
+			GuardarSeleccion(listaSeleccion);
 			mpeContenido.Hide();
 		}
 
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwContenido control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
 		protected void gvwContenido_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 			GuardarSeleccion(listaSeleccion);
@@ -848,6 +871,10 @@ namespace EDUAR_UI
 			CargarSeleccion(listaSeleccion);
 		}
 
+		/// <summary>
+		/// Cargars the seleccion.
+		/// </summary>
+		/// <param name="lista">The lista.</param>
 		private void CargarSeleccion(List<TemaContenido> lista)
 		{
 			for (int i = 0; i < gvwContenidos.Rows.Count; i++)
@@ -855,18 +882,21 @@ namespace EDUAR_UI
 				CheckBox checkbox = (CheckBox)gvwContenidos.Rows[i].FindControl("chkSelection");
 				if (checkbox != null)
 				{
-					if (lista.Find(p => p.idTemaContenido.ToString() == checkbox.Text) != null)
+					if (lista.Exists(p => p.idTemaContenido.ToString() == checkbox.Text))
 						checkbox.Checked = true;
 					else
-					{
 						checkbox.Checked = false;
-					}
 				}
 			}
 		}
 
+		/// <summary>
+		/// Guardars the seleccion.
+		/// </summary>
+		/// <param name="lista">The lista.</param>
 		private void GuardarSeleccion(List<TemaContenido> lista)
 		{
+			lista.Clear();
 			for (int i = 0; i < gvwContenidos.Rows.Count; i++)
 			{
 				CheckBox checkbox = (CheckBox)gvwContenidos.Rows[i].FindControl("chkSelection");
@@ -875,25 +905,10 @@ namespace EDUAR_UI
 					TemaContenido objeto = lista.Find(p => p.idTemaContenido.ToString() == checkbox.Text);
 					if (checkbox.Checked)
 						lista.Add(new TemaContenido() { idTemaContenido = Convert.ToInt32(checkbox.Text) });
-					else
-						lista.Remove(objeto);
+					//else
+					//    lista.Remove(objeto);
 				}
 			}
-		}
-
-		protected void gvwContenido_RowDataBound(object sender, GridViewRowEventArgs e)
-		{
-			// We are only interested in Rows of Type DataRow
-			//if (e.Row.RowType == DataControlRowType.DataRow)
-			//{
-			//    var aux = listaSeleccion.Find(p => p.idTemaContenido.ToString() == e.Row.Cells[0].ToString());
-			//    if (aux != null)
-			//    {
-			//        // GridView Cell Rows implement INnamingContainer so we have a locate the labels inside the Rows Cells
-			//        CheckBox mylabel = (CheckBox)e.Row.Cells[0].FindControl("chkSelection");
-			//        mylabel.Checked = true;
-			//    }
-			//}
 		}
 		#endregion
 	}
