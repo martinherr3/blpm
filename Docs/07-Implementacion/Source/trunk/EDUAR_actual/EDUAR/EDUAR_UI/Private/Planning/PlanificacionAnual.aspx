@@ -246,7 +246,7 @@
                         <td align="right">
                             <asp:ImageButton ID="btnGuardarPopUp" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
                                 OnClick="btnGuardarPopUp_Click" />
-                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver" ImageUrl="~/Images/PopUp/botonVolver.png"
+                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver <br />Descartar Cambios" ImageUrl="~/Images/PopUp/botonVolver.png"
                                 OnClick="btnVolverPopUp_Click" />
                         </td>
                     </tr>
@@ -260,7 +260,7 @@
                         <td colspan="2" align="center">
                             <asp:GridView ID="gvwContenidos" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListadoSize10"
                                 AutoGenerateColumns="false" Width="500px" DataKeyNames="idTemaContenido"
-                                OnPageIndexChanging="gvwContenido_PageIndexChanging" OnRowDataBound="gvwContenido_RowDataBound" >
+                                OnPageIndexChanging="gvwContenido_PageIndexChanging" >
                                 <Columns>
                                     <asp:TemplateField>
                                         <ItemTemplate>

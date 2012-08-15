@@ -92,8 +92,6 @@ namespace EDUAR_BusinessLogic.Common
 				else
 					DataAcces.Update(Data);
 
-				//if (idPlanificacionAnual > 0) Data.idPlanificacionAnual = idPlanificacionAnual;
-
 				if (Data.listaTemasPlanificacion.Count > 0)
 				{
 					BLTemaPlanificacionAnual objBLPlanificacion;

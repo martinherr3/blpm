@@ -84,9 +84,47 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
+		/// <summary>
+		/// Creates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <param name="identificador">The identificador.</param>
 		public override void Create(TemaPlanificacionAnual entidad, out int identificador)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaPlanificacionAnual_Insert");
+
+				Transaction.DataBase.AddOutParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, 2);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPlanificacionAnual", DbType.Int32, entidad.idPlanificacionAnual);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@contenidosConceptuales", DbType.String, entidad.contenidosConceptuales);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@contenidosProcedimentales", DbType.String, entidad.contenidosProcedimentales);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@contenidosActitudinales", DbType.String, entidad.contenidosActitudinales);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@estrategiasAprendizaje", DbType.String, entidad.estrategiasAprendizaje);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@criteriosEvaluacion", DbType.String, entidad.criteriosEvaluacion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@instrumentosEvaluacion", DbType.String, entidad.instrumentosEvaluacion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaInicioEstimada", DbType.Date, entidad.fechaFinEstimada);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaFinEstimada", DbType.Date, entidad.fechaFinEstimada);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@observaciones", DbType.String, entidad.observaciones);
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+
+				identificador = Int32.Parse(Transaction.DBcomand.Parameters["@idTemaPlanificacion"].Value.ToString());
+
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
 		}
 
 		/// <summary>
@@ -220,7 +258,104 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
-		#endregion
 
+		/// <summary>
+		/// Deletes the contenidos.
+		/// </summary>
+		/// <param name="idTemaPlanificacion">The id tema planificacion.</param>
+		public void DeleteContenidos(int idTemaPlanificacion)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaPlanificacionTemaContenido_Delete");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, idTemaPlanificacion);
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - DeleteContenidos()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - DeleteContenidos()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Saves the contenidos.
+		/// </summary>
+		/// <param name="p">The idTemaPlanificacion.</param>
+		/// <param name="p_2">The idTemaContenido.</param>
+		public void SaveContenidos(int idTemaPlanificacion, int idTemaContenido)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaPlanificacionTemaContenido_Insert");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, idTemaPlanificacion);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, idTemaContenido);
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - SaveContenidos()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - SaveContenidos()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the contenidos.
+		/// </summary>
+		/// <param name="Data">The data.</param>
+		/// <returns></returns>
+		public List<TemaContenido> GetContenidos(TemaPlanificacionAnual entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaPlanificacionTemaContenido_Select");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, entidad.idTemaPlanificacion);
+				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.idTemaContenido);
+
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<TemaContenido> listaEntidad = new List<TemaContenido>();
+				TemaContenido objEntidad;
+				while (reader.Read())
+				{
+					objEntidad = new TemaContenido();
+					objEntidad.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
+					listaEntidad.Add(objEntidad);
+				}
+				return listaEntidad;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetContenidos()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetContenidos()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+		#endregion
 	}
 }
