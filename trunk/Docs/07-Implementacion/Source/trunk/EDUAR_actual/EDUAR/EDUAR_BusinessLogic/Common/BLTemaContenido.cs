@@ -200,7 +200,6 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
-		#endregion
 
 		public List<TemaContenido> GetTemasByCursoAsignatura(AsignaturaCicloLectivo objAsignatura)
 		{
@@ -217,6 +216,7 @@ namespace EDUAR_BusinessLogic.Common
 				throw new CustomizedException(string.Format("Fallo en {0} - GetTemasByContenido", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
-		}
-	}
+        }
+        #endregion
+    }
 }

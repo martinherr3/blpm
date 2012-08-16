@@ -260,7 +260,8 @@
                         <td colspan="2" align="center">
                             <asp:GridView ID="gvwContenidos" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListadoSize10"
                                 AutoGenerateColumns="false" Width="500px" DataKeyNames="idTemaContenido"
-                                OnPageIndexChanging="gvwContenido_PageIndexChanging" >
+                                OnPageIndexChanging="gvwContenidos_PageIndexChanging" 
+								onpageindexchanged="gvwContenidos_PageIndexChanged">
                                 <Columns>
                                     <asp:TemplateField>
                                         <ItemTemplate>
