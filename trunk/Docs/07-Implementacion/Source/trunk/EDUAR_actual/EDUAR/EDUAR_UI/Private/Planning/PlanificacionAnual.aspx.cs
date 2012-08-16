@@ -397,6 +397,7 @@ namespace EDUAR_UI
                 int idAsignatura = 0;
                 int.TryParse(ddlAsignatura.SelectedValue, out idAsignatura);
                 btnNuevo.Visible = idAsignatura > 0;
+                listaContenido = null;
                 if (idAsignatura > 0)
                 {
                     idTemaPlanificacion = 0;
