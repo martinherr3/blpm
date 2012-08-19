@@ -12,7 +12,7 @@ using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {
-	public partial class PlanificacionClases : EDUARBasePage
+	public partial class RegistroDeClases : EDUARBasePage
 	{
 		#region --[Propiedades]--
 		/// <summary>
