@@ -6,6 +6,7 @@
         <siteMapNode url="" title="Agenda" roles="Administrador,Docente,Director" >
             <siteMapNode url="~/Private/Agenda/ManageAgendaActividades.aspx" title="Actividades" roles="Administrador,Docente" />
             <siteMapNode url="~/Private/Agenda/RegisterEventoInstitucional.aspx" title="Eventos" roles="Administrador,Director" />
+            <siteMapNode url="~/Private/Agenda/ManageRegistroClases.aspx" title="Registro De Clases" roles="Administrador,Director,Docente" visible="false" />
         </siteMapNode>
         <siteMapNode url="" title="Alumnos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
             <siteMapNode url="~/Private/Alumnos/Boletin.aspx" title="Boletín" roles="Administrador, Tutor, Alumno" />
@@ -16,7 +17,6 @@
             <siteMapNode url="~/Private/Planning/Contenido.aspx" title="Contenidos" roles="Administrador,Director,Docente" />
             <siteMapNode url="~/Private/Planning/TemasContenido.aspx" title="Temas Contenidos" roles="Administrador,Director,Docente" visible="false" />
             <siteMapNode url="~/Private/Planning/PlanificacionAnual.aspx" title="Planificación Anual" roles="Administrador,Director,Docente" />
-            <!--<siteMapNode url="~/Private/Planning/PlanificacionClases.aspx" title="Planificación Clases" roles="Administrador,Director,Docente" />-->
         </siteMapNode>
         <siteMapNode url="" title="Mensajes" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
             <siteMapNode url="~/Private/Mensajes/MsjeEntrada.aspx" title="Recibidos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>

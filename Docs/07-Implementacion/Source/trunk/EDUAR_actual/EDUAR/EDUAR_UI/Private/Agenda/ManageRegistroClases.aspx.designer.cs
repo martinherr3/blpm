@@ -10,7 +10,7 @@
 namespace EDUAR_UI {
     
     
-    public partial class RegistroDeClases {
+    public partial class ManageRegistroClases {
         
         /// <summary>
         /// Control lblCurso.

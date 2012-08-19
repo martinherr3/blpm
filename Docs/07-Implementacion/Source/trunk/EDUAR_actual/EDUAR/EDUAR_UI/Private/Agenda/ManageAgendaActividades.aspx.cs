@@ -336,24 +336,6 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ddlCicloLectivo control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		//protected void ddlCicloLectivo_SelectedIndexChanged(object sender, EventArgs e)
-		//{
-		//    try
-		//    {
-		//        int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-		//        CargarComboCursos(idCicloLectivo, ddlCurso);
-		//    }
-		//    catch (Exception ex)
-		//    {
-		//        Master.ManageExceptions(ex);
-		//    }
-		//}
-
-		/// <summary>
 		/// Handles the PageIndexChanging event of the gvwReporte control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -387,6 +369,23 @@ namespace EDUAR_UI
 				udpEdit.Update();
 			}
 			catch (Exception ex) { Master.ManageExceptions(ex); }
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnRegistroClases control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnRegistroClases_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				Response.Redirect("ManageRegistroClases.aspx", false);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
 		}
 		#endregion
 
@@ -442,6 +441,7 @@ namespace EDUAR_UI
 			btnExcursion.Visible = habilitar;
 			btnEvaluacion.Visible = habilitar;
 			btnReunion.Visible = habilitar;
+			btnRegistroClases.Visible = habilitar;
 		}
 
 		/// <summary>

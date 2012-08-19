@@ -119,6 +119,7 @@
     <Content Include="DLL\itextsharp.xtra.dll" />
     <Content Include="favicon.ico" />
     <Content Include="Images\404.png" />
+    <Content Include="Images\botonAvance.gif" />
     <Content Include="Images\botonCalcular.png" />
     <Content Include="Images\botonEnviarMail.png" />
     <Content Include="Images\botonEvaluacion.png" />
@@ -202,6 +203,7 @@
     <Content Include="Private\Agenda\ManageAgendaActividades.aspx" />
     <Content Include="Private\Agenda\ManageEvaluaciones.aspx" />
     <Content Include="Private\Agenda\ManageExcursiones.aspx" />
+    <Content Include="Private\Agenda\ManageRegistroClases.aspx" />
     <Content Include="Private\Agenda\RegisterEventoInstitucional.aspx" />
     <Content Include="Private\Agenda\ManageReuniones.aspx" />
     <Content Include="Private\Alumnos\CitacionesTutores.aspx" />
@@ -220,7 +222,6 @@
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
     <Content Include="Private\Planning\Contenido.aspx" />
     <Content Include="Private\Planning\PlanificacionAnual.aspx" />
-    <Content Include="Private\Planning\RegistroDeClases.aspx" />
     <Content Include="Private\Planning\TemasContenido.aspx" />
     <Content Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx" />
     <Content Include="Private\Reports\Historicos\reportRendimiento.aspx" />
@@ -405,6 +406,12 @@
     <Compile Include="Private\Agenda\ManageExcursiones.aspx.designer.cs">
       <DependentUpon>ManageExcursiones.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Private\Agenda\ManageRegistroClases.aspx.cs">
+      <DependentUpon>ManageRegistroClases.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Agenda\ManageRegistroClases.aspx.designer.cs">
+      <DependentUpon>ManageRegistroClases.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Private\Agenda\RegisterEventoInstitucional.aspx.cs">
       <DependentUpon>RegisterEventoInstitucional.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -474,12 +481,6 @@
     </Compile>
     <Compile Include="Private\Planning\PlanificacionAnual.aspx.designer.cs">
       <DependentUpon>PlanificacionAnual.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Planning\RegistroDeClases.aspx.cs">
-      <DependentUpon>RegistroDeClases.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Planning\RegistroDeClases.aspx.designer.cs">
-      <DependentUpon>RegistroDeClases.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Planning\TemasContenido.aspx.cs">
       <DependentUpon>TemasContenido.aspx</DependentUpon>

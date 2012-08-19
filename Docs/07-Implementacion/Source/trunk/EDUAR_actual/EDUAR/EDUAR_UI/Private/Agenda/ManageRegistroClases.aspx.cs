@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using EDUAR_UI.Shared;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_Entities;
-using EDUAR_Utility.Enumeraciones;
+using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
-	public partial class RegistroDeClases : EDUARBasePage
+	public partial class ManageRegistroClases : EDUARBasePage
 	{
 		#region --[Propiedades]--
 		/// <summary>
@@ -208,17 +206,8 @@ namespace EDUAR_UI
 					ddlAsignatura.Items.Clear();
 					ddlAsignatura.Items.Add("[Seleccione Curso]");
 				}
-				//divAprobacion.Visible = false;
-				//gvwPlanificacion.DataSource = null;
-				//gvwPlanificacion.DataBind();
-
 				ddlAsignatura.Enabled = idCursoCicloLectivo > 0;
-				//btnGuardar.Visible = false;
-				//divControles.Visible = false;
 				udpAsignatura.Update();
-				//udpBotonera.Update();
-				//udpDivControles.Update();
-				//udpGrilla.Update();
 			}
 			catch (Exception ex)
 			{
@@ -245,10 +234,11 @@ namespace EDUAR_UI
 					idAsignaturaCurso = idAsignatura;
 					UIUtilidades.BindComboMeses(ddlMeses, false, DateTime.Now.Month);
 					ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
-					ddlDia.Enabled = false;
+					BindComboModulos(DateTime.Now.Month);
+					ddlDia.Enabled = true;
 					ddlMeses.Enabled = true;
+					ddlDia.SelectedIndex = 1;
 					CargarContenidos();
-					//BindComboModulos(DateTime.Now.Month);
 					//ObtenerPlanificacion(idAsignatura);
 					//if (planificacionEditar.fechaAprobada.HasValue) btnNuevo.Visible = false;
 					//else btnNuevo.Visible = true;
@@ -324,18 +314,10 @@ namespace EDUAR_UI
 				ddlAsignatura.Items.Clear();
 				ddlAsignatura.Items.Add("[Seleccione Curso]");
 			}
-			//divFiltros.Visible = true;
-			//divControles.Visible = false;
-			//btnVolver.Visible = false;
-			//btnGuardar.Visible = false;
-			//divFiltros.Visible = true;
 			ddlMeses.Enabled = false;
 			ddlDia.Enabled = false;
 			ddlCurso.Enabled = true;
 			LimpiarCombos();
-			//udpBotonera.Update();
-			//udpDivControles.Update();
-			//udpGrilla.Update();
 		}
 
 		/// <summary>
