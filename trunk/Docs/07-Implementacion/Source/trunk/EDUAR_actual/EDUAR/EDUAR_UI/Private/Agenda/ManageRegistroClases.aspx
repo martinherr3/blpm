@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Registro de Clases" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="RegistroDeClases.aspx.cs" Inherits="EDUAR_UI.RegistroDeClases" %>
+    AutoEventWireup="true" CodeBehind="ManageRegistroClases.aspx.cs" Inherits="EDUAR_UI.ManageRegistroClases" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxtoolkit" %>

@@ -28,6 +28,8 @@
                             ToolTip="Reuniones" ImageUrl="~/Images/botonReunion.png" />
                         <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                             ImageUrl="~/Images/botonGuardar.png" CausesValidation="true" ValidationGroup="validarEdit" />
+                        <asp:ImageButton ID="btnRegistroClases"  runat="server" ToolTip="Registro De Clases" Visible="false"
+                            ImageUrl="~/Images/botonAvance.gif" OnClick="btnRegistroClases_Click" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                             ImageUrl="~/Images/botonVolver.png" />
                     </td>
