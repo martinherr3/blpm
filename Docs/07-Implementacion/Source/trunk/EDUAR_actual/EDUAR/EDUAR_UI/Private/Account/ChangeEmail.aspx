@@ -55,7 +55,10 @@
 									ValidationGroup="RegisterUserValidationGroup" runat="server" CssClass="failureNotification">*</asp:RegularExpressionValidator>
 							</p>
 						</fieldset>
-						<p class="submitButton">
+
+                           <p class="submitButton">
+							   <asp:Button ID="CancelPushButton" runat="server" CausesValidation="False" 
+                                   CommandName="Cancel" onclick="CancelPushButton_Click" Text="Cancelar" />
 							<asp:Button ID="btnGuardar" runat="server" Text="Cambiar Email" ValidationGroup="RegisterUserValidationGroup"
 								OnClick="btnGuardar_Click" />
 						</p>
