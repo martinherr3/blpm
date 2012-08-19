@@ -97,7 +97,7 @@
                 </div>
                 <asp:GridView ID="gvwPlanificacion" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                     AutoGenerateColumns="false" AllowPaging="true" Width="80%" DataKeyNames="idTemaPlanificacion"
-                    OnRowCommand="gvwPlanificacion_RowCommand" OnPageIndexChanging="gvwPlanificacion_PageIndexChanging">
+                    OnRowCommand="gvwPlanificacion_RowCommand">
                     <Columns>
                         <asp:TemplateField HeaderText="Acciones">
                             <HeaderStyle HorizontalAlign="Center" Width="10%" />
@@ -115,21 +115,6 @@
                                     Visible='<%# CheckAprobada(Eval("fechaAprobada"), true) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <%--<asp:TemplateField HeaderText="Asignatura">
-                            <HeaderStyle HorizontalAlign="left" Width="45%" />
-                            <ItemStyle HorizontalAlign="left" />
-                            <ItemTemplate>
-                                <asp:Label ID="lblAsignatura" runat="server" Text='<%# Bind("asignatura.nombre") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Fecha Aprobación">
-                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
-                            <ItemStyle HorizontalAlign="Center" />
-                            <ItemTemplate>
-                                <asp:Label ID="lblAprobada" runat="server" Text='<%# CheckNull(Eval("fechaAprobada"))%>'
-                                    ToolTip="Si está en blanco, indica que aún no ha sido aprobada"></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>--%>
                         <asp:TemplateField HeaderText="Fecha Inicio">
                             <HeaderStyle HorizontalAlign="Center" Width="15%" />
                             <ItemStyle HorizontalAlign="Center" />
@@ -246,8 +231,8 @@
                         <td align="right">
                             <asp:ImageButton ID="btnGuardarPopUp" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
                                 OnClick="btnGuardarPopUp_Click" />
-                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver <br />Descartar Cambios" ImageUrl="~/Images/PopUp/botonVolver.png"
-                                OnClick="btnVolverPopUp_Click" />
+                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver <br />Descartar Cambios"
+                                ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverPopUp_Click" />
                         </td>
                     </tr>
                     <tr>
@@ -259,21 +244,20 @@
                     <tr>
                         <td colspan="2" align="center">
                             <asp:GridView ID="gvwContenidos" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListadoSize10"
-                                AutoGenerateColumns="false" Width="500px" DataKeyNames="idTemaContenido"
-                                OnPageIndexChanging="gvwContenidos_PageIndexChanging" 
-								onpageindexchanged="gvwContenidos_PageIndexChanged">
+                                AutoGenerateColumns="false" Width="500px" DataKeyNames="idTemaContenido" OnPageIndexChanging="gvwContenidos_PageIndexChanging"
+                                OnPageIndexChanged="gvwContenidos_PageIndexChanged">
                                 <Columns>
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:CheckBox ID="chkSelection" Text='<%# Eval("idTemaContenido")%>' runat="server"
-                                                CssClass="HiddenText" Width="30px" ClientIDMode="Static" />
+                                                CssClass="HiddenText" Width="30px" ClientIDMode="Static" Enabled='<%# planificacionEditar.fechaAprobada.HasValue == true ? false : true%>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Tema">
                                         <HeaderStyle HorizontalAlign="left" Width="75%" />
                                         <ItemStyle HorizontalAlign="left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblTitulo" runat="server" Text='<%# Bind("Titulo") %>'></asp:Label>
+                                            <asp:Label ID="lblTituloContenidos" runat="server" Text='<%# Bind("Titulo") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Obligatorio">
