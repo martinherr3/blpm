@@ -176,5 +176,11 @@ namespace EDUAR_UI
 			atrBLSeguridad.ActualizarEmail();
 		}
 		#endregion
+
+        protected void CancelPushButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Private/Account/Welcome.aspx", false);
+            
+        }
 	}
 }

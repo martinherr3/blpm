@@ -144,6 +144,13 @@ namespace EDUAR_UI
             objBLSeguridad = new BLSeguridad(propSeguridad);
             objBLSeguridad.CambiarPregunta();
         }
+
+        protected void CancelPushButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Private/Account/Welcome.aspx", false);
+        }
         #endregion
+
+        
     }
 }
