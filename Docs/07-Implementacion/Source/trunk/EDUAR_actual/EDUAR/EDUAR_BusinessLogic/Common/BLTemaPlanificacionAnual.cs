@@ -128,12 +128,13 @@ namespace EDUAR_BusinessLogic.Common
 				else
 					DataAcces.Update(Data);
 
-				DataAcces.DeleteContenidos(Data.idTemaPlanificacion);
+				if (Data.idTemaPlanificacion > 0) DataAcces.DeleteContenidos(Data.idTemaPlanificacion);
 				if (Data.listaContenidos.Count > 0)
-				{
 					foreach (TemaContenido item in Data.listaContenidos)
-						DataAcces.SaveContenidos(Data.idTemaPlanificacion, item.idTemaContenido);
-				}
+					{
+						//item.idTemaPlanificacion = idTemaPlanificacion > 0 ? idTemaPlanificacion : Data.idTemaPlanificacion;
+						DataAcces.SaveContenidos(idTemaPlanificacion > 0 ? idTemaPlanificacion : Data.idTemaPlanificacion, item.idTemaContenido);
+					}
 			}
 			catch (CustomizedException ex)
 			{
@@ -153,15 +154,24 @@ namespace EDUAR_BusinessLogic.Common
 		{
 			try
 			{
+				//Abre la transaccion que se va a utilizar
 				DataAcces = new DATemaPlanificacionAnual();
+				DataAcces.Transaction.OpenTransaction();
 				DataAcces.Delete(Data);
+				DataAcces.DeleteContenidos(Data.idTemaPlanificacion);
+				//Se da el OK para la transaccion.
+				DataAcces.Transaction.CommitTransaction();
 			}
 			catch (CustomizedException ex)
 			{
+				if (DataAcces != null && DataAcces.Transaction != null)
+					DataAcces.Transaction.RollbackTransaction();
 				throw ex;
 			}
 			catch (Exception ex)
 			{
+				if (DataAcces != null && DataAcces.Transaction != null)
+					DataAcces.Transaction.RollbackTransaction();
 				throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
@@ -177,6 +187,7 @@ namespace EDUAR_BusinessLogic.Common
 			{
 				DataAcces = new DATemaPlanificacionAnual(objDATransaction);
 				DataAcces.Delete(Data);
+				DataAcces.DeleteContenidos(Data.idTemaPlanificacion);
 			}
 			catch (CustomizedException ex)
 			{

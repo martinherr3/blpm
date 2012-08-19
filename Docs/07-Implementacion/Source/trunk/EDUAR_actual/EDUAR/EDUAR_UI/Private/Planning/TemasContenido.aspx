@@ -75,12 +75,17 @@
                                     var titulo = document.getElementById('<%= txtTitulo.ClientID %>').value;
                                     if (titulo.toString().trim() == '') {
                                         alert('Por favor, ingrese un título válido.');
+                                        var boton = document.getElementById('<%= btnNuevo.ClientID %>');
+                                        boton.click();
                                     }
                                     else {
                                         var descripcion = document.getElementById('<%= txtDescripcion.ClientID %>').value;
 
-                                        if (descripcion.toString().trim() == '')
+                                        if (descripcion.toString().trim() == '') {
                                             alert('Por favor, ingrese una descripción válida.');
+                                            var boton = document.getElementById('<%= btnNuevo.ClientID %>');
+                                            boton.click();
+                                        }
                                         else
                                             __doPostBack('btnGuardar', 'Click');
                                     }
