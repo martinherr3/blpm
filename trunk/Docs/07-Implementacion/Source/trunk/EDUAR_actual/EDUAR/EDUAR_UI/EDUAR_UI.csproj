@@ -220,7 +220,7 @@
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
     <Content Include="Private\Planning\Contenido.aspx" />
     <Content Include="Private\Planning\PlanificacionAnual.aspx" />
-    <Content Include="Private\Planning\PlanificacionClases.aspx" />
+    <Content Include="Private\Planning\RegistroDeClases.aspx" />
     <Content Include="Private\Planning\TemasContenido.aspx" />
     <Content Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx" />
     <Content Include="Private\Reports\Historicos\reportRendimiento.aspx" />
@@ -475,12 +475,11 @@
     <Compile Include="Private\Planning\PlanificacionAnual.aspx.designer.cs">
       <DependentUpon>PlanificacionAnual.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Private\Planning\PlanificacionClases.aspx.cs">
-      <DependentUpon>PlanificacionClases.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="Private\Planning\RegistroDeClases.aspx.cs">
+      <DependentUpon>RegistroDeClases.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Private\Planning\PlanificacionClases.aspx.designer.cs">
-      <DependentUpon>PlanificacionClases.aspx</DependentUpon>
+    <Compile Include="Private\Planning\RegistroDeClases.aspx.designer.cs">
+      <DependentUpon>RegistroDeClases.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Planning\TemasContenido.aspx.cs">
       <DependentUpon>TemasContenido.aspx</DependentUpon>
