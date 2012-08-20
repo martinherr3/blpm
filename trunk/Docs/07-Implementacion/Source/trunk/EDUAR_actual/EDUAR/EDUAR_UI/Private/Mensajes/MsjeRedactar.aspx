@@ -60,7 +60,6 @@
                         <td rowspan="3">
                             <asp:RadioButtonList ID="rdlDestinatarios" runat="server" OnSelectedIndexChanged="rdlDestinatarios_OnSelectedIndexChanged"
                                 AutoPostBack="true">
-                                <asp:ListItem Text="Curso Completo" Value="0" />
                                 <asp:ListItem Text="Seleccionar Alumnos" Value="1" Enabled="true" />
                                 <asp:ListItem Text="Seleccionar Tutores" Value="2" />
                                  <asp:ListItem Text="Seleccionar otros Docentes" Value="3" />
