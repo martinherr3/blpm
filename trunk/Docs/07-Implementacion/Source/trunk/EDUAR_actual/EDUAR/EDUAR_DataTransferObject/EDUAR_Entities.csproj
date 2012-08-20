@@ -50,6 +50,9 @@
     <Compile Include="Entities\Package Agenda\TipoRegistroClases.cs" />
     <Compile Include="Entities\Package Agenda\EventoAgenda.cs" />
     <Compile Include="Entities\Package Agenda\TipoEventoAgenda.cs" />
+    <Compile Include="Entities\Package Encuestas\AmbitoEncuesta.cs" />
+    <Compile Include="Entities\Package Encuestas\CategoriaPregunta.cs" />
+    <Compile Include="Entities\Package Encuestas\EscalaMedicion.cs" />
     <Compile Include="Entities\Package Perfiles\Seccion.cs" />
     <Compile Include="Entities\Package Planificacion Clases\Modulo.cs" />
     <Compile Include="Entities\Package Principales\AlumnoCurso.cs" />

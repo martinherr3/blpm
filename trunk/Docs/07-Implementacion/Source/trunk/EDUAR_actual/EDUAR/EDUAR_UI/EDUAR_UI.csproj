@@ -209,6 +209,7 @@
     <Content Include="Private\Alumnos\CitacionesTutores.aspx" />
     <Content Include="Private\Alumnos\ManageCitaciones.aspx" />
     <Content Include="Private\Alumnos\Boletin.aspx" />
+    <Content Include="Private\Encuestas\ManageContenidoEncuestas.aspx" />
     <Content Include="Private\Manuales\Administrador\index.htm" />
     <Content Include="Private\Manuales\Administrativo\index.htm" />
     <Content Include="Private\Manuales\Alumno\index.htm" />
@@ -447,6 +448,13 @@
     </Compile>
     <Compile Include="Private\Alumnos\Boletin.aspx.designer.cs">
       <DependentUpon>Boletin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Encuestas\ManageContenidoEncuestas.aspx.cs">
+      <DependentUpon>ManageContenidoEncuestas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Encuestas\ManageContenidoEncuestas.aspx.designer.cs">
+      <DependentUpon>ManageContenidoEncuestas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Mensajes\MsjeEntrada.aspx.cs">
       <DependentUpon>MsjeEntrada.aspx</DependentUpon>

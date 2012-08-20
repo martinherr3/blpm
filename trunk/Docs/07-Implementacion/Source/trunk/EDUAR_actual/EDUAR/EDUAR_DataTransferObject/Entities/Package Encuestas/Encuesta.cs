@@ -6,22 +6,22 @@
 //  Original author: Pablo Nicoliello
 ///////////////////////////////////////////////////////////
 
-
-
-using System.Collections.Generic;
 using System;
 using EDUAR_Entities.Shared;
+using System.Collections.Generic;
+
 namespace EDUAR_Entities
 {
     [Serializable]
     public class Encuesta: DTBase
     {
         public int idEncuesta { get; set; }
-        private string _ambito;
-        private Usuario _creador;
-        private DateTime _fechaCreacion;
-        private string _nombreEncuesta;
-        private List<Pregunta> _preguntas;
+        public Persona usuario { get; set; }
+        public DateTime fechaCreacion { get; set; }
+        public DateTime fechaModificacion { get; set; }
+        public string nombreEncuesta { get; set; }
+        public bool activo { get; set; }
+        public List<Pregunta> preguntas { get; set; }
 
         public Encuesta()
         {
@@ -36,66 +36,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public string ambito
-        {
-            get
-            {
-                return _ambito;
-            }
-            set
-            {
-                _ambito = value;
-            }
-        }
-
-        public Usuario creador
-        {
-            get
-            {
-                return _creador;
-            }
-            set
-            {
-                _creador = value;
-            }
-        }
-
-        public DateTime fechaCreacion
-        {
-            get
-            {
-                return _fechaCreacion;
-            }
-            set
-            {
-                _fechaCreacion = value;
-            }
-        }
-
-        public string nombreEncuesta
-        {
-            get
-            {
-                return _nombreEncuesta;
-            }
-            set
-            {
-                _nombreEncuesta = value;
-            }
-        }
-
-        public List<Pregunta> preguntas
-        {
-            get
-            {
-                return _preguntas;
-            }
-            set
-            {
-                _preguntas = value;
-            }
         }
 
     }//end Encuesta

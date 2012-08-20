@@ -14,9 +14,11 @@ namespace EDUAR_Entities
     public class Pregunta: DTBase
     {
         public int idPregunta { get; set; }
-		//private Escala _escala;
-		//private Ponderacion _ponderacion;
-        private string _textoPregunta;
+        public CategoriaPregunta categoria { get; set; }
+        public EscalaMedicion escala { get; set; }
+        public string textoPregunta { get; set; }
+        public string objetivoPregunta { get; set; }
+        public double ponderacion { get; set; }
 
         public Pregunta()
         {
@@ -31,42 +33,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-		//public Escala escala
-		//{
-		//    get
-		//    {
-		//        return _escala;
-		//    }
-		//    set
-		//    {
-		//        _escala = value;
-		//    }
-		//}
-
-		//public Ponderacion ponderacion
-		//{
-		//    get
-		//    {
-		//        return _ponderacion;
-		//    }
-		//    set
-		//    {
-		//        _ponderacion = value;
-		//    }
-		//}
-
-        public string textoPregunta
-        {
-            get
-            {
-                return _textoPregunta;
-            }
-            set
-            {
-                _textoPregunta = value;
-            }
         }
 
     }//end Pregunta
