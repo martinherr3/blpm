@@ -10,7 +10,7 @@
 namespace EDUAR_UI {
     
     
-    public partial class ManageReuniones {
+    public partial class ManageContenidoEncuestas {
         
         /// <summary>
         /// udpFiltros control.
@@ -85,13 +85,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ValidationSummary ValidarBusqueda;
         
         /// <summary>
-        /// Label12 control.
+        /// lblActivo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label12;
+        protected global::System.Web.UI.WebControls.Label lblActivo;
         
         /// <summary>
         /// chkActivo control.
@@ -101,15 +101,6 @@ namespace EDUAR_UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkActivo;
-        
-        /// <summary>
-        /// calfechas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::EDUAR_UI.UserControls.Calendario calfechas;
         
         /// <summary>
         /// udpGrilla control.
@@ -166,60 +157,6 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ValidationSummary validarEdit;
         
         /// <summary>
-        /// lblFecha control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFecha;
-        
-        /// <summary>
-        /// calFechaEvento control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::EDUAR_UI.UserControls.Calendario calFechaEvento;
-        
-        /// <summary>
-        /// lblHora control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHora;
-        
-        /// <summary>
-        /// txtHoraEdit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHoraEdit;
-        
-        /// <summary>
-        /// MaskedEditExtender2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.MaskedEditExtender MaskedEditExtender2;
-        
-        /// <summary>
-        /// MaskedEditValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.MaskedEditValidator MaskedEditValidator2;
-        
-        /// <summary>
         /// lblActivoBusqueda control.
         /// </summary>
         /// <remarks>
@@ -238,22 +175,76 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.CheckBox chkActivoEdit;
         
         /// <summary>
-        /// Label9 control.
+        /// lblAmbitoBusqueda control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label9;
+        protected global::System.Web.UI.WebControls.Label lblAmbitoBusqueda;
         
         /// <summary>
-        /// txtDescripcionEdit control.
+        /// txtAmbitoEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescripcionEdit;
+        protected global::System.Web.UI.WebControls.TextBox txtAmbitoEdit;
+        
+        /// <summary>
+        /// lblCategoriaBusqueda control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCategoriaBusqueda;
+        
+        /// <summary>
+        /// txtCategoriaEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCategoriaEdit;
+        
+        /// <summary>
+        /// lblPreguntaBusqueda control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPreguntaBusqueda;
+        
+        /// <summary>
+        /// txtPreguntaEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPreguntaEdit;
+        
+        /// <summary>
+        /// lblObjetivoBusqueda control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblObjetivoBusqueda;
+        
+        /// <summary>
+        /// txtObjetivoEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtObjetivoEdit;
         
         /// <summary>
         /// Master property.

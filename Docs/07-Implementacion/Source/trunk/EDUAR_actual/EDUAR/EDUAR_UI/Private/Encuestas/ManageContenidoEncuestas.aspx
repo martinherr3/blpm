@@ -1,22 +1,22 @@
-﻿<%@ Page Title="Administrar Reuniones" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="ManageReuniones.aspx.cs" Inherits="EDUAR_UI.ManageReuniones"
-    Theme="Tema" StylesheetTheme="Tema" %>
+﻿<%@ Page Title="Administrar Contenido Encuestas" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+    AutoEventWireup="true" CodeBehind="ManageContenidoEncuestas.aspx.cs" Inherits="EDUAR_UI.ManageContenidoEncuestas"
+    Theme="Tema" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
-<%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
+
+<asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>
-                        <h2>
-                            Reuniones
-                            <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
-                        <br />
+                        <h2>Contenido cuestionario<asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
+                        <br/>
                     </td>
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
@@ -35,8 +35,7 @@
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td>
-                                <h3>
-                                    Buscar Reuniones</h3>
+                                <h3>Buscar Contenidos</h3>
                             </td>
                         </tr>
                         <tr>
@@ -48,20 +47,12 @@
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD110px">
-                                <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
+                                <asp:Label ID="lblActivo" runat="server" Text="Activos:"></asp:Label>
                             </td>
                             <td valign="top" class="TD50px">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
                             </td>
                             <td>
-                            </td>
-                        </tr>
-                    </table>
-                    <table width="480px" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td valign="top" class="TDCriterios100">
-                                <cal:Calendario ID="calfechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
-                                    EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
                             </td>
                         </tr>
                     </table>
@@ -78,41 +69,57 @@
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
-                AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idEventoAgenda"
+                AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idPregunta"
                 OnRowCommand="gvwReporte_RowCommand">
                 <Columns>
+            
                     <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
-                            <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEventoAgenda") %>'
-                                ToolTip="Editar Reunión" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
-                            <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La Reunión sólo es editable para su organizador"
-                                ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
+                            <asp:ImageButton ID="editarPregunta" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idPregunta") %>'
+                                ToolTip="Editar Pregunta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
+                            <%--<asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La Reunión sólo es editable para su organizador"
+                                ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />--%>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Fecha">
-                        <HeaderStyle HorizontalAlign="Center" Width="15%" />
-                        <ItemStyle HorizontalAlign="Center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblFecha" runat="server" Text='<%# String.Format("{0} {1} hs.", Eval("fechaEvento","{0:d}"), Eval("horario","{0:HH:mm}")) %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Descripcion">
-                        <HeaderStyle HorizontalAlign="left" Width="30%" />
-                        <ItemStyle HorizontalAlign="left" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblDescripcion" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "descripcion").ToString())%>'
-                                ToolTip='<%# Bind("descripcion") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Organizador">
+
+                    <asp:TemplateField HeaderText="Ambito">
                         <HeaderStyle HorizontalAlign="left" Width="15%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblOrganizador" runat="server" Text='<%# String.Format("{0} {1}", Eval("usuario.nombre"), Eval("usuario.apellido")) %>'></asp:Label>
+                            <asp:Label ID="lblAmbito" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "ambito").ToString())%>'
+                                ToolTip='<%# Bind("ambito") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
+                    
+                    <asp:TemplateField HeaderText="Categoría">
+                        <HeaderStyle HorizontalAlign="left" Width="15%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblCategoria" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "ambito").ToString())%>'
+                                ToolTip='<%# Bind("categoria") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Pregunta">
+                        <HeaderStyle HorizontalAlign="left" Width="35%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblPregunta" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "pregunta").ToString())%>'
+                                ToolTip='<%# Bind("pregunta") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>                    
+ 
+                    <asp:TemplateField HeaderText="Objetivo">
+                        <HeaderStyle HorizontalAlign="left" Width="25%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblObjetivo" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "objetivo").ToString())%>'
+                                ToolTip='<%# Bind("objetivo") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Activo">
                         <HeaderStyle HorizontalAlign="Center" Width="5%" />
                         <ItemStyle HorizontalAlign="Center" />
@@ -122,6 +129,7 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
+            
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
@@ -130,7 +138,8 @@
                                 <h3>
                                     <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
                                     <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
-                                    Reunión</h3>
+                                    Pregunta
+                                </h3>
                             </td>
                         </tr>
                         <tr>
@@ -140,32 +149,6 @@
                         </tr>
                     </table>
                     <table width="100%" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td valign="top" class="TDCriterios20">
-                                <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios40">
-                                <cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
-                            </td>
-                            <%--<td valign="top" class="TDCriterios10">
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>--%>
-                            <td valign="top" class="TDCriterios10">
-                                <asp:Label runat="server" ID="lblHora" Text="Hora:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios40">
-                                <asp:TextBox runat="server" ID="txtHoraEdit" MaxLength="5" CssClass="EstiloTxtCorto80"></asp:TextBox>
-                                <cc1:MaskedEditExtender ID="MaskedEditExtender2" runat="server" AcceptAMPM="false"
-                                    MaskType="Time" Mask="99:99" ErrorTooltipEnabled="true" InputDirection="LeftToRight"
-                                    CultureName="es-ES" TargetControlID="txtHoraEdit" MessageValidatorTip="true">
-                                </cc1:MaskedEditExtender>
-                                <cc1:MaskedEditValidator ID="MaskedEditValidator2" runat="server" ToolTip="Hora Inválida"
-                                    ErrorMessage="*" ControlExtender="MaskedEditExtender2" ControlToValidate="txtHoraEdit"
-                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
-                                </cc1:MaskedEditValidator>
-                            </td>
-                        </tr>
                         <tr>
                             <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
@@ -180,11 +163,35 @@
                         </tr>
                         <tr>
                             <td valign="top" class="TD25">
-                                <asp:Label runat="server" ID="Label9" Text="Descripción:"></asp:Label>
+                                <asp:Label runat="server" ID="lblAmbitoBusqueda" Text="Ambito:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="500px" TextMode="MultiLine"
-                                    Rows="5" ontextchanged="txtDescripcionEdit_TextChanged"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtAmbitoEdit" Width="500px"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TD25">
+                                <asp:Label runat="server" ID="lblCategoriaBusqueda" Text="Categoría:"></asp:Label>
+                            </td>
+                            <td class="TD75" colspan="3">
+                                <asp:TextBox runat="server" ID="txtCategoriaEdit" Width="500px"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TD25">
+                                <asp:Label runat="server" ID="lblPreguntaBusqueda" Text="Pregunta:"></asp:Label>
+                            </td>
+                            <td class="TD75" colspan="3">
+                                <asp:TextBox runat="server" ID="txtPreguntaEdit" Width="500px"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TD25">
+                                <asp:Label runat="server" ID="lblObjetivoBusqueda" Text="Objetivo:"></asp:Label>
+                            </td>
+                            <td class="TD75" colspan="3">
+                                <asp:TextBox runat="server" ID="txtObjetivoEdit" Width="500px" TextMode="MultiLine"
+                                    Rows="5" ontextchanged="txtObjetivoEdit_TextChanged"></asp:TextBox>
                             </td>
                         </tr>
                     </table>
@@ -201,4 +208,5 @@
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
         </Triggers>
     </asp:UpdatePanel>
+
 </asp:Content>
