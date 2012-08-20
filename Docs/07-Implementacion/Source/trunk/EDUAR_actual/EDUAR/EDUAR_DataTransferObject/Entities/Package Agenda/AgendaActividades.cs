@@ -19,6 +19,7 @@ namespace EDUAR_Entities
 		public List<Evaluacion> listaEvaluaciones { get; set; }
 		public List<Excursion> listaExcursiones { get; set; }
 		public List<Reunion> listaReuniones { get; set; }
+		public List<RegistroClases> listaRegistroClases { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AgendaActividades"/> class.
@@ -32,6 +33,7 @@ namespace EDUAR_Entities
 			listaEvaluaciones = new List<Evaluacion>();
 			listaExcursiones = new List<Excursion>();
 			listaReuniones = new List<Reunion>();
+			listaRegistroClases = new List<RegistroClases>();
         }
 
         /// <summary>

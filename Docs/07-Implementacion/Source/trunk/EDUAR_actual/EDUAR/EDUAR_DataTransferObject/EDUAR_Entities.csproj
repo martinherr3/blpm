@@ -45,6 +45,9 @@
   <ItemGroup>
     <Compile Include="Entities\Package Administracion\Pagina.cs" />
     <Compile Include="Entities\Package Agenda\AgendaActividades.cs" />
+    <Compile Include="Entities\Package Agenda\DetalleRegistroClases.cs" />
+    <Compile Include="Entities\Package Agenda\RegistroClases.cs" />
+    <Compile Include="Entities\Package Agenda\TipoRegistroClases.cs" />
     <Compile Include="Entities\Package Agenda\EventoAgenda.cs" />
     <Compile Include="Entities\Package Agenda\TipoEventoAgenda.cs" />
     <Compile Include="Entities\Package Perfiles\Seccion.cs" />

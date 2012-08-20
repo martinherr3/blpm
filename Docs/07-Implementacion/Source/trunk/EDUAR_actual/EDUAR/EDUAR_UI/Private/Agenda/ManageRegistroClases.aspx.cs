@@ -6,139 +6,85 @@ using EDUAR_BusinessLogic.Common;
 using EDUAR_Entities;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using System.Collections;
 
 namespace EDUAR_UI
 {
 	public partial class ManageRegistroClases : EDUARBasePage
 	{
+		#region --[Atributos]--
+		private BLAgendaActividades objBLAgenda;
+		#endregion
+
 		#region --[Propiedades]--
 		/// <summary>
-		/// Gets or sets the lista cursos.
+		/// Mantiene la agenda seleccionada en la grilla.
+		/// Se utiliza para el manejo de eventos de agenda (evaluación, excursión, reunión, registro de clases).
+		/// En las pantallas hijas no permito la edición.
 		/// </summary>
 		/// <value>
-		/// The lista cursos.
+		/// The prop agenda.
 		/// </value>
-		public List<Curso> listaCursos
+		public AgendaActividades propAgenda
 		{
 			get
-			{
-				if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
-				{
-					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-
-					Asignatura objFiltro = new Asignatura();
-					objFiltro.curso.cicloLectivo = cicloLectivoActual;
-					if (User.IsInRole(enumRoles.Docente.ToString()))
-						//nombre del usuario logueado
-						objFiltro.docente.username = User.Identity.Name;
-					listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
-				}
-				return (List<Curso>)ViewState["listaCursos"];
-			}
-			set { ViewState["listaCursos"] = value; }
+			{ return (AgendaActividades)Session["propAgenda"]; }
 		}
 
 		/// <summary>
-		/// Gets or sets the lista contenido.
+		/// Gets or sets the prop evento.
 		/// </summary>
 		/// <value>
-		/// The lista contenido.
+		/// The prop evento.
 		/// </value>
-		protected List<TemaContenido> listaContenido
+		public RegistroClases propEvento
 		{
 			get
 			{
-				if (ViewState["listaContenido"] == null)
-					ViewState["listaContenido"] = new List<TemaContenido>();
-				return (List<TemaContenido>)ViewState["listaContenido"];
+				if (ViewState["propEvento"] == null)
+					propEvento = new RegistroClases();
+
+				return (RegistroClases)ViewState["propEvento"];
 			}
-			set { ViewState["listaContenido"] = value; }
+			set { ViewState["propEvento"] = value; }
 		}
 
 		/// <summary>
-		/// Gets or sets the id curso.
+		/// Gets or sets the prop filtro evento.
 		/// </summary>
 		/// <value>
-		/// The id curso.
+		/// The prop filtro evento.
 		/// </value>
-		public int idCurso
+		public RegistroClases propFiltroEvento
 		{
 			get
 			{
-				if (ViewState["idCurso"] == null)
-					ViewState["idCurso"] = 0;
-				return (int)ViewState["idCurso"];
+				if (ViewState["propFiltroEvento"] == null)
+					propFiltroEvento = new RegistroClases();
+
+				return (RegistroClases)ViewState["propFiltroEvento"];
 			}
-			set { ViewState["idCurso"] = value; }
+			set { ViewState["propFiltroEvento"] = value; }
 		}
 
 		/// <summary>
-		/// Gets or sets the id asignatura curso.
+		/// Gets or sets the lista agenda.
 		/// </summary>
 		/// <value>
-		/// The id asignatura curso.
+		/// The lista agenda.
 		/// </value>
-		public int idAsignaturaCurso
+		public List<RegistroClases> listaEventos
 		{
 			get
 			{
-				if (ViewState["idAsignaturaCurso"] == null)
-					ViewState["idAsignaturaCurso"] = 0;
-				return (int)ViewState["idAsignaturaCurso"];
-			}
-			set { ViewState["idAsignaturaCurso"] = value; }
-		}
+				if (ViewState["listaEventos"] == null)
+					listaEventos = new List<RegistroClases>();
 
-		/// <summary>
-		/// Gets or sets the id planificacion anual.
-		/// </summary>
-		/// <value>
-		/// The id planificacion anual.
-		/// </value>
-		public int idPlanificacionAnual
-		{
-			get
-			{
-				if (ViewState["idPlanificacionAnual"] == null)
-					ViewState["idPlanificacionAnual"] = 0;
-				return (int)ViewState["idPlanificacionAnual"];
+				return (List<RegistroClases>)ViewState["listaEventos"];
 			}
-			set { ViewState["idPlanificacionAnual"] = value; }
-		}
-
-		/// <summary>
-		/// Gets or sets the planificacion editar.
-		/// </summary>
-		/// <value>
-		/// The planificacion editar.
-		/// </value>
-		public PlanificacionAnual planificacionEditar
-		{
-			get
-			{
-				if (ViewState["planificacionEditar"] == null)
-					ViewState["planificacionEditar"] = new PlanificacionAnual();
-				return (PlanificacionAnual)ViewState["planificacionEditar"];
-			}
-			set { ViewState["planificacionEditar"] = value; }
-		}
-
-		/// <summary>
-		/// Gets or sets the id tema planificacion.
-		/// </summary>
-		/// <value>
-		/// The id tema planificacion.
-		/// </value>
-		public int idTemaPlanificacion
-		{
-			get
-			{
-				if (ViewState["idTemaPlanificacion"] == null)
-					ViewState["idTemaPlanificacion"] = 0;
-				return (int)ViewState["idTemaPlanificacion"];
-			}
-			set { ViewState["idTemaPlanificacion"] = value; }
+			set { ViewState["listaEventos"] = value; }
 		}
 		#endregion
 
@@ -172,10 +118,22 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
+					//Siempre que se acceda a la página debiera existir una agenda
+					propEvento.idAgendaActividad = propAgenda.idAgendaActividad;
+					if (propEvento.idAgendaActividad > 0)
+					{
+						BuscarAgenda(propEvento);
+					}
+					//else
+					//    BuscarAgenda(null);
 				}
+				calfechas.startDate = cicloLectivoActual.fechaInicio;
+				calfechas.endDate = cicloLectivoActual.fechaFin;
+				this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
 			}
 			catch (Exception ex)
 			{
@@ -185,29 +143,31 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ddlCurso control.
+		/// Ventanas the aceptar.
 		/// </summary>
-		/// <param name="sender">The source of the event.</param>
+		/// <param name="sender">The sender.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
+		void VentanaAceptar(object sender, EventArgs e)
 		{
 			try
 			{
-				int idCursoCicloLectivo = 0;
-				int.TryParse(ddlCurso.SelectedValue, out idCursoCicloLectivo);
-				if (idCursoCicloLectivo > 0)
+				switch (AccionPagina)
 				{
-					idCurso = idCursoCicloLectivo;
-					CargarComboAsignatura(idCursoCicloLectivo);
+					case enumAcciones.Limpiar:
+						CargarPresentacion();
+						BuscarFiltrando();
+						//BuscarAgenda(propEvento);
+						break;
+					case enumAcciones.Guardar:
+						AccionPagina = enumAcciones.Limpiar;
+						GuardarEntidad(ObtenerValoresDePantalla());
+						Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
+						break;
+					case enumAcciones.Error:
+						break;
+					default:
+						break;
 				}
-				else
-				{
-					ddlAsignatura.Enabled = false;
-					ddlAsignatura.Items.Clear();
-					ddlAsignatura.Items.Add("[Seleccione Curso]");
-				}
-				ddlAsignatura.Enabled = idCursoCicloLectivo > 0;
-				udpAsignatura.Update();
 			}
 			catch (Exception ex)
 			{
@@ -216,52 +176,128 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ddlAsignatura control.
+		/// Handles the Click event of the btnBuscar control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlAsignatura_SelectedIndexChanged(object sender, EventArgs e)
+		protected void btnBuscar_Click(object sender, EventArgs e)
 		{
 			try
 			{
-				int idAsignatura = 0;
-				int.TryParse(ddlAsignatura.SelectedValue, out idAsignatura);
-				//btnNuevo.Visible = idAsignatura > 0;
-				LimpiarCombos();
-				if (idAsignatura > 0)
+				BuscarFiltrando();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnNuevo control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnNuevo_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				AccionPagina = enumAcciones.Nuevo;
+				LimpiarCampos();
+				CargarComboAsignatura();
+				//BindComboModulos(DateTime.Now.Month);
+				esNuevo = true;
+				btnGuardar.Visible = true;
+				btnBuscar.Visible = false;
+				btnVolver.Visible = true;
+				btnNuevo.Visible = false;
+				gvwReporte.Visible = false;
+				litEditar.Visible = false;
+				litNuevo.Visible = true;
+				udpEdit.Visible = true;
+				udpFiltrosBusqueda.Visible = false;
+				udpFiltros.Update();
+				udpGrilla.Update();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnAsignarRol control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnGuardar_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				string mensaje = ValidarPagina();
+				if (mensaje == string.Empty)
 				{
-					idTemaPlanificacion = 0;
-					idAsignaturaCurso = idAsignatura;
-					UIUtilidades.BindComboMeses(ddlMeses, false, DateTime.Now.Month);
-					ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
-					BindComboModulos(DateTime.Now.Month);
-					ddlDia.Enabled = true;
-					ddlMeses.Enabled = true;
-					ddlDia.SelectedIndex = 1;
-					CargarContenidos();
-					//ObtenerPlanificacion(idAsignatura);
-					//if (planificacionEditar.fechaAprobada.HasValue) btnNuevo.Visible = false;
-					//else btnNuevo.Visible = true;
-					//btnPDF.Visible = planificacionEditar.listaTemasPlanificacion.Count > 0;
-					//divControles.Visible = false;
-					//udpDivControles.Update();
+					DateTime fechaEvento = new DateTime(DateTime.Now.Year, Convert.ToInt32(ddlMeses.SelectedValue), Convert.ToInt32(ddlDia.SelectedValue));
+					if (fechaEvento < DateTime.Today)
+					{
+						AccionPagina = enumAcciones.Error;
+						Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeFechaMenorActual, enumTipoVentanaInformacion.Advertencia);
+					}
+					else
+					{
+						if (Page.IsValid)
+						{
+							AccionPagina = enumAcciones.Guardar;
+							Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+						}
+					}
 				}
 				else
 				{
-					ddlMeses.Enabled = false;
-					ddlDia.Enabled = false;
-					//LimpiarCampos();
-					//btnPDF.Visible = false;
-					//divAprobacion.Visible = false;
-					//chkAprobada.Enabled = false;
-					//chkSolicitarAprobacion.Enabled = false;
-					//chkAprobada.Checked = false;
-					//chkSolicitarAprobacion.Checked = false;
-					//gvwPlanificacion.DataSource = null;
-					//gvwPlanificacion.DataBind();
-					//udpGrilla.Update();
+					AccionPagina = enumAcciones.Error;
+					Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
 				}
-				//udpBotonera.Update();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnVolver control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnVolver_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				//CargarPresentacion();
+				//BuscarAgenda(propFiltroAgenda);
+				Response.Redirect("ManageAgendaActividades.aspx", false);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Método que se llama al hacer click sobre las acciones de la grilla
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
+		protected void gvwReporte_RowCommand(object sender, GridViewCommandEventArgs e)
+		{
+			try
+			{
+				switch (e.CommandName)
+				{
+					case "Editar":
+						propEvento.idEventoAgenda = Convert.ToInt32(e.CommandArgument.ToString());
+						CargaAgenda();
+						break;
+				}
 			}
 			catch (Exception ex)
 			{
@@ -291,6 +327,53 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+		/// <summary>
+		/// Handles the SelectedIndexChanged event of the ddlAsignaturaEdit control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void ddlAsignaturaEdit_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				int idAsignatura = 0;
+				int.TryParse(ddlAsignaturaEdit.SelectedValue, out idAsignatura);
+				if (idAsignatura > 0)
+				{
+					ddlMeses.Enabled = true;
+					ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
+					ddlDia.Enabled = true;
+					BindComboModulos(DateTime.Now.Month);
+				}
+				else
+				{
+					ddlMeses.Enabled = false;
+					//ddlMeses.SelectedValue = "-1";
+					ddlDia.Enabled = false;
+					//ddlDia.SelectedValue = "-1";
+				}
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwReporte control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+		protected void gvwReporte_PageIndexChanging(object sender, GridViewPageEventArgs e)
+		{
+			try
+			{
+				gvwReporte.PageIndex = e.NewPageIndex;
+				CargarGrilla();
+			}
+			catch (Exception ex) { Master.ManageExceptions(ex); }
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -299,60 +382,57 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPresentacion()
 		{
-			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
-			if (idCurso > 0)
-			{
-				ddlCurso.SelectedValue = idCurso.ToString();
-				CargarComboAsignatura(idCurso);
-				if (idAsignaturaCurso > 0)
-					ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
-				ddlAsignatura.Enabled = true;
-			}
-			else
-			{
-				ddlAsignatura.Enabled = false;
-				ddlAsignatura.Items.Clear();
-				ddlAsignatura.Items.Add("[Seleccione Curso]");
-			}
-			ddlMeses.Enabled = false;
-			ddlDia.Enabled = false;
-			ddlCurso.Enabled = true;
-			LimpiarCombos();
+			lblTitulo.Text = propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
+			LimpiarCampos();
+			CargarCombos();
+			udpEdit.Visible = false;
+			btnVolver.Visible = true;
+			btnGuardar.Visible = false;
+			udpFiltrosBusqueda.Visible = true;
+			btnNuevo.Visible = true;
+			btnBuscar.Visible = true;
+			gvwReporte.Visible = true;
+			udpFiltros.Update();
+			udpGrilla.Update();
 		}
 
 		/// <summary>
-		/// Cargars the contenidos.
+		/// Limpiars the campos.
 		/// </summary>
-		private void CargarContenidos()
+		private void LimpiarCampos()
 		{
-			TemasContenido listaTemas = new TemasContenido();
-			BLTemaContenido objBLTemas = new BLTemaContenido();
-			AsignaturaCicloLectivo objAsignatura = new AsignaturaCicloLectivo();
-			objAsignatura.cursoCicloLectivo.curso.idCurso = idCurso;
-			objAsignatura.idAsignaturaCicloLectivo = idAsignaturaCurso;
-			objAsignatura.cursoCicloLectivo.cicloLectivo = base.cicloLectivoActual;
-			listaContenido = objBLTemas.GetTemasByCursoAsignatura(objAsignatura);
-			
-			ltvContenidos.DataSource = listaContenido;
-			ltvContenidos.DataBind();
-			udpContenidos.Update();
+			chkActivo.Checked = true;
+			chkActivoEdit.Checked = false;
+			if (ddlMeses.Items.Count > 0) ddlMeses.SelectedIndex = 0;
+			if (ddlDia.Items.Count > 0) ddlDia.SelectedIndex = 0;
+			calfechas.LimpiarControles();
+			if (ddlAsignatura.Items.Count > 0) ddlAsignatura.SelectedIndex = 0;
+			if (ddlAsignaturaEdit.Items.Count > 0) ddlAsignaturaEdit.SelectedIndex = 0;
+			txtDescripcionEdit.Text = string.Empty;
 		}
 
 		/// <summary>
-		/// Cargars the asignaturas.
+		/// Cargars the combos.
 		/// </summary>
-		private void CargarComboAsignatura(int idCursoCicloLectivo)
+		private void CargarCombos()
 		{
-			List<Asignatura> listaAsignaturas = new List<Asignatura>();
 			BLAsignatura objBLAsignatura = new BLAsignatura();
-			CursoCicloLectivo curso = new CursoCicloLectivo();
-			Docente docente = null;
+			Asignatura objAsignatura = new Asignatura();
+			objAsignatura.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
+			objAsignatura.cursoCicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
 			if (User.IsInRole(enumRoles.Docente.ToString()))
-				docente.username = User.Identity.Name;
-			curso.idCursoCicloLectivo = idCursoCicloLectivo;
-			listaAsignaturas = objBLAsignatura.GetAsignaturasCurso(new Asignatura() { cursoCicloLectivo = curso, docente = docente });
-			if (listaAsignaturas != null && listaAsignaturas.Count > 0)
-				UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignaturas, "idAsignatura", "Nombre", true);
+				objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+			ddlAsignatura.Items.Clear();
+			ddlAsignaturaEdit.Items.Clear();
+			ddlMeses.Items.Clear();
+			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false, true);
+			UIUtilidades.BindComboMeses(ddlMeses, false, DateTime.Now.Month);
+			ddlMeses.Enabled = false;
+			//BindComboModulos(DateTime.Now.Month);
+
+			//UIUtilidades.SortByText(ddlAsignatura);
+			//UIUtilidades.SortByText(ddlAsignaturaEdit);
 		}
 
 		/// <summary>
@@ -365,14 +445,11 @@ namespace EDUAR_UI
 			List<DiasHorarios> listaHorario = new List<DiasHorarios>();
 			DiasHorarios objDiaHorario = new DiasHorarios();
 			if (esNuevo)
-				objDiaHorario.idAsignaturaCurso = Convert.ToInt32(ddlAsignatura.SelectedValue);
+				objDiaHorario.idAsignaturaCurso = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
 			else
-				objDiaHorario.idAsignaturaCurso = idAsignaturaCurso;
-			CursoCicloLectivo objCursoCicloLectivo = new CursoCicloLectivo();
-			objCursoCicloLectivo.cicloLectivo = base.cicloLectivoActual;
-			objCursoCicloLectivo.idCursoCicloLectivo = idCurso;
-			listaHorario = objBLHorario.GetHorariosCurso(objDiaHorario, objCursoCicloLectivo);
-			int anio = base.cicloLectivoActual.fechaInicio.Year;
+				objDiaHorario.idAsignaturaCurso = propEvento.asignatura.idAsignatura;
+			listaHorario = objBLHorario.GetHorariosCurso(objDiaHorario, propAgenda.cursoCicloLectivo);
+			int anio = propAgenda.cursoCicloLectivo.cicloLectivo.fechaInicio.Year;
 			int cantDias = DateTime.DaysInMonth(anio, mes);
 			cantDias++;
 			DateTime fecha = new DateTime(anio, mes, 1);
@@ -395,15 +472,188 @@ namespace EDUAR_UI
 			udpMeses.Update();
 		}
 
-		/// <summary>
-		/// Limpiars the combos.
+		/// Cargars the grilla.
 		/// </summary>
-		private void LimpiarCombos()
+		/// <typeparam name="T"></typeparam>
+		/// <param name="lista">The lista.</param>
+		private void CargarGrilla()
 		{
-			ddlDia.Items.Clear();
-			ddlMeses.Items.Clear();
-			ddlDia.Items.Add("[Seleccione Mes]");
-			ddlMeses.Items.Add("[Seleccione Asignatura]");
+			gvwReporte.DataSource = UIUtilidades.BuildDataTable<RegistroClases>(listaEventos).DefaultView;
+			gvwReporte.DataBind();
+			udpEdit.Visible = false;
+			udpGrilla.Update();
+		}
+
+		/// <summary>
+		/// Buscars the filtrando.
+		/// </summary>
+		private void BuscarFiltrando()
+		{
+			calfechas.ValidarRangoDesdeHasta(false);
+			RegistroClases entidad = new RegistroClases();
+			entidad.asignatura.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
+			entidad.fechaEventoDesde = Convert.ToDateTime(calfechas.ValorFechaDesde);
+			entidad.fechaEventoHasta = Convert.ToDateTime(calfechas.ValorFechaHasta);
+			entidad.activo = chkActivo.Checked;
+			propFiltroEvento = entidad;
+			BuscarAgenda(entidad);
+		}
+
+		/// <summary>
+		/// Buscars the entidads.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		private void BuscarAgenda(RegistroClases entidad)
+		{
+			CargarLista(entidad);
+
+			CargarGrilla();
+		}
+
+		/// <summary>
+		/// Cargars the lista.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		private void CargarLista(RegistroClases entidad)
+		{
+			objBLAgenda = new BLAgendaActividades();
+			entidad.idAgendaActividad = propAgenda.idAgendaActividad;
+			listaEventos = objBLAgenda.GetRegistroClasesAgenda(entidad);
+		}
+
+		/// <summary>
+		/// Obteners the valores pantalla.
+		/// </summary>
+		/// <returns></returns>
+		private RegistroClases ObtenerValoresDePantalla()
+		{
+			RegistroClases entidad = new RegistroClases();
+			entidad = propEvento;
+			if (!esNuevo)
+			{
+				entidad.idAgendaActividad = propAgenda.idAgendaActividad;
+				entidad.idEventoAgenda = propEvento.idEventoAgenda;
+				//entidad.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
+			}
+			entidad.asignatura.idAsignatura = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
+			entidad.descripcion = txtDescripcionEdit.Text;
+			//entidad.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
+			entidad.fechaEvento = Convert.ToDateTime(new DateTime(propAgenda.cursoCicloLectivo.cicloLectivo.fechaInicio.Year, Convert.ToInt32(ddlMeses.SelectedValue), Convert.ToInt32(ddlDia.SelectedValue)));
+			entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+			entidad.activo = chkActivoEdit.Checked;
+			entidad.fechaAlta = DateTime.Now;
+			return entidad;
+		}
+
+		/// <summary>
+		/// Guardars the agenda.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		private void GuardarEntidad(EventoAgenda entidad)
+		{
+			objBLAgenda = new BLAgendaActividades(propAgenda);
+			objBLAgenda.GetById();
+
+			int idAsignatura = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
+
+			entidad.tipoEventoAgenda.idTipoEventoAgenda = (int)enumEventoAgendaType.ClaseDiaria;
+			if (objBLAgenda.VerificarAgenda(entidad, idAsignatura))
+			{
+				objBLAgenda.Data.listaRegistroClases.Add((RegistroClases)entidad);
+				objBLAgenda.Save();
+			}
+		}
+
+		/// <summary>
+		/// Cargars the entidad.
+		/// </summary>
+		private void CargarValoresEnPantalla(int idEventoAgenda)
+		{
+			RegistroClases entidad = listaEventos.Find(c => c.idEventoAgenda == idEventoAgenda);
+			propEvento = entidad;
+			if (entidad != null)
+			{
+				txtDescripcionEdit.Text = entidad.descripcion;
+				BindComboModulos(entidad.fechaEvento.Month);
+				//calFechaEvento.Fecha.Text = entidad.fechaEvento.ToShortDateString();
+				ddlMeses.SelectedValue = entidad.fechaEvento.Month.ToString();
+				if (ddlDia.Items.FindByValue(entidad.fechaEvento.Day.ToString()) != null)
+				{
+					ddlDia.SelectedValue = entidad.fechaEvento.Day.ToString();
+					ddlDia.Enabled = true;
+				}
+				else
+					ddlDia.SelectedIndex = 0;
+				ddlAsignaturaEdit.SelectedValue = entidad.asignatura.idAsignatura.ToString();
+				ddlAsignaturaEdit.Enabled = false;
+				ddlMeses.Enabled = true;
+				chkActivoEdit.Checked = entidad.activo;
+			}
+		}
+
+		/// <summary>
+		/// Validars the pagina.
+		/// </summary>
+		/// <returns></returns>
+		private string ValidarPagina()
+		{
+			string mensaje = string.Empty;
+			if (txtDescripcionEdit.Text.Trim().Length == 0)
+				mensaje = "- Descripcion<br />";
+			//if (calFechaEdit.Fecha.Text.Trim().Length == 0)
+			//    mensaje += "- Fecha<br />";
+			if (string.IsNullOrEmpty(ddlAsignaturaEdit.SelectedValue) || !(Convert.ToInt32(ddlAsignaturaEdit.SelectedValue) > 0))
+				mensaje += "- Asignatura<br />";
+			if (string.IsNullOrEmpty(ddlMeses.SelectedValue)
+				|| !(Convert.ToInt32(ddlMeses.SelectedValue) > 0)
+				|| string.IsNullOrEmpty(ddlDia.SelectedValue)
+				|| !(Convert.ToInt32(ddlDia.SelectedValue) > 0))
+				mensaje += "- Fecha de Registro<br />";
+			else
+			{
+
+			}
+			//if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
+			//    mensaje += "- Curso";
+			return mensaje;
+		}
+
+		/// <summary>
+		/// Cargas the agenda.
+		/// </summary>
+		private void CargaAgenda()
+		{
+			AccionPagina = enumAcciones.Modificar;
+			esNuevo = false;
+			CargarComboAsignatura();
+			CargarValoresEnPantalla(propEvento.idEventoAgenda);
+			litEditar.Visible = true;
+			litNuevo.Visible = false;
+			btnBuscar.Visible = false;
+			btnNuevo.Visible = false;
+			btnVolver.Visible = true;
+			btnGuardar.Visible = true;
+			gvwReporte.Visible = false;
+			udpFiltrosBusqueda.Visible = false;
+			udpEdit.Visible = true;
+			udpFiltros.Update();
+			udpEdit.Update();
+		}
+
+		/// <summary>
+		/// Cargars the combo asignatura.
+		/// </summary>
+		private void CargarComboAsignatura()
+		{
+			BLAsignatura objBLAsignatura = new BLAsignatura();
+			Asignatura objAsignatura = new Asignatura();
+			objAsignatura.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
+			objAsignatura.curso.cicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
+			if (User.IsInRole(enumRoles.Docente.ToString()))
+				objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
+
 		}
 		#endregion
 	}

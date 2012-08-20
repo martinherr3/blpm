@@ -209,7 +209,8 @@ namespace EDUAR_Utility.Enumeraciones
 		None = 0,
 		Evaluacion = 1,
 		Reunion = 2,
-		Excursion = 3
+		Excursion = 3,
+		ClaseDiaria = 4 
 	}
 
 	public enum enumMeses
@@ -269,5 +270,15 @@ namespace EDUAR_Utility.Enumeraciones
         PorCurso = 2    // 2 = grafico de promedio de calificaciones por curso en un determinado periodo
     }
 
-
+	public enum enumTipoRegistroClases : int
+	{
+		None = 0,
+		ClaseNormal = 1,
+		AusenciaDocenteConAviso = 2,
+		AusenciaDocenteSinAviso = 3,
+		AusenciaAlumnos = 4,
+		ParoDocente = 5,
+		TallerDocente = 6,
+		Feriado = 7
+	}
 }
