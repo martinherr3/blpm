@@ -101,10 +101,6 @@
     <Compile Include="Common\DAPerfil.cs" />
     <Compile Include="Common\DATipoNovedad.cs" />
     <Compile Include="Common\DANovedad.cs" />
-    <Compile Include="Common\DAPregunta.cs" />
-    <Compile Include="Common\DAPonderacion.cs" />
-    <Compile Include="Common\DAEscala.cs" />
-    <Compile Include="Common\DAEncuesta.cs" />
     <Compile Include="Common\DAPost.cs" />
     <Compile Include="Common\DAMensaje.cs" />
     <Compile Include="Common\DAForo.cs" />

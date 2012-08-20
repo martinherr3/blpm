@@ -64,10 +64,6 @@
     <Compile Include="Common\BLMensaje.cs" />
     <Compile Include="Common\BLPost.cs" />
     <Compile Include="Common\BLTopico.cs" />
-    <Compile Include="Common\BLEncuesta.cs" />
-    <Compile Include="Common\BLEscala.cs" />
-    <Compile Include="Common\BLPonderacion.cs" />
-    <Compile Include="Common\BLPregunta.cs" />
     <Compile Include="Common\BLNovedad.cs" />
     <Compile Include="Common\BLTipoNovedad.cs" />
     <Compile Include="Common\BLPerfil.cs" />
