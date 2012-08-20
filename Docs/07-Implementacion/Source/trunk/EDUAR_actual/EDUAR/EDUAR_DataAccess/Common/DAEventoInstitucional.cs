@@ -237,20 +237,33 @@ namespace EDUAR_DataAccess.Common
                     if (!string.IsNullOrEmpty(reader["hora"].ToString()))
                         objEvento.hora = Convert.ToDateTime(reader["hora"].ToString());
                     objEvento.lugar = reader["lugar"].ToString();
+
                     objEvento.tipoEventoInstitucional = new TipoEventoInstitucional();
                     {
                         objEvento.tipoEventoInstitucional.idTipoEventoInstitucional = Convert.ToInt32(reader["idTipoEvento"]);
                         objEvento.tipoEventoInstitucional.descripcion = reader["tipoEvento"].ToString();
                     }
+                    
                     objEvento.organizador = new Persona();
                     {
                         objEvento.organizador.idPersona = Convert.ToInt32(reader["idPersona"]);
                         objEvento.organizador.nombre = reader["nombreOrganizador"].ToString();
                         objEvento.organizador.apellido = reader["apellidoOrganizador"].ToString();
+                        objEvento.organizador.username = reader["username"].ToString();
                     }
+                    
                     objEvento.titulo = reader["titulo"].ToString();
                     objEvento.detalle = reader["detalle"].ToString();
+
                     objEvento.activo = (bool)(reader["activo"]);
+
+                    //Descartamos mostrar eventos institucionales que han acontecido en el pasado (se desactivan)
+                    if (objEvento.fecha < DateTime.Now && objEvento.activo == true)
+                        {
+                            objEvento.activo = false;
+                            Update(objEvento);
+                        }
+
                     listEventoInstitucional.Add(objEvento);
                 }
                 return listEventoInstitucional;
