@@ -745,7 +745,7 @@ namespace EDUAR_UI
 			else
 				hayContenido = true;
 			if (txtInstrumentosEvaluacion.Text.Trim().Length == 0)
-				mensaje += "- Instrumntos de Evaluación<br />";
+				mensaje += "- Instrumentos de Evaluación<br />";
 			else
 				hayContenido = true;
 
