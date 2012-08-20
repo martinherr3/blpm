@@ -79,8 +79,6 @@
     <Compile Include="Entities\Package Comunicaciones\Post.cs" />
     <Compile Include="Entities\Package Comunicaciones\Topico.cs" />
     <Compile Include="Entities\Package Encuestas\Encuesta.cs" />
-    <Compile Include="Entities\Package Encuestas\Escala.cs" />
-    <Compile Include="Entities\Package Encuestas\Ponderacion.cs" />
     <Compile Include="Entities\Package Encuestas\Pregunta.cs" />
     <Compile Include="Entities\Package Novedades Aulicas\Novedad.cs" />
     <Compile Include="Entities\Package Novedades Aulicas\TipoNovedad.cs" />
