@@ -232,7 +232,49 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
-		#endregion
 
+		/// <summary>
+		/// Gets the contenidos planificados.
+		/// </summary>
+		/// <param name="objAsignatura">The obj asignatura.</param>
+		/// <returns></returns>
+		public List<TemaContenido> GetContenidosPlanificados(AsignaturaCicloLectivo entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ContenidosPlanificados_Select");
+				
+				if (entidad != null)
+					if (entidad.idAsignaturaCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, entidad.idAsignaturaCicloLectivo);
+
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<TemaContenido> listaContenidos = new List<TemaContenido>();
+				TemaContenido objContenido;
+				while (reader.Read())
+				{
+					objContenido = new TemaContenido();
+					objContenido.idContenido = Convert.ToInt32(reader["idContenido"]);
+					objContenido.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
+					objContenido.detalle = reader["detalle"].ToString();
+					objContenido.titulo = reader["titulo"].ToString();
+					objContenido.obligatorio = Convert.ToBoolean(reader["obligatorio"]);
+					listaContenidos.Add(objContenido);
+				}
+				return listaContenidos;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetContenidosPlanificados()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetContenidosPlanificados()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+		#endregion
 	}
 }

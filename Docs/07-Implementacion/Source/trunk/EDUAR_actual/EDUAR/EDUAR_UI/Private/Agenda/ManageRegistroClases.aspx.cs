@@ -9,6 +9,7 @@ using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
 using System.Collections;
+using System.Web;
 
 namespace EDUAR_UI
 {
@@ -85,6 +86,67 @@ namespace EDUAR_UI
 				return (List<RegistroClases>)ViewState["listaEventos"];
 			}
 			set { ViewState["listaEventos"] = value; }
+		}
+
+		/// <summary>
+		/// Lista de TODOS los contenidos registrados
+		/// </summary>
+		/// <value>
+		/// The lista contenido.
+		/// </value>
+		protected List<TemaContenido> listaContenido
+		{
+			get
+			{
+				if (ViewState["listaContenido"] == null
+					|| ((List<TemaContenido>)ViewState["listaContenido"]).Count == 0)
+				{
+					ViewState["listaContenido"] = new List<TemaContenido>();
+					TemasContenido listaTemas = new TemasContenido();
+					BLTemaContenido objBLTemas = new BLTemaContenido();
+					AsignaturaCicloLectivo objAsignatura = new AsignaturaCicloLectivo();
+					objAsignatura.cursoCicloLectivo.curso.idCurso = propAgenda.cursoCicloLectivo.idCurso;
+					objAsignatura.idAsignaturaCicloLectivo = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
+					objAsignatura.cursoCicloLectivo.cicloLectivo = base.cicloLectivoActual;
+					ViewState["listaContenido"] = objBLTemas.GetContenidosPlanificados(objAsignatura);
+				}
+				return (List<TemaContenido>)ViewState["listaContenido"];
+			}
+			set { ViewState["listaContenido"] = value; }
+		}
+
+		/// <summary>
+		/// Lista de contenidos SELECCIONADOS
+		/// </summary>
+		/// <value>
+		/// The lista seleccion.
+		/// </value>
+		protected List<int> listaSeleccion
+		{
+			get
+			{
+				if (HttpContext.Current.Session["listaSeleccion"] == null)
+					HttpContext.Current.Session["listaSeleccion"] = new List<int>();
+				return (List<int>)HttpContext.Current.Session["listaSeleccion"];
+			}
+			set { HttpContext.Current.Session["listaSeleccion"] = value; }
+		}
+
+		/// <summary>
+		/// Lista de Contenidos seleccionados en el momento que presiona GUARDAR
+		/// </summary>
+		/// <value>
+		/// The lista seleccion guardar.
+		/// </value>
+		protected List<int> listaSeleccionGuardar
+		{
+			get
+			{
+				if (HttpContext.Current.Session["listaSeleccionGuardar"] == null)
+					HttpContext.Current.Session["listaSeleccionGuardar"] = new List<int>();
+				return (List<int>)HttpContext.Current.Session["listaSeleccionGuardar"];
+			}
+			set { HttpContext.Current.Session["listaSeleccionGuardar"] = value; }
 		}
 		#endregion
 
@@ -341,6 +403,7 @@ namespace EDUAR_UI
 				int.TryParse(ddlAsignaturaEdit.SelectedValue, out idAsignatura);
 				if (idAsignatura > 0)
 				{
+					btnContenidosPopUp.Enabled = true;
 					ddlMeses.Enabled = true;
 					ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
 					ddlDia.Enabled = true;
@@ -348,11 +411,11 @@ namespace EDUAR_UI
 				}
 				else
 				{
+					btnContenidosPopUp.Enabled = false; 
 					ddlMeses.Enabled = false;
-					//ddlMeses.SelectedValue = "-1";
 					ddlDia.Enabled = false;
-					//ddlDia.SelectedValue = "-1";
 				}
+				udpEdit.Update();
 			}
 			catch (Exception ex)
 			{
@@ -373,6 +436,100 @@ namespace EDUAR_UI
 				CargarGrilla();
 			}
 			catch (Exception ex) { Master.ManageExceptions(ex); }
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnContenidosPopUp control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnContenidosPopUp_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				CargarContenidos();
+				listaSeleccion = listaSeleccionGuardar;
+				ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
+				//btnGuardarPopUp.Visible = !planificacionEditar.fechaAprobada.HasValue;
+				mpeContenido.Show();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnVolverPopUp control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnVolverPopUp_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				mpeContenido.Hide();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnGuardarPopUp control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnGuardarPopUp_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				ProductsSelectionManager.KeepSelection(gvwContenidos, "listaSeleccion");
+				listaSeleccionGuardar = listaSeleccion;
+				mpeContenido.Hide();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwContenido control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+		protected void gvwContenidos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+		{
+			try
+			{
+				ProductsSelectionManager.KeepSelection(gvwContenidos, "listaSeleccion");
+
+				gvwContenidos.PageIndex = e.NewPageIndex;
+				CargarContenidos();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the PageIndexChanged event of the gvwContenidos control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void gvwContenidos_PageIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
 		}
 		#endregion
 
@@ -408,6 +565,7 @@ namespace EDUAR_UI
 			calfechas.LimpiarControles();
 			if (ddlAsignatura.Items.Count > 0) ddlAsignatura.SelectedIndex = 0;
 			if (ddlAsignaturaEdit.Items.Count > 0) ddlAsignaturaEdit.SelectedIndex = 0;
+			//if (listaContenido != null && listaContenido.Count > 0) listaContenido.Clear();
 			txtDescripcionEdit.Text = string.Empty;
 		}
 
@@ -429,10 +587,11 @@ namespace EDUAR_UI
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false, true);
 			UIUtilidades.BindComboMeses(ddlMeses, false, DateTime.Now.Month);
 			ddlMeses.Enabled = false;
-			//BindComboModulos(DateTime.Now.Month);
 
-			//UIUtilidades.SortByText(ddlAsignatura);
-			//UIUtilidades.SortByText(ddlAsignaturaEdit);
+			BLTipoRegistroClases objBLTipoRegistroClase = new BLTipoRegistroClases();
+			List<TipoRegistroClases> listaRegistros = new List<TipoRegistroClases>();
+			listaRegistros = objBLTipoRegistroClase.GetTipoRegistroClases(new TipoRegistroClases());
+			UIUtilidades.BindCombo<TipoRegistroClases>(ddlTipoRegistroClase, listaRegistros, "idTipoRegistroClases", "nombre", true, false);
 		}
 
 		/// <summary>
@@ -542,6 +701,7 @@ namespace EDUAR_UI
 			entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			entidad.activo = chkActivoEdit.Checked;
 			entidad.fechaAlta = DateTime.Now;
+			entidad.tipoRegistro.idTipoRegistroClases = Convert.ToInt32(ddlTipoRegistroClase.SelectedValue);
 			return entidad;
 		}
 
@@ -585,9 +745,11 @@ namespace EDUAR_UI
 				else
 					ddlDia.SelectedIndex = 0;
 				ddlAsignaturaEdit.SelectedValue = entidad.asignatura.idAsignatura.ToString();
+				btnContenidosPopUp.Enabled = true;
 				ddlAsignaturaEdit.Enabled = false;
 				ddlMeses.Enabled = true;
 				chkActivoEdit.Checked = entidad.activo;
+				ddlTipoRegistroClase.SelectedValue = entidad.tipoRegistro.idTipoRegistroClases.ToString();
 			}
 		}
 
@@ -654,6 +816,15 @@ namespace EDUAR_UI
 
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
 
+		}
+
+		/// <summary>
+		/// Cargars the contenidos.
+		/// </summary>
+		private void CargarContenidos()
+		{
+			gvwContenidos.DataSource = listaContenido;
+			gvwContenidos.DataBind();
 		}
 		#endregion
 	}

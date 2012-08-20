@@ -162,6 +162,11 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
+		/// <summary>
+		/// Gets the tipo registro clases.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
         public List<TipoRegistroClases> GetTipoRegistroClases(TipoRegistroClases entidad)
         {
             try

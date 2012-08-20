@@ -62,7 +62,6 @@ namespace EDUAR_DataAccess.Common
 
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idRegistroClases", DbType.Int32, entidad.idRegistroClases);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.temaContenido.idTemaContenido);
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoRegistroClases", DbType.Int32, entidad.tipoClase.idTipoRegistroClases);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@porcentaje", DbType.Int32, entidad.porcentaje);
 
 					Transaction.DataBase.AddOutParameter(Transaction.DBcomand, "@idDetalleRegistroClases", DbType.Int32, 0);
@@ -99,7 +98,6 @@ namespace EDUAR_DataAccess.Common
 				{
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idRegistroClases", DbType.Int32, entidad.idRegistroClases);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.temaContenido.idTemaContenido);
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoRegistroClases", DbType.Int32, entidad.tipoClase.idTipoRegistroClases);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@porcentaje", DbType.Int32, entidad.porcentaje);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idDetalleRegistroClases", DbType.Int32, entidad.idDetalleRegistroClases);
 
@@ -191,8 +189,6 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idRegistroClases", DbType.Int32, entidad.idRegistroClases);
 					if (entidad.temaContenido.idTemaContenido > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.temaContenido.idTemaContenido);
-					if (entidad.tipoClase.idTipoRegistroClases > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoRegistroClases", DbType.Int32, entidad.tipoClase.idTipoRegistroClases);
 					if (entidad.porcentaje > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@porcentaje", DbType.Int32, entidad.porcentaje);
 					if (entidad.idDetalleRegistroClases > 0)
@@ -213,7 +209,6 @@ namespace EDUAR_DataAccess.Common
 					objContenido.idDetalleRegistroClases = Convert.ToInt32(reader["idDetalleRegistroClases"]);
 					objContenido.porcentaje = Convert.ToInt32(reader["porcentaje"]);
 					objContenido.temaContenido.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
-					objContenido.tipoClase.idTipoRegistroClases = Convert.ToInt32(reader["idTipoRegistroClases"]);
 
 					listaEntidad.Add(objContenido);
 				}
