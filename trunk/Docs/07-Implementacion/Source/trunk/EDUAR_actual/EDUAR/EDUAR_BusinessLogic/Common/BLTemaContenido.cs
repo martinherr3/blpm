@@ -217,6 +217,29 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
         }
-        #endregion
-    }
+
+		/// <summary>
+		/// Gets the contenidos planificados.
+		/// </summary>
+		/// <param name="objAsignatura">The obj asignatura.</param>
+		/// <returns></returns>
+		public List<TemaContenido> GetContenidosPlanificados(AsignaturaCicloLectivo objAsignatura)
+		{
+			try
+			{
+				return DataAcces.GetContenidosPlanificados(objAsignatura);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetTemasByContenido", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+		#endregion
+
+	}
 }

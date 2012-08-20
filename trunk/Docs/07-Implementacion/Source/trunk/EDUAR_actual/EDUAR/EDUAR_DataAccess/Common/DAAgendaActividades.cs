@@ -474,6 +474,9 @@ namespace EDUAR_DataAccess.Common
 					objEvento = new RegistroClases();
 
 					objEvento.idRegistroClases = Convert.ToInt32(reader["idRegistroClases"]);
+					objEvento.tipoRegistro.idTipoRegistroClases = Convert.ToInt32(reader["idTipoRegistroClases"]);
+					objEvento.tipoRegistro.nombre = reader["tipoRegistroClases"].ToString();
+					
 					objEvento.idEventoAgenda = Convert.ToInt32(reader["idEventoAgenda"]);
 					objEvento.asignatura.nombre = reader["asignatura"].ToString();
 					objEvento.asignatura.idAsignatura = Convert.ToInt32(reader["idAsignaturaCurso"]);
@@ -741,6 +744,5 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 		#endregion
-
 	}
 }

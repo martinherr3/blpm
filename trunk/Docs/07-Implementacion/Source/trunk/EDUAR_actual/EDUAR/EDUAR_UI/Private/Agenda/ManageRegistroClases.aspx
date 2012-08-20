@@ -91,7 +91,8 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEventoAgenda") %>'
-                                ToolTip="Editar Registro De Clases" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
+                                ToolTip="Editar Registro De Clases" ImageUrl="~/Images/Grillas/action_edit.png"
+                                Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
                             <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="El Registro de Clases sólo es editable para su organizador"
                                 ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
                         </ItemTemplate>
@@ -108,6 +109,13 @@
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblEventoGrilla" runat="server" Text='<%# Bind("asignatura.nombre") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Tipo De Registro">
+                        <HeaderStyle HorizontalAlign="left" Width="30%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblTipoRegistroGrilla" runat="server" Text='<%# Bind("tipoRegistro.nombre") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Organizador">
@@ -145,21 +153,24 @@
                     </table>
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios20">
                                 <asp:Label ID="lblAsignaturaEdit" runat="server" Text="Asignatura:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios75" colspan="3">
+                            <td valign="top" class="TDCriterios60">
                                 <asp:DropDownList ID="ddlAsignaturaEdit" runat="server" OnSelectedIndexChanged="ddlAsignaturaEdit_SelectedIndexChanged"
                                     AutoPostBack="true">
                                 </asp:DropDownList>
                             </td>
+                            <td colspan="2" rowspan="3">
+                                <asp:Button ID="btnContenidosPopUp" runat="server" Text="Asociar Contenidos" CssClass="button"
+                                    OnClick="btnContenidosPopUp_Click" Enabled="false" />
+                            </td>
                         </tr>
                         <tr>
-                            <td valign="top" style="width: 17%; text-align: left">
+                            <td valign="top" class="TDCriterios20">
                                 <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
-                                <%--<cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />--%>
                                 <asp:UpdatePanel ID="udpMeses" runat="server" UpdateMode="Conditional">
                                     <ContentTemplate>
                                         <table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -171,8 +182,6 @@
                                                     <asp:DropDownList runat="server" ID="ddlDia" Enabled="false">
                                                     </asp:DropDownList>
                                                 </td>
-                                                <%--<td>
-                                                </td>--%>
                                             </tr>
                                         </table>
                                     </ContentTemplate>
@@ -182,28 +191,41 @@
                                     </Triggers>
                                 </asp:UpdatePanel>
                             </td>
-                            <td valign="top" class="TDCriterios10">
+                            <td valign="top" class="TDCriterios20">
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios20">
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios20">
+                                <asp:Label ID="Label1" runat="server" Text="Tipo De Clase:"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios20">
+                                <asp:DropDownList runat="server" ID="ddlTipoRegistroClase">
+                                </asp:DropDownList>
+                            </td>
+                            <td valign="top" class="TDCriterios20">
+                            </td>
+                            <td valign="top" class="TDCriterios20">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TDCriterios10">
                                 <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios50">
                                 <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios20">
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios20">
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TD25">
+                            <td valign="top" class="TDCriterios20">
                                 <asp:Label runat="server" ID="Label9" Text="Descripción:"></asp:Label>
                             </td>
-                            <td class="TD75" colspan="3">
+                            <td class="TDCriterios80" colspan="3">
                                 <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="500px" TextMode="MultiLine"
                                     Rows="5"></asp:TextBox>
                             </td>
@@ -222,4 +244,83 @@
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
         </Triggers>
     </asp:UpdatePanel>
+    <asp:HiddenField ID="HiddenField1" runat="server" />
+    <ajaxToolkit:ModalPopupExtender ID="mpeContenido" runat="server" PopupControlID="pnlContenidos"
+        TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
+    </ajaxToolkit:ModalPopupExtender>
+    <asp:Panel ID="pnlContenidos" runat="server" Width="600px" Height="400px" Style="display: none;
+        text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+        <asp:UpdatePanel ID="udpContenidosAsociados" runat="server">
+            <ContentTemplate>
+                <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <h2>
+                                <asp:Label ID="Label2" Text="Asociar Contenidos" runat="server" /></h2>
+                            <br />
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="btnGuardarPopUp" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
+                                OnClick="btnGuardarPopUp_Click" />
+                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver <br />Descartar Cambios"
+                                ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverPopUp_Click" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr />
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <asp:GridView ID="gvwContenidos" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListadoSize10"
+                                AutoGenerateColumns="false" Width="500px" DataKeyNames="idTemaContenido" OnPageIndexChanging="gvwContenidos_PageIndexChanging"
+                                OnPageIndexChanged="gvwContenidos_PageIndexChanged">
+                                <Columns>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="chkSelection" Text='<%# Eval("idTemaContenido")%>' runat="server"
+                                                CssClass="HiddenText" Width="30px" ClientIDMode="Static" />
+                                            <asp:DropDownList runat="server" ID="ddlPorcentaje" Width="55px">
+                                                <asp:ListItem Text="0%" Value='0' />
+                                                <asp:ListItem Text="5%" Value="5"/>
+                                                <asp:ListItem Text="10%" Value="10"/>
+                                                <asp:ListItem Text="20%" Value="20"/>
+                                                <asp:ListItem Text="25%" Value="25"/>
+                                                <asp:ListItem Text="30%" Value="30"/>
+                                                <asp:ListItem Text="40%" Value="40"/>
+                                                <asp:ListItem Text="50%" Value="50"/>
+                                                <asp:ListItem Text="60%" Value="60" />
+                                                <asp:ListItem Text="70%" Value="70"/>
+                                                <asp:ListItem Text="75%" Value="75"/>
+                                                <asp:ListItem Text="80%" Value="80"/>
+                                                <asp:ListItem Text="90%" Value="90"/>
+                                                <asp:ListItem Text="100%" Value="100"/>
+                                            </asp:DropDownList>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Tema">
+                                        <HeaderStyle HorizontalAlign="left" Width="75%" />
+                                        <ItemStyle HorizontalAlign="left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblTituloContenidos" runat="server" Text='<%# Bind("Titulo") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Obligatorio">
+                                        <HeaderStyle HorizontalAlign="center" Width="20%" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblObligatorio" runat="server" Text='<%# Boolean.Parse(Eval("Obligatorio").ToString()) ? "Sí" : "No"  %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </asp:Panel>
 </asp:Content>

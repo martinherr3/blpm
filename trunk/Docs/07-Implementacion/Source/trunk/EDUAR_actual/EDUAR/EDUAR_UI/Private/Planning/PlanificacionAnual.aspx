@@ -160,8 +160,8 @@
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2" style="text-align: center; vertical-align: middle">
-                            <asp:Button ID="btnOpenSupplierSearch" runat="server" Text="Asociar Contenidos" CssClass="button"
-                                OnClick="btnOpenSupplierSearch_Click" />
+                            <asp:Button ID="btnContenidosPopUp" runat="server" Text="Asociar Contenidos" CssClass="button"
+                                OnClick="btnContenidosPopUp_Click" />
                         </td>
                     </tr>
                     <tr>

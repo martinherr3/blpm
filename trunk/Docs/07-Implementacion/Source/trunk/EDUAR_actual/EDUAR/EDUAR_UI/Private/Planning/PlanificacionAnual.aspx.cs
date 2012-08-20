@@ -510,24 +510,24 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Handles the Click event of the btnOpenSupplierSearch control.
+		/// Handles the Click event of the btnContenidosPopUp control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void btnOpenSupplierSearch_Click(object sender, EventArgs e)
+		protected void btnContenidosPopUp_Click(object sender, EventArgs e)
 		{
-			try
-			{
-				CargarContenidos();
-				listaSeleccion = listaSeleccionGuardar;
-				ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
-				btnGuardarPopUp.Visible = !planificacionEditar.fechaAprobada.HasValue;
-				mpeContenido.Show();
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
+		    try
+		    {
+		        CargarContenidos();
+		        listaSeleccion = listaSeleccionGuardar;
+		        ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
+		        btnGuardarPopUp.Visible = !planificacionEditar.fechaAprobada.HasValue;
+		        mpeContenido.Show();
+		    }
+		    catch (Exception ex)
+		    {
+		        Master.ManageExceptions(ex);
+		    }
 		}
 
 		/// <summary>
