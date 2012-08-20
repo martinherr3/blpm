@@ -96,6 +96,7 @@ namespace EDUAR_BusinessLogic.Common
 				BLEvaluacion objBLEvaluacion;
 				BLExcursion objBLExcursion;
 				BLReunion objBLReunion;
+				BLRegistroClases objBLRegistroClases;
 
 				foreach (Reunion item in Data.listaReuniones)
 				{
@@ -119,6 +120,14 @@ namespace EDUAR_BusinessLogic.Common
 					if (GetExcursionesAgenda(item).Count > 0)
 						throw new CustomizedException("Ya existe una excursión para el mismo día.", null, enuExceptionType.ValidationException);
 					objBLExcursion.Save(DataAcces.Transaction);
+				}
+
+				foreach (RegistroClases item in Data.listaRegistroClases)
+				{
+					objBLRegistroClases = new BLRegistroClases(item);
+					if (GetRegistroClasesAgenda(item).Count > 0)
+						throw new CustomizedException("Ya existe un registro para el mismo día y materia.", null, enuExceptionType.ValidationException);
+					objBLRegistroClases.Save(DataAcces.Transaction);
 				}
 
 				//Se da el OK para la transaccion.
@@ -280,6 +289,20 @@ namespace EDUAR_BusinessLogic.Common
 		}
 
 		/// <summary>
+		/// Verificars the agenda.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <param name="idAsignatura">The id asignatura.</param>
+		/// <returns></returns>
+		public bool VerificarAgenda(EventoAgenda entidad, int idAsignatura)
+		{
+			return (DataAcces.VerificarAgendaEvaluacion(entidad, idAsignatura)
+				&& DataAcces.VerificarAgendaExcursiones(entidad)
+				&& DataAcces.VerificarAgendaReuniones(entidad)
+				&& DataAcces.VerificarAgendaRegistroClases(entidad, idAsignatura));
+		}
+
+		/// <summary>
 		/// Verificars the agenda evaluacion.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
@@ -300,7 +323,7 @@ namespace EDUAR_BusinessLogic.Common
 			}
 			catch (Exception ex)
 			{
-				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda", ClassName), ex,
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgendaEvaluacion", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
@@ -325,7 +348,7 @@ namespace EDUAR_BusinessLogic.Common
 			}
 			catch (Exception ex)
 			{
-				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgenda", ClassName), ex,
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgendaExcursion", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
@@ -411,6 +434,54 @@ namespace EDUAR_BusinessLogic.Common
 			catch (Exception ex)
 			{
 				throw new CustomizedException(string.Format("Fallo en {0} - GetAgendaCurso", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
+		/// <summary>
+		/// Verificars the agenda registro clases.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <param name="idAsignatura">The id asignatura.</param>
+		/// <returns></returns>
+		public bool VerificarAgendaRegistroClases(EventoAgenda entidad, int idAsignatura)
+		{
+			try
+			{
+				if (!DataAcces.VerificarAgendaRegistroClases(entidad, idAsignatura))
+					throw new CustomizedException("Ya existen eventos agendados para la presente fecha", null,
+											  enuExceptionType.ValidationException);
+				return true;
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - VerificarAgendaRegistroClases", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the registro clases agenda.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<RegistroClases> GetRegistroClasesAgenda(RegistroClases entidad)
+		{
+			try
+			{
+				return DataAcces.GetRegistroClasesAgenda(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRegistroClasesAgenda", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
 		}

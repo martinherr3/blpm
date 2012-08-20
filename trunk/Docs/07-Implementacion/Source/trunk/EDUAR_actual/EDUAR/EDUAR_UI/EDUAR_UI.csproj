@@ -408,6 +408,7 @@
     </Compile>
     <Compile Include="Private\Agenda\ManageRegistroClases.aspx.cs">
       <DependentUpon>ManageRegistroClases.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Private\Agenda\ManageRegistroClases.aspx.designer.cs">
       <DependentUpon>ManageRegistroClases.aspx</DependentUpon>

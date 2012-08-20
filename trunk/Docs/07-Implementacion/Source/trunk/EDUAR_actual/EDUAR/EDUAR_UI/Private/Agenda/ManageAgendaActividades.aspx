@@ -20,6 +20,8 @@
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
+                        <asp:ImageButton ID="btnRegistroClases" runat="server" ToolTip="Registro De Clases"
+                            Visible="false" ImageUrl="~/Images/botonAvance.gif" OnClick="btnRegistroClases_Click" />
                         <asp:ImageButton ID="btnEvaluacion" OnClick="btnEvaluacion_Click" runat="server"
                             Visible="false" ToolTip="Evaluaciones" ImageUrl="~/Images/botonEvaluacion.png" />
                         <asp:ImageButton ID="btnExcursion" OnClick="btnExcursion_Click" runat="server" Visible="false"
@@ -28,8 +30,6 @@
                             ToolTip="Reuniones" ImageUrl="~/Images/botonReunion.png" />
                         <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                             ImageUrl="~/Images/botonGuardar.png" CausesValidation="true" ValidationGroup="validarEdit" />
-                        <asp:ImageButton ID="btnRegistroClases"  runat="server" ToolTip="Registro De Clases" Visible="false"
-                            ImageUrl="~/Images/botonAvance.gif" OnClick="btnRegistroClases_Click" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                             ImageUrl="~/Images/botonVolver.png" />
                     </td>
