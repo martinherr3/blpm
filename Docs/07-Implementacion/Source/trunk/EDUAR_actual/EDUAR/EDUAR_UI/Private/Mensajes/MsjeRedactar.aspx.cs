@@ -225,6 +225,7 @@ namespace EDUAR_UI
 							persona.apellido = item.apellido;
 							lista.Add(persona);
 						}
+                        ddlDestino.Items.Add(new ListItem("Alumnos de " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));												
 						CargarDestinos(lista);                        
 						break;
 					case "2":
@@ -387,24 +388,26 @@ namespace EDUAR_UI
         {
             BLDocente objDocente = null;		
             int idCursoCicloLectivo = 0;
+            AlumnoCurso objCurso;
             //Docente: a personas o cursos
             if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
             {
                 switch (rdlDestinatarios.SelectedValue)
                 {
-                    case "0":
-                        AlumnoCurso objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
-                        idCursoCicloLectivo = Convert.ToInt32(ddlDestino.Value);
-                        BLAlumno objBLAlumno = new BLAlumno();
-                        List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
-                        ddlDestino.Items.Clear();
-                        foreach (Alumno item in listaAlumnos)
-                        {
-                            ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
-                            ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
-                        }
-                        break;
                     case "1":
+                        if (ddlDestino.Items.FindByValue(ddlCurso.SelectedValue).Selected)
+                        {
+                            objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
+                            idCursoCicloLectivo = Convert.ToInt32(ddlDestino.Value);
+                            BLAlumno objBLAlumno = new BLAlumno();
+                            List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
+                            ddlDestino.Items.Clear();
+                            foreach (Alumno item in listaAlumnos)
+                            {
+                                ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
+                                ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
+                            }
+                        }
                         break;
                     case "2":
                         if (ddlDestino.Items.FindByValue(ddlCurso.SelectedValue).Selected)
