@@ -456,7 +456,7 @@ namespace EDUAR_UI
 
 		private string ValidarPagina()
 		{
-			calFechaEvento.ValidarRangoDesde(true);
+			calFechaEvento.ValidarRangoDesde(false);
 			string mensaje = string.Empty;
 			if (txtDescripcionEdit.Text.Trim().Length == 0)
 				mensaje = "- Descripcion<br />";
