@@ -225,7 +225,7 @@ namespace EDUAR_UI
 							persona.apellido = item.apellido;
 							lista.Add(persona);
 						}
-						CargarDestinos(lista);
+						CargarDestinos(lista);                        
 						break;
 					case "2":
 						objCurso = new AlumnoCurso();
@@ -242,8 +242,9 @@ namespace EDUAR_UI
 							persona.apellido = item.apellido;
 							lista.Add(persona);
 						}
+                        ddlDestino.Items.Add(new ListItem("Tutores " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));												
 						CargarDestinos(lista);
-						break;
+                        break;
                     case "3":
                         objDocente = new BLDocente();
                         List<Docente> listaDocentes = objDocente.GetDocentes();
@@ -256,6 +257,7 @@ namespace EDUAR_UI
 							persona.apellido = item.apellido;
 							lista.Add(persona);
 						}
+                        ddlDestino.Items.Add(new ListItem("Docentes " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));						                        
 						CargarDestinos(lista);
                         break;
 					default:
@@ -383,6 +385,7 @@ namespace EDUAR_UI
 
         private void PrepararEnvioMensaje()
         {
+            BLDocente objDocente = null;		
             int idCursoCicloLectivo = 0;
             //Docente: a personas o cursos
             if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
@@ -402,8 +405,35 @@ namespace EDUAR_UI
                         }
                         break;
                     case "1":
+                        break;
                     case "2":
+                        if (ddlDestino.Items.FindByValue(ddlCurso.SelectedValue).Selected)
+                        {
+                            objCurso = new AlumnoCurso();
+                            objCurso.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
+                            BLTutor objBLTutor = new BLTutor();
+                            List<Tutor> listaTutores = objBLTutor.GetTutoresPorCurso(objCurso);
+                            ddlDestino.Items.Clear();
+                            foreach (Tutor item in listaTutores)
+                            {
+                                ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
+                                ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
+                            }
+                        }
+                        break;
                     case "3":
+                        if (ddlDestino.Items.FindByValue(ddlCurso.SelectedValue).Selected)
+                        {
+                            objDocente = new BLDocente();
+                            List<Docente> listaDocentes = objDocente.GetDocentes();
+                            foreach (Docente item in listaDocentes)
+                            {
+                                ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
+                                ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
+                            }
+                            break;
+                        }
+                        break;
                     default:
                         break;
                 }
