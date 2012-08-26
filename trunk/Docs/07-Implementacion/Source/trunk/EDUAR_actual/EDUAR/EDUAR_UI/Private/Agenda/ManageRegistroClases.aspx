@@ -19,14 +19,23 @@
                         <br />
                     </td>
                     <td align="right">
-                        <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
-                            ImageUrl="~/Images/botonBuscar.png" />
-                        <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
-                            ImageUrl="~/Images/botonNuevo.png" />
-                        <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
-                            ImageUrl="~/Images/botonGuardar.png" CausesValidation="true" ValidationGroup="validarEdit" />
-                        <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
-                            ImageUrl="~/Images/botonVolver.png" />
+                        <asp:UpdatePanel ID="udpBotonera" UpdateMode="Conditional" runat="server">
+                            <ContentTemplate>
+                                <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
+                                    ImageUrl="~/Images/botonBuscar.png" />
+                                <asp:ImageButton ID="btnContenidosPopUp" OnClick="btnContenidosPopUp_Click" runat="server"
+                                    ToolTip="Asociar Contenidos" ImageUrl="~/Images/botonContenidos.png" />
+                                <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
+                                    ImageUrl="~/Images/botonNuevo.png" />
+                                <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
+                                    ImageUrl="~/Images/botonGuardar.png" CausesValidation="true" ValidationGroup="validarEdit" />
+                                <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
+                                    ImageUrl="~/Images/botonVolver.png" />
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="ddlAsignaturaEdit" EventName="SelectedIndexChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
                     </td>
                 </tr>
             </table>
@@ -162,8 +171,6 @@
                                 </asp:DropDownList>
                             </td>
                             <td colspan="2" rowspan="3">
-                                <asp:Button ID="btnContenidosPopUp" runat="server" Text="Asociar Contenidos" CssClass="button"
-                                    OnClick="btnContenidosPopUp_Click" Enabled="false" />
                             </td>
                         </tr>
                         <tr>

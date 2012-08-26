@@ -117,6 +117,7 @@
     <Content Include="Images\404.png" />
     <Content Include="Images\botonAvance.gif" />
     <Content Include="Images\botonCalcular.png" />
+    <Content Include="Images\botonContenidos.png" />
     <Content Include="Images\botonEnviarMail.png" />
     <Content Include="Images\botonEvaluacion.png" />
     <Content Include="Images\botonExcursion.png" />

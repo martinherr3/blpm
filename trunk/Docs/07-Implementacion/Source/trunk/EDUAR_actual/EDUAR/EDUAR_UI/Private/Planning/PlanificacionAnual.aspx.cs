@@ -228,6 +228,7 @@ namespace EDUAR_UI
 			{
 				LimpiarCampos();
 				DesHabilitarCampos(true);
+				btnContenidosPopUp.Visible = true;
 				divAprobacion.Visible = false;
 				btnGuardar.Visible = true;
 				ddlAsignatura.Enabled = false;
@@ -275,6 +276,7 @@ namespace EDUAR_UI
 					GuardarPlanificacion();
 					btnPDF.Visible = planificacionEditar.listaTemasPlanificacion.Count > 0;
 					btnNuevo.Visible = true;
+					btnContenidosPopUp.Visible = false;
 					CargarPresentacion();
 				}
 				else
@@ -298,6 +300,7 @@ namespace EDUAR_UI
 			{
 				idTemaPlanificacion = 0;
 				btnNuevo.Visible = true;
+				btnContenidosPopUp.Visible = false;
 				btnPDF.Visible = true;
 				CargarPresentacion();
 				ObtenerPlanificacion(idAsignaturaCurso);
@@ -410,6 +413,7 @@ namespace EDUAR_UI
 						idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
 						DesHabilitarCampos(true);
 						CargarPlanificacion();
+						btnContenidosPopUp.Visible = true;
 						divAprobacion.Visible = false;
 						divControles.Visible = true;
 						ddlCurso.Enabled = false;
