@@ -16,9 +16,9 @@ namespace EDUAR_Entities
     public class Topico:DTBase
     {
         public int idTopico { get; set; }
-        private string _descripcionTopico;
-        private string _nombreTopico;
-        private List<Post> _posts;
+        public string descripcionTopico { get; set; }
+        public string nombreTopico { get; set; }
+        public List<Post> posts { get; set; }
 
         public Topico()
         {
@@ -33,42 +33,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public string descripcionTopico
-        {
-            get
-            {
-                return _descripcionTopico;
-            }
-            set
-            {
-                _descripcionTopico = value;
-            }
-        }
-
-        public string nombreTopico
-        {
-            get
-            {
-                return _nombreTopico;
-            }
-            set
-            {
-                _nombreTopico = value;
-            }
-        }
-
-        public List<Post> posts
-        {
-            get
-            {
-                return _posts;
-            }
-            set
-            {
-                _posts = value;
-            }
         }
 
     }//end Topico

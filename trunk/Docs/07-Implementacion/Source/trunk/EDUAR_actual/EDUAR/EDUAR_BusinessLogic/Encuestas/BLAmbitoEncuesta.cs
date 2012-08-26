@@ -10,7 +10,7 @@ using EDUAR_Utility.Excepciones;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_DataAccess.Shared;
 
-namespace EDUAR_BusinessLogic
+namespace EDUAR_BusinessLogic.Encuestas
 {
     public class BLAmbitoEncuesta : BusinessLogicBase<AmbitoEncuesta, DAAmbitoEncuesta>
     {

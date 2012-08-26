@@ -89,7 +89,7 @@ namespace EDUAR_BusinessLogic.Common
                 DataAcces.Transaction.OpenTransaction();
                 int idPersonal = 0;
 
-                if (Data.IdPersonal == 0)
+                if (Data.idPersonal == 0)
                     DataAcces.Create(Data, out idPersonal);
                 else
                     DataAcces.Update(Data);
@@ -121,7 +121,7 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Si no viene el Id es porque se esta creando la entidad
                 DataAcces = new DAPersonal(objDATransaction);
-                if (Data.IdPersonal == 0)
+                if (Data.idPersonal == 0)
                     DataAcces.Create(Data);
                 else
                 {

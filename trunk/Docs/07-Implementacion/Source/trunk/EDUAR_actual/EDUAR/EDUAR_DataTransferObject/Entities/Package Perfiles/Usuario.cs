@@ -14,11 +14,11 @@ namespace EDUAR_Entities
     public class Usuario: DTBase
     {
         public int idUsuario { get; set; }
-        private int _estadoCuenta;
-        private DateTime _fechaAlta;
-        private DateTime _fechaBaja;
-        private string _nombre;
-        private Perfil _perfil;
+        public int estadoCuenta { get; set; }
+        public DateTime fechaAlta { get; set; }
+        public DateTime _fechaBaja { get; set; }
+        public string nobre { get; set; }
+        public Perfil perfil { get; set; }
 
         public Usuario()
         {
@@ -33,66 +33,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public int estadoCuenta
-        {
-            get
-            {
-                return _estadoCuenta;
-            }
-            set
-            {
-                _estadoCuenta = value;
-            }
-        }
-
-        public DateTime fechaAlta
-        {
-            get
-            {
-                return _fechaAlta;
-            }
-            set
-            {
-                _fechaAlta = value;
-            }
-        }
-
-        public DateTime fechaBaja
-        {
-            get
-            {
-                return _fechaBaja;
-            }
-            set
-            {
-                _fechaBaja = value;
-            }
-        }
-
-        public string nombre
-        {
-            get
-            {
-                return _nombre;
-            }
-            set
-            {
-                _nombre = value;
-            }
-        }
-
-        public Perfil perfil
-        {
-            get
-            {
-                return _perfil;
-            }
-            set
-            {
-                _perfil = value;
-            }
         }
 
     }//end Usuario

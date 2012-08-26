@@ -15,9 +15,9 @@ namespace EDUAR_Entities
     public class Post:DTBase
     {
         public int idPost { get; set; }
-        private DateTime _fechaPost;
-        private string _textoPost;
-        private Usuario _usuario;
+        public DateTime fechaPost { get; set; }
+        public string textoPost { get; set; }
+        public Usuario usuario { get; set; }
 
         public Post()
         {
@@ -32,42 +32,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public DateTime fechaPost
-        {
-            get
-            {
-                return _fechaPost;
-            }
-            set
-            {
-                _fechaPost = value;
-            }
-        }
-
-        public string textoPost
-        {
-            get
-            {
-                return _textoPost;
-            }
-            set
-            {
-                _textoPost = value;
-            }
-        }
-
-        public Usuario usuario
-        {
-            get
-            {
-                return _usuario;
-            }
-            set
-            {
-                _usuario = value;
-            }
         }
 
     }//end Post

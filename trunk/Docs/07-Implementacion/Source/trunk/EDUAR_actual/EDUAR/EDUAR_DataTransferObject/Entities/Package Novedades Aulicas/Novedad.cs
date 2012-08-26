@@ -15,13 +15,13 @@ namespace EDUAR_Entities
     public class Novedad:DTBase
     {
         public int idNovedad { get; set; }
-        private Curso _curso;
-        private DateTime _fecha;
-        private Usuario _informante;
-        private List<Usuario> _involucrados;
-        private Usuario _m_Usuario;
-        private string _novedad;
-        private TipoNovedad _tipoNovedad;
+        public Curso curso { get; set; }
+        public DateTime fecha { get; set; }
+        public Usuario informante { get; set; }
+        public List<Usuario> involucrados { get; set; }
+        public Usuario usuario { get; set; }
+        public string novedad { get; set; }
+        public TipoNovedad tipoNovedad { get; set; }
 
         public Novedad()
         {
@@ -36,90 +36,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public Curso curso
-        {
-            get
-            {
-                return _curso;
-            }
-            set
-            {
-                _curso = value;
-            }
-        }
-
-        public DateTime fecha
-        {
-            get
-            {
-                return _fecha;
-            }
-            set
-            {
-                _fecha = value;
-            }
-        }
-
-        public Usuario informante
-        {
-            get
-            {
-                return _informante;
-            }
-            set
-            {
-                _informante = value;
-            }
-        }
-
-        public List<Usuario> involucrados
-        {
-            get
-            {
-                return _involucrados;
-            }
-            set
-            {
-                _involucrados = value;
-            }
-        }
-
-        public Usuario usuario
-        {
-            get
-            {
-                return _m_Usuario;
-            }
-            set
-            {
-                _m_Usuario = value;
-            }
-        }
-
-        public string novedad
-        {
-            get
-            {
-                return _novedad;
-            }
-            set
-            {
-                _novedad = value;
-            }
-        }
-
-        public TipoNovedad tipoNovedad
-        {
-            get
-            {
-                return _tipoNovedad;
-            }
-            set
-            {
-                _tipoNovedad = value;
-            }
         }
 
     }//end Novedad

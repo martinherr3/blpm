@@ -48,5 +48,8 @@
             <siteMapNode url="~/Private/Account/ChangeUser.aspx" title="Editar" roles="Administrador" />
             <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar" roles="Administrador"/>
         </siteMapNode>
+      <siteMapNode url="" title="Encuestas" roles="Administrador">
+        <siteMapNode url="~/Private/Encuestas/ManageContenidoEncuestas.aspx" title="Registrar" roles="Administrador" />
+      </siteMapNode>
     </siteMapNode>
 </siteMap>

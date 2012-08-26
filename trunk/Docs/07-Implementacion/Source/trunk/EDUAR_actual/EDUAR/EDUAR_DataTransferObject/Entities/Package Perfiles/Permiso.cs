@@ -15,10 +15,10 @@ namespace EDUAR_Entities
     [Serializable]
     public class Permiso:DTBase
     {
-        public int idPermiso;
-        private Object _elemento;
-        private string _nombre;
-        private string _privilegio;
+        public int idPermiso { get; set; }
+        public Object elemento { get; set; }
+        public string nombre { get; set; }
+        public string privilegio { get; set; }
 
         public Permiso()
         {
@@ -33,42 +33,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public Object elemento
-        {
-            get
-            {
-                return _elemento;
-            }
-            set
-            {
-                _elemento = value;
-            }
-        }
-
-        public string nombre
-        {
-            get
-            {
-                return _nombre;
-            }
-            set
-            {
-                _nombre = value;
-            }
-        }
-
-        public string privilegio
-        {
-            get
-            {
-                return _privilegio;
-            }
-            set
-            {
-                _privilegio = value;
-            }
         }
 
     }//end Permiso

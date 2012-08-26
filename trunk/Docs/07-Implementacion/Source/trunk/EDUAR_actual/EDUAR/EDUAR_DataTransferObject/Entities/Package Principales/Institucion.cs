@@ -17,18 +17,18 @@ namespace EDUAR_Entities
         /// <summary>
         /// Formato: EI1234
         /// </summary>
-        private string _codigoEmpresa;
+        public string codigoEmpresa { get; set; }
         /// <summary>
         /// Formato: IPEM 1234
         /// </summary>
-        private string _denominacion;
-        private string _direccion;
-        private Director _director;
-        private string _localidad;
-        private string _nombreInstitucion;
-        private bool _publico;
-        private Director _viceDirector;
-        private int _nivel; 
+        public string denominacion { get; set; }
+        public string direccion { get; set; }
+        public Director director { get; set; }
+        public string localidad { get; set; }
+        public string nombreInstitucion { get; set; }
+        public bool publico { get; set; }
+        public Director viceDirector { get; set; }
+        public int nivel { get; set; }
 
         public Institucion()
         {
@@ -43,117 +43,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        /// <summary>
-        /// Formato: EI1234
-        /// </summary>
-        public string codigoEmpresa
-        {
-            get
-            {
-                return _codigoEmpresa;
-            }
-            set
-            {
-                _codigoEmpresa = value;
-            }
-        }
-
-        public string denominacion
-        {
-            get
-            {
-                return _denominacion;
-            }
-            set
-            {
-                _denominacion = value;
-            }
-        }
-
-        public string direccion
-        {
-            get
-            {
-                return _direccion;
-            }
-            set
-            {
-                _direccion = value;
-            }
-        }
-
-        public Director director
-        {
-            get
-            {
-                return _director;
-            }
-            set
-            {
-                _director = value;
-            }
-        }
-
-        public string localidad
-        {
-            get
-            {
-                return _localidad;
-            }
-            set
-            {
-                _localidad = value;
-            }
-        }
-
-        public int nivel
-        {
-            get
-            {
-                return _nivel;
-            }
-            set
-            {
-                _nivel = value;
-            }
-        }
-
-        public string nombreInstitucion
-        {
-            get
-            {
-                return _nombreInstitucion;
-            }
-            set
-            {
-                _nombreInstitucion = value;
-            }
-        }
-
-        public bool publico
-        {
-            get
-            {
-                return _publico;
-            }
-            set
-            {
-                _publico = value;
-            }
-        }
-
-        public Director viceDirector
-        {
-            get
-            {
-                return _viceDirector;
-            }
-            set
-            {
-                _viceDirector = value;
-            }
         }
 
     }//end Institucion

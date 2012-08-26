@@ -15,29 +15,9 @@ namespace EDUAR_Entities
     public class Tutor : Persona
     {
         public int idTutor { get; set; }
-        private int _idTutorTransaccional;
-
-        public int idTutorTransaccional
-        {
-            get { return _idTutorTransaccional; }
-            set { _idTutorTransaccional = value; }
-        }
-
-        private string _telefonoTrabajo;
-
-        public string TelefonoFijoTrabajo
-        {
-            get { return _telefonoTrabajo; }
-            set { _telefonoTrabajo = value; }
-        }
-
-        private TipoTutor _tipoTutor;
-
-        public TipoTutor tipoTutor
-        {
-            get { return _tipoTutor; }
-            set { _tipoTutor = value; }
-        }
+        public int idTutorTransaccional { get; set; }
+        public string TelefonoFijoTrabajo { get; set; }
+        public TipoTutor tipoTutor { get; set; }
 
         public Tutor()
         {
@@ -48,13 +28,5 @@ namespace EDUAR_Entities
         {
 
         }
-
-        //public override void Dispose()
-        //{
-
-        //}
-
-
-
     }//end Tutor
 }

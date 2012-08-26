@@ -17,14 +17,14 @@ namespace EDUAR_Entities
     public class Plan:DTBase
     {
         public int idPlan { get; set; }
-        private List<Asignatura> _asignaturas;
-        private List<Contenido> _contenidos;
-        private Usuario _creador;
-        private DateTime _fechaCreacion;
-        private string _nombrePlan;
-        private int _periodoFinVigencia;
-        private int _periodoInicioVigencia;
-        public Orientacion m_Orientacion;
+        public List<Asignatura> asignaturas { get; set; }
+        public List<Contenido> contenidos { get; set; }
+        public Usuario creador { get; set; }
+        public DateTime fechaCreacion { get; set; }
+        public string nombrePlan { get; set; }
+        public int periodoFinVigencia { get; set; }
+        public int periodoInicioVigencia { get; set; }
+        public Orientacion orientacion { get; set; }
 
         public Plan()
         {
@@ -40,90 +40,5 @@ namespace EDUAR_Entities
         {
 
         }
-
-        public List<Asignatura> asignaturas
-        {
-            get
-            {
-                return _asignaturas;
-            }
-            set
-            {
-                _asignaturas = value;
-            }
-        }
-
-        public List<Contenido> contenidos
-        {
-            get
-            {
-                return _contenidos;
-            }
-            set
-            {
-                _contenidos = value;
-            }
-        }
-
-        public Usuario creador
-        {
-            get
-            {
-                return _creador;
-            }
-            set
-            {
-                _creador = value;
-            }
-        }
-
-        public DateTime fechaCreacion
-        {
-            get
-            {
-                return _fechaCreacion;
-            }
-            set
-            {
-                _fechaCreacion = value;
-            }
-        }
-
-        public string nombrePlan
-        {
-            get
-            {
-                return _nombrePlan;
-            }
-            set
-            {
-                _nombrePlan = value;
-            }
-        }
-
-        public int periodoFinVigencia
-        {
-            get
-            {
-                return _periodoFinVigencia;
-            }
-            set
-            {
-                _periodoFinVigencia = value;
-            }
-        }
-
-        public int periodoInicioVigencia
-        {
-            get
-            {
-                return _periodoInicioVigencia;
-            }
-            set
-            {
-                _periodoInicioVigencia = value;
-            }
-        }
-
     }//end Plan
 }

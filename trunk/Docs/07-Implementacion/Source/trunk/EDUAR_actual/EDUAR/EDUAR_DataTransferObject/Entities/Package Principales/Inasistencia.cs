@@ -16,8 +16,8 @@ namespace EDUAR_Entities
     public class Inasistencia: DTBase
     {
         public int idInasistencia { get; set; }
-        private DateTime _fecha;
-        private MotivoAusencia _motivo;
+        public DateTime fecha { get; set; }
+        public MotivoAusencia motivo { get; set; }
 
         public Inasistencia()
         {
@@ -32,30 +32,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public DateTime fecha
-        {
-            get
-            {
-                return _fecha;
-            }
-            set
-            {
-                _fecha = value;
-            }
-        }
-
-        public MotivoAusencia motivo
-        {
-            get
-            {
-                return _motivo;
-            }
-            set
-            {
-                _motivo = value;
-            }
         }
 
     }//end Inasistencia

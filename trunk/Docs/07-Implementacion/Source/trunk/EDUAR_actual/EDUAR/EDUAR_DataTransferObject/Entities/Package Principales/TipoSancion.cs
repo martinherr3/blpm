@@ -14,24 +14,10 @@ namespace EDUAR_Entities
     [Serializable]
     public class TipoSancion: DTBase
     {
-        private int _idTipoSancion;
-
-        public int idTipoSancion
-        {
-            get { return _idTipoSancion; }
-            set { _idTipoSancion = value; }
-        }
-
-        private int _idTipoSancionTransaccional;
-
-        public int idTipoSancionTransaccional
-        {
-            get { return _idTipoSancionTransaccional; }
-            set { _idTipoSancionTransaccional = value; }
-        }
-
-        private string _descripcion;
-        private string _nombre;
+        public int idTipoSancion { get; set; }
+        public int idTipoSancionTransaccional { get; set; }
+        public string descripcion { get; set; }
+        public string nombre { get; set; }
 
         public TipoSancion()
         {
@@ -46,30 +32,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public string descripcion
-        {
-            get
-            {
-                return _descripcion;
-            }
-            set
-            {
-                _descripcion = value;
-            }
-        }
-
-        public string nombre
-        {
-            get
-            {
-                return _nombre;
-            }
-            set
-            {
-                _nombre = value;
-            }
         }
 
     }//end TipoSancion
