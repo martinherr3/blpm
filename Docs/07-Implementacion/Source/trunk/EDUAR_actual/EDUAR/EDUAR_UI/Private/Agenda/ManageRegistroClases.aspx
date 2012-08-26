@@ -283,22 +283,6 @@
                                         <ItemTemplate>
                                             <asp:CheckBox ID="chkSelection" Text='<%# Eval("idTemaContenido")%>' runat="server"
                                                 CssClass="HiddenText" Width="30px" ClientIDMode="Static" />
-                                            <asp:DropDownList runat="server" ID="ddlPorcentaje" Width="55px">
-                                                <asp:ListItem Text="0%" Value='0' />
-                                                <asp:ListItem Text="5%" Value="5"/>
-                                                <asp:ListItem Text="10%" Value="10"/>
-                                                <asp:ListItem Text="20%" Value="20"/>
-                                                <asp:ListItem Text="25%" Value="25"/>
-                                                <asp:ListItem Text="30%" Value="30"/>
-                                                <asp:ListItem Text="40%" Value="40"/>
-                                                <asp:ListItem Text="50%" Value="50"/>
-                                                <asp:ListItem Text="60%" Value="60" />
-                                                <asp:ListItem Text="70%" Value="70"/>
-                                                <asp:ListItem Text="75%" Value="75"/>
-                                                <asp:ListItem Text="80%" Value="80"/>
-                                                <asp:ListItem Text="90%" Value="90"/>
-                                                <asp:ListItem Text="100%" Value="100"/>
-                                            </asp:DropDownList>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Tema">

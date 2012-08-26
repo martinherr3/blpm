@@ -35,38 +35,12 @@
                     </td>
                 </tr>
             </table>
-            <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <%--<tr>
-                            <td>
-                                <h3>
-                                    Buscar Agenda de Actividades -
-                                    
-                            </td>
-                        </tr>--%>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
-                            </td>
-                        </tr>
-                    </table>
-                    <table border="0" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td valign="top" style="width: 50px">
-                                <asp:Label ID="lblCurso" runat="server" Text="Curso:"></asp:Label>
-                            </td>
-                            <td valign="top" style="width: 200px">
-                                <asp:DropDownList ID="ddlCurso" runat="server">
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                    </table>
-                </ContentTemplate>
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
-                </Triggers>
-            </asp:UpdatePanel>
+            <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="width: 100%">
+                    </td>
+                </tr>
+            </table>
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
@@ -111,12 +85,6 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td>
-                            </td>
-                        </tr>
-                    </table>
                     <asp:GridView ID="gvwAgenda" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                         AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idEventoAgenda"
                         OnPageIndexChanging="gvwAgenda_PageIndexChanging">

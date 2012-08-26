@@ -100,7 +100,7 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaEvento", DbType.Date, entidad.fechaEvento);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaAlta);
+				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaAlta);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoRegistroClases", DbType.Int32, entidad.tipoRegistro.idTipoRegistroClases);
 
 				if (Transaction.Transaction != null)
@@ -164,6 +164,68 @@ namespace EDUAR_DataAccess.Common
 		{
 			throw new NotImplementedException();
 
+		}
+		#endregion
+
+		#region --[Métodos Públicos]--
+		/// <summary>
+		/// Deletes the contenidos dictados.
+		/// </summary>
+		/// <param name="idRegistroClases">The id registro clases.</param>
+		public void DeleteContenidosDictados(int idRegistroClases)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("DetalleRegistroClases_Delete");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idRegistroClases", DbType.Int32, idRegistroClases);
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - DeleteContenidosDictados()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - DeleteContenidosDictados()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Saves the detalle registro clases.
+		/// </summary>
+		/// <param name="idRegistroClases">The id registro clases.</param>
+		/// <param name="idTemaContenido">The id tema contenido.</param>
+		public void SaveDetalleRegistroClases(int idRegistroClases, int idTemaContenido)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("DetalleRegistroClases_Insert");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idRegistroClases", DbType.Int32, idRegistroClases);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, idTemaContenido);
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - SaveDetalleRegistroClases()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - SaveDetalleRegistroClases()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
 		}
 		#endregion
 	}

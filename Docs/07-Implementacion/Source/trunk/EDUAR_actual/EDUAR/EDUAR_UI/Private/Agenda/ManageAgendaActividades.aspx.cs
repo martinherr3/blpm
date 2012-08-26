@@ -364,7 +364,7 @@ namespace EDUAR_UI
 				btnBuscar.Visible = false;
 				btnVolver.Visible = true;
 				gvwReporte.Visible = false;
-				udpFiltrosBusqueda.Visible = false;
+				//udpFiltrosBusqueda.Visible = false;
 				udpEdit.Visible = true;
 				udpEdit.Update();
 			}
@@ -421,11 +421,11 @@ namespace EDUAR_UI
 		{
 			LimpiarCampos();
 			lblTitulo.Text = "Actividades";
-			CargarCombos(ddlCurso);
+			//CargarCombos(ddlCurso);
 			udpEdit.Visible = false;
 			btnVolver.Visible = false;
 			btnGuardar.Visible = false;
-			udpFiltrosBusqueda.Visible = true;
+			//udpFiltrosBusqueda.Visible = true;
 			btnBuscar.Visible = true;
 			gvwReporte.Visible = true;
 			udpFiltros.Update();
@@ -486,7 +486,7 @@ namespace EDUAR_UI
 		private void LimpiarCampos()
 		{
 			//ddlCicloLectivo.SelectedIndex = 0;
-			if (ddlCurso.Items.Count > 0) ddlCurso.SelectedIndex = 0;
+			//if (ddlCurso.Items.Count > 0) ddlCurso.SelectedIndex = 0;
 			HabilitarBotonesDetalle(false);
 			//chkActivo.Checked = true;
 		}
@@ -500,7 +500,7 @@ namespace EDUAR_UI
 			//calfecha.ValidarRangoDesde();
 			AgendaActividades entidad = new AgendaActividades();
 			//entidad.cursoCicloLectivo.idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-			entidad.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
+			//entidad.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
 			entidad.cursoCicloLectivo.idCicloLectivo = cicloLectivoActual.idCicloLectivo;
 			//entidad.fechaCreacion = Convert.ToDateTime(calfecha.ValorFecha);
 			//entidad.activo = chkActivo.Checked;
@@ -591,7 +591,7 @@ namespace EDUAR_UI
 			btnBuscar.Visible = false;
 			btnVolver.Visible = true;
 			gvwReporte.Visible = false;
-			udpFiltrosBusqueda.Visible = false;
+			//udpFiltrosBusqueda.Visible = false;
 			udpEdit.Visible = true;
 			udpEdit.Update();
 		}
