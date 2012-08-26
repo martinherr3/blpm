@@ -119,12 +119,17 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Si no viene el Id es porque se esta creando la entidad
                 DataAcces = new DARegistroClases(objDATransaction);
+				int idRegistroClases = 0;
+
                 if (Data.idRegistroClases == 0)
-                    DataAcces.Create(Data);
+					DataAcces.Create(Data, out idRegistroClases);
                 else
-                {
                     DataAcces.Update(Data);
-                }
+
+				if (Data.idRegistroClases > 0) DataAcces.DeleteContenidosDictados(Data.idRegistroClases);
+				if (Data.listaDetalleRegistro.Count > 0)
+					foreach (DetalleRegistroClases item in Data.listaDetalleRegistro)
+						DataAcces.SaveDetalleRegistroClases(idRegistroClases > 0 ? idRegistroClases : Data.idRegistroClases, item.temaContenido.idTemaContenido);
             }
             catch (CustomizedException ex)
             {

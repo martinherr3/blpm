@@ -261,6 +261,8 @@ namespace EDUAR_UI
 			{
 				int idCursoCicloLectivo = 0;
 				int.TryParse(ddlCurso.SelectedValue, out idCursoCicloLectivo);
+				gvwContenido.DataSource = null;
+				gvwContenido.DataBind();
 				if (idCursoCicloLectivo > 0)
 				{
 					idCurso = idCursoCicloLectivo;
@@ -273,6 +275,7 @@ namespace EDUAR_UI
 				}
 				ddlAsignatura.Enabled = idCursoCicloLectivo > 0;
 				udpAsignatura.Update();
+				udpGrilla.Update();
 			}
 			catch (Exception ex)
 			{

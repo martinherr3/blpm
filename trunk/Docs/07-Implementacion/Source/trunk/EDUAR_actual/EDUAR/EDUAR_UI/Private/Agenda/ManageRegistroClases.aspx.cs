@@ -10,6 +10,7 @@ using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
 using System.Collections;
 using System.Web;
+using System.Data;
 
 namespace EDUAR_UI
 {
@@ -130,6 +131,23 @@ namespace EDUAR_UI
 				return (List<int>)HttpContext.Current.Session["listaSeleccion"];
 			}
 			set { HttpContext.Current.Session["listaSeleccion"] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the lista seleccion porcentajes.
+		/// </summary>
+		/// <value>
+		/// The lista seleccion porcentajes.
+		/// </value>
+		protected List<string> listaSeleccionPorcentajes
+		{
+			get
+			{
+				if (HttpContext.Current.Session["listaSeleccionPorcentajes"] == null)
+					HttpContext.Current.Session["listaSeleccionPorcentajes"] = new List<string>();
+				return (List<string>)HttpContext.Current.Session["listaSeleccionPorcentajes"];
+			}
+			set { HttpContext.Current.Session["listaSeleccionPorcentajes"] = value; }
 		}
 
 		/// <summary>
@@ -266,7 +284,7 @@ namespace EDUAR_UI
 				AccionPagina = enumAcciones.Nuevo;
 				LimpiarCampos();
 				CargarComboAsignatura();
-				//BindComboModulos(DateTime.Now.Month);
+				ddlTipoRegistroClase.SelectedValue = EDUAR_Utility.Enumeraciones.enumTipoRegistroClases.ClaseNormal.GetHashCode().ToString();
 				esNuevo = true;
 				btnGuardar.Visible = true;
 				btnBuscar.Visible = false;
@@ -298,13 +316,13 @@ namespace EDUAR_UI
 				string mensaje = ValidarPagina();
 				if (mensaje == string.Empty)
 				{
-					DateTime fechaEvento = new DateTime(DateTime.Now.Year, Convert.ToInt32(ddlMeses.SelectedValue), Convert.ToInt32(ddlDia.SelectedValue));
-					if (fechaEvento < DateTime.Today)
-					{
-						AccionPagina = enumAcciones.Error;
-						Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeFechaMenorActual, enumTipoVentanaInformacion.Advertencia);
-					}
-					else
+					//DateTime fechaEvento = new DateTime(DateTime.Now.Year, Convert.ToInt32(ddlMeses.SelectedValue), Convert.ToInt32(ddlDia.SelectedValue));
+					//if (fechaEvento < DateTime.Today)
+					//{
+					//    AccionPagina = enumAcciones.Error;
+					//    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeFechaMenorActual, enumTipoVentanaInformacion.Advertencia);
+					//}
+					//else
 					{
 						if (Page.IsValid)
 						{
@@ -411,7 +429,7 @@ namespace EDUAR_UI
 				}
 				else
 				{
-					btnContenidosPopUp.Enabled = false; 
+					btnContenidosPopUp.Enabled = false;
 					ddlMeses.Enabled = false;
 					ddlDia.Enabled = false;
 				}
@@ -585,7 +603,7 @@ namespace EDUAR_UI
 			ddlAsignaturaEdit.Items.Clear();
 			ddlMeses.Items.Clear();
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false, true);
-			UIUtilidades.BindComboMeses(ddlMeses, false, DateTime.Now.Month);
+			UIUtilidades.BindComboMeses(ddlMeses, false, cicloLectivoActual.fechaInicio.Month);
 			ddlMeses.Enabled = false;
 
 			BLTipoRegistroClases objBLTipoRegistroClase = new BLTipoRegistroClases();
@@ -702,6 +720,13 @@ namespace EDUAR_UI
 			entidad.activo = chkActivoEdit.Checked;
 			entidad.fechaAlta = DateTime.Now;
 			entidad.tipoRegistro.idTipoRegistroClases = Convert.ToInt32(ddlTipoRegistroClase.SelectedValue);
+
+			List<DetalleRegistroClases> listaTemporal = new List<DetalleRegistroClases>();
+			foreach (int item in listaSeleccionGuardar)
+			{
+				listaTemporal.Add(new DetalleRegistroClases() { temaContenido = new TemaContenido() { idTemaContenido = item } });
+			}
+			entidad.listaDetalleRegistro = listaTemporal;
 			return entidad;
 		}
 
@@ -762,8 +787,6 @@ namespace EDUAR_UI
 			string mensaje = string.Empty;
 			if (txtDescripcionEdit.Text.Trim().Length == 0)
 				mensaje = "- Descripcion<br />";
-			//if (calFechaEdit.Fecha.Text.Trim().Length == 0)
-			//    mensaje += "- Fecha<br />";
 			if (string.IsNullOrEmpty(ddlAsignaturaEdit.SelectedValue) || !(Convert.ToInt32(ddlAsignaturaEdit.SelectedValue) > 0))
 				mensaje += "- Asignatura<br />";
 			if (string.IsNullOrEmpty(ddlMeses.SelectedValue)
@@ -771,12 +794,10 @@ namespace EDUAR_UI
 				|| string.IsNullOrEmpty(ddlDia.SelectedValue)
 				|| !(Convert.ToInt32(ddlDia.SelectedValue) > 0))
 				mensaje += "- Fecha de Registro<br />";
-			else
-			{
-
-			}
-			//if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
-			//    mensaje += "- Curso";
+			int idTipoClase = 0;
+			int.TryParse(ddlTipoRegistroClase.SelectedValue, out idTipoClase);
+			if (idTipoClase <= 0)
+				mensaje += "- Tipo de Registro de Clase<br />";
 			return mensaje;
 		}
 
@@ -815,7 +836,6 @@ namespace EDUAR_UI
 				objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
-
 		}
 
 		/// <summary>
