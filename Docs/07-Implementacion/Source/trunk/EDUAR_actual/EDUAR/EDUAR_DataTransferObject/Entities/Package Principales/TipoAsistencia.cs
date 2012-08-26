@@ -9,36 +9,10 @@ namespace EDUAR_Entities
     [Serializable]
     public class TipoAsistencia: DTBase
     {
-        private int _idTipoAsistencia;
-
-        public int idTipoAsistencia
-        {
-            get { return _idTipoAsistencia; }
-            set { _idTipoAsistencia = value; }
-        }
-        
-        private string _descripcion;
-
-        public string descripcion
-        {
-            get { return _descripcion; }
-            set { _descripcion = value; }
-        }
-        private decimal _valor;
-
-        public decimal valor
-        { 
-            get { return _valor; }
-            set { _valor = value; }    
-        }
-
-        private int _idTipoAsistenciaTransaccional;
-
-        public int idTipoAsistenciaTransaccional
-        {
-            get { return _idTipoAsistenciaTransaccional; }
-            set { _idTipoAsistenciaTransaccional = value; }
-        }
+        public int idTipoAsistencia { get; set; }
+        public string descripcion { get; set; }
+        public decimal valor { get; set; }
+        public int idTipoAsistenciaTransaccional { get; set; }
 
         public TipoAsistencia()
         {

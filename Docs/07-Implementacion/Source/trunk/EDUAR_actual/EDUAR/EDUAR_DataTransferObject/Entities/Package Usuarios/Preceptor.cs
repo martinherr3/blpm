@@ -16,7 +16,7 @@ namespace EDUAR_Entities
     public class Preceptor : Personal
     {
         public int idPreceptor { get; set; }
-        private Curso _cursos;
+        public Curso cursos { get; set; }
 
         public Preceptor()
         {
@@ -26,23 +26,6 @@ namespace EDUAR_Entities
         ~Preceptor()
         {
 
-        }
-
-        //public override void Dispose()
-        //{
-
-        //}
-
-        public Curso cursos
-        {
-            get
-            {
-                return _cursos;
-            }
-            set
-            {
-                _cursos = value;
-            }
         }
 
     }//end Preceptor

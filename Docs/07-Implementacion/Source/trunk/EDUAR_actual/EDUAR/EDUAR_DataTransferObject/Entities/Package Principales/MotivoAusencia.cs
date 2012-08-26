@@ -14,9 +14,9 @@ namespace EDUAR_Entities
     public class MotivoAusencia: DTBase
     {
 
-        private string _nombre;
-        private int _idMotivo;
-        private int _idMotivoTransaccional;
+        public string nombre { get; set; }
+        public int idMotivo { get; set; }
+        public int idMotivoTransaccional { get; set; }
 
         public MotivoAusencia()
         {
@@ -33,39 +33,5 @@ namespace EDUAR_Entities
 
         }
 
-        public string nombre
-        {
-            get
-            {
-                return _nombre;
-            }
-            set
-            {
-                _nombre = value;
-            }
-        }
-
-        public int idMotivo
-        {
-            get
-            {
-                return _idMotivo;
-            }
-            set
-            {
-                _idMotivo = value;
-            }
-        }
-        public int idMotivoTransaccional
-        {
-            get
-            {
-                return _idMotivoTransaccional;
-            }
-            set
-            {
-                _idMotivoTransaccional = value;
-            }
-        }
     }//end MotivoAusencia
 }

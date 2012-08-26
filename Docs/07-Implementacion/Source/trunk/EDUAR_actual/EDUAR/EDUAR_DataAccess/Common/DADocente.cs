@@ -78,8 +78,8 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Docentes_Select");
                 if (entidad != null)
                 {
-                    if (entidad.IdPersonal > 0)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersonal", DbType.Int32, entidad.IdPersonal);
+                    if (entidad.idPersonal > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersonal", DbType.Int32, entidad.idPersonal);
                 }
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
@@ -90,7 +90,7 @@ namespace EDUAR_DataAccess.Common
                 {
                     objDocente = new Docente();
 
-                    objDocente.IdPersonal = Convert.ToInt32(reader["idPersonal"]);
+                    objDocente.idPersonal = Convert.ToInt32(reader["idPersonal"]);
                     objDocente.nombre = reader["nombre"].ToString();
                     objDocente.apellido = reader["apellido"].ToString();
                     if (!string.IsNullOrEmpty(reader["fechaAlta"].ToString()))

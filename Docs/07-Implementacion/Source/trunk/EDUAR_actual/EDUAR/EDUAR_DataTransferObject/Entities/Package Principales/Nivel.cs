@@ -15,21 +15,9 @@ namespace EDUAR_Entities
     [Serializable]
     public class Nivel: DTBase
     {
-        private int _idNivel;
-
-        public int idNivel
-        {
-            get { return _idNivel; }
-            set { _idNivel = value; }
-        }
-        private int _idNivelTransaccional;
-
-        public int idNivelTransaccional
-        {
-            get { return _idNivelTransaccional; }
-            set { _idNivelTransaccional = value; }
-        }
-        private string _nombre;
+        public int idNivel { get; set; }
+        public int idNivelTransaccional { get; set; }
+        public string nombre { get; set; }
 
         public Nivel()
         {
@@ -44,18 +32,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public string nombre
-        {
-            get
-            {
-                return _nombre;
-            }
-            set
-            {
-                _nombre = value;
-            }
         }
 
     }//end Nivel

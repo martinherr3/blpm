@@ -13,9 +13,9 @@ namespace EDUAR_Entities
     public class MotivoSancion: DTBase
     {
 
-        private string _descripcion;
-        private int _idMotivoSancion;
-        private int _idMotivoSancionTransaccional;
+        public string descripcion { get; set; }
+        public int idMotivoSancion { get; set; }
+        public int idMotivoSancionTransaccional { get; set; }
 
         public MotivoSancion()
         {
@@ -30,36 +30,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public string descripcion
-        {
-            get
-            {
-                return _descripcion;
-            }
-            set
-            {
-                _descripcion = value;
-            }
-        }
-
-        public int idMotivoSancion
-        {
-            get
-            {
-                return _idMotivoSancion;
-            }
-            set
-            {
-                _idMotivoSancion = value;
-            }
-        }
-
-        public int idMotivoSancionTransaccional
-        {
-            get { return _idMotivoSancionTransaccional; }
-            set { _idMotivoSancionTransaccional = value; }
         }
 
     }//end MotivoSancion

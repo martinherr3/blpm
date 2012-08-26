@@ -9,29 +9,8 @@ namespace EDUAR_Entities
     [Serializable]
     public class TipoTutor : DTBase
     {
-        private int _idTipoTutor;
-
-        public int idTipoTutor
-        {
-            get { return _idTipoTutor; }
-            set { _idTipoTutor = value; }
-        }
-
-        private int _idTipoTutorTransaccional;
-
-        public int idTipoTutorTransaccional
-        {
-            get { return _idTipoTutorTransaccional; }
-            set { _idTipoTutorTransaccional = value; }
-        }
-
-        private string _descripcion;
-
-        public string descripcion
-        {
-            get { return _descripcion; }
-            set { _descripcion = value; }
-        }
-
+        public int idTipoTutor { get; set; }
+        public int idTipoTutorTransaccional { get; set; }
+        public string descripcion { get; set; }
     }
 }

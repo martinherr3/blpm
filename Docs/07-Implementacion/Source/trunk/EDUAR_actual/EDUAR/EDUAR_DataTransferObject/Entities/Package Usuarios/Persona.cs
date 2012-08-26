@@ -24,6 +24,8 @@ namespace EDUAR_Entities
 		public bool? activo { get; set; }
 		public Localidades localidad { get; set; }
 		public string username { get; set; }
+        public TipoPersona tipoPersona { get; set; }
+
 		public int idTipoPersona
 		{
 			get { return tipoPersona.idTipoPersona; }
@@ -33,7 +35,7 @@ namespace EDUAR_Entities
 				tipoPersona.idTipoPersona = value;
 			}
 		}
-		public TipoPersona tipoPersona { get; set; }
+		
 		public Persona()
 		{
 			localidad = new Localidades();

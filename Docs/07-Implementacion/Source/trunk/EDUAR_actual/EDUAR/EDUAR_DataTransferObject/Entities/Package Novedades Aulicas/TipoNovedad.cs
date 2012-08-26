@@ -14,7 +14,7 @@ namespace EDUAR_Entities
     public class TipoNovedad:DTBase
     {
         public int idTipoNovedad { get; set; }
-        private string _descripcion;
+        public string _descripcion { get; set; }
 
         public TipoNovedad()
         {
@@ -29,18 +29,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public string descripcion
-        {
-            get
-            {
-                return _descripcion;
-            }
-            set
-            {
-                _descripcion = value;
-            }
         }
 
     }//end TipoNovedad

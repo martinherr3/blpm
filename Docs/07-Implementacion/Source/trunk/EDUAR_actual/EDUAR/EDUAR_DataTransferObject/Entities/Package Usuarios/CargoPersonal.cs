@@ -13,30 +13,11 @@ namespace EDUAR_Entities
     [Serializable]
     public class CargoPersonal: DTBase
     {
-        private string _descripcion;
-        private string _nombre;
-        private int _idCargo;
-        private int _idCargoTransaccional;
-        private bool _activo;
-
-        public bool activo
-        {
-            get { return _activo; }
-            set { _activo = value; }
-        }
-
-        public int idCargo
-        {
-            get { return _idCargo; }
-            set { _idCargo = value; }
-        }
-       
-
-        public int idCargoTransaccional
-        {
-            get { return _idCargoTransaccional; }
-            set { _idCargoTransaccional = value; }
-        }
+        public bool activo { get; set; }
+        public int idCargo { get; set; }
+        public int idCargoTransaccional { get; set; }
+        public string descripcion { get; set; }
+        public string nombre { get; set; }
 
         public CargoPersonal()
         {
@@ -52,30 +33,5 @@ namespace EDUAR_Entities
         {
 
         }
-
-        public string descripcion
-        {
-            get
-            {
-                return _descripcion;
-            }
-            set
-            {
-                _descripcion = value;
-            }
-        }
-
-        public string nombre
-        {
-            get
-            {
-                return _nombre;
-            }
-            set
-            {
-                _nombre = value;
-            }
-        }
-
     }//end Cargo
 }

@@ -15,49 +15,12 @@ namespace EDUAR_Entities
     [Serializable]
     public class Periodo: DTBase
     {
-        private int _idPeriodo;
-
-        public int idPeriodo
-        {
-            get { return _idPeriodo; }
-            set { _idPeriodo = value; }
-        }
-        private int _idPeriodoTransaccional;
-
-        public int idPeriodoTransaccional
-        {
-            get { return _idPeriodoTransaccional; }
-            set { _idPeriodoTransaccional = value; }
-        }
-
-        private CicloLectivo _cicloLectivo;
-
-        public CicloLectivo cicloLectivo
-        {
-            get { return _cicloLectivo; }
-            set { _cicloLectivo = value; }
-        }
-        private DateTime _fechaFin;
-
-        public DateTime fechaFin
-        {
-            get { return _fechaFin; }
-            set { _fechaFin = value; }
-        }
-        private DateTime _fechaInicio;
-
-        public DateTime fechaInicio
-        {
-            get { return _fechaInicio; }
-            set { _fechaInicio = value; }
-        }
-        private string _nombre;
-
-        public string nombre
-        {
-            get { return _nombre; }
-            set { _nombre = value; }
-        }
+        public int idPeriodo { get; set; }
+        public int idPeriodoTransaccional { get; set; }
+        public CicloLectivo cicloLectivo { get; set; }
+        public DateTime fechaFin { get; set; }
+        public DateTime fechaInicio { get; set; }
+        public string nombre { get; set; }
 
         public Periodo()
         {

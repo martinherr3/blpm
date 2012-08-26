@@ -85,6 +85,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ValidationSummary ValidarBusqueda;
         
         /// <summary>
+        /// lblAmbito control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAmbito;
+        
+        /// <summary>
+        /// ddlAmbito control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAmbito;
+        
+        /// <summary>
         /// lblActivo control.
         /// </summary>
         /// <remarks>
@@ -112,13 +130,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpGrilla;
         
         /// <summary>
-        /// gvwReporte control.
+        /// gvwEncuestas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvwReporte;
+        protected global::System.Web.UI.WebControls.GridView gvwEncuestas;
         
         /// <summary>
         /// udpEdit control.
@@ -184,13 +202,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblAmbitoBusqueda;
         
         /// <summary>
-        /// txtAmbitoEdit control.
+        /// ddlAmbitoEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAmbitoEdit;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAmbitoEdit;
         
         /// <summary>
         /// lblCategoriaBusqueda control.
@@ -209,24 +227,6 @@ namespace EDUAR_UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCategoriaEdit;
-        
-        /// <summary>
-        /// lblPreguntaBusqueda control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPreguntaBusqueda;
-        
-        /// <summary>
-        /// txtPreguntaEdit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPreguntaEdit;
         
         /// <summary>
         /// lblObjetivoBusqueda control.

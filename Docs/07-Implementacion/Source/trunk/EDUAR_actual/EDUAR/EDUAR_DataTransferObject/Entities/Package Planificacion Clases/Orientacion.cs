@@ -15,29 +15,12 @@ namespace EDUAR_Entities
     public class Orientacion: DTBase
     {
 
-        private string _definicionCompetencias;
-        private string _descripcion;
-        private int _idOrientacion;
-        private string _nombre;
-
-        public string nombre
-        {
-            get { return _nombre; }
-            set { _nombre = value; }
-        }
-
-        public int idOrientacion
-        {
-            get { return _idOrientacion; }
-            set { _idOrientacion = value; }
-        }
-        private int _idOrientacionTransaccional;
-
-        public int idOrientacionTransaccional
-        {
-            get { return _idOrientacionTransaccional; }
-            set { _idOrientacionTransaccional = value; }
-        }
+        public string nombre { get; set; }
+        public int idOrientacion { get; set; }
+        public string definicionCompetencias { get; set; }
+        public string descripcion { get; set; }
+        public int idOrientacionTransaccional { get; set; }
+        
         public Orientacion()
         {
 
@@ -51,30 +34,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public string definicionCompetencias
-        {
-            get
-            {
-                return _definicionCompetencias;
-            }
-            set
-            {
-                _definicionCompetencias = value;
-            }
-        }
-
-        public string descripcion
-        {
-            get
-            {
-                return _descripcion;
-            }
-            set
-            {
-                _descripcion = value;
-            }
         }
 
     }//end Orientacion

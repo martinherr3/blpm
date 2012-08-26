@@ -1,7 +1,9 @@
 ﻿
 using EDUAR_Entities.Shared;
+using System;
 namespace EDUAR_Entities
 {
+    [Serializable]
     public class AmbitoEncuesta : DTBase
     {
         public int idAmbitoEncuesta { get; set; }

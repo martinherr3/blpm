@@ -104,7 +104,7 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha.Date.ToShortDateString());
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, Convert.ToDateTime(entidad.hora.Hour + ":" + entidad.hora.Minute));
 				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.organizador.username);
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idOrganizador", DbType.Int32, entidad.organizador.IdPersonal);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idOrganizador", DbType.Int32, entidad.organizador.idPersonal);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalles);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 
@@ -175,7 +175,7 @@ namespace EDUAR_DataAccess.Common
 					objCitacion.fecha = Convert.ToDateTime(reader["fecha"].ToString());
 					if (!string.IsNullOrEmpty(reader["hora"].ToString()))
 						objCitacion.hora = Convert.ToDateTime(reader["hora"].ToString());
-					objCitacion.organizador.IdPersonal = Convert.ToInt32(reader["idOrganizador"]);
+					objCitacion.organizador.idPersonal = Convert.ToInt32(reader["idOrganizador"]);
 					objCitacion.organizador.nombre = reader["nombreOrganizador"].ToString();
 					objCitacion.organizador.apellido = reader["apellidoOrganizador"].ToString();
 					if (!string.IsNullOrEmpty(reader["usernameOrganizador"].ToString()))

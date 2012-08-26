@@ -14,8 +14,8 @@ namespace EDUAR_Entities
     public class Perfil: DTBase
     {
         public int idPerfil { get; set; }
-        private string _nombre;
-        private Permiso _permisos;
+        public string nombre { get; set; }
+        public Permiso permisos { get; set; }
 
         public Perfil()
         {
@@ -30,30 +30,6 @@ namespace EDUAR_Entities
         public virtual void Dispose()
         {
 
-        }
-
-        public string nombre
-        {
-            get
-            {
-                return _nombre;
-            }
-            set
-            {
-                _nombre = value;
-            }
-        }
-
-        public Permiso permisos
-        {
-            get
-            {
-                return _permisos;
-            }
-            set
-            {
-                _permisos = value;
-            }
         }
 
     }//end Perfil

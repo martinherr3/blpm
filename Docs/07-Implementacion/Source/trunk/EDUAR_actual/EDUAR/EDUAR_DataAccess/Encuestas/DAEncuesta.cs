@@ -146,6 +146,7 @@ namespace EDUAR_DataAccess.Encuestas
         /// Gets the encuestas.
         /// </summary>
         /// <param name="entidad">The entidad.</param>
+        /// <param name="idAmbito">El ámbito de la encuesta.</param>
         /// <returns></returns>
         public List<Encuesta> GetEncuestas(Encuesta entidad)
         {
@@ -158,6 +159,8 @@ namespace EDUAR_DataAccess.Encuestas
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
                     if (!entidad.usuario.Equals(null))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@responsable", DbType.String, entidad.usuario.idPersona);
+                    if (entidad.ambito.idAmbitoEncuesta > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAmbito", DbType.Int32, entidad.ambito.idAmbitoEncuesta);
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -171,14 +174,21 @@ namespace EDUAR_DataAccess.Encuestas
                     objEncuesta.nombreEncuesta = reader["nombre"].ToString();
                     objEncuesta.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"].ToString());
                     objEncuesta.fechaModificacion = Convert.ToDateTime(reader["fechaModificacion"].ToString());
-                    
+
                     objEncuesta.usuario = new Persona();
                     {
                         objEncuesta.usuario.idPersona = Convert.ToInt32(reader["idPersona"]);
                         objEncuesta.usuario.nombre = reader["nombreOrganizador"].ToString();
                         objEncuesta.usuario.apellido = reader["apellidoOrganizador"].ToString();
                     }
-                    
+
+                    objEncuesta.ambito = new AmbitoEncuesta();
+                    {
+                        objEncuesta.ambito.idAmbitoEncuesta = Convert.ToInt32(reader["idAmbito"]);
+                        objEncuesta.ambito.nombre = reader["nombreEncuesta"].ToString();
+                        objEncuesta.ambito.descripcion = reader["descripcionEncuesta"].ToString();
+                    }
+
                     objEncuesta.activo = Convert.ToBoolean(reader["activo"].ToString());
 
                     //TODO: (PABLO) Incluir la lista de preguntas de la misma, para eso llamar a GetPreguntasEncuesta en la clase correspondiente
