@@ -18,6 +18,8 @@
                 <td align="right" rowspan="2">
                     <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
+                        <asp:ImageButton ID="btnContenidosPopUp" OnClick="btnContenidosPopUp_Click" runat="server"
+                            ToolTip="Asociar Contenidos" ImageUrl="~/Images/botonContenidos.png" Visible="false" />
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
                                 Visible="false" OnClick="btnNuevo_Click" />
                             <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
@@ -160,8 +162,8 @@
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2" style="text-align: center; vertical-align: middle">
-                            <asp:Button ID="btnContenidosPopUp" runat="server" Text="Asociar Contenidos" CssClass="button"
-                                OnClick="btnContenidosPopUp_Click" />
+                            <%--<asp:Button ID="btnContenidosPopUp" runat="server" Text="Asociar Contenidos" CssClass="button"
+                                OnClick="btnContenidosPopUp_Click" />--%>
                         </td>
                     </tr>
                     <tr>

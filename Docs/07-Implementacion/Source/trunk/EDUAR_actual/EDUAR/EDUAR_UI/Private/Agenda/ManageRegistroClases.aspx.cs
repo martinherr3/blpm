@@ -286,6 +286,7 @@ namespace EDUAR_UI
 				CargarComboAsignatura();
 				ddlTipoRegistroClase.SelectedValue = EDUAR_Utility.Enumeraciones.enumTipoRegistroClases.ClaseNormal.GetHashCode().ToString();
 				esNuevo = true;
+				//btnContenidosPopUp.Visible = true;
 				btnGuardar.Visible = true;
 				btnBuscar.Visible = false;
 				btnVolver.Visible = true;
@@ -421,7 +422,8 @@ namespace EDUAR_UI
 				int.TryParse(ddlAsignaturaEdit.SelectedValue, out idAsignatura);
 				if (idAsignatura > 0)
 				{
-					btnContenidosPopUp.Enabled = true;
+					btnContenidosPopUp.Visible = true;
+					//btnContenidosPopUp.Enabled = true;
 					ddlMeses.Enabled = true;
 					ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
 					ddlDia.Enabled = true;
@@ -429,10 +431,12 @@ namespace EDUAR_UI
 				}
 				else
 				{
-					btnContenidosPopUp.Enabled = false;
+					btnContenidosPopUp.Visible = false;
+					//btnContenidosPopUp.Enabled = false;
 					ddlMeses.Enabled = false;
 					ddlDia.Enabled = false;
 				}
+				udpBotonera.Update();
 				udpEdit.Update();
 			}
 			catch (Exception ex)
@@ -565,6 +569,7 @@ namespace EDUAR_UI
 			btnGuardar.Visible = false;
 			udpFiltrosBusqueda.Visible = true;
 			btnNuevo.Visible = true;
+			btnContenidosPopUp.Visible = false;
 			btnBuscar.Visible = true;
 			gvwReporte.Visible = true;
 			udpFiltros.Update();
@@ -770,7 +775,8 @@ namespace EDUAR_UI
 				else
 					ddlDia.SelectedIndex = 0;
 				ddlAsignaturaEdit.SelectedValue = entidad.asignatura.idAsignatura.ToString();
-				btnContenidosPopUp.Enabled = true;
+				//btnContenidosPopUp.Enabled = true;
+				btnContenidosPopUp.Visible = true;
 				ddlAsignaturaEdit.Enabled = false;
 				ddlMeses.Enabled = true;
 				chkActivoEdit.Checked = entidad.activo;
@@ -814,6 +820,7 @@ namespace EDUAR_UI
 			litNuevo.Visible = false;
 			btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
+			btnContenidosPopUp.Visible = true;
 			btnVolver.Visible = true;
 			btnGuardar.Visible = true;
 			gvwReporte.Visible = false;
@@ -821,6 +828,7 @@ namespace EDUAR_UI
 			udpEdit.Visible = true;
 			udpFiltros.Update();
 			udpEdit.Update();
+			udpBotonera.Update();
 		}
 
 		/// <summary>

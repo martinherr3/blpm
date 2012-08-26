@@ -31,6 +31,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpBotonera;
         
         /// <summary>
+        /// Control btnContenidosPopUp.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnContenidosPopUp;
+        
+        /// <summary>
         /// Control btnNuevo.
         /// </summary>
         /// <remarks>
@@ -245,15 +254,6 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::EDUAR_UI.UserControls.Calendario calFechaFin;
-        
-        /// <summary>
-        /// Control btnContenidosPopUp.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnContenidosPopUp;
         
         /// <summary>
         /// Control lblCConceptuales.
