@@ -309,6 +309,7 @@ namespace EDUAR_UI
 				ddlDestino.Disabled = true;
 			}
 
+
 			//Alumno: a SUS docentes o su curso
 			if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
 			{
@@ -344,6 +345,11 @@ namespace EDUAR_UI
 				HttpContext.Current.User.IsInRole(enumRoles.Preceptor.ToString())
 				)
 			{
+                CheckBox1.Visible = true;
+                CargarComboTodosCursos();
+                rdlDestinatarios.Enabled = false;
+                ddlDestino.Disabled = true;
+
 				lista = objpersona.GetPersonas(new Persona() { activo = true });
 			}
 
@@ -376,6 +382,16 @@ namespace EDUAR_UI
 			}
 		}
 
+        private void CargarComboTodosCursos()
+        {
+            List<Curso> listaTodosCursos = new List<Curso>();
+            BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+            Asignatura objFiltro = new Asignatura();
+            objFiltro.curso.cicloLectivo = cicloLectivoActual;
+            listaTodosCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
+
+            UIUtilidades.BindCombo<Curso>(ddlCurso, listaTodosCursos, "idCurso", "Nombre", true);
+        }
 		/// <summary>
 		/// Cargars the combo cursos.
 		/// </summary>
@@ -440,6 +456,11 @@ namespace EDUAR_UI
                     default:
                         break;
                 }
+
+            }
+            if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+            {
+
             }
             EnviarMensaje(idCursoCicloLectivo);
         }
@@ -480,5 +501,14 @@ namespace EDUAR_UI
 				Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeMultiDestino, enumTipoVentanaInformacion.Satisfactorio);
 		}
 		#endregion
+
+        protected void CheckBox1_CheckedChanged1(object sender, EventArgs e)
+        {
+            divDocente.Visible = CheckBox1.Checked;
+        }
+
+        
+
+
 	}
 }
