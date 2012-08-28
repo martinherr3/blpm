@@ -203,9 +203,9 @@ namespace EDUAR_DataAccess.Common
 			{
 				using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("CursosCicloLectivo_Select"))
 				{
-                    if (entidad.curso.cicloLectivo.idCicloLectivo > 0)
+                    if (entidad != null && entidad.curso.cicloLectivo.idCicloLectivo > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.curso.cicloLectivo.idCicloLectivo);
-					if (!string.IsNullOrEmpty(entidad.docente.username))
+					if (entidad != null && !string.IsNullOrEmpty(entidad.docente.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.docente.username);
 
 					IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
