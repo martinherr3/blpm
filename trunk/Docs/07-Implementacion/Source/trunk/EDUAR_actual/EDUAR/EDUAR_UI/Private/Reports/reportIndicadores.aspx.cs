@@ -397,15 +397,15 @@ namespace EDUAR_UI
 			Font drawFontTitulo = new Font("Verdana", 14);
 
 			// Create rectangle for drawing.
-			RectangleF drawRect1 = new RectangleF(10, 244 - sngMayor2, 100, sngMayor1);
-			RectangleF drawRect2 = new RectangleF(120, 244 - sngMayor1, 100, sngMayor2);
+			RectangleF drawRect1 = new RectangleF(10, 244 - sngMayor2, 100, sngMayor2);
+			RectangleF drawRect2 = new RectangleF(120, 244 - sngMayor1, 100, sngMayor1);
 			RectangleF drawRect3 = new RectangleF(230, 244 - sngMayor3, 100, sngMayor3);
 			RectangleF drawRectTitulo = new RectangleF(10, 10, 300, 75);
 
 			// Draw rectangle to screen.
 			Pen blackPen = new Pen(Color.Transparent);
-			objGraphic.DrawRectangle(blackPen, 10, 194 - sngMayor2, 100, sngMayor1);
-			objGraphic.DrawRectangle(blackPen, 120, 194 - sngMayor1, 100, sngMayor2);
+			objGraphic.DrawRectangle(blackPen, 10, 194 - sngMayor2, 100, sngMayor2);
+			objGraphic.DrawRectangle(blackPen, 120, 194 - sngMayor1, 100, sngMayor1);
 			objGraphic.DrawRectangle(blackPen, 230, 194 - sngMayor3, 100, sngMayor3);
 
 			// Set format of string.
