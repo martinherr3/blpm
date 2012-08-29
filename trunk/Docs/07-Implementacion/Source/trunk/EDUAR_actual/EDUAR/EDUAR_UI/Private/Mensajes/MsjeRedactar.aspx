@@ -39,28 +39,25 @@
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                             ImageUrl="~/Images/botonVolver.png" />
                     </td>
-
                 </tr>
                 <tr>
-                        <td class="TD20">
-                            <asp:CheckBox ID="CheckBox1" runat="server" 
-                                oncheckedchanged="CheckBox1_CheckedChanged1" AutoPostBack="true" 
-                                Text="Filtrado por Curso" Visible="False"/>
-                        </td>
-                        <td class="TD80">
-                            &nbsp;</td>
-                    </tr>
+                    <td class="TD20">
+                        <asp:CheckBox ID="chkFiltrado" runat="server" OnCheckedChanged="chkFiltrado_CheckedChanged1"
+                            AutoPostBack="true" Text="Filtrado por Curso" Visible="False" />
+                    </td>
+                    <td class="TD80">
+                        &nbsp;
+                    </td>
+                </tr>
             </table>
             <div id="divDocente" runat="server" visible="false">
                 <table class="tablaInterna" width="100%">
-                    
                     <tr>
                         <td class="TD20">
                             Curso:
                         </td>
                         <td class="TD80">
-                            <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" 
-                                CssClass="EstiloTxtMedio120" 
+                            <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" CssClass="EstiloTxtMedio120"
                                 OnSelectedIndexChanged="ddlCurso_OnSelectedIndexChanged">
                             </asp:DropDownList>
                         </td>
@@ -74,8 +71,7 @@
                                 AutoPostBack="true">
                                 <asp:ListItem Text="Seleccionar Alumnos" Value="1" Enabled="true" />
                                 <asp:ListItem Text="Seleccionar Tutores" Value="2" />
-                                 <asp:ListItem Text="Seleccionar otros Docentes" Value="3" />
-
+                                <asp:ListItem Text="Seleccionar otros Docentes" Value="3" />
                             </asp:RadioButtonList>
                         </td>
                     </tr>

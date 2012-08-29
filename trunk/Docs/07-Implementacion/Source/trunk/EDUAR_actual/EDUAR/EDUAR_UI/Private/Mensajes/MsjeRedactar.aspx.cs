@@ -345,7 +345,7 @@ namespace EDUAR_UI
 				HttpContext.Current.User.IsInRole(enumRoles.Preceptor.ToString())
 				)
 			{
-                CheckBox1.Visible = true;
+                chkFiltrado.Visible = true;
                 CargarComboTodosCursos();
                 rdlDestinatarios.Enabled = false;
                 ddlDestino.Disabled = true;
@@ -502,9 +502,9 @@ namespace EDUAR_UI
 		}
 		#endregion
 
-        protected void CheckBox1_CheckedChanged1(object sender, EventArgs e)
+        protected void chkFiltrado_CheckedChanged1(object sender, EventArgs e)
         {
-            divDocente.Visible = CheckBox1.Checked;
+            divDocente.Visible = chkFiltrado.Checked;
         }
 
         

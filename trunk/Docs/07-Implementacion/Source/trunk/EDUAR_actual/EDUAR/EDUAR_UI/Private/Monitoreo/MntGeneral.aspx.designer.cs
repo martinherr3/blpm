@@ -10,106 +10,88 @@
 namespace EDUAR_UI {
     
     
-    public partial class MsjeRedactar {
+    public partial class MntGeneral {
         
         /// <summary>
-        /// Control udpFiltros.
+        /// Control Chart1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpFiltros;
+        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart1;
         
         /// <summary>
-        /// Control lblTitulo.
+        /// Control btnPanel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitulo;
+        protected global::System.Web.UI.WebControls.Button btnPanel;
         
         /// <summary>
-        /// Control btnEnviar.
+        /// Control HiddenField1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnEnviar;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
         
         /// <summary>
-        /// Control btnVolver.
+        /// Control mpeContenido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnVolver;
+        protected global::AjaxControlToolkit.ModalPopupExtender mpeContenido;
         
         /// <summary>
-        /// Control chkFiltrado.
+        /// Control pnlContenidos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkFiltrado;
+        protected global::System.Web.UI.WebControls.Panel pnlContenidos;
         
         /// <summary>
-        /// Control divDocente.
+        /// Control udpContenidosAsociados.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDocente;
+        protected global::System.Web.UI.UpdatePanel udpContenidosAsociados;
         
         /// <summary>
-        /// Control ddlCurso.
+        /// Control Label2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCurso;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// Control rdlDestinatarios.
+        /// Control btnVolverPopUp.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rdlDestinatarios;
+        protected global::System.Web.UI.WebControls.ImageButton btnVolverPopUp;
         
         /// <summary>
-        /// Control ddlDestino.
+        /// Control Chart2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect ddlDestino;
-        
-        /// <summary>
-        /// Control txtAsunto.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtAsunto;
-        
-        /// <summary>
-        /// Control textoMensaje.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::EDUAR_UI.UserControls.Editor textoMensaje;
+        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart2;
         
         /// <summary>
         /// Propiedad Master.
