@@ -4,6 +4,97 @@
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxtoolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <style type="text/css">
+        .fadingTooltip
+        {
+            border-right: darkgray 1px outset;
+            border-top: darkgray 1px outset;
+            font-size: 12pt;
+            border-left: darkgray 1px outset;
+            width: auto;
+            color: black;
+            border-bottom: darkgray 1px outset;
+            height: auto;
+            background-color: lemonchiffon;
+            margin: 3px 3px 3px 3px;
+            padding: 3px 3px 3px 3px;
+            borderbottomwidth: 3px 3px 3px 3px;
+        }
+    </style>
+    <div class="fadingTooltip" id="fadingTooltip" style="z-index: 999; visibility: hidden;
+        position: absolute">
+    </div>
+    <script type="text/javascript">
+        var fadingTooltip;
+        var wnd_height, wnd_width;
+        var tooltip_height, tooltip_width;
+        var tooltip_shown = false;
+        var transparency = 100;
+        var timer_id = 1;
+        var tooltiptext;
+
+        // override events
+        window.onload = WindowLoading;
+        window.onresize = UpdateWindowSize;
+        document.onmousemove = AdjustToolTipPosition;
+
+        function DisplayTooltip(tooltip_text) {
+            fadingTooltip.innerHTML = tooltip_text;
+            tooltip_shown = (tooltip_text != "") ? true : false;
+            if (tooltip_text != "") {
+                // Get tooltip window height
+                tooltip_height = (fadingTooltip.style.pixelHeight) ? fadingTooltip.style.pixelHeight : fadingTooltip.offsetHeight;
+                transparency = 0;
+                ToolTipFading();
+            }
+            else {
+                clearTimeout(timer_id);
+                fadingTooltip.style.visibility = "hidden";
+            }
+        }
+
+        function AdjustToolTipPosition(e) {
+            if (tooltip_shown) {
+                // Depending on IE/Firefox, find out what object to use to find mouse position
+                var ev;
+                if (e)
+                    ev = e;
+                else
+                    ev = event;
+
+                fadingTooltip.style.visibility = "visible";
+                offset_y = (ev.clientY + tooltip_height - document.body.scrollTop + 30 >= wnd_height) ? -15 - tooltip_height : 20;
+                fadingTooltip.style.left = Math.min(wnd_width - tooltip_width - 10, Math.max(3, ev.clientX + 6)) + document.body.scrollLeft + 'px';
+                fadingTooltip.style.top = ev.clientY + offset_y + document.body.scrollTop + 'px';
+            }
+        }
+
+        function WindowLoading() {
+            fadingTooltip = document.getElementById('fadingTooltip');
+
+            // Get tooltip  window width				
+            tooltip_width = (fadingTooltip.style.pixelWidth) ? fadingTooltip.style.pixelWidth : fadingTooltip.offsetWidth;
+
+            // Get tooltip window height
+            tooltip_height = (fadingTooltip.style.pixelHeight) ? fadingTooltip.style.pixelHeight : fadingTooltip.offsetHeight;
+
+            UpdateWindowSize();
+        }
+
+        function ToolTipFading() {
+            if (transparency <= 100) {
+                fadingTooltip.style.filter = "alpha(opacity=" + transparency + ")";
+                fadingTooltip.style.opacity = transparency / 100;
+                transparency += 5;
+                timer_id = setTimeout('ToolTipFading()', 35);
+            }
+        }
+
+        function UpdateWindowSize() {
+            wnd_height = document.body.clientHeight;
+            wnd_width = document.body.clientWidth;
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div id="divAccion" runat="server">
@@ -15,7 +106,7 @@
                     <br />
                 </td>
                 <td align="right" rowspan="2">
-                   <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
+                    <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
                                 Visible="false" />
@@ -72,7 +163,7 @@
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
                             <asp:PostBackTrigger ControlID="btnGuardar" />
                         </Triggers>
-                    </asp:UpdatePanel> 
+                    </asp:UpdatePanel>
                 </td>
             </tr>
         </table>
@@ -114,13 +205,13 @@
                             <HeaderStyle HorizontalAlign="center" Width="5%" />
                             <ItemStyle HorizontalAlign="center" />
                             <ItemTemplate>
-                            <asp:ImageButton ID="btnTemas" runat="server" CommandName="Temas" CommandArgument='<%# Bind("idContenido") %>'
+                                <asp:ImageButton ID="btnTemas" runat="server" CommandName="Temas" CommandArgument='<%# Bind("idContenido") %>'
                                     ToolTip="Ver Temas" ImageUrl="~/Images/Grillas/action_new.png" />
                                 <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idContenido") %>'
                                     ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
-                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar"
-                                    CommandArgument='<%# Bind("idContenido") %>' OnClientClick="return confirm('¿Desea eliminar el contenido seleccionado?')" />
+                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idContenido") %>'
+                                    OnClientClick="return confirm('¿Desea eliminar el contenido seleccionado?')" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Descripción">
