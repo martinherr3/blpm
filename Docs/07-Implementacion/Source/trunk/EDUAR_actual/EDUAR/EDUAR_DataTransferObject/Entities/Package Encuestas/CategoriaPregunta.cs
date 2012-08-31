@@ -13,7 +13,7 @@ namespace EDUAR_Entities
 
         public CategoriaPregunta()
         {
-
+            ambito = new AmbitoEncuesta();
         }
 
         ~CategoriaPregunta()

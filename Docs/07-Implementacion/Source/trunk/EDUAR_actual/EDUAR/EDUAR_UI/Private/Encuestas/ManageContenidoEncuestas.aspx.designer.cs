@@ -193,13 +193,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.CheckBox chkActivoEdit;
         
         /// <summary>
-        /// lblAmbitoBusqueda control.
+        /// lblAmbitoEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAmbitoBusqueda;
+        protected global::System.Web.UI.WebControls.Label lblAmbitoEdit;
         
         /// <summary>
         /// ddlAmbitoEdit control.
@@ -211,31 +211,31 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.DropDownList ddlAmbitoEdit;
         
         /// <summary>
-        /// lblCategoriaBusqueda control.
+        /// lblNombreEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCategoriaBusqueda;
+        protected global::System.Web.UI.WebControls.Label lblNombreEdit;
         
         /// <summary>
-        /// txtCategoriaEdit control.
+        /// txtNombreEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCategoriaEdit;
+        protected global::System.Web.UI.WebControls.TextBox txtNombreEdit;
         
         /// <summary>
-        /// lblObjetivoBusqueda control.
+        /// lblObjetivoEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblObjetivoBusqueda;
+        protected global::System.Web.UI.WebControls.Label lblObjetivoEdit;
         
         /// <summary>
         /// txtObjetivoEdit control.

@@ -22,7 +22,8 @@ namespace EDUAR_Entities
 
         public Pregunta()
         {
-
+            categoria = new CategoriaPregunta();
+            escala = new EscalaMedicion();
         }
 
         ~Pregunta()

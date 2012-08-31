@@ -55,6 +55,7 @@ namespace EDUAR_DataAccess.Encuestas
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaModificacion", DbType.Date, DBNull.Value);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombreEncuesta);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAmbito", DbType.Int32, entidad.ambito.idAmbitoEncuesta);
 
                 if (Transaction.Transaction != null)
                     Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -85,6 +86,8 @@ namespace EDUAR_DataAccess.Encuestas
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaModificacion", DbType.Date, DBNull.Value);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombreEncuesta);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@objetivo", DbType.String, entidad.objetivo);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAmbito", DbType.Int32, entidad.ambito.idAmbitoEncuesta);
 
                 if (Transaction.Transaction != null)
                     Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -116,6 +119,7 @@ namespace EDUAR_DataAccess.Encuestas
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaCreacion);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaModificacion", DbType.Date, DateTime.Now);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombreEncuesta);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@objetivo", DbType.String, entidad.objetivo);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 
                 if (Transaction.Transaction != null)
@@ -157,10 +161,12 @@ namespace EDUAR_DataAccess.Encuestas
                 {
                     if (entidad.idEncuesta > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
-                    if (!entidad.usuario.Equals(null))
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@responsable", DbType.String, entidad.usuario.idPersona);
+                    if (entidad.usuario.idPersona > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@responsable", DbType.Int32, entidad.usuario.idPersona);
                     if (entidad.ambito.idAmbitoEncuesta > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAmbito", DbType.Int32, entidad.ambito.idAmbitoEncuesta);
+                    if (entidad.activo)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activa", DbType.Boolean, entidad.activo);
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -171,13 +177,17 @@ namespace EDUAR_DataAccess.Encuestas
                     objEncuesta = new Encuesta();
 
                     objEncuesta.idEncuesta = Convert.ToInt32(reader["idEncuesta"]);
-                    objEncuesta.nombreEncuesta = reader["nombre"].ToString();
+                    objEncuesta.nombreEncuesta = reader["nombreEncuesta"].ToString();
                     objEncuesta.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"].ToString());
-                    objEncuesta.fechaModificacion = Convert.ToDateTime(reader["fechaModificacion"].ToString());
+                    objEncuesta.objetivo = reader["objetivo"].ToString();
+
+                    string fechaModificacion = reader["fechaModificacion"].ToString();
+
+                    if (!fechaModificacion.Equals(string.Empty)) objEncuesta.fechaModificacion = Convert.ToDateTime(reader["fechaModificacion"].ToString());
 
                     objEncuesta.usuario = new Persona();
                     {
-                        objEncuesta.usuario.idPersona = Convert.ToInt32(reader["idPersona"]);
+                        objEncuesta.usuario.idPersona = Convert.ToInt32(reader["responsable"]);
                         objEncuesta.usuario.nombre = reader["nombreOrganizador"].ToString();
                         objEncuesta.usuario.apellido = reader["apellidoOrganizador"].ToString();
                     }
@@ -185,11 +195,11 @@ namespace EDUAR_DataAccess.Encuestas
                     objEncuesta.ambito = new AmbitoEncuesta();
                     {
                         objEncuesta.ambito.idAmbitoEncuesta = Convert.ToInt32(reader["idAmbito"]);
-                        objEncuesta.ambito.nombre = reader["nombreEncuesta"].ToString();
-                        objEncuesta.ambito.descripcion = reader["descripcionEncuesta"].ToString();
+                        objEncuesta.ambito.nombre = reader["nombreAmbito"].ToString();
+                        //objEncuesta.ambito.descripcion = reader["descripcionAmbito"].ToString();
                     }
 
-                    objEncuesta.activo = Convert.ToBoolean(reader["activo"].ToString());
+                    objEncuesta.activo = Convert.ToBoolean(reader["activa"].ToString());
 
                     //TODO: (PABLO) Incluir la lista de preguntas de la misma, para eso llamar a GetPreguntasEncuesta en la clase correspondiente
                     objEncuesta.preguntas = GetPreguntasEncuesta(entidad);
@@ -219,7 +229,7 @@ namespace EDUAR_DataAccess.Encuestas
         {
             try
             {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("PreguntasEncuestas_Select");
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("PreguntasEncuesta_Select");
                 
                 if (entidad != null)
                 {
@@ -237,20 +247,21 @@ namespace EDUAR_DataAccess.Encuestas
                     objPregunta = new Pregunta();
 
                     objPregunta.idPregunta = Convert.ToInt32(reader["idPregunta"]);
-                    objPregunta.textoPregunta = reader["textoPregunta"].ToString();
-                    objPregunta.objetivoPregunta = reader["objetivo"].ToString();
+                    objPregunta.textoPregunta = reader["pregunta"].ToString();
+                    objPregunta.objetivoPregunta = reader["objetivoPregunta"].ToString();
+                    objPregunta.ponderacion = Convert.ToDouble(reader["pesoPregunta"]);
 
                     objPregunta.categoria = new CategoriaPregunta();
                     {
                         objPregunta.categoria.idCategoriaPregunta = Convert.ToInt32(reader["idCategoria"]);
-                        objPregunta.categoria.nombre = reader["nombre"].ToString();
-                        objPregunta.categoria.descripcion = reader["descripcion"].ToString();
+                        objPregunta.categoria.nombre = reader["categoria"].ToString();
+                        //objPregunta.categoria.descripcion = reader["descripcion"].ToString();
                     }
 
                     objPregunta.escala = new EscalaMedicion();
                     {
-                        objPregunta.escala.idEscala = Convert.ToInt32(reader["idEscalaMedicion"]);
-                        objPregunta.escala.nombre = reader["nombre"].ToString();
+                        objPregunta.escala.idEscala = Convert.ToInt32(reader["idEscalaPonderacion"]);
+                        objPregunta.escala.nombre = reader["escala"].ToString();
                     }
 
                     listaPreguntasEncuesta.Add(objPregunta);
