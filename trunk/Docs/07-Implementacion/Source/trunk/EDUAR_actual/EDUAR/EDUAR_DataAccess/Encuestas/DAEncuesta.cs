@@ -188,6 +188,7 @@ namespace EDUAR_DataAccess.Encuestas
                     objEncuesta.usuario = new Persona();
                     {
                         objEncuesta.usuario.idPersona = Convert.ToInt32(reader["responsable"]);
+                        objEncuesta.usuario.username = reader["username"].ToString();
                         objEncuesta.usuario.nombre = reader["nombreOrganizador"].ToString();
                         objEncuesta.usuario.apellido = reader["apellidoOrganizador"].ToString();
                     }

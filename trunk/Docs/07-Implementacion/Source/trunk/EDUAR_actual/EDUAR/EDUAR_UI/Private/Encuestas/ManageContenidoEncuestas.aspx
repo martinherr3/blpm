@@ -76,7 +76,7 @@
                 AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idEncuesta"
                 OnRowCommand="gvwEncuestas_RowCommand">
                 <Columns>
- <%--
+ 
                    <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
                         <ItemStyle HorizontalAlign="center" />
@@ -87,7 +87,7 @@
                                 ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
---%>
+
                     <asp:TemplateField HeaderText="Ambito">
                         <HeaderStyle HorizontalAlign="left" Width="15%" />
                         <ItemStyle HorizontalAlign="left" />
