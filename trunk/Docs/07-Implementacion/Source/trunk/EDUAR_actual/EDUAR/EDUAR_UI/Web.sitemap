@@ -49,7 +49,7 @@
             <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar" roles="Administrador"/>
         </siteMapNode>
       <siteMapNode url="" title="Encuestas" roles="Administrador">
-        <siteMapNode url="~/Private/Encuestas/ManageContenidoEncuestas.aspx" title="Registrar" roles="Administrador" />
+        <siteMapNode url="~/Private/Encuestas/ManageContenidoEncuestas.aspx" title="Encuestas" roles="Administrador" />
       </siteMapNode>
         <siteMapNode url="" title="Monitoreo" roles="Administrador">
             <siteMapNode url="~/Private/Monitoreo/MntGeneral.aspx" title="Pizarra Digital" roles="Administrador" />

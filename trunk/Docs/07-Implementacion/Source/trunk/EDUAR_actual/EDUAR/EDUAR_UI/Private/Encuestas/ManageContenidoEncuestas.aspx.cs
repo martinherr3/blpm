@@ -28,12 +28,12 @@ namespace EDUAR_UI
         {
             get
             {
-                if (Session["propEncuesta"] == null)
+                if (ViewState["propEncuesta"] == null)
                     propEncuesta = new Encuesta();
 
-                return (Encuesta)Session["propEncuesta"];
+                return (Encuesta)ViewState["propEncuesta"];
             }
-            set { Session["propEncuesta"] = value; }
+            set { ViewState["propEncuesta"] = value; }
         }
 
         /// <summary>
@@ -64,9 +64,8 @@ namespace EDUAR_UI
         {
             get
             {
-                if (ViewState["listaEncuesta"] == null)
-                    listaEncuesta = new List<Encuesta>();
-
+                if (ViewState["listaEncuesta"] == null) listaEncuesta = new List<Encuesta>();
+                
                 return (List<Encuesta>)ViewState["listaEncuesta"];
             }
             set { ViewState["listaEncuesta"] = value; }
@@ -148,23 +147,6 @@ namespace EDUAR_UI
                     default:
                         break;
                 }
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
-
-        /// <summary>
-        /// Handles the Click event of the btnPreguntasEncuesta control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void btnPreguntasEncuesta_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //Response.Redirect("ManagePreguntasEncuesta.aspx", false);
             }
             catch (Exception ex)
             {
@@ -348,16 +330,6 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Habilitars the botones detalle.
-        /// </summary>
-        /// <param name="habilitar">if set to <c>true</c> [habilitar].</param>
-        private void HabilitarBotonesDetalle(bool habilitar)
-        {
-            //btnPreguntasEncuesta.Visible = habilitar; 
-            //TODO (Pablo): Agregar este noble botón
-        }
-
-        /// <summary>
         /// Buscars the entidads.
         /// </summary>
         /// <param name="entidad">The entidad.</param>
@@ -372,11 +344,11 @@ namespace EDUAR_UI
         /// </summary>
         /// <param name="entidad">The entidad.</param>
         private void CargarLista(Encuesta entidad)
-        {
-            entidad.activo = true;
-            if (User.IsInRole(enumRoles.Administrador.ToString()))
-                entidad.usuario.nombre = ObjSessionDataUI.ObjDTUsuario.Nombre;
+        {         
             objBLEncuesta = new BLEncuesta(entidad);
+
+            entidad.idEncuesta = propEncuesta.idEncuesta;
+
             listaEncuesta = objBLEncuesta.GetEncuestas(entidad);
         }
 
@@ -396,15 +368,23 @@ namespace EDUAR_UI
         {
             Encuesta entidad = new Encuesta();
             entidad = propEncuesta;
+
             if (!esNuevo)
             {
                 entidad.idEncuesta = propEncuesta.idEncuesta;
-                entidad.nombreEncuesta = propEncuesta.nombreEncuesta;
-                //entidad.preguntas = propEncuesta.preguntas;
-                entidad.fechaCreacion = propEncuesta.fechaCreacion;
-                entidad.fechaModificacion = propEncuesta.fechaModificacion;
-                entidad.activo = propEncuesta.activo;
+                entidad.fechaModificacion = DateTime.Now;
             }
+
+            if (Convert.ToInt32(ddlAmbitoEdit.SelectedValue) > 0)
+            {
+                entidad.ambito.idAmbitoEncuesta = Convert.ToInt32(ddlAmbitoEdit.SelectedValue);
+                entidad.nombreEncuesta = txtNombreEdit.Text.Trim();
+                entidad.fechaCreacion = DateTime.Now;
+                entidad.activo = chkActivoEdit.Checked;
+                entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+                entidad.objetivo = txtObjetivoEdit.Text.Trim();
+            }
+            
             return entidad;
         }
 
@@ -447,7 +427,6 @@ namespace EDUAR_UI
             esNuevo = false;
             CargarValoresEnPantalla(propEncuesta.idEncuesta);
             //CargarGrillaEncuesta();
-            HabilitarBotonesDetalle(propEncuesta.activo);
             btnBuscar.Visible = false;
             btnVolver.Visible = true;
             gvwEncuestas.Visible = false;
@@ -464,7 +443,12 @@ namespace EDUAR_UI
             lblTitulo.Text = "Encuestas";
             Encuesta entidad = new Encuesta();
             entidad.activo = chkActivo.Checked;
-            int idAmbito = Convert.ToInt32(ddlAmbito.SelectedValue);
+            
+            AmbitoEncuesta ambito = new AmbitoEncuesta();
+            ambito.idAmbitoEncuesta = Convert.ToInt32(ddlAmbito.SelectedValue);
+
+            entidad.ambito = ambito;
+
             propFiltroEncuesta = entidad;
             BuscarEncuesta(entidad);
         }
@@ -476,8 +460,7 @@ namespace EDUAR_UI
         {
             //TODO (Pablo): Incluir estos componentes de filtrado
             if (ddlAmbito.Items.Count > 0) ddlAmbito.SelectedIndex = 0;
-            HabilitarBotonesDetalle(false);
-            chkActivo.Checked = true;
+            chkActivo.Checked = false;
         }
         #endregion
     }

@@ -76,24 +76,23 @@
                 AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idEncuesta"
                 OnRowCommand="gvwEncuestas_RowCommand">
                 <Columns>
-            
-                    <asp:TemplateField HeaderText="Acciones">
+ <%--
+                   <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarEncuesta" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEncuesta") %>'
-                                ToolTip="Editar Encuesta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
-                            <%--<asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La Reunión sólo es editable para su organizador"
-                                ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />--%>
+                                ToolTip="Editar Encuesta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
+                            <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La encuesta sólo es editable para su propietario"
+                                ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
-
+--%>
                     <asp:TemplateField HeaderText="Ambito">
                         <HeaderStyle HorizontalAlign="left" Width="15%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblAmbito" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "idAmbitoEncuesta").ToString())%>'
-                                ToolTip='<%# Bind("idAmbitoEncuesta") %>'></asp:Label>
+                            <asp:Label ID="lblAmbito" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "ambito.nombre").ToString())%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>                
  
@@ -101,7 +100,7 @@
                         <HeaderStyle HorizontalAlign="left" Width="25%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblNombre" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "nombre").ToString())%>'></asp:Label>
+                            <asp:Label ID="lblNombre" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "nombreEncuesta").ToString())%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
 
@@ -157,7 +156,7 @@
                         </tr>
                         <tr>
                             <td valign="top" class="TD25">
-                                <asp:Label runat="server" ID="lblAmbitoBusqueda" Text="Ambito:"></asp:Label>
+                                <asp:Label runat="server" ID="lblAmbitoEdit" Text="Ambito:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
                                <asp:DropDownList ID="ddlAmbitoEdit" runat="server"/>
@@ -165,10 +164,10 @@
                         </tr>
                         <tr>
                             <td valign="top" class="TD25">
-                                <asp:Label runat="server" ID="lblCategoriaBusqueda" Text="Categoría:"></asp:Label>
+                                <asp:Label runat="server" ID="lblNombreEdit" Text="Nombre encuesta:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtCategoriaEdit" Width="500px"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtNombreEdit" Width="500px"></asp:TextBox>
                             </td>
                         </tr>
 <%--                        <tr>
@@ -181,7 +180,7 @@
                         </tr>--%>
                         <tr>
                             <td valign="top" class="TD25">
-                                <asp:Label runat="server" ID="lblObjetivoBusqueda" Text="Objetivo:"></asp:Label>
+                                <asp:Label runat="server" ID="lblObjetivoEdit" Text="Objetivo:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
                                 <asp:TextBox runat="server" ID="txtObjetivoEdit" Width="500px" TextMode="MultiLine" Rows="5"></asp:TextBox>
