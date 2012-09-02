@@ -127,6 +127,7 @@ namespace EDUAR_BusinessLogic.Reports
 				filtro.idAlumno = entidad.idAlumno;
 				filtro.idCicloLectivo = entidad.idCicloLectivo;
 				filtro.idCurso = entidad.idCurso;
+                filtro.idPeriodo = entidad.idPeriodo;
 
 				return DataAcces.GetRptInasistenciasAlumnoPeriodo(filtro);
 			}
