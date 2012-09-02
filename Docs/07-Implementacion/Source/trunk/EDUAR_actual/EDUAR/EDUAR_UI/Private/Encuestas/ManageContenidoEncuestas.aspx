@@ -170,14 +170,6 @@
                                 <asp:TextBox runat="server" ID="txtNombreEdit" Width="500px"></asp:TextBox>
                             </td>
                         </tr>
-<%--                        <tr>
-                            <td valign="top" class="TD25">
-                                <asp:Label runat="server" ID="lblPreguntaBusqueda" Text="Pregunta:"></asp:Label>
-                            </td>
-                            <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtPreguntaEdit" Width="500px"></asp:TextBox>
-                            </td>
-                        </tr>--%>
                         <tr>
                             <td valign="top" class="TD25">
                                 <asp:Label runat="server" ID="lblObjetivoEdit" Text="Objetivo:"></asp:Label>
