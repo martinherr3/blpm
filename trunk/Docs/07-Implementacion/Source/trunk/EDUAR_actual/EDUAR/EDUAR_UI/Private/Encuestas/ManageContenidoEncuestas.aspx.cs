@@ -107,13 +107,14 @@ namespace EDUAR_UI
                 if (!Page.IsPostBack)
                 {
                     CargarPresentacion();
-                    if (propEncuesta.idEncuesta > 0)
-                    {
-                        CargarLista(propEncuesta);
-                        CargaEncuesta();
-                    }
-                    else
-                        BuscarEncuesta(propEncuesta);
+                    BuscarEncuesta(null);
+                    //if (propEncuesta.idEncuesta > 0)
+                    //{
+                    //    CargarLista(propEncuesta);
+                    //    CargaEncuesta();
+                    //}
+                    //else
+                    //    BuscarEncuesta(propEncuesta);
                 }
                 //this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
             }
@@ -166,7 +167,7 @@ namespace EDUAR_UI
                 AccionPagina = enumAcciones.Nuevo;
                 LimpiarCampos();
                 esNuevo = true;
-                CargarCombos(ddlAmbitoEdit);
+                CargarCombos();
                 btnGuardar.Visible = true;
                 btnBuscar.Visible = false;
                 btnVolver.Visible = true;
@@ -264,8 +265,10 @@ namespace EDUAR_UI
                 {
                     case "Editar":
                         propEncuesta.idEncuesta = Convert.ToInt32(e.CommandArgument.ToString());
+                        
+                        //lblTitulo.Text = "Encuesta: " + propEncuesta.nombreEncuesta;
+                        
                         CargaEncuesta();
-                        lblTitulo.Text = "Encuesta: " + propEncuesta.nombreEncuesta;
                         break;
                 }
             }
@@ -312,13 +315,13 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Cargars the presentacion.
+        /// Carga el contenido de la grilla de encuestas.
         /// </summary>
         private void CargarPresentacion()
         {
             LimpiarCampos();
             lblTitulo.Text = "Encuesta";
-            CargarCombos(ddlAmbito);
+            CargarCombos();
             udpEdit.Visible = false;
             btnVolver.Visible = false;
             btnGuardar.Visible = false;
@@ -347,7 +350,7 @@ namespace EDUAR_UI
         {         
             objBLEncuesta = new BLEncuesta(entidad);
 
-            entidad.idEncuesta = propEncuesta.idEncuesta;
+            //entidad.idEncuesta = propEncuesta.idEncuesta;
 
             listaEncuesta = objBLEncuesta.GetEncuestas(entidad);
         }
@@ -355,9 +358,10 @@ namespace EDUAR_UI
         /// <summary>
         /// Cargars the combos.
         /// </summary>
-        private void CargarCombos(DropDownList ddlAmbito)
+        private void CargarCombos()
         {
             UIUtilidades.BindCombo<AmbitoEncuesta>(ddlAmbito, listaAmbitos, "idAmbitoEncuesta", "nombre", true);
+            UIUtilidades.BindCombo<AmbitoEncuesta>(ddlAmbitoEdit, listaAmbitos, "idAmbitoEncuesta", "nombre", true);
         }
 
         /// <summary>
@@ -403,9 +407,12 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarValoresEnPantalla(int idEntidad)
         {
-            BLEncuesta objBLEncuesta = new BLEncuesta(new Encuesta() { idEncuesta = idEntidad });
-            objBLEncuesta.GetById();
-            propEncuesta = objBLEncuesta.Data;
+            Encuesta encuesta = listaEncuesta.Find(c => c.idEncuesta == idEntidad);
+
+            chkActivoEdit.Checked = encuesta.activo;
+            ddlAmbitoEdit.SelectedValue = encuesta.ambito.idAmbitoEncuesta.ToString();
+            txtNombreEdit.Text = encuesta.nombreEncuesta;
+            txtObjetivoEdit.Text = encuesta.objetivo;
         }
 
         /// <summary>
@@ -425,15 +432,23 @@ namespace EDUAR_UI
         {
             AccionPagina = enumAcciones.Modificar;
             esNuevo = false;
+
             CargarValoresEnPantalla(propEncuesta.idEncuesta);
-            //CargarGrillaEncuesta();
+
+            litEditar.Visible = true;
+            litNuevo.Visible = false;
             btnBuscar.Visible = false;
+            btnNuevo.Visible = false;
             btnVolver.Visible = true;
+            btnGuardar.Visible = true;
             gvwEncuestas.Visible = false;
             udpFiltrosBusqueda.Visible = false;
             udpEdit.Visible = true;
+            udpFiltros.Update();
             udpEdit.Update();
         }
+
+
 
         /// <summary>
         /// Buscars the filtrando.
