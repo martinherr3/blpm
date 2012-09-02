@@ -626,6 +626,7 @@ namespace EDUAR_UI
 				filtros.AppendLine("- Alumno: " + ddlAlumnosTutor.SelectedItem.Text);
 
 				filtroReporte.idCicloLectivo = cicloLectivoActual.idCicloLectivo;
+                filtroReporteIncidencias.idCicloLectivo = cicloLectivoActual.idCicloLectivo;
 
 				int idPeriodo = 0;
 				int.TryParse(ddlPeriodo.SelectedValue, out idPeriodo);
