@@ -103,6 +103,9 @@ namespace EDUAR_DataAccess.Reports
 					objEntidad.verdeNivelIntermedio = (int)reader["verdeNivelIntermedio"];
 					objEntidad.verdeNivelPrincipal = (int)reader["verdeNivelPrincipal"];
 					objEntidad.verdeNivelSecundario = (int)reader["verdeNivelSecundario"];
+                    objEntidad.diasHastaPrincipal = (int)reader["diasHastaPrincipal"];
+                    objEntidad.diasHastaIntermedio = (int)reader["diasHastaIntermedio"];
+                    objEntidad.diasHastaSecundario = (int)reader["diasHastaSecundario"];
 
 					listaEntidad.Add(objEntidad);
 				}

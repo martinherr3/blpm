@@ -29,13 +29,13 @@
                         <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td align="center">
-                                    <asp:Button ID="btnSecundario1" runat="server" Text="-1" CssClass="BotonIndRojoSecundario"
-                                        CommandName="Secundario1" ToolTip="Click para ver detalle del indicador." />
+                                    <asp:Button ID="btnIntermedio" runat="server" Text="-1" CssClass="BotonIndRojoSecundario"
+                                        CommandName="Intermedio" ToolTip="Click para ver detalle del indicador." />
                                 </td>
                             </tr>
                             <tr>
                                 <td align="center">
-                                    <asp:Label ID="lblSecundario1" runat="server" Text="-" Font-Size="XX-Small"></asp:Label>
+                                    <asp:Label ID="lblIntermedio" runat="server" Text="-" Font-Size="XX-Small"></asp:Label>
                                 </td>
                             </tr>
                         </table>
@@ -46,13 +46,13 @@
                         <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td align="center">
-                                    <asp:Button ID="btnSecundario2" runat="server" Text="-1" CssClass="BotonIndRojoSecundario"
-                                        CommandName="Secundario2" ToolTip="Click para ver detalle del indicador." />
+                                    <asp:Button ID="btnSecundario" runat="server" Text="-1" CssClass="BotonIndRojoSecundario"
+                                        CommandName="Secundario" ToolTip="Click para ver detalle del indicador." />
                                 </td>
                             </tr>
                             <tr>
                                 <td align="center">
-                                    <asp:Label ID="lblSecundario2" runat="server" Text="-" Font-Size="XX-Small"></asp:Label>
+                                    <asp:Label ID="lblSecundario" runat="server" Text="-" Font-Size="XX-Small"></asp:Label>
                                 </td>
                             </tr>
                         </table>
