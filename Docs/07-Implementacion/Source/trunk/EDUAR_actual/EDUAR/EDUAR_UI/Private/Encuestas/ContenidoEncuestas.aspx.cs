@@ -11,47 +11,117 @@ using EDUAR_BusinessLogic.Encuestas;
 
 namespace EDUAR_UI
 {
-    public partial class ManageContenidoEncuestas : EDUARBasePage
+    public partial class ContenidoEncuestas : EDUARBasePage
     {
         #region --[Atributos]--
+        private BLPregunta objBLPregunta;
         private BLEncuesta objBLEncuesta;
         #endregion
 
         #region --[Propiedades]--
         /// <summary>
-        /// Mantiene la encuesta seleccionada en la grilla.
+        /// Gets or sets the encuesta en sesion.
+        /// </summary>
+        /// <value>
+        /// The encuesta en sesion.
+        /// </value>
+        public Encuesta encuestaSesion
+        {
+            get
+            {
+                if (Session["encuestaSesion"] == null)
+                    encuestaSesion = new Encuesta();
+
+                return (Encuesta)Session["encuestaSesion"];
+            }
+            set { Session["encuestaSesion"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the id pregunta.
+        /// </summary>
+        /// <value>
+        /// The id pregunta.
+        /// </value>
+        public int idPregunta
+        {
+            get
+            {
+                if (ViewState["idPregunta"] == null)
+                    ViewState["idPregunta"] = 0;
+                return (int)ViewState["idPregunta"];
+            }
+            set { ViewState["idPregunta"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the id escala medicion.
+        /// </summary>
+        /// <value>
+        /// The id escala medicion.
+        /// </value>
+        public int idEscalaMedicion
+        {
+            get
+            {
+                if (ViewState["idEscalaMedicion"] == null)
+                    ViewState["idEscalaMedicion"] = 0;
+                return (int)ViewState["idEscalaMedicion"];
+            }
+            set { ViewState["idEscalaMedicion"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the pregunta editar.
+        /// </summary>
+        /// <value>
+        /// The pregunta editar.
+        /// </value>
+        public Pregunta preguntaEditar
+        {
+            get
+            {
+                if (Session["preguntaEditar"] == null)
+                    Session["preguntaEditar"] = new Pregunta();
+                return (Pregunta)Session["preguntaEditar"];
+            }
+            set { Session["preguntaEditar"] = value; }
+        }
+
+        /// <summary>
+        /// Mantiene la pregunta seleccionada en la grilla.
         /// </summary>
         /// <value>
         /// The prop encuesta.
         /// </value>
-        public Encuesta propEncuesta
+        public Pregunta propPregunta
         {
             get
             {
-                if (ViewState["propEncuesta"] == null)
-                    propEncuesta = new Encuesta();
+                if (ViewState["propPregunta"] == null)
+                    propPregunta = new Pregunta();
 
-                return (Encuesta)ViewState["propEncuesta"];
+                return (Pregunta)ViewState["propPregunta"];
             }
-            set { ViewState["propEncuesta"] = value; }
+            set { ViewState["propPregunta"] = value; }
         }
 
         /// <summary>
-        /// Gets or sets the prop filtro encuesta.
+        /// Gets or sets the prop filtro pregunta.
         /// </summary>
         /// <value>
         /// The prop filtro encuesta.
         /// </value>
-        public Encuesta propFiltroEncuesta
+        public Pregunta propFiltroPregunta
         {
             get
             {
-                if (ViewState["propFiltroEncuesta"] == null)
-                    propFiltroEncuesta = new Encuesta();
+                if (ViewState["propFiltroPregunta"] == null)
+                    propFiltroPregunta = new Pregunta();
 
-                return (Encuesta)ViewState["propFiltroEncuesta"];
+                return (Pregunta)ViewState["propFiltroPregunta"];
             }
-            set { ViewState["propFiltroEncuesta"] = value; }
+            set { ViewState["propFiltroPregunta"] = value; }
         }
 
         /// <summary>
@@ -60,15 +130,15 @@ namespace EDUAR_UI
         /// <value>
         /// The lista agenda.
         /// </value>
-        public List<Encuesta> listaEncuesta
+        public List<Pregunta> listaPreguntas
         {
             get
             {
-                if (ViewState["listaEncuesta"] == null) listaEncuesta = new List<Encuesta>();
-                
-                return (List<Encuesta>)ViewState["listaEncuesta"];
+                if (ViewState["listaPreguntas"] == null) listaPreguntas = new List<Pregunta>();
+
+                return (List<Pregunta>)ViewState["listaPreguntas"];
             }
-            set { ViewState["listaEncuesta"] = value; }
+            set { ViewState["listaPreguntas"] = value; }
         }
 
         /// <summary>
@@ -92,38 +162,54 @@ namespace EDUAR_UI
             set { ViewState["listaAmbitos"] = value; }
         }
 
-        public int idEncuesta
+        /// <summary>
+        /// Devuelve la lista de categorias disponibles
+        /// </summary>
+        /// <value>
+        /// The lista categorias.
+        /// </value>
+        public List<CategoriaPregunta> listaCategorias
         {
             get
             {
-                if (ViewState["idEncuesta"] == null) idEncuesta = 0;
+                if (ViewState["listaCategorias"] == null)
+                {
+                    BLCategoriaPregunta objBLCategoriasPregunta = new BLCategoriaPregunta();
 
-                return (int)ViewState["idEncuesta"];
+                    //Necesito que las categorias sean solamente de el ambito en cuestion, no en general
+
+                    CategoriaPregunta categoriaGenerica = new CategoriaPregunta();
+                    categoriaGenerica.ambito.idAmbitoEncuesta = encuestaSesion.ambito.idAmbitoEncuesta;
+
+                    listaCategorias = objBLCategoriasPregunta.GetCategoriasPregunta(categoriaGenerica);
+                }
+                return (List<CategoriaPregunta>)ViewState["listaCategorias"];
             }
-            set { ViewState["idEncuesta"] = value; }
+            set { ViewState["listaCategorias"] = value; }
         }
 
-        public int idAmbito
+        /// <summary>
+        /// Devuelve la lista de escalas disponibles
+        /// </summary>
+        /// <value>
+        /// The lista escalas.
+        /// </value>
+        public List<EscalaMedicion> listaEscalas
         {
             get
             {
-                if (ViewState["idAmbito"] == null) idAmbito = 0;
+                if (ViewState["listaEscalas"] == null)
+                {
+                    BLEscala objBLEscalasMedicion = new BLEscala();
 
-                return (int)ViewState["idAmbito"];
+                    EscalaMedicion escalaGenerica = new EscalaMedicion();
+                    escalaGenerica.idEscala = idEscalaMedicion;
+
+                    listaEscalas = objBLEscalasMedicion.GetEscalasMedicion(escalaGenerica);
+                }
+                return (List<EscalaMedicion>)ViewState["listaEscalas"];
             }
-            set { ViewState["idAmbito"] = value; }
-        }
-
-        public Encuesta encuestaSesion
-        {
-            get
-            {
-                if (Session["encuestaSesion"] == null)
-                    encuestaSesion = new Encuesta();
-
-                return (Encuesta)Session["encuestaSesion"];
-            }
-            set { Session["encuestaSesion"] = value; }
+            set { ViewState["listaEscalas"] = value; }
         }
         #endregion
 
@@ -138,23 +224,18 @@ namespace EDUAR_UI
             try
             {
                 Master.BotonAvisoAceptar += (VentanaAceptar);
+
                 if (!Page.IsPostBack)
                 {
                     CargarPresentacion();
-                    BuscarEncuesta(null);
-
-                    if (Request.UrlReferrer.AbsolutePath.Contains("ContenidoEncuestas.aspx"))
-                    {
-                        //Lo que se hace en este bloque es restablecer los elementos a su estado anterior, dado que está volviendo desde otra página
-
-                        //ddlCurso.SelectedValue = idCurso.ToString();
-                        //ddlAsignatura.Enabled = true;
-                        //CargarComboAsignatura(idCurso);
-                        //ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
-                        //ddlAsignatura.Enabled = idCurso > 0;
-                        //btnNuevo.Visible = idAsignaturaCurso > 0;
-                        //CargarContenido(idAsignaturaCurso);
-                    }
+                    //TODO (Pablo): Listar las preguntas de la encuesta en cuestión
+                    BuscarPregunta(encuestaSesion);
+                }
+                else
+                {
+                    if (Request.Form["__EVENTTARGET"] == "btnGuardar")
+                        //llamamos el metodo que queremos ejecutar, en este caso el evento onclick del boton Guardar
+                        btnGuardar_Click(this, new EventArgs());
                 }
             }
             catch (Exception ex)
@@ -177,7 +258,7 @@ namespace EDUAR_UI
                 {
                     case enumAcciones.Limpiar:
                         CargarPresentacion();
-                        BuscarEncuesta(null);
+                        BuscarPregunta(null);
                         break;
                     case enumAcciones.Guardar:
                         AccionPagina = enumAcciones.Limpiar;
@@ -211,7 +292,7 @@ namespace EDUAR_UI
                 btnBuscar.Visible = false;
                 btnVolver.Visible = true;
                 btnNuevo.Visible = false;
-                gvwEncuestas.Visible = false;
+                gvwPreguntas.Visible = false;
                 litEditar.Visible = false;
                 litNuevo.Visible = true;
                 udpEdit.Visible = true;
@@ -229,7 +310,7 @@ namespace EDUAR_UI
         /// Handles the Click event of the btnBuscar control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instancia que contiene los datos de la encuesta.</param>
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             try
@@ -256,7 +337,6 @@ namespace EDUAR_UI
                 {
                     if (Page.IsValid)
                     {
-                        //TODO: Aquí hay que llamar a la validación de disponibilidad de agenda
                         AccionPagina = enumAcciones.Guardar;
                         Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
                     }
@@ -281,9 +361,7 @@ namespace EDUAR_UI
         {
             try
             {
-                CargarPresentacion();
-                BuscarEncuesta(propFiltroEncuesta);
-                propEncuesta = new Encuesta();
+                Response.Redirect("~/Private/Encuestas/ManageContenidoEncuestas.aspx", true);
             }
             catch (Exception ex)
             {
@@ -296,26 +374,15 @@ namespace EDUAR_UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
-        protected void gvwEncuestas_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void gvwPreguntas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
             {
                 switch (e.CommandName)
                 {
                     case "Editar":
-                        propEncuesta.idEncuesta = Convert.ToInt32(e.CommandArgument.ToString());                       
-                        CargaEncuesta();
-                        break;
-                    case "Preguntas":
-                        AccionPagina = enumAcciones.Redirect;
-                        idEncuesta = Convert.ToInt32(e.CommandArgument.ToString());
-                        
-                        //idAmbito = encuestaSesion.ambito.idAmbitoEncuesta;
-                        
-                        //Creo que en realidad lo que tengo que hacer acá es enviar la encuesta en sesion
-                        encuestaSesion = listaEncuesta.Find(p => p.idEncuesta == idEncuesta);
-                        
-                        Response.Redirect("ContenidoEncuestas.aspx", false);
+                        propPregunta.idPregunta = Convert.ToInt32(e.CommandArgument.ToString());
+                        CargaPregunta();
                         break;
                 }
             }
@@ -330,15 +397,15 @@ namespace EDUAR_UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
-        protected void gvwEncuesta_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void gvwPreguntas_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
             {
-                gvwEncuestas.PageIndex = e.NewPageIndex;
+                gvwPreguntas.PageIndex = e.NewPageIndex;
                 CargarGrilla();
                 btnBuscar.Visible = false;
                 btnVolver.Visible = true;
-                gvwEncuestas.Visible = false;
+                gvwPreguntas.Visible = false;
                 udpFiltrosBusqueda.Visible = false;
                 udpEdit.Visible = true;
                 udpEdit.Update();
@@ -355,8 +422,8 @@ namespace EDUAR_UI
         /// <param name="lista">The lista.</param>
         private void CargarGrilla()
         {
-            gvwEncuestas.DataSource = UIUtilidades.BuildDataTable<Encuesta>(listaEncuesta).DefaultView;
-            gvwEncuestas.DataBind();
+            gvwPreguntas.DataSource = UIUtilidades.BuildDataTable<Pregunta>(listaPreguntas).DefaultView;
+            gvwPreguntas.DataBind();
             udpEdit.Visible = false;
             udpGrilla.Update();
         }
@@ -367,15 +434,15 @@ namespace EDUAR_UI
         private void CargarPresentacion()
         {
             LimpiarCampos();
-            lblTitulo.Text = "Encuesta";
+            lblTitulo.Text = "Pregunta";
             CargarCombos();
             udpEdit.Visible = false;
             btnVolver.Visible = false;
+            btnNuevo.Visible = true;
             btnGuardar.Visible = false;
             udpFiltrosBusqueda.Visible = true;
             btnBuscar.Visible = true;
-            btnNuevo.Visible = true;
-            gvwEncuestas.Visible = true;
+            gvwPreguntas.Visible = true;
             udpFiltros.Update();
             udpGrilla.Update();
         }
@@ -384,7 +451,7 @@ namespace EDUAR_UI
         /// Buscars the entidads.
         /// </summary>
         /// <param name="entidad">The entidad.</param>
-        private void BuscarEncuesta(Encuesta entidad)
+        private void BuscarPregunta(Encuesta entidad)
         {
             CargarLista(entidad);
             CargarGrilla();
@@ -395,12 +462,9 @@ namespace EDUAR_UI
         /// </summary>
         /// <param name="entidad">The entidad.</param>
         private void CargarLista(Encuesta entidad)
-        {         
+        {
             objBLEncuesta = new BLEncuesta(entidad);
-
-            //entidad.idEncuesta = propEncuesta.idEncuesta;
-
-            listaEncuesta = objBLEncuesta.GetEncuestas(entidad);
+            listaPreguntas = objBLEncuesta.GetPreguntasEncuesta(entidad);
         }
 
         /// <summary>
@@ -408,35 +472,36 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarCombos()
         {
-            UIUtilidades.BindCombo<AmbitoEncuesta>(ddlAmbito, listaAmbitos, "idAmbitoEncuesta", "nombre", true);
-            UIUtilidades.BindCombo<AmbitoEncuesta>(ddlAmbitoEdit, listaAmbitos, "idAmbitoEncuesta", "nombre", true);
+            UIUtilidades.BindCombo<CategoriaPregunta>(ddlCategoria, listaCategorias, "idCategoriaPregunta", "nombre", true);
+            UIUtilidades.BindCombo<EscalaMedicion>(ddlEscalaPonderacion, listaEscalas, "idEscala", "nombre", true);
+
+            UIUtilidades.BindCombo<CategoriaPregunta>(ddlCategoriaEdit, listaCategorias, "idCategoriaPregunta", "nombre", true);
+            UIUtilidades.BindCombo<EscalaMedicion>(ddlEscalaPonderacionEdit, listaEscalas, "idEscala", "nombre", true);
         }
 
         /// <summary>
         /// Obteners the valores pantalla.
         /// </summary>
         /// <returns></returns>
-        private Encuesta ObtenerValoresDePantalla()
+        private Pregunta ObtenerValoresDePantalla()
         {
-            Encuesta entidad = new Encuesta();
-            entidad = propEncuesta;
+            Pregunta entidad = new Pregunta();
+            entidad = propPregunta;
 
             if (!esNuevo)
             {
-                entidad.idEncuesta = propEncuesta.idEncuesta;
-                entidad.fechaModificacion = DateTime.Now;
+                entidad.idPregunta = propPregunta.idPregunta;
             }
 
-            if (Convert.ToInt32(ddlAmbitoEdit.SelectedValue) > 0)
+            if (Convert.ToInt32(ddlCategoria.SelectedValue) > 0 && Convert.ToInt32(ddlEscalaPonderacion.SelectedValue) > 0)
             {
-                entidad.ambito.idAmbitoEncuesta = Convert.ToInt32(ddlAmbitoEdit.SelectedValue);
-                entidad.nombreEncuesta = txtNombreEdit.Text.Trim();
-                entidad.fechaCreacion = DateTime.Now;
-                entidad.activo = chkActivoEdit.Checked;
-                entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-                entidad.objetivo = txtObjetivoEdit.Text.Trim();
+                entidad.categoria.idCategoriaPregunta = Convert.ToInt32(ddlCategoriaEdit.SelectedValue);
+                entidad.escala.idEscala = Convert.ToInt32(ddlEscalaPonderacionEdit.SelectedValue);
+                entidad.textoPregunta = txtTextoPreguntaEdit.Text.Trim();
+                entidad.objetivoPregunta = txtObjetivoPreguntaEdit.Text.Trim();
+                entidad.ponderacion = Convert.ToInt32(txtPesoPreguntaEdit.Text.Trim());
             }
-            
+
             return entidad;
         }
 
@@ -444,10 +509,10 @@ namespace EDUAR_UI
         /// Guardars the encuesta.
         /// </summary>
         /// <param name="entidad">The entidad.</param>
-        private void GuardarEncuesta(Encuesta entidad)
+        private void GuardarEncuesta(Pregunta entidad)
         {
-            objBLEncuesta = new BLEncuesta(entidad);
-            objBLEncuesta.Save();
+            objBLPregunta = new BLPregunta(entidad);
+            objBLPregunta.Save();
         }
 
         /// <summary>
@@ -455,12 +520,13 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarValoresEnPantalla(int idEntidad)
         {
-            Encuesta encuesta = listaEncuesta.Find(c => c.idEncuesta == idEntidad);
+            Pregunta pregunta = listaPreguntas.Find(c => c.idPregunta == idEntidad);
 
-            chkActivoEdit.Checked = encuesta.activo;
-            ddlAmbitoEdit.SelectedValue = encuesta.ambito.idAmbitoEncuesta.ToString();
-            txtNombreEdit.Text = encuesta.nombreEncuesta;
-            txtObjetivoEdit.Text = encuesta.objetivo;
+            ddlCategoriaEdit.SelectedValue = pregunta.categoria.idCategoriaPregunta.ToString();
+            ddlEscalaPonderacionEdit.SelectedValue = pregunta.escala.idEscala.ToString();
+            txtTextoPreguntaEdit.Text = pregunta.textoPregunta;
+            txtObjetivoPreguntaEdit.Text = pregunta.objetivoPregunta;
+            txtPesoPreguntaEdit.Text = pregunta.ponderacion.ToString();
         }
 
         /// <summary>
@@ -476,12 +542,12 @@ namespace EDUAR_UI
         /// <summary>
         /// Cargas the agenda.
         /// </summary>
-        private void CargaEncuesta()
+        private void CargaPregunta()
         {
             AccionPagina = enumAcciones.Modificar;
             esNuevo = false;
 
-            CargarValoresEnPantalla(propEncuesta.idEncuesta);
+            CargarValoresEnPantalla(propPregunta.idPregunta);
 
             litEditar.Visible = true;
             litNuevo.Visible = false;
@@ -489,31 +555,32 @@ namespace EDUAR_UI
             btnNuevo.Visible = false;
             btnVolver.Visible = true;
             btnGuardar.Visible = true;
-            gvwEncuestas.Visible = false;
+            gvwPreguntas.Visible = false;
             udpFiltrosBusqueda.Visible = false;
             udpEdit.Visible = true;
             udpFiltros.Update();
             udpEdit.Update();
         }
 
-
-
         /// <summary>
         /// Buscars the filtrando.
         /// </summary>
         private void BuscarFiltrando()
         {
-            lblTitulo.Text = "Encuestas";
-            Encuesta entidad = new Encuesta();
-            entidad.activo = chkActivo.Checked;
-            
-            AmbitoEncuesta ambito = new AmbitoEncuesta();
-            ambito.idAmbitoEncuesta = Convert.ToInt32(ddlAmbito.SelectedValue);
+            lblTitulo.Text = "Preguntas";
+            Pregunta entidad = new Pregunta();
 
-            entidad.ambito = ambito;
+            CategoriaPregunta categoria = new CategoriaPregunta();
+            categoria.idCategoriaPregunta = Convert.ToInt32(ddlCategoria.SelectedValue);
 
-            propFiltroEncuesta = entidad;
-            BuscarEncuesta(entidad);
+            EscalaMedicion escala = new EscalaMedicion();
+            escala.idEscala = Convert.ToInt32(ddlEscalaPonderacion.SelectedValue);
+
+            entidad.categoria = categoria;
+            entidad.escala = escala;
+
+            propFiltroPregunta = entidad;
+            BuscarPregunta(encuestaSesion);
         }
 
         /// <summary>
@@ -522,8 +589,8 @@ namespace EDUAR_UI
         private void LimpiarCampos()
         {
             //TODO (Pablo): Incluir estos componentes de filtrado
-            if (ddlAmbito.Items.Count > 0) ddlAmbito.SelectedIndex = 0;
-            chkActivo.Checked = false;
+            if (ddlCategoria.Items.Count > 0) ddlCategoria.SelectedIndex = 0;
+            if (ddlEscalaPonderacion.Items.Count > 0) ddlEscalaPonderacion.SelectedIndex = 0;
         }
         #endregion
     }

@@ -15,8 +15,8 @@ namespace EDUAR_Entities
     public class EscalaMedicion : DTBase
     {
         public int idEscala { get; set; }
-        public string nombre;
-        public string descripcion;
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
 
         public EscalaMedicion()
         {

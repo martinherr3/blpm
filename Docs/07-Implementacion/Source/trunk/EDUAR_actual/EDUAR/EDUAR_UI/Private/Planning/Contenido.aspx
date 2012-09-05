@@ -18,7 +18,7 @@
             background-color: lemonchiffon;
             margin: 3px 3px 3px 3px;
             padding: 3px 3px 3px 3px;
-            borderbottomwidth: 3px 3px 3px 3px;
+            border-bottom-width: 3px 3px 3px 3px;
         }
     </style>
     <div class="fadingTooltip" id="fadingTooltip" style="z-index: 999; visibility: hidden;

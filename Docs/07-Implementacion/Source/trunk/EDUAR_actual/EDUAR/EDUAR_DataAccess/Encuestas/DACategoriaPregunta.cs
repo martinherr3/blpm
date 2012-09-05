@@ -127,13 +127,14 @@ namespace EDUAR_DataAccess.Encuestas
                     objCategoriaPregunta = new CategoriaPregunta();
 
                     objCategoriaPregunta.idCategoriaPregunta = Convert.ToInt32(reader["idCategoria"]);
-                    objCategoriaPregunta.nombre = reader["nombre"].ToString();
+                    objCategoriaPregunta.nombre = reader["nombreCategoria"].ToString();
+                    objCategoriaPregunta.descripcion = reader["descripcionCategoria"].ToString();
 
                     objCategoriaPregunta.ambito = new AmbitoEncuesta();
                     {
                         objCategoriaPregunta.ambito.idAmbitoEncuesta = Convert.ToInt32(reader["idAmbito"]);
-                        objCategoriaPregunta.ambito.nombre = reader["nombre"].ToString();
-                        objCategoriaPregunta.ambito.descripcion = reader["descripcion"].ToString();
+                        objCategoriaPregunta.ambito.nombre = reader["nombreAmbito"].ToString();
+                        objCategoriaPregunta.ambito.descripcion = reader["descripcionAmbito"].ToString();
                     }
 
                     listaCategoriasPregunta.Add(objCategoriaPregunta);
