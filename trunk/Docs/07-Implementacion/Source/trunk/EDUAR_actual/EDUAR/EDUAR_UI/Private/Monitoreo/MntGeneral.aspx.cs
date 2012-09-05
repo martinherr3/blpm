@@ -8,21 +8,29 @@ using EDUAR_UI.Shared;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_Entities;
 using System.Web.UI.DataVisualization.Charting;
+using EDUAR_Entities.Reports;
+using EDUAR_BusinessLogic.Reports;
 
 namespace EDUAR_UI
 {
 	public partial class MntGeneral : EDUARBasePage
 	{
-		#region --[Propiedades]--
-		protected string idColumna
+		#region --[Propiedades]
+		/// <summary>
+		/// Gets or sets the id indicador.
+		/// </summary>
+		/// <value>
+		/// The id indicador.
+		/// </value>
+		public int idIndicador
 		{
 			get
 			{
-				if (ViewState["idColumna"] == null)
-					ViewState["idColumna"] = string.Empty;
-				return ViewState["idColumna"].ToString();
+				if (ViewState["idIndicador"] != null)
+					return Convert.ToInt32(ViewState["idIndicador"].ToString());
+				return 0;
 			}
-			set { ViewState["idColumna"] = value; }
+			set { ViewState["idIndicador"] = value; }
 		}
 		#endregion
 
@@ -56,30 +64,9 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				BLContenido objBLContenidos = new BLContenido();
-				EDUAR_Entities.Contenido objFiltro = new EDUAR_Entities.Contenido();
-				objFiltro.asignaturaCicloLectivo = new AsignaturaCicloLectivo();
-				objFiltro.asignaturaCicloLectivo.idAsignaturaCicloLectivo = 2817;
-				List<EDUAR_Entities.Contenido> listaContenidos = objBLContenidos.GetByAsignaturaCicloLectivo(objFiltro);
-
-				// Since the reader implements IEnumerable, pass the reader directly into
-				//   the DataBind method with the name of the Column selected in the query    
-				Chart1.Series["Sales"].Points.DataBindXY(listaContenidos, "descripcion", listaContenidos, "idContenido");
-
-				UpdateAttrib();
-				if (!Page.IsPostBack)
+				if (!IsPostBack)
 				{
-					
-				}
-				else
-				{
-					if (Request.Form["__EVENTTARGET"] == "btnPanel")
-					{
-						//llamamos el metodo que queremos ejecutar, en este caso el evento onclick del boton Button2
-						//EventArgs evento = new EventArgs();
-						idColumna = Request.Form["__EVENTARGUMENT"].ToString();
-						btnPanel_Click(this, new EventArgs());
-					}
+					cargarLinks();
 				}
 			}
 			catch (Exception ex)
@@ -89,62 +76,127 @@ namespace EDUAR_UI
 			}
 		}
 
-		public void UpdateAttrib()
+		protected void btnCancelar_Click(object sender, EventArgs e)
 		{
+			divConfig.Visible = false;
+			//IdIndicador = 0;
+		}
 
-			// Set series tooltips
-			foreach (Series series in Chart1.Series)
+		protected void btnGuardar_Click(object sender, EventArgs e)
+		{
+			//if (IdIndicador != 0)
+			//{
+			//    Indicador i = new Indicador();
+			//    DB.IndicadoresRow indi = i.getIndicador(IdIndicador);
+			//    indi.invertirEscala = chkInvertirEscala.Checked;
+			//    indi.diasHastaPrincipal = Convert.ToInt32(txtHastaPrincipal.Text);
+			//    indi.diasHastaSecundario1 = Convert.ToInt32(txtHastaSecundario1.Text);
+			//    indi.diasHastaSecundario2 = Convert.ToInt32(txtHastaSecundario2.Text);
+			//    indi.verdePrincipal = Convert.ToInt32(txtVerdePrincipal.Text);
+			//    indi.verdeSecundario1 = Convert.ToInt32(txtVerdeSecundario1.Text);
+			//    indi.verdeSecundario2 = Convert.ToInt32(txtVerdeSecundario2.Text);
+			//    indi.rojoPrincipal = Convert.ToInt32(txtRojoPrincipal.Text);
+			//    indi.rojoSecundario1 = Convert.ToInt32(txtRojoSecundario1.Text);
+			//    indi.rojoSecundario2 = Convert.ToInt32(txtRojoSecundario2.Text);
+
+			//    i.Actualizar(indi);
+			//}
+
+			//divConfig.Visible = false;
+			//IdIndicador = 0;
+		}
+
+		protected void LinkButton1_Click(object sender, EventArgs e)
+		{
+			divConfig.Visible = true;
+			limpiarABMIndicador();
+			string id = ((LinkButton)sender).CommandArgument;
+			if (id != "")
 			{
-				for (int pointIndex = 0; pointIndex < series.Points.Count; pointIndex++)
-				{
-					//string toolTip = "";
-
-					//toolTip = "<img src=RegionChart.aspx?region=" + series.Points[pointIndex].AxisLabel + " />";
-					//toolTip = "<img src=RegionChart.aspx />";
-					//series.Points[pointIndex].MapAreaAttributes = "onmouseover=\"DisplayTooltip('" + toolTip + "');\" onmouseout=\"DisplayTooltip('');\"";
-					//series.Points[pointIndex].Url = "DetailedRegionChart.aspx?region=" + series.Points[pointIndex].AxisLabel;
-
-
-					//TODO: setear algún valor en algún campo oculto x javascript y luego click del boton?
-					series.Points[pointIndex].MapAreaAttributes = "onclick=\"panelGraficoAuxiliar('" + series.Points[pointIndex].YValues[0].ToString() + "');\" style=\"cursor: pointer\"";
-					series.Points[pointIndex].ToolTip = "Click para más información";
-				}
+				//IdIndicador = Convert.ToInt32(id);
+				cargarIndicador();
 			}
-
 		}
 		#endregion
 
-		protected void btnPanel_Click(object sender, EventArgs e)
-		{
-			string local = idColumna;
-			BLContenido objBLContenidos = new BLContenido();
-			EDUAR_Entities.Contenido objFiltro = new EDUAR_Entities.Contenido();
-			objFiltro.asignaturaCicloLectivo = new AsignaturaCicloLectivo();
-			objFiltro.asignaturaCicloLectivo.idAsignaturaCicloLectivo = 2817;
-			List<EDUAR_Entities.Contenido> listaContenidos = objBLContenidos.GetByAsignaturaCicloLectivo(objFiltro);
-
-			// Since the reader implements IEnumerable, pass the reader directly into
-			//   the DataBind method with the name of the Column selected in the query    
-			Chart2.Series["Sales"].Points.DataBindXY(listaContenidos, "descripcion", listaContenidos, "idContenido");
-
-			mpeContenido.Show();
-		}
-
+		#region --[Métodos Privados]--
 		/// <summary>
-		/// Handles the Click event of the btnVolverPopUp control.
+		/// Cargars the links.
 		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void btnVolverPopUp_Click(object sender, EventArgs e)
+		private void cargarLinks()
 		{
-			try
+			int contador = 1;
+
+			BLIndicador objBLIndicador = new BLIndicador();
+			List<Indicador> listaIndicadores = objBLIndicador.GetIndicadores(null);
+			foreach (Indicador item in listaIndicadores)
 			{
-				mpeContenido.Hide();
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
+				switch (contador)
+				{
+					case 1:
+						LinkButton1.Text = item.nombre;
+						LinkButton1.CommandArgument = item.idIndicador.ToString();
+						break;
+					case 2:
+						LinkButton2.Text = item.nombre;
+						LinkButton2.CommandArgument = item.idIndicador.ToString();
+						break;
+					case 3:
+						LinkButton3.Text = item.nombre;
+						LinkButton3.CommandArgument = item.idIndicador.ToString();
+						break;
+					case 4:
+						LinkButton4.Text = item.nombre;
+						LinkButton4.CommandArgument = item.idIndicador.ToString();
+						break;
+					case 5:
+						LinkButton5.Text = item.nombre;
+						LinkButton5.CommandArgument = item.idIndicador.ToString();
+						break;
+					case 6:
+						LinkButton6.Text = item.nombre;
+						LinkButton6.CommandArgument = item.idIndicador.ToString();
+						break;
+					default:
+						break;
+				}
+				contador++;
 			}
 		}
+
+		private void limpiarABMIndicador()
+		{
+			chkInvertirEscala.Checked = false;
+			txtHastaPrincipal.Text = "";
+			txtHastaSecundario1.Text = "";
+			txtHastaSecundario2.Text = "";
+			txtVerdePrincipal.Text = "";
+			txtVerdeSecundario1.Text = "";
+			txtVerdeSecundario2.Text = "";
+			txtRojoPrincipal.Text = "";
+			txtRojoSecundario1.Text = "";
+			txtRojoSecundario2.Text = "";
+		}
+
+		private void cargarIndicador()
+		{
+			//if (IdIndicador != 0)
+			//{
+			//    //Indicador i = new Indicador();
+			//    DB.IndicadoresRow indi = i.getIndicador(IdIndicador);
+			//    lblTitulo.Text = "Indicador: " + indi.nombreIndicador;
+			//    chkInvertirEscala.Checked = indi.invertirEscala;
+			//    txtHastaPrincipal.Text = indi.diasHastaPrincipal.ToString();
+			//    txtHastaSecundario1.Text = indi.diasHastaSecundario1.ToString();
+			//    txtHastaSecundario2.Text = indi.diasHastaSecundario2.ToString();
+			//    txtVerdePrincipal.Text = indi.verdePrincipal.ToString();
+			//    txtVerdeSecundario1.Text = indi.verdeSecundario1.ToString();
+			//    txtVerdeSecundario2.Text = indi.verdeSecundario2.ToString();
+			//    txtRojoPrincipal.Text = indi.rojoPrincipal.ToString();
+			//    txtRojoSecundario1.Text = indi.rojoSecundario1.ToString();
+			//    txtRojoSecundario2.Text = indi.rojoSecundario2.ToString();
+			//}
+		}
+		#endregion
 	}
 }

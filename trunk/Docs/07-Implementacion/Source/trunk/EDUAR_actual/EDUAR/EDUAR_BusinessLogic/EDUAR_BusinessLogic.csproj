@@ -115,6 +115,7 @@
     <Compile Include="Encuestas\BLEscala.cs" />
     <Compile Include="Encuestas\BLPregunta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\BLIndicador.cs" />
     <Compile Include="Reports\BLRptAccesos.cs" />
     <Compile Include="Reports\BLRptAnalisisAgrupadosCicloLectivoCursoAsignaturaAlumno.cs" />
     <Compile Include="Reports\BLRptCalificacionesAlumnoPeriodo.cs" />
