@@ -219,7 +219,7 @@
     <Content Include="Private\Mensajes\MsjeEntrada.aspx" />
     <Content Include="Private\Mensajes\MsjeEnviado.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
-    <Content Include="Private\Monitoreo\MntGeneral.aspx" />
+    <Content Include="Private\Monitoreo\ConfigIndicadores.aspx" />
     <Content Include="Private\Planning\Contenido.aspx" />
     <Content Include="Private\Planning\PlanificacionAnual.aspx" />
     <Content Include="Private\Planning\TemasContenido.aspx" />
@@ -485,12 +485,12 @@
     <Compile Include="Private\Mensajes\MsjeRedactar.aspx.designer.cs">
       <DependentUpon>MsjeRedactar.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Private\Monitoreo\MntGeneral.aspx.cs">
-      <DependentUpon>MntGeneral.aspx</DependentUpon>
+    <Compile Include="Private\Monitoreo\ConfigIndicadores.aspx.cs">
+      <DependentUpon>ConfigIndicadores.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Private\Monitoreo\MntGeneral.aspx.designer.cs">
-      <DependentUpon>MntGeneral.aspx</DependentUpon>
+    <Compile Include="Private\Monitoreo\ConfigIndicadores.aspx.designer.cs">
+      <DependentUpon>ConfigIndicadores.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Planning\Contenido.aspx.cs">
       <DependentUpon>Contenido.aspx</DependentUpon>

@@ -58,39 +58,39 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.WebControls.Label lblTiempo;
         
         /// <summary>
-        /// Control btnSecundario1.
+        /// Control btnIntermedio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSecundario1;
+        protected global::System.Web.UI.WebControls.Button btnIntermedio;
         
         /// <summary>
-        /// Control lblSecundario1.
+        /// Control lblIntermedio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSecundario1;
+        protected global::System.Web.UI.WebControls.Label lblIntermedio;
         
         /// <summary>
-        /// Control btnSecundario2.
+        /// Control btnSecundario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSecundario2;
+        protected global::System.Web.UI.WebControls.Button btnSecundario;
         
         /// <summary>
-        /// Control lblSecundario2.
+        /// Control lblSecundario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSecundario2;
+        protected global::System.Web.UI.WebControls.Label lblSecundario;
     }
 }

@@ -10,70 +10,25 @@
 namespace EDUAR_UI {
     
     
-    public partial class MntGeneral {
+    public partial class ConfigIndicadores {
         
         /// <summary>
-        /// Control up1.
+        /// Control udpGrilla.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel up1;
+        protected global::System.Web.UI.UpdatePanel udpGrilla;
         
         /// <summary>
-        /// Control LinkButton1.
+        /// Control gvwIndicadores.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
-        
-        /// <summary>
-        /// Control LinkButton2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
-        
-        /// <summary>
-        /// Control LinkButton3.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton3;
-        
-        /// <summary>
-        /// Control LinkButton4.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton4;
-        
-        /// <summary>
-        /// Control LinkButton5.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton5;
-        
-        /// <summary>
-        /// Control LinkButton6.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton6;
+        protected global::System.Web.UI.WebControls.GridView gvwIndicadores;
         
         /// <summary>
         /// Control up2.
@@ -112,13 +67,49 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl div3;
         
         /// <summary>
+        /// Control lblTituloDesc.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTituloDesc;
+        
+        /// <summary>
         /// Control lblTitulo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitulo;
+        protected global::System.Web.UI.WebControls.TextBox lblTitulo;
+        
+        /// <summary>
+        /// Control lblParametroCantidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblParametroCantidad;
+        
+        /// <summary>
+        /// Control txtParametroCantdiad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtParametroCantdiad;
+        
+        /// <summary>
+        /// Control lblInvertir.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvertir;
         
         /// <summary>
         /// Control chkInvertirEscala.
@@ -193,13 +184,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// Control txtHastaSecundario1.
+        /// Control txtHastaIntermedio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHastaSecundario1;
+        protected global::System.Web.UI.WebControls.TextBox txtHastaIntermedio;
         
         /// <summary>
         /// Control Label4.
@@ -211,13 +202,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label Label4;
         
         /// <summary>
-        /// Control txtVerdeSecundario1.
+        /// Control txtVerdeIntermedio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVerdeSecundario1;
+        protected global::System.Web.UI.WebControls.TextBox txtVerdeIntermedio;
         
         /// <summary>
         /// Control Label5.
@@ -229,13 +220,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label Label5;
         
         /// <summary>
-        /// Control txtRojoSecundario1.
+        /// Control txtRojoIntermedio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRojoSecundario1;
+        protected global::System.Web.UI.WebControls.TextBox txtRojoIntermedio;
         
         /// <summary>
         /// Control Label6.
@@ -247,13 +238,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
-        /// Control txtHastaSecundario2.
+        /// Control txtHastaSecundario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHastaSecundario2;
+        protected global::System.Web.UI.WebControls.TextBox txtHastaSecundario;
         
         /// <summary>
         /// Control Label7.
@@ -265,13 +256,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label Label7;
         
         /// <summary>
-        /// Control txtVerdeSecundario2.
+        /// Control txtVerdeSecundario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtVerdeSecundario2;
+        protected global::System.Web.UI.WebControls.TextBox txtVerdeSecundario;
         
         /// <summary>
         /// Control Label8.
@@ -283,13 +274,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label Label8;
         
         /// <summary>
-        /// Control txtRojoSecundario2.
+        /// Control txtRojoSecundario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRojoSecundario2;
+        protected global::System.Web.UI.WebControls.TextBox txtRojoSecundario;
         
         /// <summary>
         /// Control btnGuardar.

@@ -23,26 +23,26 @@ namespace EDUAR_UI.UserControls
             set { ViewState["HastaPrincipal_" + this.UniqueID] = value; }
         }
 
-        public int HastaSecundario1
+        public int HastaIntermedio
         {
             get
             {
-                if (ViewState["HastaSecundario1_" + this.UniqueID] != null)
-                    return Convert.ToInt32(ViewState["HastaSecundario1_" + this.UniqueID].ToString());
+                if (ViewState["HastaIntermedio_" + this.UniqueID] != null)
+                    return Convert.ToInt32(ViewState["HastaIntermedio_" + this.UniqueID].ToString());
                 return Int32.MinValue;
             }
-            set { ViewState["HastaSecundario1_" + this.UniqueID] = value; }
+            set { ViewState["HastaIntermedio_" + this.UniqueID] = value; }
         }
 
-        public int HastaSecundario2
+        public int HastaSecundario
         {
             get
             {
-                if (ViewState["HastaSecundario2_" + this.UniqueID] != null)
-                    return Convert.ToInt32(ViewState["HastaSecundario2_" + this.UniqueID].ToString());
+                if (ViewState["HastaSecundario_" + this.UniqueID] != null)
+                    return Convert.ToInt32(ViewState["HastaSecundario_" + this.UniqueID].ToString());
                 return Int32.MinValue;
             }
-            set { ViewState["HastaSecundario2_" + this.UniqueID] = value; }
+            set { ViewState["HastaSecundario_" + this.UniqueID] = value; }
         }
 
         public int VerdePrincipal
@@ -67,48 +67,48 @@ namespace EDUAR_UI.UserControls
             set { ViewState["RojoPrincipal_" + this.UniqueID] = value; }
         }
 
-        public int VerdeSecundario1
+        public int VerdeIntermedio
         {
             get
             {
-                if (ViewState["VerdeSecundario1_" + this.UniqueID] != null)
-                    return Convert.ToInt32(ViewState["VerdeSecundario1_" + this.UniqueID].ToString());
+                if (ViewState["VerdeIntermedio_" + this.UniqueID] != null)
+                    return Convert.ToInt32(ViewState["VerdeIntermedio_" + this.UniqueID].ToString());
                 return 0;
             }
-            set { ViewState["VerdeSecundario1_" + this.UniqueID] = value; }
+            set { ViewState["VerdeIntermedio_" + this.UniqueID] = value; }
         }
 
-        public int RojoSecundario1
+        public int RojoIntermedio
         {
             get
             {
-                if (ViewState["RojoSecundario1_" + this.UniqueID] != null)
-                    return Convert.ToInt32(ViewState["RojoSecundario1_" + this.UniqueID].ToString());
+                if (ViewState["RojoIntermedio_" + this.UniqueID] != null)
+                    return Convert.ToInt32(ViewState["RojoIntermedio_" + this.UniqueID].ToString());
                 return 0;
             }
-            set { ViewState["RojoSecundario1_" + this.UniqueID] = value; }
+            set { ViewState["RojoIntermedio_" + this.UniqueID] = value; }
         }
 
-        public int VerdeSecundario2
+        public int VerdeSecundario
         {
             get
             {
-                if (ViewState["VerdeSecundario2_" + this.UniqueID] != null)
-                    return Convert.ToInt32(ViewState["VerdeSecundario2_" + this.UniqueID].ToString());
+                if (ViewState["VerdeSecundario_" + this.UniqueID] != null)
+                    return Convert.ToInt32(ViewState["VerdeSecundario_" + this.UniqueID].ToString());
                 return 0;
             }
-            set { ViewState["VerdeSecundario2_" + this.UniqueID] = value; }
+            set { ViewState["VerdeSecundario_" + this.UniqueID] = value; }
         }
 
-        public int RojoSecundario2
+        public int RojoSecundario
         {
             get
             {
-                if (ViewState["RojoSecundario2_" + this.UniqueID] != null)
-                    return Convert.ToInt32(ViewState["RojoSecundario2_" + this.UniqueID].ToString());
+                if (ViewState["RojoSecundario_" + this.UniqueID] != null)
+                    return Convert.ToInt32(ViewState["RojoSecundario_" + this.UniqueID].ToString());
                 return 0;
             }
-            set { ViewState["RojoSecundario2_" + this.UniqueID] = value; }
+            set { ViewState["RojoSecundario_" + this.UniqueID] = value; }
         }
 
         public string SufijoSP
@@ -179,8 +179,8 @@ namespace EDUAR_UI.UserControls
         public void SetEventoClick(EventHandler eventoPadre)
         {
             btnIndicador.Click += eventoPadre;
-            btnSecundario1.Click += eventoPadre;
-            btnSecundario2.Click += eventoPadre;
+            btnIntermedio.Click += eventoPadre;
+            btnSecundario.Click += eventoPadre;
         }
 
         #region [Carga de datos]
@@ -200,20 +200,20 @@ namespace EDUAR_UI.UserControls
                     lblTiempo.Text = "Prox. " + HastaPrincipal.ToString() + " días";
             }
 
-            if (HastaSecundario1 != Int32.MinValue)
+            if (HastaIntermedio != Int32.MinValue)
             {
-                if (HastaSecundario1 == 0)
-                    lblSecundario1.Text = "Hoy";
+                if (HastaIntermedio == 0)
+                    lblIntermedio.Text = "Hoy";
                 else
-                    lblSecundario1.Text = "Prox. " + HastaSecundario1.ToString() + " días";
+                    lblIntermedio.Text = "Prox. " + HastaIntermedio.ToString() + " días";
             }
 
-            if (HastaSecundario2 != Int32.MinValue)
+            if (HastaSecundario != Int32.MinValue)
             {
-                if (HastaSecundario2 == 0)
-                    lblSecundario2.Text = "Hoy";
+                if (HastaSecundario == 0)
+                    lblSecundario.Text = "Hoy";
                 else
-                    lblSecundario2.Text = "Prox. " + HastaSecundario2.ToString() + " días";
+                    lblSecundario.Text = "Prox. " + HastaSecundario.ToString() + " días";
             }
         }
 
@@ -233,19 +233,19 @@ namespace EDUAR_UI.UserControls
                     btnIndicador.Text = "0";
                 btnIndicador.CommandArgument = this.ID;
 
-				//dt = i.getDatosIndicadores("Indicador_" + SufijoSP, DateTime.Today, DateTime.Today.AddDays(HastaSecundario1)).Tables[0];
+				//dt = i.getDatosIndicadores("Indicador_" + SufijoSP, DateTime.Today, DateTime.Today.AddDays(HastaIntermedio)).Tables[0];
                 if (dt.Rows.Count != 0 && dt.Rows[0][0].ToString() != "")
-                    btnSecundario1.Text = dt.Rows[0][0].ToString();
+                    btnIntermedio.Text = dt.Rows[0][0].ToString();
                 else
-                    btnSecundario1.Text = "0";
-                btnSecundario1.CommandArgument = this.ID;
+                    btnIntermedio.Text = "0";
+                btnIntermedio.CommandArgument = this.ID;
 
-				//dt = i.getDatosIndicadores("Indicador_" + SufijoSP, DateTime.Today, DateTime.Today.AddDays(HastaSecundario2)).Tables[0];
+				//dt = i.getDatosIndicadores("Indicador_" + SufijoSP, DateTime.Today, DateTime.Today.AddDays(HastaSecundario)).Tables[0];
                 if (dt.Rows.Count != 0 && dt.Rows[0][0].ToString() != "")                
-                    btnSecundario2.Text = dt.Rows[0][0].ToString();
+                    btnSecundario.Text = dt.Rows[0][0].ToString();
                 else
-                    btnSecundario2.Text = "0";
-                btnSecundario2.CommandArgument = this.ID;
+                    btnSecundario.Text = "0";
+                btnSecundario.CommandArgument = this.ID;
 
             }
         }
@@ -281,49 +281,49 @@ namespace EDUAR_UI.UserControls
                 }
             }
 
-            if (btnSecundario1.Text != "")
+            if (btnIntermedio.Text != "")
             {
-                indi = Convert.ToInt32(btnSecundario1.Text);
+                indi = Convert.ToInt32(btnIntermedio.Text);
                 if (InvertirEscala)
                 {
-                    if (indi <= RojoSecundario1)
-                        btnSecundario1.CssClass = "BotonIndRojoSecundario";
-                    else if (indi < VerdeSecundario1)
-                        btnSecundario1.CssClass = "BotonIndAmarilloSecundario";
+                    if (indi <= RojoIntermedio)
+                        btnIntermedio.CssClass = "BotonIndRojoSecundario";
+                    else if (indi < VerdeIntermedio)
+                        btnIntermedio.CssClass = "BotonIndAmarilloSecundario";
                     else
-                        btnSecundario1.CssClass = "BotonIndVerdeSecundario";
+                        btnIntermedio.CssClass = "BotonIndVerdeSecundario";
                 }
                 else
                 {
-                    if (indi <= VerdeSecundario1)
-                        btnSecundario1.CssClass = "BotonIndVerdeSecundario";
-                    else if (indi < RojoSecundario1)
-                        btnSecundario1.CssClass = "BotonIndAmarilloSecundario";
+                    if (indi <= VerdeIntermedio)
+                        btnIntermedio.CssClass = "BotonIndVerdeSecundario";
+                    else if (indi < RojoIntermedio)
+                        btnIntermedio.CssClass = "BotonIndAmarilloSecundario";
                     else
-                        btnSecundario1.CssClass = "BotonIndRojoSecundario";
+                        btnIntermedio.CssClass = "BotonIndRojoSecundario";
                 }
             }
 
-            if (btnSecundario2.Text != "")
+            if (btnSecundario.Text != "")
             {
-                indi = Convert.ToInt32(btnSecundario2.Text);
+                indi = Convert.ToInt32(btnSecundario.Text);
                 if (InvertirEscala)
                 {
-                    if (indi <= RojoSecundario2)
-                        btnSecundario2.CssClass = "BotonIndRojoSecundario";
-                    else if (indi < VerdeSecundario2)
-                        btnSecundario2.CssClass = "BotonIndAmarilloSecundario";
+                    if (indi <= RojoSecundario)
+                        btnSecundario.CssClass = "BotonIndRojoSecundario";
+                    else if (indi < VerdeSecundario)
+                        btnSecundario.CssClass = "BotonIndAmarilloSecundario";
                     else
-                        btnSecundario2.CssClass = "BotonIndVerdeSecundario";
+                        btnSecundario.CssClass = "BotonIndVerdeSecundario";
                 }
                 else
                 {
-                    if (indi <= VerdeSecundario2)
-                        btnSecundario2.CssClass = "BotonIndVerdeSecundario";
-                    else if (indi < RojoSecundario2)
-                        btnSecundario2.CssClass = "BotonIndAmarilloSecundario";
+                    if (indi <= VerdeSecundario)
+                        btnSecundario.CssClass = "BotonIndVerdeSecundario";
+                    else if (indi < RojoSecundario)
+                        btnSecundario.CssClass = "BotonIndAmarilloSecundario";
                     else
-                        btnSecundario2.CssClass = "BotonIndRojoSecundario";
+                        btnSecundario.CssClass = "BotonIndRojoSecundario";
                 }
             }
         }
