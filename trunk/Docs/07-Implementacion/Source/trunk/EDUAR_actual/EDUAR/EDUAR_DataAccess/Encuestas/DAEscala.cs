@@ -121,7 +121,7 @@ namespace EDUAR_DataAccess.Encuestas
         {
             try
             {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EscalaMedicion_Select");
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EscalaPonderacion_Select");
                 if (entidad != null)
                 {
                     if (entidad.idEscala > 0)
@@ -140,9 +140,9 @@ namespace EDUAR_DataAccess.Encuestas
                 {
                     objEscala = new EscalaMedicion();
 
-                    objEscala.idEscala = Convert.ToInt32(reader["idEscala"]);
+                    objEscala.idEscala = Convert.ToInt32(reader["idEscalaPonderacion"]);
                     objEscala.nombre = reader["nombre"].ToString();
-                    objEscala.nombre = reader["descripcion"].ToString();
+                    objEscala.descripcion = reader["descripcion"].ToString();
 
                     listaEscalas.Add(objEscala);
                 }
