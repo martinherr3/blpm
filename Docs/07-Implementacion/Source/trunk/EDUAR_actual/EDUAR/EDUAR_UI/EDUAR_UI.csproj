@@ -308,6 +308,8 @@
     <Content Include="UserControls\Editor.ascx" />
     <Content Include="UserControls\Grafico.ascx" />
     <Content Include="UserControls\Hora.ascx" />
+    <Content Include="UserControls\Indicador.ascx" />
+    <Content Include="UserControls\Indicadores.ascx" />
     <Content Include="UserControls\Reporte.ascx" />
     <Content Include="UserControls\VentanaInfo.ascx" />
     <Content Include="Web.config">
@@ -713,6 +715,20 @@
     </Compile>
     <Compile Include="UserControls\Hora.ascx.designer.cs">
       <DependentUpon>Hora.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Indicador.ascx.cs">
+      <DependentUpon>Indicador.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Indicador.ascx.designer.cs">
+      <DependentUpon>Indicador.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Indicadores.ascx.cs">
+      <DependentUpon>Indicadores.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Indicadores.ascx.designer.cs">
+      <DependentUpon>Indicadores.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Reporte.ascx.cs">
       <DependentUpon>Reporte.ascx</DependentUpon>
