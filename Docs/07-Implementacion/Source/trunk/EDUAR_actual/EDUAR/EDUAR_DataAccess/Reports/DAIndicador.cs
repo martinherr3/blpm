@@ -53,9 +53,44 @@ namespace EDUAR_DataAccess.Reports
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Updates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
 		public override void Update(Indicador entidad)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Indicadores_Update");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idIndicador", DbType.Int32, entidad.idIndicador);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@invertirEscala", DbType.Boolean, entidad.invertirEscala);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@parametroCantidad", DbType.Int32, entidad.parametroCantidad);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@diasHastaPrincipal", DbType.Int32, entidad.diasHastaPrincipal);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@diasHastaIntermedio", DbType.Int32, entidad.diasHastaIntermedio);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@diasHastaSecundario", DbType.Int32, entidad.diasHastaSecundario);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@verdeNivelPrincipal", DbType.Int32, entidad.verdeNivelPrincipal);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@verdeNivelIntermedio", DbType.Int32, entidad.verdeNivelIntermedio);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@verdeNivelSecundario", DbType.Int32, entidad.verdeNivelSecundario);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@rojoNivelPrincipal", DbType.Int32, entidad.rojoNivelPrincipal);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@rojoNivelIntermedio", DbType.Int32, entidad.rojoNivelIntermedio);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@rojoNivelSecundario", DbType.Int32, entidad.rojoNivelSecundario);
+
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
 		}
 
 		public override void Delete(Indicador entidad)
