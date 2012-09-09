@@ -31,6 +31,33 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.GridView gvwIndicadores;
         
         /// <summary>
+        /// Control HiddenField1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
+        
+        /// <summary>
+        /// Control mpeContenido.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender mpeContenido;
+        
+        /// <summary>
+        /// Control pnlContenidos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlContenidos;
+        
+        /// <summary>
         /// Control up2.
         /// </summary>
         /// <remarks>
@@ -49,31 +76,31 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConfig;
         
         /// <summary>
-        /// Control div2.
+        /// Control Label9.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div2;
+        protected global::System.Web.UI.WebControls.Label Label9;
         
         /// <summary>
-        /// Control div3.
+        /// Control btnGuardar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div3;
+        protected global::System.Web.UI.WebControls.ImageButton btnGuardar;
         
         /// <summary>
-        /// Control lblTituloDesc.
+        /// Control btnCancelar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTituloDesc;
+        protected global::System.Web.UI.WebControls.ImageButton btnCancelar;
         
         /// <summary>
         /// Control lblTitulo.
@@ -82,25 +109,7 @@ namespace EDUAR_UI {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox lblTitulo;
-        
-        /// <summary>
-        /// Control lblParametroCantidad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblParametroCantidad;
-        
-        /// <summary>
-        /// Control txtParametroCantdiad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtParametroCantdiad;
+        protected global::System.Web.UI.WebControls.Label lblTitulo;
         
         /// <summary>
         /// Control lblInvertir.
@@ -121,6 +130,51 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.CheckBox chkInvertirEscala;
         
         /// <summary>
+        /// Control lblParametroCantidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblParametroCantidad;
+        
+        /// <summary>
+        /// Control txtParametroCantidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtParametroCantidad;
+        
+        /// <summary>
+        /// Control filParametroCantidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender filParametroCantidad;
+        
+        /// <summary>
+        /// Control rfvTxtParametroCantidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTxtParametroCantidad;
+        
+        /// <summary>
+        /// Control cmvtxtParametroCantidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmvtxtParametroCantidad;
+        
+        /// <summary>
         /// Control Label1.
         /// </summary>
         /// <remarks>
@@ -137,6 +191,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtHastaPrincipal;
+        
+        /// <summary>
+        /// Control filtxtHastaPrincipal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender filtxtHastaPrincipal;
         
         /// <summary>
         /// Control lblVerdePrincipal.
@@ -157,6 +220,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtVerdePrincipal;
         
         /// <summary>
+        /// Control filtxtVerdePrincipal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender filtxtVerdePrincipal;
+        
+        /// <summary>
         /// Control Label3.
         /// </summary>
         /// <remarks>
@@ -173,6 +245,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRojoPrincipal;
+        
+        /// <summary>
+        /// Control filtxtRojoPrincipal.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender filtxtRojoPrincipal;
         
         /// <summary>
         /// Control Label2.
@@ -193,6 +274,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtHastaIntermedio;
         
         /// <summary>
+        /// Control filtxtHastaIntermedio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender filtxtHastaIntermedio;
+        
+        /// <summary>
         /// Control Label4.
         /// </summary>
         /// <remarks>
@@ -209,6 +299,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtVerdeIntermedio;
+        
+        /// <summary>
+        /// Control filtxtVerdeIntermedio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender filtxtVerdeIntermedio;
         
         /// <summary>
         /// Control Label5.
@@ -229,6 +328,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtRojoIntermedio;
         
         /// <summary>
+        /// Control filtxtRojoIntermedio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender filtxtRojoIntermedio;
+        
+        /// <summary>
         /// Control Label6.
         /// </summary>
         /// <remarks>
@@ -245,6 +353,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtHastaSecundario;
+        
+        /// <summary>
+        /// Control filtxtHastaSecundario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender filtxtHastaSecundario;
         
         /// <summary>
         /// Control Label7.
@@ -265,6 +382,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtVerdeSecundario;
         
         /// <summary>
+        /// Control filtxtVerdeSecundario.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender filtxtVerdeSecundario;
+        
+        /// <summary>
         /// Control Label8.
         /// </summary>
         /// <remarks>
@@ -283,22 +409,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtRojoSecundario;
         
         /// <summary>
-        /// Control btnGuardar.
+        /// Control filtxtRojoSecundario.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardar;
-        
-        /// <summary>
-        /// Control btnCancelar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelar;
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender filtxtRojoSecundario;
         
         /// <summary>
         /// Propiedad Master.

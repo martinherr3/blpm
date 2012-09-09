@@ -20,9 +20,9 @@ namespace EDUAR_BusinessLogic.Reports
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLIndicador(DTBase objRptAcceso)
+        public BLIndicador(DTBase objIndicador)
         {
-            Data = (Indicador)objRptAcceso;
+            Data = (Indicador)objIndicador;
         }
         /// <summary>
         /// Constructor vacio
@@ -81,7 +81,33 @@ namespace EDUAR_BusinessLogic.Reports
         /// </summary>
         public override void Save()
         {
-            throw new NotImplementedException();
+			try
+			{
+				//Abre la transaccion que se va a utilizar
+				DataAcces.Transaction.OpenTransaction();
+				int idIndicador = 0;
+
+				if (Data.idIndicador == 0)
+					DataAcces.Create(Data, out idIndicador);
+				else
+					DataAcces.Update(Data);
+
+				//Se da el OK para la transaccion.
+				DataAcces.Transaction.CommitTransaction();
+			}
+			catch (CustomizedException ex)
+			{
+				if (DataAcces != null && DataAcces.Transaction != null)
+					DataAcces.Transaction.RollbackTransaction();
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				if (DataAcces != null && DataAcces.Transaction != null)
+					DataAcces.Transaction.RollbackTransaction();
+				throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
         }
 
         /// <summary>
