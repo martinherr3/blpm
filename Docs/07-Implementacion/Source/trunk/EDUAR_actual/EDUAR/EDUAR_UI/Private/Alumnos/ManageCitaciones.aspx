@@ -116,9 +116,9 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idCitacion") %>'
-                                ToolTip="Editar Citación" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "organizador.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
+                                ToolTip="Editar Citación" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "organizador.username").ToString().ToString() ==  ObjSessionDataUI.ObjDTUsuario.Nombre.ToLower() ? true : false %>' />
                             <asp:ImageButton ID="ImageButton1" runat="server" ToolTip="Consultar Citación" ImageUrl="~/Images/Grillas/lock.png"
-                                Visible='<%#DataBinder.Eval(Container.DataItem, "organizador.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
+                                Visible='<%#DataBinder.Eval(Container.DataItem, "organizador.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre.ToLower() ? false : true %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fecha">
