@@ -8,6 +8,7 @@ using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_BusinessLogic.Encuestas;
+using System.Text;
 
 namespace EDUAR_UI
 {
@@ -561,8 +562,20 @@ namespace EDUAR_UI
         /// <returns></returns>
         private string ValidarPagina()
         {
-            string mensaje = string.Empty;
-            return mensaje;
+            StringBuilder message = new StringBuilder();
+
+            if(ddlCategoriaEdit.SelectedIndex <= 0)
+                message.Append("- Categoría<br/>");
+            if(ddlEscalaPonderacionEdit.SelectedIndex <= 0)
+                message.Append("- Escala de ponderación<br/>");
+            if(txtTextoPreguntaEdit.Text.Trim().Length == 0)
+                message.Append("- Texto Pregunta<br/>");
+            if(txtObjetivoPreguntaEdit.Text.Trim().Length == 0)
+                message.Append("- Objetivo Pregunta<br/>");
+            if(txtPesoPreguntaEdit.Text.Trim().Length == 0)
+                message.Append("- Peso<br/>");
+
+            return message.ToString();
         }
 
         /// <summary>
