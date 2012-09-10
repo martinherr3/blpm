@@ -8,6 +8,7 @@ namespace EDUAR_Entities.Reports
 	{
 		public int idIndicador { get; set; }
 		public string nombre { get; set; }
+		public string nombreSP { get; set; }
 		public bool invertirEscala { get; set; }
 		public int parametroCantidad { get; set; }
 		public int diasHastaPrincipal { get; set; }

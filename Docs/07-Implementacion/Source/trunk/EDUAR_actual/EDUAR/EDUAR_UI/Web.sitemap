@@ -48,11 +48,12 @@
             <siteMapNode url="~/Private/Account/ChangeUser.aspx" title="Editar" roles="Administrador" />
             <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar" roles="Administrador"/>
         </siteMapNode>
-      <siteMapNode url="" title="Encuestas" roles="Administrador">
-        <siteMapNode url="~/Private/Encuestas/ManageContenidoEncuestas.aspx" title="Encuestas" roles="Administrador" />
-      </siteMapNode>
+        <siteMapNode url="" title="Encuestas" roles="Administrador">
+            <siteMapNode url="~/Private/Encuestas/ManageContenidoEncuestas.aspx" title="Encuestas" roles="Administrador" />
+        </siteMapNode>
         <siteMapNode url="" title="Monitoreo" roles="Administrador">
-            <siteMapNode url="~/Private/Monitoreo/ConfigIndicadores.aspx" title="Indicadores" roles="Administrador" />
+            <siteMapNode url="~/Private/Monitoreo/ConfigIndicadores.aspx" title="Configurar Indicadores" roles="Administrador" />
+            <siteMapNode url="~/Private/Monitoreo/GetIndicadores.aspx" title="Obtener Indicadores" roles="Administrador" />
         </siteMapNode>
     </siteMapNode>
 </siteMap>
