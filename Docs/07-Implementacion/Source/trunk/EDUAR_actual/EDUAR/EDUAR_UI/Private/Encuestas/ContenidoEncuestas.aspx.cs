@@ -14,7 +14,6 @@ namespace EDUAR_UI
     public partial class ContenidoEncuestas : EDUARBasePage
     {
         #region --[Atributos]--
-        private BLPregunta objBLPregunta;
         private BLEncuesta objBLEncuesta;
         #endregion
 
@@ -228,8 +227,7 @@ namespace EDUAR_UI
                 if (!Page.IsPostBack)
                 {
                     CargarPresentacion();
-                    //TODO (Pablo): Listar las preguntas de la encuesta en cuestión
-                    BuscarPregunta(encuestaSesion);
+                    BuscarPregunta(encuestaSesion,null);
                 }
                 else
                 {
@@ -258,11 +256,11 @@ namespace EDUAR_UI
                 {
                     case enumAcciones.Limpiar:
                         CargarPresentacion();
-                        BuscarPregunta(null);
+                        BuscarPregunta(encuestaSesion, null);
                         break;
                     case enumAcciones.Guardar:
                         AccionPagina = enumAcciones.Limpiar;
-                        GuardarEncuesta(ObtenerValoresDePantalla());
+                        GuardarPregunta(ObtenerValoresDePantalla());
                         Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
                         break;
                     default:
@@ -384,6 +382,11 @@ namespace EDUAR_UI
                         propPregunta.idPregunta = Convert.ToInt32(e.CommandArgument.ToString());
                         CargaPregunta();
                         break;
+                    case "Eliminar":
+                        AccionPagina = enumAcciones.Eliminar;
+                        propPregunta.idPregunta = Convert.ToInt32(e.CommandArgument.ToString());
+                        EliminarPregunta();
+                        break;
                 }
             }
             catch (Exception ex)
@@ -437,7 +440,7 @@ namespace EDUAR_UI
             lblTitulo.Text = "Pregunta";
             CargarCombos();
             udpEdit.Visible = false;
-            btnVolver.Visible = false;
+            btnVolver.Visible = true;
             btnNuevo.Visible = true;
             btnGuardar.Visible = false;
             udpFiltrosBusqueda.Visible = true;
@@ -451,9 +454,9 @@ namespace EDUAR_UI
         /// Buscars the entidads.
         /// </summary>
         /// <param name="entidad">The entidad.</param>
-        private void BuscarPregunta(Encuesta entidad)
+        private void BuscarPregunta(Encuesta encuesta, Pregunta entidad)
         {
-            CargarLista(entidad);
+            CargarLista(encuesta,entidad);
             CargarGrilla();
         }
 
@@ -461,10 +464,10 @@ namespace EDUAR_UI
         /// Cargars the lista.
         /// </summary>
         /// <param name="entidad">The entidad.</param>
-        private void CargarLista(Encuesta entidad)
+        private void CargarLista(Encuesta encuesta, Pregunta entidad)
         {
-            objBLEncuesta = new BLEncuesta(entidad);
-            listaPreguntas = objBLEncuesta.GetPreguntasEncuesta(entidad);
+            objBLEncuesta = new BLEncuesta(encuesta);
+            listaPreguntas = objBLEncuesta.GetPreguntasEncuesta(encuestaSesion,entidad);
         }
 
         /// <summary>
@@ -493,7 +496,7 @@ namespace EDUAR_UI
                 entidad.idPregunta = propPregunta.idPregunta;
             }
 
-            if (Convert.ToInt32(ddlCategoria.SelectedValue) > 0 && Convert.ToInt32(ddlEscalaPonderacion.SelectedValue) > 0)
+            if (Convert.ToInt32(ddlCategoriaEdit.SelectedValue) > 0 && Convert.ToInt32(ddlEscalaPonderacionEdit.SelectedValue) > 0)
             {
                 entidad.categoria.idCategoriaPregunta = Convert.ToInt32(ddlCategoriaEdit.SelectedValue);
                 entidad.escala.idEscala = Convert.ToInt32(ddlEscalaPonderacionEdit.SelectedValue);
@@ -506,13 +509,36 @@ namespace EDUAR_UI
         }
 
         /// <summary>
+        /// Eliminar la pregunta.
+        /// </summary>
+        private void EliminarPregunta()
+        {
+            Pregunta objEliminar = new Pregunta();
+            objEliminar.idPregunta =  propPregunta.idPregunta;
+
+            encuestaSesion.preguntas.Clear();
+            encuestaSesion.preguntas.Add(objEliminar);
+
+            objBLEncuesta = new BLEncuesta(encuestaSesion);
+            objBLEncuesta.Delete();
+
+            CargarPresentacion();
+            BuscarPregunta(encuestaSesion, null);
+        }
+
+        /// <summary>
         /// Guardars the encuesta.
         /// </summary>
         /// <param name="entidad">The entidad.</param>
-        private void GuardarEncuesta(Pregunta entidad)
+        private void GuardarPregunta(Pregunta entidad)
         {
-            objBLPregunta = new BLPregunta(entidad);
-            objBLPregunta.Save();
+            objBLEncuesta = new BLEncuesta(encuestaSesion);
+            Pregunta preguntaExistente = new Pregunta();
+
+            encuestaSesion.preguntas = objBLEncuesta.GetPreguntasEncuesta(encuestaSesion,null);
+            encuestaSesion.preguntas.Add(entidad);
+            
+            objBLEncuesta.Save(); //Como la encuesta ya existe, en realidad se va a actualizar la misma
         }
 
         /// <summary>
@@ -580,7 +606,7 @@ namespace EDUAR_UI
             entidad.escala = escala;
 
             propFiltroPregunta = entidad;
-            BuscarPregunta(encuestaSesion);
+            BuscarPregunta(encuestaSesion, propFiltroPregunta);
         }
 
         /// <summary>
@@ -588,9 +614,16 @@ namespace EDUAR_UI
         /// </summary>
         private void LimpiarCampos()
         {
-            //TODO (Pablo): Incluir estos componentes de filtrado
             if (ddlCategoria.Items.Count > 0) ddlCategoria.SelectedIndex = 0;
             if (ddlEscalaPonderacion.Items.Count > 0) ddlEscalaPonderacion.SelectedIndex = 0;
+            if (ddlCategoriaEdit.Items.Count > 0) ddlCategoria.SelectedIndex = 0;
+            if (ddlEscalaPonderacionEdit.Items.Count > 0) ddlEscalaPonderacion.SelectedIndex = 0;
+            txtObjetivoPreguntaEdit.Text = string.Empty;
+            txtPesoPreguntaEdit.Text = string.Empty;
+            txtTextoPreguntaEdit.Text = string.Empty;
+            
+            //reseteo este valor, el cual se actualizará cuando sea necesario
+            propPregunta = null;
         }
         #endregion
     }

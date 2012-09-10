@@ -83,9 +83,10 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarPregunta" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idPregunta") %>'
-                                ToolTip="Editar Pregunta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
-                            <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La pregunta sólo es editable para su propietario"
-                                ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
+                                ToolTip="Editar Pregunta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='true' />
+                            <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
+                                AlternateText="Eliminar" ToolTip="Eliminar Pregunta" CommandName="Eliminar" CommandArgument='<%# Bind("idPregunta") %>'
+                                OnClientClick="return confirm('¿Desea eliminar el tema seleccionado?')" />
                         </ItemTemplate>
                     </asp:TemplateField>
 
@@ -101,7 +102,8 @@
                         <HeaderStyle HorizontalAlign="left" Width="25%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblTextoPregunta" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "textoPregunta").ToString())%>'></asp:Label>
+                            <asp:Label ID="lblTextoPregunta" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "textoPregunta").ToString())%>'
+                                ToolTip='<%# Bind("textoPregunta") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
 
@@ -110,7 +112,7 @@
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblObjetivo" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "objetivoPregunta").ToString())%>'
-                                ToolTip='<%# Bind("objetivo") %>'></asp:Label>
+                                ToolTip='<%# Bind("objetivoPregunta") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
 
@@ -126,7 +128,8 @@
                         <HeaderStyle HorizontalAlign="Center" Width="5%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
-                            <asp:Label ID="lblEscala" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "escala.nombre").ToString())%>'></asp:Label>
+                            <asp:Label ID="lblEscala" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "escala.nombre").ToString())%>'
+                                ToolTip='<%# Bind("escala.descripcion") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

@@ -50,11 +50,86 @@ namespace EDUAR_DataAccess.Encuestas
 
         public override void Create(Pregunta entidad, out int identificador)
         {
+            //try
+            //{
+            //    Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Pregunta_Insert");
+
+            //    if (!entidad.Equals(null))
+            //    {
+            //        //Inherentes a la tabla Pregunta
+
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPregunta", DbType.Int32, entidad.idPregunta);
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@textoPregunta", DbType.String, entidad.textoPregunta);
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCategoria", DbType.Int32, entidad.categoria.idCategoriaPregunta);
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@objetivo", DbType.String, entidad.objetivoPregunta);
+
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEscalaPonderacion", DbType.Int32, entidad.escala.idEscala);
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@peso", DbType.Int32, entidad.ponderacion);
+
+            //    }
+
+            //    if (Transaction.Transaction != null)
+            //        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+            //    else
+            //        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+
+            //    identificador = Int32.Parse(Transaction.DBcomand.Parameters["@idPregunta"].Value.ToString());
+            //}
+            //catch (SqlException ex)
+            //{
+            //    throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
+            //                        ex, enuExceptionType.SqlException);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
+            //                        ex, enuExceptionType.DataAccesException);
+            //}
+
             throw new NotImplementedException();
         }
 
         public override void Update(Pregunta entidad)
         {
+            //try
+            //{
+            //    Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("PreguntasEncuesta_Update");
+
+            //    //Inherentes a la tabla Encuesta
+
+            //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
+
+            //    foreach (Pregunta pregunta in entidad.preguntas)
+            //    {
+            //        //Inherentes a la tabla Pregunta
+
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPregunta", DbType.Int32, pregunta.idPregunta);
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@textoPregunta", DbType.String, pregunta.textoPregunta);
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCategoria", DbType.Int32, pregunta.categoria.idCategoriaPregunta);
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@objetivo", DbType.String, pregunta.objetivoPregunta);
+
+            //        //Inherentes a la tabla PreguntaEncuesta
+
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEscalaPonderacion", DbType.Int32, entidad.idEncuesta);
+            //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@peso", DbType.Double, entidad.idEncuesta);
+            //    }
+
+            //    if (Transaction.Transaction != null)
+            //        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+            //    else
+            //        Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+            //}
+            //catch (SqlException ex)
+            //{
+            //    throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+            //                        ex, enuExceptionType.SqlException);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+            //                        ex, enuExceptionType.DataAccesException);
+            //}
+
             throw new NotImplementedException();
         }
 
