@@ -10,87 +10,60 @@
 namespace EDUAR_UI.UserControls {
     
     
-    public partial class Indicadores {
+    public partial class Exportador {
         
         /// <summary>
-        /// Control Chart1.
+        /// Control upInforme.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart1;
+        protected global::System.Web.UI.UpdatePanel upInforme;
         
         /// <summary>
-        /// Control btnPanel.
+        /// Control btnExportar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPanel;
+        protected global::System.Web.UI.WebControls.Button btnExportar;
         
         /// <summary>
-        /// Control HiddenField1.
+        /// Control divHTML.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHTML;
         
         /// <summary>
-        /// Control mpeContenido.
+        /// Control lblFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender mpeContenido;
+        protected global::System.Web.UI.WebControls.Label lblFecha;
         
         /// <summary>
-        /// Control pnlContenidos.
+        /// Control lblTitulo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlContenidos;
+        protected global::System.Web.UI.WebControls.Label lblTitulo;
         
         /// <summary>
-        /// Control udpContenidosAsociados.
+        /// Control lblObservaciones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpContenidosAsociados;
-        
-        /// <summary>
-        /// Control Label2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
-        
-        /// <summary>
-        /// Control btnVolverPopUp.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnVolverPopUp;
-        
-        /// <summary>
-        /// Control Chart2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart2;
+        protected global::System.Web.UI.WebControls.Label lblObservaciones;
     }
 }

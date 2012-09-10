@@ -40,6 +40,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpIndicadores;
         
         /// <summary>
+        /// Control divIndicadores.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divIndicadores;
+        
+        /// <summary>
         /// Control Indicador1.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace EDUAR_UI {
         protected global::EDUAR_UI.UserControls.Indicador Indicador6;
         
         /// <summary>
+        /// Control divNovedades.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNovedades;
+        
+        /// <summary>
         /// Control lblNoHay.
         /// </summary>
         /// <remarks>
@@ -110,6 +128,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNotificaciones;
+        
+        /// <summary>
+        /// Control InformeIndicador1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::EDUAR_UI.UserControls.InformeIndicador InformeIndicador1;
         
         /// <summary>
         /// Propiedad Master.

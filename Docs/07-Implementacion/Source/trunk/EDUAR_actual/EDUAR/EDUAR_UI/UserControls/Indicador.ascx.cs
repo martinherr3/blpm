@@ -211,7 +211,7 @@ namespace EDUAR_UI.UserControls
 				if (HastaPrincipal == 0)
 					lblTiempo.Text = "Hoy";
 				else
-					lblTiempo.Text = "Prox. " + HastaPrincipal.ToString() + " días";
+					lblTiempo.Text = "Últimos " + HastaPrincipal.ToString() + " días";
 			}
 
 			if (HastaIntermedio != Int32.MinValue)
@@ -219,7 +219,7 @@ namespace EDUAR_UI.UserControls
 				if (HastaIntermedio == 0)
 					lblIntermedio.Text = "Hoy";
 				else
-					lblIntermedio.Text = "Prox. " + HastaIntermedio.ToString() + " días";
+                    lblIntermedio.Text = "Últimos " + HastaIntermedio.ToString() + " días";
 			}
 
 			if (HastaSecundario != Int32.MinValue)
@@ -227,7 +227,7 @@ namespace EDUAR_UI.UserControls
 				if (HastaSecundario == 0)
 					lblSecundario.Text = "Hoy";
 				else
-					lblSecundario.Text = "Prox. " + HastaSecundario.ToString() + " días";
+                    lblSecundario.Text = "Últimos " + HastaSecundario.ToString() + " días";
 			}
 		}
 
@@ -239,15 +239,15 @@ namespace EDUAR_UI.UserControls
 			if (!String.IsNullOrEmpty(nombreSP))
 			{
 				BLIndicador objBLIndicadores = new BLIndicador();
-				decimal valor = objBLIndicadores.GetValorIndicador(nombreSP, idCursoCicloLectivo, DateTime.Today.AddDays(HastaPrincipal * -1), DateTime.Today);
+                decimal valor = objBLIndicadores.GetValorIndicador("Indicadores_" + nombreSP, idCursoCicloLectivo, DateTime.Today.AddDays(HastaPrincipal * -1), DateTime.Today);
 				btnIndicador.Text = valor.ToString();
 				btnIndicador.CommandArgument = this.ID;
 
-				valor = objBLIndicadores.GetValorIndicador(nombreSP, idCursoCicloLectivo, DateTime.Today.AddDays(HastaIntermedio * -1), DateTime.Today);
+                valor = objBLIndicadores.GetValorIndicador("Indicadores_" + nombreSP, idCursoCicloLectivo, DateTime.Today.AddDays(HastaIntermedio * -1), DateTime.Today);
 				btnIntermedio.Text = valor.ToString();
 				btnIntermedio.CommandArgument = this.ID;
 
-				valor = objBLIndicadores.GetValorIndicador(nombreSP, idCursoCicloLectivo, DateTime.Today.AddDays(HastaSecundario * -1), DateTime.Today);
+                valor = objBLIndicadores.GetValorIndicador("Indicadores_" + nombreSP, idCursoCicloLectivo, DateTime.Today.AddDays(HastaSecundario * -1), DateTime.Today);
 				btnSecundario.Text = valor.ToString();
 				btnSecundario.CommandArgument = this.ID;
 			}
