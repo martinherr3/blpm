@@ -147,12 +147,12 @@
     <Content Include="Images\Grillas\mail-mark-read-2.png" />
     <Content Include="Images\Grillas\mail-reply-2.png" />
     <Content Include="Images\help.png" />
-    <Content Include="Images\Indicadores\IndAmarillo.gif" />
-    <Content Include="Images\Indicadores\IndAmarilloSecundario.gif" />
-    <Content Include="Images\Indicadores\IndRojo.gif" />
-    <Content Include="Images\Indicadores\IndRojoSecundario.gif" />
-    <Content Include="Images\Indicadores\IndVerde.gif" />
-    <Content Include="Images\Indicadores\IndVerdeSecundario.gif" />
+    <Content Include="Images\Indicadores\IndAmarillo.png" />
+    <Content Include="Images\Indicadores\IndAmarilloSecundario.png" />
+    <Content Include="Images\Indicadores\IndRojo.png" />
+    <Content Include="Images\Indicadores\IndRojoSecundario.png" />
+    <Content Include="Images\Indicadores\IndVerde.png" />
+    <Content Include="Images\Indicadores\IndVerdeSecundario.png" />
     <Content Include="Images\mail-delete.png" />
     <Content Include="Images\mail-inbox.png" />
     <Content Include="Images\mail-new-message.gif" />
@@ -313,10 +313,11 @@
     <Content Include="UserControls\Calendario.ascx" />
     <Content Include="UserControls\Criterio.ascx" />
     <Content Include="UserControls\Editor.ascx" />
+    <Content Include="UserControls\Exportador.ascx" />
     <Content Include="UserControls\Grafico.ascx" />
     <Content Include="UserControls\Hora.ascx" />
     <Content Include="UserControls\Indicador.ascx" />
-    <Content Include="UserControls\Indicadores.ascx" />
+    <Content Include="UserControls\InformeIndicador.ascx" />
     <Content Include="UserControls\Reporte.ascx" />
     <Content Include="UserControls\VentanaInfo.ascx" />
     <Content Include="Web.config">
@@ -716,6 +717,13 @@
     <Compile Include="UserControls\Editor.ascx.designer.cs">
       <DependentUpon>Editor.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Exportador.ascx.cs">
+      <DependentUpon>Exportador.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Exportador.ascx.designer.cs">
+      <DependentUpon>Exportador.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Grafico.ascx.cs">
       <DependentUpon>Grafico.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -737,12 +745,12 @@
     <Compile Include="UserControls\Indicador.ascx.designer.cs">
       <DependentUpon>Indicador.ascx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Indicadores.ascx.cs">
-      <DependentUpon>Indicadores.ascx</DependentUpon>
+    <Compile Include="UserControls\InformeIndicador.ascx.cs">
+      <DependentUpon>InformeIndicador.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UserControls\Indicadores.ascx.designer.cs">
-      <DependentUpon>Indicadores.ascx</DependentUpon>
+    <Compile Include="UserControls\InformeIndicador.ascx.designer.cs">
+      <DependentUpon>InformeIndicador.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Reporte.ascx.cs">
       <DependentUpon>Reporte.ascx</DependentUpon>

@@ -189,6 +189,7 @@ namespace EDUAR_DataAccess.Reports
 					while (reader.Read())
 					{
 						decimal.TryParse(reader[0].ToString(), out valor);
+                        reader.Dispose();
 						return valor;
 					}
 				}
