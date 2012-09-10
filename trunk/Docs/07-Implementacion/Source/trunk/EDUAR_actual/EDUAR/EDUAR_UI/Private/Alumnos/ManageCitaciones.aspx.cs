@@ -225,6 +225,7 @@ namespace EDUAR_UI
                 udpFiltrosBusqueda.Visible = false;
                 udpFiltros.Update();
                 udpGrilla.Update();
+                txtAlumno.Visible = true;
             }
             catch (Exception ex)
             {
@@ -698,6 +699,35 @@ namespace EDUAR_UI
             udpFiltros.Update();
             udpEdit.Update();
         }
+
+        protected void ddlTutores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BLTutor unBLTutor = new BLTutor();
+            Tutor unTutor = new Tutor();
+            unTutor.idTutor = int.Parse(ddlTutores.SelectedValue);
+
+            List<Alumno> AlumnosTutor = new List<Alumno>();
+            AlumnosTutor = unBLTutor.GetAlumnosDeTutor(unTutor);
+
+            txtAlumno.Text = AlumnosTutor[0].nombre + " " + AlumnosTutor[0].apellido;
+
+        }
+
         #endregion
+
+        protected void ddlTutorEdit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BLTutor unBLTutor = new BLTutor();
+            Tutor unTutor = new Tutor();
+            unTutor.idTutor = int.Parse(ddlTutorEdit.SelectedValue);
+
+            List<Alumno> AlumnosTutor = new List<Alumno>();
+            AlumnosTutor = unBLTutor.GetAlumnosDeTutor(unTutor, propCicloLectivo.idCicloLectivo,Convert.ToInt32(ddlCursoEdit.SelectedValue));
+
+            txtAlumno.Text = AlumnosTutor[0].nombre + " " + AlumnosTutor[0].apellido;
+
+
+        }
+
     }
 }

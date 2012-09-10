@@ -163,7 +163,7 @@ namespace EDUAR_DataAccess.Common
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public List<Alumno> GetAlumnosTutor(Tutor entidad)
+		public List<Alumno> GetAlumnosTutor(Tutor entidad, int idCicloLectivo =0, int idCurso = 0)
 		{
 			try
 			{
@@ -174,6 +174,13 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
 					if (entidad.activo != null)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+                    if (entidad.idTutor != 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTutor", DbType.Int32, entidad.idTutor);
+                    if (idCicloLectivo != 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, idCicloLectivo);
+                    if (idCurso != 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, idCurso);
+
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

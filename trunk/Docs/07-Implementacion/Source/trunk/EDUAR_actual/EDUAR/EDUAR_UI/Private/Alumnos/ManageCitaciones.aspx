@@ -6,6 +6,13 @@
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <style type="text/css">
+        .style1
+        {
+            width: 40%;
+            text-align: left;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
@@ -82,8 +89,14 @@
                                 <asp:Label ID="Label1" runat="server" Text="Tutores:" CssClass="lblCriterios"></asp:Label>
                             </td>
                             <td valign="top">
-                                <asp:DropDownList ID="ddlTutores" runat="server" CssClass="EstiloTxtLargo250">
+                                <asp:DropDownList ID="ddlTutores" runat="server" CssClass="EstiloTxtLargo250" 
+                                     AutoPostBack="true" onselectedindexchanged="ddlTutores_SelectedIndexChanged">
                                 </asp:DropDownList>
+                            </td>
+                            <td valign="top">
+                           
+                            
+
                             </td>
                         </tr>
                     </table>
@@ -183,7 +196,7 @@
                             <td valign="top" class="TDCriterios40">
                                 <cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
                             </td>
-                            <td valign="top" class="TDCriterios10">
+                            <td valign="top" class="TDCriterios10" colspan="2">
                                 <asp:Label runat="server" ID="lblHora" Text="Hora:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
@@ -206,7 +219,7 @@
                                 <asp:DropDownList ID="ddlCursoEdit" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCursoEdit_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios25" colspan="2">
                             </td>
                             <td valign="top" class="TDCriterios25">
                             </td>
@@ -219,7 +232,7 @@
                                 <asp:DropDownList ID="ddlMotivoEdit" runat="server">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios25" colspan="2">
                                 <asp:Label ID="lblActivoEdit" runat="server" Text="Activo:" ToolTip="Setear en activo cuando la citacion este en curso, porque aparecera como Citacion al tutor"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
@@ -230,16 +243,25 @@
                             <td valign="top" class="TDCriterios25">
                                 <asp:Label ID="Label6" runat="server" Text="Tutor:" CssClass="lblCriterios"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios75" colspan="3">
-                                <asp:DropDownList ID="ddlTutorEdit" runat="server" Enabled="false" CssClass="EstiloTxtLargo250">
+                            <td valign="top" class="style1" colspan="2">
+                                <asp:DropDownList ID="ddlTutorEdit" runat="server" Enabled="false" 
+                                    CssClass="EstiloTxtLargo250" AutoPostBack =true
+                                    onselectedindexchanged="ddlTutorEdit_SelectedIndexChanged">
                                 </asp:DropDownList>
+                                                          
                             </td>
+                             <td valign="top" class="TDCriterios75">
+                                <asp:Label ID="Label4" runat="server" CssClass="lblTutor" Text="Alumno:"></asp:Label>
+                                <asp:TextBox ID="txtAlumno" runat="server" Enabled="False"></asp:TextBox>
+                                 </td>
+                            
+                            
                         </tr>
                         <tr>
                             <td valign="top" class="TD25">
                                 <asp:Label runat="server" ID="Label9" Text="Descripción:"></asp:Label>
                             </td>
-                            <td colspan="3" class="TDCriterios75">
+                            <td colspan="4" class="TDCriterios75">
                                 <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="600px" TextMode="MultiLine"
                                     Rows="5"></asp:TextBox>
                             </td>
