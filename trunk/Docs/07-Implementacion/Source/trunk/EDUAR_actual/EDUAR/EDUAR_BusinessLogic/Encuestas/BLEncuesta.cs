@@ -204,11 +204,11 @@ namespace EDUAR_BusinessLogic.Encuestas
         /// </summary>
         /// <param name="objFiltro">The obj filtro.</param>
         /// <returns></returns>
-        public List<Pregunta> GetPreguntasEncuesta(Encuesta objFiltro)
+        public List<Pregunta> GetPreguntasEncuesta(Encuesta objFiltroEncuesta, Pregunta objFiltroPregunta)
         {
             try
             {
-                return DataAcces.GetPreguntasEncuesta(objFiltro);
+                return DataAcces.GetPreguntasEncuesta(objFiltroEncuesta, objFiltroPregunta);
             }
             catch (CustomizedException ex)
             {

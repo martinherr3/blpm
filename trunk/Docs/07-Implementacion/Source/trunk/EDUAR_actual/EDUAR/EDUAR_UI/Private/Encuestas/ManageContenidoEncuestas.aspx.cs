@@ -521,7 +521,6 @@ namespace EDUAR_UI
         /// </summary>
         private void LimpiarCampos()
         {
-            //TODO (Pablo): Incluir estos componentes de filtrado
             if (ddlAmbito.Items.Count > 0) ddlAmbito.SelectedIndex = 0;
             chkActivo.Checked = false;
         }
