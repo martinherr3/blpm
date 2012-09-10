@@ -205,6 +205,10 @@
                             </td>
                             <td class="TD75" colspan="3">
                                 <asp:TextBox runat="server" ID="txtPesoPreguntaEdit" Width="500px"></asp:TextBox>
+                                <cc1:MaskedEditExtender ID="MaskedEditExtender1" runat="server" MaskType="Number" Mask="9.99" 
+                                    ErrorTooltipEnabled="true" InputDirection="LeftToRight" CultureName="es-ES" 
+                                    TargetControlID="txtPesoPreguntaEdit" MessageValidatorTip="true">
+                                </cc1:MaskedEditExtender>
                             </td>
                         </tr>
                     </table>
