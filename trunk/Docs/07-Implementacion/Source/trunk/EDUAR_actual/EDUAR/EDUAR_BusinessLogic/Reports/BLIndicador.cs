@@ -152,5 +152,10 @@ namespace EDUAR_BusinessLogic.Reports
             }
         }
         #endregion
+
+		public decimal GetValorIndicador(string nombreSP, int idCursoCicloLectivo, DateTime fechaDesde, DateTime fechaHasta)
+		{
+			return DataAcces.GetValorIndicador(nombreSP, idCursoCicloLectivo, fechaDesde, fechaHasta);
+		}
 	}
 }

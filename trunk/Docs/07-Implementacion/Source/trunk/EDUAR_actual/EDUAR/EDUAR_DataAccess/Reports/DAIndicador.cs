@@ -129,6 +129,7 @@ namespace EDUAR_DataAccess.Reports
 					objEntidad = new Indicador();
 					objEntidad.idIndicador = (int)reader["idIndicador"];
 					objEntidad.nombre = reader["nombre"].ToString();
+					objEntidad.nombreSP = reader["nombreSP"].ToString();
 					objEntidad.invertirEscala = (bool)reader["invertirEscala"];
 					int.TryParse(reader["parametroCantidad"].ToString(), out parametroCantidad);
 					objEntidad.parametroCantidad = parametroCantidad;
@@ -138,9 +139,9 @@ namespace EDUAR_DataAccess.Reports
 					objEntidad.verdeNivelIntermedio = (int)reader["verdeNivelIntermedio"];
 					objEntidad.verdeNivelPrincipal = (int)reader["verdeNivelPrincipal"];
 					objEntidad.verdeNivelSecundario = (int)reader["verdeNivelSecundario"];
-                    objEntidad.diasHastaPrincipal = (int)reader["diasHastaPrincipal"];
-                    objEntidad.diasHastaIntermedio = (int)reader["diasHastaIntermedio"];
-                    objEntidad.diasHastaSecundario = (int)reader["diasHastaSecundario"];
+					objEntidad.diasHastaPrincipal = (int)reader["diasHastaPrincipal"];
+					objEntidad.diasHastaIntermedio = (int)reader["diasHastaIntermedio"];
+					objEntidad.diasHastaSecundario = (int)reader["diasHastaSecundario"];
 
 					listaEntidad.Add(objEntidad);
 				}
@@ -158,5 +159,51 @@ namespace EDUAR_DataAccess.Reports
 			}
 		}
 		#endregion
+
+		/// <summary>
+		/// Gets the valor indicador.
+		/// </summary>
+		/// <param name="nombreSP">The nombre SP.</param>
+		/// <param name="idCursoCicloLectivo">The id curso ciclo lectivo.</param>
+		/// <param name="fechaDesde">The fecha desde.</param>
+		/// <param name="fechaHasta">The fecha hasta.</param>
+		/// <returns></returns>
+		public decimal GetValorIndicador(string nombreSP, int idCursoCicloLectivo, DateTime fechaDesde, DateTime fechaHasta)
+		{
+			try
+			{
+				decimal valor = 0;
+
+				if (!string.IsNullOrEmpty(nombreSP))
+				{
+					Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand(nombreSP);
+
+					if (idCursoCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, idCursoCicloLectivo);
+					if (ValidarFechaSQL(fechaDesde))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@FechaDesde", DbType.Date, fechaDesde);
+					if (ValidarFechaSQL(fechaHasta))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@FechaHasta", DbType.Date, fechaHasta);
+
+					IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+					while (reader.Read())
+					{
+						decimal.TryParse(reader[0].ToString(), out valor);
+						return valor;
+					}
+				}
+				return valor;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetValorIndicador()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetValorIndicador()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 	}
 }

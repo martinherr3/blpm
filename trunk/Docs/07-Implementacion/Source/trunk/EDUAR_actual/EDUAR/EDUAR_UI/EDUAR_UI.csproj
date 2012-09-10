@@ -147,6 +147,12 @@
     <Content Include="Images\Grillas\mail-mark-read-2.png" />
     <Content Include="Images\Grillas\mail-reply-2.png" />
     <Content Include="Images\help.png" />
+    <Content Include="Images\Indicadores\IndAmarillo.gif" />
+    <Content Include="Images\Indicadores\IndAmarilloSecundario.gif" />
+    <Content Include="Images\Indicadores\IndRojo.gif" />
+    <Content Include="Images\Indicadores\IndRojoSecundario.gif" />
+    <Content Include="Images\Indicadores\IndVerde.gif" />
+    <Content Include="Images\Indicadores\IndVerdeSecundario.gif" />
     <Content Include="Images\mail-delete.png" />
     <Content Include="Images\mail-inbox.png" />
     <Content Include="Images\mail-new-message.gif" />
@@ -220,6 +226,7 @@
     <Content Include="Private\Mensajes\MsjeEnviado.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
     <Content Include="Private\Monitoreo\ConfigIndicadores.aspx" />
+    <Content Include="Private\Monitoreo\GetIndicadores.aspx" />
     <Content Include="Private\Planning\Contenido.aspx" />
     <Content Include="Private\Planning\PlanificacionAnual.aspx" />
     <Content Include="Private\Planning\TemasContenido.aspx" />
@@ -491,6 +498,13 @@
     </Compile>
     <Compile Include="Private\Monitoreo\ConfigIndicadores.aspx.designer.cs">
       <DependentUpon>ConfigIndicadores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Monitoreo\GetIndicadores.aspx.cs">
+      <DependentUpon>GetIndicadores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Monitoreo\GetIndicadores.aspx.designer.cs">
+      <DependentUpon>GetIndicadores.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Planning\Contenido.aspx.cs">
       <DependentUpon>Contenido.aspx</DependentUpon>

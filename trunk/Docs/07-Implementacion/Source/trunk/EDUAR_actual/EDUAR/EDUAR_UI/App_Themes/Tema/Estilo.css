@@ -1016,3 +1016,105 @@ TD.EncabezadoConfirmación
 {
     background-color:Yellow;
 }
+
+.BotonIndRojo
+{
+	background-position: left top;
+	background-image: url(../../Images/Indicadores/IndRojo.gif);
+	background-repeat: no-repeat;
+	background-color: Transparent;
+	height: 100px;
+	width: 100px;
+	cursor: pointer;
+	border: 0px;
+	margin: 1px;
+	padding: 0px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: xx-large;	
+}
+
+.BotonIndRojoSecundario
+{
+	background-position: left top;
+	background-image: url(../../Images/Indicadores/IndRojoSecundario.gif);
+	background-repeat: no-repeat;
+	background-color: Transparent;
+	height: 50px;
+	width: 50px;
+	cursor: pointer;
+	border: 0px;
+	margin: 1px;
+	padding: 0px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: medium;
+}
+
+.BotonIndVerde
+{
+	background-position: left top;
+	background-image: url(../../Images/Indicadores/IndVerde.gif);
+	background-repeat: no-repeat;
+	background-color: Transparent;
+	height: 100px;
+	width: 100px;
+	cursor: pointer;
+	border: 0px;
+	margin: 1px;
+	padding: 0px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: xx-large;
+}
+
+.BotonIndVerdeSecundario
+{
+	background-position: left top;
+	background-image: url(../../Images/Indicadores/IndVerdeSecundario.gif);
+	background-repeat: no-repeat;
+	background-color: Transparent;
+	height: 50px;
+	width: 50px;
+	cursor: pointer;
+	border: 0px;
+	margin: 1px;
+	padding: 0px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: medium;
+}
+
+.BotonIndAmarillo
+{
+	background-position: left top;
+	background-image: url(../../Images/Indicadores/IndAmarillo.gif);
+	background-repeat: no-repeat;
+	background-color: Transparent;
+	height: 100px;
+	width: 100px;
+	cursor: pointer;
+	border: 0px;
+	margin: 1px;
+	padding: 0px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: xx-large;
+}
+
+.BotonIndAmarilloSecundario
+{
+	background-position: left top;
+	background-image: url(../../Images/Indicadores/IndAmarilloSecundario.gif);
+	background-repeat: no-repeat;
+	background-color: Transparent;
+	height: 50px;
+	width: 50px;
+	cursor: pointer;
+	border: 0px;
+	margin: 1px;
+	padding: 0px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: medium;
+}

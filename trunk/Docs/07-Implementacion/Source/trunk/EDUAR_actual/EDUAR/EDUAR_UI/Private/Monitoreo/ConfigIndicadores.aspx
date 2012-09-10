@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Monitoreo General" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+﻿<%@ Page Title="Configuración de Indicadores" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="ConfigIndicadores.aspx.cs" Inherits="EDUAR_UI.ConfigIndicadores" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
