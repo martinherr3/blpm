@@ -161,8 +161,10 @@
     <Content Include="Images\Paginador\go-last-view.png" />
     <Content Include="Images\Paginador\go-next-view.png" />
     <Content Include="Images\Paginador\go-previous-view.png" />
+    <Content Include="Images\PopUp\botonBuscar.png" />
     <Content Include="Images\PopUp\botonGuardar.png" />
     <Content Include="Images\PopUp\botonVolver.png" />
+    <Content Include="Images\PopUp\ExportarPDF.png" />
     <Content Include="Images\prueba.gif" />
     <Content Include="Images\user-properties.png" />
     <Content Include="Images\ventanaConfirmacion.png" />
@@ -829,6 +831,7 @@
     <Content Include="Private\Reports\Historicos\web.config" />
     <Content Include="Private\Planning\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Private\Monitoreo\web.config" />
     <None Include="Scripts\css\blitzer\images\Thumbs.db" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>
