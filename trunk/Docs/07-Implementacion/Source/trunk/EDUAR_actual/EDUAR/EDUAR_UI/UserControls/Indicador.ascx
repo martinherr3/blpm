@@ -60,24 +60,5 @@
                 </tr>
             </table>
         </div>
-        <%--<cc1:AnimationExtender ID="AnimationExtender2" runat="server" TargetControlID="divIndicador">
-            <Animations>
-                <OnLoad> 
-                    <Sequence>  
-                        <FadeOut Duration="0" Fps="60" MinimumOpacity=".6" />
-                    </Sequence> 
-                </OnLoad>
-                <OnMouseOver> 
-                    <Sequence>  
-                        <FadeIn Duration=".5" Fps="60" MinimumOpacity=".6" />
-                    </Sequence> 
-                </OnMouseOver>
-                <OnMouseOut> 
-                    <Sequence>
-                        <FadeOut Duration=".5" Fps="60" MinimumOpacity=".6" />
-                    </Sequence> 
-                </OnMouseOut>              
-            </Animations>
-        </cc1:AnimationExtender>--%>
     </ContentTemplate>
 </asp:UpdatePanel>

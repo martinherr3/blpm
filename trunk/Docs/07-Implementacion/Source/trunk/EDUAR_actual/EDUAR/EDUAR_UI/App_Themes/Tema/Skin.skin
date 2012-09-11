@@ -10,12 +10,12 @@ no se permite que haya varios SkinId por tipo de control en el mismo tema.
 
 2. Máscara predeterminada. Skinid no está definido Sólo se permite 
    una máscara de control por tipo de control en el mismo tema.
-
+   
 <asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
 --%>
 <asp:GridView runat="server" SkinId="gridviewSkinPagerReporte" CellPadding="5"
               AutoGenerateColumns="false"
-              GridLines="Both" 
+			  GridLines="Both" 
               BorderStyle="Solid" 
               PagerSettings-Visible="true" 
               ShowFooter="false"
@@ -37,13 +37,23 @@ no se permite que haya varios SkinId por tipo de control en el mismo tema.
             
 </asp:GridView>
 
+<asp:GridView runat="server" SkinId="gridviewSkinPagerIndicadores" CellPadding="5"
+              GridLines="Both" 
+              BorderStyle="Solid" 
+              PagerSettings-Visible="true" 
+              ShowFooter="false"
+              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="20">
+              <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
+            
+</asp:GridView>
+
 <asp:GridView runat="server" SkinId="gridviewSkinPagerListadoSize10" CellPadding="5"
               AutoGenerateColumns="false"
               GridLines="Both" 
               BorderStyle="Solid" 
               PagerSettings-Visible="true" 
               ShowFooter="false"
-              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="3">
+              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="10">
               
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
             

@@ -40,15 +40,6 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divABM;
         
         /// <summary>
-        /// Control lblTitulo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitulo;
-        
-        /// <summary>
         /// Control Panel2.
         /// </summary>
         /// <remarks>
@@ -58,22 +49,13 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.WebControls.Panel Panel2;
         
         /// <summary>
-        /// Control calFechaDesde.
+        /// Control lblTitulo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::EDUAR_UI.UserControls.Calendario calFechaDesde;
-        
-        /// <summary>
-        /// Control calFechaHasta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::EDUAR_UI.UserControls.Calendario calFechaHasta;
+        protected global::System.Web.UI.WebControls.Label lblTitulo;
         
         /// <summary>
         /// Control btnBuscar.
@@ -101,6 +83,24 @@ namespace EDUAR_UI.UserControls {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnSalir;
+        
+        /// <summary>
+        /// Control calFechaDesde.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::EDUAR_UI.UserControls.Calendario calFechaDesde;
+        
+        /// <summary>
+        /// Control calFechaHasta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::EDUAR_UI.UserControls.Calendario calFechaHasta;
         
         /// <summary>
         /// Control grvInforme.

@@ -216,6 +216,7 @@ namespace EDUAR_UI.UserControls
             //Exportador
             exp.Datos = dt;
             exp.Titulo = Titulo;
+            upInforme.Update();
         }
         #endregion
 
