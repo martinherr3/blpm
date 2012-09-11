@@ -131,6 +131,14 @@ namespace EDUAR_BusinessLogic.Reports
         #endregion
 
         #region --[Métodos publicos]--
+		/// <summary>
+		/// Gets the informe indicador.
+		/// </summary>
+		/// <param name="nombreSP">The nombre SP.</param>
+		/// <param name="idCursoCicloLectivo">The id curso ciclo lectivo.</param>
+		/// <param name="fechaDesde">The fecha desde.</param>
+		/// <param name="fechaHasta">The fecha hasta.</param>
+		/// <returns></returns>
         public DataTable GetInformeIndicador(string nombreSP, int idCursoCicloLectivo, DateTime fechaDesde, DateTime fechaHasta)
         {
             try

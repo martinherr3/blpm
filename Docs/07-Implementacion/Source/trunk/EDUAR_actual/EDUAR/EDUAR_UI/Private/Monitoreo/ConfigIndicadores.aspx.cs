@@ -84,6 +84,11 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the btnCancelar control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnCancelar_Click(object sender, EventArgs e)
 		{
 			try
@@ -109,31 +114,28 @@ namespace EDUAR_UI
 			{
 				if (idIndicador != 0)
 				{
-					if (ValidarPagina())
-					{
-						Indicador indSeleccion = new Indicador();
-						indSeleccion = listaIndicadores.Find(p => p.idIndicador == idIndicador);
-						indSeleccion.invertirEscala = chkInvertirEscala.Checked;
-						indSeleccion.parametroCantidad = Convert.ToInt32(txtParametroCantidad.Text);
-						indSeleccion.diasHastaPrincipal = Convert.ToInt32(txtHastaPrincipal.Text);
-						indSeleccion.diasHastaIntermedio = Convert.ToInt32(txtHastaIntermedio.Text);
-						indSeleccion.diasHastaSecundario = Convert.ToInt32(txtHastaSecundario.Text);
-						indSeleccion.verdeNivelPrincipal = Convert.ToInt32(txtVerdePrincipal.Text);
-						indSeleccion.verdeNivelIntermedio = Convert.ToInt32(txtVerdeIntermedio.Text);
-						indSeleccion.verdeNivelSecundario = Convert.ToInt32(txtVerdeSecundario.Text);
-						indSeleccion.rojoNivelPrincipal = Convert.ToInt32(txtRojoPrincipal.Text);
-						indSeleccion.rojoNivelIntermedio = Convert.ToInt32(txtRojoIntermedio.Text);
-						indSeleccion.rojoNivelSecundario = Convert.ToInt32(txtRojoSecundario.Text);
+					Indicador indSeleccion = new Indicador();
+					indSeleccion = listaIndicadores.Find(p => p.idIndicador == idIndicador);
+					indSeleccion.invertirEscala = chkInvertirEscala.Checked;
+					indSeleccion.parametroCantidad = Convert.ToInt32(txtParametroCantidad.Text);
+					indSeleccion.diasHastaPrincipal = Convert.ToInt32(txtHastaPrincipal.Text);
+					indSeleccion.diasHastaIntermedio = Convert.ToInt32(txtHastaIntermedio.Text);
+					indSeleccion.diasHastaSecundario = Convert.ToInt32(txtHastaSecundario.Text);
+					indSeleccion.verdeNivelPrincipal = Convert.ToInt32(txtVerdePrincipal.Text);
+					indSeleccion.verdeNivelIntermedio = Convert.ToInt32(txtVerdeIntermedio.Text);
+					indSeleccion.verdeNivelSecundario = Convert.ToInt32(txtVerdeSecundario.Text);
+					indSeleccion.rojoNivelPrincipal = Convert.ToInt32(txtRojoPrincipal.Text);
+					indSeleccion.rojoNivelIntermedio = Convert.ToInt32(txtRojoIntermedio.Text);
+					indSeleccion.rojoNivelSecundario = Convert.ToInt32(txtRojoSecundario.Text);
 
-						BLIndicador objBLIndicador = new BLIndicador(indSeleccion);
-						objBLIndicador.Save();
-						CargarIndicadores();
-						divConfig.Visible = false;
-						idIndicador = 0;
-						rfvTxtParametroCantidad.Enabled = false;
-						cmvtxtParametroCantidad.Enabled = false;
-						mpeContenido.Hide();
-					}
+					BLIndicador objBLIndicador = new BLIndicador(indSeleccion);
+					objBLIndicador.Save();
+					CargarIndicadores();
+					divConfig.Visible = false;
+					idIndicador = 0;
+					rfvTxtParametroCantidad.Enabled = false;
+					cmvtxtParametroCantidad.Enabled = false;
+					mpeContenido.Hide();
 				}
 			}
 			catch (Exception ex)
@@ -142,11 +144,21 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwIndicadores control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
 		protected void gvwIndicadores_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 
 		}
 
+		/// <summary>
+		/// Handles the RowCommand event of the gvwIndicadores control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
 		protected void gvwIndicadores_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
 			try
@@ -182,24 +194,6 @@ namespace EDUAR_UI
 			udpGrilla.Update();
 		}
 
-		private void limpiarABMIndicador()
-		{
-			chkInvertirEscala.Checked = false;
-			txtHastaPrincipal.Text = "";
-			txtHastaIntermedio.Text = "";
-			txtHastaSecundario.Text = "";
-			txtVerdePrincipal.Text = "";
-			txtVerdeIntermedio.Text = "";
-			txtVerdeSecundario.Text = "";
-			txtRojoPrincipal.Text = "";
-			txtRojoIntermedio.Text = "";
-			txtRojoSecundario.Text = "";
-			txtParametroCantidad.Text = "";
-			lblTitulo.Text = "";
-			rfvTxtParametroCantidad.Enabled = false;
-			cmvtxtParametroCantidad.Enabled = false;
-		}
-
 		/// <summary>
 		/// Cargars the indicador.
 		/// </summary>
@@ -228,25 +222,6 @@ namespace EDUAR_UI
 				txtRojoIntermedio.Text = indSeleccion.rojoNivelIntermedio.ToString();
 				txtRojoSecundario.Text = indSeleccion.rojoNivelSecundario.ToString();
 			}
-		}
-
-		/// <summary>
-		/// Validars the pagina.
-		/// </summary>
-		/// <returns></returns>
-		private bool ValidarPagina()
-		{
-			if (txtParametroCantidad.Visible)
-			{
-				//int parametro = 0;
-				//int.TryParse(txtParametroCantidad.Text, out parametro);
-				//if (!(parametro > 0))
-				//{
-				//    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
-				//    return false;
-				//}
-			}
-			return true;
 		}
 		#endregion
 	}
