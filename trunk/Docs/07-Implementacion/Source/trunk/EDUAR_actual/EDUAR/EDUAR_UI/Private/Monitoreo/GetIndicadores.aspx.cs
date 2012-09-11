@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using EDUAR_UI.Shared;
-using EDUAR_UI.UserControls;
+using EDUAR_BusinessLogic.Common;
 using EDUAR_BusinessLogic.Reports;
 using EDUAR_Entities;
-using EDUAR_Utility.Enumeraciones;
-using EDUAR_BusinessLogic.Common;
+using EDUAR_UI.Shared;
+using EDUAR_UI.UserControls;
 using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -142,7 +139,8 @@ namespace EDUAR_UI
 
         protected void btnInformeIndicador_Click(object sender, EventArgs e)
         {
-            EDUAR_UI.UserControls.Indicador indi = null;
+			mpeContenido.Show();
+			EDUAR_UI.UserControls.Indicador indi = null;
             Button btn = (Button)sender;
             switch (btn.CommandArgument)
             {
@@ -172,14 +170,14 @@ namespace EDUAR_UI
             {
                 InformeIndicador1.Titulo = indi.Título;
                 InformeIndicador1.SP = "DatosIndicador_" + indi.nombreSP;
-                InformeIndicador1.Desde = DateTime.Today;
+                InformeIndicador1.Hasta = DateTime.Today;
 
                 if (btn.CommandName == "Principal")
-                    InformeIndicador1.Hasta = DateTime.Today.AddDays(indi.HastaPrincipal);
+					InformeIndicador1.Desde = DateTime.Today.AddDays(indi.HastaPrincipal * -1);
                 else if (btn.CommandName == "Intermedio")
-                    InformeIndicador1.Hasta = DateTime.Today.AddDays(indi.HastaIntermedio);
+					InformeIndicador1.Desde = DateTime.Today.AddDays(indi.HastaIntermedio * -1);
                 else if (btn.CommandName == "Secundario")
-                    InformeIndicador1.Hasta = DateTime.Today.AddDays(indi.HastaSecundario);
+					InformeIndicador1.Desde = DateTime.Today.AddDays(indi.HastaSecundario * -1);
 
                 #region [Filtros]
                 for (int i = 0; i < indi.Filtros.Length; i++)
@@ -215,56 +213,61 @@ namespace EDUAR_UI
         }
         #endregion
 
-        private void CargarIndicadores()
-        {
-            Indicador indi = null;
-            BLIndicador objBLIndicador = new BLIndicador();
-            List<EDUAR_Entities.Reports.Indicador> listaIndicadores = objBLIndicador.GetIndicadores(null);
+		#region --[Métodos Privados]--
+		/// <summary>
+		/// Cargars the indicadores.
+		/// </summary>
+		private void CargarIndicadores()
+		{
+			Indicador indi = null;
+			BLIndicador objBLIndicador = new BLIndicador();
+			List<EDUAR_Entities.Reports.Indicador> listaIndicadores = objBLIndicador.GetIndicadores(null);
 
-            for (int i = 1; i <= listaIndicadores.Count; i++)
-            {
-                switch (i)
-                {
-                    case 1:
-                        indi = Indicador1;
-                        break;
-                    case 2:
-                        indi = Indicador2;
-                        break;
-                    case 3:
-                        indi = Indicador3;
-                        break;
-                    case 4:
-                        indi = Indicador4;
-                        break;
-                    case 5:
-                        indi = Indicador5;
-                        break;
-                    case 6:
-                        indi = Indicador6;
-                        break;
-                    default:
-                        break;
-                }
-                if (indi != null)
-                {
-                    indi.Visible = true;
-                    indi.InvertirEscala = Convert.ToBoolean(listaIndicadores[i - 1].invertirEscala.ToString());
-                    indi.HastaPrincipal = listaIndicadores[i - 1].diasHastaPrincipal;
-                    indi.HastaIntermedio = listaIndicadores[i - 1].diasHastaIntermedio;
-                    indi.HastaSecundario = listaIndicadores[i - 1].diasHastaSecundario;
-                    indi.VerdePrincipal = listaIndicadores[i - 1].verdeNivelPrincipal;
-                    indi.RojoPrincipal = listaIndicadores[i - 1].rojoNivelPrincipal;
-                    indi.VerdeIntermedio = listaIndicadores[i - 1].verdeNivelIntermedio;
-                    indi.RojoSecundario = listaIndicadores[i - 1].rojoNivelIntermedio;
-                    indi.VerdeSecundario = listaIndicadores[i - 1].verdeNivelSecundario;
-                    indi.RojoSecundario = listaIndicadores[i - 1].rojoNivelSecundario;
-                    indi.nombreSP = listaIndicadores[i - 1].nombreSP;
-                    indi.Título = listaIndicadores[i - 1].nombre;
-                    //indi.Filtros = dr["filtros"].ToString().Split(',');
-                    indi.CargarIndicador();
-                }
-            }
-        }
+			for (int i = 1; i <= listaIndicadores.Count; i++)
+			{
+				switch (i)
+				{
+					case 1:
+						indi = Indicador1;
+						break;
+					case 2:
+						indi = Indicador2;
+						break;
+					case 3:
+						indi = Indicador3;
+						break;
+					case 4:
+						indi = Indicador4;
+						break;
+					case 5:
+						indi = Indicador5;
+						break;
+					case 6:
+						indi = Indicador6;
+						break;
+					default:
+						break;
+				}
+				if (indi != null)
+				{
+					indi.Visible = true;
+					indi.InvertirEscala = Convert.ToBoolean(listaIndicadores[i - 1].invertirEscala.ToString());
+					indi.HastaPrincipal = listaIndicadores[i - 1].diasHastaPrincipal;
+					indi.HastaIntermedio = listaIndicadores[i - 1].diasHastaIntermedio;
+					indi.HastaSecundario = listaIndicadores[i - 1].diasHastaSecundario;
+					indi.VerdePrincipal = listaIndicadores[i - 1].verdeNivelPrincipal;
+					indi.RojoPrincipal = listaIndicadores[i - 1].rojoNivelPrincipal;
+					indi.VerdeIntermedio = listaIndicadores[i - 1].verdeNivelIntermedio;
+					indi.RojoSecundario = listaIndicadores[i - 1].rojoNivelIntermedio;
+					indi.VerdeSecundario = listaIndicadores[i - 1].verdeNivelSecundario;
+					indi.RojoSecundario = listaIndicadores[i - 1].rojoNivelSecundario;
+					indi.nombreSP = listaIndicadores[i - 1].nombreSP;
+					indi.Título = listaIndicadores[i - 1].nombre;
+					//indi.Filtros = dr["filtros"].ToString().Split(',');
+					indi.CargarIndicador();
+				}
+			}
+		}
+		#endregion
     }
 }

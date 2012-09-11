@@ -130,6 +130,33 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNotificaciones;
         
         /// <summary>
+        /// Control HiddenField1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
+        
+        /// <summary>
+        /// Control mpeContenido.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender mpeContenido;
+        
+        /// <summary>
+        /// Control pnlContenidos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlContenidos;
+        
+        /// <summary>
         /// Control InformeIndicador1.
         /// </summary>
         /// <remarks>

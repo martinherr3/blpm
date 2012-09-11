@@ -158,7 +158,6 @@ namespace EDUAR_DataAccess.Reports
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
-		#endregion
 
 		/// <summary>
 		/// Gets the valor indicador.
@@ -206,5 +205,6 @@ namespace EDUAR_DataAccess.Reports
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+		#endregion
 	}
 }

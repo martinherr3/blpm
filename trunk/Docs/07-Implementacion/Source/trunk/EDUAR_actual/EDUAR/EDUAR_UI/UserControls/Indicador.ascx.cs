@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data;
 using EDUAR_BusinessLogic.Reports;
 
 namespace EDUAR_UI.UserControls
 {
-	public partial class Indicador : System.Web.UI.UserControl
+	public partial class Indicador : UserControl
 	{
 		#region --[Propiedades]--
 

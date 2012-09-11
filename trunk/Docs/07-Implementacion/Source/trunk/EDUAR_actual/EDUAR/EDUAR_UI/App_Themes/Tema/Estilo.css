@@ -1179,3 +1179,17 @@ TD.EncabezadoConfirmación
 	-o-transform: rotate(360deg) scale(1.002) skew(0deg) translate(0px);
 */
 }
+
+.divInformeIndicador
+{
+	border: 2px solid #341010;
+	position: fixed;
+	text-align: center;
+	top: 5%;
+	width: 800px;
+	z-index: 951; /* Gradient */
+	background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#988787));
+	background: -moz-linear-gradient(top, #FFFFFF, #988787);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF, endColorstr=#988787);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF, endColorstr=#988787)";
+}
