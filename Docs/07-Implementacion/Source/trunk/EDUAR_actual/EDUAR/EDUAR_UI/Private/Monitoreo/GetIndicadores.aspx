@@ -78,7 +78,7 @@
 								</tr>
 								<tr>
 									<td align="justify">
-										<asp:Label ID="lblNoHay" runat="server" Text="No posee notificaciones." Font-Size="Medium"></asp:Label>
+										<asp:Label ID="lblNoHay" runat="server" Text="No se registraron Novedades durante la última semana." Font-Size="Medium"></asp:Label>
 										<div id="divNotificaciones" runat="server">
 										</div>
 									</td>

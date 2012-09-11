@@ -8,25 +8,14 @@
 		<div runat="server" id="divInforme" visible="false">
 			<div id="divABM" runat="server" class="divInformeIndicador">
 				<div style="margin: 1px; text-align: left;">
-					<div class="EncabezadoPopup" style="text-align: center;">
-						<h2>
-							<asp:Label ID="lblTitulo" runat="server" Text=""></asp:Label></h2>
-					</div>
 					<asp:Panel ID="Panel2" runat="server" DefaultButton="btnBuscar" Style="display: inline;
 						text-align: left" BorderStyle="None">
 						<table class="tablaInterna" cellpadding="0" width="100%">
 							<tr>
 								<td>
-									Desde:
-								</td>
-								<td>
-									<uc1:Calendario runat="server" ID="calFechaDesde" TipoCalendario="SoloFecha" />
-								</td>
-								<td>
-									Hasta:
-								</td>
-								<td>
-									<uc1:Calendario runat="server" ID="calFechaHasta" TipoCalendario="SoloFecha" />
+									<h2>
+										<asp:Label ID="lblTitulo" runat="server" Text=""></asp:Label></h2>
+									<br />
 								</td>
 								<td align="right">
 									<table width="100%">
@@ -47,10 +36,29 @@
 								</td>
 							</tr>
 						</table>
+						<table class="tablaInterna" cellpadding="0" width="100%">
+							<tr>
+								<td>
+									Desde:
+								</td>
+								<td>
+									<uc1:Calendario runat="server" ID="calFechaDesde" TipoCalendario="SoloFecha" />
+								</td>
+								<td>
+									Hasta:
+								</td>
+								<td>
+									<uc1:Calendario runat="server" ID="calFechaHasta" TipoCalendario="SoloFecha" />
+								</td>
+								<td align="right">
+								</td>
+							</tr>
+						</table>
 					</asp:Panel>
 					<br />
 					<asp:GridView ID="grvInforme" runat="server" Width="100%" AllowPaging="true" AllowSorting="true"
-						PageSize="10" OnPageIndexChanging="grvInforme_PageIndexChanging" OnSorting="grvInforme_Sorting">
+						OnPageIndexChanging="grvInforme_PageIndexChanging" OnSorting="grvInforme_Sorting"
+						CssClass="DatosLista" SkinID="gridviewSkinPagerIndicadores">
 					</asp:GridView>
 				</div>
 			</div>
