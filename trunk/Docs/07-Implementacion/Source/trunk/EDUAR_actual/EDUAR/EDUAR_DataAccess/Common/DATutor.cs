@@ -178,7 +178,7 @@ namespace EDUAR_DataAccess.Common
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTutor", DbType.Int32, entidad.idTutor);
                     if (idCicloLectivo != 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, idCicloLectivo);
-                    if (idCurso != 0)
+                    if (idCurso != 0 && idCurso !=-1)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, idCurso);
 
 				}
