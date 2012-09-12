@@ -616,6 +616,7 @@ namespace EDUAR_UI
                 ddlTutorEdit.SelectedValue = entidad.tutor.idTutor.ToString();
                 ddlTutorEdit.Enabled = false;
                 chkActivoEdit.Checked = entidad.activo;
+                cargarAlumno();
             }
         }
 
@@ -717,15 +718,21 @@ namespace EDUAR_UI
 
         protected void ddlTutorEdit_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cargarAlumno();
+
+        }
+
+        protected void cargarAlumno()
+        {
+
             BLTutor unBLTutor = new BLTutor();
             Tutor unTutor = new Tutor();
             unTutor.idTutor = int.Parse(ddlTutorEdit.SelectedValue);
 
             List<Alumno> AlumnosTutor = new List<Alumno>();
-            AlumnosTutor = unBLTutor.GetAlumnosDeTutor(unTutor, propCicloLectivo.idCicloLectivo,Convert.ToInt32(ddlCursoEdit.SelectedValue));
+            AlumnosTutor = unBLTutor.GetAlumnosDeTutor(unTutor, propCicloLectivo.idCicloLectivo, Convert.ToInt32(ddlCursoEdit.SelectedValue));
 
             txtAlumno.Text = AlumnosTutor[0].nombre + " " + AlumnosTutor[0].apellido;
-
 
         }
 
