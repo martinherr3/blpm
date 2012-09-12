@@ -98,7 +98,7 @@
 		TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
 		BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
 	</ajaxToolkit:ModalPopupExtender>
-	<asp:Panel ID="pnlContenidos" runat="server" Width="700px" Height="650px" Style="display: none;
+	<asp:Panel ID="pnlContenidos" runat="server" Width="700px" Height="550px" Style="display: none;
 		text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
 		<uc1:InformeIndicador ID="InformeIndicador1" runat="server"></uc1:InformeIndicador>
 	</asp:Panel>
