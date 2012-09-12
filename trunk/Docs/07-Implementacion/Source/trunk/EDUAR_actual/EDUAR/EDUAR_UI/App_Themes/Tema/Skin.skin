@@ -42,7 +42,7 @@ no se permite que haya varios SkinId por tipo de control en el mismo tema.
               BorderStyle="Solid" 
               PagerSettings-Visible="true" 
               ShowFooter="false"
-              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="20">
+              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="15">
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
             
 </asp:GridView>
