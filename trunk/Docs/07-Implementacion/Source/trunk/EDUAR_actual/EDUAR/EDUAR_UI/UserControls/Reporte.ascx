@@ -7,7 +7,7 @@
         popup = window.open('/EDUAR_UI/Private/Reports/PrintReport.aspx', 'Impresión de Informes', 'width=800,height=600,left=50,top=100,­menubar=0,toolbar=0,status=0,scrollbars=1,resizable=0,titlebar=0');
 
         if (popup == null || typeof (popup) == 'undefined') {
-            alert('Por favor deshabilita el bloqueador de ventanas emergentes y vuelve a hacer clic en "Imprimir".');
+            alert('Por favor deshabilita el bloqueador de ventanas emergentes y vuelve a hacer click en "Imprimir".');
         }
         else {
             popup.focus();

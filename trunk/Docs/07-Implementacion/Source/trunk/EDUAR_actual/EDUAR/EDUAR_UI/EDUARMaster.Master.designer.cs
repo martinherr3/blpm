@@ -76,6 +76,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblCursosAsignados;
         
         /// <summary>
+        /// Control btnDoLogin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnDoLogin;
+        
+        /// <summary>
         /// Control HeadLoginView.
         /// </summary>
         /// <remarks>
