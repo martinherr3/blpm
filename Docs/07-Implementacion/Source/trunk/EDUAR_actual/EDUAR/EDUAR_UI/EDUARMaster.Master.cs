@@ -13,6 +13,7 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using System.Text;
 
 namespace EDUAR_UI
 {
@@ -139,8 +140,8 @@ namespace EDUAR_UI
 						if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")) != null)
 							((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")).NavigateUrl = string.Format("~/Private/Manuales/{0}/index.htm", rol);
 
-                        if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")) != null)
-                            ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")).NavigateUrl = string.Format("~/Private/Manuales/{0}/index.htm", rol);
+						if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")) != null)
+							((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")).NavigateUrl = string.Format("~/Private/Manuales/{0}/index.htm", rol);
 
 						#region --[Mensajes en header]--
 						//StringBuilder s = new StringBuilder();
@@ -209,12 +210,12 @@ namespace EDUAR_UI
 			lblUsuario.Text = objSessionPersona.nombre + " " + objSessionPersona.apellido;
 			lblRol.Text = ObjSessionDataUI.ObjDTUsuario.ListaRoles[0].Nombre;
 
-            if (objSessionPersona.sexo.Equals("F")) lblTratamiento.Text = "Bienvenida";
-            else lblTratamiento.Text = "Bienvenido";
+			if (objSessionPersona.sexo.Equals("F")) lblTratamiento.Text = "Bienvenida";
+			else lblTratamiento.Text = "Bienvenido";
 
 			if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
-			{               
-                BLAlumno objBLAlumno = new BLAlumno(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre });
+			{
+				BLAlumno objBLAlumno = new BLAlumno(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre });
 				AlumnoCursoCicloLectivo objCurso = objBLAlumno.GetCursoActualAlumno(cicloLectivoActual);
 				lblCursosAsignados.Text = "Curso Actual: " + objCurso.cursoCicloLectivo.curso.nivel.nombre + "  " + objCurso.cursoCicloLectivo.curso.nombre;
 			}
@@ -448,6 +449,31 @@ namespace EDUAR_UI
 				args.Item.ImageUrl = ((SiteMapNode)args.Item.DataItem)["ImageUrl"];
 		}
 
+		/// <summary>
+		/// Handles the Click event of the btnDoLogin control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnDoLogin_Click(object sender, EventArgs e)
+		{
+			//ForumPage currentPage = new ForumPage();
+			//YafContext PageContext = currentPage.PageContext;
+			//bool booResult = PageContext.CurrentMembership.ValidateUser(txtUserName.Text.Trim(), txtPassword.Text.Trim());
+
+			//FormsAuthentication.SetAuthCookie("2;1;Administrator", true);
+			FormsAuthentication.SetAuthCookie(Context.User.Identity.Name, false);
+
+			FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, Context.User.Identity.Name, DateTime.Now, DateTime.Now.AddMinutes(30), false, "", "/");
+			string strEncTicket = FormsAuthentication.Encrypt(ticket);
+			HttpCookie authCookie = new HttpCookie(".YAFNET_Authentication", strEncTicket);
+			authCookie.Path = "/";
+			HttpContext.Current.Response.Cookies.Add(authCookie);
+
+			string urlForo = "http://" + Request.ServerVariables["SERVER_NAME"] + "/foro";
+
+			//Response.Write("<a id='link' style='visibility: hidden' href='" + urlForo + "' target='_blank' onClick='window.open(this.href, this.target, 'width=300,height=400'); return false;'></a><script>link.click();</script>");
+			ScriptManager.RegisterStartupScript(Page, GetType(), "Foro", "AbrirPopup('" + urlForo + "');", true);
+		}
 		#endregion
 
 		#region --[Métodos Públicos]--
@@ -730,3 +756,4 @@ namespace EDUAR_UI
 		#endregion
 	}
 }
+

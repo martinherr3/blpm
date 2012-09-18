@@ -40,6 +40,20 @@
         //        function clientTime() {
 
         //        }
+        function AbrirPopup(path) {
+            var popup;
+            //Abrir Ventana
+            popup = window.open(path, 'Foro', '');
+            
+            if (popup == null || typeof (popup) == 'undefined') {
+                alert('Por favor deshabilita el bloqueador de ventanas emergentes y vuelve a hacer click en "Ir al Foro".');
+            }
+            else {
+                popup.focus();
+                //Armar documento
+                popup.document.close();
+            }
+        }
     </script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
@@ -71,8 +85,15 @@
                                 <tr>
                                     <td>
                                         <asp:Label ID="lblTratamiento" Text="" runat="server" />
-                                        <asp:Label ID="lblUsuario" Text="" runat="server" Font-Bold="true" /> (<asp:Label ID="lblRol" Text="" runat="server" />)<br />
-                                        <asp:Label ID="lblCursosAsignados" Text="" runat="server" />
+                                        <asp:Label ID="lblUsuario" Text="" runat="server" Font-Bold="true" />
+                                        (<asp:Label ID="lblRol" Text="" runat="server" />)<br />
+                                        <asp:Label ID="lblCursosAsignados" Text="" runat="server" /><br />
+                                        <asp:UpdatePanel runat="server">
+                                            <ContentTemplate>
+                                                <asp:LinkButton ID="btnDoLogin" Text="Ir al Foro" OnClick="btnDoLogin_Click" runat="server"
+                                                    CssClass="accountInfo" />
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
                                     </td>
                                 </tr>
                             </table>
@@ -89,8 +110,8 @@
                                             <td align="center" style="width: 50%">
                                                 <asp:UpdatePanel ID="udpImgIniciarSesion" runat="server" UpdateMode="Conditional">
                                                     <ContentTemplate>
-                                                        <asp:ImageButton ImageUrl="~/Images/web/user-offline.png" ID="imgIniciarSesion" runat="server" ToolTip="Iniciar Sesión"
-                                                            Style="cursor: pointer" />
+                                                        <asp:ImageButton ImageUrl="~/Images/web/user-offline.png" ID="imgIniciarSesion" runat="server"
+                                                            ToolTip="Iniciar Sesión" Style="cursor: pointer" />
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                                 <%--<a href="~/Login.aspx" id="A1" runat="server" style="text-decoration: none">
@@ -122,24 +143,13 @@
                                             <td style="width: 50%">
                                                 <asp:HyperLink ID="linkAyuda" NavigateUrl="" ImageUrl="~/Images/help.png" runat="server"
                                                     ToolTip="Ayuda" Style="cursor: pointer" Target="_blank" />
-                                                <%--
-                                                <span class="bold">
-                                                    <asp:LoginName ID="HeadLoginName" runat="server" />
-                                                    ! </span>
-                                                <div id="div_CallbackResult">
-                                                    <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl="" OnClick="btnMensaje_Click"
-                                                        Style="margin-right: 50px; text-align: center" />
-                                                </div>
-                                            </td>--%>
-                                            <td align="center" style="">
-                                                <asp:ImageButton ID="btnLogout" ImageUrl="~/Images/web/user-online.png" OnClick="btnLogout_Click"
-                                                    runat="server" AlternateText="Cerrar Sesión" ToolTip="Cerrar Sesión" />
-                                            </td>
+                                                <td align="center" style="">
+                                                    <asp:ImageButton ID="btnLogout" ImageUrl="~/Images/web/user-online.png" OnClick="btnLogout_Click"
+                                                        runat="server" AlternateText="Cerrar Sesión" ToolTip="Cerrar Sesión" />
+                                                </td>
                                         </tr>
                                         <tr>
                                             <td style="width: 50%;">
-                                                <%--<asp:Image ID="Image1" ImageUrl="~/Images/help.png" runat="server" AlternateText="Ayuda"
-                                                    ToolTip="Ayuda" />--%>
                                                 <asp:HyperLink ID="linkAyudaText" NavigateUrl="" runat="server" Text="Necesitas ayuda?"
                                                     Target="_blank" />
                                             </td>
