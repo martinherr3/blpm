@@ -1,3 +1,4 @@
+using System;
 ///////////////////////////////////////////////////////////
 //  Novedad.cs
 //  Implementation of the Class Novedad
@@ -6,37 +7,39 @@
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 using EDUAR_Entities.Shared;
-
-using System.Collections.Generic;
-using System;
 namespace EDUAR_Entities
 {
-    [Serializable]
-    public class Novedad:DTBase
-    {
-        public int idNovedad { get; set; }
-        public Curso curso { get; set; }
-        public DateTime fecha { get; set; }
-        public Usuario informante { get; set; }
-        public List<Usuario> involucrados { get; set; }
-        public Usuario usuario { get; set; }
-        public string novedad { get; set; }
-        public TipoNovedad tipoNovedad { get; set; }
+	[Serializable]
+	public class Novedad : DTBase
+	{
+		public int idNovedad { get; set; }
+		public Curso curso { get; set; }
+		public DateTime fecha { get; set; }
+		public Persona usuario { get; set; }
+		//public List<Usuario> involucrados { get; set; }
+		//public Usuario usuario { get; set; }
+		public string observaciones { get; set; }
+		public TipoNovedad tipo { get; set; }
+		public EstadoNovedad estado { get; set; }
+		public Novedad novedadPadre { get; set; }
 
-        public Novedad()
-        {
+		public Novedad()
+		{
+			tipo = new TipoNovedad();
+			estado = new EstadoNovedad();
+			usuario = new Persona();
+			curso = new Curso();
+		}
 
-        }
+		~Novedad()
+		{
 
-        ~Novedad()
-        {
+		}
 
-        }
+		public virtual void Dispose()
+		{
 
-        public virtual void Dispose()
-        {
+		}
 
-        }
-
-    }//end Novedad
+	}//end Novedad
 }

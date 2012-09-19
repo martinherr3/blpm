@@ -209,7 +209,7 @@
     <Content Include="Private\Agenda\ManageEvaluaciones.aspx" />
     <Content Include="Private\Agenda\ManageExcursiones.aspx" />
     <Content Include="Private\Agenda\ManageRegistroClases.aspx" />
-    <Content Include="Private\Agenda\RegisterEventoInstitucional.aspx" />
+    <Content Include="Private\Novedades\RegNovedadInstitucion.aspx" />
     <Content Include="Private\Agenda\ManageReuniones.aspx" />
     <Content Include="Private\Alumnos\CitacionesTutores.aspx" />
     <Content Include="Private\Alumnos\ManageCitaciones.aspx" />
@@ -229,6 +229,7 @@
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
     <Content Include="Private\Monitoreo\ConfigIndicadores.aspx" />
     <Content Include="Private\Monitoreo\GetIndicadores.aspx" />
+    <Content Include="Private\Novedades\RegNovedadAula.aspx" />
     <Content Include="Private\Planning\Contenido.aspx" />
     <Content Include="Private\Planning\PlanificacionAnual.aspx" />
     <Content Include="Private\Planning\TemasContenido.aspx" />
@@ -425,12 +426,12 @@
     <Compile Include="Private\Agenda\ManageRegistroClases.aspx.designer.cs">
       <DependentUpon>ManageRegistroClases.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Private\Agenda\RegisterEventoInstitucional.aspx.cs">
-      <DependentUpon>RegisterEventoInstitucional.aspx</DependentUpon>
+    <Compile Include="Private\Novedades\RegNovedadInstitucion.aspx.cs">
+      <DependentUpon>RegNovedadInstitucion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Private\Agenda\RegisterEventoInstitucional.aspx.designer.cs">
-      <DependentUpon>RegisterEventoInstitucional.aspx</DependentUpon>
+    <Compile Include="Private\Novedades\RegNovedadInstitucion.aspx.designer.cs">
+      <DependentUpon>RegNovedadInstitucion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Agenda\ManageReuniones.aspx.cs">
       <DependentUpon>ManageReuniones.aspx</DependentUpon>
@@ -508,6 +509,13 @@
     </Compile>
     <Compile Include="Private\Monitoreo\GetIndicadores.aspx.designer.cs">
       <DependentUpon>GetIndicadores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Novedades\RegNovedadAula.aspx.cs">
+      <DependentUpon>RegNovedadAula.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Novedades\RegNovedadAula.aspx.designer.cs">
+      <DependentUpon>RegNovedadAula.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Planning\Contenido.aspx.cs">
       <DependentUpon>Contenido.aspx</DependentUpon>
@@ -832,6 +840,7 @@
     <Content Include="Private\Planning\web.config" />
     <Content Include="packages.config" />
     <Content Include="Private\Monitoreo\web.config" />
+    <Content Include="Private\Novedades\web.config" />
     <None Include="Scripts\css\blitzer\images\Thumbs.db" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>

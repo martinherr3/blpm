@@ -109,6 +109,7 @@
     <Compile Include="Common\BLTipoRegistroClases.cs" />
     <Compile Include="Common\BLDetalleRegistroClases.cs" />
     <Compile Include="Common\BLRegistroClases.cs" />
+    <Compile Include="Common\BLEstadoNovedad.cs" />
     <Compile Include="Encuestas\BLAmbitoEncuesta.cs" />
     <Compile Include="Encuestas\BLCategoriaPregunta.cs" />
     <Compile Include="Encuestas\BLEncuesta.cs" />
