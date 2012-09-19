@@ -205,8 +205,8 @@ namespace EDUAR_UI.UserControls
 			{
 				if (HastaPrincipal == 0)
 					lblTiempo.Text = "Hoy";
-				else
-					lblTiempo.Text = "Últimos " + HastaPrincipal.ToString() + " días";
+                else
+                    lblTiempo.Text = "Últimos " + HastaPrincipal.ToString() + " días";
 			}
 
 			if (HastaIntermedio != Int32.MinValue)
