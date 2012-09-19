@@ -83,7 +83,40 @@ first child of the left and right table columns */
     margin-top: 0px;
 }
 
+/*html
+{
+    overflow-x: hidden;
+}
 
+h2
+{
+    background: #1E90FF;
+    color: #FFFFFF;
+    padding: 15px 0;
+    position: relative;
+    z-index: 990;
+}
+
+h2:before, h2:after
+{
+    content: "";
+    background: #1E90FF;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 9999px;
+}
+
+h2:before
+{
+    right: 100%;
+}
+
+h2:after
+{
+    left: 100%;
+}
+*/
 /* PRIMARY LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
@@ -1000,188 +1033,183 @@ TD.EncabezadoConfirmación
 
 .temaSeleccionado
 {
-    padding:3px;
+    padding: 3px;
     text-align: center;
 }
-        
+
 .divPlanificado
 {
-    float:left;
-    padding:10px;
+    float: left;
+    padding: 10px;
     text-align: center;
     cursor: move;
 }
-        
+
 .highlight
 {
-    background-color:Yellow;
+    background-color: Yellow;
 }
 
 .BotonIndRojo
 {
-	background-position: left top;
-	background-image: url(../../Images/Indicadores/IndRojo.png);
-	background-repeat: no-repeat;
-	background-color: Transparent;
-	height: 128px;
-	width: 128px;
-	cursor: pointer;
-	border: 0px;
-	margin: 1px;
-	padding: 0px;
-	text-align: center;
-	vertical-align: middle;
-	font-size: xx-large;
-	font-weight: bolder;		
+    background-position: left top;
+    background-image: url(../../Images/Indicadores/IndRojo.png);
+    background-repeat: no-repeat;
+    background-color: Transparent;
+    height: 128px;
+    width: 128px;
+    cursor: pointer;
+    border: 0px;
+    margin: 1px;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: xx-large;
+    font-weight: bolder;
 }
 
 .BotonIndRojoSecundario
 {
-	background-position: left top;
-	background-image: url(../../Images/Indicadores/IndRojoSecundario.png);
-	background-repeat: no-repeat;
-	background-color: Transparent;
-	height: 64px;
-	width: 64px;
-	cursor: pointer;
-	border: 0px;
-	margin: 1px;
-	padding: 0px;
-	text-align: center;
-	vertical-align: middle;
-	font-size: medium;
+    background-position: left top;
+    background-image: url(../../Images/Indicadores/IndRojoSecundario.png);
+    background-repeat: no-repeat;
+    background-color: Transparent;
+    height: 64px;
+    width: 64px;
+    cursor: pointer;
+    border: 0px;
+    margin: 1px;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: medium;
     font-weight: bolder;
 }
 
 .BotonIndVerde
 {
-	background-position: left top;
-	background-image: url(../../Images/Indicadores/IndVerde.png);
-	background-repeat: no-repeat;
-	background-color: Transparent;
-	height: 128px;
-	width: 128px;
-	cursor: pointer;
-	border: 0px;
-	margin: 1px;
-	padding: 0px;
-	text-align: center;
-	vertical-align: middle;
-	font-size: xx-large;
+    background-position: left top;
+    background-image: url(../../Images/Indicadores/IndVerde.png);
+    background-repeat: no-repeat;
+    background-color: Transparent;
+    height: 128px;
+    width: 128px;
+    cursor: pointer;
+    border: 0px;
+    margin: 1px;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: xx-large;
     font-weight: bolder;
 }
 
 .BotonIndVerdeSecundario
 {
-	background-position: left top;
-	background-image: url(../../Images/Indicadores/IndVerdeSecundario.png);
-	background-repeat: no-repeat;
-	background-color: Transparent;
-	height: 64px;
-	width: 64px;
-	cursor: pointer;
-	border: 0px;
-	margin: 1px;
-	padding: 0px;
-	text-align: center;
-	vertical-align: middle;
-	font-size: medium;
-	font-weight: bolder;	
+    background-position: left top;
+    background-image: url(../../Images/Indicadores/IndVerdeSecundario.png);
+    background-repeat: no-repeat;
+    background-color: Transparent;
+    height: 64px;
+    width: 64px;
+    cursor: pointer;
+    border: 0px;
+    margin: 1px;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: medium;
+    font-weight: bolder;
 }
 
 .BotonIndAmarillo
 {
-	background-position: left top;
-	background-image: url(../../Images/Indicadores/IndAmarillo.png);
-	background-repeat: no-repeat;
-	background-color: Transparent;
-	height: 128px;
-	width: 128px;
-	cursor: pointer;
-	border: 0px;
-	margin: 1px;
-	padding: 0px;
-	text-align: center;
-	vertical-align: middle;
-	font-size: xx-large;
-	font-weight: bolder;	
+    background-position: left top;
+    background-image: url(../../Images/Indicadores/IndAmarillo.png);
+    background-repeat: no-repeat;
+    background-color: Transparent;
+    height: 128px;
+    width: 128px;
+    cursor: pointer;
+    border: 0px;
+    margin: 1px;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: xx-large;
+    font-weight: bolder;
 }
 
 .BotonIndAmarilloSecundario
 {
-	background-position: left top;
-	background-image: url(../../Images/Indicadores/IndAmarilloSecundario.png);
-	background-repeat: no-repeat;
-	background-color: Transparent;
-	height: 64px;
-	width: 64px;
-	cursor: pointer;
-	border: 0px;
-	margin: 1px;
-	padding: 0px;
-	text-align: center;
-	vertical-align: middle;
-	font-size: medium;
-	font-weight: bolder;
+    background-position: left top;
+    background-image: url(../../Images/Indicadores/IndAmarilloSecundario.png);
+    background-repeat: no-repeat;
+    background-color: Transparent;
+    height: 64px;
+    width: 64px;
+    cursor: pointer;
+    border: 0px;
+    margin: 1px;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: medium;
+    font-weight: bolder;
 }
 
 .DivIndicador
 {
-	padding: 0px;
-	margin: 5px;
-	border: solid 1px #341010;
-	width: 204px;
-	background-color: #F0F0F0; /*bordes redondeados*/
-	border-radius: 8px;
-	-ms-border-radius: 8px;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	-khtml-border-radius: 8px;
-	-moz-opacity: 0.75;
-	-khtml-opacity: 0.75;
-	opacity: 0.75;
-	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
-	filter: alpha(opacity=75);
-	
-	-webkit-transition:All 0s ease;
-	-moz-transition:All 0s ease;
-	-o-transition:All 0s ease;	
+    padding: 0px;
+    margin: 5px;
+    border: solid 1px #341010;
+    width: 204px;
+    background-color: #F0F0F0; /*bordes redondeados*/
+    border-radius: 8px;
+    -ms-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -khtml-border-radius: 8px;
+    -moz-opacity: 0.75;
+    -khtml-opacity: 0.75;
+    opacity: 0.75;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+    filter: alpha(opacity=75);
+    -webkit-transition: All 0s ease;
+    -moz-transition: All 0s ease;
+    -o-transition: All 0s ease;
 }
-	
+
 .DivIndicador:hover
 {
-	padding: 0px;
-	margin: 4px;
-	border: solid 2px #341010;
-	width: 204px;
-	background-color: #F0F0F0; /*bordes redondeados*/
-	border-radius: 8px;
-	-ms-border-radius: 8px;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	/*-khtml-border-radius: 8px; /*sombreado*/
-	-moz-box-shadow: 0px 0px 15px #000;
-	-webkit-box-shadow: 0px 0px 15px #000;
-	box-shadow: 0px 0px 15px #000;
-	-ms-filter: 'progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=135, Color=' #000000 ')';
-	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=135, Color='#000000');
-	-moz-opacity: 1;
-	-khtml-opacity: 1;
-	opacity: 1;
-	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-	filter: alpha(opacity=100);
+    padding: 0px;
+    margin: 4px;
+    border: solid 2px #341010;
+    width: 204px;
+    background-color: #F0F0F0; /*bordes redondeados*/
+    border-radius: 8px;
+    -ms-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px; /*-khtml-border-radius: 8px; /*sombreado*/
+    -moz-box-shadow: 0px 0px 15px #000;
+    -webkit-box-shadow: 0px 0px 15px #000;
+    box-shadow: 0px 0px 15px #000;
+    -ms-filter: 'progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=135, Color=' #000000 ')';
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=135, Color='#000000');
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    filter: alpha(opacity=100);
 }
 
 .divInformeIndicador
 {
-	/*border: 2px solid #341010;*/
-	position: relative;
-	text-align: center;
-	/*top: 5%;*/
-	width: 680px;
-	z-index: 951; /* Gradient */
-	/*background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#988787));
-	background: -moz-linear-gradient(top, #FFFFFF, #988787);*/
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF, endColorstr=#988787);
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF, endColorstr=#988787)";
+    /*border: 2px solid #341010;*/
+    position: relative;
+    text-align: center; /*top: 5%;*/
+    width: 680px;
+    z-index: 951; /* Gradient */ /*background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#988787)); 	background: -moz-linear-gradient(top, #FFFFFF, #988787);*/
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF, endColorstr=#988787);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFF, endColorstr=#988787)";
 }

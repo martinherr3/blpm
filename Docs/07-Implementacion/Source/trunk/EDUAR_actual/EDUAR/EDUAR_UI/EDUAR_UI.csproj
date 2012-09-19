@@ -122,6 +122,7 @@
     <Content Include="Images\botonEvaluacion.png" />
     <Content Include="Images\botonExcursion.png" />
     <Content Include="Images\botonImprimir.png" />
+    <Content Include="Images\botonNovedades.png" />
     <Content Include="Images\botonNuevo.png" />
     <Content Include="Images\botonReunion.png" />
     <Content Include="Images\botonSiguiente.png" />
@@ -321,6 +322,7 @@
     <Content Include="UserControls\Hora.ascx" />
     <Content Include="UserControls\Indicador.ascx" />
     <Content Include="UserControls\InformeIndicador.ascx" />
+    <Content Include="UserControls\Novedad.ascx" />
     <Content Include="UserControls\Reporte.ascx" />
     <Content Include="UserControls\VentanaInfo.ascx" />
     <Content Include="Web.config">
@@ -761,6 +763,13 @@
     </Compile>
     <Compile Include="UserControls\InformeIndicador.ascx.designer.cs">
       <DependentUpon>InformeIndicador.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Novedad.ascx.cs">
+      <DependentUpon>Novedad.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Novedad.ascx.designer.cs">
+      <DependentUpon>Novedad.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Reporte.ascx.cs">
       <DependentUpon>Reporte.ascx</DependentUpon>

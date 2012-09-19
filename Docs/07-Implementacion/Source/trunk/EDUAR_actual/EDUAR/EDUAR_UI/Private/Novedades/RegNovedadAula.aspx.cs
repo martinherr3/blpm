@@ -247,8 +247,6 @@ namespace EDUAR_UI.Private.Novedades
 		}
 		#endregion
 
-		
-
 		#region --[Métodos Privados]--
 		/// <summary>
 		/// Validars the pagina.
