@@ -54,6 +54,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DAEstadoNovedad.cs" />
     <Compile Include="Common\DARegistroClases.cs" />
     <Compile Include="Common\DADetalleRegistroClases.cs" />
     <Compile Include="Common\DATipoRegistroClases.cs" />

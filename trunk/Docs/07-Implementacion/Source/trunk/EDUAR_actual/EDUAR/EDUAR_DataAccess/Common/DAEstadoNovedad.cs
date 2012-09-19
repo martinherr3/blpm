@@ -1,26 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using EDUAR_DataAccess.Shared;
 using EDUAR_Entities;
+using System.Data;
+using System.Data.SqlClient;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using System.Collections.Generic;
 
 namespace EDUAR_DataAccess.Common
 {
-	public class DATipoNovedad : DataAccesBase<TipoNovedad>
+	public class DAEstadoNovedad : DataAccesBase<EstadoNovedad>
 	{
 		#region --[Atributos]--
-		private const string ClassName = "DATipoNovedad";
+		private const string ClassName = "DAEstadoNovedad";
 		#endregion
 
 		#region --[Constructor]--
-		public DATipoNovedad()
+		public DAEstadoNovedad()
 		{
 		}
 
-		public DATipoNovedad(DATransaction objDATransaction)
+		public DAEstadoNovedad(DATransaction objDATransaction)
 			: base(objDATransaction)
 		{
 
@@ -43,23 +43,24 @@ namespace EDUAR_DataAccess.Common
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public override TipoNovedad GetById(TipoNovedad entidad)
+		public override EstadoNovedad GetById(EstadoNovedad entidad)
 		{
 			try
 			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TipoNovedadAulica_Select");
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EstadoNovedadAulica_Select");
 
-				if (entidad.idTipoNovedad > 0)
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoNovedad", DbType.Int32, entidad.idTipoNovedad);
+				if (entidad.idEstadoNovedad > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEstadoNovedad", DbType.Int32, entidad.idEstadoNovedad);
 
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-				TipoNovedad objEntidad = new TipoNovedad();
+				EstadoNovedad objEntidad = new EstadoNovedad();
 
 				while (reader.Read())
 				{
-					objEntidad.idTipoNovedad = Convert.ToInt32(reader["idTipoNovedadAulica"]);
-					objEntidad.nombre = (string)(reader["descripcion"]);
+					objEntidad.idEstadoNovedad = Convert.ToInt32(reader["idEstadoNovedad"]);
+					objEntidad.nombre = (string)(reader["nombre"]);
+					objEntidad.esFinal = (bool)(reader["esFinal"]);
 				}
 				return objEntidad;
 			}
@@ -75,22 +76,22 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
-		public override void Create(TipoNovedad entidad)
+		public override void Create(EstadoNovedad entidad)
 		{
 			throw new NotImplementedException();
 		}
 
-		public override void Create(TipoNovedad entidad, out int identificador)
+		public override void Create(EstadoNovedad entidad, out int identificador)
 		{
 			throw new NotImplementedException();
 		}
 
-		public override void Update(TipoNovedad entidad)
+		public override void Update(EstadoNovedad entidad)
 		{
 			throw new NotImplementedException();
 		}
 
-		public override void Delete(TipoNovedad entidad)
+		public override void Delete(EstadoNovedad entidad)
 		{
 			throw new NotImplementedException();
 		}
@@ -102,27 +103,28 @@ namespace EDUAR_DataAccess.Common
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public List<TipoNovedad> GetTiposNovedad(TipoNovedad entidad)
+		public List<EstadoNovedad> GetEstadosNovedad(EstadoNovedad entidad)
 		{
 			try
 			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TipoNovedadAulica_Select");
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EstadoNovedadAulica_Select");
 
-				if (entidad.idTipoNovedad > 0)
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoNovedad", DbType.Int32, entidad.idTipoNovedad);
+				if (entidad.idEstadoNovedad > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEstadoNovedad", DbType.Int32, entidad.idEstadoNovedad);
 				if (!string.IsNullOrEmpty(entidad.nombre))
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
 
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-				List<TipoNovedad> listaEntidad = new List<TipoNovedad>();
-				TipoNovedad objEntidad = null;
+				List<EstadoNovedad> listaEntidad = new List<EstadoNovedad>();
+				EstadoNovedad objEntidad = null;
 
 				while (reader.Read())
 				{
-					objEntidad = new TipoNovedad();
-					objEntidad.idTipoNovedad = Convert.ToInt32(reader["idTipoNovedadAulica"]);
-					objEntidad.nombre = (string)(reader["descripcion"]);
+					objEntidad = new EstadoNovedad();
+					objEntidad.idEstadoNovedad = Convert.ToInt32(reader["idEstadoNovedadAulica"]);
+					objEntidad.nombre = (string)(reader["nombre"]);
+					objEntidad.esFinal = (bool)(reader["esFinal"]);
 					listaEntidad.Add(objEntidad);
 				}
 				return listaEntidad;

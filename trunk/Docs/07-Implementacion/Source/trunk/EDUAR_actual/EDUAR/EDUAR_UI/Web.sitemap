@@ -5,8 +5,11 @@
         </siteMapNode>
         <siteMapNode url="" title="Agenda" roles="Administrador,Docente,Director" >
             <siteMapNode url="~/Private/Agenda/ManageAgendaActividades.aspx" title="Actividades" roles="Administrador,Docente" />
-            <siteMapNode url="~/Private/Agenda/RegisterEventoInstitucional.aspx" title="Eventos" roles="Administrador,Director" />
             <siteMapNode url="~/Private/Agenda/ManageRegistroClases.aspx" title="Registro De Clases" roles="Administrador,Director,Docente" visible="false" />
+        </siteMapNode>
+        <siteMapNode url="" title="Novedades" roles="Administrador,Docente,Director" >
+            <siteMapNode url="~/Private/Novedades/RegNovedadInstitucion.aspx" title="Institucionales" roles="Administrador,Director" />
+            <siteMapNode url="~/Private/Novedades/RegNovedadAula.aspx" title="Aulicas" roles="Administrador,Director" />
         </siteMapNode>
         <siteMapNode url="" title="Alumnos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
             <siteMapNode url="~/Private/Alumnos/Boletin.aspx" title="Boletín" roles="Administrador, Tutor, Alumno" />

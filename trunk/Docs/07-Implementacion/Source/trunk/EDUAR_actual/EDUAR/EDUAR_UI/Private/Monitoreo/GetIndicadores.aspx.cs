@@ -50,13 +50,13 @@ namespace EDUAR_UI
         {
             get
             {
-                if (Session["idCursoCicloLectivo"] == null)
-                    Session["idCursoCicloLectivo"] = 0;
-                return (int)Session["idCursoCicloLectivo"];
+                if (ViewState["idCursoCicloLectivo"] == null)
+					ViewState["idCursoCicloLectivo"] = 0;
+				return (int)ViewState["idCursoCicloLectivo"];
             }
             set
             {
-                Session["idCursoCicloLectivo"] = value;
+				ViewState["idCursoCicloLectivo"] = value;
             }
         }
         #endregion

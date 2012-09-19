@@ -93,12 +93,12 @@ namespace EDUAR_UI.Utilidades
             SortByText(dropDownList);
             if (addAllValue)
             {
-                dropDownList.Items.Insert(0, new ListItem("Todos", "-2"));
+                dropDownList.Items.Insert(0, new ListItem("[Todos]", "-2"));
                 dropDownList.SelectedValue = "-2";
             }
             if (addDefaultValue)
             {
-                dropDownList.Items.Insert(0, new ListItem("Seleccione", "-1"));
+                dropDownList.Items.Insert(0, new ListItem("[Seleccione]", "-1"));
                 dropDownList.SelectedValue = "-1";
             }
         }

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EDUAR_DataAccess.Common;
-using EDUAR_Entities;
 using EDUAR_BusinessLogic.Shared;
-using EDUAR_Entities.Shared;
-using EDUAR_Utility.Excepciones;
-using EDUAR_Utility.Enumeraciones;
+using EDUAR_DataAccess.Common;
 using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
+using EDUAR_Entities.Shared;
+using EDUAR_Utility.Enumeraciones;
+using EDUAR_Utility.Excepciones;
 
 namespace EDUAR_BusinessLogic.Common
 {
@@ -164,22 +162,27 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<TipoNovedad> GetTipoNovedads(TipoNovedad entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetTipoNovedads(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetTipoNovedads", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+		/// <summary>
+		/// Gets the tipos novedad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<TipoNovedad> GetTiposNovedad(TipoNovedad entidad)
+		{
+			try
+			{
+				return DataAcces.GetTiposNovedad(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetTiposNovedad", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
     }
 }
