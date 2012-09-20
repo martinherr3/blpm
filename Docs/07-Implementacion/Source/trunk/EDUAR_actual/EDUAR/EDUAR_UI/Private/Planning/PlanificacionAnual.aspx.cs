@@ -207,8 +207,8 @@ namespace EDUAR_UI
 				{
 					CargarPresentacion();
 				}
-				chkAprobada.Attributes.Add("onclick", "if(!confirm('¿Desea aprobar la presente planificación?')) {return false};");
-				chkSolicitarAprobacion.Attributes.Add("onclick", "if(!confirm('¿Desea solicitar la aprobación de la presente planificación?')) {return false};");
+				chkAprobada.Attributes.Add("onclick", "if(!jConfirm('¿Desea aprobar la presente planificación?','Confirmación')) {return false};");
+				chkSolicitarAprobacion.Attributes.Add("onclick", "if(!jConfirm('¿Desea solicitar la aprobación de la presente planificación?''Confirmación')) {return false};");
 			}
 			catch (Exception ex)
 			{

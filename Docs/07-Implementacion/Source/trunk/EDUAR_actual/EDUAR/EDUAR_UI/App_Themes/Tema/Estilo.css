@@ -1017,6 +1017,7 @@ TD.EncabezadoConfirmación
     width: 400px; /*font-weight: bold;             font-style: italic;*/
     border-color: #87CEFA;
     padding: 0px;
+    z-index: 9000;
 }
 
 .temasContainer

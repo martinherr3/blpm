@@ -113,7 +113,7 @@
                                     Visible='<%# CheckAprobada(Eval("fechaAprobada"), false) %>' />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
                                     AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
-                                    OnClientClick="return confirm('¿Desea eliminar la planificación seleccionada?')"
+                                    OnClientClick="javascript:return jConfirm('¿Desea eliminar la planificación seleccionada?','Confirmación')"
                                     Visible='<%# CheckAprobada(Eval("fechaAprobada"), true) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>

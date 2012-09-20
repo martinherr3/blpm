@@ -233,7 +233,6 @@
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
     <Content Include="Private\Monitoreo\ConfigIndicadores.aspx" />
     <Content Include="Private\Monitoreo\GetIndicadores.aspx" />
-    <Content Include="Private\Novedades\RegNovedadAula.aspx" />
     <Content Include="Private\Planning\Contenido.aspx" />
     <Content Include="Private\Planning\PlanificacionAnual.aspx" />
     <Content Include="Private\Planning\TemasContenido.aspx" />
@@ -309,6 +308,12 @@
     <Content Include="Scripts\css\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Scripts\css\smoothness\jquery-ui-1.8.16.custom.css" />
     <Content Include="Scripts\General.js" />
+    <Content Include="Scripts\jquery alerts\images\title.gif" />
+    <Content Include="Scripts\jquery alerts\images\ventanaAdvertencia.png" />
+    <Content Include="Scripts\jquery alerts\images\ventanaConfirmacion.png" />
+    <Content Include="Scripts\jquery alerts\images\ventanaSatisfactorio.png" />
+    <Content Include="Scripts\jquery alerts\jquery.alerts.css" />
+    <Content Include="Scripts\jquery alerts\jquery.alerts.js" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
@@ -521,13 +526,6 @@
     </Compile>
     <Compile Include="Private\Monitoreo\GetIndicadores.aspx.designer.cs">
       <DependentUpon>GetIndicadores.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Novedades\RegNovedadAula.aspx.cs">
-      <DependentUpon>RegNovedadAula.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Novedades\RegNovedadAula.aspx.designer.cs">
-      <DependentUpon>RegNovedadAula.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Planning\Contenido.aspx.cs">
       <DependentUpon>Contenido.aspx</DependentUpon>

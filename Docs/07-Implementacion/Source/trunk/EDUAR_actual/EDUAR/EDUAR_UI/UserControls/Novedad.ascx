@@ -1,22 +1,43 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Novedad.ascx.cs" Inherits="EDUAR_UI.UserControls.Novedad" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<script type="text/javascript">
-
-	function alerta() {
-		alert('La Novedad ha sido Registrada.');
-	}
-
-</script>
 <asp:ImageButton ID="btnNuevaNovedad" ToolTip="Nueva Novedad Aulica" ImageUrl="~/Images/botonNovedades.png"
 	runat="server" OnClick="btnNuevaNovedad_Click" />
 <asp:HiddenField ID="HiddenField1" runat="server" />
 <ajaxToolkit:ModalPopupExtender ID="mpeNueva" runat="server" PopupControlID="pnlNueva"
-	OkControlID="btnGuardar" TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
-	BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlNueva"
-	OnOkScript="javascript:alerta();">
+	OkControlID="btnOcultoNovedad" CancelControlID="btnVolver" TargetControlID="HiddenField1"
+	RepositionMode="RepositionOnWindowResizeAndScroll" BackgroundCssClass="modalBackground"
+	DropShadow="false" PopupDragHandleControlID="pnlNueva">
 </ajaxToolkit:ModalPopupExtender>
-<asp:Panel ID="pnlNueva" runat="server" DefaultButton="btnGuardar" Width="600px"
-	Height="400px" Style="display: none; text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+<script type="text/javascript">
+	function DoPostBack() {
+		var observaciones = document.getElementById('<%= txtObservaciones.ClientID %>').value;
+		var mensaje = '';
+		if (observaciones.toString().trim() == '')
+			mensaje = '<br />* Observaciones';
+
+		var estado = document.getElementById('<%= ddlEstado.ClientID %>').value;
+		if (estado.toString() == '-1')
+			mensaje = mensaje + '<br />* Estado';
+
+		var tipoNovedad = document.getElementById('<%= ddlNovedad.ClientID %>').value;
+		if (tipoNovedad.toString() == '-1')
+			mensaje = mensaje + '<br />* Tipo de Novedad';
+
+		if (mensaje == '') {
+			__doPostBack('btnOcultoNovedad', 'Click');
+			mostrarMensaje();
+		}
+		else
+			jAlert('Los siguientes campos son <b>Obligatorios</b>:' + mensaje, 'Mensaje');
+	}
+
+	function mostrarMensaje() {
+		jAlert('La Novedad ha sido <b>registrada</b>.', 'Mensaje');
+	}
+</script>
+<asp:Panel ID="pnlNueva" runat="server" DefaultButton="btnOcultoNovedad" Width="600px"
+	Height="400px" Style="display: none; text-align: left; z-index: 5000" BorderStyle="Groove"
+	CssClass="CajaDialogo">
 	<asp:UpdatePanel ID="udpNueva" runat="server" UpdateMode="Conditional">
 		<ContentTemplate>
 			<table class="tablaInterna" cellpadding="0" cellspacing="0">
@@ -25,10 +46,12 @@
 						<h2>
 							Registrar Novedad Aulica</h2>
 						<br />
+						<asp:LinkButton ID="btnOcultoNovedad" OnClick="btnOcultoNovedad_Click" Text="" OnClientClick="mostrarMensaje();" runat="server" />
 					</td>
 					<td align="right">
-						<asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
-							ImageUrl="~/Images/PopUp/botonGuardar.png" Visible="true" />
+						<asp:ImageButton ID="btnGuardar" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
+							Visible="true" ValidationGroup="Novedad" CausesValidation="true" OnClientClick="DoPostBack();"
+							OnClick="btnOcultoNovedad_Click" />
 						<asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
 							ImageUrl="~/Images/PopUp/botonVolver.png" />
 					</td>
@@ -42,6 +65,9 @@
 					<td class="TD140px">
 						<asp:DropDownList ID="ddlEstado" runat="server">
 						</asp:DropDownList>
+						<asp:CompareValidator ID="cmvddlEstado" ErrorMessage="*" ControlToValidate="ddlEstado"
+							runat="server" Operator="GreaterThan" ValueToCompare="0" Type="Integer" ForeColor="Red"
+							Display="Dynamic" ToolTip="Campo Requerido" ValidationGroup="Novedad" />
 					</td>
 					<td>
 					</td>
@@ -53,6 +79,9 @@
 					<td class="TD140px">
 						<asp:DropDownList ID="ddlNovedad" runat="server">
 						</asp:DropDownList>
+						<asp:CompareValidator ID="cmvddlNovedad" ErrorMessage="*" ControlToValidate="ddlNovedad"
+							runat="server" Operator="GreaterThan" ValueToCompare="0" Type="Integer" ForeColor="Red"
+							Display="Dynamic" ToolTip="Campo Requerido" ValidationGroup="Novedad" />
 					</td>
 					<td>
 					</td>
@@ -64,9 +93,15 @@
 					<td colspan="2">
 						<asp:TextBox ID="txtObservaciones" runat="server" TextMode="MultiLine" Columns="40"
 							Rows="10" />
+						<asp:RequiredFieldValidator ID="rqftxtObservaciones" ErrorMessage="*" ControlToValidate="txtObservaciones"
+							Display="Dynamic" runat="server" ToolTip="Campo Requerido" ValidationGroup="Novedad"
+							ForeColor="Red" />
 					</td>
 				</tr>
 			</table>
 		</ContentTemplate>
+		<Triggers>
+			<%--<asp:PostBackTrigger ControlID="btnOcultoNovedad" />--%>
+		</Triggers>
 	</asp:UpdatePanel>
 </asp:Panel>

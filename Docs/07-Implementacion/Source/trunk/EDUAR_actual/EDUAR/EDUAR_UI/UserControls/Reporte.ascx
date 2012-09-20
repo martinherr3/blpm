@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Reporte.ascx.cs" Inherits="EDUAR_UI.UserControls.Reporte" %>
-<script src="/EDUAR_UI/Scripts/JQuery.js" type="text/javascript"></script>
+<%--<script src="/EDUAR_UI/Scripts/JQuery.js" type="text/javascript"></script>--%>
 <script language="javascript" type="text/javascript">
     function AbrirPopup() {
         var popup;
@@ -7,7 +7,7 @@
         popup = window.open('/EDUAR_UI/Private/Reports/PrintReport.aspx', 'Impresión de Informes', 'width=800,height=600,left=50,top=100,­menubar=0,toolbar=0,status=0,scrollbars=1,resizable=0,titlebar=0');
 
         if (popup == null || typeof (popup) == 'undefined') {
-            alert('Por favor deshabilita el bloqueador de ventanas emergentes y vuelve a hacer click en "Imprimir".');
+        	jAlert('Por favor deshabilita el <i>bloqueador de ventanas emergentes</i><br /> y vuelve a hacer en "Imprimir".', 'Aviso');
         }
         else {
             popup.focus();
