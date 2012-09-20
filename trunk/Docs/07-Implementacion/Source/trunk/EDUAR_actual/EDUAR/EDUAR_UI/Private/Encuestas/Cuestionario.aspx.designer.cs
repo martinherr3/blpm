@@ -40,6 +40,24 @@ namespace EDUAR_UI {
         protected global::AjaxControlToolkit.Accordion CuestionarioAccordion;
         
         /// <summary>
+        /// btnGuardar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnGuardar;
+        
+        /// <summary>
+        /// btnCancelar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnCancelar;
+        
+        /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>

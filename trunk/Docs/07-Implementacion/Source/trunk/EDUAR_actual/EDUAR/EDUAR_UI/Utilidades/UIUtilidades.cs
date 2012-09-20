@@ -27,7 +27,7 @@ namespace EDUAR_UI.Utilidades
             ddlTipoUsuario.Items.Insert(0, new ListItem("Todos", "-1"));
         }
 
-        public static void BindRespuestaCuantitativa(RadioButtonList rdlUsuario, int id)
+        public static void BindRespuestaCuantitativa(RadioButtonList rdlUsuario)
         {
             foreach (enumRespCuantitativa tipoRespuesta in Enum.GetValues(typeof(enumRespCuantitativa)))
             {
@@ -36,7 +36,7 @@ namespace EDUAR_UI.Utilidades
             }
         }
 
-        public static void BindRespuestaCualitativa(RadioButtonList rdlUsuario, int id)
+        public static void BindRespuestaCualitativa(RadioButtonList rdlUsuario)
         {
             foreach (enumRespCualitativa tipoRespuesta in Enum.GetValues(typeof(enumRespCualitativa)))
             {               

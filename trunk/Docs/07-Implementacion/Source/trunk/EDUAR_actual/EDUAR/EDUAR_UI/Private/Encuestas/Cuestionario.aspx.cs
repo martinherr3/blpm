@@ -41,23 +41,6 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Gets or sets el identificador de la encuesta.
-        /// </summary>
-        /// <value>
-        /// El identificador de la encuesta.
-        /// </value>
-        public int idEncuesta
-        {
-            get
-            {
-                if (Session["idEncuesta"] == null)
-                    idEncuesta = 0;
-                return (int)Session["idEncuesta"];
-            }
-            set { Session["idEncuesta"] = value; }
-        }
-
-        /// <summary>
         /// Gets or sets el tipo de escala a utilizar
         /// Recordar que puede ser cualitativa o cuantitativa, y de ello depende las opciones a desplegar
         /// </summary>
@@ -91,23 +74,6 @@ namespace EDUAR_UI
                 return (int)ViewState["idPregunta"];
             }
             set { ViewState["idPregunta"] = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the pregunta en sesion.
-        /// </summary>
-        /// <value>
-        /// The pregunta en sesion.
-        /// </value>
-        public Pregunta preguntaSesion
-        {
-            get
-            {
-                if (Session["preguntaSesion"] == null)
-                    preguntaSesion = new Pregunta();
-                return (Pregunta)Session["preguntaSesion"];
-            }
-            set { Session["preguntaSesion"] = value; }
         }
 
         /// <summary>
@@ -156,6 +122,30 @@ namespace EDUAR_UI
                 generarEsqueleto();
             }
         }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
         #endregion
 
         #region --[Métodos Privados]--
@@ -173,7 +163,7 @@ namespace EDUAR_UI
             AjaxControlToolkit.AccordionPane pn;
             int i = 0;
             int contador = 0;
-            //Lo que necesito es... establecer una secuencia sencilla, teniendo las categorias, por cada una desplegar sus preguntas
+            
             foreach (CategoriaPregunta categoria in listaCategorias)
             {
                 List<Pregunta> preguntasPorCategoria = objBLPregunta.GetPreguntasPorCategoria(categoria);
@@ -204,10 +194,10 @@ namespace EDUAR_UI
                         lblPregunta.Font.Bold = true;
                         lblPregunta.Font.Size = 11;
                         lblPregunta.BorderWidth = 1;
+                        lblPregunta.Width = 990;
 
                         panelRespuesta.Controls.Add(lblPregunta);
-                        panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
-
+                        
                         ////RESPUESTA
 
                         if (pregunta.escala.nombre.Equals("Conceptual literal"))
@@ -217,20 +207,21 @@ namespace EDUAR_UI
                             txtRespuesta.Rows = 15;
                             txtRespuesta.Width = 950;
                             txtRespuesta.BorderStyle = BorderStyle.Groove;
+                            panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
                             panelRespuesta.Controls.Add(txtRespuesta);
                         }
                         else
                         {
                             RadioButtonList respuesta = new RadioButtonList();
                             
-                            //respuesta.NamingContainer.ID = "respuesta_" + contador.ToString();
-                            respuesta.ID = idPregunta.ToString();
+                            respuesta.ID = pregunta.idPregunta.ToString();
 
                             if (pregunta.escala.nombre.Equals("Conceptual Calidad"))
-                                UIUtilidades.BindRespuestaCualitativa(respuesta, pregunta.idPregunta);
+                                UIUtilidades.BindRespuestaCualitativa(respuesta);
                             else
-                                UIUtilidades.BindRespuestaCuantitativa(respuesta, pregunta.idPregunta);
+                                UIUtilidades.BindRespuestaCuantitativa(respuesta);
 
+                            panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
                             panelRespuesta.Controls.Add(respuesta);
                         }
 
