@@ -27,6 +27,24 @@ namespace EDUAR_UI.Utilidades
             ddlTipoUsuario.Items.Insert(0, new ListItem("Todos", "-1"));
         }
 
+        public static void BindRespuestaCuantitativa(RadioButtonList rdlUsuario, int id)
+        {
+            foreach (enumRespCuantitativa tipoRespuesta in Enum.GetValues(typeof(enumRespCuantitativa)))
+            {
+                if (((int)tipoRespuesta) > 0)
+                    rdlUsuario.Items.Add(new ListItem(tipoRespuesta.ToString().Replace("_", " "), ((int)tipoRespuesta).ToString()));
+            }
+        }
+
+        public static void BindRespuestaCualitativa(RadioButtonList rdlUsuario, int id)
+        {
+            foreach (enumRespCualitativa tipoRespuesta in Enum.GetValues(typeof(enumRespCualitativa)))
+            {               
+                if (((int)tipoRespuesta) > 0)
+                    rdlUsuario.Items.Add(new ListItem(tipoRespuesta.ToString().Replace("_", " "), ((int)tipoRespuesta).ToString()));
+            }
+        }
+
         /// <summary>
         /// Binds the combo meses.
         /// </summary>

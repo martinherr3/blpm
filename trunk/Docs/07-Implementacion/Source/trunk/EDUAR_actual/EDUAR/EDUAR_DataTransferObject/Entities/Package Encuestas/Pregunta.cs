@@ -18,7 +18,7 @@ namespace EDUAR_Entities
         public EscalaMedicion escala { get; set; }
         public string textoPregunta { get; set; }
         public string objetivoPregunta { get; set; }
-        public int ponderacion { get; set; }
+        public double ponderacion { get; set; }
 
         public Pregunta()
         {

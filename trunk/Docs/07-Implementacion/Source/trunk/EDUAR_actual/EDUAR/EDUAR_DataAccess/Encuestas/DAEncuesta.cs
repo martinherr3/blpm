@@ -286,7 +286,7 @@ namespace EDUAR_DataAccess.Encuestas
                     objPregunta.idPregunta = Convert.ToInt32(reader["idPregunta"]);
                     objPregunta.textoPregunta = reader["textoPregunta"].ToString();
                     objPregunta.objetivoPregunta = reader["objetivo"].ToString();
-                    objPregunta.ponderacion = Convert.ToInt32(reader["peso"]);
+                    objPregunta.ponderacion = Convert.ToDouble(reader["peso"]);
 
                     objPregunta.categoria = new CategoriaPregunta();
                     {
@@ -379,6 +379,54 @@ namespace EDUAR_DataAccess.Encuestas
             catch (Exception ex)
             {
                 throw new CustomizedException(string.Format("Fallo en {0} - AgregarPregunta()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        public List<CategoriaPregunta> GetCategoriasPorEncuesta(Encuesta entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("CategoriasEncuesta_Select");
+
+                if (entidad != null)
+                {
+                    if (entidad.idEncuesta > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
+                }
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<CategoriaPregunta> listaCategoriasPreguntas = new List<CategoriaPregunta>();
+                CategoriaPregunta objCategoriaPregunta;
+
+                while (reader.Read())
+                {
+                    objCategoriaPregunta = new CategoriaPregunta();
+
+                    objCategoriaPregunta.idCategoriaPregunta = Convert.ToInt32(reader["idCategoria"]);
+                    objCategoriaPregunta.nombre = reader["nombre"].ToString();
+                    objCategoriaPregunta.descripcion = reader["descripcion"].ToString();
+                    
+                    objCategoriaPregunta.ambito = new AmbitoEncuesta();
+                    {
+                        objCategoriaPregunta.ambito.idAmbitoEncuesta = Convert.ToInt32(reader["idAmbito"]);
+                        objCategoriaPregunta.ambito.nombre = reader["nombreAmbito"].ToString();
+                        objCategoriaPregunta.ambito.descripcion = reader["descripcionAmbito"].ToString();
+                    }
+
+                    listaCategoriasPreguntas.Add(objCategoriaPregunta);
+                }
+                return listaCategoriasPreguntas;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCategoriasPorEncuesta()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCategoriasPorEncuesta()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }

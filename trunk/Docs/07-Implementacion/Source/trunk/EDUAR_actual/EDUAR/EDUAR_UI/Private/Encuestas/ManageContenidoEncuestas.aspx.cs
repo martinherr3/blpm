@@ -146,14 +146,6 @@ namespace EDUAR_UI
                     if (Request.UrlReferrer.AbsolutePath.Contains("ContenidoEncuestas.aspx"))
                     {
                         //Lo que se hace en este bloque es restablecer los elementos a su estado anterior, dado que está volviendo desde otra página
-
-                        //ddlCurso.SelectedValue = idCurso.ToString();
-                        //ddlAsignatura.Enabled = true;
-                        //CargarComboAsignatura(idCurso);
-                        //ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
-                        //ddlAsignatura.Enabled = idCurso > 0;
-                        //btnNuevo.Visible = idAsignaturaCurso > 0;
-                        //CargarContenido(idAsignaturaCurso);
                     }
                 }
             }
@@ -256,7 +248,6 @@ namespace EDUAR_UI
                 {
                     if (Page.IsValid)
                     {
-                        //TODO: Aquí hay que llamar a la validación de disponibilidad de agenda
                         AccionPagina = enumAcciones.Guardar;
                         Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
                     }
@@ -310,9 +301,6 @@ namespace EDUAR_UI
                         AccionPagina = enumAcciones.Redirect;
                         idEncuesta = Convert.ToInt32(e.CommandArgument.ToString());
                         
-                        //idAmbito = encuestaSesion.ambito.idAmbitoEncuesta;
-                        
-                        //Creo que en realidad lo que tengo que hacer acá es enviar la encuesta en sesion
                         encuestaSesion = listaEncuesta.Find(p => p.idEncuesta == idEncuesta);
                         
                         Response.Redirect("ContenidoEncuestas.aspx", false);
@@ -397,9 +385,6 @@ namespace EDUAR_UI
         private void CargarLista(Encuesta entidad)
         {         
             objBLEncuesta = new BLEncuesta(entidad);
-
-            //entidad.idEncuesta = propEncuesta.idEncuesta;
-
             listaEncuesta = objBLEncuesta.GetEncuestas(entidad);
         }
 
@@ -495,8 +480,6 @@ namespace EDUAR_UI
             udpFiltros.Update();
             udpEdit.Update();
         }
-
-
 
         /// <summary>
         /// Buscars the filtrando.

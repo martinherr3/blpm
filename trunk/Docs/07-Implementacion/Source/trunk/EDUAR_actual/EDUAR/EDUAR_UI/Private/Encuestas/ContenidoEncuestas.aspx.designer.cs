@@ -40,6 +40,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnBuscar;
         
         /// <summary>
+        /// btnDesignCuestionario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnDesignCuestionario;
+        
+        /// <summary>
         /// btnNuevo control.
         /// </summary>
         /// <remarks>
