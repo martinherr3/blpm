@@ -53,8 +53,9 @@
     <Compile Include="Entities\Package Encuestas\AmbitoEncuesta.cs" />
     <Compile Include="Entities\Package Encuestas\CategoriaPregunta.cs" />
     <Compile Include="Entities\Package Encuestas\EscalaMedicion.cs" />
+    <Compile Include="Entities\Package Encuestas\Respuesta.cs" />
     <Compile Include="Entities\Package Novedades Aulicas\EstadoNovedadAulica.cs" />
-    <Compile Include="Entities\Package Perfiles\Seccion.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\Package Perfiles\Seccion.cs" />
     <Compile Include="Entities\Package Planificacion Clases\Modulo.cs" />
     <Compile Include="Entities\Package Principales\AlumnoCurso.cs" />
     <Compile Include="Entities\Package Principales\AlumnoCursoCicloLectivo.cs" />
@@ -86,9 +87,9 @@
     <Compile Include="Entities\Package Encuestas\Pregunta.cs" />
     <Compile Include="Entities\Package Novedades Aulicas\Novedad.cs" />
     <Compile Include="Entities\Package Novedades Aulicas\TipoNovedadAulica.cs" />
-    <Compile Include="Entities\Package Perfiles\Perfil.cs" />
-    <Compile Include="Entities\Package Perfiles\Permiso.cs" />
-    <Compile Include="Entities\Package Perfiles\Usuario.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\Package Perfiles\Perfil.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\Package Perfiles\Permiso.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\Package Perfiles\Usuario.cs" />
     <Compile Include="Entities\Package Planificacion Clases\BibliografiaRecomendada.cs" />
     <Compile Include="Entities\Package Planificacion Clases\Contenido.cs" />
     <Compile Include="Entities\Package Planificacion Clases\DiasHorarios.cs" />

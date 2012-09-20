@@ -38,23 +38,6 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Gets or sets the id pregunta.
-        /// </summary>
-        /// <value>
-        /// The id pregunta.
-        /// </value>
-        public int idPregunta
-        {
-            get
-            {
-                if (ViewState["idPregunta"] == null)
-                    ViewState["idPregunta"] = 0;
-                return (int)ViewState["idPregunta"];
-            }
-            set { ViewState["idPregunta"] = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the id escala medicion.
         /// </summary>
         /// <value>
@@ -322,6 +305,20 @@ namespace EDUAR_UI
             }
         }
 
+        protected void btnDesign_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AccionPagina = enumAcciones.Redirect;
+
+                Response.Redirect("Cuestionario.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
         /// <summary>
         /// Handles the Click event of the btnAsignarRol control.
         /// </summary>
@@ -503,7 +500,7 @@ namespace EDUAR_UI
                 entidad.escala.idEscala = Convert.ToInt32(ddlEscalaPonderacionEdit.SelectedValue);
                 entidad.textoPregunta = txtTextoPreguntaEdit.Text.Trim();
                 entidad.objetivoPregunta = txtObjetivoPreguntaEdit.Text.Trim();
-                entidad.ponderacion = Convert.ToInt32(txtPesoPreguntaEdit.Text.Trim());
+                entidad.ponderacion = Convert.ToDouble(txtPesoPreguntaEdit.Text.Trim());
             }
 
             return entidad;

@@ -210,12 +210,12 @@ namespace EDUAR_DataAccess.Encuestas
         {
             try
             {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("CategoriaPregunta_Select");
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Pregunta_Select");
                 
                 if (entidad != null)
                 {
                     if(entidad.idCategoriaPregunta > 0)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCategoriaPregunta", DbType.Int32, entidad.idCategoriaPregunta);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCategoria", DbType.Int32, entidad.idCategoriaPregunta);
                 }
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
@@ -230,13 +230,19 @@ namespace EDUAR_DataAccess.Encuestas
                     objPregunta.idPregunta = Convert.ToInt32(reader["idPregunta"]);
                     objPregunta.textoPregunta = reader["textoPregunta"].ToString();
                     objPregunta.objetivoPregunta = reader["objetivo"].ToString();
+                    objPregunta.ponderacion = Convert.ToDouble(reader["peso"]);
 
-                    objPregunta.categoria = entidad;
-                    
+                    objPregunta.categoria = new CategoriaPregunta();
+                    {
+                        objPregunta.categoria.idCategoriaPregunta = Convert.ToInt32(reader["idCategoria"]);
+                        objPregunta.categoria.nombre = reader["categoria"].ToString();
+                    }
+
                     objPregunta.escala = new EscalaMedicion();
                     {
-                        objPregunta.escala.idEscala = Convert.ToInt32(reader["idEscala"]);
-                        objPregunta.escala.nombre = reader["nombre"].ToString();
+                        objPregunta.escala.idEscala = Convert.ToInt32(reader["idEscalaPonderacion"]);
+                        objPregunta.escala.descripcion = reader["descripcionEscala"].ToString();
+                        objPregunta.escala.nombre = reader["escala"].ToString();
                     }
 
                     listaPreguntas.Add(objPregunta);

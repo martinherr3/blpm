@@ -4,23 +4,23 @@
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-</asp:Content>
-
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server" />
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-<asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
+    <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>
-                        <h2>Contenido <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
-                        <br/>
+                        <h2>
+                            Contenido
+                            <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
+                        <br />
                     </td>
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
+                        <asp:ImageButton ID="btnDesignCuestionario" OnClick="btnDesign_Click" runat="server"
+                            ToolTip="Diseñar Cuestionario" ImageUrl="~/Images/cuestionario.jpg" />
                         <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
                             ImageUrl="~/Images/botonNuevo.png" />
                         <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
@@ -35,7 +35,8 @@
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td>
-                                <h3>Buscar Preguntas</h3>
+                                <h3>
+                                    Buscar Preguntas</h3>
                             </td>
                         </tr>
                         <tr>
@@ -50,13 +51,13 @@
                                 <asp:Label ID="lblCategoria" runat="server" Text="Categoría:"></asp:Label>
                             </td>
                             <td valign="top" class="TD50px">
-                                <asp:DropDownList ID="ddlCategoria" runat="server"/>
+                                <asp:DropDownList ID="ddlCategoria" runat="server" />
                             </td>
                             <td valign="top" class="TD110px">
                                 <asp:Label ID="lblEscalaPonderacion" runat="server" Text="Escala:"></asp:Label>
                             </td>
                             <td valign="top" class="TD50px">
-                                <asp:DropDownList ID="ddlEscalaPonderacion" runat="server"/>
+                                <asp:DropDownList ID="ddlEscalaPonderacion" runat="server" />
                             </td>
                         </tr>
                     </table>
@@ -70,15 +71,13 @@
             <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
-
-<asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
+    <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwPreguntas" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                 AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idPregunta"
                 OnRowCommand="gvwPreguntas_RowCommand">
                 <Columns>
- 
-                   <asp:TemplateField HeaderText="Acciones">
+                    <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
@@ -89,15 +88,13 @@
                                 OnClientClick="return confirm('¿Desea eliminar el tema seleccionado?')" />
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Categoría">
                         <HeaderStyle HorizontalAlign="left" Width="15%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblCategoria" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "categoria.nombre").ToString())%>'></asp:Label>
                         </ItemTemplate>
-                    </asp:TemplateField>                
- 
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Texto">
                         <HeaderStyle HorizontalAlign="left" Width="25%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -106,7 +103,6 @@
                                 ToolTip='<%# Bind("textoPregunta") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Objetivo">
                         <HeaderStyle HorizontalAlign="left" Width="25%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -115,7 +111,6 @@
                                 ToolTip='<%# Bind("objetivoPregunta") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Ponderación">
                         <HeaderStyle HorizontalAlign="Center" Width="5%" />
                         <ItemStyle HorizontalAlign="Center" />
@@ -123,7 +118,6 @@
                             <asp:Label ID="lblPonderacion" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "ponderacion").ToString())%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Escala">
                         <HeaderStyle HorizontalAlign="Center" Width="5%" />
                         <ItemStyle HorizontalAlign="Center" />
@@ -134,7 +128,6 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-            
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
@@ -153,26 +146,13 @@
                             </td>
                         </tr>
                     </table>
-                   
                     <table width="100%" cellpadding="1" cellspacing="5">
-<%--                        <tr>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                                <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
-                        </tr>
-                        <tr>--%>
+                        <tr>
                             <td valign="top" class="TD25">
                                 <asp:Label runat="server" ID="lblCategoriaEdit" Text="Categoría:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
-                               <asp:DropDownList ID="ddlCategoriaEdit" runat="server"/>
+                                <asp:DropDownList ID="ddlCategoriaEdit" runat="server" />
                             </td>
                         </tr>
                         <tr>
@@ -180,7 +160,7 @@
                                 <asp:Label runat="server" ID="lblEscalaPonderacionEdit" Text="Escala Ponderación:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
-                                <asp:DropDownList ID="ddlEscalaPonderacionEdit" runat="server"/>
+                                <asp:DropDownList ID="ddlEscalaPonderacionEdit" runat="server" />
                             </td>
                         </tr>
                         <tr>
@@ -188,7 +168,8 @@
                                 <asp:Label runat="server" ID="lblTextoPreguntaEdit" Text="Pregunta:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtTextoPreguntaEdit" Width="500px" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtTextoPreguntaEdit" Width="500px" TextMode="MultiLine"
+                                    Rows="3"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -196,7 +177,8 @@
                                 <asp:Label runat="server" ID="lblObjetivoPreguntaEdit" Text="Objetivo:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtObjetivoPreguntaEdit" Width="500px" TextMode="MultiLine" Rows="5"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtObjetivoPreguntaEdit" Width="500px" TextMode="MultiLine"
+                                    Rows="5"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -204,15 +186,14 @@
                                 <asp:Label runat="server" ID="lblPesoPreguntaEdit" Text="Peso:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtPesoPreguntaEdit" Width="500px"></asp:TextBox>
-                                <cc1:MaskedEditExtender ID="MaskedEditExtender1" runat="server" MaskType="Number" Mask="9.99" 
-                                    ErrorTooltipEnabled="true" InputDirection="LeftToRight" CultureName="es-ES" 
+                                <asp:TextBox runat="server" ID="txtPesoPreguntaEdit" Width="50px"></asp:TextBox>
+                                <cc1:MaskedEditExtender ID="MaskedEditExtender1" runat="server" MaskType="Number"
+                                    Mask="9.99" ErrorTooltipEnabled="true" InputDirection="LeftToRight" CultureName="es-ES"
                                     TargetControlID="txtPesoPreguntaEdit" MessageValidatorTip="true">
                                 </cc1:MaskedEditExtender>
                             </td>
                         </tr>
                     </table>
-
                 </ContentTemplate>
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
@@ -226,5 +207,4 @@
             <asp:AsyncPostBackTrigger ControlID="gvwPreguntas" EventName="RowCommand" />
         </Triggers>
     </asp:UpdatePanel>
-
 </asp:Content>

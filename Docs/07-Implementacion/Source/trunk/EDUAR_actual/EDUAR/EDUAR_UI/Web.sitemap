@@ -53,6 +53,7 @@
         </siteMapNode>
         <siteMapNode url="" title="Encuestas" roles="Administrador">
             <siteMapNode url="~/Private/Encuestas/ManageContenidoEncuestas.aspx" title="Encuestas" roles="Administrador" />
+            <siteMapNode url="~/Private/Encuestas/Cuestionario.aspx" title="Diseño Cuestionario" roles="Administrador" />
         </siteMapNode>
         <siteMapNode url="" title="Monitoreo" roles="Administrador">
             <siteMapNode url="~/Private/Monitoreo/ConfigIndicadores.aspx" title="Configurar Indicadores" roles="Administrador" />
