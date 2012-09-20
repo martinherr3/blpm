@@ -102,6 +102,7 @@
 		</ContentTemplate>
 		<Triggers>
 			<%--<asp:PostBackTrigger ControlID="btnOcultoNovedad" />--%>
+			<asp:PostBackTrigger ControlID="btnOcultoNovedad" />
 		</Triggers>
 	</asp:UpdatePanel>
 </asp:Panel>
