@@ -58,6 +58,15 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.UpdatePanel udpNueva;
         
         /// <summary>
+        /// Control btnOcultoNovedad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnOcultoNovedad;
+        
+        /// <summary>
         /// Control btnGuardar.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.WebControls.DropDownList ddlEstado;
         
         /// <summary>
+        /// Control cmvddlEstado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmvddlEstado;
+        
+        /// <summary>
         /// Control lblTipo.
         /// </summary>
         /// <remarks>
@@ -112,6 +130,15 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.WebControls.DropDownList ddlNovedad;
         
         /// <summary>
+        /// Control cmvddlNovedad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmvddlNovedad;
+        
+        /// <summary>
         /// Control lblObservaciones.
         /// </summary>
         /// <remarks>
@@ -128,5 +155,14 @@ namespace EDUAR_UI.UserControls {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtObservaciones;
+        
+        /// <summary>
+        /// Control rqftxtObservaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rqftxtObservaciones;
     }
 }

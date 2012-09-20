@@ -85,7 +85,7 @@
                                 ToolTip="Editar Pregunta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='true' />
                             <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
                                 AlternateText="Eliminar" ToolTip="Eliminar Pregunta" CommandName="Eliminar" CommandArgument='<%# Bind("idPregunta") %>'
-                                OnClientClick="return confirm('¿Desea eliminar el tema seleccionado?')" />
+                                OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> la pregunta seleccionada?', 'Confirmación')" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Categoría">

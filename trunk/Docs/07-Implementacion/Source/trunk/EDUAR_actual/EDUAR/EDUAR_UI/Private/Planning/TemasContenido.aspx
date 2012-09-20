@@ -24,7 +24,7 @@
                             <%--<asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                                 ImageUrl="~/Images/botonBuscar.png" />--%>
                             <asp:Panel ID="pnlNuevoContenido" runat="server" Width="500px" Style="display: none;
-                                text-align: left; min-height: 200px" BorderStyle="Groove" CssClass="CajaDialogo">
+                                text-align: left; min-height: 200px; z-index: 500" BorderStyle="Groove" CssClass="CajaDialogo">
                                 <table class="tablaInterna" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td>
@@ -74,7 +74,7 @@
                                 function DoPostBack() {
                                     var titulo = document.getElementById('<%= txtTitulo.ClientID %>').value;
                                     if (titulo.toString().trim() == '') {
-                                        alert('Por favor, ingrese un título válido.');
+                                        jAlert('Por favor, ingrese un título válido.','Mensaje');
                                         var boton = document.getElementById('<%= btnNuevo.ClientID %>');
                                         boton.click();
                                     }
@@ -82,7 +82,7 @@
                                         var descripcion = document.getElementById('<%= txtDescripcion.ClientID %>').value;
 
                                         if (descripcion.toString().trim() == '') {
-                                            alert('Por favor, ingrese una descripción válida.');
+                                            jAlert('Por favor, ingrese una descripción válida.','Mensaje');
                                             var boton = document.getElementById('<%= btnNuevo.ClientID %>');
                                             boton.click();
                                         }
@@ -128,7 +128,7 @@
                                     ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
                                     AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaContenido") %>'
-                                    OnClientClick="return confirm('¿Desea eliminar el tema seleccionado?')" />
+                                    OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> el tema seleccionado?','Confirmación')" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Título">

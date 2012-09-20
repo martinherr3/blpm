@@ -58,7 +58,7 @@
                                     var descripcion = document.getElementById('<%= txtDescripcion.ClientID %>').value;
 
                                     if (descripcion.toString().trim() == '')
-                                        alert('Por favor, ingrese una descripción válida.');
+                                        jAlert('Por favor, ingrese una descripción válida.','Aviso');
                                     else
                                         __doPostBack('btnGuardar', 'Click');
                                 }
@@ -120,7 +120,7 @@
                                     ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
                                     AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idContenido") %>'
-                                    OnClientClick="return confirm('¿Desea eliminar el contenido seleccionado?')" />
+                                    OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> el contenido seleccionado?','Confirmación')" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Descripción">

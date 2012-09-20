@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using EDUAR_Entities;
 using EDUAR_BusinessLogic.Common;
-using EDUAR_Utility.Enumeraciones;
+using EDUAR_Entities;
 using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI.UserControls
 {
@@ -139,8 +137,7 @@ namespace EDUAR_UI.UserControls
             {
                 if (!Page.IsPostBack)
                 {
-                    UIUtilidades.BindCombo<EstadoNovedad>(ddlEstado, listaEstadosNovedad, "idEstadoNovedad", "nombre", true);
-                    UIUtilidades.BindCombo<TipoNovedad>(ddlNovedad, listaTiposNovedad, "idTipoNovedad", "nombre", true);
+
                 }
 
                 this.txtObservaciones.Attributes.Add("onkeyup", " ValidarCaracteres(this, 1000);");
@@ -155,7 +152,11 @@ namespace EDUAR_UI.UserControls
         {
             try
             {
+                UIUtilidades.BindCombo<EstadoNovedad>(ddlEstado, listaEstadosNovedad, "idEstadoNovedad", "nombre", true);
+                UIUtilidades.BindCombo<TipoNovedad>(ddlNovedad, listaTiposNovedad, "idTipoNovedad", "nombre", true);
+                LimpiarCampos();
                 mpeNueva.Show();
+                udpNueva.Update();
             }
             catch (Exception ex)
             {
@@ -183,11 +184,11 @@ namespace EDUAR_UI.UserControls
             }
         }
 
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        protected void btnOcultoNovedad_Click(object sender, EventArgs e)
         {
             try
             {
-                if (ValidarPagina())
+                ValidarPagina();
                 {
                     EDUAR_Entities.Novedad objEntidad = new EDUAR_Entities.Novedad();
                     objEntidad.fecha = DateTime.Now;
@@ -233,21 +234,11 @@ namespace EDUAR_UI.UserControls
         /// Validars the pagina.
         /// </summary>
         /// <returns></returns>
-        private bool ValidarPagina()
+        private void ValidarPagina()
         {
-            int validar = 0;
-            if (idCursoCicloLectivo > 0)
-            {
-                int.TryParse(ddlEstado.SelectedValue, out validar);
-                if (validar > 0)
-                {
-                    int.TryParse(ddlNovedad.SelectedValue, out validar);
-                    return validar > 0;
-                }
-                return false;
-            }
-            else
-                return false;
+            Page.Validate("Novedad");
+            if (!Page.IsValid)
+                mpeNueva.Show();
         }
 
         private void GuardarNovedad(EDUAR_Entities.Novedad objEntidad)
