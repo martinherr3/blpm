@@ -1217,14 +1217,16 @@ TD.EncabezadoConfirmación
 
 /* Estilo Componente Accordion */
 
-.accordion {
+.accordion
+{
     width: 1000px;
 }
-        
-.accordionHeader {
+
+.accordionHeader
+{
     border: 1px solid #2F4F4F;
     color: white;
-    background-color:Navy;
+    background-color: Navy;
     font-family: Arial, Sans-Serif;
     font-size: 12px;
     font-weight: bold;
@@ -1232,11 +1234,12 @@ TD.EncabezadoConfirmación
     margin-top: 5px;
     cursor: pointer;
 }
-        
-.accordionHeaderSelected {
+
+.accordionHeaderSelected
+{
     border: 1px solid #2F4F4F;
     color: white;
-    background-color:Blue;
+    background-color: Blue;
     font-family: Arial, Sans-Serif;
     font-size: 12px;
     font-weight: bold;
@@ -1244,11 +1247,80 @@ TD.EncabezadoConfirmación
     margin-top: 5px;
     cursor: pointer;
 }
-        
-.accordionContent {
+
+.accordionContent
+{
     background-color: #D3DEEF;
     border: 1px dashed #2F4F4F;
     border-top: none;
     padding: 5px;
     padding-top: 10px;
+}
+
+.mGrid
+{
+    width: 100%;
+    background-color: #fff;
+    margin: 5px 0 10px 0;
+    border: solid 1px #3A5FCD;
+    border-collapse: collapse;
+}
+.mGrid td
+{
+    padding: 2px;
+    border: solid 1px #c1c1c1;
+    color: #717171;
+}
+.mGrid th
+{
+    padding: 4px 2px;
+    color: #fff;
+    background: #4264B1 url(../../Images/Grillas/grd_head.png) repeat-x top;
+    border-left: solid 1px #4264B1;
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+.mGrid .alt
+{
+    background: #fcfcfc url(../../Images/Grillas/grd_alt.png) repeat-x top;
+}
+.mGrid .pgr
+{
+    background: #5D89C2 url(../../Images/Grillas/grd_pgr.png) repeat-x top;
+}
+.mGrid .pgr table
+{
+    margin: 5px 0;
+}
+.mGrid .pgr td
+{
+    border-width: 0;
+    padding: 0 6px;
+    border-left: solid 1px #666;
+    font-weight: bold;
+    color: #fff;
+    line-height: 12px;
+}
+.mGrid .pgr a
+{
+    color: #666;
+    text-decoration: none;
+}
+.mGrid .pgr a:hover
+{
+    color: #000;
+    text-decoration: none;
+}
+
+.mGrid a
+{
+    color: #FFFFFF;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.mGrid a:hover
+{
+    color: #9FB6CD;
+    text-decoration: underlilne,overline;
+    text-transform: uppercase;
 }
