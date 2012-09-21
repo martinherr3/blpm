@@ -51,11 +51,11 @@ namespace EDUAR_UI
         {
             get
             {
-                if (ViewState["idCursoCicloLectivo"] == null)
-                    ViewState["idCursoCicloLectivo"] = 0;
-                return (int)ViewState["idCursoCicloLectivo"];
+                if (Session["idCursoCicloLectivo"] == null)
+                    Session["idCursoCicloLectivo"] = 0;
+                return (int)Session["idCursoCicloLectivo"];
             }
-            set { ViewState["idCursoCicloLectivo"] = value; }
+            set { Session["idCursoCicloLectivo"] = value; }
         }
 
 
@@ -68,7 +68,19 @@ namespace EDUAR_UI
                 return (List<Novedad>)ViewState["listaNovedades"];
             }
             set { ViewState["listaNovedades"] = value; }
-        
+
+        }
+
+        public Novedad novedadConversacion
+        {
+            get
+            {
+                if (ViewState["novedadConversacion"] == null)
+                    ViewState["novedadConversacion"] = new Novedad();
+                return (Novedad)ViewState["novedadConversacion"];
+            }
+            set { ViewState["novedadConversacion"] = value; }
+
         }
         #endregion
 
@@ -119,6 +131,28 @@ namespace EDUAR_UI
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnVolver control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                novControl.visible = false;
+                btnVolver.Visible = false;
+                SetDivVisible(true);
+                CargarGrilla();
+                novedadConversacion = new Novedad();
+                udpBotonera.Update();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
         protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -132,8 +166,11 @@ namespace EDUAR_UI
                     filtro.curso.idCurso = idCursoSeleccion;
                     idCursoCicloLectivo = idCursoSeleccion;
                     BLNovedad objBLNovedad = new BLNovedad();
-                    listaNovedades = objBLNovedad.GetNovedad(filtro);
+                    listaNovedades = objBLNovedad.GetNovedadesPadre(filtro);
                     CargarGrilla();
+                    //novControl.visible = true;
+                    SetDivVisible(true);
+                    udpBotonera.Update();
                 }
             }
             catch (Exception ex)
@@ -165,6 +202,48 @@ namespace EDUAR_UI
         }
         #endregion
 
-       
+        protected void gvwNovedades_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                switch (e.CommandName)
+                {
+                    case "verConversacion":
+                        novedadConversacion.idNovedad = Convert.ToInt32(e.CommandArgument.ToString());
+                        btnVolver.Visible = true;
+                        novControl.visible = true;
+                        novControl.idNovedadPadre = novedadConversacion.idNovedad;
+                        CargarConversacion();
+                        //CargaAgenda();
+                        //lblTitulo.Text = "Agenda " + propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
+                        break;
+                }
+                udpBotonera.Update();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        private void CargarConversacion()
+        {
+            BLNovedad objBLNovedad = new BLNovedad();
+            List<Novedad> listaFiltro = objBLNovedad.GetNovedad(new Novedad() { novedadPadre = new Novedad() { idNovedad = novedadConversacion.idNovedad } });
+
+            SetDivVisible(false);
+
+            rptConversacion.DataSource = listaFiltro;
+            rptConversacion.DataBind();
+            udpConversacion.Update();
+        }
+
+        private void SetDivVisible(bool visible)
+        {
+            divGrilla.Visible = visible;
+            udpGrilla.Update();
+            divConversacion.Visible = !visible;
+            udpConversacion.Update();
+        }
     }
 }

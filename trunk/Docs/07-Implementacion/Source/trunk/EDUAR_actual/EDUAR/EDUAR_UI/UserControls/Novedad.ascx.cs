@@ -13,6 +13,8 @@ namespace EDUAR_UI.UserControls
     {
         #region --[Atributos]--
         //private int idCursoCicloLectivo = 0;
+
+        private int _idNovedadPadre = 0;
         #endregion
 
         #region --[Propiedades]--
@@ -114,14 +116,25 @@ namespace EDUAR_UI.UserControls
 
         public bool visible
         {
+            get { return btnNuevaNovedad.Visible; }
+            set { btnNuevaNovedad.Visible = value; }
+        }
+
+        public string ToolTip
+        {
+            get { return btnNuevaNovedad.ToolTip; }
+            set { btnNuevaNovedad.ToolTip = value; }
+        }
+
+        public int idNovedadPadre
+        {
             get
             {
-                return btnNuevaNovedad.Visible;
+                if (ViewState["idNovedadPadre"] == null)
+                    ViewState["idNovedadPadre"] = 0;
+                return (int)ViewState["idNovedadPadre"];
             }
-            set
-            {
-                btnNuevaNovedad.Visible = value;
-            }
+            set { ViewState["idNovedadPadre"] = value; }
         }
         #endregion
 
@@ -198,10 +211,18 @@ namespace EDUAR_UI.UserControls
                     objEntidad.curso.idCurso = idCursoCicloLectivo;
                     objEntidad.observaciones = txtObservaciones.Text.Trim();
 
+                    if (idNovedadPadre > 0)
+                    {
+                        objEntidad.novedadPadre = new EDUAR_Entities.Novedad();
+                        objEntidad.novedadPadre.idNovedad = idNovedadPadre;
+                    }
+
                     GuardarNovedad(objEntidad);
                     LimpiarCampos();
 
                     mpeNueva.Hide();
+
+                    //Response.Redirect(HttpContext.Current.Request.ServerVariables["HTTP_REFERER"].ToString(), true);
                 }
             }
             catch (Exception ex)
