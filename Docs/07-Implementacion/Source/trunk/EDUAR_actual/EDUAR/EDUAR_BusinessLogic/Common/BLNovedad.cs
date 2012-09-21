@@ -6,6 +6,7 @@ using EDUAR_Entities;
 using EDUAR_Entities.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using System.Collections.Generic;
 
 namespace EDUAR_BusinessLogic.Common
 {
@@ -161,22 +162,22 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<Novedad> GetNovedads(Novedad entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetNovedads(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetNovedads", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+        public List<Novedad> GetNovedad(Novedad entidad)
+        {
+            try
+            {
+                return DataAcces.GetNovedad(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetNovedad", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }

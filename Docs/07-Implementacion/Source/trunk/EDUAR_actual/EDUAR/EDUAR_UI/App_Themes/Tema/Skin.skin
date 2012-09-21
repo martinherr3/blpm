@@ -12,14 +12,21 @@ no se permite que haya varios SkinId por tipo de control en el mismo tema.
    una máscara de control por tipo de control en el mismo tema.
    
 <asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
+
+
+GridLines="None"
+			  PageSize="15" Width="100%" CssClass="mGrid" PagerStyle-CssClass="pgr"
+				AlternatingRowStyle-CssClass="alt"  
+
 --%>
 <asp:GridView runat="server" SkinId="gridviewSkinPagerReporte" CellPadding="5"
               AutoGenerateColumns="false"
-			  GridLines="Both" 
+			  GridLines="None"
               BorderStyle="Solid" 
               PagerSettings-Visible="true" 
               ShowFooter="false"
-              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="30">
+              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="30" Width="100%"
+			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
               
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
             
@@ -27,33 +34,35 @@ no se permite que haya varios SkinId por tipo de control en el mismo tema.
 
 <asp:GridView runat="server" SkinId="gridviewSkinPagerListado" CellPadding="5"
               AutoGenerateColumns="false"
-              GridLines="Both" 
+              GridLines="None"
               BorderStyle="Solid" 
               PagerSettings-Visible="true" 
               ShowFooter="false"
-              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="20">
-              
+              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="20" Width="100%"
+			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">           
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
             
 </asp:GridView>
 
 <asp:GridView runat="server" SkinId="gridviewSkinPagerIndicadores" CellPadding="5"
-              GridLines="Both" 
+              GridLines="None"
               BorderStyle="Solid" 
               PagerSettings-Visible="true" 
               ShowFooter="false"
-              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="15">
+              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="15" Width="100%"
+			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
             
 </asp:GridView>
 
 <asp:GridView runat="server" SkinId="gridviewSkinPagerListadoSize10" CellPadding="5"
               AutoGenerateColumns="false"
-              GridLines="Both" 
+              GridLines="None"
               BorderStyle="Solid" 
               PagerSettings-Visible="true" 
               ShowFooter="false"
-              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="10">
+              EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="10" Width="100%"
+			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
               
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
             
