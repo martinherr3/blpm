@@ -152,6 +152,7 @@
     <Content Include="Images\Grillas\mail-delete-2.png" />
     <Content Include="Images\Grillas\mail-mark-read-2.png" />
     <Content Include="Images\Grillas\mail-reply-2.png" />
+    <Content Include="Images\Grillas\ver_conversacion.png" />
     <Content Include="Images\help.png" />
     <Content Include="Images\Indicadores\IndAmarillo.png" />
     <Content Include="Images\Indicadores\IndAmarilloSecundario.png" />

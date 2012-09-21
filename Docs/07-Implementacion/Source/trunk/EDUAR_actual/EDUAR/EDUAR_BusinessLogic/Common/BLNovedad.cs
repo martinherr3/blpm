@@ -178,6 +178,24 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+        public List<Novedad> GetNovedadesPadre(Novedad filtro)
+        {
+            try
+            {
+                return DataAcces.GetNovedadesPadre(filtro);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetNovedadesPadre", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
+
     }
 }

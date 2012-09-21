@@ -13,13 +13,31 @@ namespace EDUAR_UI {
     public partial class ConsultaNovedadAulica {
         
         /// <summary>
-        /// Control conNovedad.
+        /// Control udpBotonera.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::EDUAR_UI.UserControls.Novedad conNovedad;
+        protected global::System.Web.UI.UpdatePanel udpBotonera;
+        
+        /// <summary>
+        /// Control novControl.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::EDUAR_UI.UserControls.Novedad novControl;
+        
+        /// <summary>
+        /// Control btnVolver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnVolver;
         
         /// <summary>
         /// Control lblCurso.
@@ -49,6 +67,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpGrilla;
         
         /// <summary>
+        /// Control divGrilla.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGrilla;
+        
+        /// <summary>
         /// Control gvwNovedades.
         /// </summary>
         /// <remarks>
@@ -56,6 +83,33 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvwNovedades;
+        
+        /// <summary>
+        /// Control udpConversacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpConversacion;
+        
+        /// <summary>
+        /// Control divConversacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConversacion;
+        
+        /// <summary>
+        /// Control rptConversacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptConversacion;
         
         /// <summary>
         /// Propiedad Master.
