@@ -67,7 +67,8 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.organizador.username);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalles);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
-
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurso", DbType.Int32, entidad.cursoCicloLectivo.idCurso);
+				
 				if (Transaction.Transaction != null)
 					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
 				else
@@ -186,7 +187,15 @@ namespace EDUAR_DataAccess.Common
 					objCitacion.motivoCitacion.idMotivoCitacion = Convert.ToInt32(reader["idMotivoCitacion"]);
 					objCitacion.motivoCitacion.nombre = reader["motivoCitacion"].ToString();
 					objCitacion.activo = Convert.ToBoolean(reader["activo"]);
-					listaCitaciones.Add(objCitacion);
+                    if (reader["idCurso"] != DBNull.Value)
+                    {
+                        objCitacion.cursoCicloLectivo.idCurso = Convert.ToInt32(reader["idCurso"]);
+                    }
+                    else
+                    {
+                        objCitacion.cursoCicloLectivo.idCurso = 0;
+                    }
+                    listaCitaciones.Add(objCitacion);
 				}
 				return listaCitaciones;
 			}
