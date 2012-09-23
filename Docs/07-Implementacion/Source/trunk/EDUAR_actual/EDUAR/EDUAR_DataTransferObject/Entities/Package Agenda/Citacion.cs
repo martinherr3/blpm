@@ -22,6 +22,8 @@ namespace EDUAR_Entities
         public MotivoCitacion motivoCitacion { get; set; }
         public Tutor tutor { get; set; }
         public bool activo { get; set; }
+        public CursoCicloLectivo cursoCicloLectivo { get; set; }
+
 		//Se utilizan para filtrar
 		public DateTime fechaEventoDesde { get; set; }
 		public DateTime fechaEventoHasta { get; set; }
@@ -29,8 +31,10 @@ namespace EDUAR_Entities
         public Citacion()
         {
 			organizador = new Personal();
-			motivoCitacion = new MotivoCitacion();
+			motivoCitacion = new
+ MotivoCitacion();
 			tutor = new Tutor();
+            cursoCicloLectivo = new CursoCicloLectivo();
         }
 
         ~Citacion()

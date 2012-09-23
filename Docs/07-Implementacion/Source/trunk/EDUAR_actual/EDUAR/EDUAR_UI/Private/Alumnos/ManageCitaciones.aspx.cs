@@ -413,6 +413,8 @@ namespace EDUAR_UI
             //ddlAsignatura.SelectedIndex = 0;
             //ddlAsignaturaEdit.SelectedIndex = 0;
             ddlTutorEdit.Items.Clear();
+            ddlCursoEdit.Items.Clear();
+            txtAlumno.Text = "";
             txtDescripcionEdit.Text = string.Empty;
         }
 
@@ -580,6 +582,7 @@ namespace EDUAR_UI
             entidad.fecha = Convert.ToDateTime(calFechaEvento.ValorFecha);
             entidad.hora = new DateTime(entidad.fecha.Year, entidad.fecha.Month, entidad.fecha.Day, Convert.ToDateTime(txtHoraEdit.Text).Hour, Convert.ToDateTime(txtHoraEdit.Text).Minute, 0);
             entidad.organizador.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+            entidad.cursoCicloLectivo.idCurso =int.Parse(ddlCursoEdit.SelectedValue);
             entidad.activo = chkActivoEdit.Checked;
             return entidad;
         }
@@ -608,13 +611,17 @@ namespace EDUAR_UI
             {
                 txtDescripcionEdit.Text = entidad.detalles;
                 CargarCombosEdicion();
-                ddlCursoEdit.Enabled = false;
+                if (entidad.cursoCicloLectivo != null && entidad.cursoCicloLectivo.idCurso != 0)
+                {
+                    ddlCursoEdit.SelectedValue  = entidad.cursoCicloLectivo.idCurso.ToString();
+                }
                 calFechaEvento.Fecha.Text = entidad.fecha.ToShortDateString();
                 txtHoraEdit.Text = entidad.hora.Hour.ToString().PadLeft(2, '0') + ":" + entidad.hora.Minute.ToString().PadLeft(2, '0');
                 ddlMotivoEdit.SelectedValue = entidad.motivoCitacion.idMotivoCitacion.ToString();
                 ddlTutorEdit.Items.Add(new ListItem(entidad.tutor.apellido + " " + entidad.tutor.nombre, entidad.tutor.idTutor.ToString()));
                 ddlTutorEdit.SelectedValue = entidad.tutor.idTutor.ToString();
                 ddlTutorEdit.Enabled = false;
+                ddlCursoEdit.Enabled = false;
                 chkActivoEdit.Checked = entidad.activo;
                 cargarAlumno();
             }
