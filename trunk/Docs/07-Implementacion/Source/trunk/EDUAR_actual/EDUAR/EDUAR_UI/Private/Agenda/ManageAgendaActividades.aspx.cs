@@ -145,6 +145,7 @@ namespace EDUAR_UI
             try
             {
                 Master.BotonAvisoAceptar += (VentanaAceptar);
+				novControl.GuardarClick += (Guardar);
                 if (!Page.IsPostBack)
                 {
                     CargarPresentacion();
@@ -193,6 +194,21 @@ namespace EDUAR_UI
                 Master.ManageExceptions(ex);
             }
         }
+
+		/// <summary>
+		/// Guardars the specified sender.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void Guardar(object sender, EventArgs e)
+		{
+			try
+			{
+				novControl.GuardarNovedad();
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
+		}
 
         /// <summary>
         /// Handles the Click event of the btnEvaluacion control.
