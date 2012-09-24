@@ -5,7 +5,7 @@ body
 {
     background: #b6b7bc;
     font-size: .80em;
-    font-family: "Helvetica Neue" , "Lucida Grande" , "Segoe UI" , Arial, Helvetica, Verdana, sans-serif;
+    font-family: "Trebuchet MS" , Helvetica, sans-serif;
     margin: 0px;
     padding: 0px 100px 0px 100px;
     color: #696969;
@@ -83,40 +83,6 @@ first child of the left and right table columns */
     margin-top: 0px;
 }
 
-/*html
-{
-    overflow-x: hidden;
-}
-
-h2
-{
-    background: #1E90FF;
-    color: #FFFFFF;
-    padding: 15px 0;
-    position: relative;
-    z-index: 990;
-}
-
-h2:before, h2:after
-{
-    content: "";
-    background: #1E90FF;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 9999px;
-}
-
-h2:before
-{
-    right: 100%;
-}
-
-h2:after
-{
-    left: 100%;
-}
-*/
 /* PRIMARY LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
@@ -346,7 +312,7 @@ div.accountInfo
 
 .sitepath, .breadcrumb span
 {
-    font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
     font-size: 10px;
     font-weight: normal; /*color: #585858;	*/
     color: #FFFFFF;
@@ -430,7 +396,7 @@ a.menuHijos:hover
 
 .menuNiv20
 {
-    font-family: Tahoma,Verdana, Arial, Helvetica, sans-serif;
+    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
     font-size: 11px;
     font-weight: normal;
     color: #C8D2E8;
@@ -442,7 +408,7 @@ a.menuHijos:hover
 /* --- ventanas --- */
 .TabContainerCliente .ajax__tab_header
 {
-    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
     font-size: 12px;
     font-weight: bold;
     display: block;
@@ -488,7 +454,7 @@ a.menuHijos:hover
 }
 .TabContainerCliente .ajax__tab_body
 {
-    font-family: verdana,tahoma,helvetica;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
     font-size: 10pt;
     background-color: #fff;
     border-top-width: 0;
@@ -528,7 +494,7 @@ a.menuHijos:hover
 /***** ERROR *****/
 TD.EncabezadoError
 {
-    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
     font-size: 11px;
     font-style: normal;
     font-weight: bold;
@@ -540,8 +506,8 @@ TD.EncabezadoError
 }
 .EtiError
 {
-    font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
-    font-size: 10px;
+    font-family: "Trebuchet MS" , Helvetica, sans-serif;
+    font-size: 12px;
     font-weight: normal;
     color: #464545;
     background-color: #FFF4F0;
@@ -560,7 +526,7 @@ TD.EncabezadoError
 /***** SATISFACTORIO *****/
 TD.EncabezadoSatisfactorio
 {
-    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
     font-size: 11px;
     font-style: normal;
     font-weight: bold;
@@ -572,8 +538,8 @@ TD.EncabezadoSatisfactorio
 }
 .EtiSatisfactorio
 {
-    font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
-    font-size: 10px;
+    font-family: "Trebuchet MS" , Helvetica, sans-serif;
+    font-size: 12px;
     font-weight: normal;
     color: #464545;
     background-color: #E0F2C6;
@@ -584,15 +550,15 @@ TD.EncabezadoSatisfactorio
     top: 5;
     visibility: inherit;
     border: solid #BEE386 1px;
-    width: 600; /*height:130;*/
+    width: 450; /*height:130;*/
     background-color: #E0F2C6;
-    clip: rect(0,600,150,0);
+    clip: rect(0,450,150,0);
 }
 
 /***** ADVERTENCIA *****/
 TD.EncabezadoAdvertencia
 {
-    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
     font-size: 11px;
     font-style: normal;
     font-weight: bold;
@@ -604,8 +570,8 @@ TD.EncabezadoAdvertencia
 }
 .EtiAdvertencia
 {
-    font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
-    font-size: 10px;
+    font-family: "Trebuchet MS" , Helvetica, sans-serif;
+    font-size: 12px;
     font-weight: normal;
     color: #464545;
     background-color: #FFFFBB;
@@ -616,15 +582,15 @@ TD.EncabezadoAdvertencia
     top: 5;
     visibility: inherit;
     border: solid #FAEAAC 1px;
-    width: 600; /*height:130;*/
+    width: 450; /*height:130;*/
     background-color: #FFFFBB;
-    clip: rect(0,600,150,0);
+    clip: rect(0,450,150,0);
 }
 
 /***** CONFIRMACION *****/
 TD.EncabezadoConfirmación
 {
-    font-family: Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
     font-size: 11px;
     font-style: normal;
     font-weight: bold;
@@ -636,8 +602,8 @@ TD.EncabezadoConfirmación
 }
 .EtiConfirmación
 {
-    font-family: Taoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
-    font-size: 10px;
+    font-family: "Trebuchet MS" , Helvetica, sans-serif;
+    font-size: 12px;
     font-weight: normal;
     color: #8B908C;
     background-color: #F7F8FB;
@@ -648,9 +614,9 @@ TD.EncabezadoConfirmación
     top: 5;
     visibility: inherit;
     border: solid #ACCBE0 2px;
-    width: 600; /*height:130;*/
+    width: 450; /*height:130;*/
     background-color: #F7F8FB;
-    clip: rect(0,600,150,0);
+    clip: rect(0,450,150,0);
 }
 
 /***********************************************/
@@ -662,7 +628,7 @@ TD.EncabezadoConfirmación
     position: fixed;
     left: 30%;
     top: 230px;
-    width: 600px;
+    width: 450px;
     z-index: 997;
     padding: 8px;
 }
@@ -742,7 +708,7 @@ TD.EncabezadoConfirmación
 .txtMultilinea
 {
     color: #000000;
-    font-family: "Helvetica Neue" , "Lucida Grande" , "Segoe UI" ,Arial,Helvetica,Verdana,sans-serif;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
     font-size: small;
     width: 250px;
 }
@@ -750,7 +716,7 @@ TD.EncabezadoConfirmación
 .txtMultilinea99
 {
     color: #000000;
-    font-family: "Helvetica Neue" , "Lucida Grande" , "Segoe UI" ,Arial,Helvetica,Verdana,sans-serif;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
     font-size: small;
     width: 99%;
 }
@@ -909,7 +875,7 @@ TD.EncabezadoConfirmación
 
 .lblCriterios
 {
-    font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif, Symbol;
+    font-family: "Trebuchet MS" , Helvetica, sans-serif;
     font-size: small;
 }
 
@@ -1227,7 +1193,7 @@ TD.EncabezadoConfirmación
     border: 1px solid #2F4F4F;
     color: white;
     background-color: Navy;
-    font-family: Arial, Sans-Serif;
+    font-family: "Trebuchet MS" , Helvetica, sans-serif;
     font-size: 12px;
     font-weight: bold;
     padding: 5px;
@@ -1240,7 +1206,7 @@ TD.EncabezadoConfirmación
     border: 1px solid #2F4F4F;
     color: white;
     background-color: Blue;
-    font-family: Arial, Sans-Serif;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
     font-size: 12px;
     font-weight: bold;
     padding: 5px;
@@ -1321,7 +1287,7 @@ TD.EncabezadoConfirmación
 .mGrid a:hover
 {
     color: #9FB6CD;
-    text-decoration: underlilne,overline;
+    text-decoration: underline,overline;
     text-transform: uppercase;
 }
 
@@ -1364,4 +1330,33 @@ TD.EncabezadoConfirmación
     border-top-color: inherit;
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
+}
+
+/*
+select
+{
+    -webkit-appearance: button;
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -webkit-user-select: none;
+    background-image: url(../../Images/arrow-down.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+    background-position: center right;
+    background-repeat: no-repeat;
+    border: 1px solid #AAA;
+    color: #555;
+    font-size: inherit;
+    margin: 0;
+    overflow: hidden;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+*/
+select, input
+{
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 12px;
 }
