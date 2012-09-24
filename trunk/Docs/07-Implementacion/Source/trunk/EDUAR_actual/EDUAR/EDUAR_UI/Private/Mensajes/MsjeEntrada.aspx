@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="Bandeja de Entrada" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-	AutoEventWireup="true" CodeBehind="MsjeEntrada.aspx.cs" Inherits="EDUAR_UI.MsjeEntrada"
-	Theme="Tema" StylesheetTheme="Tema" %>
+    AutoEventWireup="true" CodeBehind="MsjeEntrada.aspx.cs" Inherits="EDUAR_UI.MsjeEntrada"
+    Theme="Tema" StylesheetTheme="Tema" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxtoolkit" %>
 <%@ Register Src="~/UserControls/Editor.ascx" TagName="Editor" TagPrefix="edi" %>
@@ -8,7 +8,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-	<asp:updatepanel id="udpGrilla" runat="server" updatemode="Conditional">
+    <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
@@ -16,7 +16,7 @@
                         <h2>
                             Mensajes Recibidos
                         </h2>
-						<br />
+                        <br />
                     </td>
                     <td align="right">
                         <asp:ImageButton ID="btnEnviar" OnClick="btnEnviar_Click" runat="server" ToolTip="Enviar"
@@ -31,9 +31,9 @@
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>
-					</td>
-				</tr>
-			</table>
+                    </td>
+                </tr>
+            </table>
             <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
@@ -41,20 +41,20 @@
                         OnRowCommand="gvwReporte_RowCommand">
                         <Columns>
                             <asp:TemplateField HeaderText="Acciones" HeaderStyle-VerticalAlign="Middle">
-                                <HeaderStyle HorizontalAlign="left" Width="5%" />
+                                <HeaderStyle HorizontalAlign="left" Width="10%" />
                                 <HeaderTemplate>
-                                    <asp:CheckBox ID="cboxhead" AutoPostBack="true" Text='Acciones' runat="server" Width="30px"
-                                        ClientIDMode="Static" OnCheckedChanged="HeaderCheckedChanged" />
+                                    <asp:CheckBox ID="cboxhead" AutoPostBack="true" Text='Acciones' runat="server" Width="80px"
+                                        ClientIDMode="Static" OnCheckedChanged="HeaderCheckedChanged" Style="margin-bottom: 4px" />
                                 </HeaderTemplate>
                                 <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>
                                     <table border="0" cellpadding="0" cellspacing="0">
                                         <tr>
-                                            <td valign="middle">
+                                            <td valign="middle" style="border: none">
                                                 <asp:CheckBox ID="checkEliminar" Text='<%# Eval("idMensajeDestinatario")%>' runat="server"
                                                     CssClass="HiddenText" Width="30px" ClientIDMode="Static" />
                                             </td>
-                                            <td>
+                                            <td style="border: none">
                                                 <asp:ImageButton ImageUrl="~/Images/Grillas/mail-mark-read-2.png" runat="server"
                                                     ID="btnLeer" AlternateText="Leer" ToolTip="Leer" ImageAlign="TextTop" CommandName="Leer"
                                                     CommandArgument='<%# Bind("idMensajeDestinatario") %>' />
@@ -80,7 +80,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Asunto">
-                                <HeaderStyle HorizontalAlign="left" Width="50%" />
+                                <HeaderStyle HorizontalAlign="left" Width="45%" />
                                 <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblAsunto" runat="server" Text='<%# Eval("asuntoMensaje") %>' Font-Bold='<%# Boolean.Parse(Eval("leido").ToString()) ? false : true  %>'></asp:Label>
@@ -209,5 +209,5 @@
         </ContentTemplate>
         <Triggers>
         </Triggers>
-    </asp:updatepanel>
+    </asp:UpdatePanel>
 </asp:Content>
