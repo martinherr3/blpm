@@ -335,6 +335,11 @@ namespace EDUAR_UI
                 ddlTutores.Items.Clear();
                 ddlTutores.Enabled = false;
                 CargarComboCursos(idCicloLectivo, ddlCurso);
+                calfechas.FechaDesde.Text = cicloLectivoActual.fechaInicio.ToString("dd/MM/yyyy");
+
+                calfechas.FechaHasta.Text = cicloLectivoActual.fechaFin.ToString("dd/MM/yyyy");
+
+
             }
             catch (Exception ex)
             {
