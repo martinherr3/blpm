@@ -19,8 +19,8 @@
                         <ContentTemplate>
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
                                 Visible="true" />
-                            <asp:ImageButton ID="btnVolverContenido" OnClick="btnVolverContenido_Click" runat="server" ToolTip="Volver"
-                                ImageUrl="~/Images/botonVolver.png" />
+                            <asp:ImageButton ID="btnVolverContenido" OnClick="btnVolverContenido_Click" runat="server"
+                                ToolTip="Volver" ImageUrl="~/Images/botonVolver.png" />
                             <%--<asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                                 ImageUrl="~/Images/botonBuscar.png" />--%>
                             <asp:Panel ID="pnlNuevoContenido" runat="server" Width="500px" Style="display: none;
@@ -74,7 +74,7 @@
                                 function DoPostBack() {
                                     var titulo = document.getElementById('<%= txtTitulo.ClientID %>').value;
                                     if (titulo.toString().trim() == '') {
-                                        jAlert('Por favor, ingrese un título válido.','Mensaje');
+                                        jAlert('Por favor, ingrese un título válido.', 'Mensaje');
                                         var boton = document.getElementById('<%= btnNuevo.ClientID %>');
                                         boton.click();
                                     }
@@ -82,7 +82,7 @@
                                         var descripcion = document.getElementById('<%= txtDescripcion.ClientID %>').value;
 
                                         if (descripcion.toString().trim() == '') {
-                                            jAlert('Por favor, ingrese una descripción válida.','Mensaje');
+                                            jAlert('Por favor, ingrese una descripción válida.', 'Mensaje');
                                             var boton = document.getElementById('<%= btnNuevo.ClientID %>');
                                             boton.click();
                                         }
@@ -127,8 +127,8 @@
                                 <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idTemaContenido") %>'
                                     ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
-                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaContenido") %>'
-                                    OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> el tema seleccionado?','Confirmación')" />
+                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaContenido") %>' />
+                                <!--OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> el tema seleccionado?','Confirmación')"-->
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Título">

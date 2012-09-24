@@ -8,5 +8,15 @@ namespace EDUAR_Entities
     {
         public int idDocente { get; set; }
         public int idDocenteTransaccional { get; set; }
+
+		public Docente()
+			: base()
+		{ 
+			
+		}
+
+		public virtual void Dispose()
+		{
+		}
     }
 }

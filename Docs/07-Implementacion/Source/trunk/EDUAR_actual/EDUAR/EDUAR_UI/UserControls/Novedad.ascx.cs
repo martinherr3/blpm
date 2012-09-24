@@ -157,7 +157,7 @@ namespace EDUAR_UI.UserControls
 
 				this.txtObservaciones.Attributes.Add("onkeyup", " ValidarCaracteres(this, 1000);");
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				//Master.ManageExceptions(ex);
 			}
@@ -184,7 +184,7 @@ namespace EDUAR_UI.UserControls
 				mpeNueva.Show();
 				udpNueva.Update();
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				//Master.ManageExceptions(ex);
 			}
@@ -202,7 +202,7 @@ namespace EDUAR_UI.UserControls
 				LimpiarCampos();
 				mpeNueva.Hide();
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				//Master.ManageExceptions(ex);
 			}

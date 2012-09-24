@@ -70,33 +70,41 @@
                     </tr>
                 </table>
                 <br />
-                <div id="divAprobacion" runat="server" visible="false">
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td class="TD140px">
-                                <asp:Label ID="lblSolicitarAprobacion" runat="server" Text="Solicitar Aprobación:"></asp:Label>
-                            </td>
-                            <td colspan="3">
-                                <asp:CheckBox ID="chkSolicitarAprobacion" runat="server" Checked="false" OnCheckedChanged="chkSolicitarAprobacion_CheckedChanged"
-                                    AutoPostBack="true" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD140px">
-                                <asp:Label ID="lblAprobada" runat="server" Text="Aprobada:"></asp:Label>
-                            </td>
-                            <td class="TD50px">
-                                <asp:CheckBox ID="chkAprobada" runat="server" Checked="false" Enabled="false" OnCheckedChanged="chkAprobada_CheckedChanged"
-                                    AutoPostBack="true" />
-                            </td>
-                            <td class="TD250px">
-                                <asp:Label ID="lblFecha" runat="server" Text="Fecha Aprobadación: "></asp:Label>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                <asp:UpdatePanel runat="server" ID="udpAprobacion" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div id="divAprobacion" runat="server" visible="false">
+                            <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                                <tr>
+                                    <td class="TD140px">
+                                        <asp:Label ID="lblSolicitarAprobacion" runat="server" Text="Solicitar Aprobación:"></asp:Label>
+                                    </td>
+                                    <td colspan="3">
+                                        <asp:CheckBox ID="chkSolicitarAprobacion" runat="server" Checked="false" OnCheckedChanged="chkSolicitarAprobacion_CheckedChanged"
+                                            AutoPostBack="true" Visible="true" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="TD140px">
+                                        <asp:Label ID="lblAprobada" runat="server" Text="Aprobada:"></asp:Label>
+                                    </td>
+                                    <td class="TD50px">
+                                        <asp:CheckBox ID="chkAprobada" runat="server" Checked="false" Enabled="false" OnCheckedChanged="chkAprobada_CheckedChanged"
+                                            AutoPostBack="true" Visible="true" />
+                                    </td>
+                                    <td class="TD250px">
+                                        <asp:Label ID="lblFecha" runat="server" Text="Fecha Aprobadación: "></asp:Label>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:PostBackTrigger ControlID="chkAprobada" />
+                        <asp:PostBackTrigger ControlID="chkSolicitarAprobacion" />
+                    </Triggers>
+                </asp:UpdatePanel>
                 <asp:GridView ID="gvwPlanificacion" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                     AutoGenerateColumns="false" AllowPaging="true" Width="80%" DataKeyNames="idTemaPlanificacion"
                     OnRowCommand="gvwPlanificacion_RowCommand">
@@ -161,13 +169,14 @@
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2" style="text-align: center; vertical-align: middle">
-                            <%--<asp:Button ID="btnContenidosPopUp" runat="server" Text="Asociar Contenidos" CssClass="button"
-                                OnClick="btnContenidosPopUp_Click" />--%>
+                            <%--<asp:Button ID="btnContenidosPopUp" runat="server" Text="Asociar Contenidos"
+CssClass="button" OnClick="btnContenidosPopUp_Click" />--%>
                         </td>
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblCConceptuales" runat="server" Text="Contenidos Conceptuales"></asp:Label><br />
+                            <asp:Label ID="lblCConceptuales" runat="server" Text="Contenidos
+Conceptuales"></asp:Label><br />
                             <asp:TextBox ID="txtCConceptuales" runat="server" TextMode="MultiLine" Columns="75"
                                 Rows="10" CssClass="txtMultilinea99" />
                         </td>
@@ -202,7 +211,8 @@
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblInstrumentosEvaluación" runat="server" Text="Instrumentos de Evaluación"></asp:Label><br />
+                            <asp:Label ID="lblInstrumentosEvaluación" runat="server" Text="Instrumentos
+de Evaluación"></asp:Label><br />
                             <asp:TextBox ID="txtInstrumentosEvaluacion" runat="server" TextMode="MultiLine" Columns="75"
                                 Rows="10" CssClass="txtMultilinea99" />
                         </td>
@@ -226,7 +236,8 @@
                     <tr>
                         <td>
                             <h2>
-                                <asp:Label ID="lblTitulo" Text="Asociar Contenidos" runat="server" /></h2>
+                                <asp:Label ID="lblTitulo" Text="Asociar
+Contenidos" runat="server" /></h2>
                             <br />
                         </td>
                         <td align="right">
@@ -251,7 +262,8 @@
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:CheckBox ID="chkSelection" Text='<%# Eval("idTemaContenido")%>' runat="server"
-                                                CssClass="HiddenText" Width="30px" ClientIDMode="Static" Enabled='<%# planificacionEditar.fechaAprobada.HasValue == true ? false : true%>' />
+                                                CssClass="HiddenText" Width="30px" ClientIDMode="Static" Enabled='<%#
+planificacionEditar.fechaAprobada.HasValue == true ? false : true%>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Tema">
@@ -265,7 +277,8 @@
                                         <HeaderStyle HorizontalAlign="center" Width="20%" />
                                         <ItemStyle HorizontalAlign="Center" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblObligatorio" runat="server" Text='<%# Boolean.Parse(Eval("Obligatorio").ToString()) ? "Sí" : "No"  %>'></asp:Label>
+                                            <asp:Label ID="lblObligatorio" runat="server" Text='<%# Boolean.Parse(Eval("Obligatorio").ToString())
+? "Sí" : "No" %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>

@@ -152,7 +152,45 @@ namespace EDUAR_UI
 		{
 			try
 			{
-
+				switch (AccionPagina)
+				{
+					case enumAcciones.Buscar:
+						break;
+					case enumAcciones.Nuevo:
+						break;
+					case enumAcciones.Modificar:
+						break;
+					case enumAcciones.Eliminar:
+						EliminarContenido();
+						break;
+					case enumAcciones.Seleccionar:
+						break;
+					case enumAcciones.Limpiar:
+						break;
+					case enumAcciones.Aceptar:
+						break;
+					case enumAcciones.Salir:
+						break;
+					case enumAcciones.Redirect:
+						break;
+					case enumAcciones.Guardar:
+						break;
+					case enumAcciones.Ingresar:
+						break;
+					case enumAcciones.Desbloquear:
+						break;
+					case enumAcciones.Error:
+						break;
+					case enumAcciones.Enviar:
+						break;
+					case enumAcciones.AprobarPlanificacion:
+						break;
+					case enumAcciones.SolicitarAprobacion:
+						break;
+					default:
+						break;
+				}
+				AccionPagina = enumAcciones.Limpiar;
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -251,7 +289,7 @@ namespace EDUAR_UI
 					case "Eliminar":
 						AccionPagina = enumAcciones.Eliminar;
 						idTemaContenido = Convert.ToInt32(e.CommandArgument.ToString());
-						EliminarContenido();
+						Master.MostrarMensaje("Eliminar Tema", "¿Desea <b>eliminar</b> el tema seleccionado?", enumTipoVentanaInformacion.Confirmación);
 						break;
 					//case "Temas":
 					//    AccionPagina = enumAcciones.Redirect;

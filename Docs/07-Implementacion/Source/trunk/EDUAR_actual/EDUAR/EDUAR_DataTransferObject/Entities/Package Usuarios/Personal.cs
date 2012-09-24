@@ -11,29 +11,30 @@ using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
-    public class Personal : Persona
-    {
-        public int idPersonal { get; set; }
-        public int idPersonalTransaccional { get; set; }
-        public DateTime fechaAlta { get; set; }
-        public DateTime fechaBaja { get; set; }
-        public int legajo { get; set; }
-        public CargoPersonal cargo { get; set; }
+	[Serializable]
+	public class Personal : Persona
+	{
+		public int idPersonal { get; set; }
+		public int idPersonalTransaccional { get; set; }
+		public DateTime fechaAlta { get; set; }
+		public DateTime fechaBaja { get; set; }
+		public int legajo { get; set; }
+		public CargoPersonal cargo { get; set; }
 
-        public Personal()
-        {
+		public Personal()
+			: base()
+		{
 
-        }
+		}
 
-        ~Personal()
-        {
+		~Personal()
+		{
 
-        }
+		}
 
-        public void Dispose()
-        {
+		public void Dispose()
+		{
 
-        }
-    }//end Personal
+		}
+	}//end Personal
 }
