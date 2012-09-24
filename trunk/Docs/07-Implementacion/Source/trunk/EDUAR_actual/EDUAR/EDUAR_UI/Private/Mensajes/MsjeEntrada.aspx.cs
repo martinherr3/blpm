@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_Entities;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
-using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Constantes;
-using System.Drawing;
-using System.Text;
-using System.IO;
-using System.Web;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {

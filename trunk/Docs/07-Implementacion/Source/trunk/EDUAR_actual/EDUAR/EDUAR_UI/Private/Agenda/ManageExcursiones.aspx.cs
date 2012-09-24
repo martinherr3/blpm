@@ -4,10 +4,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_Entities;
+using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
-using EDUAR_UI.Shared;
 
 namespace EDUAR_UI
 {

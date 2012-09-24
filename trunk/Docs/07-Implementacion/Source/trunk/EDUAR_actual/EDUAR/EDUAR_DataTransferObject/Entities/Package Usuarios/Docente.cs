@@ -15,8 +15,9 @@ namespace EDUAR_Entities
 			
 		}
 
-		public virtual void Dispose()
+		public override void Dispose()
 		{
+
 		}
     }
 }

@@ -378,7 +378,7 @@ namespace EDUAR_UI
 		}
 		#endregion
 
-		#region --[Propiedades]--
+		#region --[Paginación]--
 		private void doPaging()
 		{
 			DataTable dt = new DataTable();

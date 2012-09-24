@@ -208,16 +208,22 @@ namespace EDUAR_UI
             }
         }
 
-        /// <summary>
-        /// Ventanas the aceptar.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void VentanaAceptar(object sender, EventArgs e)
-        {
-            //divFiltros.Visible = true;
-            //divReporte.Visible = false;
-        }
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		void VentanaAceptar(object sender, EventArgs e)
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 
         /// <summary>
         /// Handles the Click event of the btnBuscar control.

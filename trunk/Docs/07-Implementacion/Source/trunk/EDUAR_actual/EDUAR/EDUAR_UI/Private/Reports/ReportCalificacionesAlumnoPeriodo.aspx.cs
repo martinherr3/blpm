@@ -184,11 +184,16 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void VentanaAceptar(object sender, EventArgs e)
+		void VentanaAceptar(object sender, EventArgs e)
 		{
-			AccionPagina = enumAcciones.Limpiar;
-			//divFiltros.Visible = true;
-			//divReporte.Visible = false;
+			try
+			{
+				AccionPagina = enumAcciones.Limpiar;
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
 		}
 
 		/// <summary>

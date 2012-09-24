@@ -77,12 +77,30 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				Master.BotonAvisoAceptar += (VentanaAceptar);
 				RegisterUser.ContinueDestinationPageUrl = Request.QueryString["ReturnUrl"];
 			}
 			catch (Exception ex)
 			{
 				AvisoMostrar = true;
 				AvisoExcepcion = ex;
+			}
+		}
+
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		void VentanaAceptar(object sender, EventArgs e)
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
 			}
 		}
 

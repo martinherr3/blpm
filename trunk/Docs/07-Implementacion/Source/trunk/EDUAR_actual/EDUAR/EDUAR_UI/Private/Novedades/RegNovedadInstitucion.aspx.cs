@@ -444,6 +444,10 @@ namespace EDUAR_UI
 			chkActivoEdit.Checked = evento.activo;
 		}
 
+		/// <summary>
+		/// Validars the pagina.
+		/// </summary>
+		/// <returns></returns>
 		private string ValidarPagina()
 		{
 			calFechaEdit.ValidarRangoDesde(false);

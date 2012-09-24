@@ -100,6 +100,7 @@ namespace EDUAR_UI
 
                 InformeIndicador1.SalirClick += (this.btnInformeIndicadorSalir_Click);
 
+				Master.BotonAvisoAceptar += (VentanaAceptar);
                 if (!IsPostBack)
                 {
                     UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
@@ -111,6 +112,23 @@ namespace EDUAR_UI
                 AvisoExcepcion = ex;
             }
         }
+
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		void VentanaAceptar(object sender, EventArgs e)
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 
         /// <summary>
         /// Handles the SelectedIndexChanged event of the ddlCurso control.
@@ -138,6 +156,11 @@ namespace EDUAR_UI
             }
         }
 
+		/// <summary>
+		/// Handles the Click event of the btnInformeIndicador control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void btnInformeIndicador_Click(object sender, EventArgs e)
         {
             try
@@ -191,6 +214,11 @@ namespace EDUAR_UI
             }
         }
 
+		/// <summary>
+		/// Handles the Click event of the btnInformeIndicadorSalir control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void btnInformeIndicadorSalir_Click(object sender, EventArgs e)
         {
             try
