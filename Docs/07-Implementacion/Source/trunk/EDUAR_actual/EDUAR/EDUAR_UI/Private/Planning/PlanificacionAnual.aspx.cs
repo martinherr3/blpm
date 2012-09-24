@@ -201,7 +201,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//Master.BotonAvisoAceptar += (VentanaAceptar);
+				Master.BotonAvisoAceptar += (VentanaAceptar);
 
 				if (!Page.IsPostBack)
 				{
@@ -215,6 +215,57 @@ namespace EDUAR_UI
 				AvisoMostrar = true;
 				AvisoExcepcion = ex;
 			}
+		}
+
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void VentanaAceptar(object sender, EventArgs e)
+		{
+			try
+			{
+				switch (AccionPagina)
+				{
+					case enumAcciones.Buscar:
+						break;
+					case enumAcciones.Nuevo:
+						break;
+					case enumAcciones.Modificar:
+						break;
+					case enumAcciones.Eliminar:
+						EliminarPlanificacion();
+						ObtenerPlanificacion(idAsignaturaCurso);
+						idTemaPlanificacion = 0;
+						break;
+					case enumAcciones.Seleccionar:
+						break;
+					case enumAcciones.Limpiar:
+						break;
+					case enumAcciones.Aceptar:
+						break;
+					case enumAcciones.Salir:
+						break;
+					case enumAcciones.Redirect:
+						break;
+					case enumAcciones.Guardar:
+						break;
+					case enumAcciones.Ingresar:
+						break;
+					case enumAcciones.Desbloquear:
+						break;
+					case enumAcciones.Error:
+						break;
+					case enumAcciones.Enviar:
+						break;
+					default:
+						break;
+				}
+				AccionPagina = enumAcciones.Limpiar;
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
 		}
 
 		/// <summary>
@@ -428,10 +479,12 @@ namespace EDUAR_UI
 						udpDivControles.Update();
 						break;
 					case "Eliminar":
+						AccionPagina = enumAcciones.Eliminar;
 						idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
-						EliminarPlanificacion();
-						ObtenerPlanificacion(idAsignaturaCurso);
-						idTemaPlanificacion = 0;
+						Master.MostrarMensaje("Eliminar Planificación", "¿Desea <b>eliminar</b> la planificación seleccionada?", enumTipoVentanaInformacion.Confirmación);
+						//EliminarPlanificacion();
+						//ObtenerPlanificacion(idAsignaturaCurso);
+						//idTemaPlanificacion = 0;
 						break;
 					case "Consultar":
 						idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
@@ -520,18 +573,18 @@ namespace EDUAR_UI
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnContenidosPopUp_Click(object sender, EventArgs e)
 		{
-		    try
-		    {
-		        CargarContenidos();
-		        listaSeleccion = listaSeleccionGuardar;
-		        ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
-		        btnGuardarPopUp.Visible = !planificacionEditar.fechaAprobada.HasValue;
-		        mpeContenido.Show();
-		    }
-		    catch (Exception ex)
-		    {
-		        Master.ManageExceptions(ex);
-		    }
+			try
+			{
+				CargarContenidos();
+				listaSeleccion = listaSeleccionGuardar;
+				ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
+				btnGuardarPopUp.Visible = !planificacionEditar.fechaAprobada.HasValue;
+				mpeContenido.Show();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
 		}
 
 		/// <summary>

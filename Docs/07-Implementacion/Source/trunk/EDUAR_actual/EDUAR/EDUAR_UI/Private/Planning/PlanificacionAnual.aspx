@@ -18,8 +18,8 @@
                 <td align="right" rowspan="2">
                     <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                        <asp:ImageButton ID="btnContenidosPopUp" OnClick="btnContenidosPopUp_Click" runat="server"
-                            ToolTip="Asociar Contenidos" ImageUrl="~/Images/botonContenidos.png" Visible="false" />
+                            <asp:ImageButton ID="btnContenidosPopUp" OnClick="btnContenidosPopUp_Click" runat="server"
+                                ToolTip="Asociar Contenidos" ImageUrl="~/Images/botonContenidos.png" Visible="false" />
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
                                 Visible="false" OnClick="btnNuevo_Click" />
                             <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
@@ -113,19 +113,18 @@
                                     Visible='<%# CheckAprobada(Eval("fechaAprobada"), false) %>' />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
                                     AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaPlanificacion") %>'
-                                    OnClientClick="javascript:return jConfirm('¿Desea eliminar la planificación seleccionada?','Confirmación')"
                                     Visible='<%# CheckAprobada(Eval("fechaAprobada"), true) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Fecha Inicio">
-                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
+                            <HeaderStyle HorizontalAlign="Center" Width="45%" />
                             <ItemStyle HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblFechaInicioGrilla" runat="server" Text='<%# Bind("fechaInicioEstimada","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Fecha Fin">
-                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
+                            <HeaderStyle HorizontalAlign="Center" Width="45%" />
                             <ItemStyle HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblFechaFinGrilla" runat="server" Text='<%# Bind("fechaFinEstimada","{0:d}") %>'></asp:Label>
@@ -170,42 +169,42 @@
                         <td class="TD250px" colspan="2">
                             <asp:Label ID="lblCConceptuales" runat="server" Text="Contenidos Conceptuales"></asp:Label><br />
                             <asp:TextBox ID="txtCConceptuales" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" />
+                                Rows="10" CssClass="txtMultilinea99" />
                         </td>
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2">
                             <asp:Label ID="lblCProcedimentales" runat="server" Text="Contenidos Procedimentales"></asp:Label><br />
                             <asp:TextBox ID="txtCProcedimentales" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" />
+                                Rows="10" CssClass="txtMultilinea99" />
                         </td>
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2">
                             <asp:Label ID="lblCActitudinales" runat="server" Text="Contenidos Actitudinales"></asp:Label><br />
                             <asp:TextBox ID="txtCActitudinales" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" />
+                                Rows="10" CssClass="txtMultilinea99" />
                         </td>
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2">
                             <asp:Label ID="lblEstrategias" runat="server" Text="Estrategias"></asp:Label><br />
                             <asp:TextBox ID="txtEstrategias" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" />
+                                Rows="10" CssClass="txtMultilinea99" />
                         </td>
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2">
                             <asp:Label ID="lblCriteriosEvaluacion" runat="server" Text="Criterios de Evaluación"></asp:Label><br />
                             <asp:TextBox ID="txtCriteriosEvaluacion" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" />
+                                Rows="10" CssClass="txtMultilinea99" />
                         </td>
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2">
                             <asp:Label ID="lblInstrumentosEvaluación" runat="server" Text="Instrumentos de Evaluación"></asp:Label><br />
                             <asp:TextBox ID="txtInstrumentosEvaluacion" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" />
+                                Rows="10" CssClass="txtMultilinea99" />
                         </td>
                     </tr>
                 </table>

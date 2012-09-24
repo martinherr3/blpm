@@ -58,7 +58,7 @@
                                     var descripcion = document.getElementById('<%= txtDescripcion.ClientID %>').value;
 
                                     if (descripcion.toString().trim() == '')
-                                        jAlert('Por favor, ingrese una descripción válida.','Aviso');
+                                        jAlert('Por favor, ingrese una descripción válida.', 'Aviso');
                                     else
                                         __doPostBack('btnGuardar', 'Click');
                                 }
@@ -119,8 +119,8 @@
                                 <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idContenido") %>'
                                     ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
-                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idContenido") %>'
-                                    OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> el contenido seleccionado?','Confirmación')" />
+                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idContenido") %>' />
+                                    <!-- OnClientClick=javascript:return jConfirm('¿Desea <b>eliminar</b> el contenido seleccionado?','Confirmación')-->
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Descripción">
