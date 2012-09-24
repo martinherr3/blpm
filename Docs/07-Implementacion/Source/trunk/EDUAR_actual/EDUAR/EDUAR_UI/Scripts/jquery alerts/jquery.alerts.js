@@ -72,7 +72,7 @@
 			
 			$("BODY").append(
 			  '<div id="popup_container">' +
-			    '<h1 id="popup_title"></h1>' +
+			    '<div id="popup_title"></div>' +
 			    '<div id="popup_content">' +
 			      '<div id="popup_message"></div>' +
 				'</div>' +
@@ -105,7 +105,7 @@
 			
 			switch( type ) {
 				case 'alert':
-					$("#popup_message").after('<div id="popup_panel"><input type="button" value="' + $.alerts.okButton + '" id="popup_ok" /></div>');
+					$("#popup_message").after('<div id="popup_panel"><input type="image" value="' + $.alerts.okButton + '" id="popup_ok" src="../../Images/botonOk.png" title="Aceptar" /></div>');
 					$("#popup_ok").click( function() {
 						$.alerts._hide();
 						callback(true);

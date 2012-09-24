@@ -27,8 +27,10 @@
                     </tr>
                     <tr>
                         <td id="TDEtiquetas3" runat="server" align="right" colspan="2">
-                            <asp:Button ID="btnAceptar" Text="Aceptar" runat="server" TabIndex="1" />
-                            <asp:Button ID="btnCancelar" Text="Cancelar" runat="server" TabIndex="2" Visible="false" />
+                            <asp:ImageButton ID="btnAceptar" ImageUrl="~/Images/botonOk.png" TabIndex="1" runat="server"
+                                ToolTip="Aceptar" AlternateText="Aceptar" />
+                            <asp:ImageButton ID="btnCancelar" ImageUrl="~/Images/botonCancel.png" TabIndex="2"
+                                runat="server" ToolTip="Cancelar" Visible="false" AlternateText="Cancelar" />
                         </td>
                     </tr>
                 </table>

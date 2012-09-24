@@ -118,7 +118,7 @@ namespace EDUAR_UI.UserControls {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAceptar;
+        protected global::System.Web.UI.WebControls.ImageButton btnAceptar;
         
         /// <summary>
         /// Control btnCancelar.
@@ -127,6 +127,6 @@ namespace EDUAR_UI.UserControls {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelar;
+        protected global::System.Web.UI.WebControls.ImageButton btnCancelar;
     }
 }
