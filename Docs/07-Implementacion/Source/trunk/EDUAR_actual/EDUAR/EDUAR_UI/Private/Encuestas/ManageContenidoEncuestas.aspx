@@ -4,19 +4,18 @@
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-<asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
+    <asp:UpdatePanel ID="udpFiltros" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
                     <td>
-                        <h2>Contenido <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
-                        <br/>
+                        <h2>
+                            Contenido
+                            <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
+                        <br />
                     </td>
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
@@ -35,7 +34,8 @@
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td>
-                                <h3>Buscar Encuestas</h3>
+                                <h3>
+                                    Buscar Encuestas</h3>
                             </td>
                         </tr>
                         <tr>
@@ -50,7 +50,7 @@
                                 <asp:Label ID="lblAmbito" runat="server" Text="Ambito:"></asp:Label>
                             </td>
                             <td valign="top" class="TD50px">
-                                <asp:DropDownList ID="ddlAmbito" runat="server"/>
+                                <asp:DropDownList ID="ddlAmbito" runat="server" />
                             </td>
                             <td valign="top" class="TD110px">
                                 <asp:Label ID="lblActivo" runat="server" Text="Activos:"></asp:Label>
@@ -76,28 +76,25 @@
                 AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idEncuesta"
                 OnRowCommand="gvwEncuestas_RowCommand">
                 <Columns>
- 
-                   <asp:TemplateField HeaderText="Acciones">
+                    <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
+                            <asp:ImageButton ID="btnPreguntas" runat="server" CommandName="Preguntas" CommandArgument='<%# Bind("idEncuesta") %>'
+                                ToolTip="Ver Preguntas" ImageUrl="~/Images/Grillas/action_new.png" />
                             <asp:ImageButton ID="editarEncuesta" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ToolTip="Editar Encuesta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
-                            <asp:ImageButton ID="btnPreguntas" runat="server" CommandName="Preguntas" CommandArgument='<%# Bind("idEncuesta") %>'
-                                    ToolTip="Ver Preguntas" ImageUrl="~/Images/Grillas/action_new.png" />
                             <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La encuesta sólo es editable para su propietario"
-                                ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
+                                Enabled="false" ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Ambito">
                         <HeaderStyle HorizontalAlign="left" Width="15%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblAmbito" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "ambito.nombre").ToString())%>'></asp:Label>
                         </ItemTemplate>
-                    </asp:TemplateField>                
- 
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Nombre">
                         <HeaderStyle HorizontalAlign="left" Width="25%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -105,7 +102,6 @@
                             <asp:Label ID="lblNombre" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "nombreEncuesta").ToString())%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Objetivo">
                         <HeaderStyle HorizontalAlign="left" Width="25%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -114,7 +110,6 @@
                                 ToolTip='<%# Bind("objetivo") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Activo">
                         <HeaderStyle HorizontalAlign="Center" Width="5%" />
                         <ItemStyle HorizontalAlign="Center" />
@@ -124,7 +119,6 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-            
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
@@ -161,7 +155,7 @@
                                 <asp:Label runat="server" ID="lblAmbitoEdit" Text="Ambito:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
-                               <asp:DropDownList ID="ddlAmbitoEdit" runat="server"/>
+                                <asp:DropDownList ID="ddlAmbitoEdit" runat="server" />
                             </td>
                         </tr>
                         <tr>
@@ -177,7 +171,8 @@
                                 <asp:Label runat="server" ID="lblObjetivoEdit" Text="Objetivo:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtObjetivoEdit" Width="500px" TextMode="MultiLine" Rows="5"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtObjetivoEdit" Width="500px" TextMode="MultiLine"
+                                    Rows="5"></asp:TextBox>
                             </td>
                         </tr>
                     </table>
@@ -194,5 +189,4 @@
             <asp:AsyncPostBackTrigger ControlID="gvwEncuestas" EventName="RowCommand" />
         </Triggers>
     </asp:UpdatePanel>
-
 </asp:Content>
