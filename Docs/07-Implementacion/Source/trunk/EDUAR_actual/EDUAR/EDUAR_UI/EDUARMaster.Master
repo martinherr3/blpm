@@ -17,7 +17,7 @@
     <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js"></script>
-	<script type="text/javascript" src="/EDUAR_UI/Scripts/jquery alerts/jquery.alerts.js"></script>
+	<script type="text/javascript" src="/EDUAR_UI/Scripts/jquery_alerts/jquery.alerts.js"></script>
 	<script type="text/javascript" src="/EDUAR_UI/Scripts/JQuery.js" ></script>
     <script type="text/javascript">
         //        function timerEvent() {
@@ -71,7 +71,7 @@
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery-1.6.2.min.js" />
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js" />
             <asp:ScriptReference Path="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js" />
-			<asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery alerts/jquery.alerts.js" />
+			<asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery_alerts/jquery.alerts.js" />
         </Scripts>
     </asp:ScriptManager>
     <div class="page">

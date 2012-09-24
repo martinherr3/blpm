@@ -99,9 +99,9 @@ namespace EDUAR_UI
 					case enumAcciones.Error:
 						//Response.Redirect("MsjeRedactar.aspx", false);
 						break;
-                    case enumAcciones.Enviar:
-                        PrepararEnvioMensaje();
-                        break;
+					case enumAcciones.Enviar:
+						PrepararEnvioMensaje();
+						break;
 					default:
 						break;
 				}
@@ -113,7 +113,7 @@ namespace EDUAR_UI
 		}
 
 
-        /// <summary>
+		/// <summary>
 		/// Handles the Click event of the btnEnviar control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -133,16 +133,16 @@ namespace EDUAR_UI
 				}
 				if (destino)
 				{
-                    if (txtAsunto.Value != "")
-                    {
-                        PrepararEnvioMensaje();
-                    }
-                    else
-                    {
-                        AccionPagina = enumAcciones.Enviar;
-                        Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeSinAsunto, enumTipoVentanaInformacion.Confirmación);
-                    }
-				}      
+					if (txtAsunto.Value != "")
+					{
+						PrepararEnvioMensaje();
+					}
+					else
+					{
+						AccionPagina = enumAcciones.Enviar;
+						Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeSinAsunto, enumTipoVentanaInformacion.Confirmación);
+					}
+				}
 				else
 				{
 					AccionPagina = enumAcciones.Error;
@@ -201,7 +201,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-                BLDocente objDocente = null;
+				BLDocente objDocente = null;
 				ddlDestino.Items.Clear();
 				AlumnoCurso objCurso = null;
 				List<Persona> lista = null;
@@ -225,8 +225,8 @@ namespace EDUAR_UI
 							persona.apellido = item.apellido;
 							lista.Add(persona);
 						}
-                        ddlDestino.Items.Add(new ListItem("Alumnos de " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));												
-						CargarDestinos(lista);                        
+						ddlDestino.Items.Add(new ListItem("Alumnos de " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));
+						CargarDestinos(lista);
 						break;
 					case "2":
 						objCurso = new AlumnoCurso();
@@ -243,14 +243,14 @@ namespace EDUAR_UI
 							persona.apellido = item.apellido;
 							lista.Add(persona);
 						}
-                        ddlDestino.Items.Add(new ListItem("Tutores " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));												
+						ddlDestino.Items.Add(new ListItem("Tutores " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));
 						CargarDestinos(lista);
-                        break;
-                    case "3":
-                        objDocente = new BLDocente();
-                        List<Docente> listaDocentes = objDocente.GetDocentes();
-                        lista = new List<Persona>();
-                        foreach (Docente item in listaDocentes)
+						break;
+					case "3":
+						objDocente = new BLDocente();
+						List<Docente> listaDocentes = objDocente.GetDocentes();
+						lista = new List<Persona>();
+						foreach (Docente item in listaDocentes)
 						{
 							persona = new Persona();
 							persona.idPersona = item.idPersona;
@@ -258,9 +258,9 @@ namespace EDUAR_UI
 							persona.apellido = item.apellido;
 							lista.Add(persona);
 						}
-                        ddlDestino.Items.Add(new ListItem("Docentes " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));						                        
+						ddlDestino.Items.Add(new ListItem("Docentes " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));
 						CargarDestinos(lista);
-                        break;
+						break;
 					default:
 						break;
 				}
@@ -289,6 +289,24 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the CheckedChanged1 event of the chkFiltrado control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void chkFiltrado_CheckedChanged1(object sender, EventArgs e)
+		{
+			try
+			{
+				if (!chkFiltrado.Checked)
+					CargarLista();
+				divDocente.Visible = chkFiltrado.Checked;
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -345,10 +363,11 @@ namespace EDUAR_UI
 				HttpContext.Current.User.IsInRole(enumRoles.Preceptor.ToString())
 				)
 			{
-                chkFiltrado.Visible = true;
-                CargarComboTodosCursos();
-                rdlDestinatarios.Enabled = false;
-                ddlDestino.Disabled = true;
+				chkFiltrado.Visible = true;
+				lblFiltrado.Visible = true;
+				CargarComboTodosCursos();
+				rdlDestinatarios.Enabled = false;
+				ddlDestino.Disabled = false;
 
 				lista = objpersona.GetPersonas(new Persona() { activo = true });
 			}
@@ -382,16 +401,16 @@ namespace EDUAR_UI
 			}
 		}
 
-        private void CargarComboTodosCursos()
-        {
-            List<Curso> listaTodosCursos = new List<Curso>();
-            BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-            Asignatura objFiltro = new Asignatura();
-            objFiltro.curso.cicloLectivo = cicloLectivoActual;
-            listaTodosCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
+		private void CargarComboTodosCursos()
+		{
+			List<Curso> listaTodosCursos = new List<Curso>();
+			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+			Asignatura objFiltro = new Asignatura();
+			objFiltro.curso.cicloLectivo = cicloLectivoActual;
+			listaTodosCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
 
-            UIUtilidades.BindCombo<Curso>(ddlCurso, listaTodosCursos, "idCurso", "Nombre", true);
-        }
+			UIUtilidades.BindCombo<Curso>(ddlCurso, listaTodosCursos, "idCurso", "Nombre", true);
+		}
 		/// <summary>
 		/// Cargars the combo cursos.
 		/// </summary>
@@ -400,70 +419,70 @@ namespace EDUAR_UI
 			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
 		}
 
-        private void PrepararEnvioMensaje()
-        {
-            BLDocente objDocente = null;		
-            int idCursoCicloLectivo = 0;
-            AlumnoCurso objCurso;
-            //Docente: a personas o cursos
-            if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
-            {
-                switch (rdlDestinatarios.SelectedValue)
-                {
-                    case "1":
-                        if (ddlDestino.Items.FindByValue(ddlCurso.SelectedValue).Selected)
-                        {
-                            objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
-                            idCursoCicloLectivo = Convert.ToInt32(ddlDestino.Value);
-                            BLAlumno objBLAlumno = new BLAlumno();
-                            List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
-                            ddlDestino.Items.Clear();
-                            foreach (Alumno item in listaAlumnos)
-                            {
-                                ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
-                                ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
-                            }
-                        }
-                        break;
-                    case "2":
-                        if (ddlDestino.Items.FindByValue(ddlCurso.SelectedValue).Selected)
-                        {
-                            objCurso = new AlumnoCurso();
-                            objCurso.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
-                            BLTutor objBLTutor = new BLTutor();
-                            List<Tutor> listaTutores = objBLTutor.GetTutoresPorCurso(objCurso);
-                            ddlDestino.Items.Clear();
-                            foreach (Tutor item in listaTutores)
-                            {
-                                ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
-                                ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
-                            }
-                        }
-                        break;
-                    case "3":
-                        if (ddlDestino.Items.FindByValue(ddlCurso.SelectedValue).Selected)
-                        {
-                            objDocente = new BLDocente();
-                            List<Docente> listaDocentes = objDocente.GetDocentes();
-                            foreach (Docente item in listaDocentes)
-                            {
-                                ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
-                                ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
-                            }
-                            break;
-                        }
-                        break;
-                    default:
-                        break;
-                }
+		private void PrepararEnvioMensaje()
+		{
+			BLDocente objDocente = null;
+			int idCursoCicloLectivo = 0;
+			AlumnoCurso objCurso;
+			//Docente: a personas o cursos
+			if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+			{
+				switch (rdlDestinatarios.SelectedValue)
+				{
+					case "1":
+						if (ddlDestino.Items.FindByValue(ddlCurso.SelectedValue).Selected)
+						{
+							objCurso = new AlumnoCurso(Convert.ToInt32(ddlCurso.SelectedValue));
+							idCursoCicloLectivo = Convert.ToInt32(ddlDestino.Value);
+							BLAlumno objBLAlumno = new BLAlumno();
+							List<Alumno> listaAlumnos = objBLAlumno.GetAlumnos(objCurso);
+							ddlDestino.Items.Clear();
+							foreach (Alumno item in listaAlumnos)
+							{
+								ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
+								ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
+							}
+						}
+						break;
+					case "2":
+						if (ddlDestino.Items.FindByValue(ddlCurso.SelectedValue).Selected)
+						{
+							objCurso = new AlumnoCurso();
+							objCurso.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
+							BLTutor objBLTutor = new BLTutor();
+							List<Tutor> listaTutores = objBLTutor.GetTutoresPorCurso(objCurso);
+							ddlDestino.Items.Clear();
+							foreach (Tutor item in listaTutores)
+							{
+								ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
+								ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
+							}
+						}
+						break;
+					case "3":
+						if (ddlDestino.Items.FindByValue(ddlCurso.SelectedValue).Selected)
+						{
+							objDocente = new BLDocente();
+							List<Docente> listaDocentes = objDocente.GetDocentes();
+							foreach (Docente item in listaDocentes)
+							{
+								ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));
+								ddlDestino.Items.FindByValue(item.idPersona.ToString()).Selected = true;
+							}
+							break;
+						}
+						break;
+					default:
+						break;
+				}
 
-            }
-            if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
-            {
+			}
+			if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+			{
 
-            }
-            EnviarMensaje(idCursoCicloLectivo);
-        }
+			}
+			EnviarMensaje(idCursoCicloLectivo);
+		}
 
 		/// <summary>
 		/// Enviars the mensaje.
@@ -502,12 +521,6 @@ namespace EDUAR_UI
 		}
 		#endregion
 
-        protected void chkFiltrado_CheckedChanged1(object sender, EventArgs e)
-        {
-            divDocente.Visible = chkFiltrado.Checked;
-        }
-
-        
 
 
 	}

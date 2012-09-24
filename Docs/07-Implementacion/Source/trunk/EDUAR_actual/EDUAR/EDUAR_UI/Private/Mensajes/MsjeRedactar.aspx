@@ -40,20 +40,24 @@
                             ImageUrl="~/Images/botonVolver.png" />
                     </td>
                 </tr>
+            </table>
+            <table class="tablaInterna" width="100%">
                 <tr>
-                    <td class="TD20">
-                        <asp:CheckBox ID="chkFiltrado" runat="server" OnCheckedChanged="chkFiltrado_CheckedChanged1"
-                            AutoPostBack="true" Text="Filtrado por Curso" Visible="False" />
+                    <td class="TD110px">
+                        <asp:Label ID="lblFiltrado" Text="Filtrado por Curso" runat="server" Visible="false" />
                     </td>
-                    <td class="TD80">
-                        &nbsp;
+                    <td class="TD50px">
+                        <asp:CheckBox ID="chkFiltrado" runat="server" OnCheckedChanged="chkFiltrado_CheckedChanged1"
+                            AutoPostBack="true" Text="" Visible="False" />
+                    </td>
+                    <td>
                     </td>
                 </tr>
             </table>
             <div id="divDocente" runat="server" visible="false">
-                <table class="tablaInterna" width="100%">
+                <table class="tablaInternaSinBorde" width="100%">
                     <tr>
-                        <td class="TD20">
+                        <td class="TD110px">
                             Curso:
                         </td>
                         <td class="TD80">
@@ -64,7 +68,7 @@
                     </tr>
                     <tr>
                         <td valign="top">
-                            Tipo de Destinatario:
+                            Tipo de <br />Destinatario:
                         </td>
                         <td rowspan="3">
                             <asp:RadioButtonList ID="rdlDestinatarios" runat="server" OnSelectedIndexChanged="rdlDestinatarios_OnSelectedIndexChanged"
