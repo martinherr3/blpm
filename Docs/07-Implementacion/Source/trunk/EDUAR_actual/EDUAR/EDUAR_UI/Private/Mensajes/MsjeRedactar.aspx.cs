@@ -298,8 +298,8 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				if (!chkFiltrado.Checked)
-					CargarLista();
+				//if (!chkFiltrado.Checked)
+				//    CargarLista();
 				divDocente.Visible = chkFiltrado.Checked;
 			}
 			catch (Exception ex)
@@ -367,7 +367,7 @@ namespace EDUAR_UI
 				lblFiltrado.Visible = true;
 				CargarComboTodosCursos();
 				rdlDestinatarios.Enabled = false;
-				ddlDestino.Disabled = false;
+				ddlDestino.Disabled = true;
 
 				lista = objpersona.GetPersonas(new Persona() { activo = true });
 			}
