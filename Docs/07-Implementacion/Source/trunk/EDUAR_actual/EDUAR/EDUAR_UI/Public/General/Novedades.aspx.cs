@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using EDUAR_UI.Shared;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_Entities;
+using EDUAR_UI.Shared;
 
 namespace EDUAR_UI
 {
@@ -42,7 +39,7 @@ namespace EDUAR_UI
         {
             try
             {
-                //Master.BotonAvisoAceptar += (VentanaAceptar);
+                Master.BotonAvisoAceptar += (VentanaAceptar);
 
                 if (!Page.IsPostBack)
                 {
@@ -58,10 +55,28 @@ namespace EDUAR_UI
             }
         }
 
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		void VentanaAceptar(object sender, EventArgs e)
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
         #endregion
 
         #region --[Métodos Privados]--
-
+		/// <summary>
+		/// Cargars the novedades.
+		/// </summary>
         private void CargarNovedades()
         {
             BLEventoInstitucional objBLEventoInstitucional = new BLEventoInstitucional();

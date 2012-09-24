@@ -161,6 +161,17 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+		/// <summary>
+		/// Handles the Click event of the CancelPushButton control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void CancelPushButton_Click(object sender, EventArgs e)
+		{
+			Response.Redirect("~/Private/Account/Welcome.aspx", false);
+
+		}
 		#endregion
 
 		#region --[Métodos Privados]
@@ -177,10 +188,5 @@ namespace EDUAR_UI
 		}
 		#endregion
 
-        protected void CancelPushButton_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Private/Account/Welcome.aspx", false);
-            
-        }
 	}
 }

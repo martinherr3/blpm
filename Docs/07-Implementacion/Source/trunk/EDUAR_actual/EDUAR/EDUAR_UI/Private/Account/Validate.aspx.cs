@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Web.UI;
 using EDUAR_BusinessLogic.Common;
-using EDUAR_BusinessLogic.Security;
 using EDUAR_Entities;
 using EDUAR_Entities.Security;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
-using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Constantes;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -94,11 +93,11 @@ namespace EDUAR_UI
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         void VentanaAceptar(object sender, EventArgs e)
         {
             try

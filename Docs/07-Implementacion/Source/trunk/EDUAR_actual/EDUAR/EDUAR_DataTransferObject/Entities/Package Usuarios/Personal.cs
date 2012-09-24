@@ -32,9 +32,8 @@ namespace EDUAR_Entities
 
 		}
 
-		public void Dispose()
+		public virtual void Dispose()
 		{
-
 		}
 	}//end Personal
 }

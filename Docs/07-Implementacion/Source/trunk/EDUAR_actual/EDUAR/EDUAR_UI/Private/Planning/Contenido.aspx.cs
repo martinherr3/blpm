@@ -248,6 +248,11 @@ namespace EDUAR_UI
 			{ Master.ManageExceptions(ex); }
 		}
 
+		/// <summary>
+		/// Handles the Click event of the btnNuevo control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnNuevo_Click(object sender, EventArgs e)
 		{
 			try
@@ -341,20 +346,21 @@ namespace EDUAR_UI
 			}
 		}
 
-		private void CargarContenido(int idAsignaturaCicloLectivo)
-		{
-			EDUAR_Entities.Contenido objContenido = new EDUAR_Entities.Contenido();
-			objContenido.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCicloLectivo;
-			BLContenido objBL = new BLContenido();
-			listaContenido = objBL.GetByAsignaturaCicloLectivo(objContenido);
-			CargarGrilla();
-		}
-
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwContenido control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
 		protected void gvwContenido_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 
 		}
 
+		/// <summary>
+		/// Handles the RowCommand event of the gvwContenido control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
 		protected void gvwContenido_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
 			try
@@ -459,6 +465,19 @@ namespace EDUAR_UI
 			ojbBLContenido.Delete();
 
 			CargarContenido(idAsignaturaCurso);
+		}
+
+		/// <summary>
+		/// Cargars the contenido.
+		/// </summary>
+		/// <param name="idAsignaturaCicloLectivo">The id asignatura ciclo lectivo.</param>
+		private void CargarContenido(int idAsignaturaCicloLectivo)
+		{
+			EDUAR_Entities.Contenido objContenido = new EDUAR_Entities.Contenido();
+			objContenido.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCicloLectivo;
+			BLContenido objBL = new BLContenido();
+			listaContenido = objBL.GetByAsignaturaCicloLectivo(objContenido);
+			CargarGrilla();
 		}
 		#endregion
 	}

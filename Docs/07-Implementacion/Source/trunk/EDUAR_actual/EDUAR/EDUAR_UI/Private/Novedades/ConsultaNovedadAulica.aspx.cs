@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using EDUAR_BusinessLogic.Common;
+using EDUAR_Entities;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
-using EDUAR_Entities;
 using EDUAR_Utility.Enumeraciones;
-using EDUAR_BusinessLogic.Common;
 
 namespace EDUAR_UI
 {
@@ -115,6 +113,7 @@ namespace EDUAR_UI
 			try
 			{
 				novControl.GuardarClick += (Guardar);
+				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
 					UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
@@ -127,6 +126,28 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		void VentanaAceptar(object sender, EventArgs e)
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Guardars the specified sender.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void Guardar(object sender, EventArgs e)
 		{
 			try
@@ -167,6 +188,11 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the SelectedIndexChanged event of the ddlCurso control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			try
@@ -202,6 +228,11 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwNovedades control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
 		protected void gvwNovedades_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 			try
@@ -214,17 +245,12 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
-		#endregion
 
-		#region --[Métodos Privados]--
-		private void CargarGrilla()
-		{
-			gvwNovedades.DataSource = listaNovedades;
-			gvwNovedades.DataBind();
-			udpGrilla.Update();
-		}
-		#endregion
-
+		/// <summary>
+		/// Handles the RowCommand event of the gvwNovedades control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
 		protected void gvwNovedades_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
 			try
@@ -249,7 +275,22 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+		#endregion
 
+		#region --[Métodos Privados]--
+		/// <summary>
+		/// Cargars the grilla.
+		/// </summary>
+		private void CargarGrilla()
+		{
+			gvwNovedades.DataSource = listaNovedades;
+			gvwNovedades.DataBind();
+			udpGrilla.Update();
+		}
+
+		/// <summary>
+		/// Cargars the conversacion.
+		/// </summary>
 		private void CargarConversacion()
 		{
 			BLNovedad objBLNovedad = new BLNovedad(novedadConversacion);
@@ -265,6 +306,10 @@ namespace EDUAR_UI
 			udpConversacion.Update();
 		}
 
+		/// <summary>
+		/// Sets the div visible.
+		/// </summary>
+		/// <param name="visible">if set to <c>true</c> [visible].</param>
 		private void SetDivVisible(bool visible)
 		{
 			divGrilla.Visible = visible;
@@ -272,5 +317,6 @@ namespace EDUAR_UI
 			divConversacion.Visible = !visible;
 			udpConversacion.Update();
 		}
+		#endregion
 	}
 }

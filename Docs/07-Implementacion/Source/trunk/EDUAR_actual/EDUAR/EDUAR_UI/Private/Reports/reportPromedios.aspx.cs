@@ -594,10 +594,16 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void VentanaAceptar(object sender, EventArgs e)
+		void VentanaAceptar(object sender, EventArgs e)
 		{
-			//divFiltros.Visible = true;
-			//divReporte.Visible = false;
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
 		}
 
 		/// <summary>

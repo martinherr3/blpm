@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using EDUAR_UI.Shared;
-using EDUAR_Entities;
 using EDUAR_BusinessLogic.Common;
+using EDUAR_Entities;
+using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
 
@@ -211,6 +209,11 @@ namespace EDUAR_UI
 			{ Master.ManageExceptions(ex); }
 		}
 
+		/// <summary>
+		/// Handles the Click event of the btnNuevo control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnNuevo_Click(object sender, EventArgs e)
 		{
 			try
@@ -265,11 +268,21 @@ namespace EDUAR_UI
 			{ Master.ManageExceptions(ex); }
 		}
 
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwContenido control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
 		protected void gvwContenido_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 
 		}
 
+		/// <summary>
+		/// Handles the RowCommand event of the gvwContenido control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
 		protected void gvwContenido_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
 			try

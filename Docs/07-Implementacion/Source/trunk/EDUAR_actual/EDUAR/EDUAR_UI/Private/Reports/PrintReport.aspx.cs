@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using EDUAR_UI.Shared;
 using System.Data;
-using EDUAR_UI.Utilidades;
-using System.Text;
-using System.IO;
-using EDUAR_Entities;
+using System.Web.UI;
 using EDUAR_BusinessLogic.Common;
+using EDUAR_Entities;
+using EDUAR_UI.Shared;
+using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -99,7 +93,10 @@ namespace EDUAR_UI
 				}
 			}
 			catch (Exception ex)
-			{ throw ex; }
+			{
+				AvisoMostrar = true;
+				AvisoExcepcion = ex;
+			}
 		}
 		#endregion
 

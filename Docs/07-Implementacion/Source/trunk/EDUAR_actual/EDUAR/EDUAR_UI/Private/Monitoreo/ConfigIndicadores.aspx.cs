@@ -4,8 +4,6 @@ using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Reports;
 using EDUAR_Entities.Reports;
 using EDUAR_UI.Shared;
-using EDUAR_Utility.Enumeraciones;
-using EDUAR_Utility.Constantes;
 
 namespace EDUAR_UI
 {
@@ -72,6 +70,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!IsPostBack)
 				{
 					CargarIndicadores();
@@ -96,6 +95,23 @@ namespace EDUAR_UI
 				divConfig.Visible = false;
 				idIndicador = 0;
 				mpeContenido.Hide();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		void VentanaAceptar(object sender, EventArgs e)
+		{
+			try
+			{
+
 			}
 			catch (Exception ex)
 			{

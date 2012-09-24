@@ -8,7 +8,6 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
-using System.Collections;
 
 namespace EDUAR_UI
 {

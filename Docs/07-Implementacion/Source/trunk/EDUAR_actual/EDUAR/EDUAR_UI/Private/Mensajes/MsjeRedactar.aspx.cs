@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_Entities;
 using EDUAR_UI.Shared;
-using EDUAR_Utility.Enumeraciones;
-using EDUAR_Utility.Constantes;
-using System.Web;
 using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Constantes;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -39,6 +39,7 @@ namespace EDUAR_UI
 			set { ViewState["listaCursos"] = value; }
 		}
 		#endregion
+
 		#region --[Eventos]--
 		/// <summary>
 		/// Método que se ejecuta al dibujar los controles de la página.
@@ -111,7 +112,6 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
-
 
 		/// <summary>
 		/// Handles the Click event of the btnEnviar control.
@@ -520,8 +520,5 @@ namespace EDUAR_UI
 				Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeMultiDestino, enumTipoVentanaInformacion.Satisfactorio);
 		}
 		#endregion
-
-
-
 	}
 }
