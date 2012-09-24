@@ -247,6 +247,10 @@ namespace EDUAR_UI
                         GuardarPregunta(ObtenerValoresDePantalla());
                         Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
                         break;
+					case enumAcciones.Eliminar:
+						AccionPagina = enumAcciones.Limpiar;
+						EliminarPregunta();
+						break;
                     default:
                         break;
                 }
@@ -383,7 +387,7 @@ namespace EDUAR_UI
                     case "Eliminar":
                         AccionPagina = enumAcciones.Eliminar;
                         propPregunta.idPregunta = Convert.ToInt32(e.CommandArgument.ToString());
-                        EliminarPregunta();
+						Master.MostrarMensaje("Eliminar Pregunta", "¿Desea <b>eliminar</b> la pregunta seleccionada?", enumTipoVentanaInformacion.Confirmación);
                         break;
                 }
             }

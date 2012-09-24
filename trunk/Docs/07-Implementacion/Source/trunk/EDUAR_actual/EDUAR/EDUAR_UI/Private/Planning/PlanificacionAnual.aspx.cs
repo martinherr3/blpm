@@ -202,13 +202,13 @@ namespace EDUAR_UI
 			try
 			{
 				Master.BotonAvisoAceptar += (VentanaAceptar);
-
+				Master.BotonAvisoCancelar += (VentanaCancelar);
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
 				}
-				chkAprobada.Attributes.Add("onclick", "if(!jConfirm('¿Desea aprobar la presente planificación?','Confirmación')) {return false};");
-				chkSolicitarAprobacion.Attributes.Add("onclick", "if(!jConfirm('¿Desea solicitar la aprobación de la presente planificación?''Confirmación')) {return false};");
+				//chkAprobada.Attributes.Add("onclick", "if(!jConfirm('¿Desea aprobar la presente planificación?','Confirmación')) {return false};");
+				//chkSolicitarAprobacion.Attributes.Add("onclick", "if(!jConfirm('¿Desea solicitar la aprobación de la presente planificación?''Confirmación')) {return false};");
 			}
 			catch (Exception ex)
 			{
@@ -259,10 +259,45 @@ namespace EDUAR_UI
 						break;
 					case enumAcciones.Enviar:
 						break;
+					case enumAcciones.AprobarPlanificacion:
+						AprobarPlanificacion();
+						udpAprobacion.Update();
+						break;
+					case enumAcciones.SolicitarAprobacion:
+						SolicitarAprobacion();
+						udpAprobacion.Update();
+						break;
 					default:
 						break;
 				}
 				AccionPagina = enumAcciones.Limpiar;
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
+		}
+
+		/// <summary>
+		/// Ventanas the cancelar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void VentanaCancelar(object sender, EventArgs e)
+		{
+			try
+			{
+				switch (AccionPagina)
+				{
+					case enumAcciones.AprobarPlanificacion:
+						chkAprobada.Checked = false;
+						break;
+					case enumAcciones.SolicitarAprobacion:
+						chkSolicitarAprobacion.Checked = false;
+						break;
+					default:
+						break;
+				}
+				AccionPagina = enumAcciones.Limpiar;
+				udpAprobacion.Update();
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -520,18 +555,8 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				PlanificacionAnual objAprobar = new PlanificacionAnual();
-				objAprobar.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
-				objAprobar.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
-				objAprobar.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
-				objAprobar.solicitarAprobacion = planificacionEditar.solicitarAprobacion;
-				objAprobar.fechaAprobada = DateTime.Today;
-				planificacionEditar.fechaAprobada = DateTime.Today;
-				BLPlanificacionAnual objBLAprobar = new BLPlanificacionAnual(objAprobar);
-				objBLAprobar.Save();
-
-				ObtenerPlanificacion(idAsignaturaCurso);
-				btnNuevo.Visible = false;
+				AccionPagina = enumAcciones.AprobarPlanificacion;
+				Master.MostrarMensaje("Aprobar Planificación", "¿Desea aprobar la presente planificación?", enumTipoVentanaInformacion.Confirmación);
 			}
 			catch (Exception ex)
 			{
@@ -548,17 +573,11 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				PlanificacionAnual objAprobar = new PlanificacionAnual();
-				objAprobar.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
-				objAprobar.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
-				objAprobar.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
-				objAprobar.fechaAprobada = planificacionEditar.fechaAprobada;
-				objAprobar.solicitarAprobacion = true;
-				planificacionEditar.solicitarAprobacion = true;
-				BLPlanificacionAnual objBLAprobar = new BLPlanificacionAnual(objAprobar);
-				objBLAprobar.Save();
-
-				ObtenerPlanificacion(idAsignaturaCurso);
+				if (chkSolicitarAprobacion.Checked)
+				{
+					AccionPagina = enumAcciones.SolicitarAprobacion;
+					Master.MostrarMensaje("Solicitar Aprobación", "¿Desea solicitar la aprobación de la presente planificación?", enumTipoVentanaInformacion.Confirmación);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -703,7 +722,10 @@ namespace EDUAR_UI
 			CursoCicloLectivo curso = new CursoCicloLectivo();
 			Docente docente = null;
 			if (User.IsInRole(enumRoles.Docente.ToString()))
+			{
+				docente = new Docente();
 				docente.username = User.Identity.Name;
+			}
 			curso.idCursoCicloLectivo = idCursoCicloLectivo;
 			listaAsignaturas = objBLAsignatura.GetAsignaturasCurso(new Asignatura() { cursoCicloLectivo = curso, docente = docente });
 			if (listaAsignaturas != null && listaAsignaturas.Count > 0)
@@ -866,15 +888,21 @@ namespace EDUAR_UI
 						chkSolicitarAprobacion.Enabled = false;
 						chkSolicitarAprobacion.Checked = planificacionEditar.solicitarAprobacion;
 					}
-					else if ((User.IsInRole(enumRoles.Docente.ToString()) || User.IsInRole(enumRoles.Administrador.ToString()))
-						&& !planificacionEditar.solicitarAprobacion
-						&& !planificacionEditar.fechaAprobada.HasValue
-						)
-						chkSolicitarAprobacion.Enabled = true;
+					else
+					{
+						if ((User.IsInRole(enumRoles.Docente.ToString()) || User.IsInRole(enumRoles.Administrador.ToString()))
+							&& !planificacionEditar.solicitarAprobacion
+							&& !planificacionEditar.fechaAprobada.HasValue
+							)
+							chkSolicitarAprobacion.Enabled = true;
+						else
+						{ chkSolicitarAprobacion.Checked = true; }
+					}
 				}
 			}
 			else
 				divAprobacion.Visible = false;
+			udpAprobacion.Update();
 		}
 
 		/// <summary>
@@ -975,6 +1003,43 @@ namespace EDUAR_UI
 			objPlanificacionBL.Save();
 			idTemaPlanificacion = 0;
 			ObtenerPlanificacion(objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo);
+		}
+
+		/// <summary>
+		/// Aprobars the planificacion.
+		/// </summary>
+		private void AprobarPlanificacion()
+		{
+			PlanificacionAnual objAprobar = new PlanificacionAnual();
+			objAprobar.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
+			objAprobar.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
+			objAprobar.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
+			objAprobar.solicitarAprobacion = planificacionEditar.solicitarAprobacion;
+			objAprobar.fechaAprobada = DateTime.Today;
+			planificacionEditar.fechaAprobada = DateTime.Today;
+			BLPlanificacionAnual objBLAprobar = new BLPlanificacionAnual(objAprobar);
+			objBLAprobar.Save();
+
+			ObtenerPlanificacion(idAsignaturaCurso);
+			btnNuevo.Visible = false;
+		}
+
+		/// <summary>
+		/// Solicitars the aprobacion.
+		/// </summary>
+		private void SolicitarAprobacion()
+		{
+			PlanificacionAnual objAprobar = new PlanificacionAnual();
+			objAprobar.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
+			objAprobar.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
+			objAprobar.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
+			objAprobar.fechaAprobada = planificacionEditar.fechaAprobada;
+			objAprobar.solicitarAprobacion = true;
+			planificacionEditar.solicitarAprobacion = true;
+			BLPlanificacionAnual objBLAprobar = new BLPlanificacionAnual(objAprobar);
+			objBLAprobar.Save();
+
+			ObtenerPlanificacion(idAsignaturaCurso);
 		}
 		#endregion
 	}
