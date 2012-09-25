@@ -138,6 +138,7 @@
     <Content Include="Images\cuestionario.jpg" />
     <Content Include="Images\design.png" />
     <Content Include="Images\dialog-more.png" />
+    <Content Include="Images\draw-arrow-down.png" />
     <Content Include="Images\ExportarExcel.png" />
     <Content Include="Images\ExportarGrafico.png" />
     <Content Include="Images\ExportarPDF.png" />
