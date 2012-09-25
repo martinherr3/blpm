@@ -178,8 +178,8 @@
                 </tr>
             </table>
             <div class="clear hideSkiplink">
-                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
-                    IncludeStyleBlock="true" Orientation="Horizontal" OnPreRender="NavigationMenu_PreRender">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" RenderingMode="List"
+                    IncludeStyleBlock="true" Orientation="Horizontal" OnPreRender="NavigationMenu_PreRender" Width="100%" StaticPopOutImageUrl="~/Images/draw-arrow-down.png">
                 </asp:Menu>
                 <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" ShowStartingNode="false"
                     SiteMapProvider="WebXmlSiteMapProvider" />
