@@ -1411,3 +1411,32 @@ input[type="image"]:hover {
     -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     filter: alpha(opacity=100);
 }
+
+/* Estilo Componente RatingStar */
+
+ .ratingStar
+{
+    font-size: 0pt;
+    width: 13px;
+    height: 12px;
+    margin: 0px;
+    padding: 0px;
+    cursor: pointer;
+    display: block;
+    background-repeat: no-repeat;
+ }
+ 
+.filledRatingStar
+{
+  background-image: url(../../Images/starFilled.png);
+}
+
+.savedRatingStar
+{
+  background-image: url(../../Images/starFilled.png);
+}
+
+.emptyRatingStar
+{
+  background-image: url(../../Images/starEmpty.png);
+}
