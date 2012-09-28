@@ -210,7 +210,8 @@ namespace EDUAR_UI
                         lblPregunta.Width = 990;
 
                         panelRespuesta.Controls.Add(lblPregunta);
-                        
+                        panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
+
                         //RESPUESTA
 
                         if (pregunta.escala.nombre.Equals("Conceptual literal"))
@@ -220,8 +221,10 @@ namespace EDUAR_UI
                             txtRespuesta.Rows = 15;
                             txtRespuesta.Width = 950;
                             txtRespuesta.BorderStyle = BorderStyle.Groove;
+
                             panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
                             panelRespuesta.Controls.Add(txtRespuesta);
+                            panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
                         }
                         else
                         {
@@ -239,6 +242,8 @@ namespace EDUAR_UI
 
                             panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
                             panelRespuesta.Controls.Add(rating);
+                            panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
+                            
                         }
 
                         //Agrego un salto de línea, para mantener cierta distancia entre las preguntas
