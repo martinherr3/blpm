@@ -10,6 +10,7 @@ using EDUAR_UI.UserControls;
 using System.Text;
 using System.IO;
 using EDUAR_UI.Utilidades;
+using AjaxControlToolkit;
 
 namespace EDUAR_UI
 {
@@ -146,6 +147,18 @@ namespace EDUAR_UI
                 Master.ManageExceptions(ex);
             }
         }
+
+        protected void rating_Changed(object sender, RatingEventArgs e)
+        {
+            try
+            {
+                e.CallbackResult = e.Value;
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
         #endregion
 
         #region --[Métodos Privados]--
@@ -198,7 +211,7 @@ namespace EDUAR_UI
 
                         panelRespuesta.Controls.Add(lblPregunta);
                         
-                        ////RESPUESTA
+                        //RESPUESTA
 
                         if (pregunta.escala.nombre.Equals("Conceptual literal"))
                         {
@@ -212,17 +225,20 @@ namespace EDUAR_UI
                         }
                         else
                         {
-                            RadioButtonList respuesta = new RadioButtonList();
-                            
-                            respuesta.ID = pregunta.idPregunta.ToString();
+                            AjaxControlToolkit.Rating rating = new AjaxControlToolkit.Rating();
 
-                            if (pregunta.escala.nombre.Equals("Conceptual Calidad"))
-                                UIUtilidades.BindRespuestaCualitativa(respuesta);
-                            else
-                                UIUtilidades.BindRespuestaCuantitativa(respuesta);
+                            rating.ID = pregunta.idPregunta.ToString();
+                            rating.MaxRating = 5;
+                            
+                            rating.StarCssClass = "ratingStar";
+                            rating.WaitingStarCssClass = "savedRatingStar";
+                            rating.FilledStarCssClass = "filledRatingStar";
+                            rating.EmptyStarCssClass = "emptyRatingStar";
+
+                            rating.CurrentRating = Convert.ToInt32(rating.GetCallbackResult());
 
                             panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
-                            panelRespuesta.Controls.Add(respuesta);
+                            panelRespuesta.Controls.Add(rating);
                         }
 
                         //Agrego un salto de línea, para mantener cierta distancia entre las preguntas
@@ -238,4 +254,6 @@ namespace EDUAR_UI
 
     }
         #endregion
+
+
 }

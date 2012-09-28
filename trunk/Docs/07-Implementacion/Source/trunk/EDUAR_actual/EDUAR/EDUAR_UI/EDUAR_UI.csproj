@@ -176,6 +176,8 @@
     <Content Include="Images\PopUp\botonVolver.png" />
     <Content Include="Images\PopUp\ExportarPDF.png" />
     <Content Include="Images\prueba.gif" />
+    <Content Include="Images\starEmpty.png" />
+    <Content Include="Images\starFilled.png" />
     <Content Include="Images\user-properties.png" />
     <Content Include="Images\ventanaConfirmacion.png" />
     <Content Include="Images\view-sort-ascending.png" />
