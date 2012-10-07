@@ -20,7 +20,7 @@
             <td>
                 <asp:UpdatePanel ID="udpCursos" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
-                        <asp:DataList RepeatLayout="Table" RepeatColumns="2" RepeatDirection="Vertical" runat="server"
+                        <asp:DataList RepeatLayout="Table" RepeatColumns="6" RepeatDirection="Horizontal" runat="server"
                             ID="dtlCursos" Width="100%" ShowHeader="true" ItemStyle-HorizontalAlign="Center">
                             <ItemTemplate>
                                 <cur:Curso ID="curso" runat="server" titulo='<%# Bind("nombre") %>' idCurso='<%# Bind("idCurso") %>'>
