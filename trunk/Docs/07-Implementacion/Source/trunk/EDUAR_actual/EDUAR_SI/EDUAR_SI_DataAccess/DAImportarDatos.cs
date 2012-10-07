@@ -360,8 +360,8 @@ namespace EDUAR_SI_DataAccess
 					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;
 
-					command.Parameters.AddWithValue("idPersonal", personal.IdPersonal).Direction = ParameterDirection.Output;
-					command.Parameters.AddWithValue("idPersonalTransaccional", personal.IdPersonalTransaccional);
+					command.Parameters.AddWithValue("idPersonal", personal.idPersonal).Direction = ParameterDirection.Output;
+					command.Parameters.AddWithValue("idPersonalTransaccional", personal.idPersonalTransaccional);
 					command.Parameters.AddWithValue("idPersona", personal.idPersona);
 					command.Parameters.AddWithValue("legajo", personal.legajo);
 					command.Parameters.AddWithValue("fechaAlta", DBNull.Value);
@@ -653,7 +653,7 @@ namespace EDUAR_SI_DataAccess
 						//command.Parameters.AddWithValue("idAsignaturaCicloLectivo", 0);
 						command.Parameters.AddWithValue("idAsignaturaCicloLectivoTransaccional", item.idAsignaturaCicloLectivoTransaccional);
 						command.Parameters.AddWithValue("idAsignatura", item.asignatura.idAsignaturaTransaccional);
-						command.Parameters.AddWithValue("idDocente", item.docente.IdPersonalTransaccional);
+						command.Parameters.AddWithValue("idDocente", item.docente.idPersonalTransaccional);
 						command.Parameters.AddWithValue("idCursoCicloLectivo", item.cursoCicloLectivo.idCursoCicloLectivoTransaccional);
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
