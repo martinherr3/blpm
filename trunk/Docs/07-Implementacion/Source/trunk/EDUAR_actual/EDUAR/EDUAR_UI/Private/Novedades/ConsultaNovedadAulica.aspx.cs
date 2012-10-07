@@ -163,12 +163,11 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				novedadConversacion = new Novedad();
+				CargarConversacion(idCursoCicloLectivo);
 				novControl.visible = true;
 				novControl.novedadPadre = null;
 				btnVolver.Visible = false;
-				SetDivVisible(true);
-				CargarGrilla();
-				novedadConversacion = new Novedad();
 				udpBotonera.Update();
 			}
 			catch (Exception ex)
@@ -189,7 +188,7 @@ namespace EDUAR_UI
 				int idCursoSeleccion = 0;
 				int.TryParse(ddlCurso.SelectedValue, out idCursoSeleccion);
 				novControl.novedadPadre = null;
-
+				novControl.visible = true;
 				CargarConversacion(idCursoSeleccion);
 			}
 			catch (Exception ex)
@@ -229,7 +228,6 @@ namespace EDUAR_UI
 				{
 					case "verConversacion":
 						novedadConversacion = listaNovedades.Find(p => p.idNovedad == Convert.ToInt32(e.CommandArgument.ToString()));
-						
 						CargarConversacion();
 						break;
 				}
@@ -311,7 +309,8 @@ namespace EDUAR_UI
 				udpConversacion.Update();
 				udpGrilla.Update();
 			}
-			novControl.visible = idCursoSeleccion > 0;
+			if (novedadConversacion.estado.esFinal) novControl.visible = false;
+			else novControl.visible = idCursoSeleccion > 0;
 			udpBotonera.Update();
 		}
 		#endregion
