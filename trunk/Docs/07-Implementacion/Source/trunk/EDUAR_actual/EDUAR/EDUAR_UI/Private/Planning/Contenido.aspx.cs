@@ -222,6 +222,8 @@ namespace EDUAR_UI
 					case enumAcciones.Desbloquear:
 						break;
 					case enumAcciones.Error:
+						AccionPagina = enumAcciones.Limpiar;
+						mpeContenido.Show();
 						break;
 					case enumAcciones.Enviar:
 						break;
@@ -282,6 +284,11 @@ namespace EDUAR_UI
 					nuevoContenido.idContenido = idContenido;
 
 					GuardarContenido(nuevoContenido);
+				}
+				else
+				{
+					AccionPagina = enumAcciones.Error;
+					Master.MostrarMensaje("Datos Faltantes", "Por favor, ingrese una descripción válida.", enumTipoVentanaInformacion.Advertencia);
 				}
 			}
 			catch (Exception ex)

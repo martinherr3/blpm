@@ -130,6 +130,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNotificaciones;
         
         /// <summary>
+        /// Control udpConversacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpConversacion;
+        
+        /// <summary>
+        /// Control rptConversacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptConversacion;
+        
+        /// <summary>
         /// Control HiddenField1.
         /// </summary>
         /// <remarks>

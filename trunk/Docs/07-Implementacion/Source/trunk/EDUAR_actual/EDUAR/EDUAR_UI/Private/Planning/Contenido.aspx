@@ -32,7 +32,7 @@
                                         </td>
                                         <td align="right">
                                             <asp:ImageButton ID="btnGuardar" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
-                                                OnClick="btnGuardar_Click" CausesValidation="true" />
+                                                OnClick="btnGuardar_Click" />
                                             <asp:ImageButton ID="btnVolver" runat="server" ToolTip="Volver" ImageUrl="~/Images/PopUp/botonVolver.png" />
                                         </td>
                                     </tr>
@@ -49,19 +49,19 @@
                                 </table>
                             </asp:Panel>
                             <ajaxtoolkit:ModalPopupExtender ID="mpeContenido" runat="server" CancelControlID="btnVolver"
-                                OkControlID="btnGuardar" OnOkScript="DoPostBack()" OnCancelScript="Cancel()"
+                                OkControlID="btnGuardar" OnCancelScript="Cancel()"
                                 PopupControlID="pnlNuevoContenido" TargetControlID="btnNuevo" RepositionMode="RepositionOnWindowResizeAndScroll"
-                                BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlNuevoContenido">
+                                BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlNuevoContenido" >
                             </ajaxtoolkit:ModalPopupExtender>
                             <script type="text/javascript">
-                                function DoPostBack() {
-                                    var descripcion = document.getElementById('<%= txtDescripcion.ClientID %>').value;
+//                                function DoPostBack() {
+//                                    var descripcion = document.getElementById('<%= txtDescripcion.ClientID %>').value;
 
-                                    if (descripcion.toString().trim() == '')
-                                        jAlert('Por favor, ingrese una descripción válida.', 'Aviso');
-                                    else
-                                        __doPostBack('btnGuardar', 'Click');
-                                }
+//                                    if (descripcion.toString().trim() == '')
+//                                        jAlert('Por favor, ingrese una descripción válida.', 'Aviso');
+//                                    else
+//                                        __doPostBack('btnGuardar', 'Click');
+//                                }
 
                                 function Cancel() {
                                     document.getElementById('<%= txtDescripcion.ClientID %>').value = '';
@@ -120,7 +120,6 @@
                                     ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
                                     AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idContenido") %>' />
-                                    <!-- OnClientClick=javascript:return jConfirm('¿Desea <b>eliminar</b> el contenido seleccionado?','Confirmación')-->
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Descripción">

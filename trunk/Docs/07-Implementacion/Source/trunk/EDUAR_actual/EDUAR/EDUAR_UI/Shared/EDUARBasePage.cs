@@ -161,6 +161,43 @@ namespace EDUAR_UI.Shared
 				Session["TablaGrafico"] = value;
 			}
 		}
+
+		/// <summary>
+		/// Gets or sets the id novedad consulta.
+		/// </summary>
+		/// <value>
+		/// The id novedad consulta.
+		/// </value>
+		public int idNovedadConsulta
+		{
+			get
+			{
+				if (Session["idNovedadConsulta"] == null)
+					Session["idNovedadConsulta"] = 0;
+				return (int)Session["idNovedadConsulta"];
+			}
+			set
+			{
+				Session["idNovedadConsulta"] = value;
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the id id Curso Ciclo Lectivo.
+		/// </summary>
+		/// <value>
+		/// The id curso Ciclo Lectivo.
+		/// </value>
+		public int idCursoCicloLectivo
+		{
+			get
+			{
+				if (Session["idCursoCicloLectivo"] == null)
+					Session["idCursoCicloLectivo"] = 0;
+				return (int)Session["idCursoCicloLectivo"];
+			}
+			set { Session["idCursoCicloLectivo"] = value; }
+		}
         #endregion
 
         #region --[Eventos]--
