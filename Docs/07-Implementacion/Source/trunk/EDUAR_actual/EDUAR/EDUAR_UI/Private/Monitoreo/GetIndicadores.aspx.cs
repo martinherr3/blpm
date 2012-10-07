@@ -14,51 +14,6 @@ namespace EDUAR_UI
 	public partial class GetIndicadores : EDUARBasePage
 	{
 		#region --[Propiedades]--
-		/// <summary>
-		/// Gets or sets the lista cursos.
-		/// </summary>
-		/// <value>
-		/// The lista cursos.
-		/// </value>
-		public List<Curso> listaCursos
-		{
-			get
-			{
-				if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
-				{
-					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-
-					Asignatura objFiltro = new Asignatura();
-					objFiltro.curso.cicloLectivo = cicloLectivoActual;
-					if (User.IsInRole(enumRoles.Docente.ToString()))
-						//nombre del usuario logueado
-						objFiltro.docente.username = User.Identity.Name;
-					listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
-				}
-				return (List<Curso>)ViewState["listaCursos"];
-			}
-			set { ViewState["listaCursos"] = value; }
-		}
-
-		/// <summary>
-		/// Gets or sets the id curso ciclo lectivo.
-		/// </summary>
-		/// <value>
-		/// The id curso ciclo lectivo.
-		/// </value>
-		public int idCursoCicloLectivo
-		{
-			get
-			{
-				if (Session["idCursoCicloLectivo"] == null)
-					Session["idCursoCicloLectivo"] = 0;
-				return (int)Session["idCursoCicloLectivo"];
-			}
-			set
-			{
-				Session["idCursoCicloLectivo"] = value;
-			}
-		}
 		#endregion
 
 		#region --[Eventos]--
@@ -103,7 +58,7 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!IsPostBack)
 				{
-					UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
+					CargarCurso();
 				}
 			}
 			catch (Exception ex)
@@ -123,33 +78,6 @@ namespace EDUAR_UI
 			try
 			{
 
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
-		}
-
-		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ddlCurso control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			try
-			{
-				int idCursoCicloLectivo = 0;
-				int.TryParse(ddlCurso.SelectedValue, out idCursoCicloLectivo);
-				if (idCursoCicloLectivo > 0)
-				{
-					this.idCursoCicloLectivo = idCursoCicloLectivo;
-					CargarIndicadores();
-					CargarNovedades();
-				}
-				divIndicadores.Visible = idCursoCicloLectivo > 0;
-				divNovedades.Visible = idCursoCicloLectivo > 0;
-				udpIndicadores.Update();
 			}
 			catch (Exception ex)
 			{
@@ -226,6 +154,25 @@ namespace EDUAR_UI
 			{
 				InformeIndicador1.Hide();
 				mpeContenido.Hide();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnVolverAnterior control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnVolverAnterior_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				base.idCursoCicloLectivo = 0;
+				base.cursoActual = new CursoCicloLectivo();
+				Response.Redirect("~/Private/AccesoCursos.aspx", false);
 			}
 			catch (Exception ex)
 			{
@@ -315,14 +262,28 @@ namespace EDUAR_UI
 		{
 			BLNovedad objBLNovedad = new BLNovedad();
 			EDUAR_Entities.Novedad entidad = new EDUAR_Entities.Novedad();
-			entidad.curso.idCurso = idCursoCicloLectivo;
-			
+			entidad.curso.idCurso = base.idCursoCicloLectivo;
+
 			List<EDUAR_Entities.Novedad> listaNovedades = objBLNovedad.GetNovedadIndicadores(entidad);
 
 			lblNoHay.Visible = !(listaNovedades.Count > 0);
 			rptConversacion.DataSource = listaNovedades;
 			rptConversacion.DataBind();
 			udpConversacion.Update();
+		}
+
+		/// <summary>
+		/// Cargars the curso.
+		/// </summary>
+		private void CargarCurso()
+		{
+			CargarIndicadores();
+			CargarNovedades();
+
+			divIndicadores.Visible = base.idCursoCicloLectivo > 0;
+			divNovedades.Visible = base.idCursoCicloLectivo > 0;
+			lblTitulo.Text = "Indicadores De Desempeño - " + base.cursoActual.curso.nombre;
+			udpIndicadores.Update();
 		}
 		#endregion
 	}

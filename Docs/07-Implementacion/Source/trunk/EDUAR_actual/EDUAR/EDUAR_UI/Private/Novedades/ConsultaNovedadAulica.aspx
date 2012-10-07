@@ -10,7 +10,7 @@
         <tr>
             <td>
                 <h2>
-                    Novedades Aulicas</h2>
+                    <asp:Label ID="lblTitulo" Text="Novedades Aulicas" runat="server" /></h2>
                 <br />
             </td>
             <td align="right" rowspan="2">
@@ -19,6 +19,8 @@
                         <nov:Novedad ID="novControl" runat="server" visible="false" ToolTip="Responder" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                             ImageUrl="~/Images/botonVolver.png" Visible="false" />
+                        <asp:ImageButton ID="btnVolverAnterior" OnClick="btnVolverAnterior_Click" runat="server"
+                            ToolTip="Volver" ImageUrl="~/Images/botonVolver.png" Visible="true" />
                     </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="gvwNovedades" EventName="RowCommand" />

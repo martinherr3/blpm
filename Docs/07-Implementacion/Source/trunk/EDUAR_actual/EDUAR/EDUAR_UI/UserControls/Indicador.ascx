@@ -2,7 +2,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
-        <div id="divIndicador" runat="server" class="DivIndicador">
+        <div id="divIndicador" runat="server" class="DivIndicador" style="width: 204px;">
             <table border="0" cellpadding="2" cellspacing="0" width="204px">
                 <tr>
                     <td rowspan="2" valign="top" style="width: 106px; height: 203px;">

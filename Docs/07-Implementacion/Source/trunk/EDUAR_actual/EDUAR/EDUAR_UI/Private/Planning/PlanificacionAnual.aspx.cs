@@ -58,7 +58,7 @@ namespace EDUAR_UI
 					TemasContenido listaTemas = new TemasContenido();
 					BLTemaContenido objBLTemas = new BLTemaContenido();
 					AsignaturaCicloLectivo objAsignatura = new AsignaturaCicloLectivo();
-					objAsignatura.cursoCicloLectivo.curso.idCurso = idCurso;
+					objAsignatura.cursoCicloLectivo.curso.idCurso = base.idCursoCicloLectivo;
 					objAsignatura.idAsignaturaCicloLectivo = idAsignaturaCurso;
 					objAsignatura.cursoCicloLectivo.cicloLectivo = base.cicloLectivoActual;
 					ViewState["listaContenido"] = objBLTemas.GetTemasByCursoAsignatura(objAsignatura);
@@ -100,23 +100,6 @@ namespace EDUAR_UI
 				return (List<int>)HttpContext.Current.Session["listaSeleccionGuardar"];
 			}
 			set { HttpContext.Current.Session["listaSeleccionGuardar"] = value; }
-		}
-
-		/// <summary>
-		/// Gets or sets the id curso.
-		/// </summary>
-		/// <value>
-		/// The id curso.
-		/// </value>
-		public int idCurso
-		{
-			get
-			{
-				if (ViewState["idCurso"] == null)
-					ViewState["idCurso"] = 0;
-				return (int)ViewState["idCurso"];
-			}
-			set { ViewState["idCurso"] = value; }
 		}
 
 		/// <summary>
@@ -206,6 +189,7 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
+					CargarCurso();
 				}
 				//chkAprobada.Attributes.Add("onclick", "if(!jConfirm('¿Desea aprobar la presente planificación?','Confirmación')) {return false};");
 				//chkSolicitarAprobacion.Attributes.Add("onclick", "if(!jConfirm('¿Desea solicitar la aprobación de la presente planificación?''Confirmación')) {return false};");
@@ -318,9 +302,10 @@ namespace EDUAR_UI
 				divAprobacion.Visible = false;
 				btnGuardar.Visible = true;
 				ddlAsignatura.Enabled = false;
-				ddlCurso.Enabled = false;
+				//ddlCurso.Enabled = false;
 				btnPDF.Visible = false;
 				btnVolver.Visible = true;
+				btnVolverAnterior.Visible = false;
 				btnNuevo.Visible = false;
 				gvwPlanificacion.Visible = false;
 				divControles.Visible = true;
@@ -398,44 +383,62 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ddlCurso control.
+		/// Handles the Click event of the btnVolver control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
+		protected void btnVolverAnterior_Click(object sender, EventArgs e)
 		{
 			try
 			{
-				int idCursoCicloLectivo = 0;
-				int.TryParse(ddlCurso.SelectedValue, out idCursoCicloLectivo);
-				if (idCursoCicloLectivo > 0)
-				{
-					idCurso = idCursoCicloLectivo;
-					CargarComboAsignatura(idCursoCicloLectivo);
-				}
-				else
-				{
-					ddlAsignatura.Enabled = false;
-					ddlAsignatura.Items.Clear();
-					ddlAsignatura.Items.Add("[Seleccione Curso]");
-				}
-				divAprobacion.Visible = false;
-				gvwPlanificacion.DataSource = null;
-				gvwPlanificacion.DataBind();
-
-				ddlAsignatura.Enabled = idCursoCicloLectivo > 0;
-				btnGuardar.Visible = false;
-				divControles.Visible = false;
-				udpAsignatura.Update();
-				udpBotonera.Update();
-				udpDivControles.Update();
-				udpGrilla.Update();
+				base.idCursoCicloLectivo = 0;
+				base.cursoActual = new CursoCicloLectivo();
+				Response.Redirect("~/Private/AccesoCursos.aspx", false);
 			}
 			catch (Exception ex)
 			{
 				Master.ManageExceptions(ex);
 			}
 		}
+
+		///// <summary>
+		///// Handles the SelectedIndexChanged event of the ddlCurso control.
+		///// </summary>
+		///// <param name="sender">The source of the event.</param>
+		///// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		//protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
+		//{
+		//    try
+		//    {
+		//        int idCursoCicloLectivo = 0;
+		//        int.TryParse(ddlCurso.SelectedValue, out idCursoCicloLectivo);
+		//        if (idCursoCicloLectivo > 0)
+		//        {
+		//            CargarComboAsignatura(base.idCursoCicloLectivo);
+		//        }
+		//        else
+		//        {
+		//            ddlAsignatura.Enabled = false;
+		//            ddlAsignatura.Items.Clear();
+		//            ddlAsignatura.Items.Add("[Seleccione Curso]");
+		//        }
+		//        divAprobacion.Visible = false;
+		//        gvwPlanificacion.DataSource = null;
+		//        gvwPlanificacion.DataBind();
+
+		//        ddlAsignatura.Enabled = idCursoCicloLectivo > 0;
+		//        btnGuardar.Visible = false;
+		//        divControles.Visible = false;
+		//        udpAsignatura.Update();
+		//        udpBotonera.Update();
+		//        udpDivControles.Update();
+		//        udpGrilla.Update();
+		//    }
+		//    catch (Exception ex)
+		//    {
+		//        Master.ManageExceptions(ex);
+		//    }
+		//}
 
 		/// <summary>
 		/// Handles the SelectedIndexChanged event of the ddlAsignatura control.
@@ -502,12 +505,13 @@ namespace EDUAR_UI
 						btnContenidosPopUp.Visible = true;
 						divAprobacion.Visible = false;
 						divControles.Visible = true;
-						ddlCurso.Enabled = false;
+						//ddlCurso.Enabled = false;
 						ddlAsignatura.Enabled = false;
 						gvwPlanificacion.Visible = false;
 						btnGuardar.Visible = true;
 						btnNuevo.Visible = false;
 						btnVolver.Visible = true;
+						btnVolverAnterior.Visible = false;
 						btnPDF.Visible = false;
 						udpBotonera.Update();
 						udpGrilla.Update();
@@ -527,12 +531,13 @@ namespace EDUAR_UI
 						DesHabilitarCampos(false);
 						divAprobacion.Visible = false;
 						divControles.Visible = true;
-						ddlCurso.Enabled = false;
+						//ddlCurso.Enabled = false;
 						ddlAsignatura.Enabled = false;
 						gvwPlanificacion.Visible = false;
 						btnGuardar.Visible = false;
 						btnNuevo.Visible = false;
 						btnVolver.Visible = true;
+						btnVolverAnterior.Visible = false;
 						btnPDF.Visible = false;
 						udpBotonera.Update();
 						udpGrilla.Update();
@@ -686,11 +691,11 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPresentacion()
 		{
-			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
-			if (idCurso > 0)
+			//UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
+			if (base.idCursoCicloLectivo > 0)
 			{
-				ddlCurso.SelectedValue = idCurso.ToString();
-				CargarComboAsignatura(idCurso);
+				//ddlCurso.SelectedValue = base.idCursoCicloLectivo.ToString();
+				CargarComboAsignatura(base.idCursoCicloLectivo);
 				if (idAsignaturaCurso > 0)
 					ddlAsignatura.SelectedValue = idAsignaturaCurso.ToString();
 				ddlAsignatura.Enabled = true;
@@ -704,9 +709,10 @@ namespace EDUAR_UI
 			divFiltros.Visible = true;
 			divControles.Visible = false;
 			btnVolver.Visible = false;
+			btnVolverAnterior.Visible = true;
 			btnGuardar.Visible = false;
 			divFiltros.Visible = true;
-			ddlCurso.Enabled = true;
+			//ddlCurso.Enabled = true;
 			udpBotonera.Update();
 			udpDivControles.Update();
 			udpGrilla.Update();
@@ -1040,6 +1046,30 @@ namespace EDUAR_UI
 			objBLAprobar.Save();
 
 			ObtenerPlanificacion(idAsignaturaCurso);
+		}
+
+		/// <summary>
+		/// Cargars the curso.
+		/// </summary>
+		private void CargarCurso()
+		{
+			if (base.idCursoCicloLectivo > 0)
+			{
+				CargarComboAsignatura(base.idCursoCicloLectivo);
+				lblTituloPrincipal.Text = "Planificación de Contenidos - " + base.cursoActual.curso.nombre;
+			}
+
+			divAprobacion.Visible = false;
+			gvwPlanificacion.DataSource = null;
+			gvwPlanificacion.DataBind();
+
+			ddlAsignatura.Enabled = idCursoCicloLectivo > 0;
+			btnGuardar.Visible = false;
+			divControles.Visible = false;
+			udpAsignatura.Update();
+			udpBotonera.Update();
+			udpDivControles.Update();
+			udpGrilla.Update();
 		}
 		#endregion
 	}

@@ -19,25 +19,25 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista cursos.
 		/// </value>
-		public List<Curso> listaCursos
-		{
-			get
-			{
-				if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
-				{
-					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+		//public List<Curso> listaCursos
+		//{
+		//    get
+		//    {
+		//        if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
+		//        {
+		//            BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
 
-					Asignatura objFiltro = new Asignatura();
-					objFiltro.curso.cicloLectivo = cicloLectivoActual;
-					if (User.IsInRole(enumRoles.Docente.ToString()))
-						//nombre del usuario logueado
-						objFiltro.docente.username = User.Identity.Name;
-					listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
-				}
-				return (List<Curso>)ViewState["listaCursos"];
-			}
-			set { ViewState["listaCursos"] = value; }
-		}
+		//            Asignatura objFiltro = new Asignatura();
+		//            objFiltro.curso.cicloLectivo = cicloLectivoActual;
+		//            if (User.IsInRole(enumRoles.Docente.ToString()))
+		//                //nombre del usuario logueado
+		//                objFiltro.docente.username = User.Identity.Name;
+		//            listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
+		//        }
+		//        return (List<Curso>)ViewState["listaCursos"];
+		//    }
+		//    set { ViewState["listaCursos"] = value; }
+		//}
 
 		public List<Novedad> listaNovedades
 		{
@@ -98,7 +98,8 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
-					UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
+					//UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
+					CargarCurso();
 					if (base.idNovedadConsulta > 0)
 					{
 						ddlCurso.SelectedValue = base.idCursoCicloLectivo.ToString();
@@ -168,7 +169,27 @@ namespace EDUAR_UI
 				novControl.visible = true;
 				novControl.novedadPadre = null;
 				btnVolver.Visible = false;
+				btnVolverAnterior.Visible = true;
 				udpBotonera.Update();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnVolverAnterior control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnVolverAnterior_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				base.idCursoCicloLectivo = 0;
+				base.cursoActual = new CursoCicloLectivo();
+				Response.Redirect("~/Private/AccesoCursos.aspx", false);
 			}
 			catch (Exception ex)
 			{
@@ -187,9 +208,7 @@ namespace EDUAR_UI
 			{
 				int idCursoSeleccion = 0;
 				int.TryParse(ddlCurso.SelectedValue, out idCursoSeleccion);
-				novControl.novedadPadre = null;
-				novControl.visible = true;
-				CargarConversacion(idCursoSeleccion);
+				
 			}
 			catch (Exception ex)
 			{
@@ -257,6 +276,7 @@ namespace EDUAR_UI
 		private void CargarConversacion()
 		{
 			btnVolver.Visible = true;
+			btnVolverAnterior.Visible = false;
 			novControl.novedadPadre = novedadConversacion;
 			novControl.visible = !novedadConversacion.estado.esFinal;
 
@@ -312,6 +332,17 @@ namespace EDUAR_UI
 			if (novedadConversacion.estado.esFinal) novControl.visible = false;
 			else novControl.visible = idCursoSeleccion > 0;
 			udpBotonera.Update();
+		}
+
+		/// <summary>
+		/// Cargars the curso.
+		/// </summary>
+		private void CargarCurso()
+		{
+			novControl.novedadPadre = null;
+			novControl.visible = true;
+			CargarConversacion(base.idCursoCicloLectivo);
+			lblTitulo.Text = "Novedades Aulicas - " + base.cursoActual.curso.nombre; 
 		}
 		#endregion
 	}

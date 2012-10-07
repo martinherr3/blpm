@@ -13,22 +13,22 @@ namespace EDUAR_UI {
     public partial class GetIndicadores {
         
         /// <summary>
-        /// Control lblCurso.
+        /// Control lblTitulo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurso;
+        protected global::System.Web.UI.WebControls.Label lblTitulo;
         
         /// <summary>
-        /// Control ddlCurso.
+        /// Control btnVolverAnterior.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCurso;
+        protected global::System.Web.UI.WebControls.ImageButton btnVolverAnterior;
         
         /// <summary>
         /// Control udpIndicadores.

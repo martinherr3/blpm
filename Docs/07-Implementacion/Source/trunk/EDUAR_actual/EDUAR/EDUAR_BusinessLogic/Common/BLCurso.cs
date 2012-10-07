@@ -186,12 +186,16 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
-		//Check: no se utiliza en ningún lugar
-        public List<Curso> GetCursosCicloLectivo(Curso entidad)
+		/// <summary>
+		/// Gets the curso ciclo lectivo.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public CursoCicloLectivo GetCursoCicloLectivo(CursoCicloLectivo entidad)
         {
             try
             {
-                return DataAcces.GetCursosCicloLectivo(entidad);
+				return DataAcces.GetCursoCicloLectivo(entidad);
             }
             catch (CustomizedException ex)
             {
@@ -199,7 +203,7 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetCursosCicloLectivo", ClassName), ex,
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCursoCicloLectivo", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }

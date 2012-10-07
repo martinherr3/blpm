@@ -157,7 +157,7 @@ div.hideSkiplink
 div.menu
 {
     /*padding: 4px 0px 4px 8px;*/
-     width: 1020px;
+    width: 1020px;
 }
 
 div.menu ul
@@ -171,17 +171,14 @@ div.menu ul
 
 div.menu ul li a, div.menu ul li a:visited
 {
-    background-color: #4264B1;
-    /*border: 1px #009ACD solid;*/
+    background-color: #4264B1; /*border: 1px #009ACD solid;*/
     color: #FFFFFF;
     display: block;
     line-height: 1.35em;
     padding: 4px 20px;
     text-decoration: none;
     white-space: nowrap;
-    min-width: 160px;
-    /*max-width: 160px;
-    min-width: 160px;*/
+    min-width: 160px; /*max-width: 160px;     min-width: 160px;*/
     text-align: center;
     cursor: pointer;
     margin: 2px;
@@ -925,6 +922,13 @@ TD.EncabezadoConfirmación
     font-size: small;
 }
 
+.lblTitulo
+{
+    font-family: Verdana, Tahoma;
+    font-size: larger;
+    font-weight: bolder;
+}
+
 .DatosListaNormal
 {
     font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
@@ -1176,7 +1180,6 @@ TD.EncabezadoConfirmación
     padding: 0px;
     margin: 5px;
     border: solid 1px #341010;
-    width: 204px;
     background-color: #F0F0F0; /*bordes redondeados*/
     border-radius: 8px;
     -ms-border-radius: 8px;
@@ -1198,7 +1201,6 @@ TD.EncabezadoConfirmación
     padding: 0px;
     margin: 4px;
     border: solid 2px #341010;
-    width: 204px;
     background-color: #F0F0F0; /*bordes redondeados*/
     border-radius: 8px;
     -ms-border-radius: 8px;
@@ -1450,7 +1452,7 @@ input[type="image"]:hover
 
 /* Estilo Componente RatingStar */
 
- .ratingStar
+.ratingStar
 {
     font-size: 0pt;
     width: 13px;
@@ -1460,19 +1462,19 @@ input[type="image"]:hover
     cursor: pointer;
     display: block;
     background-repeat: no-repeat;
- }
- 
+}
+
 .filledRatingStar
 {
-  background-image: url(../../Images/starFilled.png);
+    background-image: url(../../Images/starFilled.png);
 }
 
 .savedRatingStar
 {
-  background-image: url(../../Images/starFilled.png);
+    background-image: url(../../Images/starFilled.png);
 }
 
 .emptyRatingStar
 {
-  background-image: url(../../Images/starEmpty.png);
+    background-image: url(../../Images/starEmpty.png);
 }

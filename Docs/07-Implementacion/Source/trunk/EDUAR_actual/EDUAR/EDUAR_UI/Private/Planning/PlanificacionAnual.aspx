@@ -12,7 +12,7 @@
             <tr>
                 <td>
                     <h2>
-                        Planificaci&oacute;n De Contenidos</h2>
+                        <asp:Label ID="lblTituloPrincipal" Text="Planificación de Actividades" runat="server" /></h2>
                     <br />
                 </td>
                 <td align="right" rowspan="2">
@@ -28,12 +28,12 @@
                                 ImageUrl="~/Images/botonGuardar.png" Visible="false" />
                             <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                                 ImageUrl="~/Images/botonVolver.png" Visible="false" />
+                            <asp:ImageButton ID="btnVolverAnterior" OnClick="btnVolverAnterior_Click" runat="server"
+                                ToolTip="Volver" ImageUrl="~/Images/botonVolver.png" Visible="true" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
                             <asp:PostBackTrigger ControlID="btnPDF" />
-                            <%--<asp:PostBackTrigger ControlID="btnGuardar" />--%>
-                            <%--<asp:PostBackTrigger ControlID="btnBuscar" />--%>
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
@@ -45,25 +45,25 @@
             <div id="divFiltros" runat="server">
                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                     <tr>
-                        <td class="TD110px">
+                        <%--<td class="TD110px">
                             <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                         </td>
                         <td class="TD140px">
                             <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
                             </asp:DropDownList>
-                        </td>
+                        </td>--%>
                         <td class="TD100px">
                             <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                         </td>
                         <td>
                             <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-                                    <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false" AutoPostBack="true"
+                                    <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="true" AutoPostBack="true"
                                         OnSelectedIndexChanged="ddlAsignatura_SelectedIndexChanged">
                                     </asp:DropDownList>
                                 </ContentTemplate>
                                 <Triggers>
-                                    <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+                                    <%--<asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />--%>
                                 </Triggers>
                             </asp:UpdatePanel>
                         </td>
