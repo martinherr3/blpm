@@ -115,6 +115,7 @@
     <Content Include="DLL\itextsharp.xtra.dll" />
     <Content Include="favicon.ico" />
     <Content Include="Images\404.png" />
+    <Content Include="Images\botonActividades.png" />
     <Content Include="Images\botonAvance.gif" />
     <Content Include="Images\botonCalcular.png" />
     <Content Include="Images\botonCancel.png" />
@@ -123,9 +124,12 @@
     <Content Include="Images\botonEvaluacion.png" />
     <Content Include="Images\botonExcursion.png" />
     <Content Include="Images\botonImprimir.png" />
+    <Content Include="Images\botonIndicadores.png" />
+    <Content Include="Images\botonNotificacion.png" />
     <Content Include="Images\botonNovedades.png" />
     <Content Include="Images\botonNuevo.png" />
     <Content Include="Images\botonOk.png" />
+    <Content Include="Images\botonPlanificacion.png" />
     <Content Include="Images\botonReunion.png" />
     <Content Include="Images\botonSiguiente.png" />
     <Content Include="Images\botonVolver.png" />
@@ -209,6 +213,7 @@
     <Content Include="Images\web\user-online.png" />
     <Content Include="Images\web\validate.png" />
     <Content Include="Images\web\vision.png" />
+    <Content Include="Private\AccesoCursos.aspx" />
     <Content Include="Private\Account\ChangeEmail.aspx" />
     <Content Include="Private\Account\ChangeQuestion.aspx" />
     <Content Include="Private\Account\ChangeRolAccess.aspx" />
@@ -329,6 +334,7 @@
     <Content Include="Scripts\jquery.maskedinput-1.3.js" />
     <Content Include="UserControls\Calendario.ascx" />
     <Content Include="UserControls\Criterio.ascx" />
+    <Content Include="UserControls\Cursos.ascx" />
     <Content Include="UserControls\Editor.ascx" />
     <Content Include="UserControls\Exportador.ascx" />
     <Content Include="UserControls\Grafico.ascx" />
@@ -356,6 +362,13 @@
     </Compile>
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\AccesoCursos.aspx.cs">
+      <DependentUpon>AccesoCursos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\AccesoCursos.aspx.designer.cs">
+      <DependentUpon>AccesoCursos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Account\ChangeEmail.aspx.cs">
       <DependentUpon>ChangeEmail.aspx</DependentUpon>
@@ -741,6 +754,13 @@
     </Compile>
     <Compile Include="UserControls\Criterio.ascx.designer.cs">
       <DependentUpon>Criterio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Cursos.ascx.cs">
+      <DependentUpon>Cursos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\Cursos.ascx.designer.cs">
+      <DependentUpon>Cursos.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Editor.ascx.cs">
       <DependentUpon>Editor.ascx</DependentUpon>

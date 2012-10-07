@@ -12,17 +12,12 @@
         <tr>
             <td class="TD50">
                 <h2>
-                    Seleccione un Curso para ver los Indicadores</h2>
+                    <asp:Label ID="lblTitulo" Text="Indicadores De Desempeño" runat="server" /></h2>
                 <br />
             </td>
-            <td class="TD50px">
-                <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
-            </td>
-            <td class="TD140px">
-                <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
-                </asp:DropDownList>
-            </td>
-            <td>
+            <td align="right" rowspan="2">
+                <asp:ImageButton ID="btnVolverAnterior" OnClick="btnVolverAnterior_Click" runat="server"
+                    ToolTip="Volver" ImageUrl="~/Images/botonVolver.png" Visible="true" />
             </td>
         </tr>
     </table>
@@ -83,8 +78,7 @@
                                         <div id="divNotificaciones" runat="server">
                                             <asp:UpdatePanel ID="udpConversacion" runat="server" UpdateMode="Conditional">
                                                 <ContentTemplate>
-                                                    <asp:Repeater ID="rptConversacion" runat="server" 
-                                                        onitemcommand="rptConversacion_ItemCommand">
+                                                    <asp:Repeater ID="rptConversacion" runat="server" OnItemCommand="rptConversacion_ItemCommand">
                                                         <ItemTemplate>
                                                             <div id="divIzquierda" runat="server" class="bubbleNotificacion" style="background: #B0C4DE;
                                                                 border-color: #B0C4DE; cursor: pointer">
@@ -96,15 +90,17 @@
                                                                         runat="server" Font-Bold="true" /><br />
                                                                 </div>
                                                                 <div style="text-align: left">
-                                                                    <asp:Label ID="lblConversacion" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "observaciones").ToString())%>' runat="server" />
+                                                                    <asp:Label ID="lblConversacion" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "observaciones").ToString())%>'
+                                                                        runat="server" />
                                                                 </div>
-                                                                <asp:LinkButton ID="lnkConversacion" Text="[Ver Conversacion]" CommandArgument='<%# Bind("idNovedad") %>' CommandName="VerConversacion" runat="server" />
+                                                                <asp:LinkButton ID="lnkConversacion" Text="[Ver Conversacion]" CommandArgument='<%# Bind("idNovedad") %>'
+                                                                    CommandName="VerConversacion" runat="server" />
                                                             </div>
                                                         </ItemTemplate>
                                                     </asp:Repeater>
                                                 </ContentTemplate>
                                                 <Triggers>
-                                                    <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+                                                    <%--<asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />--%>
                                                 </Triggers>
                                             </asp:UpdatePanel>
                                         </div>
@@ -117,7 +113,7 @@
             </table>
         </ContentTemplate>
         <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+            <%--<asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />--%>
         </Triggers>
     </asp:UpdatePanel>
     <asp:HiddenField ID="HiddenField1" runat="server" />
