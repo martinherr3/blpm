@@ -39,24 +39,6 @@ namespace EDUAR_UI
 			set { ViewState["listaCursos"] = value; }
 		}
 
-		/// <summary>
-		/// Gets or sets the id id Curso Ciclo Lectivo.
-		/// </summary>
-		/// <value>
-		/// The id curso Ciclo Lectivo.
-		/// </value>
-		public int idCursoCicloLectivo
-		{
-			get
-			{
-				if (Session["idCursoCicloLectivo"] == null)
-					Session["idCursoCicloLectivo"] = 0;
-				return (int)Session["idCursoCicloLectivo"];
-			}
-			set { Session["idCursoCicloLectivo"] = value; }
-		}
-
-
 		public List<Novedad> listaNovedades
 		{
 			get
@@ -117,6 +99,13 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
+					if (base.idNovedadConsulta > 0)
+					{
+						ddlCurso.SelectedValue = base.idCursoCicloLectivo.ToString();
+						CargarConversacion(base.idCursoCicloLectivo);
+						novedadConversacion.idNovedad = base.idNovedadConsulta;
+						CargarConversacion();
+					}
 				}
 			}
 			catch (Exception ex)
@@ -201,26 +190,7 @@ namespace EDUAR_UI
 				int.TryParse(ddlCurso.SelectedValue, out idCursoSeleccion);
 				novControl.novedadPadre = null;
 
-				if (idCursoSeleccion > 0)
-				{
-					Novedad filtro = new Novedad();
-					filtro.curso.idCurso = idCursoSeleccion;
-					idCursoCicloLectivo = idCursoSeleccion;
-					BLNovedad objBLNovedad = new BLNovedad();
-					listaNovedades = objBLNovedad.GetNovedadesPadre(filtro);
-					CargarGrilla();
-					SetDivVisible(true);
-
-				}
-				else
-				{
-					divConversacion.Visible = false;
-					divGrilla.Visible = false;
-					udpConversacion.Update();
-					udpGrilla.Update();
-				}
-				novControl.visible = idCursoSeleccion > 0;
-				udpBotonera.Update();
+				CargarConversacion(idCursoSeleccion);
 			}
 			catch (Exception ex)
 			{
@@ -258,14 +228,9 @@ namespace EDUAR_UI
 				switch (e.CommandName)
 				{
 					case "verConversacion":
-						//novedadConversacion.idNovedad = Convert.ToInt32(e.CommandArgument.ToString());
 						novedadConversacion = listaNovedades.Find(p => p.idNovedad == Convert.ToInt32(e.CommandArgument.ToString()));
-						btnVolver.Visible = true;
-						novControl.novedadPadre = novedadConversacion;
-						novControl.visible = !novedadConversacion.estado.esFinal;
+						
 						CargarConversacion();
-						//CargaAgenda();
-						//lblTitulo.Text = "Agenda " + propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
 						break;
 				}
 				udpBotonera.Update();
@@ -293,6 +258,10 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarConversacion()
 		{
+			btnVolver.Visible = true;
+			novControl.novedadPadre = novedadConversacion;
+			novControl.visible = !novedadConversacion.estado.esFinal;
+
 			BLNovedad objBLNovedad = new BLNovedad(novedadConversacion);
 			objBLNovedad.GetById();
 			novedadConversacion = objBLNovedad.Data;
@@ -316,6 +285,34 @@ namespace EDUAR_UI
 			udpGrilla.Update();
 			divConversacion.Visible = !visible;
 			udpConversacion.Update();
+		}
+
+		/// <summary>
+		/// Cargars the conversacion.
+		/// </summary>
+		/// <param name="idCursoSeleccion">The id curso seleccion.</param>
+		private void CargarConversacion(int idCursoSeleccion)
+		{
+			if (idCursoSeleccion > 0)
+			{
+				Novedad filtro = new Novedad();
+				filtro.curso.idCurso = idCursoSeleccion;
+				idCursoCicloLectivo = idCursoSeleccion;
+				BLNovedad objBLNovedad = new BLNovedad();
+				listaNovedades = objBLNovedad.GetNovedadesPadre(filtro);
+				CargarGrilla();
+				SetDivVisible(true);
+
+			}
+			else
+			{
+				divConversacion.Visible = false;
+				divGrilla.Visible = false;
+				udpConversacion.Update();
+				udpGrilla.Update();
+			}
+			novControl.visible = idCursoSeleccion > 0;
+			udpBotonera.Update();
 		}
 		#endregion
 	}

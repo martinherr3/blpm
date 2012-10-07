@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EDUAR_BusinessLogic.Shared;
 using EDUAR_DataAccess.Common;
 using EDUAR_DataAccess.Shared;
@@ -6,7 +7,6 @@ using EDUAR_Entities;
 using EDUAR_Entities.Shared;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
-using System.Collections.Generic;
 
 namespace EDUAR_BusinessLogic.Common
 {
@@ -162,6 +162,11 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
+		/// <summary>
+		/// Gets the novedad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
         public List<Novedad> GetNovedad(Novedad entidad)
         {
             try
@@ -179,6 +184,11 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
+		/// <summary>
+		/// Gets the novedades padre.
+		/// </summary>
+		/// <param name="filtro">The filtro.</param>
+		/// <returns></returns>
         public List<Novedad> GetNovedadesPadre(Novedad filtro)
         {
             try
@@ -195,6 +205,28 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+		/// <summary>
+		/// Gets the novedad indicadores.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<Novedad> GetNovedadIndicadores(Novedad entidad)
+		{
+			try
+			{
+				return DataAcces.GetNovedadIndicadores(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetNovedadIndicadores", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
 
     }

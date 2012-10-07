@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using EDUAR_DataAccess.Shared;
 using EDUAR_Entities;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
-using System.Collections.Generic;
 
 namespace EDUAR_DataAccess.Common
 {
@@ -179,6 +179,11 @@ namespace EDUAR_DataAccess.Common
 		#endregion
 
 		#region --[Métodos Públicos]--
+		/// <summary>
+		/// Gets the novedad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
 		public List<Novedad> GetNovedad(Novedad entidad)
 		{
 			try
@@ -266,6 +271,11 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
+		/// <summary>
+		/// Gets the novedades padre.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
 		public List<Novedad> GetNovedadesPadre(Novedad entidad)
 		{
 			try
@@ -309,6 +319,88 @@ namespace EDUAR_DataAccess.Common
 					minuto = Convert.ToDateTime(reader["hora"].ToString()).Minute;
 
 					objEntidad.fecha = new DateTime(anio, mes, dia, hora, minuto, 0);
+					//objEntidad.fecha = Convert.ToDateTime(reader["fecha"]);
+					objEntidad.observaciones = reader["observaciones"].ToString();
+					objEntidad.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
+
+					int.TryParse(reader["idNovedadAulicaPrincipal"].ToString(), out idNovedadPadre);
+					if (idNovedadPadre > 0)
+					{
+						objEntidad.novedadPadre = new Novedad();
+						objEntidad.novedadPadre.idNovedad = idNovedadPadre;
+					}
+
+					objEntidad.tipo = new TipoNovedad()
+					{
+						idTipoNovedad = Convert.ToInt32(reader["idTipoNovedad"]),
+						nombre = reader["tipoNovedad"].ToString()
+					};
+
+					objEntidad.estado = new EstadoNovedad()
+					{
+						idEstadoNovedad = Convert.ToInt32(reader["idEstadoNovedad"]),
+						nombre = reader["estadoNovedad"].ToString(),
+						esFinal = Convert.ToBoolean(reader["esFinal"])
+					};
+
+					listaEntidad.Add(objEntidad);
+				}
+				return listaEntidad;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetNovedad()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetNovedad()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
+		/// Gets the novedad indicadores.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<Novedad> GetNovedadIndicadores(Novedad entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("NovedadAulicaIndicadores_Select");
+				if (entidad != null)
+				{
+					if (entidad.curso.idCurso > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.curso.idCurso);
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<Novedad> listaEntidad = new List<Novedad>();
+				Novedad objEntidad;
+				int idNovedadPadre = 0;
+
+				int dia, mes, anio, hora, minuto;
+				while (reader.Read())
+				{
+					objEntidad = new Novedad();
+					objEntidad.idNovedad = Convert.ToInt32(reader["idNovedadAulica"]);
+					objEntidad.usuario = new Persona()
+					{
+						idPersona = Convert.ToInt32(reader["idPersona"]),
+						nombre = reader["nombrePersona"].ToString(),
+						apellido = reader["apellidoPersona"].ToString()
+					};
+
+					dia = Convert.ToDateTime(reader["fecha"]).Day;
+					mes = Convert.ToDateTime(reader["fecha"]).Month;
+					anio = Convert.ToDateTime(reader["fecha"]).Year;
+
+					hora = Convert.ToDateTime(reader["hora"].ToString()).Hour;
+					minuto = Convert.ToDateTime(reader["hora"].ToString()).Minute;
+
+					objEntidad.fecha = new DateTime(anio, mes, dia, hora, minuto, 0);
+
 					//objEntidad.fecha = Convert.ToDateTime(reader["fecha"]);
 					objEntidad.observaciones = reader["observaciones"].ToString();
 					objEntidad.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
