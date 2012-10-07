@@ -23,6 +23,8 @@
                             ImageUrl="~/Images/botonGuardar.png" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                             ImageUrl="~/Images/botonVolver.png" />
+                        <asp:ImageButton ID="btnVolverAnterior" OnClick="btnVolverAnterior_Click" runat="server"
+                            ToolTip="Volver" Visible="true" ImageUrl="~/Images/botonVolver.png" />
                     </td>
                 </tr>
             </table>
@@ -84,7 +86,8 @@
         <ContentTemplate>
             <asp:GridView ID="gvwUsuarios" runat="server" PagerSettings-Visible="true" BorderStyle="Solid"
                 OnRowCommand="gvwUsuarios_RowCommand" Width="100%" AutoGenerateColumns="False"
-                OnPageIndexChanging="gvwUsuarios_PageIndexChanging" AllowPaging="True" DataKeyNames="idPersona" SkinID="gridviewSkinPagerListado">
+                OnPageIndexChanging="gvwUsuarios_PageIndexChanging" AllowPaging="True" DataKeyNames="idPersona"
+                SkinID="gridviewSkinPagerListado">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
