@@ -500,8 +500,8 @@ namespace EDUAR_SI_DataAccess
                     {
                         personal = new Personal()
                         {
-                            IdPersonal = 0,
-                            IdPersonalTransaccional = (int)reader["id"],
+                            idPersonal = 0,
+                            idPersonalTransaccional = (int)reader["id"],
                             nombre = reader["nombre"].ToString(),
                             apellido = reader["apellido"].ToString(),
 							numeroDocumento = Convert.ToInt32(reader["nro_documento"]),
@@ -929,7 +929,7 @@ namespace EDUAR_SI_DataAccess
 						asignaturaCicloLectivo = new AsignaturaCicloLectivo();
 
 						asignaturaCicloLectivo.idAsignaturaCicloLectivoTransaccional = (int)reader["id"];
-						asignaturaCicloLectivo.docente = new Docente() { IdPersonalTransaccional = (int)reader["fk_docente_id"] };
+						asignaturaCicloLectivo.docente = new Docente() { idPersonalTransaccional = (int)reader["fk_docente_id"] };
 						asignaturaCicloLectivo.asignatura.idAsignaturaTransaccional = (int)reader["fk_asignatura_id"];
 						asignaturaCicloLectivo.cursoCicloLectivo.idCursoCicloLectivoTransaccional = (int)reader["fk_cursociclolectivo_id"];
 						

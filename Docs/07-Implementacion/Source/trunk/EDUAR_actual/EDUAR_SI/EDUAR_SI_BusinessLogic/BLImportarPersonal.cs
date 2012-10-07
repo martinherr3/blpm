@@ -132,7 +132,7 @@ namespace EDUAR_SI_BusinessLogic
 					{
 						fechaAlta = docente.fechaAlta,
 						idPersona = docente.idPersona,
-						IdPersonalTransaccional = (int)docente.idDocenteTransaccional,
+						idPersonalTransaccional = (int)docente.idDocenteTransaccional,
 						legajo = docente.legajo,
 						cargo = new CargoPersonal() { idCargo = docente.cargo.idCargo, idCargoTransaccional = docente.cargo.idCargoTransaccional },
 						activo = docente.activo,
@@ -173,7 +173,7 @@ namespace EDUAR_SI_BusinessLogic
 						localidad = new Localidades(),
 						idTipoPersona = (int)enumTipoPersona.Personal
 					};
-					personal.idPersona = objDAImportarDatos.GrabarPersona(persona, transaccion, personal.cargo.idCargoTransaccional, personal.IdPersonalTransaccional);
+					personal.idPersona = objDAImportarDatos.GrabarPersona(persona, transaccion, personal.cargo.idCargoTransaccional, personal.idPersonalTransaccional);
 					objDAImportarDatos.GrabarPersonal(personal, transaccion);
 				}
 			}
