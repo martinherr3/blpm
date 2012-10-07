@@ -285,7 +285,7 @@ namespace EDUAR_UI
             LimpiarCampos();
             udpEditRoles.Visible = false;
             udpNewRol.Visible = false;
-            btnVolver.Visible = true;
+			btnVolver.Visible = false;
             btnGuardar.Visible = false;
             udpControlesBusqueda.Visible = true;
             btnNuevo.Visible = true;

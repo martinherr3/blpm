@@ -11,7 +11,7 @@
                 <tr>
                     <td>
                         <h2>
-                            Modificar Perfiles
+                            Modificar Roles
                         </h2>
                         <br />
                     </td>
@@ -23,7 +23,7 @@
                         <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                             ImageUrl="~/Images/botonGuardar.png" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
-                            ImageUrl="~/Images/botonVolver.png" />
+                            ImageUrl="~/Images/botonVolver.png" Visible="false" />
                     </td>
                 </tr>
             </table>

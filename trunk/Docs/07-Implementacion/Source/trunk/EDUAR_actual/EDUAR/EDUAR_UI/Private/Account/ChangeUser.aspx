@@ -35,6 +35,8 @@
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
+                        <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo Usuario"
+                            ImageUrl="~/Images/botonNuevo.png" />
                         <asp:ImageButton ID="btnGuardar" ImageUrl="~/Images/botonGuardar.png" OnClick="btnGuardar_Click"
                             runat="server" ToolTip="Guardar" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
@@ -59,7 +61,7 @@
                                 <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
                                     runat="server" id="ddlUser" enableviewstate="true">
                                 </select>
-                           </td>
+                            </td>
                         </tr>
                         <tr>
                             <td class="TD100px">
@@ -89,7 +91,6 @@
             <asp:AsyncPostBackTrigger ControlID="gvwUsuarios" EventName="RowCommand" />
         </Triggers>
     </asp:UpdatePanel>
-   
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwUsuarios" runat="server" PagerSettings-Visible="true" BorderStyle="Solid"
@@ -156,8 +157,6 @@
             <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="gvwUsuarios" EventName="RowCommand" />
         </Triggers>
-      
     </asp:UpdatePanel>
-     <script type="text/javascript">         $(".chzn-select").chosen();</script>
-
+    <script type="text/javascript">        $(".chzn-select").chosen();</script>
 </asp:Content>
