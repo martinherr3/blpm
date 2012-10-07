@@ -79,14 +79,12 @@
                     <td class="TD140px">
                         <asp:Label ID="lblTipo" runat="server" Text="Tipo Novedad:" CssClass="lblCriterios"></asp:Label>
                     </td>
-                    <td class="TD140px">
+                    <td class="TD140px" colspan="2">
                         <asp:DropDownList ID="ddlNovedad" runat="server">
                         </asp:DropDownList>
                         <asp:CompareValidator ID="cmvddlNovedad" ErrorMessage="*" ControlToValidate="ddlNovedad"
                             runat="server" Operator="GreaterThan" ValueToCompare="0" Type="Integer" ForeColor="Red"
                             Display="Dynamic" ToolTip="Campo Requerido" ValidationGroup="Novedad" />
-                    </td>
-                    <td>
                     </td>
                 </tr>
                 <tr>
