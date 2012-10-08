@@ -117,6 +117,7 @@
     <Compile Include="Common\DAReunion.cs" />
     <Compile Include="Common\DATipoDocumento.cs" />
     <Compile Include="Common\DATipoEventoInstitucional.cs" />
+    <Compile Include="Encuestas\DARespuesta.cs" />
     <Compile Include="Encuestas\DAAmbitoEncuesta.cs" />
     <Compile Include="Encuestas\DACategoriaPregunta.cs" />
     <Compile Include="Encuestas\DAEncuesta.cs" />

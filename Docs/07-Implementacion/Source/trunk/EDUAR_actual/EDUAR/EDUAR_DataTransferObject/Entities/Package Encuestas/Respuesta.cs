@@ -13,6 +13,7 @@ namespace EDUAR_Entities
         public Pregunta pregunta { get; set; }
         public Persona usuario { get; set; }
 
+        public int idRespuesta { get; set; }
         public int idEncuesta { get; set; }
         public int respuestaSeleccion { get; set; }
         public string respuestaTextual { get; set; }
