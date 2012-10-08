@@ -58,24 +58,6 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnVolverAnterior;
         
         /// <summary>
-        /// Control lblCurso.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurso;
-        
-        /// <summary>
-        /// Control ddlCurso.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCurso;
-        
-        /// <summary>
         /// Control udpGrilla.
         /// </summary>
         /// <remarks>

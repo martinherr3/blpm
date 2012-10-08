@@ -93,7 +93,7 @@
                                                                     <asp:Label ID="lblConversacion" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "observaciones").ToString())%>'
                                                                         runat="server" />
                                                                 </div>
-                                                                <asp:LinkButton ID="lnkConversacion" Text="[Ver Conversacion]" CommandArgument='<%# Bind("idNovedad") %>'
+                                                                <asp:LinkButton ID="lnkConversacion" Text="[Ver Conversacion]" CommandArgument='<%# (Convert.ToInt32(Eval("novedadPadre.idNovedad")) > 0 ) ? Eval("novedadPadre.idNovedad") : Eval("idNovedad") %>'
                                                                     CommandName="VerConversacion" runat="server" />
                                                             </div>
                                                         </ItemTemplate>

@@ -31,32 +31,6 @@ namespace EDUAR_UI.UserControls
 		}
 
 		/// <summary>
-		/// Gets or sets the lista cursos.
-		/// </summary>
-		/// <value>
-		/// The lista cursos.
-		/// </value>
-		public List<Curso> listaCursos
-		{
-			get
-			{
-				if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
-				{
-					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-
-					Asignatura objFiltro = new Asignatura();
-					objFiltro.curso.cicloLectivo = cicloLectivoActual;
-					if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
-						//nombre del usuario logueado
-						objFiltro.docente.username = HttpContext.Current.User.Identity.Name;
-					listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
-				}
-				return (List<Curso>)ViewState["listaCursos"];
-			}
-			set { ViewState["listaCursos"] = value; }
-		}
-
-		/// <summary>
 		/// Gets or sets the lista estados novedad.
 		/// </summary>
 		/// <value>
@@ -112,18 +86,36 @@ namespace EDUAR_UI.UserControls
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="Novedad"/> is visible.
+		/// </summary>
+		/// <value>
+		///   <c>true</c> if visible; otherwise, <c>false</c>.
+		/// </value>
 		public bool visible
 		{
 			get { return btnNuevaNovedad.Visible; }
 			set { btnNuevaNovedad.Visible = value; }
 		}
 
+		/// <summary>
+		/// Gets or sets the tool tip.
+		/// </summary>
+		/// <value>
+		/// The tool tip.
+		/// </value>
 		public string ToolTip
 		{
 			get { return btnNuevaNovedad.ToolTip; }
 			set { btnNuevaNovedad.ToolTip = value; }
 		}
 
+		/// <summary>
+		/// Gets or sets the novedad padre.
+		/// </summary>
+		/// <value>
+		/// The novedad padre.
+		/// </value>
 		public EDUAR_Entities.Novedad novedadPadre
 		{
 			get
@@ -149,6 +141,8 @@ namespace EDUAR_UI.UserControls
 				//btnOcultoNovedad.Click += (Guardar);
 				btnGuardar.Click += (Guardar);
 				btnOcultoNovedad.Click += (Guardar);
+				
+				btnNuevaNovedad.Click += (Mostrar);
 				if (!Page.IsPostBack)
 				{
 					UIUtilidades.BindCombo<EstadoNovedad>(ddlEstado, listaEstadosNovedad, "idEstadoNovedad", "nombre", true);
@@ -163,6 +157,11 @@ namespace EDUAR_UI.UserControls
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the btnNuevaNovedad control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnNuevaNovedad_Click(object sender, EventArgs e)
 		{
 			try
@@ -184,9 +183,9 @@ namespace EDUAR_UI.UserControls
 				mpeNueva.Show();
 				udpNueva.Update();
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				//Master.ManageExceptions(ex);
+				throw ex;
 			}
 		}
 
@@ -213,8 +212,18 @@ namespace EDUAR_UI.UserControls
 		public delegate void VentanaBotonClickHandler(object sender, EventArgs e);
 
 		public event VentanaBotonClickHandler GuardarClick;
+		public event VentanaBotonClickHandler MostrarClick;
 
 		public virtual void OnGuardarClick(VentanaBotonClickHandler sender, EventArgs e)
+		{
+			if (sender != null)
+			{
+				//Invoca el delegados
+				sender(this, e);
+			}
+		}
+
+		public virtual void OnMostrarClick(VentanaBotonClickHandler sender, EventArgs e)
 		{
 			if (sender != null)
 			{
@@ -254,6 +263,11 @@ namespace EDUAR_UI.UserControls
 		void Guardar(object sender, EventArgs e)
 		{
 			OnGuardarClick(GuardarClick, e);
+		}
+
+		void Mostrar(object sender, EventArgs e)
+		{
+			OnMostrarClick(MostrarClick, e);
 		}
 		#endregion
 
