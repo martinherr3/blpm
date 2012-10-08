@@ -93,7 +93,7 @@
                     </td>
                     <td colspan="2">
                         <asp:TextBox ID="txtObservaciones" runat="server" TextMode="MultiLine" Columns="40"
-                            Rows="10" />
+                            Rows="10" CssClass="txtMultilinea" />
                         <asp:RequiredFieldValidator ID="rqftxtObservaciones" ErrorMessage="*" ControlToValidate="txtObservaciones"
                             Display="Dynamic" runat="server" ToolTip="Campo Requerido" ValidationGroup="Novedad"
                             ForeColor="Red" />
