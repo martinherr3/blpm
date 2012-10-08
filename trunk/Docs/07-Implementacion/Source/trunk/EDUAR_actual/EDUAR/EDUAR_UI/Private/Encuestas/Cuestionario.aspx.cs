@@ -5,12 +5,8 @@ using System.Web.UI.WebControls;
 using EDUAR_Entities;
 using EDUAR_UI.Shared;
 using EDUAR_BusinessLogic.Encuestas;
-using System.Drawing;
-using EDUAR_UI.UserControls;
-using System.Text;
-using System.IO;
-using EDUAR_UI.Utilidades;
 using AjaxControlToolkit;
+using EDUAR_UI.UserControls;
 
 namespace EDUAR_UI
 {
@@ -19,6 +15,7 @@ namespace EDUAR_UI
         #region --[Atributos]--
         BLEncuesta objBLEncuesta;
         BLPregunta objBLPregunta;
+        BLRespuesta objBLRespuesta;
         #endregion
 
         #region --[Propiedades]--
@@ -78,6 +75,23 @@ namespace EDUAR_UI
         }
 
         /// <summary>
+        /// Gets or sets the id pregunta con la finalidad de mantener el track de la respuesta.
+        /// </summary>
+        /// <value>
+        /// The id pregunta.
+        /// </value>
+        public Respuesta respuestaSkeleton
+        {
+            get
+            {
+                if (ViewState["respuestaSkeleton"] == null)
+                    ViewState["respuestaSkeleton"] = new Respuesta();
+                return (Respuesta)ViewState["respuestaSkeleton"];
+            }
+            set { ViewState["respuestaSkeleton"] = value; }
+        }
+
+        /// <summary>
         /// Gets or sets the id escala medicion con la finalidad de mantener el track de la respuesta y como valorarla.
         /// </summary>
         /// <value>
@@ -92,6 +106,18 @@ namespace EDUAR_UI
                 return (int)ViewState["idEscalaMedicion"];
             }
             set { ViewState["idEscalaMedicion"] = value; }
+        }
+
+        public List<Respuesta> respuestas
+        {
+            get
+            {
+                if (Session["respuestas"] == null)
+                    Session["respuestas"] = new List<Respuesta>();
+
+                return (List<Respuesta>)Session["respuestas"];
+            }
+            set { Session["respuestas"] = value; }
         }
         #endregion
 
@@ -118,17 +144,23 @@ namespace EDUAR_UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
-            {
-                generarEsqueleto();
-            }
+            //respuestas.Clear();
+
+            respuestaSkeleton.idEncuesta = encuestaSesion.idEncuesta;
+            respuestaSkeleton.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+            generarEsqueleto();
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-
+                foreach (Respuesta respuesta in respuestas)
+                {
+                    objBLRespuesta = new BLRespuesta(respuesta);
+                    objBLRespuesta.Save();
+                }
             }
             catch (Exception ex)
             {
@@ -140,7 +172,7 @@ namespace EDUAR_UI
         {
             try
             {
-
+                
             }
             catch (Exception ex)
             {
@@ -152,7 +184,29 @@ namespace EDUAR_UI
         {
             try
             {
-                e.CallbackResult = e.Value;
+                Respuesta rta = new Respuesta();
+                rta = respuestaSkeleton;
+
+                rta.respuestaSeleccion = Convert.ToInt16(e.Value);
+                respuestas.Add(rta);
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        protected void text_Changed(object sender, EventArgs e)
+        {
+            try
+            {
+                string valor = ((TextBox)sender).Text;
+
+                Respuesta rta = new Respuesta();
+                rta = respuestaSkeleton;
+
+                rta.respuestaTextual = valor;
+                respuestas.Add(rta);
             }
             catch (Exception ex)
             {
@@ -176,7 +230,7 @@ namespace EDUAR_UI
             AjaxControlToolkit.AccordionPane pn;
             int i = 0;
             int contador = 0;
-            
+
             foreach (CategoriaPregunta categoria in listaCategorias)
             {
                 List<Pregunta> preguntasPorCategoria = objBLPregunta.GetPreguntasPorCategoria(categoria);
@@ -198,9 +252,10 @@ namespace EDUAR_UI
                     {
                         contador++;
                         Panel panelRespuesta = new Panel();
-                        panelRespuesta.ID = "respuesta_" + contador.ToString();
+                        panelRespuesta.ID = "pregunta_" + contador.ToString();
 
                         //PREGUNTA
+
                         lblPregunta = new Label();
 
                         lblPregunta.Text = pregunta.textoPregunta;
@@ -212,15 +267,23 @@ namespace EDUAR_UI
                         panelRespuesta.Controls.Add(lblPregunta);
                         panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
 
+                        respuestaSkeleton.pregunta = pregunta;
+
                         //RESPUESTA
 
                         if (pregunta.escala.nombre.Equals("Conceptual literal"))
                         {
                             TextBox txtRespuesta = new TextBox();
-                            txtRespuesta.ID = pregunta.idPregunta.ToString();
-                            txtRespuesta.Rows = 15;
-                            txtRespuesta.Width = 950;
-                            txtRespuesta.BorderStyle = BorderStyle.Groove;
+                            txtRespuesta.ID = "respuesta_" + pregunta.idPregunta.ToString();
+                            txtRespuesta.Rows = 5;
+                            txtRespuesta.Columns = 75;
+                            txtRespuesta.AutoPostBack = false;
+                            txtRespuesta.CssClass = "txtMultilinea99";
+                            txtRespuesta.TextMode = TextBoxMode.MultiLine;
+                            txtRespuesta.Wrap = false;
+                            txtRespuesta.MaxLength = 4000;
+
+                            txtRespuesta.TextChanged += new EventHandler(this.text_Changed);
 
                             panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
                             panelRespuesta.Controls.Add(txtRespuesta);
@@ -230,23 +293,22 @@ namespace EDUAR_UI
                         {
                             AjaxControlToolkit.Rating rating = new AjaxControlToolkit.Rating();
 
-                            rating.ID = pregunta.idPregunta.ToString();
+                            rating.ID = "respuesta_" + pregunta.idPregunta.ToString();
                             rating.MaxRating = 5;
-                            
+
                             rating.StarCssClass = "ratingStar";
                             rating.WaitingStarCssClass = "savedRatingStar";
                             rating.FilledStarCssClass = "filledRatingStar";
                             rating.EmptyStarCssClass = "emptyRatingStar";
+                            rating.AutoPostBack = false;
 
-                            rating.CurrentRating = Convert.ToInt32(rating.GetCallbackResult());
+                            rating.Changed += new AjaxControlToolkit.RatingEventHandler(rating_Changed);
 
                             panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
                             panelRespuesta.Controls.Add(rating);
                             panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
-                            
                         }
-
-                        //Agrego un salto de línea, para mantener cierta distancia entre las preguntas
+                        
                         pn.ContentContainer.Controls.Add(panelRespuesta);
                         pn.ContentContainer.Controls.Add(new LiteralControl("<br/>"));
                     }
@@ -255,10 +317,9 @@ namespace EDUAR_UI
                 ++i;
             }
         }
-
-
-    }
         #endregion
 
+        
+    }
 
 }

@@ -4,6 +4,7 @@
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -18,6 +19,7 @@
                 RequireOpenedPane="false" SelectedIndex="-1" runat="server">
                 <Panes>
                     <%--LOS COMPONENTES DEL ACCORDION SON AGREGADOS DINÁMICAMENTE DESDE CÓDIGO--%>
+
                 </Panes>
             </cc1:Accordion>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
