@@ -14,6 +14,30 @@ namespace EDUAR_UI
 	public partial class GetIndicadores : EDUARBasePage
 	{
 		#region --[Propiedades]--
+		/// <summary>
+		/// Gets or sets the lista novedades.
+		/// </summary>
+		/// <value>
+		/// The lista novedades.
+		/// </value>
+		private List<EDUAR_Entities.Novedad> listaNovedades
+		{
+			get
+			{
+				if (ViewState["listaNovedades"] == null)
+				{
+					BLNovedad objBLNovedad = new BLNovedad();
+					EDUAR_Entities.Novedad entidad = new EDUAR_Entities.Novedad();
+					entidad.curso.idCurso = base.idCursoCicloLectivo;
+					ViewState["listaNovedades"] = objBLNovedad.GetNovedadIndicadores(entidad);
+				}
+				return (List<EDUAR_Entities.Novedad>)ViewState["listaNovedades"];
+			}
+			set
+			{
+				ViewState["listaNovedades"] = value;
+			}
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -190,6 +214,7 @@ namespace EDUAR_UI
 			try
 			{
 				base.idNovedadConsulta = Convert.ToInt32(e.CommandArgument);
+
 				Response.Redirect("~/Private/Novedades/ConsultaNovedadAulica.aspx", false);
 			}
 			catch (Exception ex)
@@ -260,12 +285,6 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarNovedades()
 		{
-			BLNovedad objBLNovedad = new BLNovedad();
-			EDUAR_Entities.Novedad entidad = new EDUAR_Entities.Novedad();
-			entidad.curso.idCurso = base.idCursoCicloLectivo;
-
-			List<EDUAR_Entities.Novedad> listaNovedades = objBLNovedad.GetNovedadIndicadores(entidad);
-
 			lblNoHay.Visible = !(listaNovedades.Count > 0);
 			rptConversacion.DataSource = listaNovedades;
 			rptConversacion.DataBind();

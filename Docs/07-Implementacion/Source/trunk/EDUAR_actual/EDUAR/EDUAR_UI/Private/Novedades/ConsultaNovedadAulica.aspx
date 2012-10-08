@@ -24,21 +24,14 @@
                     </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="gvwNovedades" EventName="RowCommand" />
-                        <%--<asp:AsyncPostBackTrigger ControlID="novControl" EventName="GuardarClick" />--%>
+                        <asp:AsyncPostBackTrigger ControlID="novControl" EventName="GuardarClick" />
                     </Triggers>
                 </asp:UpdatePanel>
             </td>
         </tr>
     </table>
-    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+    <table class="tablaInterna" cellpadding="0" cellspacing="0">
         <tr>
-            <td class="TD110px">
-                <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
-            </td>
-            <td class="TD140px">
-                <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
-                </asp:DropDownList>
-            </td>
             <td>
             </td>
         </tr>
@@ -100,7 +93,7 @@
             </div>
         </ContentTemplate>
         <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+            <%--<asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />--%>
             <asp:AsyncPostBackTrigger ControlID="btnVolver" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="novControl" EventName="GuardarClick" />
         </Triggers>
@@ -146,7 +139,7 @@
             <asp:AsyncPostBackTrigger ControlID="gvwNovedades" EventName="RowCommand" />
             <asp:AsyncPostBackTrigger ControlID="btnVolver" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="novControl" EventName="GuardarClick" />
-            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+            <%--<asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />--%>
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

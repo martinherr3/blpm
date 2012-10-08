@@ -102,9 +102,9 @@ namespace EDUAR_UI
 					CargarCurso();
 					if (base.idNovedadConsulta > 0)
 					{
-						ddlCurso.SelectedValue = base.idCursoCicloLectivo.ToString();
 						CargarConversacion(base.idCursoCicloLectivo);
 						novedadConversacion.idNovedad = base.idNovedadConsulta;
+						novedadConversacion = listaNovedades.Find(p => p.idNovedad == base.idNovedadConsulta);
 						CargarConversacion();
 					}
 				}
@@ -190,25 +190,6 @@ namespace EDUAR_UI
 				base.idCursoCicloLectivo = 0;
 				base.cursoActual = new CursoCicloLectivo();
 				Response.Redirect("~/Private/AccesoCursos.aspx", false);
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
-		}
-
-		/// <summary>
-		/// Handles the SelectedIndexChanged event of the ddlCurso control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			try
-			{
-				int idCursoSeleccion = 0;
-				int.TryParse(ddlCurso.SelectedValue, out idCursoSeleccion);
-				
 			}
 			catch (Exception ex)
 			{
@@ -339,7 +320,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarCurso()
 		{
-			novControl.novedadPadre = null;
+			//novControl.novedadPadre = null;
 			novControl.visible = true;
 			CargarConversacion(base.idCursoCicloLectivo);
 			lblTitulo.Text = "Novedades Aulicas - " + base.cursoActual.curso.nombre; 

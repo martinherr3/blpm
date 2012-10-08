@@ -109,6 +109,7 @@ namespace EDUAR_UI
 				novControl.GuardarClick += (Guardar);
 				if (!Page.IsPostBack)
 				{
+					base.idNovedadConsulta = 0;
 					CargarPresentacion();
 					if (propAgenda.idAgendaActividad > 0)
 					{
