@@ -376,11 +376,37 @@ namespace EDUAR_UI.Shared
 			catch (Exception) { }
 		}
 
+		/// <summary>
+		/// Truncates the string.
+		/// </summary>
+		/// <param name="strText">The STR text.</param>
+		/// <returns></returns>
 		protected string TruncateString(string strText)
 		{
 			if (strText.Length > 60)
 				return strText.Substring(0, 60) + " ...";
 			return strText;
+		}
+
+		/// <summary>
+		/// Mensajeses the enviados.
+		/// </summary>
+		public void MensajesEnviados()
+		{
+			Response.Redirect("~/Private/Mensajes/MsjeEnviado.aspx", false);
+		}
+
+		/// <summary>
+		/// Mensajeses the recibidos.
+		/// </summary>
+		public void MensajesRecibidos()
+		{
+			Response.Redirect("~/Private/Mensajes/MsjeEntrada.aspx", false);
+		}
+
+		public void MensajesNuevo()
+		{
+			Response.Redirect("~/Private/Mensajes/MsjeRedactar.aspx", false);
 		}
 		#endregion
 	}

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
 using EDUAR_Entities;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI.UserControls
 {
@@ -95,7 +96,11 @@ namespace EDUAR_UI.UserControls
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-
+			if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+			{
+				btnIndicador.Enabled = false;
+				btnIndicador.Visible = false;
+			}
 		}
 
 		protected void btnActividad_Click(object sender, EventArgs e)

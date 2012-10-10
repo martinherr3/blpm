@@ -36,6 +36,10 @@
                     <td align="right">
                         <asp:ImageButton ID="btnEnviar" OnClick="btnEnviar_Click" runat="server" ToolTip="Enviar"
                             ImageUrl="~/Images/botonEnviarMail.png" />
+                        <asp:ImageButton ID="btnRecibidos" OnClick="btnRecibidos_Click" runat="server" ToolTip="Bandeja de Entrada"
+                            ImageUrl="~/Images/botonRecibidos.png" Visible="true" />
+                        <asp:ImageButton ID="btnEnviados" OnClick="btnEnviados_Click" runat="server" ToolTip="Mensajes Enviados"
+                            ImageUrl="~/Images/botonEnviados.png" Visible="true" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                             ImageUrl="~/Images/botonVolver.png" />
                     </td>
@@ -68,7 +72,9 @@
                     </tr>
                     <tr>
                         <td valign="top">
-                            Tipo de <br />Destinatario:
+                            Tipo de
+                            <br />
+                            Destinatario:
                         </td>
                         <td rowspan="3">
                             <asp:RadioButtonList ID="rdlDestinatarios" runat="server" OnSelectedIndexChanged="rdlDestinatarios_OnSelectedIndexChanged"

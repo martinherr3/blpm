@@ -120,6 +120,7 @@
     <Content Include="Images\botonCalcular.png" />
     <Content Include="Images\botonCancel.png" />
     <Content Include="Images\botonContenidos.png" />
+    <Content Include="Images\botonEnviados.png" />
     <Content Include="Images\botonEnviarMail.png" />
     <Content Include="Images\botonEvaluacion.png" />
     <Content Include="Images\botonExcursion.png" />
@@ -128,8 +129,10 @@
     <Content Include="Images\botonNotificacion.png" />
     <Content Include="Images\botonNovedades.png" />
     <Content Include="Images\botonNuevo.png" />
+    <Content Include="Images\botonNuevoMail.png" />
     <Content Include="Images\botonOk.png" />
     <Content Include="Images\botonPlanificacion.png" />
+    <Content Include="Images\botonRecibidos.png" />
     <Content Include="Images\botonReunion.png" />
     <Content Include="Images\botonSiguiente.png" />
     <Content Include="Images\botonVolver.png" />
@@ -981,7 +984,9 @@
     <Content Include="Private\Account\web.config" />
     <Content Include="Private\Reports\web.config" />
     <Content Include="Private\Alumnos\web.config" />
-    <Content Include="Private\Agenda\web.config" />
+    <Content Include="Private\Agenda\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Private\Mensajes\web.config" />
     <Content Include="Private\Manuales\web.config" />
     <Content Include="Private\Manuales\Docente\web.config" />

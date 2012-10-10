@@ -13,6 +13,24 @@ namespace EDUAR_UI {
     public partial class MsjeEnviado {
         
         /// <summary>
+        /// Control btnNuevo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnNuevo;
+        
+        /// <summary>
+        /// Control btnRecibidos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnRecibidos;
+        
+        /// <summary>
         /// Control btnEliminar.
         /// </summary>
         /// <remarks>

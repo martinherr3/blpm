@@ -16,6 +16,10 @@
                 <br />
             </td>
             <td align="right">
+                <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo Mensaje"
+                    ImageUrl="~/Images/botonNuevoMail.png" Visible="true" />
+                <asp:ImageButton ID="btnRecibidos" OnClick="btnRecibidos_Click" runat="server" ToolTip="Bandeja de Entrada"
+                    ImageUrl="~/Images/botonRecibidos.png" Visible="true" />
                 <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Eliminar Seleccionados"
                     AlternateText="Eliminar Seleccionados" ImageUrl="~/Images/mail-delete.png" OnClick="btnEliminar_Click" />
             </td>
@@ -39,7 +43,7 @@
                                 <HeaderStyle HorizontalAlign="left" Width="5%" />
                                 <HeaderTemplate>
                                     <asp:CheckBox ID="cboxhead" AutoPostBack="true" Text='Acciones' runat="server" Width="80px"
-                                        ClientIDMode="Static" OnCheckedChanged="HeaderCheckedChanged" style="margin-bottom: 4px" />
+                                        ClientIDMode="Static" OnCheckedChanged="HeaderCheckedChanged" Style="margin-bottom: 4px" />
                                 </HeaderTemplate>
                                 <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>
