@@ -140,10 +140,12 @@ namespace EDUAR_DataAccess.Common
 					objMensaje.destinatario.idPersona = Convert.ToInt32(reader["idPersonaDestinatario"]);
 					objMensaje.destinatario.nombre = reader["nombreDestinatario"].ToString();
 					objMensaje.destinatario.apellido = reader["apellidoDestinatario"].ToString();
+					objMensaje.nombreDestinatario = objMensaje.destinatario.nombre + " " + objMensaje.destinatario.apellido;
 					objMensaje.remitente.idPersona = Convert.ToInt32(reader["idPersonaRemitente"]);
 					objMensaje.remitente.nombre = reader["nombreRemitente"].ToString();
 					objMensaje.remitente.apellido = reader["apellidoRemitente"].ToString();
 					objMensaje.remitente.tipoPersona.nombre = reader["tipoPersonaRemitente"].ToString();
+					objMensaje.nombreRemitente = objMensaje.remitente.nombre + " " + objMensaje.remitente.apellido;
 					objMensaje.destinatario.tipoPersona.nombre = reader["tipoPersonaDestinatario"].ToString();
 					objMensaje.leido = Convert.ToBoolean(reader["leido"]);
 					listaMensaje.Add(objMensaje);

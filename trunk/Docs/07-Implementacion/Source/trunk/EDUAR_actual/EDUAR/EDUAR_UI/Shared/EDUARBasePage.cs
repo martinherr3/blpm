@@ -404,10 +404,45 @@ namespace EDUAR_UI.Shared
 			Response.Redirect("~/Private/Mensajes/MsjeEntrada.aspx", false);
 		}
 
+		/// <summary>
+		/// Mensajeses the nuevo.
+		/// </summary>
 		public void MensajesNuevo()
 		{
 			Response.Redirect("~/Private/Mensajes/MsjeRedactar.aspx", false);
 		}
+
+		#region --[Ordenamiento Grillas]--
+		protected string SortExpressionInf
+		{
+			get { return (ViewState["SortExpressionInf"] == null ? string.Empty : ViewState["SortExpressionInf"].ToString()); }
+			set { ViewState["SortExpressionInf"] = value; }
+		}
+
+		protected string SortDirectionInf
+		{
+			get { return (ViewState["SortDirectionInf"] == null ? string.Empty : ViewState["SortDirectionInf"].ToString()); }
+			set { ViewState["SortDirectionInf"] = value; }
+		}
+
+		protected string GetSortDirection(string sortExpression)
+		{
+			if (SortExpressionInf == sortExpression)
+			{
+				if (SortDirectionInf == "ASC")
+					SortDirectionInf = "DESC";
+				else if (SortDirectionInf == "DESC")
+					SortDirectionInf = "ASC";
+				return SortDirectionInf;
+			}
+			else
+			{
+				SortExpressionInf = sortExpression;
+				SortDirectionInf = "ASC";
+				return SortDirectionInf;
+			}
+		}
+		#endregion
 		#endregion
 	}
 }

@@ -61,6 +61,12 @@ namespace EDUAR_UI
 
 		}
 
+		/// <summary>
+		/// Gets or sets the current page.
+		/// </summary>
+		/// <value>
+		/// The current page.
+		/// </value>
 		public int CurrentPage
 		{
 			get
@@ -78,6 +84,25 @@ namespace EDUAR_UI
 			{
 				this.ViewState["CurrentPage"] = value;
 			}
+		}
+
+		/// <summary>
+		/// Gets or sets the dt mensajes.
+		/// </summary>
+		/// <value>
+		/// The dt mensajes.
+		/// </value>
+		public DataTable dtMensajes
+		{
+			get
+			{
+				if (ViewState["dtMensajes"] == null)
+					dtMensajes = new DataTable();
+				return (DataTable)ViewState["dtMensajes"];
+			}
+			set
+			{ ViewState["dtMensajes"] = value; }
+
 		}
 		#endregion
 
@@ -175,7 +200,8 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				int idMensajeDestinatario = Convert.ToInt32(e.CommandArgument);
+				int idMensajeDestinatario = 0;
+				if (e.CommandName != "Sort") idMensajeDestinatario = Convert.ToInt32(e.CommandArgument);
 				Mensaje objMensaje = null;
 				switch (e.CommandName)
 				{
@@ -203,6 +229,10 @@ namespace EDUAR_UI
 						propMensaje.idMensajeDestinatario = Convert.ToInt32(e.CommandArgument.ToString());
 						divContenido.Visible = false;
 						Master.MostrarMensaje(this.Page.Title, UIConstantesGenerales.MensajeEliminar, enumTipoVentanaInformacion.Confirmación);
+						break;
+					case "Sort":
+						gvwReporte.DataSource = dtMensajes;
+						gvwReporte.DataBind();
 						break;
 				}
 				udpGrilla.Update();
@@ -322,6 +352,21 @@ namespace EDUAR_UI
 				}
 			}
 		}
+
+		/// <summary>
+		/// Handles the Sorting event of the gvwReporte control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewSortEventArgs"/> instance containing the event data.</param>
+		protected void gvwReporte_Sorting(object sender, GridViewSortEventArgs e)
+		{
+			if (dtMensajes != null)
+			{
+				DataView dataView = new DataView(dtMensajes);
+				dataView.Sort = e.SortExpression + " " + base.GetSortDirection(e.SortExpression);
+				dtMensajes = dataView.ToTable();
+			}
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -357,6 +402,7 @@ namespace EDUAR_UI
 		{
 			objBLMensaje = new BLMensaje();
 			listaMensajes = objBLMensaje.GetMensajesEnviados(entidad);
+			dtMensajes = UIUtilidades.BuildDataTable<Mensaje>(listaMensajes);
 		}
 
 		/// Cargars the grilla.
@@ -365,8 +411,8 @@ namespace EDUAR_UI
 		/// <param name="lista">The lista.</param>
 		private void CargarGrilla()
 		{
-			DataTable dt = UIUtilidades.BuildDataTable<Mensaje>(listaMensajes);
-			pds.DataSource = dt.DefaultView;
+			//DataTable dt = UIUtilidades.BuildDataTable<Mensaje>(listaMensajes);
+			pds.DataSource = dtMensajes.DefaultView;
 			pds.AllowPaging = true;
 			pds.PageSize = Convert.ToInt16(ddlPageSize.SelectedValue);
 			pds.CurrentPageIndex = (CurrentPage > pds.PageCount) ? (pds.PageCount - 1) : CurrentPage;
@@ -377,7 +423,7 @@ namespace EDUAR_UI
 			gvwReporte.DataSource = pds;
 			gvwReporte.DataBind();
 			doPaging();
-			lblCantidad.Text = dt.Rows.Count.ToString() + " Mensajes";
+			lblCantidad.Text = dtMensajes.Rows.Count.ToString() + " Mensajes";
 			divContenido.Visible = false;
 			udpGrilla.Update();
 		}
