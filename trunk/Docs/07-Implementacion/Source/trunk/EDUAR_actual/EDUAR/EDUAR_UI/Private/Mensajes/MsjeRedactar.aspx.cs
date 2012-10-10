@@ -173,6 +173,40 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
+		/// Handles the Click event of the btnEnviados control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnRecibidos_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				base.MensajesRecibidos();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnEnviados control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnEnviados_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				base.MensajesEnviados();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
 		/// Handles the OnSelectedIndexChanged event of the ddlCurso control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>

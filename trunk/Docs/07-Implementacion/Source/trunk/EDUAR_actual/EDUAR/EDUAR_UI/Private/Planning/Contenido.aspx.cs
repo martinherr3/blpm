@@ -427,7 +427,10 @@ namespace EDUAR_UI
 			CursoCicloLectivo curso = new CursoCicloLectivo();
 			Docente docente = null;
 			if (User.IsInRole(enumRoles.Docente.ToString()))
+			{
+				docente = new Docente();
 				docente.username = User.Identity.Name;
+			}
 			curso.idCursoCicloLectivo = idCursoCicloLectivo;
 			listaAsignaturas = objBLAsignatura.GetAsignaturasCurso(new Asignatura() { cursoCicloLectivo = curso, docente = docente });
 			if (listaAsignaturas != null && listaAsignaturas.Count > 0)

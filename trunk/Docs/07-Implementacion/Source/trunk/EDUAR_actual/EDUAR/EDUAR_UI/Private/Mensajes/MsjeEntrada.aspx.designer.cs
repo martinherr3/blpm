@@ -31,13 +31,22 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnEnviar;
         
         /// <summary>
-        /// Control btnVolver.
+        /// Control btnNuevo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnVolver;
+        protected global::System.Web.UI.WebControls.ImageButton btnNuevo;
+        
+        /// <summary>
+        /// Control btnEnviados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnEnviados;
         
         /// <summary>
         /// Control btnEliminar.
@@ -47,6 +56,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnEliminar;
+        
+        /// <summary>
+        /// Control btnVolver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnVolver;
         
         /// <summary>
         /// Control udpReporte.

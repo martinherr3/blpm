@@ -14,17 +14,21 @@
                 <tr>
                     <td>
                         <h2>
-                            Mensajes Recibidos
+                            Bandeja de Entrada
                         </h2>
                         <br />
                     </td>
                     <td align="right">
                         <asp:ImageButton ID="btnEnviar" OnClick="btnEnviar_Click" runat="server" ToolTip="Enviar"
                             ImageUrl="~/Images/botonEnviarMail.png" Visible="false" />
-                        <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
-                            ImageUrl="~/Images/botonVolver.png" Visible="false" />
+                        <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo Mensaje"
+                            ImageUrl="~/Images/botonNuevoMail.png" Visible="true" />
+                            <asp:ImageButton ID="btnEnviados" OnClick="btnEnviados_Click" runat="server" ToolTip="Mensajes Enviados"
+                            ImageUrl="~/Images/botonEnviados.png" Visible="true" />
                         <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Eliminar Seleccionados"
                             AlternateText="Eliminar Seleccionados" ImageUrl="~/Images/mail-delete.png" OnClick="btnEliminar_Click" />
+                        <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
+                            ImageUrl="~/Images/botonVolver.png" Visible="false" />
                     </td>
                 </tr>
             </table>

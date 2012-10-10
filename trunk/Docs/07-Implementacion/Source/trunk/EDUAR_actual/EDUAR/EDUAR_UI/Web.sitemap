@@ -27,10 +27,10 @@
             <siteMapNode url="~/Private/Planning/Contenido.aspx" title="Contenidos" roles="Administrador,Director,Docente" />
             <siteMapNode url="~/Private/Planning/TemasContenido.aspx" title="Temas Contenidos" roles="Administrador,Director,Docente" visible="false" />
         </siteMapNode>
-        <siteMapNode url="" title="Mensajes" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
-            <siteMapNode url="~/Private/Mensajes/MsjeEntrada.aspx" title="Recibidos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
-            <siteMapNode url="~/Private/Mensajes/MsjeRedactar.aspx" title="Nuevo" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
-            <siteMapNode url="~/Private/Mensajes/MsjeEnviado.aspx" title="Enviados" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
+        <siteMapNode url="" title="Mensajeria" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
+            <siteMapNode url="~/Private/Mensajes/MsjeEntrada.aspx" title="Bandeja de Entrada" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
+            <siteMapNode url="~/Private/Mensajes/MsjeRedactar.aspx" title="Nuevo Mensaje" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false"/>
+            <siteMapNode url="~/Private/Mensajes/MsjeEnviado.aspx" title="Bandeja de Salida" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false"/>
         </siteMapNode>
         <siteMapNode url="" title="Mi Cuenta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
             <siteMapNode url="~/Private/Account/ChangePassword.aspx" title="Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>

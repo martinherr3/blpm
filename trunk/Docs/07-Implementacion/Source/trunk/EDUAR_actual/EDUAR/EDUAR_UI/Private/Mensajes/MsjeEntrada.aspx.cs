@@ -191,7 +191,7 @@ namespace EDUAR_UI
 						txtAsunto.Text = "Re: " + objMensaje.asuntoMensaje;
 						lblDestinatario.Text = objMensaje.remitente.apellido + "  " + objMensaje.remitente.nombre;
 						hdfDestinatario.Value = objMensaje.remitente.idPersona.ToString();
-                        textoMensaje.contenido = "<br /><hr style='border-style: dashed' />" + objMensaje.textoMensaje;
+						textoMensaje.contenido = "<br /><hr style='border-style: dashed' />" + objMensaje.textoMensaje;
 						btnEnviar.Visible = true;
 						btnVolver.Visible = true;
 						btnEliminar.Visible = false;
@@ -295,6 +295,41 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+		/// <summary>
+		/// Handles the Click event of the btnNuevo control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnNuevo_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				base.MensajesNuevo();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnEnviados control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnEnviados_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				base.MensajesEnviados();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
 
 		/// <summary>
 		/// Headers the checked changed.
@@ -450,7 +485,7 @@ namespace EDUAR_UI
 				CargarGrilla();
 			}
 			litAsunto.Text = objMensaje.asuntoMensaje;
-            litFecha.Text = objMensaje.fechaEnvio.ToShortDateString() + " " + objMensaje.horaEnvio.Hour.ToString().PadLeft(2, '0') + ":" + objMensaje.horaEnvio.Minute.ToString().PadLeft(2, '0');
+			litFecha.Text = objMensaje.fechaEnvio.ToShortDateString() + " " + objMensaje.horaEnvio.Hour.ToString().PadLeft(2, '0') + ":" + objMensaje.horaEnvio.Minute.ToString().PadLeft(2, '0');
 			litRemitente.Text = objMensaje.remitente.apellido + "  " + objMensaje.remitente.nombre + " <b>(" + objMensaje.remitente.tipoPersona.nombre + ")</b>";
 			litContenido.Text = objMensaje.textoMensaje;
 			divContenido.Visible = true;
