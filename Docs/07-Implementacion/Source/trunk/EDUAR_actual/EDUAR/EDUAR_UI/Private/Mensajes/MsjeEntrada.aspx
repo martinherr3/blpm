@@ -42,7 +42,7 @@
                 <ContentTemplate>
                     <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                         AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idMensajeDestinatario"
-                        OnRowCommand="gvwReporte_RowCommand">
+                        OnRowCommand="gvwReporte_RowCommand" AllowSorting="true" OnSorting="gvwReporte_Sorting" ShowFooter="false" >
                         <Columns>
                             <asp:TemplateField HeaderText="Acciones" HeaderStyle-VerticalAlign="Middle">
                                 <HeaderStyle HorizontalAlign="left" Width="10%" />
@@ -73,7 +73,7 @@
                                     </table>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Remitente">
+                            <asp:TemplateField HeaderText="Remitente" SortExpression="nombreRemitente">
                                 <HeaderStyle HorizontalAlign="left" Width="15%" />
                                 <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>
@@ -83,14 +83,14 @@
                                         Font-Bold="true"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Asunto">
+                            <asp:TemplateField HeaderText="Asunto" SortExpression="asuntoMensaje">
                                 <HeaderStyle HorizontalAlign="left" Width="45%" />
                                 <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblAsunto" runat="server" Text='<%# Eval("asuntoMensaje") %>' Font-Bold='<%# Boolean.Parse(Eval("leido").ToString()) ? false : true  %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Fecha">
+                            <asp:TemplateField HeaderText="Fecha" SortExpression="fechaEnvio">
                                 <HeaderStyle HorizontalAlign="Center" Width="10%" />
                                 <ItemStyle HorizontalAlign="Center" />
                                 <ItemTemplate>

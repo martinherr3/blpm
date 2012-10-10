@@ -24,7 +24,8 @@ namespace EDUAR_Entities
         public Persona remitente { get; set; }
 		public string listaIDMensaje { get; set; }
 		public CursoCicloLectivo cursoCicloLectivo { get; set; }
-
+		public string nombreDestinatario { get; set; }
+		public string nombreRemitente { get; set; }
 		/// <summary>
 		/// Este atributo SOLO SE UTILIZA PARA RECUPERAR LOS MENSAJES EN LOS QUE UN USUARIO APARECE COMO DESTINATARIO!!!
 		/// </summary>

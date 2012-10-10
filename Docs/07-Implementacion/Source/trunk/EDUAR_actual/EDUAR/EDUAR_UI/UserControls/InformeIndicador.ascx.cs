@@ -153,7 +153,7 @@ namespace EDUAR_UI.UserControls
 
         #endregion
 
-        #region --[Delegados ]--
+        #region --[Delegados]--
 
         public delegate void VentanaBotonClickHandler(object sender, EventArgs e);
 
