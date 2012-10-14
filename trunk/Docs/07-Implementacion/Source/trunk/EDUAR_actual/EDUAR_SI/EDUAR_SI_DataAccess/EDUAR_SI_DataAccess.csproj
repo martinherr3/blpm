@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLProcesoBase.cs" />
+    <Compile Include="DANotificarInasistenciaSancionSMS.cs" />
     <Compile Include="DANotificarSancion.cs" />
     <Compile Include="DABase.cs" />
     <Compile Include="DAImportarDatos.cs" />

@@ -61,7 +61,7 @@ namespace EDUAR_SI_DataAccess
 						objSancion.alumno.alumno.listaTutores.Add(new Tutor
 						{
 							nombre = reader["nombreTutor"].ToString(),
-							apellido = reader["nombreTutor"].ToString(),
+							apellido = reader["apellidoTutor"].ToString(),
 							email = reader["email"].ToString(),
 							idPersona = Convert.ToInt32(reader["idPersonaTutor"])
 						});
