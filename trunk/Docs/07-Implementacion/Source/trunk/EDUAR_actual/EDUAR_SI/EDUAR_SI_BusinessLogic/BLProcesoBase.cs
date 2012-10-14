@@ -26,6 +26,9 @@ namespace EDUAR_SI_BusinessLogic
 		/// Get: si al solicitarse la propiedad es null se llama al método crearEmail().
 		/// </summary>
 		private EDUAREmail ObjEmail;
+
+        private EDUARSMS ObjSMS;
+
 		#endregion
 
 		#region --[Propiedades]--
@@ -43,6 +46,24 @@ namespace EDUAR_SI_BusinessLogic
 			}
 			set { ObjEmail = value; }
 		}
+
+        /// <summary>
+        /// Objeto que contiene el SMS
+        /// </summary>
+        public EDUARSMS SMS
+        {
+            get
+            {
+                if (ObjSMS == null)
+                {
+                    ObjSMS = new EDUARSMS();
+                } 
+
+                return ObjSMS;
+            }
+            set { ObjSMS = value; }
+        }
+
 		#endregion
 
 		#region --[Constructores]--
