@@ -50,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilidades\EDUAREmail.cs" />
     <Compile Include="Utilidades\EDUARLog.cs" />
+    <Compile Include="Utilidades\EDUARSMS.cs" />
     <Compile Include="Utilidades\EDUARUtilidades.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EDUAR_SI\SMSapplication\SMSapplication.csproj">
+      <Project>{668635D8-4F39-4A78-9929-7DEBB881559C}</Project>
+      <Name>SMSapplication</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
