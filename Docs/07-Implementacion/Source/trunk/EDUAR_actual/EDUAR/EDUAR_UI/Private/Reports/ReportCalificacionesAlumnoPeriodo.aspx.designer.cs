@@ -13,15 +13,6 @@ namespace EDUAR_UI {
     public partial class ReportCalificacionesAlumnoPeriodo {
         
         /// <summary>
-        /// Control vlsValidador.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary vlsValidador;
-        
-        /// <summary>
         /// Control divFiltros.
         /// </summary>
         /// <remarks>
@@ -38,6 +29,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnBuscar;
+        
+        /// <summary>
+        /// Control vlsValidador.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary vlsValidador;
         
         /// <summary>
         /// Control lblCicloLectivo.

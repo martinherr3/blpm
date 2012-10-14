@@ -87,7 +87,7 @@
                 <td valign="top">
                     <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
+                            <select data-placeholder="[Seleccione]" style="width: 100%" multiple="true" class="chzn-select"
                                 runat="server" id="ddlAsignatura" enableviewstate="true">
                             </select>
                         </ContentTemplate>

@@ -44,7 +44,7 @@
                     <asp:Label ID="lblPagina" runat="server" Text="Página:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td>
-                    <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
+                    <select data-placeholder="[Seleccione]" style="width: 100%" multiple="true" class="chzn-select"
                         runat="server" id="ddlDestino" enableviewstate="true">
                     </select>
                 </td>
@@ -54,7 +54,7 @@
                     <asp:Label ID="lblRolesBusqueda" runat="server" Text="Roles:"></asp:Label>
                 </td>
                 <td valign="middle">
-                    <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
+                    <select data-placeholder="[Seleccione]" style="width: 100%" multiple="true" class="chzn-select"
                         runat="server" id="ddlRoles" enableviewstate="true">
                     </select>
                 </td>

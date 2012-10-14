@@ -520,7 +520,7 @@ namespace EDUAR_UI
 					ddlAlumnosTutor.Items.Insert(ddlAlumnosTutor.Items.Count, new ListItem(item.alumno.apellido + " " + item.alumno.nombre, item.alumno.idAlumno.ToString()));
 				}
 				UIUtilidades.SortByText(ddlAlumnosTutor);
-				ddlAlumnosTutor.Items.Insert(0, new ListItem("Seleccione", "-1"));
+				ddlAlumnosTutor.Items.Insert(0, new ListItem("[Seleccione]", "-1"));
 				ddlAlumnosTutor.SelectedValue = "-1";
 			}
 

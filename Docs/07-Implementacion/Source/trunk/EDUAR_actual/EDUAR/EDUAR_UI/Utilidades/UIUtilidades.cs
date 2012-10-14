@@ -84,7 +84,7 @@ namespace EDUAR_UI.Utilidades
             }
 
             if (addDefaultValue)
-                ListBox.Items.Insert(0, new ListItem("Seleccione", "-1"));
+                ListBox.Items.Insert(0, new ListItem("[Seleccione]", "-1"));
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace EDUAR_UI.Utilidades
             SortByText(dropDownList);
             if (addDefaultValue)
             {
-                dropDownList.Items.Insert(0, new ListItem("Seleccione", "-1"));
+                dropDownList.Items.Insert(0, new ListItem("[Seleccione]", "-1"));
                 dropDownList.SelectedValue = "-1";
             }
         }
