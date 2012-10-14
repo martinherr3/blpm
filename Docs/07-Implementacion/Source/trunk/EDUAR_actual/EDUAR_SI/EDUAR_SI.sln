@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUAR_Utility", "..\EDUAR\E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUAR_Entities", "..\EDUAR\EDUAR_DataTransferObject\EDUAR_Entities.csproj", "{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSapplication", "SMSapplication\SMSapplication.csproj", "{668635D8-4F39-4A78-9929-7DEBB881559C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,16 @@ Global
 		{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}.Release|x86.ActiveCfg = Release|Any CPU
+		{668635D8-4F39-4A78-9929-7DEBB881559C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{668635D8-4F39-4A78-9929-7DEBB881559C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{668635D8-4F39-4A78-9929-7DEBB881559C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{668635D8-4F39-4A78-9929-7DEBB881559C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{668635D8-4F39-4A78-9929-7DEBB881559C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{668635D8-4F39-4A78-9929-7DEBB881559C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{668635D8-4F39-4A78-9929-7DEBB881559C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{668635D8-4F39-4A78-9929-7DEBB881559C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{668635D8-4F39-4A78-9929-7DEBB881559C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{668635D8-4F39-4A78-9929-7DEBB881559C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
