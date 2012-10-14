@@ -1,0 +1,17 @@
+D:\VB\SMSapplication\SMSapplication\SMSapplication\bin\Release\SMSapplication.exe.manifest
+D:\VB\SMSapplication\SMSapplication\SMSapplication\bin\Release\SMSapplication.application
+D:\VB\SMSapplication\SMSapplication\SMSapplication\bin\Release\SMSapplication.exe
+D:\VB\SMSapplication\SMSapplication\SMSapplication\bin\Release\SMSapplication.pdb
+D:\VB\SMSapplication\SMSapplication\SMSapplication\bin\Release\log4net.dll
+D:\VB\SMSapplication\SMSapplication\SMSapplication\obj\Release\ResolveAssemblyReference.cache
+D:\VB\SMSapplication\SMSapplication\SMSapplication\obj\Release\SMSapplication.Properties.Resources.resources
+D:\VB\SMSapplication\SMSapplication\SMSapplication\obj\Release\SMSapplication.csproj.GenerateResource.Cache
+D:\VB\SMSapplication\SMSapplication\SMSapplication\obj\Release\SMSapplication.exe.manifest
+D:\VB\SMSapplication\SMSapplication\SMSapplication\obj\Release\SMSapplication.application
+D:\VB\SMSapplication\SMSapplication\SMSapplication\obj\Release\SMSapplication.exe
+D:\VB\SMSapplication\SMSapplication\SMSapplication\obj\Release\SMSapplication.pdb
+D:\VB\SMSapplication\SMSapplication\SMSapplication\bin\Release\Entidades.dll
+D:\VB\SMSapplication\SMSapplication\SMSapplication\bin\Release\DataAcces.dll
+D:\VB\SMSapplication\SMSapplication\SMSapplication\bin\Release\Entidades.pdb
+D:\VB\SMSapplication\SMSapplication\SMSapplication\bin\Release\Entidades.xml
+D:\VB\SMSapplication\SMSapplication\SMSapplication\bin\Release\DataAcces.pdb
