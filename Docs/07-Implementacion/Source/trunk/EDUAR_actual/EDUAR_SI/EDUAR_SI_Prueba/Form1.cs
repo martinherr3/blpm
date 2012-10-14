@@ -229,5 +229,23 @@ namespace EDUAR_SI_Prueba
 			{ btnInformeInasistencia.Enabled = true; }
 		}
 
+        private void btnSancionInasistenciaSMS_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnSancionInasistenciaSMS.Enabled = false;
+                BLNotificarInasistenciaSancionSMS objInforme = new BLNotificarInasistenciaSancionSMS(ddlCadenaConexion.SelectedItem.ToString());
+                objInforme.ProcedimientoNotificarInasistenciaSancionSMS();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            { btnSancionInasistenciaSMS.Enabled = true; }
+        
+        }
+
+
 	}
 }
