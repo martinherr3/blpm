@@ -306,6 +306,8 @@ namespace EDUAR_UI
 					ddlAsignatura.Visible = true;
 				}
 				CargarGrillaResultado();
+
+				ddlCicloLectivo.Attributes.Add("onchange", "onChangeCicloLectivo('" + ddlCicloLectivo.ClientID + "','" + ddlCurso.ClientID + "')");
 			}
 			catch (Exception ex)
 			{

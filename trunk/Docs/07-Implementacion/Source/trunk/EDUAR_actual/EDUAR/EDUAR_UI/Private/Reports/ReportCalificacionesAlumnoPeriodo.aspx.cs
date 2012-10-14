@@ -171,6 +171,8 @@ namespace EDUAR_UI
 				}
 				if (listaReporte != null)
 					rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
+
+				ddlCicloLectivo.Attributes.Add("onchange", "onChangeCicloLectivo('" + ddlCicloLectivo.ClientID + "','" + ddlCurso.ClientID + "')");
 			}
 			catch (Exception ex)
 			{

@@ -333,8 +333,12 @@ div.accountInfo
 
 .failureNotification
 {
-    font-size: 1.2em;
     color: Red;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 10px;
+    font-weight: bold; /*color: #585858;	*/
+    text-decoration: none;
+    vertical-align: middle;
 }
 
 .bold
@@ -875,6 +879,11 @@ TD.EncabezadoConfirmación
 .TD140px
 {
     width: 140px;
+}
+
+.TD160px
+{
+    width: 160px;
 }
 
 .TD250px

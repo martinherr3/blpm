@@ -177,6 +177,8 @@ namespace EDUAR_UI
                 //BuscarInasistencias();
                 if (listaReporte != null)
                     rptInasistencias.CargarReporte<RptInasistenciasAlumnoPeriodo>(listaReporte);
+
+				ddlCicloLectivo.Attributes.Add("onchange", "onChangeCicloLectivo('" + ddlCicloLectivo.ClientID + "','" + ddlCurso.ClientID + "')");
             }
             catch (Exception ex)
             {

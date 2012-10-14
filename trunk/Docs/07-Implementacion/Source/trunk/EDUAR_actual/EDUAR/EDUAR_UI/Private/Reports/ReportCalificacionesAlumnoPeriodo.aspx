@@ -24,8 +24,6 @@
 
         alertTest();    
     </script>
-    <asp:ValidationSummary ID="vlsValidador" runat="server" CssClass="failureNotification"
-        ValidationGroup="Validador" />
     <div id="divFiltros" runat="server">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
@@ -36,32 +34,48 @@
                 </td>
                 <td align="right">
                     <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
-                        ImageUrl="~/Images/botonBuscar.png" />
+                        ImageUrl="~/Images/botonBuscar.png" ValidationGroup="vlsValidador" CausesValidation="true" />
                 </td>
             </tr>
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
+                <td colspan="4">
+                    <asp:ValidationSummary ID="vlsValidador" runat="server" CssClass="failureNotification"
+                        DisplayMode="BulletList" ValidationGroup="vlsValidador" ShowSummary="true" />
+                </td>
+            </tr>
+            <tr>
                 <td valign="middle" class="TD140px">
                     <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
                 </td>
-                <td valign="middle" class="TD140px">
+                <td valign="middle" class="TD160px">
                     <asp:UpdatePanel ID="udpCicloLectivo" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged"
+                                CausesValidation="true" ValidationGroup="vlsValidador" CssClass="TD140px">
                             </asp:DropDownList>
+                            <asp:CompareValidator ErrorMessage="El campo Ciclo Lectivo es requerido" ControlToValidate="ddlCicloLectivo"
+                                Operator="GreaterThan" Type="Integer" ValidationGroup="vlsValidador" ValueToCompare="0"
+                                runat="server" Display="Dynamic" Font-Bold="true" ForeColor="Red">*</asp:CompareValidator>
                         </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
+                        </Triggers>
                     </asp:UpdatePanel>
                 </td>
-                <td valign="middle" class="TD140px">
+                <td valign="middle" class="TD160px">
                     <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="middle">
                     <asp:UpdatePanel ID="udpCurso" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:DropDownList ID="ddlCurso" runat="server" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged"
-                                AutoPostBack="True">
+                                CausesValidation="true" ValidationGroup="vlsValidador" AutoPostBack="True" CssClass="TD140px">
                             </asp:DropDownList>
+                            <asp:CompareValidator ErrorMessage="El campo Curso es requerido" ControlToValidate="ddlCurso"
+                                Operator="GreaterThan" Type="Integer" ValidationGroup="vlsValidador" ValueToCompare="0"
+                                runat="server" Display="Dynamic" Font-Bold="true" ForeColor="Red">*</asp:CompareValidator>
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
@@ -92,7 +106,7 @@
                 <td valign="middle" colspan="3" style="width: 400px">
                     <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <select data-placeholder="Seleccione" style="width: 700px" multiple="true" class="chzn-select"
+                            <select data-placeholder="[Seleccione]" style="width: 700px" multiple="true" class="chzn-select"
                                 runat="server" id="ddlAsignatura" enableviewstate="true">
                             </select>
                         </ContentTemplate>

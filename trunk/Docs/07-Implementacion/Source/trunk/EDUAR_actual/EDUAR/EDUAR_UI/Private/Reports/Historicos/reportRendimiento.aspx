@@ -44,7 +44,7 @@
                 <td valign="middle" style="width: 450px">
                     <asp:UpdatePanel ID="udpCicloLectivo" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
+                            <select data-placeholder="[Seleccione]" style="width: 100%" multiple="true" class="chzn-select"
                                 runat="server" id="ddlCicloLectivo" enableviewstate="true">
                             </select>
                         </ContentTemplate>
@@ -73,7 +73,7 @@
                 <td valign="top" colspan="3">
                     <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <select data-placeholder="Seleccione" style="width: 100%" multiple="true" class="chzn-select"
+                            <select data-placeholder="[Seleccione]" style="width: 100%" multiple="true" class="chzn-select"
                                 runat="server" id="ddlAsignatura" enableviewstate="true">
                             </select>
                         </ContentTemplate>

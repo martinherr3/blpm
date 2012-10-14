@@ -11,8 +11,27 @@ function ValidarCaracteres(textareaControl, maxlength) {
     }
 }
 
-function DoChanges(sel1,sel2)
-    {
+function DoChanges(sel1, sel2) {
     msg = document.getElementById(sel1).getAttribute('value');
     document.getElementById(sel2).setAttribute('value', msg);
+}
+
+function onChangeCicloLectivo(ddlCicloLectivo, ddlCurso) {
+    var control = document.getElementById(ddlCicloLectivo)
+    if (control.value <= 0) {
+        SetSelectedIndex(ddlCurso, -1);
+        document.getElementById(ddlCurso).disabled = true;
     }
+    else
+        document.getElementById(ddlCurso).disabled = false;
+}
+
+function SetSelectedIndex(dropdownlist, sVal) {
+    var a = document.getElementById(dropdownlist);
+
+    for (i = 0; i < a.length; i++) {
+        if (a.options[i].value == sVal) {
+            a.selectedIndex = i;
+        }
+    }
+}
