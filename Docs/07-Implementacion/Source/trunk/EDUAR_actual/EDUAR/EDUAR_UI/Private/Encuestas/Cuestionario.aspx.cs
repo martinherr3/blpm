@@ -7,6 +7,7 @@ using EDUAR_UI.Shared;
 using EDUAR_BusinessLogic.Encuestas;
 using AjaxControlToolkit;
 using EDUAR_UI.UserControls;
+using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {
@@ -16,6 +17,7 @@ namespace EDUAR_UI
         BLEncuesta objBLEncuesta;
         BLPregunta objBLPregunta;
         BLRespuesta objBLRespuesta;
+        BLEncuestaDisponible objBLEncuestaDisponible;
         #endregion
 
         #region --[Propiedades]--
@@ -26,16 +28,16 @@ namespace EDUAR_UI
         /// <value>
         /// The encuesta en sesion.
         /// </value>
-        public Encuesta encuestaSesion
+        public EncuestaDisponible encuestaSeleccionada
         {
             get
             {
-                if (Session["encuestaSesion"] == null)
-                    encuestaSesion = new Encuesta();
+                if (ViewState["encuestaSeleccionada"] == null)
+                    encuestaSeleccionada = new EncuestaDisponible();
 
-                return (Encuesta)Session["encuestaSesion"];
+                return (EncuestaDisponible)ViewState["encuestaSeleccionada"];
             }
-            set { Session["encuestaSesion"] = value; }
+            set { ViewState["encuestaSeleccionada"] = value; }
         }
 
         /// <summary>
@@ -45,34 +47,16 @@ namespace EDUAR_UI
         /// <value>
         /// El tipo de escala.
         /// </value>
-        public int tipoEscala
-        {
-            get
-            {
-                if (Session["tipoEscala"] == null)
-                    tipoEscala = 0;
-                return (int)Session["tipoEscala"];
-            }
-            set { Session["tipoEscala"] = value; }
-        }
-
-
-        /// <summary>
-        /// Gets or sets the id pregunta con la finalidad de mantener el track de la respuesta.
-        /// </summary>
-        /// <value>
-        /// The id pregunta.
-        /// </value>
-        public int idPregunta
-        {
-            get
-            {
-                if (ViewState["idPregunta"] == null)
-                    ViewState["idPregunta"] = 0;
-                return (int)ViewState["idPregunta"];
-            }
-            set { ViewState["idPregunta"] = value; }
-        }
+        //public int tipoEscala
+        //{
+        //    get
+        //    {
+        //        if (Session["tipoEscala"] == null)
+        //            tipoEscala = 0;
+        //        return (int)Session["tipoEscala"];
+        //    }
+        //    set { Session["tipoEscala"] = value; }
+        //}
 
         /// <summary>
         /// Gets or sets the id pregunta con la finalidad de mantener el track de la respuesta.
@@ -89,23 +73,6 @@ namespace EDUAR_UI
                 return (Respuesta)ViewState["respuestaSkeleton"];
             }
             set { ViewState["respuestaSkeleton"] = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the id escala medicion con la finalidad de mantener el track de la respuesta y como valorarla.
-        /// </summary>
-        /// <value>
-        /// The id escala medicion.
-        /// </value>
-        public int idEscalaMedicion
-        {
-            get
-            {
-                if (ViewState["idEscalaMedicion"] == null)
-                    ViewState["idEscalaMedicion"] = 0;
-                return (int)ViewState["idEscalaMedicion"];
-            }
-            set { ViewState["idEscalaMedicion"] = value; }
         }
 
         public List<Respuesta> respuestas
@@ -144,23 +111,38 @@ namespace EDUAR_UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //respuestas.Clear();
+            if (!Page.IsPostBack)
+            {
+                cargarEncabezado();
+            }
+            else
+            {
+                int idEncuestaSeleccionada;
 
-            respuestaSkeleton.idEncuesta = encuestaSesion.idEncuesta;
-            respuestaSkeleton.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-
-            generarEsqueleto();
+                if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada) 
+                    && AccionPagina == EDUAR_Utility.Enumeraciones.enumAcciones.Buscar
+                    )
+                    CargarEncuesta();
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                foreach (Respuesta respuesta in respuestas)
-                {
-                    objBLRespuesta = new BLRespuesta(respuesta);
-                    objBLRespuesta.Save();
-                }
+                // REGISTRAR QUE LA ENCUESTA DISPONIBLE HA SIDO RESPONDIDA
+                encuestaSeleccionada.respondida = true;
+                encuestaSeleccionada.fechaRespuesta = DateTime.Now;
+
+                objBLEncuestaDisponible = new BLEncuestaDisponible(encuestaSeleccionada);
+                objBLEncuestaDisponible.Save();
+
+                // GUARDAR LAS RESPUESTAS
+                //foreach (respuesta respuesta in respuestas)
+                //{
+                //    objblrespuesta = new blrespuesta(respuesta);
+                //    objblrespuesta.save();
+                //}
             }
             catch (Exception ex)
             {
@@ -172,7 +154,19 @@ namespace EDUAR_UI
         {
             try
             {
-                
+                foreach (Pregunta preguntaPuntual in encuestaSeleccionada.encuesta.preguntas)
+                {
+                    Control myControl = FindControlRecursive(udpFormulario, "respuesta_" + preguntaPuntual.idPregunta);
+
+                    if (myControl.GetType() == typeof(TextBox))
+                    {
+                        ((TextBox)myControl).Text = string.Empty;
+                    }
+                    //if (myControl.GetType() == typeof(Rating))
+                    //{
+                    //    int respuesta2 = ((Rating)myControl).CurrentRating;
+                    //}
+                }
             }
             catch (Exception ex)
             {
@@ -180,15 +174,25 @@ namespace EDUAR_UI
             }
         }
 
+        private void CargarCombos()
+        {
+            objBLEncuestaDisponible = new BLEncuestaDisponible();
+
+            EncuestaDisponible encuestaSkeleton = new EncuestaDisponible();
+            encuestaSkeleton.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+            UIUtilidades.BindCombo<Encuesta>(ddlEncuesta, objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton), "idEncuesta", "nombreEncuesta", true);
+        }
+
         protected void rating_Changed(object sender, RatingEventArgs e)
         {
             try
             {
-                Respuesta rta = new Respuesta();
-                rta = respuestaSkeleton;
+                Respuesta respuestaPuntual = new Respuesta();
+                respuestaPuntual = respuestaSkeleton;
 
-                rta.respuestaSeleccion = Convert.ToInt16(e.Value);
-                respuestas.Add(rta);
+                respuestaPuntual.respuestaSeleccion = Convert.ToInt16(e.Value);
+                respuestas.Add(respuestaPuntual);
             }
             catch (Exception ex)
             {
@@ -202,28 +206,72 @@ namespace EDUAR_UI
             {
                 string valor = ((TextBox)sender).Text;
 
-                Respuesta rta = new Respuesta();
-                rta = respuestaSkeleton;
+                Respuesta respuestaPuntual = new Respuesta();
+                respuestaPuntual = respuestaSkeleton;
 
-                rta.respuestaTextual = valor;
-                respuestas.Add(rta);
+                respuestaPuntual.respuestaTextual = valor;
+                respuestas.Add(respuestaPuntual);
             }
             catch (Exception ex)
             {
                 Master.ManageExceptions(ex);
             }
         }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AccionPagina = EDUAR_Utility.Enumeraciones.enumAcciones.Buscar;
+                CargarEncuesta();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        private void CargarEncuesta()
+        {
+            int idEncuestaSeleccionada = Convert.ToInt32(ddlEncuesta.SelectedValue);
+
+            objBLEncuesta = new BLEncuesta();
+            objBLEncuestaDisponible = new BLEncuestaDisponible();
+
+            //OBTENGO LA ENCUESTA PUNTUAL
+
+            Encuesta encuestaPuntual = objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSeleccionada).Find(c => c.idEncuesta == idEncuestaSeleccionada);
+
+            encuestaSeleccionada.encuesta = encuestaPuntual;
+            encuestaSeleccionada.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+            //PRECARGA DE ATRIBUTOS DE LA RESPUESTA SKELETON
+            respuestaSkeleton.encuestaDisponible.encuesta = encuestaPuntual;
+            respuestaSkeleton.encuestaDisponible.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+            generarEsqueleto(encuestaPuntual);
+        }
         #endregion
 
         #region --[Métodos Privados]--
-        public void generarEsqueleto()
+        public void cargarEncabezado()
+        {
+            CargarCombos();
+        }
+
+        public void generarEsqueleto(Encuesta entidad)
         {
             objBLEncuesta = new BLEncuesta();
+
+            //objBLEncuestaDisponible = new BLEncuestaDisponible();
+
             objBLPregunta = new BLPregunta();
 
-            List<CategoriaPregunta> listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(encuestaSesion);
+            //List<CategoriaPregunta> listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(encuestaSeleccionada.encuesta);
+            List<CategoriaPregunta> listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(entidad);
 
-            lblNombreEncuesta.Text = encuestaSesion.nombreEncuesta;
+            //lblNombreEncuesta.Text = encuestaSeleccionada.encuesta.nombreEncuesta;
+            lblNombreEncuesta.Text = entidad.nombreEncuesta;
 
             Label lblCategoria;
 
@@ -308,7 +356,7 @@ namespace EDUAR_UI
                             panelRespuesta.Controls.Add(rating);
                             panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
                         }
-                        
+
                         pn.ContentContainer.Controls.Add(panelRespuesta);
                         pn.ContentContainer.Controls.Add(new LiteralControl("<br/>"));
                     }
@@ -317,9 +365,20 @@ namespace EDUAR_UI
                 ++i;
             }
         }
+
+        public static Control FindControlRecursive(Control container, string name)
+        {
+            if ((container.ID != null) && (container.ID.Equals(name)))
+                return container;
+
+            foreach (Control ctrl in container.Controls)
+            {
+                Control foundCtrl = FindControlRecursive(ctrl, name);
+                if (foundCtrl != null)
+                    return foundCtrl;
+            }
+            return null;
+        }
         #endregion
-
-        
     }
-
 }

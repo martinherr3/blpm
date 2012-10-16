@@ -13,13 +13,40 @@ namespace EDUAR_UI {
     public partial class Cuestionario {
         
         /// <summary>
-        /// lblNombreEncuesta control.
+        /// udpSeleccionEncuesta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNombreEncuesta;
+        protected global::System.Web.UI.UpdatePanel udpSeleccionEncuesta;
+        
+        /// <summary>
+        /// lblEncuesta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEncuesta;
+        
+        /// <summary>
+        /// ddlEncuesta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEncuesta;
+        
+        /// <summary>
+        /// btnBuscar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnBuscar;
         
         /// <summary>
         /// udpFormulario control.
@@ -29,6 +56,15 @@ namespace EDUAR_UI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel udpFormulario;
+        
+        /// <summary>
+        /// lblNombreEncuesta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNombreEncuesta;
         
         /// <summary>
         /// CuestionarioAccordion control.

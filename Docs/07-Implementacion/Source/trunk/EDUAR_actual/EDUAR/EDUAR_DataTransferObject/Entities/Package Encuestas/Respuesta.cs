@@ -10,18 +10,17 @@ namespace EDUAR_Entities
     {
         //OBSERVACIÓN: El usuario solo se considera para asegurarse que se responda una sola vez, no va a ser divulgado
         
-        public Pregunta pregunta { get; set; }
-        public Persona usuario { get; set; }
+        public EncuestaDisponible encuestaDisponible { get; set; }
 
+        public Pregunta pregunta { get; set; }
         public int idRespuesta { get; set; }
-        public int idEncuesta { get; set; }
         public int respuestaSeleccion { get; set; }
         public string respuestaTextual { get; set; }
+        public DateTime fechaRespuesta { get; set; }
 
         public Respuesta()
         {
-            pregunta = new Pregunta();
-            usuario = new Persona();
+            encuestaDisponible = new EncuestaDisponible();
         }
 
         /// <summary>
