@@ -18,65 +18,18 @@
                     <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
-                                Visible="false" />
-                            <%--<asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
-                                ImageUrl="~/Images/botonBuscar.png" />--%>
-                            <asp:Panel ID="pnlNuevoContenido" runat="server" Width="500px" Style="display: none;
-                                text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
-                                <table class="tablaInterna" cellpadding="0" cellspacing="0">
-                                    <tr>
-                                        <td>
-                                            <h2>
-                                                <asp:Label ID="lblTitulo" Text="Nuevo Contenido" runat="server" /></h2>
-                                            <br />
-                                        </td>
-                                        <td align="right">
-                                            <asp:ImageButton ID="btnGuardar" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
-                                                OnClick="btnGuardar_Click" />
-                                            <asp:ImageButton ID="btnVolver" runat="server" ToolTip="Volver" ImageUrl="~/Images/PopUp/botonVolver.png" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                                    <tr>
-                                        <td class="TD50px">
-                                            <asp:Label Text="Descripción:" runat="server" />
-                                        </td>
-                                        <td class="TD250px">
-                                            <asp:TextBox ID="txtDescripcion" runat="server" CssClass="EstiloTxtLargo250" />
-                                        </td>
-                                    </tr>
-                                </table>
-                            </asp:Panel>
-                            <ajaxtoolkit:ModalPopupExtender ID="mpeContenido" runat="server" CancelControlID="btnVolver"
-                                OkControlID="btnGuardar" OnCancelScript="Cancel()"
-                                PopupControlID="pnlNuevoContenido" TargetControlID="btnNuevo" RepositionMode="RepositionOnWindowResizeAndScroll"
-                                BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlNuevoContenido" >
-                            </ajaxtoolkit:ModalPopupExtender>
-                            <script type="text/javascript">
-//                                function DoPostBack() {
-//                                    var descripcion = document.getElementById('<%= txtDescripcion.ClientID %>').value;
-
-//                                    if (descripcion.toString().trim() == '')
-//                                        jAlert('Por favor, ingrese una descripción válida.', 'Aviso');
-//                                    else
-//                                        __doPostBack('btnGuardar', 'Click');
-//                                }
-
-                                function Cancel() {
-                                    document.getElementById('<%= txtDescripcion.ClientID %>').value = '';
-                                } 
-                            </script>
+                                Visible="false" OnClick="btnNuevo_Click"/>
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
-                            <asp:PostBackTrigger ControlID="btnGuardar" />
+                            <%--<asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />--%>
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
             </tr>
         </table>
     </div>
+    
     <div id="divFiltros" runat="server">
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
@@ -137,4 +90,41 @@
             </Triggers>
         </asp:UpdatePanel>
     </div>
+    <asp:HiddenField ID="HiddenField1" runat="server" />
+    <ajaxtoolkit:ModalPopupExtender ID="mpeContenido" runat="server" PopupControlID="pnlContenidos"
+        TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
+    </ajaxtoolkit:ModalPopupExtender>
+    <asp:Panel ID="pnlContenidos" runat="server" Width="600px" Height="150px" Style="display: none;
+        text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+        <asp:UpdatePanel ID="udpContenidosAsociados" runat="server">
+            <ContentTemplate>
+                <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <h2>
+                                <asp:Label ID="lblTitulo" Text="Nuevo Contenido" runat="server" /></h2>
+                            <br />
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="btnGuardar" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
+                                OnClick="btnGuardar_Click" />
+                            <asp:ImageButton ID="btnVolver" runat="server" ToolTip="Volver" ImageUrl="~/Images/PopUp/botonVolver.png"
+                                OnClick="btnVolver_Click" />
+                        </td>
+                    </tr>
+                </table>
+                <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                    <tr>
+                        <td class="TD50px">
+                            <asp:Label ID="Label1" Text="Descripción:" runat="server" />
+                        </td>
+                        <td class="TD250px">
+                            <asp:TextBox ID="txtDescripcion" runat="server" CssClass="EstiloTxtLargo250" />
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </asp:Panel>
 </asp:Content>

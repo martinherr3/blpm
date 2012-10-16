@@ -171,12 +171,12 @@ namespace EDUAR_UI
 						CargarContenido(idAsignaturaCurso);
 					}
 				}
-				else
-				{
-					if (Request.Form["__EVENTTARGET"] == "btnGuardar")
-						//llamamos el metodo que queremos ejecutar, en este caso el evento onclick del boton Button2
-						btnGuardar_Click(this, new EventArgs());
-				}
+				//else
+				//{
+				//    if (Request.Form["__EVENTTARGET"] == "btnGuardar")
+				//        //llamamos el metodo que queremos ejecutar, en este caso el evento onclick del boton Button2
+				//        btnGuardar_Click(this, new EventArgs());
+				//}
 			}
 			catch (Exception ex)
 			{
@@ -259,9 +259,10 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				pnlNuevoContenido.Attributes["display"] = "inherit";
-				//pnlNuevoContenido.Visible = true;
-				udpBotonera.Update();
+				//pnlContenidos.Attributes["display"] = "inherit";
+				//pnlContenidos.Visible = true;
+				mpeContenido.Show();
+				//udpBotonera.Update();
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -284,12 +285,31 @@ namespace EDUAR_UI
 					nuevoContenido.idContenido = idContenido;
 
 					GuardarContenido(nuevoContenido);
+					txtDescripcion.Text = string.Empty;
+					mpeContenido.Hide();
 				}
 				else
 				{
 					AccionPagina = enumAcciones.Error;
+					mpeContenido.Hide();
 					Master.MostrarMensaje("Datos Faltantes", "Por favor, ingrese una descripción válida.", enumTipoVentanaInformacion.Advertencia);
 				}
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnVolver control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnVolver_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				txtDescripcion.Text = string.Empty;
+				mpeContenido.Hide();
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -317,6 +337,7 @@ namespace EDUAR_UI
 				{
 					ddlAsignatura.SelectedIndex = 0;
 					ddlAsignatura.Items.Clear();
+					ddlAsignatura.Items.Add("[Seleccione Curso]");
 				}
 				ddlAsignatura.Enabled = idCursoCicloLectivo > 0;
 				udpAsignatura.Update();
@@ -411,8 +432,9 @@ namespace EDUAR_UI
 		private void CargarPresentacion()
 		{
 			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
-			pnlNuevoContenido.Attributes["display"] = "none";
-			//pnlNuevoContenido.Visible = false;
+			ddlAsignatura.Items.Add("[Seleccione Curso]");
+			pnlContenidos.Attributes["display"] = "none";
+			//pnlContenidos.Visible = false;
 
 			udpBotonera.Update();
 		}
@@ -459,7 +481,7 @@ namespace EDUAR_UI
 			lblTitulo.Text = "Nuevo Contenido";
 			txtDescripcion.Text = string.Empty;
 			idContenido = 0;
-			pnlNuevoContenido.Attributes["display"] = "none";
+			pnlContenidos.Attributes["display"] = "none";
 			udpBotonera.Update();
 			CargarContenido(idAsignaturaCurso);
 		}
