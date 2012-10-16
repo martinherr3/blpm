@@ -20,10 +20,6 @@ namespace EDUAR_Utility.Utilidades
 
         private clsSMS _clsSms;
 
-        //private List<string> destinatarios;
-
-        private string contenido;
-
         private List<String> _puertos;
 
         #endregion
