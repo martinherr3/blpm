@@ -250,7 +250,7 @@ namespace SMSapplication
                 {                
                     idLinea = 7;
                     throw new ApplicationException("No success message was received. Comando:  "  + command + " leo: " + input);
-                    idLinea = 8;
+                    //idLinea = 8;
                 }
                 return input;
             }
