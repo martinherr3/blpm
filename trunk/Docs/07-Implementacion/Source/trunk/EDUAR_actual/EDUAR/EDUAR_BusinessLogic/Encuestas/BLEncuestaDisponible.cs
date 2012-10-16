@@ -12,37 +12,37 @@ using EDUAR_DataAccess.Shared;
 
 namespace EDUAR_BusinessLogic.Encuestas
 {
-    public class BLRespuesta : BusinessLogicBase<Respuesta, DARespuesta>
+    public class BLEncuestaDisponible : BusinessLogicBase<EncuestaDisponible, DAEncuestaDisponible>
     {
         #region --[Constante]--
-        private const string ClassName = "BLRespuesta";
+        private const string ClassName = "BLEncuestaDisponible";
         #endregion
 
         #region --[Constructores]--
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLRespuesta(DTBase objRespuesta)
+        public BLEncuestaDisponible(DTBase objEncuesta)
         {
-            Data = (Respuesta)objRespuesta;
+            Data = (EncuestaDisponible)objEncuesta;
         }
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public BLRespuesta()
+        public BLEncuestaDisponible()
         {
-            Data = new Respuesta();
+            Data = new EncuestaDisponible();
         }
         #endregion
 
         #region --[Propiedades Override]--
-        protected override sealed DARespuesta DataAcces
+        protected override sealed DAEncuestaDisponible DataAcces
         {
             get { return dataAcces; }
             set { dataAcces = value; }
         }
 
-        public override sealed Respuesta Data
+        public override sealed EncuestaDisponible Data
         {
             get { return data; }
             set { data = value; }
@@ -87,10 +87,10 @@ namespace EDUAR_BusinessLogic.Encuestas
             {
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                int idRespuesta = 0;
+                int idEncuesta = 0;
 
-                if (Data.idRespuesta == 0)
-                    DataAcces.Create(Data, out idRespuesta);
+                if (Data.encuesta.idEncuesta == 0)
+                    DataAcces.Create(Data, out idEncuesta);
                 else
                     DataAcces.Update(Data);
 
@@ -120,8 +120,8 @@ namespace EDUAR_BusinessLogic.Encuestas
             try
             {
                 //Si no viene el Id es porque se esta creando la entidad
-                DataAcces = new DARespuesta(objDATransaction);
-                if (Data.idRespuesta == 0)
+                DataAcces = new DAEncuestaDisponible(objDATransaction);
+                if (Data.encuesta.idEncuesta == 0)
                     DataAcces.Create(Data);
                 else
                 {
@@ -143,7 +143,7 @@ namespace EDUAR_BusinessLogic.Encuestas
         {
 			try
 			{
-				DataAcces = new DARespuesta();
+				DataAcces = new DAEncuestaDisponible();
 				DataAcces.Delete(Data);
 			}
 			catch (CustomizedException ex)
@@ -161,7 +161,7 @@ namespace EDUAR_BusinessLogic.Encuestas
         {
             try
             {
-                DataAcces = new DARespuesta(objDATransaction);
+                DataAcces = new DAEncuestaDisponible(objDATransaction);
                 DataAcces.Delete(Data);
             }
             catch (CustomizedException ex)
@@ -177,44 +177,56 @@ namespace EDUAR_BusinessLogic.Encuestas
         #endregion
 
         #region --[Métodos publicos]--
-        /// <summary>
-        /// Obtiene las escalas de medición disponibles.
-        /// </summary>
-        /// <param name="objFiltro">The obj filtro.</param>
-        /// <returns></returns>
-        //public List<Respuesta> GetRespuestasEncuesta(Encuesta objFiltro, bool flag)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetRespuestasEncuesta(objFiltro, flag);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestasEncuesta", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+        public List<Encuesta> GetEncuestasDisponibles(EncuestaDisponible objFiltro)
+        {
+            try
+            {
+                return DataAcces.GetEncuestasDisponibles(objFiltro);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestasDisponibles", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
 
-        //public List<Encuesta> GetEncuestasDisponibles(string username)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetEncuestasDisponibles(username);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestasDisponibles", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+        public List<EncuestaDisponible> GetEncuestasRespondidas(EncuestaDisponible objFiltro)
+        {
+            try
+            {
+                return DataAcces.GetEncuestasRespondidas(objFiltro);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestasRespondidas", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        public List<Respuesta> GetRespuestasSumarizadas(EncuestaDisponible objFiltro)
+        {
+            try
+            {
+                return DataAcces.GetRespuestasSumarizadas(objFiltro);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestasSumarizadas", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }

@@ -34,8 +34,7 @@
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td>
-                                <h3>
-                                    Buscar Encuestas</h3>
+                                <h3>Buscar Encuestas</h3>
                             </td>
                         </tr>
                         <tr>
@@ -70,6 +69,7 @@
             <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
+
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwEncuestas" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
