@@ -2,383 +2,423 @@
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AjaxControlToolkit;
+using EDUAR_BusinessLogic.Encuestas;
 using EDUAR_Entities;
 using EDUAR_UI.Shared;
-using EDUAR_BusinessLogic.Encuestas;
-using AjaxControlToolkit;
-using EDUAR_UI.UserControls;
 using EDUAR_UI.Utilidades;
 
 namespace EDUAR_UI
 {
-    public partial class Cuestionario : EDUARBasePage
-    {
-        #region --[Atributos]--
-        BLEncuesta objBLEncuesta;
-        BLPregunta objBLPregunta;
-        BLRespuesta objBLRespuesta;
-        BLEncuestaDisponible objBLEncuestaDisponible;
-        #endregion
+	public partial class Cuestionario : EDUARBasePage
+	{
+		#region --[Atributos]--
+		BLEncuesta objBLEncuesta;
+		BLPregunta objBLPregunta;
+		BLRespuesta objBLRespuesta;
+		BLEncuestaDisponible objBLEncuestaDisponible;
+		#endregion
 
-        #region --[Propiedades]--
+		#region --[Propiedades]--
 
-        /// <summary>
-        /// Gets or sets the encuesta en sesion.
-        /// </summary>
-        /// <value>
-        /// The encuesta en sesion.
-        /// </value>
-        public EncuestaDisponible encuestaSeleccionada
-        {
-            get
-            {
-                if (ViewState["encuestaSeleccionada"] == null)
-                    encuestaSeleccionada = new EncuestaDisponible();
+		/// <summary>
+		/// Gets or sets the encuesta en sesion.
+		/// </summary>
+		/// <value>
+		/// The encuesta en sesion.
+		/// </value>
+		public EncuestaDisponible encuestaSeleccionada
+		{
+			get
+			{
+				if (ViewState["encuestaSeleccionada"] == null)
+					encuestaSeleccionada = new EncuestaDisponible();
 
-                return (EncuestaDisponible)ViewState["encuestaSeleccionada"];
-            }
-            set { ViewState["encuestaSeleccionada"] = value; }
-        }
+				return (EncuestaDisponible)ViewState["encuestaSeleccionada"];
+			}
+			set { ViewState["encuestaSeleccionada"] = value; }
+		}
 
-        /// <summary>
-        /// Gets or sets el tipo de escala a utilizar
-        /// Recordar que puede ser cualitativa o cuantitativa, y de ello depende las opciones a desplegar
-        /// </summary>
-        /// <value>
-        /// El tipo de escala.
-        /// </value>
-        //public int tipoEscala
-        //{
-        //    get
-        //    {
-        //        if (Session["tipoEscala"] == null)
-        //            tipoEscala = 0;
-        //        return (int)Session["tipoEscala"];
-        //    }
-        //    set { Session["tipoEscala"] = value; }
-        //}
+		/// <summary>
+		/// Gets or sets el tipo de escala a utilizar
+		/// Recordar que puede ser cualitativa o cuantitativa, y de ello depende las opciones a desplegar
+		/// </summary>
+		/// <value>
+		/// El tipo de escala.
+		/// </value>
+		//public int tipoEscala
+		//{
+		//    get
+		//    {
+		//        if (Session["tipoEscala"] == null)
+		//            tipoEscala = 0;
+		//        return (int)Session["tipoEscala"];
+		//    }
+		//    set { Session["tipoEscala"] = value; }
+		//}
 
-        /// <summary>
-        /// Gets or sets the id pregunta con la finalidad de mantener el track de la respuesta.
-        /// </summary>
-        /// <value>
-        /// The id pregunta.
-        /// </value>
-        public Respuesta respuestaSkeleton
-        {
-            get
-            {
-                if (ViewState["respuestaSkeleton"] == null)
-                    ViewState["respuestaSkeleton"] = new Respuesta();
-                return (Respuesta)ViewState["respuestaSkeleton"];
-            }
-            set { ViewState["respuestaSkeleton"] = value; }
-        }
+		/// <summary>
+		/// Gets or sets the id pregunta con la finalidad de mantener el track de la respuesta.
+		/// </summary>
+		/// <value>
+		/// The id pregunta.
+		/// </value>
+		public Respuesta respuestaSkeleton
+		{
+			get
+			{
+				if (ViewState["respuestaSkeleton"] == null)
+					ViewState["respuestaSkeleton"] = new Respuesta();
+				return (Respuesta)ViewState["respuestaSkeleton"];
+			}
+			set { ViewState["respuestaSkeleton"] = value; }
+		}
 
-        public List<Respuesta> respuestas
-        {
-            get
-            {
-                if (Session["respuestas"] == null)
-                    Session["respuestas"] = new List<Respuesta>();
+		/// <summary>
+		/// Gets or sets the lista respuestas.
+		/// </summary>
+		/// <value>
+		/// The lista respuestas.
+		/// </value>
+		public List<Respuesta> ListaRespuestas
+		{
+			get
+			{
+				if (Session["respuestas"] == null)
+					Session["respuestas"] = new List<Respuesta>();
 
-                return (List<Respuesta>)Session["respuestas"];
-            }
-            set { Session["respuestas"] = value; }
-        }
-        #endregion
+				return (List<Respuesta>)Session["respuestas"];
+			}
+			set { Session["respuestas"] = value; }
+		}
+		#endregion
 
-        #region --[Eventos]--
-        /// <summary>
-        /// Método que se ejecuta al dibujar los controles de la página.
-        /// Se utiliza para gestionar las excepciones del método Page_Load().
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void OnPreRender(EventArgs e)
-        {
-            base.OnPreRender(e);
-            if (AvisoMostrar)
-            {
-                AvisoMostrar = false;
+		#region --[Eventos]--
+		/// <summary>
+		/// Método que se ejecuta al dibujar los controles de la página.
+		/// Se utiliza para gestionar las excepciones del método Page_Load().
+		/// </summary>
+		/// <param name="e"></param>
+		protected override void OnPreRender(EventArgs e)
+		{
+			base.OnPreRender(e);
+			if (AvisoMostrar)
+			{
+				AvisoMostrar = false;
 
-                try
-                {
-                    Master.ManageExceptions(AvisoExcepcion);
-                }
-                catch (Exception ex) { Master.ManageExceptions(ex); }
-            }
-        }
+				try
+				{
+					Master.ManageExceptions(AvisoExcepcion);
+				}
+				catch (Exception ex) { Master.ManageExceptions(ex); }
+			}
+		}
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!Page.IsPostBack)
-            {
-                cargarEncabezado();
-            }
-            else
-            {
-                int idEncuestaSeleccionada;
+		/// <summary>
+		/// Handles the Load event of the Page control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void Page_Load(object sender, EventArgs e)
+		{
+			try
+			{
+				Master.BotonAvisoAceptar += (VentanaAceptar);
+				if (!Page.IsPostBack)
+				{
+					cargarEncabezado();
+				}
+				else
+				{
+					int idEncuestaSeleccionada;
 
-                if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada) 
-                    && AccionPagina == EDUAR_Utility.Enumeraciones.enumAcciones.Buscar
-                    )
-                    CargarEncuesta();
-            }
-        }
+					if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada)
+						&& AccionPagina == EDUAR_Utility.Enumeraciones.enumAcciones.Buscar
+						)
+						CargarEncuesta();
+				}
+			}
+			catch (Exception ex)
+			{
+				AvisoMostrar = true;
+				AvisoExcepcion = ex;
+			}
+		}
 
-        protected void btnGuardar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // REGISTRAR QUE LA ENCUESTA DISPONIBLE HA SIDO RESPONDIDA
-                encuestaSeleccionada.respondida = true;
-                encuestaSeleccionada.fechaRespuesta = DateTime.Now;
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		void VentanaAceptar(object sender, EventArgs e)
+		{
+			try
+			{
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 
-                objBLEncuestaDisponible = new BLEncuestaDisponible(encuestaSeleccionada);
-                objBLEncuestaDisponible.Save();
+		/// <summary>
+		/// Handles the Click event of the btnGuardar control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnGuardar_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				// REGISTRAR QUE LA ENCUESTA DISPONIBLE HA SIDO RESPONDIDA
+				encuestaSeleccionada.respondida = true;
+				encuestaSeleccionada.fechaRespuesta = DateTime.Now;
 
-                // GUARDAR LAS RESPUESTAS
-                //foreach (respuesta respuesta in respuestas)
-                //{
-                //    objblrespuesta = new blrespuesta(respuesta);
-                //    objblrespuesta.save();
-                //}
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
+				objBLEncuestaDisponible = new BLEncuestaDisponible(encuestaSeleccionada);
+				objBLEncuestaDisponible.Save();
 
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                foreach (Pregunta preguntaPuntual in encuestaSeleccionada.encuesta.preguntas)
-                {
-                    Control myControl = FindControlRecursive(udpFormulario, "respuesta_" + preguntaPuntual.idPregunta);
+				// GUARDAR LAS RESPUESTAS
+				foreach (Respuesta respuesta in ListaRespuestas)
+				{
+					objBLRespuesta = new BLRespuesta(respuesta);
+					objBLRespuesta.Save();
+				}
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 
-                    if (myControl.GetType() == typeof(TextBox))
-                    {
-                        ((TextBox)myControl).Text = string.Empty;
-                    }
-                    //if (myControl.GetType() == typeof(Rating))
-                    //{
-                    //    int respuesta2 = ((Rating)myControl).CurrentRating;
-                    //}
-                }
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
+		protected void btnCancelar_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				foreach (Pregunta preguntaPuntual in encuestaSeleccionada.encuesta.preguntas)
+				{
+					Control myControl = FindControlRecursive(udpFormulario, "respuesta_" + preguntaPuntual.idPregunta);
 
-        private void CargarCombos()
-        {
-            objBLEncuestaDisponible = new BLEncuestaDisponible();
+					if (myControl.GetType() == typeof(TextBox))
+					{
+						((TextBox)myControl).Text = string.Empty;
+					}
+					//if (myControl.GetType() == typeof(Rating))
+					//{
+					//    int respuesta2 = ((Rating)myControl).CurrentRating;
+					//}
+				}
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 
-            EncuestaDisponible encuestaSkeleton = new EncuestaDisponible();
-            encuestaSkeleton.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+		private void CargarCombos()
+		{
+			objBLEncuestaDisponible = new BLEncuestaDisponible();
 
-            UIUtilidades.BindCombo<Encuesta>(ddlEncuesta, objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton), "idEncuesta", "nombreEncuesta", true);
-        }
+			EncuestaDisponible encuestaSkeleton = new EncuestaDisponible();
+			encuestaSkeleton.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
-        protected void rating_Changed(object sender, RatingEventArgs e)
-        {
-            try
-            {
-                Respuesta respuestaPuntual = new Respuesta();
-                respuestaPuntual = respuestaSkeleton;
+			UIUtilidades.BindCombo<Encuesta>(ddlEncuesta, objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton), "idEncuesta", "nombreEncuesta", true);
+		}
 
-                respuestaPuntual.respuestaSeleccion = Convert.ToInt16(e.Value);
-                respuestas.Add(respuestaPuntual);
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
+		protected void rating_Changed(object sender, RatingEventArgs e)
+		{
+			try
+			{
+				Respuesta respuestaPuntual = new Respuesta();
+				respuestaPuntual = respuestaSkeleton;
 
-        protected void text_Changed(object sender, EventArgs e)
-        {
-            try
-            {
-                string valor = ((TextBox)sender).Text;
+				respuestaPuntual.respuestaSeleccion = Convert.ToInt16(e.Value);
+				ListaRespuestas.Add(respuestaPuntual);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 
-                Respuesta respuestaPuntual = new Respuesta();
-                respuestaPuntual = respuestaSkeleton;
+		protected void text_Changed(object sender, EventArgs e)
+		{
+			try
+			{
+				string valor = ((TextBox)sender).Text;
 
-                respuestaPuntual.respuestaTextual = valor;
-                respuestas.Add(respuestaPuntual);
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
+				Respuesta respuestaPuntual = new Respuesta();
+				respuestaPuntual = respuestaSkeleton;
 
-        protected void btnBuscar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                AccionPagina = EDUAR_Utility.Enumeraciones.enumAcciones.Buscar;
-                CargarEncuesta();
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
+				respuestaPuntual.respuestaTextual = valor;
+				ListaRespuestas.Add(respuestaPuntual);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 
-        private void CargarEncuesta()
-        {
-            int idEncuestaSeleccionada = Convert.ToInt32(ddlEncuesta.SelectedValue);
+		protected void btnBuscar_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				AccionPagina = EDUAR_Utility.Enumeraciones.enumAcciones.Buscar;
+				CargarEncuesta();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 
-            objBLEncuesta = new BLEncuesta();
-            objBLEncuestaDisponible = new BLEncuestaDisponible();
+		private void CargarEncuesta()
+		{
+			int idEncuestaSeleccionada = Convert.ToInt32(ddlEncuesta.SelectedValue);
 
-            //OBTENGO LA ENCUESTA PUNTUAL
+			objBLEncuesta = new BLEncuesta();
+			objBLEncuestaDisponible = new BLEncuestaDisponible();
 
-            Encuesta encuestaPuntual = objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSeleccionada).Find(c => c.idEncuesta == idEncuestaSeleccionada);
+			//OBTENGO LA ENCUESTA PUNTUAL
 
-            encuestaSeleccionada.encuesta = encuestaPuntual;
-            encuestaSeleccionada.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+			Encuesta encuestaPuntual = objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSeleccionada).Find(c => c.idEncuesta == idEncuestaSeleccionada);
 
-            //PRECARGA DE ATRIBUTOS DE LA RESPUESTA SKELETON
-            respuestaSkeleton.encuestaDisponible.encuesta = encuestaPuntual;
-            respuestaSkeleton.encuestaDisponible.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+			encuestaSeleccionada.encuesta = encuestaPuntual;
+			encuestaSeleccionada.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
-            generarEsqueleto(encuestaPuntual);
-        }
-        #endregion
+			//PRECARGA DE ATRIBUTOS DE LA RESPUESTA SKELETON
+			respuestaSkeleton.encuestaDisponible.encuesta = encuestaPuntual;
+			respuestaSkeleton.encuestaDisponible.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
-        #region --[Métodos Privados]--
-        public void cargarEncabezado()
-        {
-            CargarCombos();
-        }
+			generarEsqueleto(encuestaPuntual);
+		}
+		#endregion
 
-        public void generarEsqueleto(Encuesta entidad)
-        {
-            objBLEncuesta = new BLEncuesta();
+		#region --[Métodos Privados]--
+		public void cargarEncabezado()
+		{
+			CargarCombos();
+		}
 
-            //objBLEncuestaDisponible = new BLEncuestaDisponible();
+		public void generarEsqueleto(Encuesta entidad)
+		{
+			objBLEncuesta = new BLEncuesta();
 
-            objBLPregunta = new BLPregunta();
+			//objBLEncuestaDisponible = new BLEncuestaDisponible();
 
-            //List<CategoriaPregunta> listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(encuestaSeleccionada.encuesta);
-            List<CategoriaPregunta> listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(entidad);
+			objBLPregunta = new BLPregunta();
 
-            //lblNombreEncuesta.Text = encuestaSeleccionada.encuesta.nombreEncuesta;
-            lblNombreEncuesta.Text = entidad.nombreEncuesta;
+			//List<CategoriaPregunta> listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(encuestaSeleccionada.encuesta);
+			List<CategoriaPregunta> listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(entidad);
 
-            Label lblCategoria;
+			//lblNombreEncuesta.Text = encuestaSeleccionada.encuesta.nombreEncuesta;
+			lblNombreEncuesta.Text = entidad.nombreEncuesta;
 
-            AjaxControlToolkit.AccordionPane pn;
-            int i = 0;
-            int contador = 0;
+			Label lblCategoria;
 
-            foreach (CategoriaPregunta categoria in listaCategorias)
-            {
-                List<Pregunta> preguntasPorCategoria = objBLPregunta.GetPreguntasPorCategoria(categoria);
+			AjaxControlToolkit.AccordionPane pn;
+			int i = 0;
+			int contador = 0;
 
-                lblCategoria = new Label();
+			foreach (CategoriaPregunta categoria in listaCategorias)
+			{
+				List<Pregunta> preguntasPorCategoria = objBLPregunta.GetPreguntasPorCategoria(categoria);
 
-                lblCategoria.Text = categoria.nombre;
+				lblCategoria = new Label();
 
-                pn = new AjaxControlToolkit.AccordionPane();
-                pn.ID = "Panel_" + i;
+				lblCategoria.Text = categoria.nombre;
 
-                pn.HeaderContainer.Controls.Add(lblCategoria);
+				pn = new AjaxControlToolkit.AccordionPane();
+				pn.ID = "Panel_" + i;
 
-                if (preguntasPorCategoria.Count > 0)
-                {
-                    Label lblPregunta;
+				pn.HeaderContainer.Controls.Add(lblCategoria);
 
-                    foreach (Pregunta pregunta in preguntasPorCategoria)
-                    {
-                        contador++;
-                        Panel panelRespuesta = new Panel();
-                        panelRespuesta.ID = "pregunta_" + contador.ToString();
+				if (preguntasPorCategoria.Count > 0)
+				{
+					Label lblPregunta;
 
-                        //PREGUNTA
+					foreach (Pregunta pregunta in preguntasPorCategoria)
+					{
+						contador++;
+						Panel panelRespuesta = new Panel();
+						panelRespuesta.ID = "pregunta_" + contador.ToString();
 
-                        lblPregunta = new Label();
+						//PREGUNTA
 
-                        lblPregunta.Text = pregunta.textoPregunta;
-                        lblPregunta.Font.Bold = true;
-                        lblPregunta.Font.Size = 11;
-                        lblPregunta.BorderWidth = 1;
-                        lblPregunta.Width = 990;
+						lblPregunta = new Label();
 
-                        panelRespuesta.Controls.Add(lblPregunta);
-                        panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
+						lblPregunta.Text = pregunta.textoPregunta;
+						lblPregunta.Font.Bold = true;
+						lblPregunta.Font.Size = 11;
+						lblPregunta.BorderWidth = 1;
+						lblPregunta.Width = 990;
 
-                        respuestaSkeleton.pregunta = pregunta;
+						panelRespuesta.Controls.Add(lblPregunta);
+						panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
 
-                        //RESPUESTA
+						respuestaSkeleton.pregunta = pregunta;
 
-                        if (pregunta.escala.nombre.Equals("Conceptual literal"))
-                        {
-                            TextBox txtRespuesta = new TextBox();
-                            txtRespuesta.ID = "respuesta_" + pregunta.idPregunta.ToString();
-                            txtRespuesta.Rows = 5;
-                            txtRespuesta.Columns = 75;
-                            txtRespuesta.AutoPostBack = false;
-                            txtRespuesta.CssClass = "txtMultilinea99";
-                            txtRespuesta.TextMode = TextBoxMode.MultiLine;
-                            txtRespuesta.Wrap = false;
-                            txtRespuesta.MaxLength = 4000;
+						//RESPUESTA
 
-                            txtRespuesta.TextChanged += new EventHandler(this.text_Changed);
+						if (pregunta.escala.nombre.Equals("Conceptual literal"))
+						{
+							TextBox txtRespuesta = new TextBox();
+							txtRespuesta.ID = "respuesta_" + pregunta.idPregunta.ToString();
+							txtRespuesta.Rows = 5;
+							txtRespuesta.Columns = 75;
+							txtRespuesta.AutoPostBack = false;
+							txtRespuesta.CssClass = "txtMultilinea99";
+							txtRespuesta.TextMode = TextBoxMode.MultiLine;
+							txtRespuesta.Wrap = false;
+							txtRespuesta.MaxLength = 4000;
 
-                            panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
-                            panelRespuesta.Controls.Add(txtRespuesta);
-                            panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
-                        }
-                        else
-                        {
-                            AjaxControlToolkit.Rating rating = new AjaxControlToolkit.Rating();
+							txtRespuesta.TextChanged += new EventHandler(this.text_Changed);
 
-                            rating.ID = "respuesta_" + pregunta.idPregunta.ToString();
-                            rating.MaxRating = 5;
+							panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
+							panelRespuesta.Controls.Add(txtRespuesta);
+							panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
+						}
+						else
+						{
+							AjaxControlToolkit.Rating rating = new AjaxControlToolkit.Rating();
 
-                            rating.StarCssClass = "ratingStar";
-                            rating.WaitingStarCssClass = "savedRatingStar";
-                            rating.FilledStarCssClass = "filledRatingStar";
-                            rating.EmptyStarCssClass = "emptyRatingStar";
-                            rating.AutoPostBack = false;
+							rating.ID = "respuesta_" + pregunta.idPregunta.ToString();
+							rating.MaxRating = 5;
 
-                            rating.Changed += new AjaxControlToolkit.RatingEventHandler(rating_Changed);
+							rating.StarCssClass = "ratingStar";
+							rating.WaitingStarCssClass = "savedRatingStar";
+							rating.FilledStarCssClass = "filledRatingStar";
+							rating.EmptyStarCssClass = "emptyRatingStar";
+							rating.AutoPostBack = false;
 
-                            panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
-                            panelRespuesta.Controls.Add(rating);
-                            panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
-                        }
+							rating.Changed += new AjaxControlToolkit.RatingEventHandler(rating_Changed);
 
-                        pn.ContentContainer.Controls.Add(panelRespuesta);
-                        pn.ContentContainer.Controls.Add(new LiteralControl("<br/>"));
-                    }
-                }
-                CuestionarioAccordion.Panes.Add(pn);
-                ++i;
-            }
-        }
+							panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
+							panelRespuesta.Controls.Add(rating);
+							panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
+						}
 
-        public static Control FindControlRecursive(Control container, string name)
-        {
-            if ((container.ID != null) && (container.ID.Equals(name)))
-                return container;
+						pn.ContentContainer.Controls.Add(panelRespuesta);
+						pn.ContentContainer.Controls.Add(new LiteralControl("<br/>"));
+					}
+				}
+				CuestionarioAccordion.Panes.Add(pn);
+				++i;
+			}
+		}
 
-            foreach (Control ctrl in container.Controls)
-            {
-                Control foundCtrl = FindControlRecursive(ctrl, name);
-                if (foundCtrl != null)
-                    return foundCtrl;
-            }
-            return null;
-        }
-        #endregion
-    }
+		public static Control FindControlRecursive(Control container, string name)
+		{
+			if ((container.ID != null) && (container.ID.Equals(name)))
+				return container;
+
+			foreach (Control ctrl in container.Controls)
+			{
+				Control foundCtrl = FindControlRecursive(ctrl, name);
+				if (foundCtrl != null)
+					return foundCtrl;
+			}
+			return null;
+		}
+		#endregion
+	}
 }
