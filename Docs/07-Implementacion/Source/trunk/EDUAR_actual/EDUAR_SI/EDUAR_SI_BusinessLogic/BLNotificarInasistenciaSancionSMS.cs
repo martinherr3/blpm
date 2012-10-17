@@ -46,7 +46,7 @@ namespace EDUAR_SI_BusinessLogic
                 var listaSanciones = objDANotificar.GetInformeSancionesSMS(enumProcesosAutomaticos.InformeSanciones.GetHashCode());
 
 
-                if (listaInasistencias.Count > 0 || listaSanciones.Count > 0)
+                if (listaInasistencias.Count >= 0 || listaSanciones.Count > 0)
                 {
 
                     EnviarSMSInasistenciaSancion(listaInasistencias, listaSanciones);
@@ -137,7 +137,12 @@ namespace EDUAR_SI_BusinessLogic
 
                     SMS.Desconectarse();
                 }
+                else
+                {
+                    throw(new Exception("No se puede conectar al Modem Celular"));
+                }
 			}
+            
 			catch (Exception ex)
 			{
 				throw ex;
