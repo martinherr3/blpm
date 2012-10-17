@@ -203,7 +203,7 @@ namespace SMSapplication
                 }
                 catch (Exception ex)
                 {
-                    ////_logger.Error("ClosePort1", ex);
+                    throw ex;////_logger.Error("ClosePort1", ex);
                     
                 }
                 Console.WriteLine("VA A CERRAR2!!!!!");
