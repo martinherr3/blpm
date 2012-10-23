@@ -30,7 +30,7 @@
                 </tr>
             </table>
 
-            <asp:UpdatePanel ID="udpFormulario" runat="server">
+            <asp:UpdatePanel ID="udpFormulario" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
                 <h2>
                     <asp:Label ID="lblNombreEncuesta" runat="server" />
@@ -61,8 +61,9 @@
                 </Triggers>
             </asp:UpdatePanel>
         </ContentTemplate>
-        <%--<Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
-        </Triggers>--%>
+        <Triggers>
+            <%--<asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />--%>
+            <asp:AsyncPostBackTrigger ControlID="btnCancelar" EventName="Click" />
+        </Triggers>
         </asp:UpdatePanel>
 </asp:Content>

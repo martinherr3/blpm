@@ -220,6 +220,30 @@ namespace EDUAR_BusinessLogic.Encuestas
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+		/// <summary>
+		/// Gets the preguntas por categoria.
+		/// </summary>
+		/// <param name="objFiltro">The obj filtro.</param>
+		/// <param name="miEncuesta">The mi encuesta.</param>
+		/// <returns></returns>
+		public List<Pregunta> GetPreguntasPorCategoria(CategoriaPregunta objFiltro, Encuesta miEncuesta)
+		{
+			try
+			{
+				return DataAcces.GetPreguntasPorCategoria(objFiltro, miEncuesta);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetPreguntasPorCategoria", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
         #endregion
     }
 }

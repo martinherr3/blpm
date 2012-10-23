@@ -7,6 +7,7 @@ using EDUAR_BusinessLogic.Encuestas;
 using EDUAR_Entities;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -38,24 +39,6 @@ namespace EDUAR_UI
 			}
 			set { ViewState["encuestaSeleccionada"] = value; }
 		}
-
-		/// <summary>
-		/// Gets or sets el tipo de escala a utilizar
-		/// Recordar que puede ser cualitativa o cuantitativa, y de ello depende las opciones a desplegar
-		/// </summary>
-		/// <value>
-		/// El tipo de escala.
-		/// </value>
-		//public int tipoEscala
-		//{
-		//    get
-		//    {
-		//        if (Session["tipoEscala"] == null)
-		//            tipoEscala = 0;
-		//        return (int)Session["tipoEscala"];
-		//    }
-		//    set { Session["tipoEscala"] = value; }
-		//}
 
 		/// <summary>
 		/// Gets or sets the id pregunta con la finalidad de mantener el track de la respuesta.
@@ -90,6 +73,59 @@ namespace EDUAR_UI
 				return (List<Respuesta>)Session["respuestas"];
 			}
 			set { Session["respuestas"] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the cant respuestas minimas.
+		/// </summary>
+		/// <value>
+		/// The cant respuestas minimas.
+		/// </value>
+		public int cantRespuestasMinimas
+		{
+			get
+			{
+				if (ViewState["cantRespuestasMinimas"] == null)
+					ViewState["cantRespuestasMinimas"] = 0;
+
+				return (int)ViewState["cantRespuestasMinimas"];
+			}
+			set { ViewState["cantRespuestasMinimas"] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the lista categorias.
+		/// </summary>
+		/// <value>
+		/// The lista categorias.
+		/// </value>
+		public List<CategoriaPregunta> listaCategorias
+		{
+			get
+			{
+				if (ViewState["listaCategorias"] == null)
+					ViewState["listaCategorias"] = new List<CategoriaPregunta>();
+
+				return (List<CategoriaPregunta>)ViewState["listaCategorias"];
+			}
+			set { ViewState["listaCategorias"] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the encuesta puntual.
+		/// </summary>
+		/// <value>
+		/// The encuesta puntual.
+		/// </value>
+		public Encuesta encuestaPuntual
+		{
+			get
+			{
+				if (ViewState["encuestaPuntual"] == null)
+					ViewState["encuestaPuntual"] = new Encuesta();
+				return (Encuesta)ViewState["encuestaPuntual"];
+			}
+			set { ViewState["encuestaPuntual"] = value; }
 		}
 		#endregion
 
@@ -127,15 +163,19 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					cargarEncabezado();
+					LimpiarPantalla();
 				}
 				else
 				{
 					int idEncuestaSeleccionada;
 
 					if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada)
-						&& AccionPagina == EDUAR_Utility.Enumeraciones.enumAcciones.Buscar
+						&&
+						(AccionPagina == enumAcciones.Buscar
+						||
+						AccionPagina == enumAcciones.Responder)
 						)
-						CargarEncuesta();
+						CargarEncuesta(idEncuestaSeleccionada);
 				}
 			}
 			catch (Exception ex)
@@ -154,9 +194,44 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				int idEncuestaSeleccionada;
+
+				if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada)
+					&&
+					(AccionPagina == enumAcciones.Buscar
+					||
+					AccionPagina == enumAcciones.Responder)
+					)
+					CargarEncuesta(idEncuestaSeleccionada);
 			}
 			catch (Exception ex)
 			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnBuscar control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnBuscar_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				LimpiarPantalla();
+				int idEncuesta = 0;
+				if (int.TryParse(ddlEncuesta.SelectedValue, out idEncuesta) && idEncuesta > 0)
+				{
+					CargarEncuesta(idEncuesta);
+					AccionPagina = enumAcciones.Buscar;
+					udpFormulario.Visible = true;
+				}
+				udpFormulario.Update();
+			}
+			catch (Exception ex)
+			{
+				AccionPagina = enumAcciones.Limpiar;
 				Master.ManageExceptions(ex);
 			}
 		}
@@ -170,43 +245,63 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				// REGISTRAR QUE LA ENCUESTA DISPONIBLE HA SIDO RESPONDIDA
-				encuestaSeleccionada.respondida = true;
-				encuestaSeleccionada.fechaRespuesta = DateTime.Now;
-
-				objBLEncuestaDisponible = new BLEncuestaDisponible(encuestaSeleccionada);
-				objBLEncuestaDisponible.Save();
-
-				// GUARDAR LAS RESPUESTAS
-				foreach (Respuesta respuesta in ListaRespuestas)
-				{
-					objBLRespuesta = new BLRespuesta(respuesta);
-					objBLRespuesta.Save();
-				}
+				if (ValidarPagina() == string.Empty)
+					GuardarRespuestas();
+				else
+					Master.MostrarMensaje("Error de Validación", "Existen preguntas sin responder", enumTipoVentanaInformacion.Advertencia);
 			}
 			catch (Exception ex)
 			{
+				AccionPagina = enumAcciones.Limpiar;
 				Master.ManageExceptions(ex);
 			}
 		}
 
+		/// <summary>
+		/// Guardars the respuestas.
+		/// </summary>
+		private void GuardarRespuestas()
+		{
+			// REGISTRAR QUE LA ENCUESTA DISPONIBLE HA SIDO RESPONDIDA
+			encuestaSeleccionada.respondida = true;
+			encuestaSeleccionada.fechaRespuesta = DateTime.Now;
+
+			encuestaSeleccionada.listaRespuestas = ListaRespuestas;
+
+			objBLEncuestaDisponible = new BLEncuestaDisponible(encuestaSeleccionada);
+			objBLEncuestaDisponible.Save();
+
+		}
+
+		/// <summary>
+		/// Validars the pagina.
+		/// </summary>
+		/// <returns></returns>
+		private string ValidarPagina()
+		{
+			int contRespuestas = 0;
+			foreach (Respuesta item in ListaRespuestas)
+			{
+				if (item.respuestaSeleccion > 0) contRespuestas++;
+			}
+			if (contRespuestas == cantRespuestasMinimas)
+				return string.Empty;
+			else
+				return "FaltanDatos";
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnCancelar control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void btnCancelar_Click(object sender, EventArgs e)
 		{
 			try
 			{
-				foreach (Pregunta preguntaPuntual in encuestaSeleccionada.encuesta.preguntas)
-				{
-					Control myControl = FindControlRecursive(udpFormulario, "respuesta_" + preguntaPuntual.idPregunta);
-
-					if (myControl.GetType() == typeof(TextBox))
-					{
-						((TextBox)myControl).Text = string.Empty;
-					}
-					//if (myControl.GetType() == typeof(Rating))
-					//{
-					//    int respuesta2 = ((Rating)myControl).CurrentRating;
-					//}
-				}
+				ddlEncuesta.SelectedIndex = 0;
+				LimpiarPantalla();
+				udpFormulario.Update();
 			}
 			catch (Exception ex)
 			{
@@ -214,20 +309,16 @@ namespace EDUAR_UI
 			}
 		}
 
-		private void CargarCombos()
-		{
-			objBLEncuestaDisponible = new BLEncuestaDisponible();
-
-			EncuestaDisponible encuestaSkeleton = new EncuestaDisponible();
-			encuestaSkeleton.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-
-			UIUtilidades.BindCombo<Encuesta>(ddlEncuesta, objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton), "idEncuesta", "nombreEncuesta", true);
-		}
-
+		/// <summary>
+		/// Handles the Changed event of the rating control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="AjaxControlToolkit.RatingEventArgs"/> instance containing the event data.</param>
 		protected void rating_Changed(object sender, RatingEventArgs e)
 		{
 			try
 			{
+				AccionPagina = enumAcciones.Responder;
 				Respuesta respuestaPuntual = new Respuesta();
 				respuestaPuntual = respuestaSkeleton;
 
@@ -240,10 +331,17 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the Changed event of the text control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void text_Changed(object sender, EventArgs e)
 		{
 			try
 			{
+				AccionPagina = enumAcciones.Responder;
+
 				string valor = ((TextBox)sender).Text;
 
 				Respuesta respuestaPuntual = new Respuesta();
@@ -258,29 +356,58 @@ namespace EDUAR_UI
 			}
 		}
 
-		protected void btnBuscar_Click(object sender, EventArgs e)
+		#endregion
+
+		#region --[Métodos Privados]--
+		/// <summary>
+		/// Cargars the encabezado.
+		/// </summary>
+		public void cargarEncabezado()
 		{
-			try
-			{
-				AccionPagina = EDUAR_Utility.Enumeraciones.enumAcciones.Buscar;
-				CargarEncuesta();
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
+			CargarCombos();
 		}
 
-		private void CargarEncuesta()
+		/// <summary>
+		/// Cargars the combos.
+		/// </summary>
+		private void CargarCombos()
 		{
-			int idEncuestaSeleccionada = Convert.ToInt32(ddlEncuesta.SelectedValue);
+			objBLEncuestaDisponible = new BLEncuestaDisponible();
 
+			EncuestaDisponible encuestaSkeleton = new EncuestaDisponible();
+			encuestaSkeleton.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+			UIUtilidades.BindCombo<Encuesta>(ddlEncuesta, objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton), "idEncuesta", "nombreEncuesta", true);
+		}
+
+		/// <summary>
+		/// Limpiars the pantalla.
+		/// </summary>
+		private void LimpiarPantalla()
+		{
+			//ddlEncuesta.SelectedIndex = 0;
+			cantRespuestasMinimas = 0;
+			encuestaPuntual = new Encuesta();
+			listaCategorias = new List<CategoriaPregunta>();
+			AccionPagina = enumAcciones.Limpiar;
+			CuestionarioAccordion.Panes.Clear();
+			lblNombreEncuesta.Text = string.Empty;
+			udpFormulario.Visible = false;
+		}
+
+		/// <summary>
+		/// Cargars the encuesta.
+		/// </summary>
+		/// <param name="idEncuestaSeleccionada">The id encuesta seleccionada.</param>
+		private void CargarEncuesta(int idEncuestaSeleccionada)
+		{
+			cantRespuestasMinimas = 0;
 			objBLEncuesta = new BLEncuesta();
 			objBLEncuestaDisponible = new BLEncuestaDisponible();
 
 			//OBTENGO LA ENCUESTA PUNTUAL
-
-			Encuesta encuestaPuntual = objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSeleccionada).Find(c => c.idEncuesta == idEncuestaSeleccionada);
+			if (encuestaPuntual.idEncuesta == 0)
+				encuestaPuntual = objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSeleccionada).Find(c => c.idEncuesta == idEncuestaSeleccionada);
 
 			encuestaSeleccionada.encuesta = encuestaPuntual;
 			encuestaSeleccionada.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
@@ -291,15 +418,12 @@ namespace EDUAR_UI
 
 			generarEsqueleto(encuestaPuntual);
 		}
-		#endregion
 
-		#region --[Métodos Privados]--
-		public void cargarEncabezado()
-		{
-			CargarCombos();
-		}
-
-		public void generarEsqueleto(Encuesta entidad)
+		/// <summary>
+		/// Generars the esqueleto.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		private void generarEsqueleto(Encuesta entidad)
 		{
 			objBLEncuesta = new BLEncuesta();
 
@@ -308,7 +432,9 @@ namespace EDUAR_UI
 			objBLPregunta = new BLPregunta();
 
 			//List<CategoriaPregunta> listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(encuestaSeleccionada.encuesta);
-			List<CategoriaPregunta> listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(entidad);
+
+			if (listaCategorias.Count == 0)
+				listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(entidad);
 
 			//lblNombreEncuesta.Text = encuestaSeleccionada.encuesta.nombreEncuesta;
 			lblNombreEncuesta.Text = entidad.nombreEncuesta;
@@ -321,7 +447,7 @@ namespace EDUAR_UI
 
 			foreach (CategoriaPregunta categoria in listaCategorias)
 			{
-				List<Pregunta> preguntasPorCategoria = objBLPregunta.GetPreguntasPorCategoria(categoria);
+				List<Pregunta> preguntasPorCategoria = objBLPregunta.GetPreguntasPorCategoria(categoria, entidad);
 
 				lblCategoria = new Label();
 
@@ -343,7 +469,6 @@ namespace EDUAR_UI
 						panelRespuesta.ID = "pregunta_" + contador.ToString();
 
 						//PREGUNTA
-
 						lblPregunta = new Label();
 
 						lblPregunta.Text = pregunta.textoPregunta;
@@ -358,7 +483,6 @@ namespace EDUAR_UI
 						respuestaSkeleton.pregunta = pregunta;
 
 						//RESPUESTA
-
 						if (pregunta.escala.nombre.Equals("Conceptual literal"))
 						{
 							TextBox txtRespuesta = new TextBox();
@@ -395,6 +519,7 @@ namespace EDUAR_UI
 							panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
 							panelRespuesta.Controls.Add(rating);
 							panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
+							cantRespuestasMinimas++;
 						}
 
 						pn.ContentContainer.Controls.Add(panelRespuesta);
@@ -406,19 +531,25 @@ namespace EDUAR_UI
 			}
 		}
 
-		public static Control FindControlRecursive(Control container, string name)
-		{
-			if ((container.ID != null) && (container.ID.Equals(name)))
-				return container;
+		/// <summary>
+		/// Finds the control recursive.
+		/// </summary>
+		/// <param name="container">The container.</param>
+		/// <param name="name">The name.</param>
+		/// <returns></returns>
+		//private static Control FindControlRecursive(Control container, string name)
+		//{
+		//    if ((container.ID != null) && (container.ID.Equals(name)))
+		//        return container;
 
-			foreach (Control ctrl in container.Controls)
-			{
-				Control foundCtrl = FindControlRecursive(ctrl, name);
-				if (foundCtrl != null)
-					return foundCtrl;
-			}
-			return null;
-		}
+		//    foreach (Control ctrl in container.Controls)
+		//    {
+		//        Control foundCtrl = FindControlRecursive(ctrl, name);
+		//        if (foundCtrl != null)
+		//            return foundCtrl;
+		//    }
+		//    return null;
+		//}
 		#endregion
 	}
 }
