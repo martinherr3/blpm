@@ -173,7 +173,10 @@ namespace EDUAR_UI
 						&&
 						(AccionPagina == enumAcciones.Buscar
 						||
-						AccionPagina == enumAcciones.Responder)
+						AccionPagina == enumAcciones.Responder
+						||
+						AccionPagina == enumAcciones.Error
+						)
 						)
 						CargarEncuesta(idEncuestaSeleccionada);
 				}
@@ -194,15 +197,21 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				int idEncuestaSeleccionada;
+				if (AccionPagina != enumAcciones.Error)
+				{
+					int idEncuestaSeleccionada;
 
-				if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada)
-					&&
-					(AccionPagina == enumAcciones.Buscar
-					||
-					AccionPagina == enumAcciones.Responder)
-					)
-					CargarEncuesta(idEncuestaSeleccionada);
+					if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada)
+						&&
+						(AccionPagina == enumAcciones.Buscar
+						||
+						AccionPagina == enumAcciones.Responder
+						)
+						)
+						CargarEncuesta(idEncuestaSeleccionada);
+				}
+				else
+				    AccionPagina = enumAcciones.Limpiar;
 			}
 			catch (Exception ex)
 			{
@@ -248,7 +257,10 @@ namespace EDUAR_UI
 				if (ValidarPagina() == string.Empty)
 					GuardarRespuestas();
 				else
+				{
+					AccionPagina = enumAcciones.Error;
 					Master.MostrarMensaje("Error de Validación", "Existen preguntas sin responder", enumTipoVentanaInformacion.Advertencia);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -389,6 +401,7 @@ namespace EDUAR_UI
 			cantRespuestasMinimas = 0;
 			encuestaPuntual = new Encuesta();
 			listaCategorias = new List<CategoriaPregunta>();
+			ListaRespuestas = new List<Respuesta>();
 			AccionPagina = enumAcciones.Limpiar;
 			CuestionarioAccordion.Panes.Clear();
 			lblNombreEncuesta.Text = string.Empty;
