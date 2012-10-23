@@ -130,7 +130,7 @@ namespace EDUAR_SI_BusinessLogic
                         txtMsg = txtMsg + " - Sanciones: " + listaSanciones.Count + " . Saludos cordiales. Enviado desde Edu @r 2.0";
 
                         //unAlumno.listaTutores[0].telefonoCelular = "3513262699"; // Para testear descomentar
-                       // SMS.EnviarSMS(unAlumno.listaTutores[0].telefonoCelular, SMS.RemoveAccentsWithRegEx(txtMsg));
+                        SMS.EnviarSMS(unAlumno.listaTutores[0].telefonoCelular, SMS.RemoveAccentsWithRegEx(txtMsg));
                 
                     
                     }
