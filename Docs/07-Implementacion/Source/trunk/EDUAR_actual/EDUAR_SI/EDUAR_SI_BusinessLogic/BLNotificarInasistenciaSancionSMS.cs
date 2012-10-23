@@ -127,10 +127,10 @@ namespace EDUAR_SI_BusinessLogic
                         var listaInasistencia = listaAsistencia.FindAll(p => p.alumno.alumno.idPersona == unAlumno.idPersona);
                         txtMsg = txtMsg + "Inasistencias: " + listaInasistencia.Count;
                         var listaSanciones = listaSancion.FindAll(p => p.alumno.alumno.idPersona == unAlumno.idPersona);
-                        txtMsg = txtMsg + " - Sanciones: " + listaSanciones.Count + " . Saludos cordiales.";
+                        txtMsg = txtMsg + " - Sanciones: " + listaSanciones.Count + " . Saludos cordiales. Enviado desde Edu @r 2.0";
 
-                       // unAlumno.listaTutores[0].telefonoCelular = "3513695198"; // Para testear descomentar
-                        SMS.EnviarSMS(unAlumno.listaTutores[0].telefonoCelular, txtMsg);
+                        //unAlumno.listaTutores[0].telefonoCelular = "3513262699"; // Para testear descomentar
+                       // SMS.EnviarSMS(unAlumno.listaTutores[0].telefonoCelular, SMS.RemoveAccentsWithRegEx(txtMsg));
                 
                     
                     }
