@@ -98,7 +98,8 @@ namespace EDUAR_Utility.Enumeraciones
         Error,
         Enviar,
 		AprobarPlanificacion,
-		SolicitarAprobacion
+		SolicitarAprobacion,
+		Responder
     }
 
     /// <summary>

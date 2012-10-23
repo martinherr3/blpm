@@ -201,22 +201,46 @@ namespace EDUAR_DataAccess.Encuestas
             }
         }
 
+		/// <summary>
+		/// Gets the preguntas por categoria.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<Pregunta> GetPreguntasPorCategoria(CategoriaPregunta entidad)
+		{
+			try
+			{
+				return GetPreguntasPorCategoria(entidad, null);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetPreguntasPorCategoria(CategoriaPregunta)", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetPreguntasPorCategoria(CategoriaPregunta)", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+
         /// <summary>
         /// Gets las preguntas correspondientes a una categoria dada.
         /// </summary>
         /// <param name="entidad">The entidad.</param>
         /// <returns></returns>
-        public List<Pregunta> GetPreguntasPorCategoria(CategoriaPregunta entidad)
+        public List<Pregunta> GetPreguntasPorCategoria(CategoriaPregunta entidad, Encuesta miEncuesta)
         {
             try
             {
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Pregunta_Select");
                 
                 if (entidad != null)
-                {
                     if(entidad.idCategoriaPregunta > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCategoria", DbType.Int32, entidad.idCategoriaPregunta);
-                }
+				if (miEncuesta != null)
+					if (miEncuesta.idEncuesta > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, miEncuesta.idEncuesta);
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -247,16 +271,17 @@ namespace EDUAR_DataAccess.Encuestas
 
                     listaPreguntas.Add(objPregunta);
                 }
+				reader.Dispose();
                 return listaPreguntas;
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetPreguntas()", ClassName),
+				throw new CustomizedException(string.Format("Fallo en {0} - GetPreguntasPorCategoria(CategoriaPregunta, Encuesta)", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetPreguntas()", ClassName),
+				throw new CustomizedException(string.Format("Fallo en {0} - GetPreguntasPorCategoria(CategoriaPregunta, Encuesta)", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }

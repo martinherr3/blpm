@@ -94,6 +94,15 @@ namespace EDUAR_BusinessLogic.Encuestas
                 else
                     DataAcces.Update(Data);
 
+				BLRespuesta objBLRespuesta;
+				
+				// GUARDAR LAS RESPUESTAS
+				foreach (Respuesta respuesta in Data.listaRespuestas)
+				{
+					objBLRespuesta = new BLRespuesta(respuesta);
+					objBLRespuesta.Save(DataAcces.Transaction);
+				}
+
                 //Se da el OK para la transaccion.
                 DataAcces.Transaction.CommitTransaction();
             }

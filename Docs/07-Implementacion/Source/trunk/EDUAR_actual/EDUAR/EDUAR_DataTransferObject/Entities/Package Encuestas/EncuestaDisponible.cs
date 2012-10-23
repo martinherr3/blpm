@@ -16,11 +16,13 @@ namespace EDUAR_Entities
         public DateTime fechaRespuesta { get; set; }
         public DateTime fechaLimite { get; set; }
         public bool expirada { get; set; }
+		public List<Respuesta> listaRespuestas { get; set; }
 
         public EncuestaDisponible()
         {
             encuesta = new Encuesta();
             usuario = new Persona();
+			listaRespuestas = new List<Respuesta>();
         }
     }
 }
