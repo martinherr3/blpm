@@ -29,7 +29,7 @@
         <tr>
             <td style="width: 100%">
                 <h3>
-                    Direccion</h3>
+                    Direcci&oacute;n</h3>
                 <p class="ui-widget">
                     Calle Pública S/N
                 </p>

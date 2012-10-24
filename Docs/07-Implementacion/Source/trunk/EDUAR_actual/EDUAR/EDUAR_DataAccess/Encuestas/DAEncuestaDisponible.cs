@@ -178,30 +178,31 @@ namespace EDUAR_DataAccess.Encuestas
         {
             try
             {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EncuestaUsuarioRespondidas_Select");
-                if (entidad != null)
-                {
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.encuesta.idEncuesta);
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, null);
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@respondida", DbType.Boolean, true);
-                }
-                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+				//Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EncuestaUsuarioRespondidas_Select");
+				//if (entidad != null)
+				//{
+				//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.encuesta.idEncuesta);
+				//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, null);
+				//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@respondida", DbType.Boolean, true);
+				//}
+				//IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-                List<Respuesta> listaRespuestas = new List<Respuesta>();
-                Respuesta rta;
+				//List<Respuesta> listaRespuestas = new List<Respuesta>();
+				//Respuesta rta;
 
-                while (reader.Read())
-                {
-                    rta = new Respuesta();
-                    {
-                        rta.idRespuesta = Convert.ToInt32(reader["idRespuesta"]);
-                        rta.respuestaSeleccion = Convert.ToInt16(reader["valorRespuestaSeleccion"]);
-                        rta.respuestaTextual = reader["valorRespuestaTextual"].ToString();
-                    }
+				//while (reader.Read())
+				//{
+				//    rta = new Respuesta();
+				//    {
+				//        rta.idRespuesta = Convert.ToInt32(reader["idRespuesta"]);
+				//        rta.respuestaSeleccion = Convert.ToInt16(reader["valorRespuestaSeleccion"]);
+				//        rta.respuestaTextual = reader["valorRespuestaTextual"].ToString();
+				//    }
 
-                    listaRespuestas.Add(rta);
-                }
-                return listaRespuestas;
+				//    listaRespuestas.Add(rta);
+				//}
+				//return listaRespuestas;
+				return new List<Respuesta>();
             }
             catch (SqlException ex)
             {
@@ -215,6 +216,11 @@ namespace EDUAR_DataAccess.Encuestas
             }
         }
         
+		/// <summary>
+		/// Gets the encuestas disponibles.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
         public List<Encuesta> GetEncuestasDisponibles(EncuestaDisponible entidad)
         {
             try
@@ -222,11 +228,10 @@ namespace EDUAR_DataAccess.Encuestas
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EncuestaUsuarioDisponible_Select");
                 if (entidad != null)
                 {
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, null);
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, DBNull.Value);
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.usuario.username);
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@expirada", DbType.Boolean, 0);
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@respondida", DbType.Boolean, 0);
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaLimite", DbType.DateTime, null);
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaRespuesta", DbType.DateTime, DBNull.Value);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaLimite", DbType.DateTime, DBNull.Value);
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -245,7 +250,7 @@ namespace EDUAR_DataAccess.Encuestas
                 return listaEncuestasDisponibles;
             }
             catch (SqlException ex)
-            {
+			{
                 throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestasDisponibles()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }

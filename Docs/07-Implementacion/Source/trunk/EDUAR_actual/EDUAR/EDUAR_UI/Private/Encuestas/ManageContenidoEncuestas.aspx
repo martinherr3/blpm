@@ -34,7 +34,8 @@
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td>
-                                <h3>Buscar Encuestas</h3>
+                                <h3>
+                                    Buscar Encuestas</h3>
                             </td>
                         </tr>
                         <tr>
@@ -69,7 +70,6 @@
             <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
-
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwEncuestas" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
@@ -155,7 +155,22 @@
                                 <asp:Label runat="server" ID="lblAmbitoEdit" Text="Ambito:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
-                                <asp:DropDownList ID="ddlAmbitoEdit" runat="server" />
+                                <asp:DropDownList ID="ddlAmbitoEdit" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAmbitoEdit_SelectedIndexChanged" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TD25">
+                                <asp:Label runat="server" ID="lblRoles" Text="Roles a Asociar:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:UpdatePanel runat="server" ID="udpAmbitoRol" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <asp:ListBox runat="server" ID="ltbRoles" SelectionMode="Multiple"></asp:ListBox>
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="ddlAmbitoEdit" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
                             </td>
                         </tr>
                         <tr>
@@ -172,7 +187,7 @@
                             </td>
                             <td class="TD75" colspan="3">
                                 <asp:TextBox runat="server" ID="txtObjetivoEdit" Width="500px" TextMode="MultiLine"
-                                    Rows="5"></asp:TextBox>
+                                    Rows="5" CssClass="txtMultilinea"></asp:TextBox>
                             </td>
                         </tr>
                     </table>

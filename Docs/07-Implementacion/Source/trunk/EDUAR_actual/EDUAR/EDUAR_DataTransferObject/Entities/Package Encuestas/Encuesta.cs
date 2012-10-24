@@ -1,6 +1,7 @@
 using System;
 using EDUAR_Entities.Shared;
 using System.Collections.Generic;
+using EDUAR_Entities.Security;
 
 namespace EDUAR_Entities
 {
@@ -16,12 +17,14 @@ namespace EDUAR_Entities
         public string objetivo { get; set; }
         public bool activo { get; set; }
         public List<Pregunta> preguntas { get; set; }
+		public List<DTRol> listaRoles { get; set; }
 
         public Encuesta()
         {
             usuario = new Persona();
             preguntas = new List<Pregunta>();
             ambito = new AmbitoEncuesta();
+			listaRoles = new List<DTRol>();
         }
 
         ~Encuesta()
