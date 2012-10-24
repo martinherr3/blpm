@@ -119,6 +119,7 @@
     <Content Include="Images\botonAvance.gif" />
     <Content Include="Images\botonCalcular.png" />
     <Content Include="Images\botonCancel.png" />
+    <Content Include="Images\botonCancelar48.png" />
     <Content Include="Images\botonContenidos.png" />
     <Content Include="Images\botonEnviados.png" />
     <Content Include="Images\botonEnviarMail.png" />
@@ -137,7 +138,6 @@
     <Content Include="Images\botonSiguiente.png" />
     <Content Include="Images\botonVolver.png" />
     <Content Include="Images\calendario.png" />
-    <Content Include="Images\CerrarPopup.png" />
     <Content Include="Images\chart-bar.png" />
     <Content Include="Images\chart-line.png" />
     <Content Include="Images\chart-pie.png" />

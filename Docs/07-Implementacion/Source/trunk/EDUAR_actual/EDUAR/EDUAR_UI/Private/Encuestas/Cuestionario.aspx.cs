@@ -175,8 +175,7 @@ namespace EDUAR_UI
 						||
 						AccionPagina == enumAcciones.Responder
 						||
-						AccionPagina == enumAcciones.Error
-						)
+						AccionPagina == enumAcciones.Error)
 						)
 						CargarEncuesta(idEncuestaSeleccionada);
 				}
@@ -197,21 +196,24 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				if (AccionPagina != enumAcciones.Error)
+				int idEncuestaSeleccionada;
+				switch (AccionPagina)
 				{
-					int idEncuestaSeleccionada;
-
-					if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada)
-						&&
-						(AccionPagina == enumAcciones.Buscar
-						||
-						AccionPagina == enumAcciones.Responder
-						)
-						)
-						CargarEncuesta(idEncuestaSeleccionada);
+					case enumAcciones.Buscar:
+					case enumAcciones.Responder:
+						if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada))
+							CargarEncuesta(idEncuestaSeleccionada);
+						break;
+					case enumAcciones.Guardar:
+						AccionPagina = enumAcciones.Limpiar;
+						CargarCombos();
+						LimpiarPantalla();
+						udpFormulario.Update();
+						udpSeleccionEncuesta.Update();
+						break;
+					default:
+						break;
 				}
-				else
-				    AccionPagina = enumAcciones.Limpiar;
 			}
 			catch (Exception ex)
 			{
@@ -254,12 +256,16 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				if (ValidarPagina() == string.Empty)
+				if (ValidarPagina())
+				{
 					GuardarRespuestas();
+					AccionPagina = enumAcciones.Guardar;
+					Master.MostrarMensaje("Gracias", "Muchas Gracias por contestar nuestra encuesta.", enumTipoVentanaInformacion.Satisfactorio);
+				}
 				else
 				{
 					AccionPagina = enumAcciones.Error;
-					Master.MostrarMensaje("Error de Validación", "Existen preguntas sin responder", enumTipoVentanaInformacion.Advertencia);
+					Master.MostrarMensaje("Error de Validación", "Existen preguntas sin responder.", enumTipoVentanaInformacion.Advertencia);
 				}
 			}
 			catch (Exception ex)
@@ -289,17 +295,14 @@ namespace EDUAR_UI
 		/// Validars the pagina.
 		/// </summary>
 		/// <returns></returns>
-		private string ValidarPagina()
+		private bool ValidarPagina()
 		{
 			int contRespuestas = 0;
 			foreach (Respuesta item in ListaRespuestas)
 			{
 				if (item.respuestaSeleccion > 0) contRespuestas++;
 			}
-			if (contRespuestas == cantRespuestasMinimas)
-				return string.Empty;
-			else
-				return "FaltanDatos";
+			return contRespuestas == cantRespuestasMinimas;
 		}
 
 		/// <summary>
@@ -332,10 +335,22 @@ namespace EDUAR_UI
 			{
 				AccionPagina = enumAcciones.Responder;
 				Respuesta respuestaPuntual = new Respuesta();
-				respuestaPuntual = respuestaSkeleton;
 
-				respuestaPuntual.respuestaSeleccion = Convert.ToInt16(e.Value);
-				ListaRespuestas.Add(respuestaPuntual);
+				respuestaPuntual.pregunta.textoPregunta = ((Panel)sender).ID;
+
+				Respuesta miRespuesta = ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((Panel)sender).ID);
+				if (miRespuesta != null)
+				{
+					ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((Panel)sender).ID).respuestaSeleccion = Convert.ToInt16(e.Value);
+				}
+				else
+				{
+					respuestaPuntual = respuestaSkeleton;
+
+					respuestaPuntual.pregunta.textoPregunta = ((Panel)sender).ID;
+					respuestaPuntual.respuestaSeleccion = Convert.ToInt16(e.Value);
+					ListaRespuestas.Add(respuestaPuntual);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -357,10 +372,21 @@ namespace EDUAR_UI
 				string valor = ((TextBox)sender).Text;
 
 				Respuesta respuestaPuntual = new Respuesta();
-				respuestaPuntual = respuestaSkeleton;
+				respuestaPuntual.pregunta.textoPregunta = ((TextBox)sender).ID;
 
-				respuestaPuntual.respuestaTextual = valor;
-				ListaRespuestas.Add(respuestaPuntual);
+				Respuesta miRespuesta = ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((TextBox)sender).ID);
+				if (miRespuesta != null)
+				{
+					ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((TextBox)sender).ID).respuestaTextual = valor;
+				}
+				else
+				{
+					respuestaPuntual = respuestaSkeleton;
+
+					respuestaPuntual.pregunta.textoPregunta = ((TextBox)sender).ID;
+					respuestaPuntual.respuestaTextual = valor;
+					ListaRespuestas.Add(respuestaPuntual);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -481,20 +507,22 @@ namespace EDUAR_UI
 						Panel panelRespuesta = new Panel();
 						panelRespuesta.ID = "pregunta_" + contador.ToString();
 
+
 						//PREGUNTA
 						lblPregunta = new Label();
 
 						lblPregunta.Text = pregunta.textoPregunta;
 						lblPregunta.Font.Bold = true;
 						lblPregunta.Font.Size = 11;
-						lblPregunta.BorderWidth = 1;
-						lblPregunta.Width = 990;
+						//lblPregunta.BorderWidth = 1;
+						//lblPregunta.Width = 990;
 
 						panelRespuesta.Controls.Add(lblPregunta);
 						panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
 
 						respuestaSkeleton.pregunta = pregunta;
 
+						Respuesta miRespuesta = null;
 						//RESPUESTA
 						if (pregunta.escala.nombre.Equals("Conceptual literal"))
 						{
@@ -508,6 +536,11 @@ namespace EDUAR_UI
 							txtRespuesta.Wrap = false;
 							txtRespuesta.MaxLength = 4000;
 
+							if (ListaRespuestas != null)
+							{
+								miRespuesta = ListaRespuestas.Find(p => p.pregunta.textoPregunta == txtRespuesta.ID);
+								if (miRespuesta != null) txtRespuesta.Text = miRespuesta.respuestaTextual;
+							}
 							txtRespuesta.TextChanged += new EventHandler(this.text_Changed);
 
 							panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
@@ -527,6 +560,11 @@ namespace EDUAR_UI
 							rating.EmptyStarCssClass = "emptyRatingStar";
 							rating.AutoPostBack = false;
 
+							if (ListaRespuestas != null)
+							{
+								miRespuesta = ListaRespuestas.Find(p => p.pregunta.textoPregunta == rating.ID);
+								if (miRespuesta != null) rating.CurrentRating = miRespuesta.respuestaSeleccion;
+							}
 							rating.Changed += new AjaxControlToolkit.RatingEventHandler(rating_Changed);
 
 							panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
@@ -541,6 +579,27 @@ namespace EDUAR_UI
 				}
 				CuestionarioAccordion.Panes.Add(pn);
 				++i;
+			}
+		}
+
+		protected void ddlEncuesta_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				LimpiarPantalla();
+				int idEncuesta = 0;
+				if (int.TryParse(ddlEncuesta.SelectedValue, out idEncuesta) && idEncuesta > 0)
+				{
+					CargarEncuesta(idEncuesta);
+					AccionPagina = enumAcciones.Buscar;
+					udpFormulario.Visible = true;
+				}
+				udpFormulario.Update();
+			}
+			catch (Exception ex)
+			{
+				AccionPagina = enumAcciones.Limpiar;
+				Master.ManageExceptions(ex);
 			}
 		}
 

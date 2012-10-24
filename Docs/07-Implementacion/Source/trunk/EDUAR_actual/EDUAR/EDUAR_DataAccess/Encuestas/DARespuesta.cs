@@ -43,9 +43,27 @@ namespace EDUAR_DataAccess.Encuestas
             throw new NotImplementedException();
         }
 
+		/// <summary>
+		/// Creates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
         public override void Create(Respuesta entidad)
         {
-            throw new NotImplementedException();
+			try
+			{
+				int identificador = 0;
+				this.Create(entidad, out identificador);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Create()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
         }
 
         public override void Create(Respuesta entidad, out int identificador)
