@@ -186,6 +186,11 @@ namespace EDUAR_BusinessLogic.Encuestas
         #endregion
 
         #region --[Métodos publicos]--
+		/// <summary>
+		/// Gets the encuestas disponibles.
+		/// </summary>
+		/// <param name="objFiltro">The obj filtro.</param>
+		/// <returns></returns>
         public List<Encuesta> GetEncuestasDisponibles(EncuestaDisponible objFiltro)
         {
             try
@@ -224,7 +229,8 @@ namespace EDUAR_BusinessLogic.Encuestas
         {
             try
             {
-                return DataAcces.GetRespuestasSumarizadas(objFiltro);
+				//return DataAcces.GetRespuestasSumarizadas(objFiltro);
+				return new List<Respuesta>();
             }
             catch (CustomizedException ex)
             {

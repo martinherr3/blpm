@@ -9,6 +9,7 @@ using EDUAR_Entities.Shared;
 using EDUAR_Utility.Excepciones;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_DataAccess.Shared;
+using EDUAR_Entities.Security;
 
 namespace EDUAR_BusinessLogic.Encuestas
 {
@@ -242,6 +243,28 @@ namespace EDUAR_BusinessLogic.Encuestas
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+		/// <summary>
+		/// Gets the roles ambito.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<DTRol> GetRolesAmbito(AmbitoEncuesta entidad)
+		{
+			try
+			{
+				return DataAcces.GetRolesAmbito(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRolesAmbito", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
     }
 }

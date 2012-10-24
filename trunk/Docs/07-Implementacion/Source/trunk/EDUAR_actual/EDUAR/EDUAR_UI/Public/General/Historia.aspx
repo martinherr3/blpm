@@ -21,7 +21,7 @@
         <tr>
             <td style="width: 80%">
                 <p class="ui-widget">
-                    [En esta sesión se encuentra información respecto del año de fundación, la institución
+                    [En esta sección se encuentra información respecto del año de fundación, la institución
                     educativa, los fundadores, bajo que misión, visión y valores fue creada en ese momento
                     y como ha ido cambiando con el pasar de los años hasta llegar a ser la Institución que
                     es hoy en d&iacute;a.]

@@ -19,8 +19,8 @@
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
-                        <asp:ImageButton ID="btnDesignCuestionario" OnClick="btnDesign_Click" runat="server"
-                            ToolTip="Diseñar Cuestionario" ImageUrl="~/Images/cuestionario.jpg" />
+                        <%--<asp:ImageButton ID="btnDesignCuestionario" OnClick="btnDesign_Click" runat="server"
+                            ToolTip="Diseñar Cuestionario" ImageUrl="~/Images/cuestionario.jpg" />--%>
                         <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
                             ImageUrl="~/Images/botonNuevo.png" />
                         <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"

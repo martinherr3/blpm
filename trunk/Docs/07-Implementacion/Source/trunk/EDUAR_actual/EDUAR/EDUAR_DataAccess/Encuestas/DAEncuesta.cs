@@ -6,6 +6,7 @@ using EDUAR_Utility.Excepciones;
 using EDUAR_Utility.Enumeraciones;
 using System.Data;
 using System.Collections.Generic;
+using EDUAR_Entities.Security;
 
 namespace EDUAR_DataAccess.Encuestas
 {
@@ -236,6 +237,8 @@ namespace EDUAR_DataAccess.Encuestas
 
                     objEncuesta.preguntas = GetPreguntasEncuesta(entidad,null);
 
+					objEncuesta.listaRoles = GetRolesAmbito(objEncuesta.ambito);
+
                     listaEncuestas.Add(objEncuesta);
                 }
                 return listaEncuestas;
@@ -251,6 +254,48 @@ namespace EDUAR_DataAccess.Encuestas
                                     ex, enuExceptionType.DataAccesException);
             }
         }
+
+		/// <summary>
+		/// Gets the roles ambito.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<DTRol> GetRolesAmbito(AmbitoEncuesta entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AmbitoRol_Select");
+
+				if (entidad != null)
+				{
+					if (entidad.idAmbitoEncuesta > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAmbito", DbType.Int32, entidad.idAmbitoEncuesta);
+				}
+
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<DTRol> listaRoles = new List<DTRol>();
+				DTRol objRol;
+
+				while (reader.Read())
+				{
+					objRol = new DTRol();
+					objRol.Nombre = reader["rolName"].ToString();
+					listaRoles.Add(objRol);
+				}
+				return listaRoles;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRolesAmbito()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRolesAmbito()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 
         /// <summary>
         /// Gets the preguntas de una encuesta dada.
@@ -383,6 +428,11 @@ namespace EDUAR_DataAccess.Encuestas
             }
         }
 
+		/// <summary>
+		/// Gets the categorias por encuesta.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
         public List<CategoriaPregunta> GetCategoriasPorEncuesta(Encuesta entidad)
         {
             try

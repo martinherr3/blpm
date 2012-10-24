@@ -9,7 +9,7 @@
         <tr>
             <td style="width: 80%; vertical-align: text-top">
                 <h2>
-                    Mision, Vision y Valores
+                    Misi&oacute;n, Visi&oacute;n y Valores
                     <hr />
                 </h2>
             </td>
@@ -21,7 +21,7 @@
         <tr>
             <td style="width: 80%">
                 <p class="ui-widget">
-                    [En esta sección se encuentra toda la información a lo que respecta a la misión
+                    [En esta sección se encuentra toda la información a lo que respecta a la misión,
                     visión y valores de la institución al día de la fecha.]
                 </p>
             </td>
@@ -31,11 +31,11 @@
         <tr>
             <td style="width: 100%">
                 <h3>
-                    Mision
+                    Misi&oacute;n
                 </h3>
                 <p class="ui-widget">
-                    [En esta sección se encuentra toda la información a lo que respecta a la misión
-                    visión y valores de la institución al día de la fecha. La misión mostrara el motivo,
+                    [En esta sección se encuentra toda la información a lo que respecta a la misión,
+                    visión y valores de la institución al día de la fecha. La misión mostrará el motivo,
                     propósito, fin o razón de ser de la existencia de la organización definiendo: *
                     lo que pretende cumplir en su entorno o sistema social en el que actúa, * lo que
                     pretende hacer, * el para quién lo va a hacer.]
@@ -47,7 +47,7 @@
                 <h3>
                     Visión</h3>
                 <p class="ui-widget">
-                    [La visión mostrara el camino al cual se dirige la institución a largo plazo y sirve
+                    [La visión mostrará el camino al cual se dirige la institución a largo plazo y sirve
                     de rumbo y aliciente para orientar las decisiones estratégicas de crecimiento junto
                     a las de competitividad.]
                 </p>
@@ -58,7 +58,7 @@
                 <h3>
                     Valores</h3>
                 <p class="ui-widget">
-                    [Los Valores mostraran el conjunto de principios, creencias, reglas que regulan
+                    [Los Valores mostrarán el conjunto de principios, creencias, reglas que regulan
                     la gestión de la organización. Constituyen la filosofía institucional y el soporte
                     de la cultura organizacional. Muestra el marco de referencia que inspira y regula
                     la vida de la organización.]
