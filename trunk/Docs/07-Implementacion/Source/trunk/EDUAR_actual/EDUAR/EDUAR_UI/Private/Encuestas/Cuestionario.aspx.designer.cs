@@ -22,15 +22,6 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpSeleccionEncuesta;
         
         /// <summary>
-        /// Control lblEncuesta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEncuesta;
-        
-        /// <summary>
         /// Control ddlEncuesta.
         /// </summary>
         /// <remarks>
@@ -38,15 +29,6 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEncuesta;
-        
-        /// <summary>
-        /// Control btnBuscar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnBuscar;
         
         /// <summary>
         /// Control udpFormulario.

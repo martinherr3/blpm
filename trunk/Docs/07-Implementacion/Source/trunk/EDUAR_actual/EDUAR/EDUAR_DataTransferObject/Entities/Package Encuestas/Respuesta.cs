@@ -21,6 +21,7 @@ namespace EDUAR_Entities
         public Respuesta()
         {
             encuestaDisponible = new EncuestaDisponible();
+			pregunta = new Pregunta();
         }
 
         /// <summary>

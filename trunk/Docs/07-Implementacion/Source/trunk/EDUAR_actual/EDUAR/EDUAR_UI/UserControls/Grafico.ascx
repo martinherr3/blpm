@@ -60,7 +60,7 @@
                             <td style="width: 50%; text-align: right; background-color: White">
                                 <asp:ImageButton ID="btnExportar" runat="server" OnClick="btnExportar_Click" ImageUrl="/EDUAR_UI/Images/ExportarGrafico.png"
                                     ToolTip="Exportar a PDF" AlternateText="Exportar a PDF" />
-                                <asp:ImageButton ID="btnCerrar" runat="server" OnClick="btnCerrar_Click" ImageUrl="/EDUAR_UI/Images/CerrarPopup.png"
+                                <asp:ImageButton ID="btnCerrar" runat="server" OnClick="btnCerrar_Click" ImageUrl="/EDUAR_UI/Images/botonCancel.png"
                                     ToolTip="Cerrar" AlternateText="Cerrar" />
                             </td>
                         </tr>
