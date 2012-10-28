@@ -931,6 +931,12 @@ TD.EncabezadoConfirmación
     font-size: small;
 }
 
+label
+{
+    font-family: Verdana, Tahoma;
+    font-size: small;
+}
+
 .lblTitulo
 {
     font-family: Verdana, Tahoma;

@@ -13,135 +13,150 @@ using EDUAR_Entities.Security;
 
 namespace EDUAR_BusinessLogic.Encuestas
 {
-    public class BLEncuesta : BusinessLogicBase<Encuesta, DAEncuesta>
-    {
-        #region --[Constante]--
-        private const string ClassName = "BLEncuesta";
-        #endregion
+	public class BLEncuesta : BusinessLogicBase<Encuesta, DAEncuesta>
+	{
+		#region --[Constante]--
+		private const string ClassName = "BLEncuesta";
+		#endregion
 
-        #region --[Constructores]--
-        /// <summary>
-        /// Constructor con DTO como parámetro.
-        /// </summary>
-        public BLEncuesta(DTBase objEncuesta)
-        {
-            Data = (Encuesta)objEncuesta;
-        }
-        /// <summary>
-        /// Constructor vacio
-        /// </summary>
-        public BLEncuesta()
-        {
-            Data = new Encuesta();
-        }
-        #endregion
+		#region --[Constructores]--
+		/// <summary>
+		/// Constructor con DTO como parámetro.
+		/// </summary>
+		public BLEncuesta(DTBase objEncuesta)
+		{
+			Data = (Encuesta)objEncuesta;
+		}
+		/// <summary>
+		/// Constructor vacio
+		/// </summary>
+		public BLEncuesta()
+		{
+			Data = new Encuesta();
+		}
+		#endregion
 
-        #region --[Propiedades Override]--
-        protected override sealed DAEncuesta DataAcces
-        {
-            get { return dataAcces; }
-            set { dataAcces = value; }
-        }
+		#region --[Propiedades Override]--
+		protected override sealed DAEncuesta DataAcces
+		{
+			get { return dataAcces; }
+			set { dataAcces = value; }
+		}
 
-        public override sealed Encuesta Data
-        {
-            get { return data; }
-            set { data = value; }
-        }
+		public override sealed Encuesta Data
+		{
+			get { return data; }
+			set { data = value; }
+		}
 
-        public override string FieldId
-        {
-            get { return DataAcces.FieldID; }
-        }
+		public override string FieldId
+		{
+			get { return DataAcces.FieldID; }
+		}
 
-        public override string FieldDescription
-        {
-            get { return DataAcces.FieldDescription; }
-        }
+		public override string FieldDescription
+		{
+			get { return DataAcces.FieldDescription; }
+		}
 
-        /// <summary>
-        /// Gets the by id.
-        /// </summary>
-        public override void GetById()
-        {
-            try
-            {
-                Data = DataAcces.GetById(Data);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetById", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
+		/// <summary>
+		/// Gets the by id.
+		/// </summary>
+		public override void GetById()
+		{
+			try
+			{
+				Data = DataAcces.GetById(Data);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetById", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 
-        /// <summary>
-        /// Método que guarda el registro actualmente cargado en memoria. No importa si se trata de una alta o modificación.
-        /// </summary>
-        public override void Save()
-        {
-            try
-            {
-                //Abre la transaccion que se va a utilizar
-                DataAcces.Transaction.OpenTransaction();
-                int idEncuesta = 0;
+		/// <summary>
+		/// Método que guarda el registro actualmente cargado en memoria. No importa si se trata de una alta o modificación.
+		/// </summary>
+		public override void Save()
+		{
+			try
+			{
+				//Abre la transaccion que se va a utilizar
+				DataAcces.Transaction.OpenTransaction();
+				int idEncuesta = 0;
 
-                if (Data.idEncuesta == 0)
-                    DataAcces.Create(Data, out idEncuesta);
-                else
-                    DataAcces.Update(Data);
+				if (Data.idEncuesta == 0)
+					DataAcces.Create(Data, out idEncuesta);
+				else
+				{
+					DataAcces.Update(Data);
 
-                //Se da el OK para la transaccion.
-                DataAcces.Transaction.CommitTransaction();
-            }
-            catch (CustomizedException ex)
-            {
-                if (DataAcces != null && DataAcces.Transaction != null)
-                    DataAcces.Transaction.RollbackTransaction();
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                if (DataAcces != null && DataAcces.Transaction != null)
-                    DataAcces.Transaction.RollbackTransaction();
-                throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
+					//foreach (Pregunta pregunta in Data.preguntas)
+					//{
+					//    if (pregunta.idPregunta == 0)
+					//        DataAcces.AgregarPregunta(Data.idEncuesta, pregunta);
+					//    else DataAcces.ActualizarPregunta(Data.idEncuesta, pregunta);
+					//}
+				}
+				//Se da el OK para la transaccion.
+				DataAcces.Transaction.CommitTransaction();
+			}
+			catch (CustomizedException ex)
+			{
+				if (DataAcces != null && DataAcces.Transaction != null)
+					DataAcces.Transaction.RollbackTransaction();
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				if (DataAcces != null && DataAcces.Transaction != null)
+					DataAcces.Transaction.RollbackTransaction();
+				throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 
-        /// <summary>
-        /// Método que guarda el registro actualmente cargado en memoria. No importa si se trata de una alta o modificación.
-        /// </summary>
-        public override void Save(DATransaction objDATransaction)
-        {
-            try
-            {
-                //Si no viene el Id es porque se esta creando la entidad
-                DataAcces = new DAEncuesta(objDATransaction);
-                if (Data.idEncuesta == 0)
-                    DataAcces.Create(Data);
-                else
-                {
-                    DataAcces.Update(Data);
-                }
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
+		/// <summary>
+		/// Método que guarda el registro actualmente cargado en memoria. No importa si se trata de una alta o modificación.
+		/// </summary>
+		public override void Save(DATransaction objDATransaction)
+		{
+			try
+			{
+				//Si no viene el Id es porque se esta creando la entidad
+				DataAcces = new DAEncuesta(objDATransaction);
+				if (Data.idEncuesta == 0)
+					DataAcces.Create(Data);
+				else
+				{
+					DataAcces.Update(Data);
 
-        public override void Delete()
-        {
+					//foreach (Pregunta pregunta in Data.preguntas)
+					//{
+					//    if (pregunta.idPregunta == 0)
+					//        DataAcces.AgregarPregunta(Data.idEncuesta, pregunta);
+					//    else DataAcces.ActualizarPregunta(Data.idEncuesta, pregunta);
+					//}
+				}
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
+		public override void Delete()
+		{
 			try
 			{
 				DataAcces = new DAEncuesta();
@@ -156,93 +171,93 @@ namespace EDUAR_BusinessLogic.Encuestas
 				throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName), ex,
 											  enuExceptionType.BusinessLogicException);
 			}
-        }
+		}
 
-        public override void Delete(DATransaction objDATransaction)
-        {
-            try
-            {
-                DataAcces = new DAEncuesta(objDATransaction);
-                DataAcces.Delete(Data);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
-        #endregion
+		public override void Delete(DATransaction objDATransaction)
+		{
+			try
+			{
+				DataAcces = new DAEncuesta(objDATransaction);
+				DataAcces.Delete(Data);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+		#endregion
 
-        #region --[Métodos publicos]--
-        /// <summary>
-        /// Obtiene las encuestas disponibles.
-        /// </summary>
-        /// <param name="objFiltro">The obj filtro.</param>
-        /// <returns></returns>
-        public List<Encuesta> GetEncuestas(Encuesta objFiltro)
-        {
-            try
-            {
-                return DataAcces.GetEncuestas(objFiltro);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestas", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
+		#region --[Métodos publicos]--
+		/// <summary>
+		/// Obtiene las encuestas disponibles.
+		/// </summary>
+		/// <param name="objFiltro">The obj filtro.</param>
+		/// <returns></returns>
+		public List<Encuesta> GetEncuestas(Encuesta objFiltro)
+		{
+			try
+			{
+				return DataAcces.GetEncuestas(objFiltro);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestas", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 
-        /// <summary>
-        /// Obtiene las preguntas incluidas en una encuesta dada.
-        /// </summary>
-        /// <param name="objFiltro">The obj filtro.</param>
-        /// <returns></returns>
-        public List<Pregunta> GetPreguntasEncuesta(Encuesta objFiltroEncuesta, Pregunta objFiltroPregunta)
-        {
-            try
-            {
-                return DataAcces.GetPreguntasEncuesta(objFiltroEncuesta, objFiltroPregunta);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetPreguntasEncuesta", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
+		/// <summary>
+		/// Obtiene las preguntas incluidas en una encuesta dada.
+		/// </summary>
+		/// <param name="objFiltro">The obj filtro.</param>
+		/// <returns></returns>
+		public List<Pregunta> GetPreguntasEncuesta(Encuesta objFiltroEncuesta, Pregunta objFiltroPregunta)
+		{
+			try
+			{
+				return DataAcces.GetPreguntasEncuesta(objFiltroEncuesta, objFiltroPregunta);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetPreguntasEncuesta", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 
-        /// <summary>
-        /// Obtiene las categorias relacionadas a una encuesta dada.
-        /// </summary>
-        /// <param name="objFiltro">The obj filtro.</param>
-        /// <returns></returns>
-        public List<CategoriaPregunta> GetCategoriasPorEncuesta(Encuesta objFiltroEncuesta)
-        {
-            try
-            {
-                return DataAcces.GetCategoriasPorEncuesta(objFiltroEncuesta);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetCategoriasPorEncuesta", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
+		/// <summary>
+		/// Obtiene las categorias relacionadas a una encuesta dada.
+		/// </summary>
+		/// <param name="objFiltro">The obj filtro.</param>
+		/// <returns></returns>
+		public List<CategoriaPregunta> GetCategoriasPorEncuesta(Encuesta objFiltroEncuesta)
+		{
+			try
+			{
+				return DataAcces.GetCategoriasPorEncuesta(objFiltroEncuesta);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCategoriasPorEncuesta", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 
 		/// <summary>
 		/// Gets the roles ambito.
@@ -265,6 +280,6 @@ namespace EDUAR_BusinessLogic.Encuestas
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -139,33 +139,37 @@
                     </table>
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios15">
                                 <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" colspan="3">
                                 <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
                             </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TD25">
+                            <td valign="top" class="TDCriterios15">
                                 <asp:Label runat="server" ID="lblAmbitoEdit" Text="Ambito:"></asp:Label>
                             </td>
-                            <td class="TD75" colspan="3">
+                            <td class="TDCriterios10">
                                 <asp:DropDownList ID="ddlAmbitoEdit" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAmbitoEdit_SelectedIndexChanged" />
+                            </td>
+                            <td class="TDCriterios10" style="text-align: center">
+                                <asp:Label runat="server" ID="lblCurso" Text="Curso:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged" />
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TD25">
+                            <td valign="top" class="TDCriterios15">
                                 <asp:Label runat="server" ID="lblRoles" Text="Roles a Asociar:"></asp:Label>
                             </td>
-                            <td>
+                            <td colspan="3">
                                 <asp:UpdatePanel runat="server" ID="udpAmbitoRol" UpdateMode="Conditional">
                                     <ContentTemplate>
-                                        <asp:ListBox runat="server" ID="ltbRoles" SelectionMode="Multiple"></asp:ListBox>
+                                        <%--<asp:ListBox runat="server" ID="ltbRoles" SelectionMode="Multiple" Width="100px"></asp:ListBox>--%>
+                                        <asp:CheckBoxList ID="ltbRoles" TabIndex="2" runat="server">
+                                        </asp:CheckBoxList>
                                     </ContentTemplate>
                                     <Triggers>
                                         <asp:AsyncPostBackTrigger ControlID="ddlAmbitoEdit" EventName="SelectedIndexChanged" />
@@ -174,18 +178,41 @@
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TD25">
+                            <td colspan="4" class="TD100" style="border-collapse: collapse">
+                                <asp:UpdatePanel runat="server" ID="udpAsignatura" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <table class="tablaInternaSinBorde" style="border-collapse: collapse">
+                                            <tr>
+                                                <td class="TDCriterios15">
+                                                    <asp:Label runat="server" ID="lblAsignatura" Text="Asignatura:" Visible="false"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="ddlAsignatura" runat="server" Visible="false" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
+                                        <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+                                        <asp:AsyncPostBackTrigger ControlID="ddlAmbitoEdit" EventName="SelectedIndexChanged" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TDCriterios15">
                                 <asp:Label runat="server" ID="lblNombreEdit" Text="Nombre encuesta:"></asp:Label>
                             </td>
-                            <td class="TD75" colspan="3">
+                            <td colspan="3">
                                 <asp:TextBox runat="server" ID="txtNombreEdit" Width="500px"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TD25">
+                            <td valign="top" class="TDCriterios15">
                                 <asp:Label runat="server" ID="lblObjetivoEdit" Text="Objetivo:"></asp:Label>
                             </td>
-                            <td class="TD75" colspan="3">
+                            <td colspan="3">
                                 <asp:TextBox runat="server" ID="txtObjetivoEdit" Width="500px" TextMode="MultiLine"
                                     Rows="5" CssClass="txtMultilinea"></asp:TextBox>
                             </td>

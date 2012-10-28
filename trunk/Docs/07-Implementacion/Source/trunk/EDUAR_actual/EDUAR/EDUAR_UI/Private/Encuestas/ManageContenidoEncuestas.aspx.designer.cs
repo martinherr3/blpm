@@ -211,6 +211,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.DropDownList ddlAmbitoEdit;
         
         /// <summary>
+        /// Control lblCurso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCurso;
+        
+        /// <summary>
+        /// Control ddlCurso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCurso;
+        
+        /// <summary>
         /// Control lblRoles.
         /// </summary>
         /// <remarks>
@@ -235,7 +253,34 @@ namespace EDUAR_UI {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox ltbRoles;
+        protected global::System.Web.UI.WebControls.CheckBoxList ltbRoles;
+        
+        /// <summary>
+        /// Control udpAsignatura.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpAsignatura;
+        
+        /// <summary>
+        /// Control lblAsignatura.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAsignatura;
+        
+        /// <summary>
+        /// Control ddlAsignatura.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAsignatura;
         
         /// <summary>
         /// Control lblNombreEdit.

@@ -313,4 +313,11 @@ namespace EDUAR_Utility.Enumeraciones
         Normal = 4,
         Abundante = 5
     }
+
+	public enum enumAmbitoEncuesta : int
+	{ 
+		None = 0,
+		Institucional = 1,
+		Asignatura = 2
+	}
 }
