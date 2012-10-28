@@ -9,6 +9,7 @@ using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_BusinessLogic.Encuestas;
 using EDUAR_Entities.Security;
+using EDUAR_BusinessLogic.Common;
 
 namespace EDUAR_UI
 {
@@ -126,6 +127,32 @@ namespace EDUAR_UI
 			}
 			set { Session["encuestaSesion"] = value; }
 		}
+
+		/// <summary>
+		/// Gets or sets the lista cursos.
+		/// </summary>
+		/// <value>
+		/// The lista cursos.
+		/// </value>
+		public List<Curso> listaCursos
+		{
+			get
+			{
+				if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
+				{
+					BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+
+					Asignatura objFiltro = new Asignatura();
+					objFiltro.curso.cicloLectivo = cicloLectivoActual;
+					if (User.IsInRole(enumRoles.Docente.ToString()))
+						//nombre del usuario logueado
+						objFiltro.docente.username = User.Identity.Name;
+					listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
+				}
+				return (List<Curso>)ViewState["listaCursos"];
+			}
+			set { ViewState["listaCursos"] = value; }
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -200,6 +227,12 @@ namespace EDUAR_UI
 				LimpiarCampos();
 				esNuevo = true;
 				CargarCombos();
+				ltbRoles.Enabled = true;
+				ddlAmbitoEdit.Enabled = true;
+				ddlCurso.Enabled = true;
+				ddlAsignatura.Visible = false;
+				lblAsignatura.Visible = false;
+				ddlAsignatura.Enabled = true;
 				btnGuardar.Visible = true;
 				btnBuscar.Visible = false;
 				btnVolver.Visible = true;
@@ -209,6 +242,7 @@ namespace EDUAR_UI
 				litNuevo.Visible = true;
 				udpEdit.Visible = true;
 				udpFiltrosBusqueda.Visible = false;
+				udpAsignatura.Update();
 				udpFiltros.Update();
 				udpGrilla.Update();
 			}
@@ -297,6 +331,10 @@ namespace EDUAR_UI
 					case "Editar":
 						propEncuesta.idEncuesta = Convert.ToInt32(e.CommandArgument.ToString());
 						CargaEncuesta();
+						ddlAmbitoEdit.Enabled = false;
+						ddlAsignatura.Enabled = false;
+						ddlCurso.Enabled = false;
+						ltbRoles.Enabled = false;
 						break;
 					case "Preguntas":
 						AccionPagina = enumAcciones.Redirect;
@@ -307,6 +345,8 @@ namespace EDUAR_UI
 						Response.Redirect("ContenidoEncuestas.aspx", false);
 						break;
 				}
+				udpAmbitoRol.Update();
+				udpAsignatura.Update();
 			}
 			catch (Exception ex)
 			{
@@ -349,6 +389,7 @@ namespace EDUAR_UI
 				if (int.TryParse(ddlAmbitoEdit.SelectedValue, out idAmbito) && idAmbito > 0)
 				{
 					CargarRolesAmbito(idAmbito);
+					CargarComboAsignatura();
 				}
 			}
 			catch (Exception ex)
@@ -357,6 +398,22 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Handles the SelectedIndexChanged event of the ddlCurso control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				CargarComboAsignatura();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -419,6 +476,7 @@ namespace EDUAR_UI
 		{
 			UIUtilidades.BindCombo<AmbitoEncuesta>(ddlAmbito, listaAmbitos, "idAmbitoEncuesta", "nombre", true);
 			UIUtilidades.BindCombo<AmbitoEncuesta>(ddlAmbitoEdit, listaAmbitos, "idAmbitoEncuesta", "nombre", true);
+			UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "nombre", true, true);
 		}
 
 		/// <summary>
@@ -444,6 +502,9 @@ namespace EDUAR_UI
 				entidad.activo = chkActivoEdit.Checked;
 				entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 				entidad.objetivo = txtObjetivoEdit.Text.Trim();
+				if (entidad.ambito.idAmbitoEncuesta == enumAmbitoEncuesta.Asignatura.GetHashCode())
+					entidad.asignatura.idAsignaturaCicloLectivo = Convert.ToInt32(ddlAsignatura.SelectedValue);
+				entidad.curso.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
 			}
 
 			return entidad;
@@ -471,6 +532,24 @@ namespace EDUAR_UI
 			txtNombreEdit.Text = encuesta.nombreEncuesta;
 			txtObjetivoEdit.Text = encuesta.objetivo;
 			CargarRolesAmbito(encuesta.ambito.idAmbitoEncuesta);
+			ddlCurso.SelectedValue = encuesta.curso.idCursoCicloLectivo.ToString();
+
+			if (encuesta.listaRoles != null)
+				foreach (DTRol item in encuesta.listaRoles)
+					ltbRoles.SelectedValue = item.Nombre;
+
+			if (encuesta.ambito.idAmbitoEncuesta == enumAmbitoEncuesta.Asignatura.GetHashCode())
+			{
+				CargarComboAsignatura();
+				ddlAsignatura.SelectedValue = encuesta.asignatura.idAsignaturaCicloLectivo.ToString();
+				lblAsignatura.Visible = true;
+				ddlAsignatura.Visible = true;
+			}
+			ltbRoles.Enabled = false;
+			//foreach (ListItem item in ltbRoles.Items)
+			//{
+			//    item.Enabled = false;
+			//}
 		}
 
 		/// <summary>
@@ -480,6 +559,30 @@ namespace EDUAR_UI
 		private string ValidarPagina()
 		{
 			string mensaje = string.Empty;
+			int validador = 0;
+			int.TryParse(ddlAmbitoEdit.SelectedValue, out validador);
+			if (validador <= 0)
+				mensaje += "- Ambito<br />";
+			int.TryParse(ddlCurso.SelectedValue, out validador);
+			if (validador <= 0)
+				mensaje += "- Curso<br />";
+
+			bool hayAmbito = false;
+			foreach (ListItem item in ltbRoles.Items)
+				if (item.Selected)
+				{
+					hayAmbito = true;
+					break;
+				}
+
+			if (!hayAmbito)
+				mensaje += "- Rol o Roles a Asociar< br/>";
+			if (ddlAsignatura.Visible)
+			{
+				int.TryParse(ddlAsignatura.SelectedValue, out validador);
+				if (validador <= 0)
+					mensaje += "- Asignatura<br />";
+			}
 			return mensaje;
 		}
 
@@ -531,6 +634,9 @@ namespace EDUAR_UI
 		{
 			if (ddlAmbito.Items.Count > 0) ddlAmbito.SelectedIndex = 0;
 			chkActivo.Checked = false;
+			ltbRoles.Items.Clear();
+			txtNombreEdit.Text = string.Empty;
+			txtObjetivoEdit.Text = string.Empty;
 		}
 
 		/// <summary>
@@ -546,6 +652,35 @@ namespace EDUAR_UI
 				ltbRoles.Items.Add(new ListItem(item.Nombre));
 			}
 			udpAmbitoRol.Update();
+		}
+
+		/// <summary>
+		/// Cargars the combo asignatura.
+		/// </summary>
+		private void CargarComboAsignatura()
+		{
+			int idAmbito = 0;
+			int idCursoSeleccionado = 0;
+			int.TryParse(ddlAmbitoEdit.SelectedValue, out idAmbito);
+
+			ddlAsignatura.Items.Clear();
+			if (idAmbito > 0 && idAmbito == enumAmbitoEncuesta.Asignatura.GetHashCode())
+			{
+				if (int.TryParse(ddlCurso.SelectedValue, out idCursoSeleccionado) && idCursoSeleccionado > 0)
+				{
+					lblAsignatura.Visible = (idAmbito > 0 && idCursoSeleccionado > 0);
+					ddlAsignatura.Visible = (idAmbito > 0 && idCursoSeleccionado > 0);
+					udpAsignatura.Update();
+					BLAsignatura objBLAsignatura = new BLAsignatura();
+					Asignatura objAsignatura = new Asignatura();
+					objAsignatura.cursoCicloLectivo.idCursoCicloLectivo = idCursoSeleccionado;
+					objAsignatura.curso.cicloLectivo.idCicloLectivo = cicloLectivoActual.idCicloLectivo;
+					if (User.IsInRole(enumRoles.Docente.ToString()))
+						objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+					UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
+				}
+			}
 		}
 		#endregion
 	}

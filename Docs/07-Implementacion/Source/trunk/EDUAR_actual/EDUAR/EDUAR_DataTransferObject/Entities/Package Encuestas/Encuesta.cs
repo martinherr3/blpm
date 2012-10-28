@@ -18,6 +18,8 @@ namespace EDUAR_Entities
         public bool activo { get; set; }
         public List<Pregunta> preguntas { get; set; }
 		public List<DTRol> listaRoles { get; set; }
+		public CursoCicloLectivo curso { get; set; }
+		public AsignaturaCicloLectivo asignatura { get; set; }
 
         public Encuesta()
         {
@@ -25,6 +27,8 @@ namespace EDUAR_Entities
             preguntas = new List<Pregunta>();
             ambito = new AmbitoEncuesta();
 			listaRoles = new List<DTRol>();
+			curso = new CursoCicloLectivo();
+			asignatura = new AsignaturaCicloLectivo();
         }
 
         ~Encuesta()
