@@ -43,7 +43,7 @@
         //        function clientTime() {
 
         //        }
-        function AbrirPopup(path) {
+        function AbrirPopupForo(path) {
             var popup;
             //Abrir Ventana
             popup = window.open(path, 'Foro', '');

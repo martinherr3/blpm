@@ -195,6 +195,11 @@ namespace EDUAR_UI
 			{
 				switch (AccionPagina)
 				{
+					case enumAcciones.Enviar:
+						AccionPagina = enumAcciones.Limpiar;
+						LanzarEncuesta();
+						BuscarFiltrando();
+						break;
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
 						BuscarEncuesta(null);
@@ -227,7 +232,7 @@ namespace EDUAR_UI
 				LimpiarCampos();
 				esNuevo = true;
 				CargarCombos();
-				ltbRoles.Enabled = true;
+				lstRoles.Enabled = true;
 				ddlAmbitoEdit.Enabled = true;
 				ddlCurso.Enabled = true;
 				ddlAsignatura.Visible = false;
@@ -334,16 +339,20 @@ namespace EDUAR_UI
 						ddlAmbitoEdit.Enabled = false;
 						ddlAsignatura.Enabled = false;
 						ddlCurso.Enabled = false;
-						ltbRoles.Enabled = false;
+						lstRoles.Enabled = false;
+						break;
+					case "Lanzar":
+						AccionPagina = enumAcciones.Enviar;
+						propEncuesta.idEncuesta = Convert.ToInt32(e.CommandArgument.ToString());
+						Master.MostrarMensaje("Activar Encuesta", "¿Desea <b>enviar</b> la encuesta a los usuarios?", enumTipoVentanaInformacion.Confirmación);
 						break;
 					case "Preguntas":
 						AccionPagina = enumAcciones.Redirect;
 						idEncuesta = Convert.ToInt32(e.CommandArgument.ToString());
-
 						encuestaSesion = listaEncuesta.Find(p => p.idEncuesta == idEncuesta);
-
 						Response.Redirect("ContenidoEncuestas.aspx", false);
 						break;
+
 				}
 				udpAmbitoRol.Update();
 				udpAsignatura.Update();
@@ -385,7 +394,7 @@ namespace EDUAR_UI
 			try
 			{
 				int idAmbito = 0;
-				ltbRoles.Items.Clear();
+				lstRoles.Items.Clear();
 				if (int.TryParse(ddlAmbitoEdit.SelectedValue, out idAmbito) && idAmbito > 0)
 				{
 					CargarRolesAmbito(idAmbito);
@@ -413,6 +422,26 @@ namespace EDUAR_UI
 			{
 				Master.ManageExceptions(ex);
 			}
+		}
+
+		protected bool CheckLanzada(object objUsername, object objFechaLanzamiento, bool editar)
+		{
+			// (DataBinder.Eval(Container.DataItem, "usuario.username").ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre &&
+			//  DataBinder.Eval(Container.DataItem, "fechaLanzamiento") == null ) ? true : false
+			//			if (object.ReferenceEquals(objGrid, DBNull.Value))
+			bool hayUsuario = false;
+			if (object.ReferenceEquals(objUsername, null))
+				return hayUsuario;
+			else
+				if (objUsername.ToString() == User.Identity.Name)
+				{
+					if (objFechaLanzamiento.ToString() == string.Empty)
+						return true;
+					else
+						return false;
+				}
+				else
+					return false;
 		}
 		#endregion
 
@@ -497,6 +526,13 @@ namespace EDUAR_UI
 			if (Convert.ToInt32(ddlAmbitoEdit.SelectedValue) > 0)
 			{
 				entidad.ambito.idAmbitoEncuesta = Convert.ToInt32(ddlAmbitoEdit.SelectedValue);
+				entidad.listaRoles.Clear();
+				foreach (ListItem item in lstRoles.Items)
+				{
+					if (item.Selected)
+						entidad.listaRoles.Add(new DTRol() { Nombre = item.Text });
+				}
+
 				entidad.nombreEncuesta = txtNombreEdit.Text.Trim();
 				entidad.fechaCreacion = DateTime.Now;
 				entidad.activo = chkActivoEdit.Checked;
@@ -536,7 +572,7 @@ namespace EDUAR_UI
 
 			if (encuesta.listaRoles != null)
 				foreach (DTRol item in encuesta.listaRoles)
-					ltbRoles.SelectedValue = item.Nombre;
+					(lstRoles.Items.FindByText(item.Nombre)).Selected = true;
 
 			if (encuesta.ambito.idAmbitoEncuesta == enumAmbitoEncuesta.Asignatura.GetHashCode())
 			{
@@ -545,11 +581,13 @@ namespace EDUAR_UI
 				lblAsignatura.Visible = true;
 				ddlAsignatura.Visible = true;
 			}
-			ltbRoles.Enabled = false;
-			//foreach (ListItem item in ltbRoles.Items)
-			//{
-			//    item.Enabled = false;
-			//}
+			else
+			{
+				ddlAsignatura.Items.Clear();
+				lblAsignatura.Visible = false;
+				ddlAsignatura.Visible = false;
+			}
+			lstRoles.Enabled = false;
 		}
 
 		/// <summary>
@@ -568,7 +606,7 @@ namespace EDUAR_UI
 				mensaje += "- Curso<br />";
 
 			bool hayAmbito = false;
-			foreach (ListItem item in ltbRoles.Items)
+			foreach (ListItem item in lstRoles.Items)
 				if (item.Selected)
 				{
 					hayAmbito = true;
@@ -576,7 +614,7 @@ namespace EDUAR_UI
 				}
 
 			if (!hayAmbito)
-				mensaje += "- Rol o Roles a Asociar< br/>";
+				mensaje += "- Rol o Roles a Asociar<br />";
 			if (ddlAsignatura.Visible)
 			{
 				int.TryParse(ddlAsignatura.SelectedValue, out validador);
@@ -634,7 +672,7 @@ namespace EDUAR_UI
 		{
 			if (ddlAmbito.Items.Count > 0) ddlAmbito.SelectedIndex = 0;
 			chkActivo.Checked = false;
-			ltbRoles.Items.Clear();
+			lstRoles.Items.Clear();
 			txtNombreEdit.Text = string.Empty;
 			txtObjetivoEdit.Text = string.Empty;
 		}
@@ -645,11 +683,11 @@ namespace EDUAR_UI
 		/// <param name="idAmbito">The id ambito.</param>
 		private void CargarRolesAmbito(int idAmbito)
 		{
-			ltbRoles.Items.Clear();
+			lstRoles.Items.Clear();
 			List<DTRol> listaRoles = (new BLEncuesta()).GetRolesAmbito(new AmbitoEncuesta() { idAmbitoEncuesta = idAmbito });
 			foreach (DTRol item in listaRoles)
 			{
-				ltbRoles.Items.Add(new ListItem(item.Nombre));
+				lstRoles.Items.Add(new ListItem(item.Nombre));
 			}
 			udpAmbitoRol.Update();
 		}
@@ -681,6 +719,16 @@ namespace EDUAR_UI
 					UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Lanzars the encuesta.
+		/// </summary>
+		private void LanzarEncuesta()
+		{
+			Encuesta encuesta = new Encuesta() { idEncuesta = propEncuesta.idEncuesta };
+			objBLEncuesta = new BLEncuesta();
+			objBLEncuesta.LanzarEncuesta(encuesta);
 		}
 		#endregion
 	}

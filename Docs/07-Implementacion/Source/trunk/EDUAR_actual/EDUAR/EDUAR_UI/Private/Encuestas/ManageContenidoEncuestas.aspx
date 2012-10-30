@@ -77,13 +77,15 @@
                 OnRowCommand="gvwEncuestas_RowCommand">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
-                        <HeaderStyle HorizontalAlign="center" Width="5%" />
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="btnPreguntas" runat="server" CommandName="Preguntas" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ToolTip="Ver Preguntas" ImageUrl="~/Images/Grillas/action_new.png" />
                             <asp:ImageButton ID="editarEncuesta" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ToolTip="Editar Encuesta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
+                            <asp:ImageButton ID="btnLanzar" runat="server" CommandName="Lanzar" CommandArgument='<%# Bind("idEncuesta") %>'
+                                ToolTip="Enviar Encuesta a Usuarios" ImageUrl="~/Images/Grillas/action_Lanzar.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
                             <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La encuesta sólo es editable para su propietario"
                                 Enabled="false" ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
                         </ItemTemplate>
@@ -168,7 +170,7 @@
                                 <asp:UpdatePanel runat="server" ID="udpAmbitoRol" UpdateMode="Conditional">
                                     <ContentTemplate>
                                         <%--<asp:ListBox runat="server" ID="ltbRoles" SelectionMode="Multiple" Width="100px"></asp:ListBox>--%>
-                                        <asp:CheckBoxList ID="ltbRoles" TabIndex="2" runat="server">
+                                        <asp:CheckBoxList ID="lstRoles" TabIndex="2" runat="server">
                                         </asp:CheckBoxList>
                                     </ContentTemplate>
                                     <Triggers>

@@ -91,18 +91,14 @@ namespace EDUAR_BusinessLogic.Encuestas
 				int idEncuesta = 0;
 
 				if (Data.idEncuesta == 0)
-					DataAcces.Create(Data, out idEncuesta);
-				else
 				{
+					DataAcces.Create(Data, out idEncuesta);
+					foreach (DTRol item in Data.listaRoles)
+						DataAcces.SaveRol(item.Nombre, idEncuesta);
+				}
+				else
 					DataAcces.Update(Data);
 
-					//foreach (Pregunta pregunta in Data.preguntas)
-					//{
-					//    if (pregunta.idPregunta == 0)
-					//        DataAcces.AgregarPregunta(Data.idEncuesta, pregunta);
-					//    else DataAcces.ActualizarPregunta(Data.idEncuesta, pregunta);
-					//}
-				}
 				//Se da el OK para la transaccion.
 				DataAcces.Transaction.CommitTransaction();
 			}
@@ -133,16 +129,7 @@ namespace EDUAR_BusinessLogic.Encuestas
 				if (Data.idEncuesta == 0)
 					DataAcces.Create(Data);
 				else
-				{
 					DataAcces.Update(Data);
-
-					//foreach (Pregunta pregunta in Data.preguntas)
-					//{
-					//    if (pregunta.idPregunta == 0)
-					//        DataAcces.AgregarPregunta(Data.idEncuesta, pregunta);
-					//    else DataAcces.ActualizarPregunta(Data.idEncuesta, pregunta);
-					//}
-				}
 			}
 			catch (CustomizedException ex)
 			{
@@ -280,6 +267,28 @@ namespace EDUAR_BusinessLogic.Encuestas
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+		/// <summary>
+		/// Lanzars the encuesta.
+		/// </summary>
+		/// <param name="encuesta">The encuesta.</param>
+		public void LanzarEncuesta(Encuesta encuesta)
+		{
+			try
+			{
+				DataAcces.LanzarEncuesta(encuesta);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - LanzarEncuesta", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 		#endregion
+
 	}
 }

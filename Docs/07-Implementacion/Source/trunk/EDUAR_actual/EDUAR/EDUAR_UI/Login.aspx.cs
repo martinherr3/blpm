@@ -182,6 +182,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+				Session.Abandon();
 				DTSeguridad objDTSeguridad = new DTSeguridad
 				{
 					Usuario =

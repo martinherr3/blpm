@@ -115,7 +115,7 @@
                         <HeaderStyle HorizontalAlign="Center" Width="5%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
-                            <asp:Label ID="lblPonderacion" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "ponderacion").ToString())%>'></asp:Label>
+                            <asp:Label ID="lblPonderacion" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ponderacion").ToString()%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Escala">
@@ -169,7 +169,7 @@
                             </td>
                             <td class="TD75" colspan="3">
                                 <asp:TextBox runat="server" ID="txtTextoPreguntaEdit" Width="500px" TextMode="MultiLine"
-                                    Rows="3"></asp:TextBox>
+                                    Rows="3" CssClass="txtMultilinea"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -178,7 +178,7 @@
                             </td>
                             <td class="TD75" colspan="3">
                                 <asp:TextBox runat="server" ID="txtObjetivoPreguntaEdit" Width="500px" TextMode="MultiLine"
-                                    Rows="5"></asp:TextBox>
+                                    Rows="5" CssClass="txtMultilinea"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -188,7 +188,7 @@
                             <td class="TD75" colspan="3">
                                 <asp:TextBox runat="server" ID="txtPesoPreguntaEdit" Width="50px"></asp:TextBox>
                                 <cc1:MaskedEditExtender ID="MaskedEditExtender1" runat="server" MaskType="Number"
-                                    Mask="9.99" ErrorTooltipEnabled="true" InputDirection="LeftToRight" CultureName="es-ES"
+                                    Mask="9.99" ErrorTooltipEnabled="true" InputDirection="RightToLeft" CultureName="es-ES"
                                     TargetControlID="txtPesoPreguntaEdit" MessageValidatorTip="true">
                                 </cc1:MaskedEditExtender>
                             </td>
