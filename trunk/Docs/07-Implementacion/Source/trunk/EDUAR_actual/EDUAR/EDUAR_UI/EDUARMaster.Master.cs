@@ -472,7 +472,7 @@ namespace EDUAR_UI
 			string urlForo = "http://" + Request.ServerVariables["SERVER_NAME"] + "/foro";
 
 			//Response.Write("<a id='link' style='visibility: hidden' href='" + urlForo + "' target='_blank' onClick='window.open(this.href, this.target, 'width=300,height=400'); return false;'></a><script>link.click();</script>");
-			ScriptManager.RegisterStartupScript(Page, GetType(), "Foro", "AbrirPopup('" + urlForo + "');", true);
+			ScriptManager.RegisterStartupScript(Page, GetType(), "Foro", "AbrirPopupForo('" + urlForo + "');", true);
 		}
 		#endregion
 

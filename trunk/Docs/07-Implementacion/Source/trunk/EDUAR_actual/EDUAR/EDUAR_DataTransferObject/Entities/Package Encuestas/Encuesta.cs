@@ -12,6 +12,7 @@ namespace EDUAR_Entities
         public Persona usuario { get; set; }
         public DateTime fechaCreacion { get; set; }
         public DateTime fechaModificacion { get; set; }
+		public DateTime? fechaLanzamiento { get; set; }
         public AmbitoEncuesta ambito { get; set; }
         public string nombreEncuesta { get; set; }
         public string objetivo { get; set; }
