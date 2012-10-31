@@ -4,6 +4,7 @@
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -85,7 +86,8 @@
                             <asp:ImageButton ID="editarEncuesta" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ToolTip="Editar Encuesta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
                             <asp:ImageButton ID="btnLanzar" runat="server" CommandName="Lanzar" CommandArgument='<%# Bind("idEncuesta") %>'
-                                ToolTip="Enviar Encuesta a Usuarios" ImageUrl="~/Images/Grillas/action_Lanzar.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
+                                ToolTip="Enviar Encuesta a Usuarios" ImageUrl="~/Images/Grillas/action_Lanzar.png"
+                                Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
                             <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La encuesta sólo es editable para su propietario"
                                 Enabled="false" ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
                         </ItemTemplate>
@@ -142,9 +144,13 @@
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TDCriterios15">
-                                <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
+                                <asp:Label runat="server" ID="lblNombreEdit" Text="Nombre encuesta:"></asp:Label>
                             </td>
-                            <td valign="top" colspan="3">
+                            <td colspan="2">
+                                <asp:TextBox runat="server" ID="txtNombreEdit" Width="500px"></asp:TextBox>
+                            </td>
+                            <td valign="top" class="TDCriterios15">
+                                <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
                                 <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
                             </td>
                         </tr>
@@ -152,13 +158,10 @@
                             <td valign="top" class="TDCriterios15">
                                 <asp:Label runat="server" ID="lblAmbitoEdit" Text="Ambito:"></asp:Label>
                             </td>
-                            <td class="TDCriterios10">
+                            <td class="TDCriterios10" colspan="3">
                                 <asp:DropDownList ID="ddlAmbitoEdit" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlAmbitoEdit_SelectedIndexChanged" />
-                            </td>
-                            <td class="TDCriterios10" style="text-align: center">
+                                &nbsp;&nbsp;&nbsp;
                                 <asp:Label runat="server" ID="lblCurso" Text="Curso:"></asp:Label>
-                            </td>
-                            <td>
                                 <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged" />
                             </td>
                         </tr>
@@ -169,7 +172,6 @@
                             <td colspan="3">
                                 <asp:UpdatePanel runat="server" ID="udpAmbitoRol" UpdateMode="Conditional">
                                     <ContentTemplate>
-                                        <%--<asp:ListBox runat="server" ID="ltbRoles" SelectionMode="Multiple" Width="100px"></asp:ListBox>--%>
                                         <asp:CheckBoxList ID="lstRoles" TabIndex="2" runat="server">
                                         </asp:CheckBoxList>
                                     </ContentTemplate>
@@ -179,35 +181,33 @@
                                 </asp:UpdatePanel>
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="4" class="TD100" style="border-collapse: collapse">
-                                <asp:UpdatePanel runat="server" ID="udpAsignatura" UpdateMode="Conditional">
-                                    <ContentTemplate>
-                                        <table class="tablaInternaSinBorde" style="border-collapse: collapse">
-                                            <tr>
-                                                <td class="TDCriterios15">
-                                                    <asp:Label runat="server" ID="lblAsignatura" Text="Asignatura:" Visible="false"></asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:DropDownList ID="ddlAsignatura" runat="server" Visible="false" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </ContentTemplate>
-                                    <Triggers>
-                                        <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
-                                        <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
-                                        <asp:AsyncPostBackTrigger ControlID="ddlAmbitoEdit" EventName="SelectedIndexChanged" />
-                                    </Triggers>
-                                </asp:UpdatePanel>
-                            </td>
-                        </tr>
+                    </table>
+                    <asp:UpdatePanel runat="server" ID="udpAsignatura" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <table width="100%" cellpadding="1" cellspacing="5">
+                                <tr>
+                                    <td class="TDCriterios15">
+                                        <asp:Label runat="server" ID="lblAsignatura" Text="Asignatura:" Visible="false"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:DropDownList ID="ddlAsignatura" runat="server" Visible="false" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
+                            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="ddlAmbitoEdit" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+                    <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TDCriterios15">
-                                <asp:Label runat="server" ID="lblNombreEdit" Text="Nombre encuesta:"></asp:Label>
+                                <asp:Label runat="server" ID="lblFecha" Text="Fecha de Cierre:"></asp:Label>
                             </td>
                             <td colspan="3">
-                                <asp:TextBox runat="server" ID="txtNombreEdit" Width="500px"></asp:TextBox>
+                                <cal:Calendario ID="calFechaCierre" runat="server" TipoCalendario="SoloFecha" />
                             </td>
                         </tr>
                         <tr>
