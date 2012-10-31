@@ -60,6 +60,8 @@ namespace EDUAR_DataAccess.Encuestas
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.curso.idCursoCicloLectivo);
 				if (entidad.asignatura.idAsignaturaCicloLectivo > 0)
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, entidad.asignatura.idAsignaturaCicloLectivo);
+				if(entidad.fechaVencimiento.HasValue)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaLimite", DbType.Date, Convert.ToDateTime(entidad.fechaVencimiento));
 
 				if (Transaction.Transaction != null)
 					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -95,6 +97,8 @@ namespace EDUAR_DataAccess.Encuestas
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.curso.idCursoCicloLectivo);
 				if (entidad.asignatura.idAsignaturaCicloLectivo > 0)
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, entidad.asignatura.idAsignaturaCicloLectivo);
+				if (entidad.fechaVencimiento.HasValue)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaLimite", DbType.Date, Convert.ToDateTime(entidad.fechaVencimiento));
 
 				if (Transaction.Transaction != null)
 					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -135,6 +139,8 @@ namespace EDUAR_DataAccess.Encuestas
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.curso.idCursoCicloLectivo);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, entidad.asignatura.idAsignaturaCicloLectivo);
+				if (entidad.fechaVencimiento.HasValue)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaLimite", DbType.Date, Convert.ToDateTime(entidad.fechaVencimiento));
 
 				if (Transaction.Transaction != null)
 					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -234,7 +240,11 @@ namespace EDUAR_DataAccess.Encuestas
 						objEncuesta.fechaLanzamiento = fechaLanzamiento;
 					else
 						objEncuesta.fechaLanzamiento = null;
-						
+
+					if (DateTime.TryParse(reader["fechaLimite"].ToString(), out fechaLanzamiento))
+						objEncuesta.fechaVencimiento = fechaLanzamiento;
+					else
+						objEncuesta.fechaVencimiento = null;
 
 					objEncuesta.usuario = new Persona();
 					{

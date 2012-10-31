@@ -538,6 +538,11 @@ namespace EDUAR_UI
 				entidad.activo = chkActivoEdit.Checked;
 				entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 				entidad.objetivo = txtObjetivoEdit.Text.Trim();
+				DateTime fechaVencimiento;
+
+				if (DateTime.TryParse(calFechaCierre.ValorFecha.Value.ToString(), out fechaVencimiento))
+					entidad.fechaVencimiento = fechaVencimiento;
+
 				if (entidad.ambito.idAmbitoEncuesta == enumAmbitoEncuesta.Asignatura.GetHashCode())
 					entidad.asignatura.idAsignaturaCicloLectivo = Convert.ToInt32(ddlAsignatura.SelectedValue);
 				entidad.curso.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
@@ -574,6 +579,9 @@ namespace EDUAR_UI
 				foreach (DTRol item in encuesta.listaRoles)
 					(lstRoles.Items.FindByText(item.Nombre)).Selected = true;
 
+			if (encuesta.fechaVencimiento.HasValue)
+				calFechaCierre.Fecha.Text = encuesta.fechaVencimiento.ToString();
+
 			if (encuesta.ambito.idAmbitoEncuesta == enumAmbitoEncuesta.Asignatura.GetHashCode())
 			{
 				CargarComboAsignatura();
@@ -597,6 +605,8 @@ namespace EDUAR_UI
 		private string ValidarPagina()
 		{
 			string mensaje = string.Empty;
+			calFechaCierre.ValidarRangoDesde(false, true);
+
 			int validador = 0;
 			int.TryParse(ddlAmbitoEdit.SelectedValue, out validador);
 			if (validador <= 0)
@@ -621,6 +631,7 @@ namespace EDUAR_UI
 				if (validador <= 0)
 					mensaje += "- Asignatura<br />";
 			}
+
 			return mensaje;
 		}
 

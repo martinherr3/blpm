@@ -175,6 +175,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ValidationSummary validarEdit;
         
         /// <summary>
+        /// Control lblNombreEdit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNombreEdit;
+        
+        /// <summary>
+        /// Control txtNombreEdit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNombreEdit;
+        
+        /// <summary>
         /// Control lblActivoBusqueda.
         /// </summary>
         /// <remarks>
@@ -283,22 +301,22 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.DropDownList ddlAsignatura;
         
         /// <summary>
-        /// Control lblNombreEdit.
+        /// Control lblFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNombreEdit;
+        protected global::System.Web.UI.WebControls.Label lblFecha;
         
         /// <summary>
-        /// Control txtNombreEdit.
+        /// Control calFechaCierre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombreEdit;
+        protected global::EDUAR_UI.UserControls.Calendario calFechaCierre;
         
         /// <summary>
         /// Control lblObjetivoEdit.
