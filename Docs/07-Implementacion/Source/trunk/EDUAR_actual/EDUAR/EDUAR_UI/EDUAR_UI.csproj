@@ -156,6 +156,7 @@
     <Content Include="Images\Grillas\action_enable.png" />
     <Content Include="Images\Grillas\action_lookup.png" />
     <Content Include="Images\Grillas\action_new.png" />
+    <Content Include="Images\Grillas\action_run.png" />
     <Content Include="Images\Grillas\grd_alt.png" />
     <Content Include="Images\Grillas\grd_head.png" />
     <Content Include="Images\Grillas\grd_pgr.png" />

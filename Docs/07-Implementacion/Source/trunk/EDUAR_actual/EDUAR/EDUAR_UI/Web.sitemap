@@ -57,7 +57,7 @@
         </siteMapNode>
         <siteMapNode url="" title="Encuestas" roles="Administrador,Director,Docente,Tutor,Alumno">
             <siteMapNode url="~/Private/Encuestas/ManageContenidoEncuestas.aspx" title="Diseño Encuestas" roles="Administrador,Docente,Director" />
-            <siteMapNode url="~/Private/Encuestas/Cuestionario.aspx" title="Cuestionarios" roles="Administrador,Tutor,Alumno" />
+            <siteMapNode url="~/Private/Encuestas/Cuestionario.aspx" title="Cuestionarios" roles="Administrador,Tutor,Alumno" visible="false" />
         </siteMapNode>
     </siteMapNode>
 </siteMap>

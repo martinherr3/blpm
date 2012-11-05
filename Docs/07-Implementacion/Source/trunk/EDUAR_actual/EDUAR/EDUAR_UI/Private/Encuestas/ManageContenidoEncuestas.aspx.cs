@@ -432,7 +432,8 @@ namespace EDUAR_UI
 			bool hayUsuario = false;
 			if (object.ReferenceEquals(objUsername, null))
 				return hayUsuario;
-			else
+			if (editar)
+			{
 				if (objUsername.ToString() == User.Identity.Name)
 				{
 					if (objFechaLanzamiento.ToString() == string.Empty)
@@ -442,6 +443,19 @@ namespace EDUAR_UI
 				}
 				else
 					return false;
+			}
+			else
+			{
+				if (objUsername.ToString() == User.Identity.Name)
+				{
+					if (objFechaLanzamiento.ToString() == string.Empty)
+						return false;
+					else
+						return true;
+				}
+				else
+					return false;
+			}
 		}
 		#endregion
 
