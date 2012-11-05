@@ -82,14 +82,17 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="btnPreguntas" runat="server" CommandName="Preguntas" CommandArgument='<%# Bind("idEncuesta") %>'
-                                ToolTip="Ver Preguntas" ImageUrl="~/Images/Grillas/action_new.png" />
+                                ToolTip="Ver Preguntas" ImageUrl="~/Images/Grillas/action_new.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>'/>
                             <asp:ImageButton ID="editarEncuesta" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ToolTip="Editar Encuesta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? true : false %>' />
+                            <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La encuesta sólo es editable para su propietario"
+                                Enabled="false" ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
                             <asp:ImageButton ID="btnLanzar" runat="server" CommandName="Lanzar" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ToolTip="Enviar Encuesta a Usuarios" ImageUrl="~/Images/Grillas/action_Lanzar.png"
                                 Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
-                            <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La encuesta sólo es editable para su propietario"
-                                Enabled="false" ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
+                            <asp:ImageButton ID="ImageButton1" runat="server" Enabled="false"
+                                ToolTip="Encuesta Enviada a Usuarios" ImageUrl="~/Images/Grillas/action_run.png"
+                                Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), false) %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Ambito">
