@@ -11,13 +11,14 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_BusinessLogic.Encuestas;
 
 namespace EDUAR_UI
 {
 	public partial class Welcome : EDUARBasePage
 	{
 		#region --[Atributos]--
-        private BLSeguridad objBLSeguridad;
+		private BLSeguridad objBLSeguridad;
 		#endregion
 
 		#region --[Propiedades]--
@@ -127,11 +128,12 @@ namespace EDUAR_UI
 					objBLSeguridad = new BLSeguridad(propSeguridad);
 					objBLSeguridad.GetUsuario();
 					ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
-
+					divEncuesta.Visible = false;
 					if (User.IsInRole(enumRoles.Alumno.ToString()))
 					{
 						habilitarAlumno(false);
 						habilitarCurso(false);
+						BuscarEncuestas();
 						divAgenda.Visible = true;
 						lblCurso.Visible = false;
 						ddlCurso.Visible = false;
@@ -146,6 +148,7 @@ namespace EDUAR_UI
 					{
 						divAgenda.Visible = true;
 						habilitarCurso(false);
+						BuscarEncuestas();
 						ddlAlumnos.Items.Clear();
 						ddlAlumnos.DataSource = null;
 						foreach (AlumnoCursoCicloLectivo item in listaAlumnos)
@@ -191,6 +194,7 @@ namespace EDUAR_UI
 				AvisoExcepcion = ex;
 			}
 		}
+
 
 		/// <summary>
 		/// Ventanas the aceptar.
@@ -275,6 +279,23 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+		/// <summary>
+		/// Handles the Click event of the btnEncuesta control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnEncuesta_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				Response.Redirect("~/Private/Encuestas/Cuestionario.aspx", false);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 		#endregion
 
 		#region --[Métodos Privados]
@@ -301,33 +322,33 @@ namespace EDUAR_UI
 				fechaDesde = (DateTime)fechas.ValorFechaDesde;
 			if (fechas.ValorFechaHasta != null)
 				fechaHasta = (DateTime)fechas.ValorFechaHasta;
-			
-            CursoCicloLectivo objCurso = new CursoCicloLectivo();
-            List<EventoAgenda> listaEventos = new List<EventoAgenda>();
 
-            if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
-            {
+			CursoCicloLectivo objCurso = new CursoCicloLectivo();
+			List<EventoAgenda> listaEventos = new List<EventoAgenda>();
 
-                objCurso.cicloLectivo = cicloLectivoActual;
-                listaEventos = objBLAgenda.GetAgendaActividadesByRol(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, null, objCurso, fechaDesde, fechaHasta);
-            }
-            else if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
-            {
-                if (Convert.ToInt16(ddlCurso.SelectedValue) > 0)
-                {
-                    objCurso.idCursoCicloLectivo = Convert.ToInt16(ddlCurso.SelectedValue);
-                    listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
-                }
- 
-            }
-            else if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
-            {
-                if (Convert.ToInt16(ddlAlumnos.SelectedValue) > 0)
-                {
-                    objCurso.idCursoCicloLectivo = (listaAlumnos.Find(p => p.alumno.idAlumno == Convert.ToInt16(ddlAlumnos.SelectedValue))).cursoCicloLectivo.idCursoCicloLectivo;
-                    listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
-                }
-            }                
+			if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
+			{
+
+				objCurso.cicloLectivo = cicloLectivoActual;
+				listaEventos = objBLAgenda.GetAgendaActividadesByRol(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, null, objCurso, fechaDesde, fechaHasta);
+			}
+			else if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+			{
+				if (Convert.ToInt16(ddlCurso.SelectedValue) > 0)
+				{
+					objCurso.idCursoCicloLectivo = Convert.ToInt16(ddlCurso.SelectedValue);
+					listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
+				}
+
+			}
+			else if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
+			{
+				if (Convert.ToInt16(ddlAlumnos.SelectedValue) > 0)
+				{
+					objCurso.idCursoCicloLectivo = (listaAlumnos.Find(p => p.alumno.idAlumno == Convert.ToInt16(ddlAlumnos.SelectedValue))).cursoCicloLectivo.idCursoCicloLectivo;
+					listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
+				}
+			}
 			propAgenda.listaEventos = listaEventos;
 		}
 
@@ -368,21 +389,40 @@ namespace EDUAR_UI
 		{
 			string mensaje = string.Empty;
 
-            if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
-            {
-                int idCurso = 0;
-                int.TryParse(ddlCurso.SelectedValue, out idCurso);
-                if (!(idCurso > 0))
-                    mensaje = "- Curso<br />";
-            }
-            else if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
-            {
-                int idAlumno = 0;
-                int.TryParse(ddlAlumnos.SelectedValue, out idAlumno);
-                if (!(idAlumno > 0))
-                mensaje = "- Alumno<br />";
-            }           
+			if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+			{
+				int idCurso = 0;
+				int.TryParse(ddlCurso.SelectedValue, out idCurso);
+				if (!(idCurso > 0))
+					mensaje = "- Curso<br />";
+			}
+			else if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
+			{
+				int idAlumno = 0;
+				int.TryParse(ddlAlumnos.SelectedValue, out idAlumno);
+				if (!(idAlumno > 0))
+					mensaje = "- Alumno<br />";
+			}
 			return mensaje;
+		}
+
+		/// <summary>
+		/// Buscars the encuestas.
+		/// </summary>
+		private void BuscarEncuestas()
+		{
+			BLEncuestaDisponible objBLEncuestaDisponible = new BLEncuestaDisponible();
+
+			EncuestaDisponible encuestaSkeleton = new EncuestaDisponible();
+			encuestaSkeleton.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+			int cantidad = objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton).Count;
+			if (cantidad > 0)
+			{
+				lblEncuestas.Text = lblEncuestas.Text.Replace("<ENCUESTAS>", cantidad.ToString());
+				if (cantidad == 1)
+					lblEncuestas.Text = lblEncuestas.Text.Replace("Encuestas", "Encuesta");
+			}
+			divEncuesta.Visible = cantidad > 0;
 		}
 		#endregion
 	}

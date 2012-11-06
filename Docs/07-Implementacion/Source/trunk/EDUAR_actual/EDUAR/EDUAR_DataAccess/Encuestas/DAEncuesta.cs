@@ -547,6 +547,36 @@ namespace EDUAR_DataAccess.Encuestas
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+		/// <summary>
+		/// Validars the preguntas.
+		/// </summary>
+		/// <param name="Data">The data.</param>
+		public bool ValidarPreguntas(Encuesta encuesta)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Encuesta_ValidarPreguntas");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, encuesta.idEncuesta);
+
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				while (reader.Read())
+					return true;
+				return false;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - ValidarPreguntas()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - ValidarPreguntas()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 
 	}
