@@ -235,12 +235,17 @@ namespace EDUAR_BusinessLogic.Security
 		/// Validars the respuesta.
 		/// </summary>
 		public void ValidarRespuesta()
-		{
+        {
 			try
 			{
-				Data.Usuario.Nombre = Membership.GetUserNameByEmail(Data.Usuario.Email);
-				MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
-				Data.Usuario.PaswordRespuesta = user.GetPassword(Data.Usuario.PaswordRespuesta);
+                DASeguridad dataAcces = new DASeguridad();
+                DTUsuario usuario = dataAcces.GetUsuarioByEmail(Data.Usuario.Email);
+
+                if (!usuario.PaswordRespuesta.Equals(Data.Usuario.PaswordRespuesta))
+                {
+                    throw new MembershipPasswordException();
+                }
+
 			}
 			catch (MembershipPasswordException ex)
 			{
