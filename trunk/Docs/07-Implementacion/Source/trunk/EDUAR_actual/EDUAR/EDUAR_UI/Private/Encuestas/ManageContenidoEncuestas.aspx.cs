@@ -342,8 +342,9 @@ namespace EDUAR_UI
 						lstRoles.Enabled = false;
 						break;
 					case "Lanzar":
-						AccionPagina = enumAcciones.Enviar;
 						propEncuesta.idEncuesta = Convert.ToInt32(e.CommandArgument.ToString());
+						ValidarPreguntas(propEncuesta);
+						AccionPagina = enumAcciones.Enviar;
 						Master.MostrarMensaje("Activar Encuesta", "¿Desea <b>enviar</b> la encuesta a los usuarios?", enumTipoVentanaInformacion.Confirmación);
 						break;
 					case "Preguntas":
@@ -361,6 +362,12 @@ namespace EDUAR_UI
 			{
 				Master.ManageExceptions(ex);
 			}
+		}
+
+		private void ValidarPreguntas(Encuesta propEncuesta)
+		{
+			BLEncuesta objBLEncuesta = new BLEncuesta(propEncuesta);
+			objBLEncuesta.ValidarPreguntas();
 		}
 
 		/// <summary>

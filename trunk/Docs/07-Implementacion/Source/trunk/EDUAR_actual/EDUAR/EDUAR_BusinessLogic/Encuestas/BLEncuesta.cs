@@ -288,6 +288,27 @@ namespace EDUAR_BusinessLogic.Encuestas
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+		/// <summary>
+		/// Validars the preguntas.
+		/// </summary>
+		public void ValidarPreguntas()
+		{
+			try
+			{
+				if(! DataAcces.ValidarPreguntas(Data))
+					throw new CustomizedException("No se puedo lanzar la encuesta ya que no posee preguntas", null, enuExceptionType.ValidationException);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - ValidarPreguntas", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 		#endregion
 
 	}
