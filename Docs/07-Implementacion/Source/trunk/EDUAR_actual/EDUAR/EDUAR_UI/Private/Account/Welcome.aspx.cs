@@ -58,8 +58,18 @@ namespace EDUAR_UI
 					Asignatura objFiltro = new Asignatura();
 					objFiltro.curso.cicloLectivo = cicloLectivoActual;
 					//nombre del usuario logueado
-					objFiltro.docente.username = User.Identity.Name;
-					listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
+					if (User.IsInRole(enumRoles.Docente.ToString()))
+					{
+						objFiltro.docente.username = User.Identity.Name;
+						listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
+					}
+					if (User.IsInRole(enumRoles.Preceptor.ToString()))
+					{
+						Curso miCurso = new Curso();
+						miCurso.cicloLectivo = cicloLectivoActual;
+						miCurso.preceptor.username = User.Identity.Name;
+						listaCursos = objBLCicloLectivo.GetCursosByCicloLectivo(miCurso);
+					}
 				}
 				return (List<Curso>)ViewState["listaCursos"];
 			}
@@ -138,7 +148,7 @@ namespace EDUAR_UI
 						lblCurso.Visible = false;
 						ddlCurso.Visible = false;
 					}
-					if (User.IsInRole(enumRoles.Docente.ToString()))
+					if (User.IsInRole(enumRoles.Docente.ToString()) || User.IsInRole(enumRoles.Preceptor.ToString()))
 					{
 						divAgenda.Visible = true;
 						habilitarAlumno(false);
@@ -332,7 +342,7 @@ namespace EDUAR_UI
 				objCurso.cicloLectivo = cicloLectivoActual;
 				listaEventos = objBLAgenda.GetAgendaActividadesByRol(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, null, objCurso, fechaDesde, fechaHasta);
 			}
-			else if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+			else if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()) || HttpContext.Current.User.IsInRole(enumRoles.Preceptor.ToString()))
 			{
 				if (Convert.ToInt16(ddlCurso.SelectedValue) > 0)
 				{
@@ -389,7 +399,7 @@ namespace EDUAR_UI
 		{
 			string mensaje = string.Empty;
 
-			if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+			if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()) || HttpContext.Current.User.IsInRole(enumRoles.Preceptor.ToString()))
 			{
 				int idCurso = 0;
 				int.TryParse(ddlCurso.SelectedValue, out idCurso);
