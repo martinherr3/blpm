@@ -403,7 +403,7 @@ namespace EDUAR_UI.UserControls
 				Chart1.Series.Add(item.NombreSerie);
 				Chart1.Series[item.NombreSerie].ShadowOffset = 2;
 				Chart1.Series[item.NombreSerie].IsVisibleInLegend = true;
-				Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #VALY";
+				Chart1.Series[item.NombreSerie].ToolTip = "#VALX: #VALY";
 
 				if (item.esLineal)
 				{	// Set point labels
@@ -440,7 +440,7 @@ namespace EDUAR_UI.UserControls
 				Chart1.Series.Add(item.NombreSerie);
 				Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Pie;
 				Chart1.Series[item.NombreSerie].ShadowOffset = 2;
-				Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #PERCENT";
+				Chart1.Series[item.NombreSerie].ToolTip = "#VALX: #PERCENT";
 
 				if (LegendOutside)
 				{
@@ -449,7 +449,7 @@ namespace EDUAR_UI.UserControls
 				}
 				else
 					Chart1.Series[item.NombreSerie].Label = " ";
-				Chart1.Series[item.NombreSerie].LegendText = "#VALX : #PERCENT";
+				Chart1.Series[item.NombreSerie].LegendText = "#VALX: #PERCENT";
 
 				// Set the threshold type to be in percentage
 				// When set to false, this property uses the actual value to determine the collected threshold
@@ -488,7 +488,7 @@ namespace EDUAR_UI.UserControls
 				Chart1.Series.Add(item.NombreSerie);
 				Chart1.Series[item.NombreSerie].ChartType = SeriesChartType.Radar;
 				Chart1.Series[item.NombreSerie].Color = GetRandomColor();
-				Chart1.Series[item.NombreSerie].ToolTip = "#VALX : #PERCENT";
+				Chart1.Series[item.NombreSerie].ToolTip = "#VALX: #PERCENT";
 
 				// Set radar chart style (Area, Line or Marker)
 				Chart1.Series[item.NombreSerie]["RadarDrawingStyle"] = "Area";

@@ -53,11 +53,11 @@
                     <asp:UpdatePanel ID="udpCicloLectivo" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged"
-                                CausesValidation="true" ValidationGroup="vlsValidador" CssClass="TD140px">
+                                CausesValidation="true"  CssClass="TD140px"> <%--ValidationGroup="vlsValidador"--%>
                             </asp:DropDownList>
-                            <asp:CompareValidator ErrorMessage="El campo Ciclo Lectivo es requerido" ControlToValidate="ddlCicloLectivo"
+                            <%--<asp:CompareValidator ErrorMessage="El campo Ciclo Lectivo es requerido" ControlToValidate="ddlCicloLectivo"
                                 Operator="GreaterThan" Type="Integer" ValidationGroup="vlsValidador" ValueToCompare="0"
-                                runat="server" Display="Dynamic" Font-Bold="true" ForeColor="Red">*</asp:CompareValidator>
+                                runat="server" Display="Dynamic" Font-Bold="true" ForeColor="Red">*</asp:CompareValidator>--%>
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
