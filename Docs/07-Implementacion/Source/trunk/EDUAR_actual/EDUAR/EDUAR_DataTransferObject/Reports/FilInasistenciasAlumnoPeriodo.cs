@@ -14,6 +14,8 @@ namespace EDUAR_Entities.Reports
 		public DateTime fechaDesde { get; set; }
 		public DateTime fechaHasta { get; set; }
 		public string username { get; set; }
+		public string usernamePreceptor { get; set; }
+
 		public List<MotivoSancion> listaMotivoSancion { get; set; }
 		public List<TipoSancion> listaTipoSancion { get; set; }
 		public List<TipoAsistencia> listaTiposAsistencia { get; set; }

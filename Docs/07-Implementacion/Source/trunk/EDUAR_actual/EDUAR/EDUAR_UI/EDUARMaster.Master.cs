@@ -261,6 +261,30 @@ namespace EDUAR_UI
 				}
 				lblCursosAsignados.Text = cursos;
 			}
+			if (HttpContext.Current.User.IsInRole(enumRoles.Preceptor.ToString()))
+			{
+				BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+				Curso miCurso = new Curso();
+				miCurso.cicloLectivo = cicloLectivoActual;
+				miCurso.preceptor.username = HttpContext.Current.User.Identity.Name;
+				List<Curso> listaCursos = objBLCicloLectivo.GetCursosByCicloLectivo(miCurso);
+				string cursos = string.Empty;
+				if (listaCursos.Count > 0) cursos = "Cursos: <br />";
+				int i = 1;
+				listaCursos.Sort((p, q) => string.Compare(p.nombre, q.nombre));
+				foreach (Curso item in listaCursos)
+				{
+					if (!cursos.Contains(item.nombre))
+					{
+						if (i % 2 == 0)
+							cursos += item.nombre + " <br />";
+						else
+							cursos += item.nombre + " - ";
+						i++;
+					}
+				}
+				lblCursosAsignados.Text = cursos;
+			}
 		}
 
 		/// <summary>

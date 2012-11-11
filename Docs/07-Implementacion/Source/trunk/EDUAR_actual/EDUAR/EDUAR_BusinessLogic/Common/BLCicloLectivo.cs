@@ -253,6 +253,28 @@ namespace EDUAR_BusinessLogic.Common
 		}
 
 		/// <summary>
+		/// Gets the cursos by ciclo lectivo.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<Curso> GetCursosByCicloLectivo(Curso entidad)
+		{
+			try
+			{
+				return DataAcces.GetCursosByCicloLectivo(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCursosByCicloLectivo", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
+		/// <summary>
 		/// Gets the ciclo lectivo actual.
 		/// </summary>
 		/// <returns></returns>
