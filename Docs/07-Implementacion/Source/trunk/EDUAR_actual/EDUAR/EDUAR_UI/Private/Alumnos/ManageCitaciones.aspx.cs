@@ -274,7 +274,6 @@ namespace EDUAR_UI
 			try
 			{
 				CargarPresentacion();
-				ViewState.Clear();
 			}
 			catch (Exception ex)
 			{

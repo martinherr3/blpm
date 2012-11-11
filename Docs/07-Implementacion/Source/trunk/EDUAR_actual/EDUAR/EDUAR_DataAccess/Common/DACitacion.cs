@@ -155,15 +155,14 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.organizador.username);
 					if (!string.IsNullOrEmpty(entidad.detalles))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalles);
-					if (entidad.activo)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 					if (ValidarFechaSQL(entidad.fechaEventoDesde))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaEventoDesde);
 					if (ValidarFechaSQL(entidad.fechaEventoHasta))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
 					if (!string.IsNullOrEmpty(entidad.tutor.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioTutor", DbType.String, entidad.tutor.username);
-				}
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+                }
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				List<Citacion> listaCitaciones = new List<Citacion>();
