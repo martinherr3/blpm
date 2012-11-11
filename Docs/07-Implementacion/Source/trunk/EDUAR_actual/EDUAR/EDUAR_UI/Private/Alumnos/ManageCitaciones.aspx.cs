@@ -655,31 +655,41 @@ namespace EDUAR_UI
 		private string ValidarPagina()
 		{
 			string mensaje = string.Empty;
-			calFechaEvento.ValidarRangoDesde(false, true);
-
-			BLFeriadosYFechasEspeciales objBLFeriado = new BLFeriadosYFechasEspeciales();
-			objBLFeriado.ValidarFecha(Convert.ToDateTime(calFechaEvento.ValorFecha));
-
-
-			String aux = txtHoraEdit.Text;
-			String[] aux2 = aux.Split(':');
+            String aux;
+            String[] aux2;
+            int value = 0;
 
 
-			objBLFeriado.ValidarHora(new DateTime(System.DateTime.Now.Year, System.DateTime.Now.Month, System.DateTime.Now.Day, int.Parse(aux2[0]), int.Parse(aux2[1]), 0));
+            if (calFechaEvento.Fecha.Text.Trim().Length != 0 && txtHoraEdit.Text.Trim().Length != 0)
+            {
+                calFechaEvento.ValidarRangoDesde(false, true);
 
-			if (txtDescripcionEdit.Text.Trim().Length == 0)
+                BLFeriadosYFechasEspeciales objBLFeriado = new BLFeriadosYFechasEspeciales();
+                objBLFeriado.ValidarFecha(Convert.ToDateTime(calFechaEvento.ValorFecha));
+
+                aux = txtHoraEdit.Text;
+                aux2 = aux.Split(':');
+                objBLFeriado.ValidarHora(new DateTime(System.DateTime.Now.Year, System.DateTime.Now.Month, System.DateTime.Now.Day, int.Parse(aux2[0]), int.Parse(aux2[1]), 0));
+
+            }
+
+
+            if (txtDescripcionEdit.Text.Trim().Length == 0)
 				mensaje = "- Descripcion<br />";
 			if (calFechaEvento.Fecha.Text.Trim().Length == 0)
 				mensaje += "- Fecha<br />";
 			if (txtHoraEdit.Text.Trim().Length == 0)
 				mensaje += "- Hora<br />";
-			if (!string.IsNullOrEmpty(ddlTutorEdit.SelectedValue) && !(Convert.ToInt32(ddlTutorEdit.SelectedValue) > 0))
-				mensaje += "- Tutor";
+            if (string.IsNullOrEmpty(ddlTutorEdit.SelectedValue) || !(Convert.ToInt32(ddlTutorEdit.SelectedValue) > 0))
+            {
+                mensaje += "- Tutor<br />";
+            }
 			if (!string.IsNullOrEmpty(ddlMotivoEdit.SelectedValue) && !(Convert.ToInt32(ddlMotivoEdit.SelectedValue) > 0))
 				mensaje += "- Motivo de Citación";
 
 			return mensaje;
 		}
+
 		//
 		private string ValidarPaginaBuscando()
 		{
