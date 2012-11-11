@@ -32,6 +32,11 @@
                             </td>
                         </tr>
                     </table>
+                    <span class="failureNotification">
+                        <asp:Literal ID="FailureText" runat="server"></asp:Literal>
+                    </span>
+                    <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification"
+                        ValidationGroup="LoginUserValidationGroup" />
                     <table width="100%" cellpadding="1" cellspacing="5" border="0">
                         <tr>
                             <td style="width: 25%">
@@ -40,6 +45,9 @@
                             <td style="width: 75%">
                                 <asp:DropDownList ID="ddlTipoDocumento" runat="server">
                                 </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlTipoDocumento"
+                                    CssClass="failureNotification" ErrorMessage="Debe seleccionar el tipo de documento"
+                                    InitialValue="0" ToolTip="Debe seleccionar el tipo de documento." ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
                             </td>
                         </tr>
                         <tr>
@@ -54,6 +62,9 @@
                                     TargetControlID="txtNroDocumento" MaskType="Number" InputDirection="RightToLeft"
                                     AcceptNegative="None" DisplayMoney="None" ErrorTooltipEnabled="false" AutoComplete="false"
                                     ClearMaskOnLostFocus="false" />
+                                <asp:RequiredFieldValidator ID="nroDocumentoRequerido" runat="server" ControlToValidate="txtNroDocumento"
+                                    CssClass="failureNotification" ErrorMessage="El número de documento es obligatorio."
+                                    ToolTip="El número de documento es obligatorio." ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
                         </tr>
                         <tr>
                             <td>
@@ -69,7 +80,8 @@
                             </td>
                             <td align="center">
                                 <asp:ImageButton ID="btnValidar" ImageUrl="~/Images/botonSiguiente.png" runat="server"
-                                    ToolTip="Siguiente" OnClick="btnValidar_Click" ImageAlign="AbsMiddle" />
+                                    ValidationGroup="LoginUserValidationGroup" ToolTip="Siguiente" CausesValidation="true"
+                                    OnClick="btnValidar_Click" ImageAlign="AbsMiddle" />
                             </td>
                         </tr>
                     </table>
