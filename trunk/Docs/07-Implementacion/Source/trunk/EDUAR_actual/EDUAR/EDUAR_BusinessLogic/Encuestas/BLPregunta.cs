@@ -93,7 +93,7 @@ namespace EDUAR_BusinessLogic.Encuestas
 				int idPregunta = 0;
 
 				if (Data.idPregunta == 0)
-					DataAcces.Create(Data, out idPregunta);
+					DataAcces.Create(Data, out idPregunta, idEncuesta);
 				else
 					DataAcces.Update(Data, idEncuesta);
 
