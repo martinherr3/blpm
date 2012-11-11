@@ -115,40 +115,42 @@ namespace EDUAR_DataAccess.Common
 		/// </summary>
 		/// <param name="idCicloLectivo">The id ciclo lectivo.</param>
 		/// <returns></returns>
-		public List<Curso> GetCursosByCicloLectivo(int idCicloLectivo)
+		public List<Curso> GetCursosByCicloLectivo(Curso entidad)
 		{
-			throw new NotImplementedException();
-			//try
-			//{
-			//    using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("CursosCicloLectivo_Select"))
-			//    {
-			//        if (idCicloLectivo > 0)
-			//            Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, idCicloLectivo);
-			//        IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+			try
+			{
+				using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("CursosCicloLectivo_Select"))
+				{
+					if (entidad.cicloLectivo.idCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cicloLectivo.idCicloLectivo);
+					if (entidad != null && !string.IsNullOrEmpty(entidad.preceptor.username))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usernamePreceptor", DbType.String, entidad.preceptor.username);
 
-			//        List<Curso> listaCursos = new List<Curso>();
-			//        Curso objCurso;
-			//        while (reader.Read())
-			//        {
-			//            objCurso = new Curso();
-			//            objCurso.idCurso = Convert.ToInt32(reader["idCurso"]);
-			//            objCurso.nombre = reader["nombre"].ToString();
+					IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-			//            listaCursos.Add(objCurso);
-			//        }
-			//        return listaCursos;    
-			//    }
-			//}
-			//catch (SqlException ex)
-			//{
-			//    throw new CustomizedException(string.Format("Fallo en {0} - GetCursosByCicloLectivo()", ClassName),
-			//                        ex, enuExceptionType.SqlException);
-			//}
-			//catch (Exception ex)
-			//{
-			//    throw new CustomizedException(string.Format("Fallo en {0} - GetCursosByCicloLectivo()", ClassName),
-			//                        ex, enuExceptionType.DataAccesException);
-			//}
+					List<Curso> listaCursos = new List<Curso>();
+					Curso objCurso;
+					while (reader.Read())
+					{
+						objCurso = new Curso();
+						objCurso.idCurso = Convert.ToInt32(reader["idCurso"]);
+						objCurso.nombre = reader["nombre"].ToString();
+
+						listaCursos.Add(objCurso);
+					}
+					return listaCursos;
+				}
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCursosByCicloLectivo()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetCursosByCicloLectivo()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
 		}
 
 		/// <summary>
@@ -164,6 +166,7 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (idCicloLectivo > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, idCicloLectivo);
+
 					IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 					List<Periodo> listaPeriodos = new List<Periodo>();
