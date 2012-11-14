@@ -328,15 +328,10 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-				if (idCicloLectivo <= 0)
-					ddlCurso.Items.Clear();
-				ddlTutores.Items.Clear();
-				ddlTutores.Enabled = false;
-				CargarComboCursos(idCicloLectivo, ddlCurso);
-				calfechas.FechaDesde.Text = cicloLectivoActual.fechaInicio.ToString("dd/MM/yyyy");
-
-				calfechas.FechaHasta.Text = cicloLectivoActual.fechaFin.ToString("dd/MM/yyyy");
+				//int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+				//if (idCicloLectivo <= 0)
+				//    ddlCurso.Items.Clear();
+				
 
 
 			}
@@ -356,8 +351,8 @@ namespace EDUAR_UI
 			try
 			{
 				int idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-				int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-				CargarComboTutor(idCurso, idCicloLectivo, ddlTutores);
+				//int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
+				CargarComboTutor(idCurso, cicloLectivoActual.idCicloLectivo, ddlTutores);
 			}
 			catch (Exception ex)
 			{
@@ -410,6 +405,8 @@ namespace EDUAR_UI
 			//lblTitulo.Text = propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
 			LimpiarCampos();
 			CargarCombos();
+			calfechas.FechaDesde.Text = cicloLectivoActual.fechaInicio.ToString("dd/MM/yyyy");
+			calfechas.FechaHasta.Text = cicloLectivoActual.fechaFin.ToString("dd/MM/yyyy");
 			udpEdit.Visible = false;
 			btnVolver.Visible = false;
 			btnGuardar.Visible = false;
@@ -444,19 +441,23 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarCombos()
 		{
-			List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
-			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-			listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(new CicloLectivo() { activo = true });
+			//List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
+			//BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+			//listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(new CicloLectivo() { activo = true });
 
-			UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
+			//UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
+
+			ddlTutores.Items.Clear();
+			ddlTutores.Enabled = false;
+			CargarComboCursos(cicloLectivoActual.idCicloLectivo, ddlCurso);
 
 			List<MotivoCitacion> listaMotivos = new List<MotivoCitacion>();
 			BLMotivoCitacion objBLMotivos = new BLMotivoCitacion();
 			listaMotivos = objBLMotivos.GetMotivos(new MotivoCitacion());
 			UIUtilidades.BindCombo<MotivoCitacion>(ddlMotivoCitacion, listaMotivos, "idMotivoCitacion", "nombre", false, true);
 
-			ddlCurso.Enabled = false;
-			ddlTutores.Enabled = false;
+			//ddlCurso.Enabled = false;
+			//ddlTutores.Enabled = false;
 		}
 
 		/// <summary>
@@ -554,6 +555,7 @@ namespace EDUAR_UI
 				entidad.motivoCitacion.idMotivoCitacion = Convert.ToInt32(ddlMotivoCitacion.SelectedValue);
 				entidad.tutor.idTutor = (!string.IsNullOrEmpty(ddlTutores.SelectedValue)) ? Convert.ToInt32(ddlTutores.SelectedValue) : 0;
 				entidad.activo = chkActivo.Checked;
+				entidad.vencidas = chkVencidas.Checked;
 				propFiltroCitacion = entidad;
 				BuscarCitacion(entidad);
 			}

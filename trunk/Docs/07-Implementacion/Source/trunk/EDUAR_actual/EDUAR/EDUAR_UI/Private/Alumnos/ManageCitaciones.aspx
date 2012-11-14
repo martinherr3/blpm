@@ -62,19 +62,24 @@
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TD140px">
+                            <%--<td valign="top" class="TD140px">
                                 <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
                             </td>
                             <td valign="top" class="TD250px">
                                 <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
                                 </asp:DropDownList>
-                            </td>
-                            <td valign="top" class="TD100px">
+                            </td>--%>
+                           <td valign="top" class="TD140px">
                                 <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                             </td>
-                            <td valign="top">
+                           <td valign="top" class="TD100px">
                                 <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
                                 </asp:DropDownList>
+                            </td> <td valign="top" class="TD100px">
+                                <asp:Label ID="Label8" runat="server" Text="Vencidas:"></asp:Label>
+                            </td>
+                            <td valign="top">
+                                <asp:CheckBox ID="chkVencidas" runat="server" Checked="false" />
                             </td>
                         </tr>
                         <tr>
