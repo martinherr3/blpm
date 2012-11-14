@@ -407,6 +407,10 @@ namespace EDUAR_UI
 			CargarCombos();
 			calfechas.FechaDesde.Text = cicloLectivoActual.fechaInicio.ToString("dd/MM/yyyy");
 			calfechas.FechaHasta.Text = cicloLectivoActual.fechaFin.ToString("dd/MM/yyyy");
+			calFechaEvento.startDate = cicloLectivoActual.fechaInicio;
+			calFechaEvento.endDate = cicloLectivoActual.fechaFin;
+			calfechas.startDate = cicloLectivoActual.fechaInicio;
+			calfechas.endDate = cicloLectivoActual.fechaFin;
 			udpEdit.Visible = false;
 			btnVolver.Visible = false;
 			btnGuardar.Visible = false;
