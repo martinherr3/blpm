@@ -11,40 +11,41 @@ using EDUAR_Entities;
 
 namespace EDUAR_Entities
 {
-    [Serializable]
-    public class Citacion : DTBase
-    {
-        public int idCitacion { get; set; }
-        public string detalles { get; set; }
-        public DateTime fecha { get; set; }
-        public Personal organizador { get; set; }
-        public DateTime hora { get; set; }
-        public MotivoCitacion motivoCitacion { get; set; }
-        public Tutor tutor { get; set; }
-        public bool activo { get; set; }
-        public CursoCicloLectivo cursoCicloLectivo { get; set; }
+	[Serializable]
+	public class Citacion : DTBase
+	{
+		public int idCitacion { get; set; }
+		public string detalles { get; set; }
+		public DateTime fecha { get; set; }
+		public Personal organizador { get; set; }
+		public DateTime hora { get; set; }
+		public MotivoCitacion motivoCitacion { get; set; }
+		public Tutor tutor { get; set; }
+		public bool activo { get; set; }
+		public CursoCicloLectivo cursoCicloLectivo { get; set; }
 
 		//Se utilizan para filtrar
 		public DateTime fechaEventoDesde { get; set; }
 		public DateTime fechaEventoHasta { get; set; }
+		public bool vencidas { get; set; }
 
-        public Citacion()
-        {
+		public Citacion()
+		{
 			organizador = new Personal();
-			motivoCitacion = new
- MotivoCitacion();
+			motivoCitacion = new MotivoCitacion();
 			tutor = new Tutor();
-            cursoCicloLectivo = new CursoCicloLectivo();
-        }
+			cursoCicloLectivo = new CursoCicloLectivo();
+			vencidas = false;
+		}
 
-        ~Citacion()
-        {
+		~Citacion()
+		{
 
-        }
+		}
 
-        public virtual void Dispose()
-        {
+		public virtual void Dispose()
+		{
 
-        }
-    }//end Citacion
+		}
+	}//end Citacion
 }
