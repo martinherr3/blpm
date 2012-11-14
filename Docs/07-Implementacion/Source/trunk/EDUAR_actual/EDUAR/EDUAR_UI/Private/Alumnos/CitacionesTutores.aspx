@@ -93,7 +93,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fecha">
-                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <HeaderStyle HorizontalAlign="center" Width="15%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# String.Format("{0} {1} hs.", Eval("fecha","{0:d}"), Eval("hora","{0:HH:mm}")) %>'></asp:Label>
