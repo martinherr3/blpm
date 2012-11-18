@@ -376,31 +376,33 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				AccionPagina = enumAcciones.Responder;
-
-				string valor = ((TextBox)sender).Text;
-
-				Respuesta respuestaPuntual = new Respuesta();
-				respuestaPuntual.pregunta.textoPregunta = ((TextBox)sender).ID;
-
-				string[] aux = ((TextBox)sender).ID.Split('_');
-				int auxIdPregunta = 0;
-				if (aux.Length == 2)
-					int.TryParse(aux[1], out auxIdPregunta);
-
-				Respuesta miRespuesta = ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((TextBox)sender).ID);
-				if (miRespuesta != null)
+				string valor = ((TextBox)sender).Text.Trim();
+				if (!string.IsNullOrEmpty(valor))
 				{
-					ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((TextBox)sender).ID).respuestaTextual = valor;
-				}
-				else
-				{
-					respuestaPuntual = respuestaSkeleton;
+					AccionPagina = enumAcciones.Responder;
 
-					respuestaPuntual.pregunta.idPregunta = auxIdPregunta;
+					Respuesta respuestaPuntual = new Respuesta();
 					respuestaPuntual.pregunta.textoPregunta = ((TextBox)sender).ID;
-					respuestaPuntual.respuestaTextual = valor;
-					ListaRespuestas.Add(respuestaPuntual);
+
+					string[] aux = ((TextBox)sender).ID.Split('_');
+					int auxIdPregunta = 0;
+					if (aux.Length == 2)
+						int.TryParse(aux[1], out auxIdPregunta);
+
+					Respuesta miRespuesta = ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((TextBox)sender).ID);
+					if (miRespuesta != null)
+					{
+						ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((TextBox)sender).ID).respuestaTextual = valor;
+					}
+					else
+					{
+						respuestaPuntual = respuestaSkeleton;
+
+						respuestaPuntual.pregunta.idPregunta = auxIdPregunta;
+						respuestaPuntual.pregunta.textoPregunta = ((TextBox)sender).ID;
+						respuestaPuntual.respuestaTextual = valor;
+						ListaRespuestas.Add(respuestaPuntual);
+					}
 				}
 			}
 			catch (Exception ex)
