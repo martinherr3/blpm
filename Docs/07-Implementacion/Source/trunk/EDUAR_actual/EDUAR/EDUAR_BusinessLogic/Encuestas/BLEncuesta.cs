@@ -142,6 +142,9 @@ namespace EDUAR_BusinessLogic.Encuestas
 			}
 		}
 
+		/// <summary>
+		/// Deletes this instance.
+		/// </summary>
 		public override void Delete()
 		{
 			try
@@ -290,14 +293,43 @@ namespace EDUAR_BusinessLogic.Encuestas
 		}
 
 		/// <summary>
+		/// Validars the lanzamiento.
+		/// </summary>
+		public void ValidarLanzamiento()
+		{
+			try
+			{
+				if (!Data.activo)
+					throw new CustomizedException("No se pudo lanzar la encuesta ya que no se ha activado la misma.", null, enuExceptionType.ValidationException);
+				if (!Data.fechaVencimiento.HasValue)
+					throw new CustomizedException("No se pudo lanzar la encuesta ya que no se ha cargado la fecha de cierre de la misma.", null, enuExceptionType.ValidationException);
+				else
+				{
+					if (!(Convert.ToDateTime(Data.fechaVencimiento).Subtract(DateTime.Now).Days > 0))
+						throw new CustomizedException("No se pudo lanzar la encuesta ya que la fecha de cierre es anterior a la fecha actual.", null, enuExceptionType.ValidationException);
+				}
+				this.ValidarPreguntas();
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - ValidarPreguntas", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+
+		/// <summary>
 		/// Validars the preguntas.
 		/// </summary>
 		public void ValidarPreguntas()
 		{
 			try
 			{
-				if(! DataAcces.ValidarPreguntas(Data))
-					throw new CustomizedException("No se puedo lanzar la encuesta ya que no posee preguntas", null, enuExceptionType.ValidationException);
+				if (!DataAcces.ValidarPreguntas(Data))
+					throw new CustomizedException("No se pudo lanzar la encuesta ya que no posee preguntas.", null, enuExceptionType.ValidationException);
 			}
 			catch (CustomizedException ex)
 			{

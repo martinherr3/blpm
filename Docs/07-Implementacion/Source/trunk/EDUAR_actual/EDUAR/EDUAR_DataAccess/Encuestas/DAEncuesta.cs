@@ -44,6 +44,10 @@ namespace EDUAR_DataAccess.Encuestas
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Creates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
 		public override void Create(Encuesta entidad)
 		{
 			try
@@ -60,7 +64,7 @@ namespace EDUAR_DataAccess.Encuestas
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.curso.idCursoCicloLectivo);
 				if (entidad.asignatura.idAsignaturaCicloLectivo > 0)
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, entidad.asignatura.idAsignaturaCicloLectivo);
-				if(entidad.fechaVencimiento.HasValue)
+				if (entidad.fechaVencimiento.HasValue)
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaLimite", DbType.Date, Convert.ToDateTime(entidad.fechaVencimiento));
 
 				if (Transaction.Transaction != null)
@@ -80,6 +84,11 @@ namespace EDUAR_DataAccess.Encuestas
 			}
 		}
 
+		/// <summary>
+		/// Creates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <param name="identificador">The identificador.</param>
 		public override void Create(Encuesta entidad, out int identificador)
 		{
 			try
@@ -159,22 +168,22 @@ namespace EDUAR_DataAccess.Encuestas
 			}
 		}
 
+		/// <summary>
+		/// Deletes the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
 		public override void Delete(Encuesta entidad)
 		{
 			try
 			{
-				if (entidad.preguntas.Count == 1)
-				{
-					Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Pregunta_Delete");
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Encuesta_Delete");
 
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPregunta", DbType.Int32, entidad.preguntas[0].idPregunta);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
 
-					if (Transaction.Transaction != null)
-						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
-					else
-						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
-				}
+				if (Transaction.Transaction != null)
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+				else
+					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
 			}
 			catch (SqlException ex)
 			{
@@ -222,7 +231,7 @@ namespace EDUAR_DataAccess.Encuestas
 				Encuesta objEncuesta;
 				int idAsignaturaCicloLectivo = 0;
 				string fechaModificacion = string.Empty;
-				DateTime fechaLanzamiento ;
+				DateTime fechaLanzamiento;
 				while (reader.Read())
 				{
 					objEncuesta = new Encuesta();
@@ -268,7 +277,7 @@ namespace EDUAR_DataAccess.Encuestas
 
 					int.TryParse(reader["idAsignaturaCicloLectivo"].ToString(), out idAsignaturaCicloLectivo);
 					objEncuesta.asignatura.idAsignaturaCicloLectivo = idAsignaturaCicloLectivo;
-
+					objEncuesta.nroRespuestas = Convert.ToInt32(reader["Respuestas"]);
 					listaEncuestas.Add(objEncuesta);
 				}
 				return listaEncuestas;

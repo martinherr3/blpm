@@ -22,6 +22,7 @@ namespace EDUAR_Entities
 		public List<DTRol> listaRoles { get; set; }
 		public CursoCicloLectivo curso { get; set; }
 		public AsignaturaCicloLectivo asignatura { get; set; }
+		public int nroRespuestas { get; set; }
 
         public Encuesta()
         {
