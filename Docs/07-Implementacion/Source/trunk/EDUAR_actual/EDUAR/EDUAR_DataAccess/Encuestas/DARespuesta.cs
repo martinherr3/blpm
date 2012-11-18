@@ -76,10 +76,10 @@ namespace EDUAR_DataAccess.Encuestas
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPregunta", DbType.Int32, entidad.pregunta.idPregunta);
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.encuestaDisponible.usuario.username);
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.encuestaDisponible.encuesta.idEncuesta);
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@valorRespuestaTextual", DbType.String, entidad.respuestaTextual);
+                    if (entidad.respuestaSeleccion == 0) Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@valorRespuestaTextual", DbType.String, entidad.respuestaTextual);
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@valorRespuestaSeleccion", DbType.Int32, entidad.respuestaSeleccion);
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@respondida", DbType.Boolean, true);
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaRespuesta", DbType.DateTime, DateTime.Now);
+                    //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@respondida", DbType.Boolean, true);
+                    //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaRespuesta", DbType.DateTime, DateTime.Now);
 
                     if (Transaction.Transaction != null)
                         Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);

@@ -129,6 +129,7 @@
     <Compile Include="Reports\BLRptConsolidadoSancionesPeriodo.cs" />
     <Compile Include="Reports\BLRptIndicadores.cs" />
     <Compile Include="Reports\BLInformeIndicador.cs" />
+    <Compile Include="Reports\BLRptEncuestasPorEstado.cs" />
     <Compile Include="Security\BLEncriptacion.cs" />
     <Compile Include="Security\BLSeguridad.cs" />
     <Compile Include="Shared\BLConfiguracionGlobal.cs" />

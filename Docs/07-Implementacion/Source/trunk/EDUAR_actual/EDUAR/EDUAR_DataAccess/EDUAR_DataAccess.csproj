@@ -125,6 +125,7 @@
     <Compile Include="Encuestas\DAEscala.cs" />
     <Compile Include="Encuestas\DAPregunta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\DARptEncuestasPorEstado.cs" />
     <Compile Include="Reports\DAInformeIndicador.cs" />
     <Compile Include="Reports\DAIndicador.cs" />
     <Compile Include="Reports\DARptIndicadores.cs" />
