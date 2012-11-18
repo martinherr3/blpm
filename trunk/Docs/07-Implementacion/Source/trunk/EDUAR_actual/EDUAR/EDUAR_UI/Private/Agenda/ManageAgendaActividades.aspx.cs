@@ -512,7 +512,7 @@ namespace EDUAR_UI
 			BLAgendaActividades objBLAgenda = new BLAgendaActividades(new AgendaActividades() { cursoCicloLectivo = new CursoCicloLectivo() { idCursoCicloLectivo = idCursoCicloLectivo } });
 			objBLAgenda.GetById();
 			propAgenda = objBLAgenda.Data;
-			novControl.visible = true;
+			novControl.visible = false;
 			idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
 		}
 
