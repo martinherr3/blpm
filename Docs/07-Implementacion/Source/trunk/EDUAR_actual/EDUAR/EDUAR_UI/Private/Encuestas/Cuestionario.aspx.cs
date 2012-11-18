@@ -169,15 +169,18 @@ namespace EDUAR_UI
 				{
 					int idEncuestaSeleccionada;
 
-					if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada)
-						&&
-						(AccionPagina == enumAcciones.Buscar
-						||
-						AccionPagina == enumAcciones.Responder
-						||
-						AccionPagina == enumAcciones.Error)
-						)
-						CargarEncuesta(idEncuestaSeleccionada);
+					if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada))
+					{
+						if (AccionPagina == enumAcciones.Buscar
+							||
+							AccionPagina == enumAcciones.Responder
+							||
+							AccionPagina == enumAcciones.Error)
+							CargarEncuesta(idEncuestaSeleccionada);
+						else
+							if (Request.Params["__EVENTTARGET"] == "GuardarRespuesta")
+								text_Changed(this, new EventArgs());
+					}
 				}
 			}
 			catch (Exception ex)
@@ -338,6 +341,11 @@ namespace EDUAR_UI
 
 				respuestaPuntual.pregunta.textoPregunta = ((Panel)sender).ID;
 
+				string[] aux = ((Panel)sender).ID.Split('_');
+				int auxIdPregunta = 0;
+				if (aux.Length == 2)
+					int.TryParse(aux[1], out auxIdPregunta);
+
 				Respuesta miRespuesta = ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((Panel)sender).ID);
 				if (miRespuesta != null)
 				{
@@ -347,7 +355,7 @@ namespace EDUAR_UI
 				{
 					respuestaPuntual = respuestaSkeleton;
 
-                    respuestaPuntual.pregunta.idPregunta = 0;
+					respuestaPuntual.pregunta.idPregunta = auxIdPregunta;
 					respuestaPuntual.pregunta.textoPregunta = ((Panel)sender).ID;
 					respuestaPuntual.respuestaSeleccion = Convert.ToInt16(e.Value);
 					ListaRespuestas.Add(respuestaPuntual);
@@ -375,6 +383,11 @@ namespace EDUAR_UI
 				Respuesta respuestaPuntual = new Respuesta();
 				respuestaPuntual.pregunta.textoPregunta = ((TextBox)sender).ID;
 
+				string[] aux = ((TextBox)sender).ID.Split('_');
+				int auxIdPregunta = 0;
+				if (aux.Length == 2)
+					int.TryParse(aux[1], out auxIdPregunta);
+
 				Respuesta miRespuesta = ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((TextBox)sender).ID);
 				if (miRespuesta != null)
 				{
@@ -384,6 +397,7 @@ namespace EDUAR_UI
 				{
 					respuestaPuntual = respuestaSkeleton;
 
+					respuestaPuntual.pregunta.idPregunta = auxIdPregunta;
 					respuestaPuntual.pregunta.textoPregunta = ((TextBox)sender).ID;
 					respuestaPuntual.respuestaTextual = valor;
 					ListaRespuestas.Add(respuestaPuntual);
@@ -416,7 +430,11 @@ namespace EDUAR_UI
 			EncuestaDisponible encuestaSkeleton = new EncuestaDisponible();
 			encuestaSkeleton.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
-			UIUtilidades.BindCombo<Encuesta>(ddlEncuesta, objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton), "idEncuesta", "nombreEncuesta", true);
+			List<Encuesta> listaEncuesta = objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton);
+			if (listaEncuesta.Count > 0)
+				UIUtilidades.BindCombo<Encuesta>(ddlEncuesta, listaEncuesta, "idEncuesta", "nombreEncuesta", true);
+			else
+				Response.Redirect("~/Private/Account/Welcome.aspx", true);
 		}
 
 		/// <summary>
@@ -543,6 +561,7 @@ namespace EDUAR_UI
 								if (miRespuesta != null) txtRespuesta.Text = miRespuesta.respuestaTextual;
 							}
 							txtRespuesta.TextChanged += new EventHandler(this.text_Changed);
+							txtRespuesta.Attributes.Add("onBlur", "GuardarRespuesta(this);");
 
 							panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
 							panelRespuesta.Controls.Add(txtRespuesta);
