@@ -99,7 +99,8 @@ namespace EDUAR_Utility.Enumeraciones
         Enviar,
 		AprobarPlanificacion,
 		SolicitarAprobacion,
-		Responder
+		Responder,
+        GuardarSinVerificar
     }
 
     /// <summary>

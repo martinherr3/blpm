@@ -170,9 +170,21 @@ namespace EDUAR_UI
 						break;
 					case enumAcciones.Guardar:
 						AccionPagina = enumAcciones.Limpiar;
-						GuardarEntidad(ObtenerValoresDePantalla());
-						Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
-						break;
+
+                        if (GuardarEntidad(ObtenerValoresDePantalla()))
+                        {
+                            Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
+                        }
+                        break;
+                    case enumAcciones.GuardarSinVerificar:
+                        AccionPagina = enumAcciones.Limpiar;
+                        if (GuardarEntidadSinVerificar(ObtenerValoresDePantalla()))
+                        {
+                            Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
+                        }
+                        break;
+
+
 					default:
 						break;
 				}
@@ -618,14 +630,41 @@ namespace EDUAR_UI
 		/// Guardars the agenda.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
-		private void GuardarEntidad(Citacion entidad)
+		private bool GuardarEntidad(Citacion entidad)
 		{
 			BLCitacion objBLCitacion = new BLCitacion();
 			objBLCitacion.VerificarDisponibilidad(entidad);
 
-			objBLCitacion = new BLCitacion(entidad);
-			objBLCitacion.Save();
+            if (!objBLCitacion.VerificarDisponibilidadDocente(entidad))
+            {
+                AccionPagina = enumAcciones.GuardarSinVerificar;
+                Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), "El Docente ya tiene una citación en esa fecha y horario. Desea crear la Citación?", enumTipoVentanaInformacion.Confirmación);
+                return (false);
+            }
+            else if(!objBLCitacion.VerificarDisponibilidadTutor(entidad))
+            {
+                AccionPagina = enumAcciones.GuardarSinVerificar;
+                Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), "El Tutor ya tiene una citación en esa fecha y horario. Desea crear la Citación?", enumTipoVentanaInformacion.Confirmación);
+                return (false);
+
+
+            }
+
+            objBLCitacion = new BLCitacion(entidad);
+            objBLCitacion.Save();
+
+            return (true);
 		}
+
+        private bool GuardarEntidadSinVerificar(Citacion entidad)
+        {
+            BLCitacion objBLCitacion = new BLCitacion();
+            objBLCitacion = new BLCitacion(entidad);
+            objBLCitacion.Save();
+
+            return (true);
+        }
+
 
 		/// <summary>
 		/// Cargars the entidad.
@@ -663,7 +702,6 @@ namespace EDUAR_UI
 			string mensaje = string.Empty;
             String aux;
             String[] aux2;
-            int value = 0;
 
 
             if (calFechaEvento.Fecha.Text.Trim().Length != 0 && txtHoraEdit.Text.Trim().Length != 0)

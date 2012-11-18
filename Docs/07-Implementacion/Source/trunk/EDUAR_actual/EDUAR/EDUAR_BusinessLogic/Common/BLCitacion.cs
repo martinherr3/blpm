@@ -198,7 +198,9 @@ namespace EDUAR_BusinessLogic.Common
 				if(!DataAcces.VerificarDisponibilidad(entidad))
 					throw new CustomizedException("Las personas involucradas no se encuentran disponibles en el horario y fecha seleccioandas", null,
 											  enuExceptionType.ValidationException);
-				return true;
+				
+
+                return true;
 			}
 			catch (CustomizedException ex)
 			{
@@ -210,6 +212,64 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+
+        /// <summary>
+        /// Verificars the disponibilidad docente.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public bool VerificarDisponibilidadDocente(Citacion entidad)
+        {
+            int idTutorAux = entidad.tutor.idTutor;
+            entidad.tutor.idTutor = 0;
+            bool retValue = false;
+            try
+            {
+                retValue = DataAcces.VerificarDisponibilidad(entidad);
+    
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - VerificarDisponibilidadDocente", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+            entidad.tutor.idTutor = idTutorAux;
+            return (retValue);
+        }
+
+        /// <summary>
+        /// Verificars the disponibilidad docente.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public bool VerificarDisponibilidadTutor(Citacion entidad)
+        {
+            string usernameOrganizadorAux = entidad.organizador.username;
+            entidad.organizador.username = "";
+            bool retValue = false;
+            try
+            {
+                retValue = DataAcces.VerificarDisponibilidad(entidad);
+
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - VerificarDisponibilidadTutor", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+            entidad.organizador.username = usernameOrganizadorAux;
+            return (retValue);
+        }
+
         #endregion
 	}
 }
