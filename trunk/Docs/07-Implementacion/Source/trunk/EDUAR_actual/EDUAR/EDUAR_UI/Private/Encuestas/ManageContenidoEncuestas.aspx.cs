@@ -157,6 +157,26 @@ namespace EDUAR_UI
 
 		#region --[Eventos]--
 		/// <summary>
+		/// Método que se ejecuta al dibujar los controles de la página.
+		/// Se utiliza para gestionar las excepciones del método Page_Load().
+		/// </summary>
+		/// <param name="e"></param>
+		protected override void OnPreRender(EventArgs e)
+		{
+			base.OnPreRender(e);
+			if (AvisoMostrar)
+			{
+				AvisoMostrar = false;
+
+				try
+				{
+					Master.ManageExceptions(AvisoExcepcion);
+				}
+				catch (Exception ex) { Master.ManageExceptions(ex); }
+			}
+		}
+
+		/// <summary>
 		/// Handles the Load event of the Page control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -290,17 +310,13 @@ namespace EDUAR_UI
 			{
 				string mensaje = ValidarPagina();
 				if (mensaje == string.Empty)
-				{
 					if (Page.IsValid)
 					{
 						AccionPagina = enumAcciones.Guardar;
 						Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
 					}
-				}
 				else
-				{
 					Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
-				}
 			}
 			catch (Exception ex)
 			{
@@ -364,7 +380,12 @@ namespace EDUAR_UI
 						encuestaSesion = listaEncuesta.Find(p => p.idEncuesta == idEncuesta);
 						Response.Redirect("ContenidoEncuestas.aspx", false);
 						break;
-
+					case "Resultados":
+						AccionPagina = enumAcciones.Redirect;
+						idEncuesta = Convert.ToInt32(e.CommandArgument.ToString());
+						encuestaSesion = listaEncuesta.Find(p => p.idEncuesta == idEncuesta);
+						Response.Redirect("ResultadosEncuestas.aspx", false);
+						break;
 				}
 				udpAmbitoRol.Update();
 				udpAsignatura.Update();
@@ -508,6 +529,8 @@ namespace EDUAR_UI
 		private void CargarPresentacion()
 		{
 			LimpiarCampos();
+			calFechaCierre.startDate = cicloLectivoActual.fechaInicio;
+			calFechaCierre.endDate = cicloLectivoActual.fechaFin;
 			lblTitulo.Text = "Encuesta";
 			CargarCombos();
 			udpEdit.Visible = false;
