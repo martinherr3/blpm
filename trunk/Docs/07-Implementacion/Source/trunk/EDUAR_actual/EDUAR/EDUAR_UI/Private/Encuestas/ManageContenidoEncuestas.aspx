@@ -78,26 +78,27 @@
                 OnRowCommand="gvwEncuestas_RowCommand">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
-                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <HeaderStyle HorizontalAlign="center" Width="15%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="btnPreguntas" runat="server" CommandName="Preguntas" CommandArgument='<%# Bind("idEncuesta") %>'
-                                ToolTip="Ver Preguntas" ImageUrl="~/Images/Grillas/action_new.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>'/>
+                                ToolTip="Ver Preguntas" ImageUrl="~/Images/Grillas/action_quest.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
                             <asp:ImageButton ID="editarEncuesta" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ToolTip="Editar Encuesta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
                             <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La encuesta sólo es editable para su propietario"
                                 Enabled="false" ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
+                            <asp:ImageButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Bind("idEncuesta") %>'
+                                ToolTip="Eliminar Encuesta" ImageUrl="~/Images/Grillas/action_delete.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
                             <asp:ImageButton ID="btnLanzar" runat="server" CommandName="Lanzar" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ToolTip="Enviar Encuesta a Usuarios" ImageUrl="~/Images/Grillas/action_Lanzar.png"
                                 Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
-                            <asp:ImageButton ID="ImageButton1" runat="server" Enabled="false"
-                                ToolTip="Encuesta Enviada a Usuarios" ImageUrl="~/Images/Grillas/action_run.png"
-                                Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), false) %>' />
+                            <asp:ImageButton ID="btnLanzada" runat="server" Enabled="false" ToolTip="Encuesta Enviada a Usuarios"
+                                ImageUrl="~/Images/Grillas/action_run.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), false) %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Ambito">
-                        <HeaderStyle HorizontalAlign="left" Width="15%" />
-                        <ItemStyle HorizontalAlign="left" />
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:Label ID="lblAmbito" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "ambito.nombre").ToString())%>'></asp:Label>
                         </ItemTemplate>
@@ -109,12 +110,33 @@
                             <asp:Label ID="lblNombre" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "nombreEncuesta").ToString())%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Objetivo">
+                    <%--<asp:TemplateField HeaderText="Objetivo">
                         <HeaderStyle HorizontalAlign="left" Width="25%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblObjetivo" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "objetivo").ToString())%>'
                                 ToolTip='<%# Bind("objetivo") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>--%>
+                    <asp:TemplateField HeaderText="Creación">
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <ItemStyle HorizontalAlign="center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblCreacion" runat="server" Text='<%# Bind("fechaCreacion","{0:d}")%>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Lanzamiento">
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <ItemStyle HorizontalAlign="center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblLanzamiento" runat="server" Text='<%# Bind("fechaLanzamiento","{0:d}")%>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Expiración">
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <ItemStyle HorizontalAlign="center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblExpiracion" runat="server" Text='<%# Bind("fechaVencimiento","{0:d}")%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Activo">
@@ -122,6 +144,13 @@
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblActivo" runat="server" Text='<%# Boolean.Parse(Eval("activo").ToString()) ? "Sí" : "No"  %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Respuestas">
+                        <HeaderStyle HorizontalAlign="Center" Width="5%" />
+                        <ItemStyle HorizontalAlign="Center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblRespuestas" runat="server" Text='<%# Bind("nroRespuestas")  %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

@@ -200,6 +200,11 @@ namespace EDUAR_UI
 						LanzarEncuesta();
 						BuscarFiltrando();
 						break;
+					case enumAcciones.Eliminar:
+						AccionPagina = enumAcciones.Limpiar;
+						EliminarEncuesta();
+						BuscarFiltrando();
+						break;
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
 						BuscarEncuesta(null);
@@ -341,11 +346,17 @@ namespace EDUAR_UI
 						ddlCurso.Enabled = false;
 						lstRoles.Enabled = false;
 						break;
+					case "Eliminar":
+						propEncuesta.idEncuesta = Convert.ToInt32(e.CommandArgument.ToString());
+						AccionPagina = enumAcciones.Eliminar;
+						Master.MostrarMensaje("Eliminar Encuesta", "¿Desea <b>eliminar</b> la encuesta?", enumTipoVentanaInformacion.Confirmación);
+						break;
 					case "Lanzar":
 						propEncuesta.idEncuesta = Convert.ToInt32(e.CommandArgument.ToString());
-						ValidarPreguntas(propEncuesta);
+						Encuesta miEncuesta = listaEncuesta.Find(p => p.idEncuesta == propEncuesta.idEncuesta);
+						ValidarPreguntas(miEncuesta);
 						AccionPagina = enumAcciones.Enviar;
-						Master.MostrarMensaje("Activar Encuesta", "¿Desea <b>enviar</b> la encuesta a los usuarios?", enumTipoVentanaInformacion.Confirmación);
+						Master.MostrarMensaje("Lanzar Encuesta", "¿Desea <b>enviar</b> la encuesta a los usuarios?", enumTipoVentanaInformacion.Confirmación);
 						break;
 					case "Preguntas":
 						AccionPagina = enumAcciones.Redirect;
@@ -364,10 +375,14 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Validars the preguntas.
+		/// </summary>
+		/// <param name="propEncuesta">The prop encuesta.</param>
 		private void ValidarPreguntas(Encuesta propEncuesta)
 		{
 			BLEncuesta objBLEncuesta = new BLEncuesta(propEncuesta);
-			objBLEncuesta.ValidarPreguntas();
+			objBLEncuesta.ValidarLanzamiento();
 		}
 
 		/// <summary>
@@ -431,6 +446,13 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Checks the lanzada.
+		/// </summary>
+		/// <param name="objUsername">The obj username.</param>
+		/// <param name="objFechaLanzamiento">The obj fecha lanzamiento.</param>
+		/// <param name="editar">if set to <c>true</c> [editar].</param>
+		/// <returns></returns>
 		protected bool CheckLanzada(object objUsername, object objFechaLanzamiento, bool editar)
 		{
 			// (DataBinder.Eval(Container.DataItem, "usuario.username").ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre &&
@@ -561,8 +583,9 @@ namespace EDUAR_UI
 				entidad.objetivo = txtObjetivoEdit.Text.Trim();
 				DateTime fechaVencimiento;
 
-				if (DateTime.TryParse(calFechaCierre.ValorFecha.Value.ToString(), out fechaVencimiento))
-					entidad.fechaVencimiento = fechaVencimiento;
+				if (calFechaCierre.ValorFecha.HasValue)
+					if (DateTime.TryParse(calFechaCierre.ValorFecha.Value.ToString(), out fechaVencimiento))
+						entidad.fechaVencimiento = fechaVencimiento;
 
 				if (entidad.ambito.idAmbitoEncuesta == enumAmbitoEncuesta.Asignatura.GetHashCode())
 					entidad.asignatura.idAsignaturaCicloLectivo = Convert.ToInt32(ddlAsignatura.SelectedValue);
@@ -761,6 +784,16 @@ namespace EDUAR_UI
 			Encuesta encuesta = new Encuesta() { idEncuesta = propEncuesta.idEncuesta };
 			objBLEncuesta = new BLEncuesta();
 			objBLEncuesta.LanzarEncuesta(encuesta);
+		}
+
+		/// <summary>
+		/// Eliminars the encuesta.
+		/// </summary>
+		private void EliminarEncuesta()
+		{
+			Encuesta encuesta = new Encuesta() { idEncuesta = propEncuesta.idEncuesta };
+			objBLEncuesta = new BLEncuesta(encuesta);
+			objBLEncuesta.Delete();
 		}
 		#endregion
 	}
