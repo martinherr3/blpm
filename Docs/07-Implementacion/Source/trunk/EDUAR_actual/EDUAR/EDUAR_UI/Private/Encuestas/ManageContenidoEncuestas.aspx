@@ -85,7 +85,7 @@
                                 ToolTip="Ver Preguntas" ImageUrl="~/Images/Grillas/action_quest.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
                             <asp:ImageButton ID="editarEncuesta" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ToolTip="Editar Encuesta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
-                            <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La encuesta sólo es editable para su propietario"
+                            <asp:ImageButton ID="btnBloquear" runat="server" ToolTip="La encuesta sólo es editable para su propietario"
                                 Enabled="false" ImageUrl="~/Images/Grillas/lock.png" Visible='<%#DataBinder.Eval(Container.DataItem, "usuario.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre ? false : true %>' />
                             <asp:ImageButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ToolTip="Eliminar Encuesta" ImageUrl="~/Images/Grillas/action_delete.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
@@ -94,6 +94,8 @@
                                 Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
                             <asp:ImageButton ID="btnLanzada" runat="server" Enabled="false" ToolTip="Encuesta Enviada a Usuarios"
                                 ImageUrl="~/Images/Grillas/action_run.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), false) %>' />
+                            <asp:ImageButton ID="btnResultados" runat="server" ToolTip="Resultados" CommandName="Resultados" CommandArgument='<%# Bind("idEncuesta") %>'
+                                ImageUrl="~/Images/Grillas/action_results.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), false) %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Ambito">

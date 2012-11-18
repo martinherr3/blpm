@@ -304,10 +304,8 @@ namespace EDUAR_BusinessLogic.Encuestas
 				if (!Data.fechaVencimiento.HasValue)
 					throw new CustomizedException("No se pudo lanzar la encuesta ya que no se ha cargado la fecha de cierre de la misma.", null, enuExceptionType.ValidationException);
 				else
-				{
 					if (!(Convert.ToDateTime(Data.fechaVencimiento).Subtract(DateTime.Now).Days > 0))
 						throw new CustomizedException("No se pudo lanzar la encuesta ya que la fecha de cierre es anterior a la fecha actual.", null, enuExceptionType.ValidationException);
-				}
 				this.ValidarPreguntas();
 			}
 			catch (CustomizedException ex)

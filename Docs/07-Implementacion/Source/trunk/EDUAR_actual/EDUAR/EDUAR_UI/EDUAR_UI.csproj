@@ -158,6 +158,7 @@
     <Content Include="Images\Grillas\action_lookup.png" />
     <Content Include="Images\Grillas\action_new.png" />
     <Content Include="Images\Grillas\action_quest.png" />
+    <Content Include="Images\Grillas\action_results.png" />
     <Content Include="Images\Grillas\action_run.png" />
     <Content Include="Images\Grillas\grd_alt.png" />
     <Content Include="Images\Grillas\grd_head.png" />
@@ -234,6 +235,7 @@
     <Content Include="Private\Agenda\ManageExcursiones.aspx" />
     <Content Include="Private\Agenda\ManageRegistroClases.aspx" />
     <Content Include="Private\Encuestas\Cuestionario.aspx" />
+    <Content Include="Private\Encuestas\ResultadosEncuestas.aspx" />
     <Content Include="Private\Manuales\Administrador\Administrar Usuarios.jpg" />
     <Content Include="Private\Manuales\Administrador\advertenciaVerificar.jpg" />
     <Content Include="Private\Manuales\Administrador\barra de menu.jpg" />
@@ -574,6 +576,13 @@
     </Compile>
     <Compile Include="Private\Encuestas\Cuestionario.aspx.designer.cs">
       <DependentUpon>Cuestionario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Encuestas\ResultadosEncuestas.aspx.cs">
+      <DependentUpon>ResultadosEncuestas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Encuestas\ResultadosEncuestas.aspx.designer.cs">
+      <DependentUpon>ResultadosEncuestas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Novedades\ConsultaNovedadAulica.aspx.cs">
       <DependentUpon>ConsultaNovedadAulica.aspx</DependentUpon>
