@@ -5,6 +5,12 @@
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+    <script type="text/javascript">
+
+        function GuardarRespuesta(textareaControl) {
+            __doPostBack("GuardarRespuesta");
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="udpSeleccionEncuesta" runat="server" UpdateMode="Conditional">

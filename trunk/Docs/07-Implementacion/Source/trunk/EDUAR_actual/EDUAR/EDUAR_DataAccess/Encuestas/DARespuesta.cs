@@ -66,6 +66,11 @@ namespace EDUAR_DataAccess.Encuestas
 			}
         }
 
+		/// <summary>
+		/// Creates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <param name="identificador">The identificador.</param>
         public override void Create(Respuesta entidad, out int identificador)
         {
             try
