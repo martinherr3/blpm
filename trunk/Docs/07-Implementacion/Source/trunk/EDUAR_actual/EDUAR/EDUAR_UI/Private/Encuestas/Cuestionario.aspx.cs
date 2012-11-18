@@ -347,6 +347,7 @@ namespace EDUAR_UI
 				{
 					respuestaPuntual = respuestaSkeleton;
 
+                    respuestaPuntual.pregunta.idPregunta = 0;
 					respuestaPuntual.pregunta.textoPregunta = ((Panel)sender).ID;
 					respuestaPuntual.respuestaSeleccion = Convert.ToInt16(e.Value);
 					ListaRespuestas.Add(respuestaPuntual);

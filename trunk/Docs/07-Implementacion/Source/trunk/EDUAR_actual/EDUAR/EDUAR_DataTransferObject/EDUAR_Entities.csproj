@@ -130,6 +130,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reports\RptEncuestasPorEstado.cs" />
+    <Compile Include="Reports\FilEncuestasPorEstado.cs" />
     <Compile Include="Reports\InformeIndicador.cs" />
     <Compile Include="Reports\Indicador.cs" />
     <Compile Include="Reports\RptIndicadores.cs" />
