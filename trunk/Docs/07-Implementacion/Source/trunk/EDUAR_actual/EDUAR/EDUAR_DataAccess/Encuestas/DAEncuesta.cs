@@ -601,7 +601,7 @@ namespace EDUAR_DataAccess.Encuestas
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
 
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-				EncuestaAnalisis miAnalisis = null;
+				EncuestaAnalisis miAnalisis = new EncuestaAnalisis();
 				while (reader.Read())
 				{
 					switch (reader["Status"].ToString())

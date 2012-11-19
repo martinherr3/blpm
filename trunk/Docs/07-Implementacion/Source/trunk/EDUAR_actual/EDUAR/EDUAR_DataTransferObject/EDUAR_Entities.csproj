@@ -56,6 +56,7 @@
     <Compile Include="Entities\Package Encuestas\EncuestaDisponible.cs" />
     <Compile Include="Entities\Package Encuestas\EscalaMedicion.cs" />
     <Compile Include="Entities\Package Encuestas\Respuesta.cs" />
+    <Compile Include="Entities\Package Encuestas\RespuestaPreguntaAnalisis.cs" />
     <Compile Include="Entities\Package Novedades Aulicas\EstadoNovedadAulica.cs" />
     <Compile Include="Entities\Package Perfiles\Perfil.cs" />
     <Compile Include="Entities\Package Perfiles\Permiso.cs" />

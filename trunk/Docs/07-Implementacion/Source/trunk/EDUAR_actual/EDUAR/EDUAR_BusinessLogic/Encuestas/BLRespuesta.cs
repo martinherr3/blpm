@@ -177,44 +177,27 @@ namespace EDUAR_BusinessLogic.Encuestas
         #endregion
 
         #region --[Métodos publicos]--
-        /// <summary>
-        /// Obtiene las escalas de medición disponibles.
-        /// </summary>
-        /// <param name="objFiltro">The obj filtro.</param>
-        /// <returns></returns>
-        //public List<Respuesta> GetRespuestasEncuesta(Encuesta objFiltro, bool flag)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetRespuestasEncuesta(objFiltro, flag);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestasEncuesta", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
-
-        //public List<Encuesta> GetEncuestasDisponibles(string username)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetEncuestasDisponibles(username);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestasDisponibles", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+		/// <summary>
+		/// Gets the respuesta pregunta analisis.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<RespuestaPreguntaAnalisis> GetRespuestaPreguntaAnalisis(Encuesta entidad)
+		{
+			try
+			{
+				return DataAcces.GetRespuestaPreguntaAnalisis(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestaPreguntaAnalisis", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
     }
 }

@@ -118,105 +118,53 @@ namespace EDUAR_DataAccess.Encuestas
         #endregion
 
         #region --[Métodos Públicos]--
-        /// <summary>
-        /// Obtiene las respuestas de una encuesta dada
-        /// </summary>
-        /// <param name="entidad">The entidad.</param>
-        /// <param name="respondida">if set to <c>true</c> [respondida].</param>
-        /// <returns></returns>
-        //public List<Respuesta> GetRespuestasEncuesta(Encuesta entidad, bool respondida)
-        //{
-        //    try
-        //    {
-        //        Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("RespuestasEncuesta_Select");
+		/// <summary>
+		/// Gets the respuesta pregunta analisis.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<RespuestaPreguntaAnalisis> GetRespuestaPreguntaAnalisis(Encuesta entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_EncuestaAnalisisSumarizado");
 
-        //        if (entidad != null)
-        //        {
-        //            if (entidad.idEncuesta > 0)
-        //                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
-        //            Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@respondida", DbType.Boolean, respondida);
-        //        }
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
 
-        //        IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-        //        List<Respuesta> listaRespuestas = new List<Respuesta>();
-        //        Respuesta objRespuesta;
+				List<RespuestaPreguntaAnalisis> listaRepuesta = new List<RespuestaPreguntaAnalisis>();
+				RespuestaPreguntaAnalisis objEntidad;
 
-        //        while (reader.Read())
-        //        {
-        //            objRespuesta = new Respuesta();
+				while (reader.Read())
+				{
+					objEntidad = new RespuestaPreguntaAnalisis();
 
-        //            objRespuesta.idRespuesta = Convert.ToInt32(reader["idRespuesta"]);
-        //            objRespuesta.respuestaSeleccion = Convert.ToInt32(reader["valorRespuestaSeleccion"]);
-        //            objRespuesta.respuestaTextual = reader["valorRespuestaTextual"].ToString();
-        //            objRespuesta.idEncuesta = Convert.ToInt32(reader["idEncuesta"]);
+					objEntidad.idPregunta = Convert.ToInt32(reader["idPregunta"]);
+					objEntidad.textoPregunta = reader["textoPregunta"].ToString();
+					objEntidad.idEscalaPonderacion = Convert.ToInt32(reader["idEscalaPonderacion"]);
+					objEntidad.cant1 = Convert.ToInt32(reader["cant1"]);
+					objEntidad.cant2 = Convert.ToInt32(reader["cant2"]);
+					objEntidad.cant3 = Convert.ToInt32(reader["cant3"]);
+					objEntidad.cant4 = Convert.ToInt32(reader["cant4"]);
+					objEntidad.cant5 = Convert.ToInt32(reader["cant5"]);
 
-        //            objRespuesta.usuario = new Persona();
-        //            {
-        //                objRespuesta.usuario.idPersona = Convert.ToInt32(reader["idEncuestado"]);
-        //            }
+					listaRepuesta.Add(objEntidad);
+				}
+				return listaRepuesta;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestaPreguntaAnalisis()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestasDisponibles()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
+		#endregion
 
-        //            objRespuesta.pregunta = new Pregunta();
-        //            {
-        //                objRespuesta.pregunta.idPregunta = Convert.ToInt32(reader["idPregunta"]);
-        //            }
-
-        //            listaRespuestas.Add(objRespuesta);
-        //        }
-        //        return listaRespuestas;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestasEncuesta()", ClassName),
-        //                            ex, enuExceptionType.SqlException);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestasEncuesta()", ClassName),
-        //                            ex, enuExceptionType.DataAccesException);
-        //    }
-        //}
-
-        //public List<Encuesta> GetEncuestasDisponibles(string username)
-        //{
-        //    try
-        //    {
-        //        Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("RespuestasEncuesta_Select");
-
-        //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@respondida", DbType.Boolean, false);
-        //        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, username);
-
-        //        IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-
-        //        List<Encuesta> listaEncuestasDisponibles = new List<Encuesta>();
-        //        Encuesta objEncuesta;
-
-        //        while (reader.Read())
-        //        {
-        //            objEncuesta = new Encuesta();
-
-        //            objEncuesta.idEncuesta = Convert.ToInt32(reader["idEncuesta"]);
-
-        //            objEncuesta.usuario = new Persona();
-        //            {
-        //                objEncuesta.usuario.idPersona = Convert.ToInt32(reader["idEncuestado"]);
-        //            }
-
-        //            listaEncuestasDisponibles.Add(objEncuesta);
-        //        }
-        //        return listaEncuestasDisponibles;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestasDisponibles()", ClassName),
-        //                            ex, enuExceptionType.SqlException);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestasDisponibles()", ClassName),
-        //                            ex, enuExceptionType.DataAccesException);
-        //    }
-        //}
-        #endregion
-    }
+	}
 }
