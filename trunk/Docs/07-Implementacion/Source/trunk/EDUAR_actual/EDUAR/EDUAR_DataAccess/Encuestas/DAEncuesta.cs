@@ -586,6 +586,57 @@ namespace EDUAR_DataAccess.Encuestas
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+		/// <summary>
+		/// Gets the encuesta analisis.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public EncuestaAnalisis GetEncuestaAnalisis(Encuesta entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_EncuestasPorStatus");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
+
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+				EncuestaAnalisis miAnalisis = null;
+				while (reader.Read())
+				{
+					switch (reader["Status"].ToString())
+					{
+						case "Pendiente":
+							miAnalisis.nroPendientes = Convert.ToInt32(reader["Total"]);
+							break;
+						case "Respondida":
+							miAnalisis.nroRespondidas = Convert.ToInt32(reader["Total"]);
+							break;
+						case "Expirada":
+							miAnalisis.nroExpiradas = Convert.ToInt32(reader["Total"]);
+							break;
+						case "No lanzadas":
+							break;
+						case "Enviadas":
+							miAnalisis.nroLanzadas = Convert.ToInt32(reader["Total"]);
+							break;
+						default:
+							break;
+					}
+				}
+				return miAnalisis;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - ValidarPreguntas()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - ValidarPreguntas()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 
 	}
