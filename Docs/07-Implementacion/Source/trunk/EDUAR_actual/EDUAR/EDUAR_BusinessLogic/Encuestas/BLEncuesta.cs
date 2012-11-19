@@ -339,7 +339,28 @@ namespace EDUAR_BusinessLogic.Encuestas
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
-		#endregion
 
+		/// <summary>
+		/// Gets the encuesta analisis.
+		/// </summary>
+		/// <param name="encuestaSesion">The encuesta sesion.</param>
+		/// <returns></returns>
+		public EncuestaAnalisis GetEncuestaAnalisis(Encuesta entidad)
+		{
+			try
+			{
+				return DataAcces.GetEncuestaAnalisis(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestaAnalisis", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+		#endregion
 	}
 }

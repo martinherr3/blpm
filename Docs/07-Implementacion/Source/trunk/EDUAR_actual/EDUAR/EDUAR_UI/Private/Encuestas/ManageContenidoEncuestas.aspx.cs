@@ -116,6 +116,12 @@ namespace EDUAR_UI
 			set { ViewState["idAmbito"] = value; }
 		}
 
+		/// <summary>
+		/// Gets or sets the encuesta sesion.
+		/// </summary>
+		/// <value>
+		/// The encuesta sesion.
+		/// </value>
 		public Encuesta encuestaSesion
 		{
 			get

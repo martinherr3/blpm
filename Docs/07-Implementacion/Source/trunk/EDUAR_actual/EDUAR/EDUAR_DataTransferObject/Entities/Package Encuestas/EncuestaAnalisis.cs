@@ -1,12 +1,12 @@
-using System;
-using EDUAR_Entities.Shared;
+﻿using System;
 using System.Collections.Generic;
 using EDUAR_Entities.Security;
+using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
 	[Serializable]
-	public class Encuesta : DTBase
+	public class EncuestaAnalisis : DTBase
 	{
 		public int idEncuesta { get; set; }
 		public Persona usuario { get; set; }
@@ -22,9 +22,12 @@ namespace EDUAR_Entities
 		public List<DTRol> listaRoles { get; set; }
 		public CursoCicloLectivo curso { get; set; }
 		public AsignaturaCicloLectivo asignatura { get; set; }
-		public int nroRespuestas { get; set; }
+		public int nroRespondidas { get; set; }
+		public int nroLanzadas { get; set; }
+		public int nroPendientes { get; set; }
+		public int nroExpiradas { get; set; }
 
-		public Encuesta()
+		public EncuestaAnalisis()
 		{
 			usuario = new Persona();
 			preguntas = new List<Pregunta>();
@@ -34,7 +37,7 @@ namespace EDUAR_Entities
 			asignatura = new AsignaturaCicloLectivo();
 		}
 
-		~Encuesta()
+		~EncuestaAnalisis()
 		{
 
 		}
@@ -43,6 +46,5 @@ namespace EDUAR_Entities
 		{
 
 		}
-
-	}//end Encuesta
+	}
 }
