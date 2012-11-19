@@ -8,6 +8,8 @@ using EDUAR_UI.Shared;
 using EDUAR_Entities;
 using System.Globalization;
 using EDUAR_BusinessLogic.Encuestas;
+using AjaxControlToolkit;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -113,6 +115,9 @@ namespace EDUAR_UI
 		#endregion
 
 		#region --[Métodos Privados]--
+		/// <summary>
+		/// Cargars the encabezado.
+		/// </summary>
 		private void CargarEncabezado()
 		{
 			lblFechaLanzamiento.Text = Convert.ToDateTime(encuestaSesion.fechaLanzamiento).ToShortDateString();
@@ -135,9 +140,130 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Buscars the preguntas.
+		/// </summary>
 		private void BuscarPreguntas()
 		{
+			List<RespuestaPreguntaAnalisis> listaRespuesta = new BLRespuesta().GetRespuestaPreguntaAnalisis(encuestaSesion);
+			//gvwPreguntas.DataSource = listaRespuesta;
+			//gvwPreguntas.DataBind();
+			//udpPreguntas.Update();
 
+			AccordionPane panel;
+			Label lblCategoria;
+			foreach (RespuestaPreguntaAnalisis respuesta in listaRespuesta)
+			{
+				lblCategoria = new Label();
+
+				lblCategoria.Text = respuesta.textoPregunta;
+
+				panel = new AjaxControlToolkit.AccordionPane();
+				panel.ID = "Panel_" + respuesta.idPregunta;
+
+				panel.HeaderContainer.Controls.Add(lblCategoria);
+
+				Table tabla = new Table();
+				TableRow fila = new TableRow();
+				TableCell celda = new TableCell();
+				if (respuesta.idEscalaPonderacion == 1)
+				{
+					enumRespCualitativa cant1 = (enumRespCualitativa)1;
+					celda.Text = cant1.ToString().Replace("_", " ");
+					fila.Cells.Add(celda);
+					celda = new TableCell();
+					celda.Text = respuesta.cant1.ToString();
+					fila.Cells.Add(celda);
+					tabla.Rows.Add(fila);
+					enumRespCualitativa cant2 = (enumRespCualitativa)2;
+					fila = new TableRow();
+					celda = new TableCell();
+					celda.Text = cant2.ToString();
+					fila.Cells.Add(celda);
+					celda = new TableCell();
+					celda.Text = respuesta.cant2.ToString();
+					fila.Cells.Add(celda);
+					tabla.Rows.Add(fila);
+					enumRespCualitativa cant3 = (enumRespCualitativa)3;
+					fila = new TableRow();
+					celda = new TableCell();
+					celda.Text = cant3.ToString();
+					fila.Cells.Add(celda);
+					celda = new TableCell();
+					celda.Text = respuesta.cant3.ToString();
+					fila.Cells.Add(celda);
+					tabla.Rows.Add(fila);
+					enumRespCualitativa cant4 = (enumRespCualitativa)4;
+					fila = new TableRow();
+					celda = new TableCell();
+					celda.Text = cant4.ToString();
+					fila.Cells.Add(celda);
+					celda = new TableCell();
+					celda.Text = respuesta.cant4.ToString();
+					fila.Cells.Add(celda);
+					tabla.Rows.Add(fila);
+					enumRespCualitativa cant5 = (enumRespCualitativa)5;
+					fila = new TableRow();
+					celda = new TableCell();
+					celda.Text = cant5.ToString().Replace("_", " ");
+					fila.Cells.Add(celda);
+					celda = new TableCell();
+					celda.Text = respuesta.cant5.ToString();
+					fila.Cells.Add(celda);
+					tabla.Rows.Add(fila);
+				}
+				else
+				{
+					enumRespCuantitativa cant1 = (enumRespCuantitativa)1;
+					celda.Text = cant1.ToString();
+					fila.Cells.Add(celda);
+					celda = new TableCell();
+					celda.Text = respuesta.cant1.ToString();
+					fila.Cells.Add(celda);
+					tabla.Rows.Add(fila);
+					enumRespCuantitativa cant2 = (enumRespCuantitativa)2;
+					fila = new TableRow();
+					celda = new TableCell();
+					celda.Text = cant2.ToString();
+					fila.Cells.Add(celda);
+					celda = new TableCell();
+					celda.Text = respuesta.cant2.ToString();
+					fila.Cells.Add(celda);
+					tabla.Rows.Add(fila);
+					enumRespCuantitativa cant3 = (enumRespCuantitativa)3;
+					fila = new TableRow();
+					celda = new TableCell();
+					celda.Text = cant3.ToString();
+					fila.Cells.Add(celda);
+					celda = new TableCell();
+					celda.Text = respuesta.cant3.ToString();
+					fila.Cells.Add(celda);
+					tabla.Rows.Add(fila);
+					enumRespCuantitativa cant4 = (enumRespCuantitativa)4;
+					fila = new TableRow();
+					celda = new TableCell();
+					celda.Text = cant4.ToString();
+					fila.Cells.Add(celda);
+					celda = new TableCell();
+					celda.Text = respuesta.cant4.ToString();
+					fila.Cells.Add(celda);
+					tabla.Rows.Add(fila);
+					enumRespCuantitativa cant5 = (enumRespCuantitativa)5;
+					fila = new TableRow();
+					celda = new TableCell();
+					celda.Text = cant5.ToString();
+					fila.Cells.Add(celda);
+					celda = new TableCell();
+					celda.Text = respuesta.cant5.ToString();
+					fila.Cells.Add(celda);
+					tabla.Rows.Add(fila);
+				}
+
+				panel.ContentContainer.Controls.Add(tabla);
+				//panel.ContentContainer.Controls.Add(new LiteralControl("<br/>"));
+				CuestionarioAccordion.Panes.Add(panel);
+
+			}
 		}
 		#endregion
 	}
