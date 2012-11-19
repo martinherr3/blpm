@@ -103,7 +103,7 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@estrategiasAprendizaje", DbType.String, entidad.estrategiasAprendizaje);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@criteriosEvaluacion", DbType.String, entidad.criteriosEvaluacion);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@instrumentosEvaluacion", DbType.String, entidad.instrumentosEvaluacion);
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaInicioEstimada", DbType.Date, entidad.fechaFinEstimada);
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaInicioEstimada", DbType.Date, entidad.fechaInicioEstimada);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaFinEstimada", DbType.Date, entidad.fechaFinEstimada);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@observaciones", DbType.String, entidad.observaciones);
 
