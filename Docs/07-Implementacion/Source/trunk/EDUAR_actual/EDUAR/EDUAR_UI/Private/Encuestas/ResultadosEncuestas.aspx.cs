@@ -10,9 +10,16 @@ using System.Globalization;
 using EDUAR_BusinessLogic.Encuestas;
 using AjaxControlToolkit;
 using EDUAR_Utility.Enumeraciones;
+using System.Web.UI.DataVisualization.Charting;
+using EDUAR_UI.Utilidades;
+using System.Data;
+using EDUAR_UI.UserControls;
 
 namespace EDUAR_UI
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public partial class ResultadosEncuestas : EDUARBasePage
 	{
 		#region --[Propiedades]--
@@ -32,6 +39,34 @@ namespace EDUAR_UI
 				return (Encuesta)Session["encuestaSesion"];
 			}
 			set { Session["encuestaSesion"] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the lista respuesta.
+		/// </summary>
+		/// <value>
+		/// The lista respuesta.
+		/// </value>
+		public List<RespuestaPreguntaAnalisis> listaRespuesta
+		{
+			get
+			{
+				if (ViewState["listaRespuesta"] == null)
+					listaRespuesta = new List<RespuestaPreguntaAnalisis>();
+
+				return (List<RespuestaPreguntaAnalisis>)ViewState["listaRespuesta"];
+			}
+			set { ViewState["listaRespuesta"] = value; }
+
+		}
+		#endregion
+
+		#region --[Estructura]--
+		[Serializable]
+		public struct miRespuesta
+		{
+			public string nombre { get; set; }
+			public int valor { get; set; }
 		}
 		#endregion
 
@@ -66,7 +101,7 @@ namespace EDUAR_UI
 			try
 			{
 				Master.BotonAvisoAceptar += (VentanaAceptar);
-				if (!Page.IsPostBack)
+				//if (!Page.IsPostBack)
 				{
 					lblTitulo.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(encuestaSesion.nombreEncuesta);
 					CargarEncabezado();
@@ -145,7 +180,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void BuscarPreguntas()
 		{
-			List<RespuestaPreguntaAnalisis> listaRespuesta = new BLRespuesta().GetRespuestaPreguntaAnalisis(encuestaSesion);
+			listaRespuesta = new BLRespuesta().GetRespuestaPreguntaAnalisis(encuestaSesion);
 			//gvwPreguntas.DataSource = listaRespuesta;
 			//gvwPreguntas.DataBind();
 			//udpPreguntas.Update();
@@ -162,108 +197,136 @@ namespace EDUAR_UI
 				panel.ID = "Panel_" + respuesta.idPregunta;
 
 				panel.HeaderContainer.Controls.Add(lblCategoria);
+				panel.HeaderContainer.HorizontalAlign = HorizontalAlign.Left;
 
 				Table tabla = new Table();
 				TableRow fila = new TableRow();
 				TableCell celda = new TableCell();
-				if (respuesta.idEscalaPonderacion == 1)
+
+				ImageButton btnGraficar = new ImageButton();
+				btnGraficar.ID = "btnGraficar_" + respuesta.idPregunta.ToString();
+				btnGraficar.ToolTip = "Graficar";
+				btnGraficar.ImageUrl = "~/Images/Graficar.png";
+
+				btnGraficar.CommandArgument = respuesta.idPregunta.ToString();
+				btnGraficar.CommandName = "Graficar";
+				btnGraficar.Command += new CommandEventHandler(btnGraficar_Command);
+
+				List<miRespuesta> listaRespuestasPregunta = ObtenerRespuestas(respuesta);
+
+				foreach (miRespuesta item in listaRespuestasPregunta)
 				{
-					enumRespCualitativa cant1 = (enumRespCualitativa)1;
-					celda.Text = cant1.ToString().Replace("_", " ");
-					fila.Cells.Add(celda);
-					celda = new TableCell();
-					celda.Text = respuesta.cant1.ToString();
-					fila.Cells.Add(celda);
-					tabla.Rows.Add(fila);
-					enumRespCualitativa cant2 = (enumRespCualitativa)2;
 					fila = new TableRow();
 					celda = new TableCell();
-					celda.Text = cant2.ToString();
+					celda.Text = item.nombre;
 					fila.Cells.Add(celda);
 					celda = new TableCell();
-					celda.Text = respuesta.cant2.ToString();
-					fila.Cells.Add(celda);
-					tabla.Rows.Add(fila);
-					enumRespCualitativa cant3 = (enumRespCualitativa)3;
-					fila = new TableRow();
-					celda = new TableCell();
-					celda.Text = cant3.ToString();
-					fila.Cells.Add(celda);
-					celda = new TableCell();
-					celda.Text = respuesta.cant3.ToString();
-					fila.Cells.Add(celda);
-					tabla.Rows.Add(fila);
-					enumRespCualitativa cant4 = (enumRespCualitativa)4;
-					fila = new TableRow();
-					celda = new TableCell();
-					celda.Text = cant4.ToString();
-					fila.Cells.Add(celda);
-					celda = new TableCell();
-					celda.Text = respuesta.cant4.ToString();
-					fila.Cells.Add(celda);
-					tabla.Rows.Add(fila);
-					enumRespCualitativa cant5 = (enumRespCualitativa)5;
-					fila = new TableRow();
-					celda = new TableCell();
-					celda.Text = cant5.ToString().Replace("_", " ");
-					fila.Cells.Add(celda);
-					celda = new TableCell();
-					celda.Text = respuesta.cant5.ToString();
+					celda.Text = item.valor.ToString();
 					fila.Cells.Add(celda);
 					tabla.Rows.Add(fila);
 				}
-				else
-				{
-					enumRespCuantitativa cant1 = (enumRespCuantitativa)1;
-					celda.Text = cant1.ToString();
-					fila.Cells.Add(celda);
-					celda = new TableCell();
-					celda.Text = respuesta.cant1.ToString();
-					fila.Cells.Add(celda);
-					tabla.Rows.Add(fila);
-					enumRespCuantitativa cant2 = (enumRespCuantitativa)2;
-					fila = new TableRow();
-					celda = new TableCell();
-					celda.Text = cant2.ToString();
-					fila.Cells.Add(celda);
-					celda = new TableCell();
-					celda.Text = respuesta.cant2.ToString();
-					fila.Cells.Add(celda);
-					tabla.Rows.Add(fila);
-					enumRespCuantitativa cant3 = (enumRespCuantitativa)3;
-					fila = new TableRow();
-					celda = new TableCell();
-					celda.Text = cant3.ToString();
-					fila.Cells.Add(celda);
-					celda = new TableCell();
-					celda.Text = respuesta.cant3.ToString();
-					fila.Cells.Add(celda);
-					tabla.Rows.Add(fila);
-					enumRespCuantitativa cant4 = (enumRespCuantitativa)4;
-					fila = new TableRow();
-					celda = new TableCell();
-					celda.Text = cant4.ToString();
-					fila.Cells.Add(celda);
-					celda = new TableCell();
-					celda.Text = respuesta.cant4.ToString();
-					fila.Cells.Add(celda);
-					tabla.Rows.Add(fila);
-					enumRespCuantitativa cant5 = (enumRespCuantitativa)5;
-					fila = new TableRow();
-					celda = new TableCell();
-					celda.Text = cant5.ToString();
-					fila.Cells.Add(celda);
-					celda = new TableCell();
-					celda.Text = respuesta.cant5.ToString();
-					fila.Cells.Add(celda);
-					tabla.Rows.Add(fila);
-				}
+
 
 				panel.ContentContainer.Controls.Add(tabla);
-				//panel.ContentContainer.Controls.Add(new LiteralControl("<br/>"));
+				panel.ContentContainer.Controls.Add(btnGraficar);
+				//panel.ContentContainer.Controls.Add(miGrafico);
 				CuestionarioAccordion.Panes.Add(panel);
-
 			}
+			//udpPreguntas.Update();
+		}
+
+		void btnGraficar_Command(object sender, CommandEventArgs e)
+		{
+			if (e.CommandName == "Graficar")
+			{
+				RespuestaPreguntaAnalisis miPregunta = listaRespuesta.Find(p => p.idPregunta == Convert.ToInt32(e.CommandArgument));
+
+				List<miRespuesta> listaRespuestaLocal = ObtenerRespuestas(miPregunta);
+				DataTable dt = UIUtilidades.BuildDataTable<miRespuesta>(listaRespuestaLocal);
+				//Grafico miGrafico = new Grafico();
+				//miGrafico.ID = "Grafico_" + miPregunta.idPregunta.ToString();
+				grafico.LimpiarSeries();
+				grafico.AgregarSerie("Análisis", dt, "nombre", "valor");
+				//miGrafico.LoadControl("~/UserControls/Grafico.ascx");
+				//miGrafico.GraficarBarra();
+				grafico.GraficarBarra();
+			}
+		}
+		#endregion
+
+		#region --[Métodos Privados]--
+		/// <summary>
+		/// Obteners the respuestas.
+		/// </summary>
+		/// <param name="respuesta">The respuesta.</param>
+		/// <returns></returns>
+		private List<miRespuesta> ObtenerRespuestas(RespuestaPreguntaAnalisis respuesta)
+		{
+			List<miRespuesta> listaRespuestasLocal = new List<miRespuesta>();
+			miRespuesta laRespuesta = new miRespuesta();
+			if (respuesta.idEscalaPonderacion == 1)
+			{
+				enumRespCualitativa cant1 = (enumRespCualitativa)1;
+				laRespuesta.nombre = cant1.ToString().Replace("_", " ");
+				laRespuesta.valor = respuesta.cant1;
+				listaRespuestasLocal.Add(laRespuesta);
+
+				laRespuesta = new miRespuesta();
+				enumRespCualitativa cant2 = (enumRespCualitativa)2;
+				laRespuesta.nombre = cant2.ToString().Replace("_", " ");
+				laRespuesta.valor = respuesta.cant2;
+				listaRespuestasLocal.Add(laRespuesta);
+
+				laRespuesta = new miRespuesta();
+				enumRespCualitativa cant3 = (enumRespCualitativa)3;
+				laRespuesta.nombre = cant3.ToString().Replace("_", " ");
+				laRespuesta.valor = respuesta.cant3;
+				listaRespuestasLocal.Add(laRespuesta);
+
+				laRespuesta = new miRespuesta();
+				enumRespCualitativa cant4 = (enumRespCualitativa)4;
+				laRespuesta.nombre = cant4.ToString().Replace("_", " ");
+				laRespuesta.valor = respuesta.cant4;
+				listaRespuestasLocal.Add(laRespuesta);
+
+				laRespuesta = new miRespuesta();
+				enumRespCualitativa cant5 = (enumRespCualitativa)5;
+				laRespuesta.nombre = cant5.ToString().Replace("_", " ");
+				laRespuesta.valor = respuesta.cant5;
+				listaRespuestasLocal.Add(laRespuesta);
+			}
+			else
+			{
+				enumRespCuantitativa cant1 = (enumRespCuantitativa)1;
+				laRespuesta.nombre = cant1.ToString().Replace("_", " ");
+				laRespuesta.valor = respuesta.cant1;
+				listaRespuestasLocal.Add(laRespuesta);
+
+				laRespuesta = new miRespuesta();
+				enumRespCuantitativa cant2 = (enumRespCuantitativa)2;
+				laRespuesta.nombre = cant2.ToString().Replace("_", " ");
+				laRespuesta.valor = respuesta.cant2;
+				listaRespuestasLocal.Add(laRespuesta);
+
+				laRespuesta = new miRespuesta();
+				enumRespCuantitativa cant3 = (enumRespCuantitativa)3;
+				laRespuesta.nombre = cant3.ToString().Replace("_", " ");
+				laRespuesta.valor = respuesta.cant3;
+				listaRespuestasLocal.Add(laRespuesta);
+
+				laRespuesta = new miRespuesta();
+				enumRespCuantitativa cant4 = (enumRespCuantitativa)4;
+				laRespuesta.nombre = cant4.ToString().Replace("_", " ");
+				laRespuesta.valor = respuesta.cant4;
+				listaRespuestasLocal.Add(laRespuesta);
+
+				laRespuesta = new miRespuesta();
+				enumRespCuantitativa cant5 = (enumRespCuantitativa)5;
+				laRespuesta.nombre = cant5.ToString().Replace("_", " ");
+				laRespuesta.valor = respuesta.cant5;
+				listaRespuestasLocal.Add(laRespuesta);
+			}
+			return listaRespuestasLocal;
 		}
 		#endregion
 	}
