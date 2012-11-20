@@ -125,17 +125,25 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Fecha Inicio">
-                            <HeaderStyle HorizontalAlign="Center" Width="45%" />
+                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
                             <ItemStyle HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblFechaInicioGrilla" runat="server" Text='<%# Bind("fechaInicioEstimada","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Fecha Fin">
-                            <HeaderStyle HorizontalAlign="Center" Width="45%" />
+                            <HeaderStyle HorizontalAlign="Center" Width="15%" />
                             <ItemStyle HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblFechaFinGrilla" runat="server" Text='<%# Bind("fechaFinEstimada","{0:d}") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                         <asp:TemplateField HeaderText="Descripcion">
+                            <HeaderStyle HorizontalAlign="Center" Width="60%" />
+                            <ItemStyle HorizontalAlign="Center" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblDescripcion" runat="server" Text='<%# Bind("contenidosConceptuales","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
@@ -174,48 +182,60 @@ CssClass="button" OnClick="btnContenidosPopUp_Click" />--%>
                         </td>
                     </tr>
                     <tr>
+                    
                         <td class="TD250px" colspan="2">
                             <asp:Label ID="lblCConceptuales" runat="server" Text="Contenidos
-Conceptuales"></asp:Label><br />
-                            <asp:TextBox ID="txtCConceptuales" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" CssClass="txtMultilinea99" />
+Conceptuales"></asp:Label>
+                            <br />
+                            <asp:TextBox ID="txtCConceptuales" runat="server" Columns="75" 
+                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
+                        </td>
+                    
+                    </tr>
+                    <tr>
+                        <td class="TD250px" colspan="2">
+                            <asp:Label ID="lblCProcedimentales" runat="server" 
+                                Text="Contenidos Procedimentales"></asp:Label>
+                            <br />
+                            <asp:TextBox ID="txtCProcedimentales" runat="server" Columns="75" 
+                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
                         </td>
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblCProcedimentales" runat="server" Text="Contenidos Procedimentales"></asp:Label><br />
-                            <asp:TextBox ID="txtCProcedimentales" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" CssClass="txtMultilinea99" />
+                            <asp:Label ID="lblCActitudinales" runat="server" 
+                                Text="Contenidos Actitudinales"></asp:Label>
+                            <br />
+                            <asp:TextBox ID="txtCActitudinales" runat="server" Columns="75" 
+                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
                         </td>
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblCActitudinales" runat="server" Text="Contenidos Actitudinales"></asp:Label><br />
-                            <asp:TextBox ID="txtCActitudinales" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" CssClass="txtMultilinea99" />
+                            <asp:Label ID="lblEstrategias" runat="server" Text="Estrategias"></asp:Label>
+                            <br />
+                            <asp:TextBox ID="txtEstrategias" runat="server" Columns="75" 
+                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
                         </td>
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblEstrategias" runat="server" Text="Estrategias"></asp:Label><br />
-                            <asp:TextBox ID="txtEstrategias" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" CssClass="txtMultilinea99" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblCriteriosEvaluacion" runat="server" Text="Criterios de Evaluación"></asp:Label><br />
-                            <asp:TextBox ID="txtCriteriosEvaluacion" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" CssClass="txtMultilinea99" />
+                            <asp:Label ID="lblCriteriosEvaluacion" runat="server" 
+                                Text="Criterios de Evaluación"></asp:Label>
+                            <br />
+                            <asp:TextBox ID="txtCriteriosEvaluacion" runat="server" Columns="75" 
+                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
                         </td>
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2">
                             <asp:Label ID="lblInstrumentosEvaluación" runat="server" Text="Instrumentos
-de Evaluación"></asp:Label><br />
-                            <asp:TextBox ID="txtInstrumentosEvaluacion" runat="server" TextMode="MultiLine" Columns="75"
-                                Rows="10" CssClass="txtMultilinea99" />
+de Evaluación"></asp:Label>
+                            <br />
+                            <asp:TextBox ID="txtInstrumentosEvaluacion" runat="server" Columns="75" 
+                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
                         </td>
+                    </tr>
                     </tr>
                 </table>
             </div>
