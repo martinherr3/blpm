@@ -4,6 +4,7 @@
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Src="~/UserControls/Grafico.ascx" TagName="Grafico" TagPrefix="gra" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -108,6 +109,8 @@
             </asp:GridView>
         </ContentTemplate>
     </asp:UpdatePanel>--%>
+    <%--   <asp:UpdatePanel ID="udpPreguntas" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>--%>
     <cc1:Accordion ID="CuestionarioAccordion" CssClass="accordion" HeaderCssClass="accordionHeader"
         HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent"
         RequireOpenedPane="false" SelectedIndex="-1" runat="server" Width="100%">
@@ -115,4 +118,7 @@
             <%--LOS COMPONENTES DEL ACCORDION SON AGREGADOS DINÁMICAMENTE DESDE CÓDIGO--%>
         </Panes>
     </cc1:Accordion>
+    <div id="divGrafico" runat="server" class="divGraficoOcultar">
+        <gra:Grafico ID="grafico" runat="server" />
+    </div>
 </asp:Content>
