@@ -353,8 +353,17 @@ namespace EDUAR_UI
 			{
 				//CargarPresentacion();
 				//BuscarAgenda(propFiltroAgenda);
-				Response.Redirect("ManageAgendaActividades.aspx", false);
-			}
+                if (AccionPagina == enumAcciones.Nuevo || AccionPagina == enumAcciones.Modificar)
+                {
+                    Response.Redirect("ManageRegistroClases.aspx", false);
+
+                }
+                else
+                {
+                    Response.Redirect("ManageAgendaActividades.aspx", false);
+                }
+                
+            }
 			catch (Exception ex)
 			{
 				Master.ManageExceptions(ex);
