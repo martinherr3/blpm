@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_UI.Shared;
 using EDUAR_Entities;
@@ -10,10 +7,8 @@ using System.Globalization;
 using EDUAR_BusinessLogic.Encuestas;
 using AjaxControlToolkit;
 using EDUAR_Utility.Enumeraciones;
-using System.Web.UI.DataVisualization.Charting;
 using EDUAR_UI.Utilidades;
 using System.Data;
-using EDUAR_UI.UserControls;
 
 namespace EDUAR_UI
 {
@@ -200,8 +195,22 @@ namespace EDUAR_UI
 				panel.HeaderContainer.HorizontalAlign = HorizontalAlign.Left;
 
 				Table tabla = new Table();
-				TableRow fila = new TableRow();
+				
+                TableRow fila = new TableRow();
 				TableCell celda = new TableCell();
+
+                TableHeaderRow header = new TableHeaderRow();
+                TableHeaderCell header1 = new TableHeaderCell();
+                header1.Text = "SELECCIÓN";
+                header1.Font.Size = 10;
+                TableHeaderCell header2 = new TableHeaderCell();
+                header2.Text = "VALORACIÓN";
+                header2.Font.Size = 10;
+
+                header.Cells.Add(header1);
+                header.Cells.Add(header2);
+
+                tabla.Rows.Add(header);
 
 				ImageButton btnGraficar = new ImageButton();
 				btnGraficar.ID = "btnGraficar_" + respuesta.idPregunta.ToString();
@@ -217,15 +226,19 @@ namespace EDUAR_UI
 				foreach (miRespuesta item in listaRespuestasPregunta)
 				{
 					fila = new TableRow();
-					celda = new TableCell();
+					
+                    celda = new TableCell();
 					celda.Text = item.nombre;
+                    celda.Font.Bold = true;
 					fila.Cells.Add(celda);
-					celda = new TableCell();
-					celda.Text = item.valor.ToString();
-					fila.Cells.Add(celda);
+					
+                    celda = new TableCell();
+                    celda.Text = item.valor.ToString();
+                    celda.HorizontalAlign = HorizontalAlign.Center;
+                    fila.Cells.Add(celda);
+
 					tabla.Rows.Add(fila);
 				}
-
 
 				panel.ContentContainer.Controls.Add(tabla);
 				panel.ContentContainer.Controls.Add(btnGraficar);
