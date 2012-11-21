@@ -29,6 +29,20 @@
         </tr>
     </table>
     <table class="tablaInterna" cellpadding="0" cellspacing="0">
+         <tr>
+            <td class="TD25">
+                <asp:Label  Text="Curso: " runat="server" />
+                <asp:Label ID="lblCurso" Text="" runat="server" Font-Bold="true" /><br />
+                <br />
+            </td>
+            <td class="TD25">
+                <asp:Label ID="lblAsignatura" Text="Asignatura: " runat="server" Visible="false" />
+                <asp:Label ID="lblAsignaturaNombre" Text="" runat="server" Font-Bold="true" /><br />
+                <br />
+            </td>
+            <td class="TD50">
+            </td>
+        </tr>
         <tr>
             <td class="TD25">
                 <asp:Label Text="Fecha Lanzamiento: " runat="server" />

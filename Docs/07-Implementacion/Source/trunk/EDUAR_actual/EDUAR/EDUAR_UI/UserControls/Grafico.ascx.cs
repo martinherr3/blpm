@@ -121,7 +121,9 @@ namespace EDUAR_UI.UserControls
 		{
 			get
 			{
-				return Session["filtrosAplicados"].ToString();
+				if (Session["filtrosAplicados"] != null)
+					return Session["filtrosAplicados"].ToString();
+				return string.Empty;
 			}
 		}
 
@@ -146,7 +148,9 @@ namespace EDUAR_UI.UserControls
 		{
 			get
 			{
-				return Session["tituloReporte"].ToString();
+				if (Session["tituloReporte"] != null)
+					return Session["tituloReporte"].ToString();
+				return string.Empty;
 			}
 		}
 
@@ -371,7 +375,7 @@ namespace EDUAR_UI.UserControls
 				}
 
 				// Set series point width
-					Chart1.Series[item.NombreSerie]["PointWidth"] = "1.0";
+				Chart1.Series[item.NombreSerie]["PointWidth"] = "1.0";
 
 				// Show data points labels
 				//Chart1.Series[item.NombreSerie].IsValueShownAsLabel = false;

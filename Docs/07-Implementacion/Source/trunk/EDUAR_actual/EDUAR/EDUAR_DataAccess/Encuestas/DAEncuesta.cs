@@ -274,10 +274,14 @@ namespace EDUAR_DataAccess.Encuestas
 					objEncuesta.preguntas = GetPreguntasEncuesta(entidad, null);
 					objEncuesta.listaRoles = GetRolesEncuesta(objEncuesta);
 					objEncuesta.curso.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
+					objEncuesta.curso.curso.nombre = reader["Curso"].ToString();
 
 					int.TryParse(reader["idAsignaturaCicloLectivo"].ToString(), out idAsignaturaCicloLectivo);
 					objEncuesta.asignatura.idAsignaturaCicloLectivo = idAsignaturaCicloLectivo;
+					objEncuesta.asignatura.asignatura.nombre = reader["Asignatura"].ToString();
+					
 					objEncuesta.nroRespuestas = Convert.ToInt32(reader["Respuestas"]);
+
 					listaEncuestas.Add(objEncuesta);
 				}
 				return listaEncuestas;
