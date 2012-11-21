@@ -926,6 +926,14 @@ namespace EDUAR_UI
 			calFechaDesde.Habilitado = habilitar;
 			calFechaFin.Habilitado = habilitar;
 			chkSolicitarAprobacion.Enabled = habilitar;
+
+
+            calFechaDesde.startDate = cicloLectivoActual.fechaInicio;
+            calFechaDesde.endDate = cicloLectivoActual.fechaFin;
+            calFechaFin.startDate = cicloLectivoActual.fechaInicio;
+            calFechaFin.endDate = cicloLectivoActual.fechaFin;
+
+
 		}
 
 		/// <summary>
