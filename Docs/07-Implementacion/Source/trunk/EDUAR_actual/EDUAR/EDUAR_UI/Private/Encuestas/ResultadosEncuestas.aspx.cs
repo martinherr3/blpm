@@ -9,6 +9,7 @@ using EDUAR_Entities;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
+using System.Web.UI;
 
 namespace EDUAR_UI
 {
@@ -227,7 +228,7 @@ namespace EDUAR_UI
 				btnGraficar.Command += new CommandEventHandler(btnGraficar_Command);
 
 				List<miRespuesta> listaRespuestasPregunta = ObtenerRespuestas(respuesta);
-				
+
 				tabla = new Table();
 				tabla.Width = Unit.Percentage(70);
 
@@ -238,18 +239,32 @@ namespace EDUAR_UI
 				grilla.CssClass = "DatosLista";
 				grilla.SkinID = "gridviewSkinPagerListado";
 				grilla.AutoGenerateColumns = true;
-				grilla.Width = Unit.Percentage(30); 
+				grilla.Width = Unit.Percentage(30);
 				grilla.DataSource = listaRespuestasPregunta;
 				grilla.DataBind();
-				
+
 				celda.Controls.Add(grilla);
 				fila.Cells.Add(celda);
 
 				celda = new TableCell();
-				grilla.Width = Unit.Percentage(30); 
+				grilla.Width = Unit.Percentage(30);
 				celda.VerticalAlign = VerticalAlign.Middle;
 				celda.HorizontalAlign = HorizontalAlign.Center;
 				celda.Controls.Add(btnGraficar);
+
+				celda.Controls.Add(new LiteralControl(@"<br/><div class='loginDisplay' style='text-align: center'>"));
+
+				celda.Controls.Add(new LiteralControl("[ "));
+
+				LinkButton miLink = new LinkButton();
+				miLink.Text = "Ver Gráfico";
+				miLink.CommandArgument = respuesta.idPregunta.ToString();
+				miLink.CommandName = "Graficar";
+				miLink.Command += new CommandEventHandler(btnGraficar_Command);
+
+				celda.Controls.Add(miLink);
+				celda.Controls.Add(new LiteralControl(" ]</div>"));
+
 				fila.Cells.Add(celda);
 
 				tabla.Rows.Add(fila);
