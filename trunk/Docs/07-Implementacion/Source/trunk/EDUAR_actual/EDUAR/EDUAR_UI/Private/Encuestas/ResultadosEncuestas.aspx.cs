@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.UI.WebControls;
-using EDUAR_UI.Shared;
-using EDUAR_Entities;
-using System.Globalization;
-using EDUAR_BusinessLogic.Encuestas;
-using AjaxControlToolkit;
-using EDUAR_Utility.Enumeraciones;
-using EDUAR_UI.Utilidades;
 using System.Data;
+using System.Globalization;
+using System.Web.UI.WebControls;
+using AjaxControlToolkit;
+using EDUAR_BusinessLogic.Encuestas;
+using EDUAR_Entities;
+using EDUAR_UI.Shared;
+using EDUAR_UI.Utilidades;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
@@ -54,14 +54,31 @@ namespace EDUAR_UI
 			set { ViewState["listaRespuesta"] = value; }
 
 		}
+
+		/// <summary>
+		/// Gets or sets the titulo reporte.
+		/// </summary>
+		/// <value>
+		/// The titulo reporte.
+		/// </value>
+		public string tituloReporte
+		{
+			get
+			{
+				if (Session["tituloReporte"] == null)
+					Session["tituloReporte"] = string.Empty;
+				return Session["tituloReporte"].ToString();
+			}
+			set { Session["tituloReporte"] = value; }
+		}
 		#endregion
 
 		#region --[Estructura]--
 		[Serializable]
 		public struct miRespuesta
 		{
-			public string nombre { get; set; }
-			public int valor { get; set; }
+			public string respuesta { get; set; }
+			public int cantidad { get; set; }
 		}
 		#endregion
 
@@ -154,6 +171,12 @@ namespace EDUAR_UI
 			if (encuestaSesion.fechaVencimiento.HasValue)
 				lblFechaExpiracion.Text = Convert.ToDateTime(encuestaSesion.fechaVencimiento).ToShortDateString();
 
+			lblCurso.Text = encuestaSesion.curso.curso.nombre;
+			if (!string.IsNullOrEmpty(encuestaSesion.asignatura.asignatura.nombre))
+			{
+				lblAsignatura.Visible = true;
+				lblAsignaturaNombre.Text = encuestaSesion.asignatura.asignatura.nombre;
+			}
 			BLEncuesta objBLEncuesta = new BLEncuesta();
 			EncuestaAnalisis miAnalisis = objBLEncuesta.GetEncuestaAnalisis(encuestaSesion);
 			if (miAnalisis != null)
@@ -176,16 +199,16 @@ namespace EDUAR_UI
 		private void BuscarPreguntas()
 		{
 			listaRespuesta = new BLRespuesta().GetRespuestaPreguntaAnalisis(encuestaSesion);
-			//gvwPreguntas.DataSource = listaRespuesta;
-			//gvwPreguntas.DataBind();
-			//udpPreguntas.Update();
 
 			AccordionPane panel;
 			Label lblCategoria;
+			Table tabla = new Table();
+
+			TableRow fila = new TableRow();
+			TableCell celda = new TableCell();
 			foreach (RespuestaPreguntaAnalisis respuesta in listaRespuesta)
 			{
 				lblCategoria = new Label();
-
 				lblCategoria.Text = respuesta.textoPregunta;
 
 				panel = new AjaxControlToolkit.AccordionPane();
@@ -194,58 +217,47 @@ namespace EDUAR_UI
 				panel.HeaderContainer.Controls.Add(lblCategoria);
 				panel.HeaderContainer.HorizontalAlign = HorizontalAlign.Left;
 
-				Table tabla = new Table();
-				
-                TableRow fila = new TableRow();
-				TableCell celda = new TableCell();
-
-                TableHeaderRow header = new TableHeaderRow();
-                TableHeaderCell header1 = new TableHeaderCell();
-                header1.Text = "SELECCIÓN";
-                header1.Font.Size = 10;
-                TableHeaderCell header2 = new TableHeaderCell();
-                header2.Text = "VALORACIÓN";
-                header2.Font.Size = 10;
-
-                header.Cells.Add(header1);
-                header.Cells.Add(header2);
-
-                tabla.Rows.Add(header);
-
 				ImageButton btnGraficar = new ImageButton();
 				btnGraficar.ID = "btnGraficar_" + respuesta.idPregunta.ToString();
-				btnGraficar.ToolTip = "Graficar";
-				btnGraficar.ImageUrl = "~/Images/Graficar.png";
+				btnGraficar.ToolTip = "Ver Gráfico";
+				btnGraficar.ImageUrl = "~/Images/GraficarEncuesta.png";
 
 				btnGraficar.CommandArgument = respuesta.idPregunta.ToString();
 				btnGraficar.CommandName = "Graficar";
 				btnGraficar.Command += new CommandEventHandler(btnGraficar_Command);
 
 				List<miRespuesta> listaRespuestasPregunta = ObtenerRespuestas(respuesta);
+				
+				tabla = new Table();
+				tabla.Width = Unit.Percentage(70);
 
-				foreach (miRespuesta item in listaRespuestasPregunta)
-				{
-					fila = new TableRow();
-					
-                    celda = new TableCell();
-					celda.Text = item.nombre;
-                    celda.Font.Bold = true;
-					fila.Cells.Add(celda);
-					
-                    celda = new TableCell();
-                    celda.Text = item.valor.ToString();
-                    celda.HorizontalAlign = HorizontalAlign.Center;
-                    fila.Cells.Add(celda);
+				fila = new TableRow();
+				celda = new TableCell();
 
-					tabla.Rows.Add(fila);
-				}
+				GridView grilla = new GridView();
+				grilla.CssClass = "DatosLista";
+				grilla.SkinID = "gridviewSkinPagerListado";
+				grilla.AutoGenerateColumns = true;
+				grilla.Width = Unit.Percentage(30); 
+				grilla.DataSource = listaRespuestasPregunta;
+				grilla.DataBind();
+				
+				celda.Controls.Add(grilla);
+				fila.Cells.Add(celda);
+
+				celda = new TableCell();
+				grilla.Width = Unit.Percentage(30); 
+				celda.VerticalAlign = VerticalAlign.Middle;
+				celda.HorizontalAlign = HorizontalAlign.Center;
+				celda.Controls.Add(btnGraficar);
+				fila.Cells.Add(celda);
+
+				tabla.Rows.Add(fila);
 
 				panel.ContentContainer.Controls.Add(tabla);
-				panel.ContentContainer.Controls.Add(btnGraficar);
-				//panel.ContentContainer.Controls.Add(miGrafico);
+
 				CuestionarioAccordion.Panes.Add(panel);
 			}
-			//udpPreguntas.Update();
 		}
 
 		void btnGraficar_Command(object sender, CommandEventArgs e)
@@ -256,12 +268,10 @@ namespace EDUAR_UI
 
 				List<miRespuesta> listaRespuestaLocal = ObtenerRespuestas(miPregunta);
 				DataTable dt = UIUtilidades.BuildDataTable<miRespuesta>(listaRespuestaLocal);
-				//Grafico miGrafico = new Grafico();
-				//miGrafico.ID = "Grafico_" + miPregunta.idPregunta.ToString();
+				grafico.Titulo = miPregunta.textoPregunta;
+				tituloReporte = miPregunta.textoPregunta;
 				grafico.LimpiarSeries();
-				grafico.AgregarSerie("Análisis", dt, "nombre", "valor");
-				//miGrafico.LoadControl("~/UserControls/Grafico.ascx");
-				//miGrafico.GraficarBarra();
+				grafico.AgregarSerie("Respuestas", dt, "respuesta", "cantidad");
 				grafico.GraficarBarra();
 			}
 		}
@@ -280,63 +290,63 @@ namespace EDUAR_UI
 			if (respuesta.idEscalaPonderacion == 1)
 			{
 				enumRespCualitativa cant1 = (enumRespCualitativa)1;
-				laRespuesta.nombre = cant1.ToString().Replace("_", " ");
-				laRespuesta.valor = respuesta.cant1;
+				laRespuesta.respuesta = cant1.ToString().Replace("_", " ");
+				laRespuesta.cantidad = respuesta.cant1;
 				listaRespuestasLocal.Add(laRespuesta);
 
 				laRespuesta = new miRespuesta();
 				enumRespCualitativa cant2 = (enumRespCualitativa)2;
-				laRespuesta.nombre = cant2.ToString().Replace("_", " ");
-				laRespuesta.valor = respuesta.cant2;
+				laRespuesta.respuesta = cant2.ToString().Replace("_", " ");
+				laRespuesta.cantidad = respuesta.cant2;
 				listaRespuestasLocal.Add(laRespuesta);
 
 				laRespuesta = new miRespuesta();
 				enumRespCualitativa cant3 = (enumRespCualitativa)3;
-				laRespuesta.nombre = cant3.ToString().Replace("_", " ");
-				laRespuesta.valor = respuesta.cant3;
+				laRespuesta.respuesta = cant3.ToString().Replace("_", " ");
+				laRespuesta.cantidad = respuesta.cant3;
 				listaRespuestasLocal.Add(laRespuesta);
 
 				laRespuesta = new miRespuesta();
 				enumRespCualitativa cant4 = (enumRespCualitativa)4;
-				laRespuesta.nombre = cant4.ToString().Replace("_", " ");
-				laRespuesta.valor = respuesta.cant4;
+				laRespuesta.respuesta = cant4.ToString().Replace("_", " ");
+				laRespuesta.cantidad = respuesta.cant4;
 				listaRespuestasLocal.Add(laRespuesta);
 
 				laRespuesta = new miRespuesta();
 				enumRespCualitativa cant5 = (enumRespCualitativa)5;
-				laRespuesta.nombre = cant5.ToString().Replace("_", " ");
-				laRespuesta.valor = respuesta.cant5;
+				laRespuesta.respuesta = cant5.ToString().Replace("_", " ");
+				laRespuesta.cantidad = respuesta.cant5;
 				listaRespuestasLocal.Add(laRespuesta);
 			}
 			else
 			{
 				enumRespCuantitativa cant1 = (enumRespCuantitativa)1;
-				laRespuesta.nombre = cant1.ToString().Replace("_", " ");
-				laRespuesta.valor = respuesta.cant1;
+				laRespuesta.respuesta = cant1.ToString().Replace("_", " ");
+				laRespuesta.cantidad = respuesta.cant1;
 				listaRespuestasLocal.Add(laRespuesta);
 
 				laRespuesta = new miRespuesta();
 				enumRespCuantitativa cant2 = (enumRespCuantitativa)2;
-				laRespuesta.nombre = cant2.ToString().Replace("_", " ");
-				laRespuesta.valor = respuesta.cant2;
+				laRespuesta.respuesta = cant2.ToString().Replace("_", " ");
+				laRespuesta.cantidad = respuesta.cant2;
 				listaRespuestasLocal.Add(laRespuesta);
 
 				laRespuesta = new miRespuesta();
 				enumRespCuantitativa cant3 = (enumRespCuantitativa)3;
-				laRespuesta.nombre = cant3.ToString().Replace("_", " ");
-				laRespuesta.valor = respuesta.cant3;
+				laRespuesta.respuesta = cant3.ToString().Replace("_", " ");
+				laRespuesta.cantidad = respuesta.cant3;
 				listaRespuestasLocal.Add(laRespuesta);
 
 				laRespuesta = new miRespuesta();
 				enumRespCuantitativa cant4 = (enumRespCuantitativa)4;
-				laRespuesta.nombre = cant4.ToString().Replace("_", " ");
-				laRespuesta.valor = respuesta.cant4;
+				laRespuesta.respuesta = cant4.ToString().Replace("_", " ");
+				laRespuesta.cantidad = respuesta.cant4;
 				listaRespuestasLocal.Add(laRespuesta);
 
 				laRespuesta = new miRespuesta();
 				enumRespCuantitativa cant5 = (enumRespCuantitativa)5;
-				laRespuesta.nombre = cant5.ToString().Replace("_", " ");
-				laRespuesta.valor = respuesta.cant5;
+				laRespuesta.respuesta = cant5.ToString().Replace("_", " ");
+				laRespuesta.cantidad = respuesta.cant5;
 				listaRespuestasLocal.Add(laRespuesta);
 			}
 			return listaRespuestasLocal;
