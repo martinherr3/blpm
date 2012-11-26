@@ -103,6 +103,42 @@ namespace EDUAR_UI
 				Session["filtrosAplicados"] = value;
 			}
 		}
+
+		/// <summary>
+		/// Gets or sets the respuestas textuales.
+		/// </summary>
+		/// <value>
+		/// The respuestas textuales.
+		/// </value>
+		public List<Respuesta> listaRespuestasTextuales
+		{
+			get
+			{
+				if (Session["listaRespuestasTextuales"] == null)
+					listaRespuestasTextuales = new List<Respuesta>();
+
+				return (List<Respuesta>)Session["listaRespuestasTextuales"];
+			}
+			set { Session["listaRespuestasTextuales"] = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the mi pregunta textual.
+		/// </summary>
+		/// <value>
+		/// The mi pregunta textual.
+		/// </value>
+		public RespuestaPreguntaAnalisis miPreguntaTextual
+		{
+			get
+			{
+				if (Session["miPreguntaTextual"] == null)
+					miPreguntaTextual = new RespuestaPreguntaAnalisis();
+
+				return (RespuestaPreguntaAnalisis)Session["miPreguntaTextual"];
+			}
+			set { Session["miPreguntaTextual"] = value; }
+		}
 		#endregion
 
 		#region --[Estructura]--
@@ -360,7 +396,6 @@ namespace EDUAR_UI
 				foreach (string item in textoPregunta)
 					lblCategoria.Text += item + "<br />";
 
-				//lblCategoria.Text = respuesta.textoPregunta;
 				tabla.BorderStyle = BorderStyle.None;
 				celda.Controls.Add(lblCategoria);
 				celda.Width = Unit.Percentage(90);
@@ -385,15 +420,6 @@ namespace EDUAR_UI
 				panel.HeaderContainer.Controls.Add(tabla);
 				panel.HeaderContainer.HorizontalAlign = HorizontalAlign.Left;
 
-				ImageButton btnGraficar = new ImageButton();
-				btnGraficar.ID = "btnGraficar_" + respuesta.idPregunta.ToString();
-				btnGraficar.ToolTip = "Ver Gráfico";
-				btnGraficar.ImageUrl = "~/Images/GraficarEncuesta.png";
-
-				btnGraficar.CommandArgument = respuesta.idPregunta.ToString();
-				btnGraficar.CommandName = "Graficar";
-				btnGraficar.Command += new CommandEventHandler(btnGraficar_Command);
-
 				List<miRespuesta> listaRespuestasPregunta = ObtenerRespuestas(respuesta);
 
 				tabla = new Table();
@@ -417,16 +443,15 @@ namespace EDUAR_UI
 				grilla.Width = Unit.Percentage(30);
 				celda.VerticalAlign = VerticalAlign.Middle;
 				celda.HorizontalAlign = HorizontalAlign.Center;
-				celda.Controls.Add(btnGraficar);
 
-				celda.Controls.Add(new LiteralControl(@"<br/><div class='loginDisplay' style='text-align: center'>"));
+				celda.Controls.Add(new LiteralControl(@"<div class='loginDisplay' style='text-align: center'>"));
 
 				celda.Controls.Add(new LiteralControl("[ "));
 
 				LinkButton miLink = new LinkButton();
-				miLink.Text = "Ver Gráfico";
+				miLink.Text = "Ver Respuestas";
 				miLink.CommandArgument = respuesta.idPregunta.ToString();
-				miLink.CommandName = "Graficar";
+				miLink.CommandName = "Respuestas";
 				miLink.Command += new CommandEventHandler(btnGraficar_Command);
 
 				celda.Controls.Add(miLink);
@@ -454,9 +479,6 @@ namespace EDUAR_UI
 			{
 				RespuestaPreguntaAnalisis miPregunta = listaRespuestaNumericas.Find(p => p.idPregunta == Convert.ToInt32(e.CommandArgument));
 
-				if (miPregunta == null)
-					miPregunta = listaRespuestaTextuales.Find(p => p.idPregunta == Convert.ToInt32(e.CommandArgument));
-
 				List<miRespuesta> listaRespuestaLocal = ObtenerRespuestas(miPregunta);
 				DataTable dt = UIUtilidades.BuildDataTable<miRespuesta>(listaRespuestaLocal);
 				grafico.Titulo = miPregunta.textoPregunta;
@@ -465,6 +487,14 @@ namespace EDUAR_UI
 				grafico.LimpiarSeries();
 				grafico.AgregarSerie("Respuestas", dt, "respuesta", "cantidad");
 				grafico.GraficarBarra();
+			}
+			if (e.CommandName == "Respuestas")
+			{
+				miPreguntaTextual = listaRespuestaTextuales.Find(p => p.idPregunta == Convert.ToInt32(e.CommandArgument));
+
+				listaRespuestasTextuales = new BLRespuesta().GetRespuestaTextuales(encuestaSesion.idEncuesta, miPreguntaTextual.idPregunta);
+
+				ScriptManager.RegisterStartupScript(Page, GetType(), "VerRespuestas", "AbrirPopup();", true);
 			}
 		}
 		#endregion
