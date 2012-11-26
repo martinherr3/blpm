@@ -198,6 +198,28 @@ namespace EDUAR_BusinessLogic.Encuestas
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+		/// <summary>
+		/// Gets the respuesta pregunta analisis.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<RespuestaPreguntaAnalisis> GetRespuestaPreguntaTextual(Encuesta entidad)
+		{
+			try
+			{
+				return DataAcces.GetRespuestaPreguntaTextual(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestaPreguntaTextual", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
     }
 }

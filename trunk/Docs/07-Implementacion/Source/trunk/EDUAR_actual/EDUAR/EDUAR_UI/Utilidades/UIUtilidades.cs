@@ -359,6 +359,68 @@ namespace EDUAR_UI.Utilidades
             return grilla;
         }
 
+		/// <summary>
+		/// Strings the wrap.
+		/// </summary>
+		/// <param name="srcStr">The SRC STR.</param>
+		/// <param name="maxWidth">Width of the max.</param>
+		/// <returns></returns>
+		public static List<string> StringWrap(string srcStr, int maxWidth)
+		{
+			List<string> lstLines = new List<string>();
+			int spcCount = 0;
+
+			if (!string.IsNullOrEmpty(srcStr))
+			{
+
+				string[] Lines = srcStr.Split(new char[] { '\n', '\r' });
+				foreach (string Line in Lines)
+				{
+					string[] Words = Line.Split(' ');
+					string curLine = "";
+					foreach (var word in Words)
+					{
+						spcCount = (curLine.Length > 0 ? 1 : 0);
+						if (curLine.Length + word.Length + spcCount > maxWidth && !string.IsNullOrEmpty(curLine))
+						{
+							lstLines.Add(curLine.PadRight(maxWidth));
+							curLine = "";
+						}
+
+						if (word.Length <= maxWidth)
+						{
+							//if length of a word is <= to specified width
+							if (string.IsNullOrEmpty(curLine))
+								curLine = word;
+							else
+								curLine += " " + word;
+						}
+						else
+						{
+							//force a word to split if it is > to specified width
+							if (!string.IsNullOrEmpty(curLine))
+							{
+								lstLines.Add(curLine.PadRight(maxWidth));
+								curLine = "";
+							}
+							for (int j = 0; j < word.Length; j += maxWidth)
+							{
+								if (j + maxWidth < word.Length)
+									lstLines.Add(word.Substring(j, maxWidth));
+								else
+									lstLines.Add(word.Substring(j).PadRight(maxWidth));
+
+							}
+						}
+
+					}
+					if (!string.IsNullOrEmpty(curLine))
+						lstLines.Add(curLine.PadRight(maxWidth));
+				}
+			}
+			return lstLines;
+		}
+
         #region sorting methods
         /// <summary>
         /// Sorts the by value.
