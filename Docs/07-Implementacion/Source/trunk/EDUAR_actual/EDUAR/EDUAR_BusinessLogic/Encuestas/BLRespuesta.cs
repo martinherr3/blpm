@@ -220,6 +220,29 @@ namespace EDUAR_BusinessLogic.Encuestas
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+        /// <summary>
+        /// Gets the respuesta textuales.
+        /// </summary>
+        /// <param name="encuesta">The encuesta.</param>
+        /// <param name="pregunta">The pregunta.</param>
+        /// <returns></returns>
+        public List<Respuesta> GetRespuestaTextuales(int encuesta, int pregunta)
+        {
+            try
+            {
+                return DataAcces.GetRespuestaTextuales(encuesta,pregunta);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestaTextuales", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }
