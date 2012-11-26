@@ -12,6 +12,7 @@ namespace EDUAR_Entities
 		public int idPregunta { get; set; }
 		public string textoPregunta { get; set; }
 		public int idEscalaPonderacion { get; set; }
+        public decimal relevancia { get; set; }
 		public int cant1 { get; set; }
 		public int cant2 { get; set; }
 		public int cant3 { get; set; }

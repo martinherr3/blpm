@@ -210,7 +210,7 @@ namespace EDUAR_UI
 			foreach (RespuestaPreguntaAnalisis respuesta in listaRespuesta)
 			{
 				lblCategoria = new Label();
-				lblCategoria.Text = respuesta.textoPregunta;
+                lblCategoria.Text = respuesta.textoPregunta + " - [Relevancia: " + respuesta.relevancia + "%]";
 
 				panel = new AjaxControlToolkit.AccordionPane();
 				panel.ID = "Panel_" + respuesta.idPregunta;

@@ -246,7 +246,6 @@ namespace EDUAR_BusinessLogic.Encuestas
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
-
 		#endregion
 	}
 }

@@ -143,6 +143,7 @@ namespace EDUAR_DataAccess.Encuestas
 					objEntidad.idPregunta = Convert.ToInt32(reader["idPregunta"]);
 					objEntidad.textoPregunta = reader["textoPregunta"].ToString();
 					objEntidad.idEscalaPonderacion = Convert.ToInt32(reader["idEscalaPonderacion"]);
+                    objEntidad.relevancia = Convert.ToDecimal(reader["relevancia"]);
 					objEntidad.cant1 = Convert.ToInt32(reader["cant1"]);
 					objEntidad.cant2 = Convert.ToInt32(reader["cant2"]);
 					objEntidad.cant3 = Convert.ToInt32(reader["cant3"]);
