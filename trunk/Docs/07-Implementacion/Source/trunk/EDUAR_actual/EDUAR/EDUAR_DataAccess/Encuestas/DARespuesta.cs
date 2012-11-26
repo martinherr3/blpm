@@ -212,6 +212,51 @@ namespace EDUAR_DataAccess.Encuestas
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+        /// <summary>
+        /// Gets the respuesta textuales.
+        /// </summary>
+        /// <param name="encuesta">The encuesta.</param>
+        /// <param name="pregunta">The pregunta.</param>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Respuesta> GetRespuestaTextuales(int encuesta, int pregunta)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("RespuestasTextuales_Select");
+
+                if(encuesta>0) Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, encuesta);
+                if(pregunta>0) Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPregunta", DbType.Int32, pregunta);
+                
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<Respuesta> listaRepuesta = new List<Respuesta>();
+                Respuesta objEntidad;
+
+                while (reader.Read())
+                {
+                    objEntidad = new Respuesta();
+
+                    objEntidad.encuestaDisponible.encuesta.idEncuesta = Convert.ToInt32(reader["idEncuesta"]);
+                    objEntidad.pregunta.idPregunta = Convert.ToInt32(reader["idPregunta"]);
+                    objEntidad.respuestaTextual = reader["valorRespuestaTextual"].ToString();        
+
+                    listaRepuesta.Add(objEntidad);
+                }
+                return listaRepuesta;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestaTextuales()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestaTextuales()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
 		#endregion
 
 	}
