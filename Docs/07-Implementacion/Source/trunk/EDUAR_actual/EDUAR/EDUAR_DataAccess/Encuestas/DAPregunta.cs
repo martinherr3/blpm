@@ -176,24 +176,25 @@ namespace EDUAR_DataAccess.Encuestas
 
 				while (reader.Read())
 				{
-					objPregunta = new Pregunta();
+                    objPregunta = new Pregunta();
 
-					objPregunta.idPregunta = Convert.ToInt32(reader["idPregunta"]);
-					objPregunta.textoPregunta = reader["textoPregunta"].ToString();
-					objPregunta.objetivoPregunta = reader["objetivo"].ToString();
+                    objPregunta.idPregunta = Convert.ToInt32(reader["idPregunta"]);
+                    objPregunta.textoPregunta = reader["textoPregunta"].ToString();
+                    objPregunta.objetivoPregunta = reader["objetivo"].ToString();
+                    objPregunta.ponderacion = Convert.ToDouble(reader["peso"]);
 
-					objPregunta.categoria = new CategoriaPregunta();
-					{
-						objPregunta.categoria.idCategoriaPregunta = Convert.ToInt32(reader["idCategoria"]);
-						objPregunta.categoria.nombre = reader["nombre"].ToString();
-						objPregunta.categoria.descripcion = reader["descripcion"].ToString();
-					}
+                    objPregunta.categoria = new CategoriaPregunta();
+                    {
+                        objPregunta.categoria.idCategoriaPregunta = Convert.ToInt32(reader["idCategoria"]);
+                        objPregunta.categoria.nombre = reader["categoria"].ToString();
+                    }
 
-					objPregunta.escala = new EscalaMedicion();
-					{
-						objPregunta.escala.idEscala = Convert.ToInt32(reader["idEscala"]);
-						objPregunta.escala.nombre = reader["nombre"].ToString();
-					}
+                    objPregunta.escala = new EscalaMedicion();
+                    {
+                        objPregunta.escala.idEscala = Convert.ToInt32(reader["idEscalaPonderacion"]);
+                        objPregunta.escala.descripcion = reader["descripcionEscala"].ToString();
+                        objPregunta.escala.nombre = reader["escala"].ToString();
+                    }
 
 					listaPreguntas.Add(objPregunta);
 				}
