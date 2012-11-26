@@ -165,6 +165,53 @@ namespace EDUAR_DataAccess.Encuestas
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+
+		/// <summary>
+		/// Gets the respuesta pregunta textual.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<RespuestaPreguntaAnalisis> GetRespuestaPreguntaTextual(Encuesta entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_EncuestaAnalisisTextuales");
+
+				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
+
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<RespuestaPreguntaAnalisis> listaRepuesta = new List<RespuestaPreguntaAnalisis>();
+				RespuestaPreguntaAnalisis objEntidad;
+
+				while (reader.Read())
+				{
+					objEntidad = new RespuestaPreguntaAnalisis();
+
+					objEntidad.idPregunta = Convert.ToInt32(reader["idPregunta"]);
+					objEntidad.textoPregunta = reader["textoPregunta"].ToString();
+					objEntidad.idEscalaPonderacion = 3;
+					objEntidad.respuestasEsperadas = Convert.ToInt32(reader["respuestasEsperadas"]);
+					objEntidad.respuestasObtenidas = Convert.ToInt32(reader["respuestasObtenidas"]);
+					objEntidad.porcentaje = Convert.ToDecimal(reader["porcentaje"]);
+					objEntidad.relevancia = Convert.ToDecimal(reader["relevancia"]);
+
+					listaRepuesta.Add(objEntidad);
+				}
+				return listaRepuesta;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestaPreguntaTextual()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestaPreguntaTextual()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 
 	}

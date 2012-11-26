@@ -19,6 +19,10 @@ namespace EDUAR_Entities
 		public int cant4 { get; set; }
 		public int cant5 { get; set; }
 
+		public decimal porcentaje { get; set; }
+		public int respuestasEsperadas { get; set; }
+		public int respuestasObtenidas { get; set; }
+
 		public RespuestaPreguntaAnalisis()
 		{
 			

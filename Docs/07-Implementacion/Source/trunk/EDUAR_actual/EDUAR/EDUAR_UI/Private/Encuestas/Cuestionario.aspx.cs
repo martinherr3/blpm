@@ -504,7 +504,7 @@ namespace EDUAR_UI
 			AjaxControlToolkit.AccordionPane pn;
 			int i = 0;
 			int contador = 0;
-
+			List<string> textoPregunta = new List<string>();
 			foreach (CategoriaPregunta categoria in listaCategorias)
 			{
 				List<Pregunta> preguntasPorCategoria = objBLPregunta.GetPreguntasPorCategoria(categoria, entidad);
@@ -528,18 +528,23 @@ namespace EDUAR_UI
 						Panel panelRespuesta = new Panel();
 						panelRespuesta.ID = "pregunta_" + contador.ToString();
 
-
 						//PREGUNTA
 						lblPregunta = new Label();
 
-						lblPregunta.Text = pregunta.textoPregunta;
+						textoPregunta = new List<string>();
+
+						textoPregunta = UIUtilidades.StringWrap(pregunta.textoPregunta, 130);
+
+						foreach (string item in textoPregunta)
+							lblPregunta.Text += item + "<br />";
+
 						lblPregunta.Font.Bold = true;
 						lblPregunta.Font.Size = 11;
 						//lblPregunta.BorderWidth = 1;
 						//lblPregunta.Width = 990;
 
 						panelRespuesta.Controls.Add(lblPregunta);
-						panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
+						//panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
 
 						respuestaSkeleton.pregunta = pregunta;
 

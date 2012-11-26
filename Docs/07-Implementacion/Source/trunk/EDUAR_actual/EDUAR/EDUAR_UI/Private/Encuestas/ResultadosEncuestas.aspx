@@ -29,9 +29,9 @@
         </tr>
     </table>
     <table class="tablaInterna" cellpadding="0" cellspacing="0">
-         <tr>
+        <tr>
             <td class="TD25">
-                <asp:Label  Text="Curso: " runat="server" />
+                <asp:Label Text="Curso: " runat="server" />
                 <asp:Label ID="lblCurso" Text="" runat="server" Font-Bold="true" /><br />
                 <br />
             </td>
@@ -72,62 +72,11 @@
             </td>
         </tr>
     </table>
-    <%--<asp:UpdatePanel ID="udpPreguntas" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>
-            <asp:GridView ID="gvwPreguntas" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
-                AutoGenerateColumns="true" AllowPaging="false" Width="100%" DataKeyNames="idPregunta">
-                <Columns>
-                    <asp:TemplateField HeaderText="Pregunta">
-                        <HeaderStyle HorizontalAlign="Center" Width="25%" />
-                        <ItemStyle HorizontalAlign="Center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblPregunta" runat="server" Text='<%# Bind("textoPregunta")  %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Valor 1">
-                        <HeaderStyle HorizontalAlign="Center" Width="10%" />
-                        <ItemStyle HorizontalAlign="Center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblValor1" runat="server" Text='<%# Bind("cant1")  %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Valor 2">
-                        <HeaderStyle HorizontalAlign="Center" Width="10%" />
-                        <ItemStyle HorizontalAlign="Center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblValor2" runat="server" Text='<%# Bind("cant2")  %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Valor 3">
-                        <HeaderStyle HorizontalAlign="Center" Width="10%" />
-                        <ItemStyle HorizontalAlign="Center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblValor3" runat="server" Text='<%# Bind("cant3")  %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Valor 4">
-                        <HeaderStyle HorizontalAlign="Center" Width="10%" />
-                        <ItemStyle HorizontalAlign="Center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblValor4" runat="server" Text='<%# Bind("cant4")  %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Valor 5">
-                        <HeaderStyle HorizontalAlign="Center" Width="10%" />
-                        <ItemStyle HorizontalAlign="Center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblValor5" runat="server" Text='<%# Bind("cant5")  %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
-        </ContentTemplate>
-    </asp:UpdatePanel>--%>
     <%--   <asp:UpdatePanel ID="udpPreguntas" runat="server" UpdateMode="Conditional">
         <ContentTemplate>--%>
     <cc1:Accordion ID="CuestionarioAccordion" CssClass="accordion" HeaderCssClass="accordionHeader"
         HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent"
-        RequireOpenedPane="false" SelectedIndex="-1" runat="server" Width="100%">
+        RequireOpenedPane="false" SelectedIndex="-1" runat="server" Width="100%" FadeTransitions="true">
         <Panes>
             <%--LOS COMPONENTES DEL ACCORDION SON AGREGADOS DINÁMICAMENTE DESDE CÓDIGO--%>
         </Panes>
