@@ -330,8 +330,11 @@ namespace EDUAR_DataAccess.Common
 			{
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaPlanificacionTemaContenido_Select");
 
-				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, entidad.idTemaPlanificacion);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.idTemaContenido);
+                if (entidad.idTemaPlanificacion != 0)
+                {
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, entidad.idTemaPlanificacion);
+                }
+                    //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.idTemaContenido);
 
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -356,6 +359,7 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
 		#endregion
 	}
 }

@@ -68,6 +68,7 @@ namespace EDUAR_UI
 			set { ViewState["listaContenido"] = value; }
 		}
 
+
 		/// <summary>
 		/// Lista de contenidos SELECCIONADOS
 		/// </summary>
@@ -716,6 +717,7 @@ namespace EDUAR_UI
 			udpBotonera.Update();
 			udpDivControles.Update();
 			udpGrilla.Update();
+            listaContenido = null;
 		}
 
 		/// <summary>
@@ -972,11 +974,69 @@ namespace EDUAR_UI
 			ojbBLTemaPlanificacion.Delete();
 		}
 
+
+        /// <summary>
+        /// Lista de TODOS los contenidos registrados
+        /// </summary>
+        /// <value>
+        /// The lista contenido.
+        /// </value>
+        protected List<TemaContenido> getContenidosPlanificados()
+        {
+
+            List<TemaContenido> listaContenidosPlanificados = new List<TemaContenido>();
+            BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
+            listaContenidosPlanificados= objBLTemas.ObtenerContenidos();
+                
+            return (listaContenidosPlanificados);
+        }
+
+
 		/// <summary>
 		/// Cargars the contenidos.
 		/// </summary>
 		private void CargarContenidos()
 		{
+            //listaContenido // tiene todos los contenidos
+            //listaSeleccionGuardar // tiene los contenidos asociados al item planificacion en curso
+            //listaPlanificacionContenido // tiene todos los contenidos qu estan asociados a una planificacion
+            List<TemaContenido> listaContenidosPlanificados = getContenidosPlanificados();
+
+            bool sacarContenido = false;
+
+            List<bool> seleccionContenidos = new List<bool>();
+
+            foreach (TemaContenido contenido in listaContenido)
+            {
+                foreach (TemaContenido contenidoPlanificado in listaContenidosPlanificados)
+                {
+                    if (contenido.idTemaContenido == contenidoPlanificado.idTemaContenido)
+                    {
+                        sacarContenido = true;
+                    }
+                }
+                foreach (int contenidoActualPlanificacion in listaSeleccionGuardar)
+                {
+                    if (contenido.idTemaContenido == contenidoActualPlanificacion)
+                    {
+                        sacarContenido = false;
+                    }
+                }
+
+                seleccionContenidos.Add(sacarContenido);
+                sacarContenido = false;
+            }
+
+            for (int i = seleccionContenidos.Count - 1; i > -1; i--)
+            {
+                if (seleccionContenidos[i])
+                {
+                    listaContenido.RemoveAt(i);
+                }
+            }
+            listaContenidosPlanificados.Clear();
+
+
 			gvwContenidos.DataSource = listaContenido;
 			gvwContenidos.DataBind();
 		}
