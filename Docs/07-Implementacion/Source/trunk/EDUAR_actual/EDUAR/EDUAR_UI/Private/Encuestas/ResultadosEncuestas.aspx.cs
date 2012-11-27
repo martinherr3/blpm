@@ -148,6 +148,12 @@ namespace EDUAR_UI
 			public string respuesta { get; set; }
 			public decimal cantidad { get; set; }
 		}
+
+        public struct miRespuestaTextual
+        {
+            public string analisis { get; set; }
+            public decimal resultados { get; set; }
+        }
 		#endregion
 
 		#region --[Eventos]--
@@ -420,7 +426,7 @@ namespace EDUAR_UI
 				panel.HeaderContainer.Controls.Add(tabla);
 				panel.HeaderContainer.HorizontalAlign = HorizontalAlign.Left;
 
-				List<miRespuesta> listaRespuestasPregunta = ObtenerRespuestas(respuesta);
+				List<miRespuestaTextual> listaRespuestasTextualesPregunta = ObtenerRespuestasTextuales(respuesta);
 
 				tabla = new Table();
 				tabla.Width = Unit.Percentage(70);
@@ -433,7 +439,7 @@ namespace EDUAR_UI
 				grilla.SkinID = "gridviewSkinPagerListado";
 				grilla.AutoGenerateColumns = true;
 				grilla.Width = Unit.Percentage(30);
-				grilla.DataSource = listaRespuestasPregunta;
+                grilla.DataSource = listaRespuestasTextualesPregunta;
 				grilla.DataBind();
 
 				celda.Controls.Add(grilla);
@@ -573,34 +579,47 @@ namespace EDUAR_UI
 					laRespuesta.cantidad = respuesta.cant5;
 					listaRespuestasLocal.Add(laRespuesta);
 				}
-				else
-				{
-					for (int i = 0; i < 3; i++)
-					{
-						laRespuesta = new miRespuesta();
-						switch (i)
-						{
-							case 0:
-								laRespuesta.respuesta = "Respuestas Esperadas";
-								laRespuesta.cantidad = respuesta.respuestasEsperadas;
-								break;
-							case 1:
-								laRespuesta.respuesta = "Respuestas Obtenidas";
-								laRespuesta.cantidad = respuesta.respuestasObtenidas;
-								break;
-							case 2:
-								laRespuesta.respuesta = "Porcentaje de Respuestas";
-								laRespuesta.cantidad = respuesta.porcentaje;
-								break;
-							default:
-								break;
-						}
-						listaRespuestasLocal.Add(laRespuesta);
-					}
-				}
 			}
 			return listaRespuestasLocal;
 		}
+
+        /// <summary>
+        /// Obteners the respuestas textuales.
+        /// </summary>
+        /// <param name="respuesta">The respuesta.</param>
+        /// <returns></returns>
+        private List<miRespuestaTextual> ObtenerRespuestasTextuales(RespuestaPreguntaAnalisis respuesta)
+        {
+            List<miRespuestaTextual> listaRespuestasLocal = new List<miRespuestaTextual>();
+            miRespuestaTextual laRespuesta;
+
+            if (respuesta.idEscalaPonderacion == 3)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    laRespuesta = new miRespuestaTextual();
+                    switch (i)
+                    {
+                        case 0:
+                            laRespuesta.analisis = "Respuestas Esperadas";
+                            laRespuesta.resultados = respuesta.respuestasEsperadas;
+                            break;
+                        case 1:
+                            laRespuesta.analisis = "Respuestas Obtenidas";
+                            laRespuesta.resultados = respuesta.respuestasObtenidas;
+                            break;
+                        case 2:
+                            laRespuesta.analisis = "Porcentaje de Respuestas";
+                            laRespuesta.resultados = respuesta.porcentaje;
+                            break;
+                        default:
+                            break;
+                    }
+                    listaRespuestasLocal.Add(laRespuesta);
+                }
+            }
+            return listaRespuestasLocal;
+        }
 		#endregion
 	}
 }
