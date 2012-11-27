@@ -6,22 +6,22 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/UserControls/Grafico.ascx" TagName="Grafico" TagPrefix="gra" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-<script language="javascript" type="text/javascript">
-    function AbrirPopup() {
-        var popup;
-        //Abrir Ventana
-        popup = window.open('/EDUAR_UI/Private/Encuestas/VerRespuestas.aspx', 'Encuestas - Respuestas', 'width=800,height=600,left=50,top=100,­menubar=0,toolbar=0,status=0,scrollbars=1,resizable=0,titlebar=0');
+    <script language="javascript" type="text/javascript">
+        function AbrirPopup() {
+            var popup;
+            //Abrir Ventana
+            popup = window.open('/EDUAR_UI/Private/Encuestas/VerRespuestas.aspx', 'Encuestas - Respuestas', 'width=800,height=600,left=50,top=100,­menubar=0,toolbar=0,status=0,scrollbars=1,resizable=0,titlebar=0');
 
-        if (popup == null || typeof (popup) == 'undefined') {
-            jAlert('Por favor deshabilita el <i>bloqueador de ventanas emergentes</i><br /> y vuelve a hacer en "Ver Respuestas".', 'Aviso');
+            if (popup == null || typeof (popup) == 'undefined') {
+                jAlert('Por favor deshabilita el <i>bloqueador de ventanas emergentes</i><br /> y vuelve a hacer en "Ver Respuestas".', 'Aviso');
+            }
+            else {
+                popup.focus();
+                //Armar documento
+                popup.document.close();
+            }
         }
-        else {
-            popup.focus();
-            //Armar documento
-            popup.document.close();
-        }
-    }
-</script>
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <table class="tablaInterna" cellpadding="0" cellspacing="0">
@@ -35,10 +35,11 @@
             <td align="right">
                 <%-- <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                             ImageUrl="~/Images/botonBuscar.png" />
-                        <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
-                            ImageUrl="~/Images/botonNuevo.png" />
+                        
                         <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                             ImageUrl="~/Images/botonGuardar.png" CausesValidation="true" ValidationGroup="validarEdit" />--%>
+                <asp:ImageButton ID="btnPDF" OnClick="btnPDF_Click" runat="server" ToolTip="Exportar PDF"
+                    ImageUrl="~/Images/ExportarPDF.png" />
                 <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                     ImageUrl="~/Images/botonVolver.png" />
             </td>

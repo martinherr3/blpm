@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using AjaxControlToolkit;
 using EDUAR_BusinessLogic.Encuestas;
@@ -9,7 +10,8 @@ using EDUAR_Entities;
 using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
-using System.Web.UI;
+using System.Linq;
+using System.Text;
 
 namespace EDUAR_UI
 {
@@ -55,6 +57,12 @@ namespace EDUAR_UI
 			set { ViewState["listaRespuestaNumericas"] = value; }
 		}
 
+		/// <summary>
+		/// Gets or sets the lista respuesta textuales.
+		/// </summary>
+		/// <value>
+		/// The lista respuesta textuales.
+		/// </value>
 		public List<RespuestaPreguntaAnalisis> listaRespuestaTextuales
 		{
 			get
@@ -149,11 +157,11 @@ namespace EDUAR_UI
 			public decimal cantidad { get; set; }
 		}
 
-        public struct miRespuestaTextual
-        {
-            public string analisis { get; set; }
-            public decimal resultados { get; set; }
-        }
+		public struct miRespuestaTextual
+		{
+			public string analisis { get; set; }
+			public decimal resultados { get; set; }
+		}
 		#endregion
 
 		#region --[Eventos]--
@@ -231,6 +239,54 @@ namespace EDUAR_UI
 			catch (Exception ex)
 			{
 				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the btnPDF control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnPDF_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				//Response.Redirect("ManageContenidoEncuestas.aspx", false);
+				ExportarInforme();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Handles the Command event of the btnGraficar control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
+		void btnGraficar_Command(object sender, CommandEventArgs e)
+		{
+			if (e.CommandName == "Graficar")
+			{
+				RespuestaPreguntaAnalisis miPregunta = listaRespuestaNumericas.Find(p => p.idPregunta == Convert.ToInt32(e.CommandArgument));
+
+				List<miRespuesta> listaRespuestaLocal = ObtenerRespuestas(miPregunta);
+				DataTable dt = UIUtilidades.BuildDataTable<miRespuesta>(listaRespuestaLocal);
+				grafico.Titulo = miPregunta.textoPregunta;
+				tituloReporte = encuestaSesion.nombreEncuesta;
+				//filtrosAplicados = miPregunta.textoPregunta;
+				grafico.LimpiarSeries();
+				grafico.AgregarSerie("Respuestas", dt, "respuesta", "cantidad");
+				grafico.GraficarBarra();
+			}
+			if (e.CommandName == "Respuestas")
+			{
+				miPreguntaTextual = listaRespuestaTextuales.Find(p => p.idPregunta == Convert.ToInt32(e.CommandArgument));
+
+				listaRespuestasTextuales = new BLRespuesta().GetRespuestaTextuales(encuestaSesion.idEncuesta, miPreguntaTextual.idPregunta);
+
+				ScriptManager.RegisterStartupScript(Page, GetType(), "VerRespuestas", "AbrirPopup();", true);
 			}
 		}
 		#endregion
@@ -439,7 +495,7 @@ namespace EDUAR_UI
 				grilla.SkinID = "gridviewSkinPagerListado";
 				grilla.AutoGenerateColumns = true;
 				grilla.Width = Unit.Percentage(30);
-                grilla.DataSource = listaRespuestasTextualesPregunta;
+				grilla.DataSource = listaRespuestasTextualesPregunta;
 				grilla.DataBind();
 
 				celda.Controls.Add(grilla);
@@ -474,38 +530,6 @@ namespace EDUAR_UI
 			#endregion
 		}
 
-		/// <summary>
-		/// Handles the Command event of the btnGraficar control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
-		void btnGraficar_Command(object sender, CommandEventArgs e)
-		{
-			if (e.CommandName == "Graficar")
-			{
-				RespuestaPreguntaAnalisis miPregunta = listaRespuestaNumericas.Find(p => p.idPregunta == Convert.ToInt32(e.CommandArgument));
-
-				List<miRespuesta> listaRespuestaLocal = ObtenerRespuestas(miPregunta);
-				DataTable dt = UIUtilidades.BuildDataTable<miRespuesta>(listaRespuestaLocal);
-				grafico.Titulo = miPregunta.textoPregunta;
-				tituloReporte = encuestaSesion.nombreEncuesta;
-				filtrosAplicados = miPregunta.textoPregunta;
-				grafico.LimpiarSeries();
-				grafico.AgregarSerie("Respuestas", dt, "respuesta", "cantidad");
-				grafico.GraficarBarra();
-			}
-			if (e.CommandName == "Respuestas")
-			{
-				miPreguntaTextual = listaRespuestaTextuales.Find(p => p.idPregunta == Convert.ToInt32(e.CommandArgument));
-
-				listaRespuestasTextuales = new BLRespuesta().GetRespuestaTextuales(encuestaSesion.idEncuesta, miPreguntaTextual.idPregunta);
-
-				ScriptManager.RegisterStartupScript(Page, GetType(), "VerRespuestas", "AbrirPopup();", true);
-			}
-		}
-		#endregion
-
-		#region --[Métodos Privados]--
 		/// <summary>
 		/// Obteners the respuestas.
 		/// </summary>
@@ -583,43 +607,117 @@ namespace EDUAR_UI
 			return listaRespuestasLocal;
 		}
 
-        /// <summary>
-        /// Obteners the respuestas textuales.
-        /// </summary>
-        /// <param name="respuesta">The respuesta.</param>
-        /// <returns></returns>
-        private List<miRespuestaTextual> ObtenerRespuestasTextuales(RespuestaPreguntaAnalisis respuesta)
-        {
-            List<miRespuestaTextual> listaRespuestasLocal = new List<miRespuestaTextual>();
-            miRespuestaTextual laRespuesta;
+		/// <summary>
+		/// Obteners the respuestas textuales.
+		/// </summary>
+		/// <param name="respuesta">The respuesta.</param>
+		/// <returns></returns>
+		private List<miRespuestaTextual> ObtenerRespuestasTextuales(RespuestaPreguntaAnalisis respuesta)
+		{
+			List<miRespuestaTextual> listaRespuestasLocal = new List<miRespuestaTextual>();
+			miRespuestaTextual laRespuesta;
 
-            if (respuesta.idEscalaPonderacion == 3)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    laRespuesta = new miRespuestaTextual();
-                    switch (i)
-                    {
-                        case 0:
-                            laRespuesta.analisis = "Respuestas Esperadas";
-                            laRespuesta.resultados = respuesta.respuestasEsperadas;
-                            break;
-                        case 1:
-                            laRespuesta.analisis = "Respuestas Obtenidas";
-                            laRespuesta.resultados = respuesta.respuestasObtenidas;
-                            break;
-                        case 2:
-                            laRespuesta.analisis = "Porcentaje de Respuestas";
-                            laRespuesta.resultados = respuesta.porcentaje;
-                            break;
-                        default:
-                            break;
-                    }
-                    listaRespuestasLocal.Add(laRespuesta);
-                }
-            }
-            return listaRespuestasLocal;
-        }
+			if (respuesta.idEscalaPonderacion == 3)
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					laRespuesta = new miRespuestaTextual();
+					switch (i)
+					{
+						case 0:
+							laRespuesta.analisis = "Respuestas Esperadas";
+							laRespuesta.resultados = respuesta.respuestasEsperadas;
+							break;
+						case 1:
+							laRespuesta.analisis = "Respuestas Obtenidas";
+							laRespuesta.resultados = respuesta.respuestasObtenidas;
+							break;
+						case 2:
+							laRespuesta.analisis = "Porcentaje de Respuestas";
+							laRespuesta.resultados = respuesta.porcentaje;
+							break;
+						default:
+							break;
+					}
+					listaRespuestasLocal.Add(laRespuesta);
+				}
+			}
+			return listaRespuestasLocal;
+		}
+
+		/// <summary>
+		/// Exportars the informe.
+		/// </summary>
+		private void ExportarInforme()
+		{
+			List<TablaGrafico> listaTabla = new List<TablaGrafico>();
+			TablaGrafico miItem = new TablaGrafico();
+			List<miRespuesta> miListaRespuesta = new List<miRespuesta>();
+
+			StringBuilder filtros = new StringBuilder();
+
+			filtros.AppendLine("Curso: " + encuestaSesion.curso.curso.nombre);
+			if (!string.IsNullOrEmpty(encuestaSesion.asignatura.asignatura.nombre))
+				filtros.AppendLine("Asignatura: " + encuestaSesion.asignatura.asignatura.nombre);
+
+			filtros.AppendLine("Fecha de Lanzamiento: " + Convert.ToDateTime(encuestaSesion.fechaLanzamiento).ToShortDateString());
+
+			if (encuestaSesion.fechaVencimiento.HasValue)
+				filtros.AppendLine("Fecha de Expiración: " + Convert.ToDateTime(encuestaSesion.fechaVencimiento).ToShortDateString());
+
+			BLEncuesta objBLEncuesta = new BLEncuesta();
+			EncuestaAnalisis miAnalisis = objBLEncuesta.GetEncuestaAnalisis(encuestaSesion);
+			if (miAnalisis != null)
+			{
+				filtros.AppendLine("Encuestas Enviadas: " + miAnalisis.nroLanzadas.ToString());
+				filtros.AppendLine("Encuestas Respondidas: " + miAnalisis.nroRespondidas.ToString());
+
+				if (Convert.ToDateTime(encuestaSesion.fechaVencimiento).Subtract(DateTime.Today).Days > 0)
+					filtros.AppendLine("Encuestas Pendientes: " + miAnalisis.nroPendientes.ToString());
+				else
+					filtros.AppendLine("Encuestas Expiradas: " + miAnalisis.nroExpiradas.ToString());
+			}
+
+			foreach (RespuestaPreguntaAnalisis item in listaRespuestaNumericas)
+			{
+				miItem = new TablaGrafico();
+				miListaRespuesta = ObtenerRespuestas(item);
+				miItem.titulo = item.textoPregunta;
+				miItem.listaEncabezados = new List<string>();
+				miItem.listaEncabezados.Add("Respuesta");
+				miItem.listaEncabezados.Add("Porcentaje");
+
+				miItem.listaCuerpo = new List<List<string>>();
+
+				decimal totales = miListaRespuesta.Sum(od => od.cantidad);
+
+
+				foreach (miRespuesta itemRespuesta in miListaRespuesta)
+					miItem.listaCuerpo.Add(new List<string>() { itemRespuesta.respuesta, Math.Round((itemRespuesta.cantidad / totales * 100), 2).ToString() });
+
+				listaTabla.Add(miItem);
+			}
+
+			foreach (RespuestaPreguntaAnalisis item in listaRespuestaTextuales)
+			{
+				miItem = new TablaGrafico();
+				miListaRespuesta = ObtenerRespuestas(item);
+				miItem.titulo = item.textoPregunta;
+				miItem.listaEncabezados = new List<string>();
+				miItem.listaEncabezados.Add("Análisis");
+				miItem.listaEncabezados.Add("Resultados");
+
+				miItem.listaCuerpo = new List<List<string>>();
+
+				miItem.listaCuerpo.Add(new List<string>() { "Respuestas Obtenidas", item.respuestasObtenidas.ToString() });
+				miItem.listaCuerpo.Add(new List<string>() { "Respuestas Esperadas", item.respuestasEsperadas.ToString() });
+				miItem.listaCuerpo.Add(new List<string>() { "Porcentaje", item.porcentaje.ToString() });
+
+				listaTabla.Add(miItem);
+			}
+
+			ExportPDF.ExportarGraficoPDF(encuestaSesion.nombreEncuesta, ObjSessionDataUI.ObjDTUsuario.Nombre, filtros.ToString(), string.Empty, listaTabla);
+		}
 		#endregion
 	}
 }
