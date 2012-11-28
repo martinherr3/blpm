@@ -299,11 +299,33 @@ namespace EDUAR_UI.Utilidades
 						tabla.CompleteRow();
 					}
 
+					PdfPCell celdaGrafico = new PdfPCell();
 					if (item.listaPie != null)
 					{
 						foreach (var celdaFooter in item.listaPie)
 						{
-							tabla.AddCell(new PdfPCell(new Phrase(celdaFooter.ToString(), font12B)));
+							if (celdaFooter.Contains("\\Grafico_"))
+							{
+								if (!string.IsNullOrEmpty(celdaFooter))
+								{
+									//Verifica si existe el archivo
+									if (System.IO.File.Exists(celdaFooter))
+									{
+										Image grafico = Image.GetInstance(celdaFooter);
+										grafico.ScalePercent(50, 50);
+										grafico.Alignment = Element.ALIGN_CENTER;
+										if (grafico != null)
+										{
+											celdaGrafico.AddElement(grafico);
+											celdaGrafico.Colspan = 2;
+											tabla.AddCell(celdaGrafico);
+										}
+									}
+								}
+
+							}
+							else
+								tabla.AddCell(new PdfPCell(new Phrase(celdaFooter.ToString(), font12B)));
 						}
 						tabla.CompleteRow();
 					}
@@ -486,7 +508,7 @@ namespace EDUAR_UI.Utilidades
 
 
 			documento.Close();
-			strTitulo = strTitulo.Trim().Replace("\n","_").Replace(" ", "_");
+			strTitulo = strTitulo.Trim().Replace("\n", "_").Replace(" ", "_");
 			HttpContext.Current.Response.ContentType = "application/pdf";
 			HttpContext.Current.Response.AddHeader("content-disposition", "attachment; filename=" + strTitulo + "-" + fecha.Replace(' ', '_').Trim() + ".pdf");
 			HttpContext.Current.Response.Flush();//HttpContext.Current.Response.End();

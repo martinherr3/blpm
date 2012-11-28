@@ -214,14 +214,14 @@ namespace EDUAR_UI.Utilidades
             GC.Collect();
             string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oTmpPath"];
             string ImgPath = System.Configuration.ConfigurationManager.AppSettings["oImgPath"];
-            var archivo = "Grafico_" + sessionID + ".png";
+            var archivo = "*" + sessionID + "*.png";
             if (Directory.Exists(TmpPath))
             {
-                foreach (string item in Directory.GetFiles(TmpPath, archivo, SearchOption.TopDirectoryOnly))
+				foreach (string item in Directory.GetFiles(TmpPath, archivo, SearchOption.TopDirectoryOnly))
                 {
                     File.Delete(item);
                 }
-                archivo = "Podio_" + sessionID + ".png";
+				archivo = "Podio_" + sessionID + ".png";
             }
             if (Directory.Exists(ImgPath))
             {
