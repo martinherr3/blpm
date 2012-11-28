@@ -709,8 +709,8 @@ namespace EDUAR_UI
 					BackGradientStyle = GradientStyle.TopBottom
 				};
 
-				miGrafico.Titles.Add(item.textoPregunta);
-				miGrafico.Titles[0].Font = new Font("Arial", 16f);
+				//miGrafico.Titles.Add(item.textoPregunta);
+				//miGrafico.Titles[0].Font = new Font("Arial", 16f);
 
 				miGrafico.Legends.Add("");
 				miGrafico.Legends[0].Alignment = StringAlignment.Center;
