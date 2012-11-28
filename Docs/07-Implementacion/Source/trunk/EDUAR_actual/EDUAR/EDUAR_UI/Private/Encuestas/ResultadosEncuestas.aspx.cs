@@ -12,6 +12,9 @@ using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
 using System.Linq;
 using System.Text;
+using System.Web.UI.DataVisualization.Charting;
+using System.IO;
+using System.Drawing;
 
 namespace EDUAR_UI
 {
@@ -653,7 +656,8 @@ namespace EDUAR_UI
 			List<TablaGrafico> listaTabla = new List<TablaGrafico>();
 			TablaGrafico miItem = new TablaGrafico();
 			List<miRespuesta> miListaRespuesta = new List<miRespuesta>();
-
+			string TmpPath = string.Empty;
+			string nombrePNG = string.Empty;
 			StringBuilder filtros = new StringBuilder();
 
 			filtros.AppendLine("Curso: " + encuestaSesion.curso.curso.nombre);
@@ -691,9 +695,60 @@ namespace EDUAR_UI
 
 				decimal totales = miListaRespuesta.Sum(od => od.cantidad);
 
+				Chart miGrafico = new Chart
+				{
+					Width = 500,
+					Height = 450,
+					RenderType = RenderType.ImageTag,
+					AntiAliasing = AntiAliasingStyles.All,
+					TextAntiAliasingQuality = TextAntiAliasingQuality.High,
+					BorderlineDashStyle = ChartDashStyle.Solid,
+					BackSecondaryColor = Color.White,
+					Palette = ChartColorPalette.BrightPastel,
+					BackGradientStyle = GradientStyle.TopBottom
+				};
+
+				miGrafico.Titles.Add(item.textoPregunta);
+				miGrafico.Titles[0].Font = new Font("Arial", 16f);
+
+				miGrafico.Legends.Add("");
+				miGrafico.Legends[0].Alignment = StringAlignment.Center;
+				miGrafico.Legends[0].IsTextAutoFit = false;
+				miGrafico.Legends[0].BorderWidth = 1;
+				miGrafico.Legends[0].BorderDashStyle = ChartDashStyle.Solid;
+				miGrafico.Legends[0].ShadowOffset = 3;
+				miGrafico.Legends[0].Name = "Default";
+				miGrafico.Legends[0].BackColor = Color.Transparent;
+				miGrafico.Legends[0].BorderColor = Color.FromArgb(26, 59, 105);
+				miGrafico.Legends[0].Docking = Docking.Bottom;
+
+				miGrafico.ChartAreas.Add("");
+				miGrafico.ChartAreas[0].AxisX.Title = "Respuestas";
+				miGrafico.ChartAreas[0].AxisY.Title = "Porcentaje";
+				miGrafico.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12f);
+				miGrafico.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12f);
+				miGrafico.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Arial", 10f);
+				miGrafico.ChartAreas[0].AxisX.LabelStyle.Angle = 90;
+				miGrafico.ChartAreas[0].BackColor = Color.Transparent;
+				miGrafico.ChartAreas[0].BorderColor = Color.FromArgb(26, 59, 105);
+
+				miGrafico.Series.Add("");
+				miGrafico.Series[0].ChartType = SeriesChartType.Pie;
+				miGrafico.Series[0].ShadowOffset = 2;
+				miGrafico.Series[0]["PieLabelStyle"] = "Outside";
+				miGrafico.Series[0].LegendText = "#VALX: #PERCENT";
 
 				foreach (miRespuesta itemRespuesta in miListaRespuesta)
+				{
 					miItem.listaCuerpo.Add(new List<string>() { itemRespuesta.respuesta, Math.Round((itemRespuesta.cantidad / totales * 100), 2).ToString() });
+					miGrafico.Series[0].Points.AddXY(itemRespuesta.respuesta, Math.Round((itemRespuesta.cantidad / totales * 100), 2));
+				}
+
+				TmpPath = System.Configuration.ConfigurationManager.AppSettings["oTmpPath"];
+				nombrePNG = TmpPath + "\\Grafico_" + Session.SessionID + "_" + encuestaSesion.idEncuesta + "_" + item.idPregunta + ".png";
+				miGrafico.SaveImage(nombrePNG, ChartImageFormat.Png);
+				miItem.listaPie = new List<string>();
+				miItem.listaPie.Add(nombrePNG);
 
 				listaTabla.Add(miItem);
 			}
@@ -715,7 +770,6 @@ namespace EDUAR_UI
 
 				listaTabla.Add(miItem);
 			}
-
 			ExportPDF.ExportarGraficoPDF(encuestaSesion.nombreEncuesta, ObjSessionDataUI.ObjDTUsuario.Nombre, filtros.ToString(), string.Empty, listaTabla);
 		}
 		#endregion
