@@ -200,7 +200,8 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				//if (!Page.IsPostBack)
 				{
-					lblTitulo.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(encuestaSesion.nombreEncuesta);
+					encuestaSesion.nombreEncuesta = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(encuestaSesion.nombreEncuesta);
+					lblTitulo.Text = encuestaSesion.nombreEncuesta;
 					CargarEncabezado();
 					BuscarPreguntas();
 				}
@@ -697,7 +698,7 @@ namespace EDUAR_UI
 
 				Chart miGrafico = new Chart
 				{
-					Width = 500,
+					Width = 800,
 					Height = 450,
 					RenderType = RenderType.ImageTag,
 					AntiAliasing = AntiAliasingStyles.All,
@@ -731,6 +732,8 @@ namespace EDUAR_UI
 				miGrafico.ChartAreas[0].AxisX.LabelStyle.Angle = 90;
 				miGrafico.ChartAreas[0].BackColor = Color.Transparent;
 				miGrafico.ChartAreas[0].BorderColor = Color.FromArgb(26, 59, 105);
+				miGrafico.ChartAreas[0].Area3DStyle.Enable3D = true;
+				miGrafico.ChartAreas[0].Area3DStyle.Inclination = 45;
 
 				miGrafico.Series.Add("");
 				miGrafico.Series[0].ChartType = SeriesChartType.Pie;
