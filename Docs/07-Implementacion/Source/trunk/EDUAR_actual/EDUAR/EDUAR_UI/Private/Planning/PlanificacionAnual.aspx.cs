@@ -844,6 +844,25 @@ namespace EDUAR_UI
 				hayContenido = false;
 				mensaje = "- La Fecha de Inicio no puede ser superior a la Fecha de Finalización";
 			}
+            foreach (TemaPlanificacionAnual unTema in planificacionEditar.listaTemasPlanificacion)
+            {
+                if (hayContenido)
+                {
+                    if ((calFechaDesde.ValorFecha >= unTema.fechaInicioEstimada && calFechaDesde.ValorFecha <= unTema.fechaFinEstimada) ||
+                        (calFechaFin.ValorFecha >= unTema.fechaInicioEstimada && calFechaFin.ValorFecha <= unTema.fechaFinEstimada))
+                    {
+                        hayContenido = false;
+                        mensaje = "Existe otro tema planificado para ser dado entre:" + unTema.fechaInicioEstimada.Value.ToString() + " y " + unTema.fechaFinEstimada.ToString();
+                    }
+
+                }
+                else
+                {
+                    break;
+                }
+                
+            }
+
 			if (hayContenido) return string.Empty;
 			return mensaje;
 		}
