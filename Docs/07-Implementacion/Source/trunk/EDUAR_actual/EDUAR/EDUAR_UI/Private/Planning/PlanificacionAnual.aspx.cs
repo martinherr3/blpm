@@ -852,7 +852,7 @@ namespace EDUAR_UI
                         (calFechaFin.ValorFecha >= unTema.fechaInicioEstimada && calFechaFin.ValorFecha <= unTema.fechaFinEstimada))
                     {
                         hayContenido = false;
-                        mensaje = "Existe otro tema planificado para ser dado entre:" + unTema.fechaInicioEstimada.Value.ToString() + " y " + unTema.fechaFinEstimada.ToString();
+                        mensaje = "Existe otro tema planificado para ser dado entre:" + unTema.fechaInicioEstimada.Value.ToShortDateString() + " y " + unTema.fechaFinEstimada.Value.ToShortDateString();
                     }
 
                 }
