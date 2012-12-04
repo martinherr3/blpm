@@ -321,8 +321,8 @@ namespace EDUAR_UI
 						AccionPagina = enumAcciones.Guardar;
 						Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
 					}
-				else
-					Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
+					else
+						Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
 			}
 			catch (Exception ex)
 			{
@@ -646,7 +646,11 @@ namespace EDUAR_UI
 			txtNombreEdit.Text = encuesta.nombreEncuesta;
 			txtObjetivoEdit.Text = encuesta.objetivo;
 			CargarRolesAmbito(encuesta.ambito.idAmbitoEncuesta);
-			ddlCurso.SelectedValue = encuesta.curso.idCursoCicloLectivo.ToString();
+
+			if (encuesta.curso.idCursoCicloLectivo > 0)
+				ddlCurso.SelectedValue = encuesta.curso.idCursoCicloLectivo.ToString();
+			else
+				ddlCurso.SelectedValue = (-2).ToString();
 
 			if (encuesta.listaRoles != null)
 				foreach (DTRol item in encuesta.listaRoles)
