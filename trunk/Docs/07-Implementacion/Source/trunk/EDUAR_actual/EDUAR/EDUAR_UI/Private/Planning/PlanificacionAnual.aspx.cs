@@ -846,10 +846,13 @@ namespace EDUAR_UI
 			}
             foreach (TemaPlanificacionAnual unTema in planificacionEditar.listaTemasPlanificacion)
             {
+
+
                 if (hayContenido)
                 {
-                    if ((calFechaDesde.ValorFecha >= unTema.fechaInicioEstimada && calFechaDesde.ValorFecha <= unTema.fechaFinEstimada) ||
+                    if (((calFechaDesde.ValorFecha >= unTema.fechaInicioEstimada && calFechaDesde.ValorFecha <= unTema.fechaFinEstimada) ||
                         (calFechaFin.ValorFecha >= unTema.fechaInicioEstimada && calFechaFin.ValorFecha <= unTema.fechaFinEstimada))
+                        && unTema.idTemaPlanificacion != idTemaPlanificacion)
                     {
                         hayContenido = false;
                         mensaje = "Existe otro tema planificado para ser dado entre:" + unTema.fechaInicioEstimada.Value.ToShortDateString() + " y " + unTema.fechaFinEstimada.Value.ToShortDateString();
