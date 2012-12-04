@@ -237,7 +237,7 @@ namespace EDUAR_DataAccess.Encuestas
 
 				List<Encuesta> listaEncuestas = new List<Encuesta>();
 				Encuesta objEncuesta;
-				int idAsignaturaCicloLectivo = 0;
+				int idAux = 0;
 				string fechaModificacion = string.Empty;
 				DateTime fechaLanzamiento;
 				while (reader.Read())
@@ -281,11 +281,13 @@ namespace EDUAR_DataAccess.Encuestas
 					objEncuesta.activo = Convert.ToBoolean(reader["activa"].ToString());
 					objEncuesta.preguntas = GetPreguntasEncuesta(entidad, null);
 					objEncuesta.listaRoles = GetRolesEncuesta(objEncuesta);
-					objEncuesta.curso.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
+
+					int.TryParse(reader["idCursoCicloLectivo"].ToString(), out idAux);
+					objEncuesta.curso.idCursoCicloLectivo = idAux;
 					objEncuesta.curso.curso.nombre = reader["Curso"].ToString();
 
-					int.TryParse(reader["idAsignaturaCicloLectivo"].ToString(), out idAsignaturaCicloLectivo);
-					objEncuesta.asignatura.idAsignaturaCicloLectivo = idAsignaturaCicloLectivo;
+					int.TryParse(reader["idAsignaturaCicloLectivo"].ToString(), out idAux);
+					objEncuesta.asignatura.idAsignaturaCicloLectivo = idAux;
 					objEncuesta.asignatura.asignatura.nombre = reader["Asignatura"].ToString();
 
 					objEncuesta.nroRespuestas = Convert.ToInt32(reader["Respuestas"]);
