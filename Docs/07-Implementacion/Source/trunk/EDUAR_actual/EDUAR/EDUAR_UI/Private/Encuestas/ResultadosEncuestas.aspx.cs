@@ -204,8 +204,8 @@ namespace EDUAR_UI
 					encuestaSesion.nombreEncuesta = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(encuestaSesion.nombreEncuesta);
 					lblTitulo.Text = encuestaSesion.nombreEncuesta;
 					CargarEncabezado();
-					BuscarPreguntas();
 				}
+				BuscarPreguntas();
 			}
 			catch (Exception ex)
 			{
@@ -307,7 +307,12 @@ namespace EDUAR_UI
 			{
 				miPreguntaTextual = listaRespuestaTextuales.Find(p => p.idPregunta == Convert.ToInt32(e.CommandArgument));
 
-				listaRespuestasTextuales = new BLRespuesta().GetRespuestaTextuales(encuestaSesion.idEncuesta, miPreguntaTextual.idPregunta);
+				List<DTRol> listaRoles = new List<DTRol>();
+				foreach (ListItem item in lstRoles.Items)
+					if (item.Selected)
+						listaRoles.Add(new DTRol() { Nombre = item.Text });
+
+				listaRespuestasTextuales = new BLRespuesta().GetRespuestaTextuales(encuestaSesion.idEncuesta, miPreguntaTextual.idPregunta, listaRoles);
 
 				ScriptManager.RegisterStartupScript(Page, GetType(), "VerRespuestas", "AbrirPopup();", true);
 			}
@@ -360,6 +365,8 @@ namespace EDUAR_UI
 			foreach (ListItem item in lstRoles.Items)
 				if (item.Selected)
 					listaRoles.Add(new DTRol() { Nombre = item.Text });
+
+			CuestionarioAccordion.Panes.Clear();
 
 			#region --Preguntas Numéricas--
 
