@@ -15,6 +15,7 @@ using System.Text;
 using System.Web.UI.DataVisualization.Charting;
 using System.IO;
 using System.Drawing;
+using EDUAR_Entities.Security;
 
 namespace EDUAR_UI
 {
@@ -198,7 +199,7 @@ namespace EDUAR_UI
 			try
 			{
 				Master.BotonAvisoAceptar += (VentanaAceptar);
-				//if (!Page.IsPostBack)
+				if (!Page.IsPostBack)
 				{
 					encuestaSesion.nombreEncuesta = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(encuestaSesion.nombreEncuesta);
 					lblTitulo.Text = encuestaSesion.nombreEncuesta;
@@ -222,6 +223,24 @@ namespace EDUAR_UI
 		{
 			try
 			{
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		/// <summary>
+		/// Ventanas the aceptar.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnBuscar_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				//CargarEncabezado();
+				BuscarPreguntas();
 			}
 			catch (Exception ex)
 			{
@@ -325,6 +344,11 @@ namespace EDUAR_UI
 					lblPendientes.Text = miAnalisis.nroExpiradas.ToString();
 				}
 			}
+
+			lstRoles.Items.Clear();
+			List<DTRol> listaRoles = (new BLEncuesta()).GetRolesAmbito(new AmbitoEncuesta() { idAmbitoEncuesta = encuestaSesion.ambito.idAmbitoEncuesta });
+			foreach (DTRol item in listaRoles)
+				lstRoles.Items.Add(new ListItem(item.Nombre));
 		}
 
 		/// <summary>
@@ -332,9 +356,14 @@ namespace EDUAR_UI
 		/// </summary>
 		private void BuscarPreguntas()
 		{
+			List<DTRol> listaRoles = new List<DTRol>();
+			foreach (ListItem item in lstRoles.Items)
+				if (item.Selected)
+					listaRoles.Add(new DTRol() { Nombre = item.Text });
+
 			#region --Preguntas Numéricas--
 
-			listaRespuestaNumericas = new BLRespuesta().GetRespuestaPreguntaAnalisis(encuestaSesion);
+			listaRespuestaNumericas = new BLRespuesta().GetRespuestaPreguntaAnalisis(encuestaSesion, listaRoles);
 
 			AccordionPane panel;
 			Label lblCategoria;
@@ -444,7 +473,7 @@ namespace EDUAR_UI
 
 			#region --Preguntas Textuales--
 
-			listaRespuestaTextuales = new BLRespuesta().GetRespuestaPreguntaTextual(encuestaSesion);
+			listaRespuestaTextuales = new BLRespuesta().GetRespuestaPreguntaTextual(encuestaSesion, listaRoles);
 
 			foreach (RespuestaPreguntaAnalisis respuesta in listaRespuestaTextuales)
 			{

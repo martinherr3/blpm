@@ -33,11 +33,10 @@
                 <br />
             </td>
             <td align="right">
-                <%-- <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
-                            ImageUrl="~/Images/botonBuscar.png" />
-                        
-                        <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
+                <%--<asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                             ImageUrl="~/Images/botonGuardar.png" CausesValidation="true" ValidationGroup="validarEdit" />--%>
+                <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
+                    ImageUrl="~/Images/botonBuscar.png" />
                 <asp:ImageButton ID="btnPDF" OnClick="btnPDF_Click" runat="server" ToolTip="Exportar PDF"
                     ImageUrl="~/Images/ExportarPDF.png" />
                 <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
@@ -77,15 +76,27 @@
         <tr>
             <td class="TD25">
                 <asp:Label Text="Encuestas Enviadas: " runat="server" />
-                <asp:Label ID="lblEnviadas" Text="" runat="server" Font-Bold="true" />
+                <asp:Label ID="lblEnviadas" Text="" runat="server" Font-Bold="true" /><br />
+                <br />
             </td>
             <td class="TD25">
                 <asp:Label Text="Encuestas Respondidas: " runat="server" />
-                <asp:Label ID="lblRespondidas" Text="" runat="server" Font-Bold="true" />
+                <asp:Label ID="lblRespondidas" Text="" runat="server" Font-Bold="true" /><br />
+                <br />
             </td>
             <td class="TD50">
                 <asp:Label ID="lblEncuestasPendientes" Text="Encuestas Pendientes: " runat="server" />
-                <asp:Label ID="lblPendientes" Text="" runat="server" Font-Bold="true" />
+                <asp:Label ID="lblPendientes" Text="" runat="server" Font-Bold="true" /><br />
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td class="TD25" style="vertical-align: top">
+                <asp:Label Text="Roles: " runat="server" />
+            </td>
+            <td colspan="2">
+                <asp:CheckBoxList runat="server" ID="lstRoles">
+                </asp:CheckBoxList>
             </td>
         </tr>
     </table>
