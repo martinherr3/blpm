@@ -597,6 +597,7 @@ namespace EDUAR_UI
 			if (ddlAsignaturaEdit.Items.Count > 0) ddlAsignaturaEdit.SelectedIndex = 0;
 			//if (listaContenido != null && listaContenido.Count > 0) listaContenido.Clear();
 			txtDescripcionEdit.Text = string.Empty;
+            listaSeleccionGuardar.Clear();
 		}
 
 		/// <summary>
