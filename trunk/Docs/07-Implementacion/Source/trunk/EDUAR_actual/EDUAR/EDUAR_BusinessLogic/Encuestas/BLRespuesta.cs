@@ -228,11 +228,11 @@ namespace EDUAR_BusinessLogic.Encuestas
 		/// <param name="encuesta">The encuesta.</param>
 		/// <param name="pregunta">The pregunta.</param>
 		/// <returns></returns>
-		public List<Respuesta> GetRespuestaTextuales(int encuesta, int pregunta)
+		public List<Respuesta> GetRespuestaTextuales(int encuesta, int pregunta, List<DTRol> listaRoles)
 		{
 			try
 			{
-				return DataAcces.GetRespuestaTextuales(encuesta, pregunta);
+				return DataAcces.GetRespuestaTextuales(encuesta, pregunta, listaRoles);
 			}
 			catch (CustomizedException ex)
 			{

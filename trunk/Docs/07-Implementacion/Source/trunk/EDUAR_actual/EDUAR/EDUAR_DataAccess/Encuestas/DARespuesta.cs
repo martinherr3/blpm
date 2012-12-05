@@ -190,7 +190,7 @@ namespace EDUAR_DataAccess.Encuestas
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_EncuestaAnalisisTextuales");
 
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
-				
+
 				string rolesParam = string.Empty;
 				if (listaRoles != null && listaRoles.Count > 0)
 				{
@@ -204,7 +204,8 @@ namespace EDUAR_DataAccess.Encuestas
 
 				List<RespuestaPreguntaAnalisis> listaRepuesta = new List<RespuestaPreguntaAnalisis>();
 				RespuestaPreguntaAnalisis objEntidad;
-
+				int aux = 0;
+				decimal auxDec = 0;
 				while (reader.Read())
 				{
 					objEntidad = new RespuestaPreguntaAnalisis();
@@ -212,10 +213,14 @@ namespace EDUAR_DataAccess.Encuestas
 					objEntidad.idPregunta = Convert.ToInt32(reader["idPregunta"]);
 					objEntidad.textoPregunta = reader["textoPregunta"].ToString();
 					objEntidad.idEscalaPonderacion = 3;
-					objEntidad.respuestasEsperadas = Convert.ToInt32(reader["respuestasEsperadas"]);
-					objEntidad.respuestasObtenidas = Convert.ToInt32(reader["respuestasObtenidas"]);
-					objEntidad.porcentaje = Convert.ToDecimal(reader["porcentaje"]);
-					objEntidad.relevancia = Convert.ToDecimal(reader["relevancia"]);
+					int.TryParse(reader["respuestasEsperadas"].ToString(), out aux);
+					objEntidad.respuestasEsperadas = aux;
+					int.TryParse(reader["respuestasObtenidas"].ToString(), out aux);
+					objEntidad.respuestasObtenidas = aux;
+					decimal.TryParse(reader["porcentaje"].ToString(), out auxDec);
+					objEntidad.porcentaje = auxDec;
+					decimal.TryParse(reader["relevancia"].ToString(), out auxDec);
+					objEntidad.relevancia = auxDec;
 
 					listaRepuesta.Add(objEntidad);
 				}
@@ -240,7 +245,7 @@ namespace EDUAR_DataAccess.Encuestas
 		/// <param name="pregunta">The pregunta.</param>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public List<Respuesta> GetRespuestaTextuales(int encuesta, int pregunta)
+		public List<Respuesta> GetRespuestaTextuales(int encuesta, int pregunta, List<DTRol> listaRoles)
 		{
 			try
 			{
@@ -248,6 +253,16 @@ namespace EDUAR_DataAccess.Encuestas
 
 				if (encuesta > 0) Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, encuesta);
 				if (pregunta > 0) Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPregunta", DbType.Int32, pregunta);
+
+				string rolesParam = string.Empty;
+				if (listaRoles != null && listaRoles.Count > 0)
+				{
+					foreach (DTRol rol in listaRoles)
+						rolesParam += string.Format("{0},", rol.Nombre);
+
+					rolesParam = rolesParam.Substring(0, rolesParam.Length - 1);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@rolesParam", DbType.String, rolesParam);
+				}
 
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
