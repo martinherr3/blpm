@@ -239,7 +239,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//CargarEncabezado();
+				ActualizarEncabezado();
 				BuscarPreguntas();
 			}
 			catch (Exception ex)
@@ -336,7 +336,8 @@ namespace EDUAR_UI
 				lblAsignaturaNombre.Text = encuestaSesion.asignatura.asignatura.nombre;
 			}
 			BLEncuesta objBLEncuesta = new BLEncuesta();
-			EncuestaAnalisis miAnalisis = objBLEncuesta.GetEncuestaAnalisis(encuestaSesion);
+
+			EncuestaAnalisis miAnalisis = objBLEncuesta.GetEncuestaAnalisis(encuestaSesion, null);
 			if (miAnalisis != null)
 			{
 				lblEnviadas.Text = miAnalisis.nroLanzadas.ToString();
@@ -707,7 +708,21 @@ namespace EDUAR_UI
 				filtros.AppendLine("Fecha de Expiración: " + Convert.ToDateTime(encuestaSesion.fechaVencimiento).ToShortDateString());
 
 			BLEncuesta objBLEncuesta = new BLEncuesta();
-			EncuestaAnalisis miAnalisis = objBLEncuesta.GetEncuestaAnalisis(encuestaSesion);
+
+			int cantidad = 0;
+			List<DTRol> listaRoles = null;
+			foreach (ListItem item in lstRoles.Items)
+				if (item.Selected)
+					cantidad++;
+
+			if (cantidad > 0 && cantidad != lstRoles.Items.Count)
+			{
+				listaRoles = new List<DTRol>();
+				foreach (ListItem item in lstRoles.Items)
+					if (item.Selected) { listaRoles.Add(new DTRol() { Nombre = item.Text }); }
+			}
+
+			EncuestaAnalisis miAnalisis = objBLEncuesta.GetEncuestaAnalisis(encuestaSesion, listaRoles);
 			if (miAnalisis != null)
 			{
 				filtros.AppendLine("Encuestas Enviadas: " + miAnalisis.nroLanzadas.ToString());
@@ -718,6 +733,14 @@ namespace EDUAR_UI
 				else
 					filtros.AppendLine("Encuestas Expiradas: " + miAnalisis.nroExpiradas.ToString());
 			}
+
+			filtros.AppendLine("Roles: ");
+			if (cantidad == 0 || cantidad == lstRoles.Items.Count)
+				foreach (ListItem item in lstRoles.Items)
+					filtros.AppendLine(" * " + item.Text);
+			else
+				foreach (ListItem item in lstRoles.Items)
+					if (item.Selected) filtros.AppendLine(" * " + item.Text);
 
 			foreach (RespuestaPreguntaAnalisis item in listaRespuestaNumericas)
 			{
@@ -810,6 +833,43 @@ namespace EDUAR_UI
 				listaTabla.Add(miItem);
 			}
 			ExportPDF.ExportarGraficoPDF(encuestaSesion.nombreEncuesta, ObjSessionDataUI.ObjDTUsuario.Nombre, filtros.ToString(), string.Empty, listaTabla);
+		}
+
+		/// <summary>
+		/// Actualizars the encabezado.
+		/// </summary>
+		private void ActualizarEncabezado()
+		{
+
+			int cantidad = 0;
+			List<DTRol> listaRoles = null;
+			foreach (ListItem item in lstRoles.Items)
+				if (item.Selected)
+					cantidad++;
+
+			if (cantidad > 0 && cantidad != lstRoles.Items.Count)
+			{
+				listaRoles = new List<DTRol>();
+				foreach (ListItem item in lstRoles.Items)
+					if (item.Selected) { listaRoles.Add(new DTRol() { Nombre = item.Text }); }
+			}
+
+			BLEncuesta objBLEncuesta = new BLEncuesta();
+
+			EncuestaAnalisis miAnalisis = objBLEncuesta.GetEncuestaAnalisis(encuestaSesion, listaRoles);
+			if (miAnalisis != null)
+			{
+				lblEnviadas.Text = miAnalisis.nroLanzadas.ToString();
+				lblRespondidas.Text = miAnalisis.nroRespondidas.ToString();
+				if (Convert.ToDateTime(encuestaSesion.fechaVencimiento).Subtract(DateTime.Today).Days > 0)
+					lblPendientes.Text = miAnalisis.nroPendientes.ToString();
+				else
+				{
+					lblEncuestasPendientes.Text = "Encuestas Expiradas: ";
+					lblPendientes.Text = miAnalisis.nroExpiradas.ToString();
+				}
+			}
+			//udpIndicadores.Update();
 		}
 		#endregion
 	}

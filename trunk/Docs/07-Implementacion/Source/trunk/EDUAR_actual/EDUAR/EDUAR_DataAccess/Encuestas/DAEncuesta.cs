@@ -606,13 +606,23 @@ namespace EDUAR_DataAccess.Encuestas
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public EncuestaAnalisis GetEncuestaAnalisis(Encuesta entidad)
+		public EncuestaAnalisis GetEncuestaAnalisis(Encuesta entidad, List<DTRol> listaRoles)
 		{
 			try
 			{
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_EncuestasPorStatus");
 
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
+
+				string rolesParam = string.Empty;
+				if (listaRoles != null && listaRoles.Count > 0)
+				{
+					foreach (DTRol rol in listaRoles)
+						rolesParam += string.Format("{0},", rol.Nombre);
+
+					rolesParam = rolesParam.Substring(0, rolesParam.Length - 1);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaRoles", DbType.String, rolesParam);
+				}
 
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 				EncuestaAnalisis miAnalisis = new EncuestaAnalisis();

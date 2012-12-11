@@ -73,26 +73,37 @@
             <td class="TD50">
             </td>
         </tr>
+    </table>
+    <%--<asp:UpdatePanel ID="udpIndicadores" runat="server" UpdateMode="Conditional">
+        <ContentTemplate>--%>
+            <table class="tablaInternaSinBorde" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="TD25">
+                        <asp:Label ID="Label1" Text="Encuestas Enviadas: " runat="server" />
+                        <asp:Label ID="lblEnviadas" Text="" runat="server" Font-Bold="true" /><br />
+                        <br />
+                    </td>
+                    <td class="TD25">
+                        <asp:Label ID="Label2" Text="Encuestas Respondidas: " runat="server" />
+                        <asp:Label ID="lblRespondidas" Text="" runat="server" Font-Bold="true" /><br />
+                        <br />
+                    </td>
+                    <td class="TD50">
+                        <asp:Label ID="lblEncuestasPendientes" Text="Encuestas Pendientes: " runat="server" />
+                        <asp:Label ID="lblPendientes" Text="" runat="server" Font-Bold="true" /><br />
+                        <br />
+                    </td>
+                </tr>
+            </table>
+       <%-- </ContentTemplate>
+        <Triggers>--%>
+            <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
+        </Triggers>
+    </asp:UpdatePanel>
+    <table class="tablaInternaSinBorde" cellpadding="0" cellspacing="0">
         <tr>
-            <td class="TD25">
-                <asp:Label Text="Encuestas Enviadas: " runat="server" />
-                <asp:Label ID="lblEnviadas" Text="" runat="server" Font-Bold="true" /><br />
-                <br />
-            </td>
-            <td class="TD25">
-                <asp:Label Text="Encuestas Respondidas: " runat="server" />
-                <asp:Label ID="lblRespondidas" Text="" runat="server" Font-Bold="true" /><br />
-                <br />
-            </td>
-            <td class="TD50">
-                <asp:Label ID="lblEncuestasPendientes" Text="Encuestas Pendientes: " runat="server" />
-                <asp:Label ID="lblPendientes" Text="" runat="server" Font-Bold="true" /><br />
-                <br />
-            </td>
-        </tr>
-        <tr>
-            <td class="TD25" style="vertical-align: top">
-                <asp:Label Text="Roles: " runat="server" />
+            <td class="TD10" style="vertical-align: top">
+                <asp:Label ID="Label3" Text="Roles: " runat="server" />
             </td>
             <td colspan="2">
                 <asp:CheckBoxList runat="server" ID="lstRoles">
@@ -100,8 +111,6 @@
             </td>
         </tr>
     </table>
-    <%--   <asp:UpdatePanel ID="udpPreguntas" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>--%>
     <cc1:Accordion ID="CuestionarioAccordion" CssClass="accordion" HeaderCssClass="accordionHeader"
         HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent"
         RequireOpenedPane="false" SelectedIndex="-1" runat="server" Width="100%" FadeTransitions="true">

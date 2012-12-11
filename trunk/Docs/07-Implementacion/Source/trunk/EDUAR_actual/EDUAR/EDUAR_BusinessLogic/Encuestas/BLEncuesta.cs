@@ -345,11 +345,11 @@ namespace EDUAR_BusinessLogic.Encuestas
 		/// </summary>
 		/// <param name="encuestaSesion">The encuesta sesion.</param>
 		/// <returns></returns>
-		public EncuestaAnalisis GetEncuestaAnalisis(Encuesta entidad)
+		public EncuestaAnalisis GetEncuestaAnalisis(Encuesta entidad, List<DTRol> listaRoles)
 		{
 			try
 			{
-				return DataAcces.GetEncuestaAnalisis(entidad);
+				return DataAcces.GetEncuestaAnalisis(entidad, listaRoles);
 			}
 			catch (CustomizedException ex)
 			{
