@@ -658,7 +658,7 @@ namespace EDUAR_UI.Utilidades
             //
             // se recupera de session la lista de seleccionados previamente
             //
-            List<int> productsIdSel = HttpContext.Current.Session[SessionVariable] as List<int>;
+			List<int> productsIdSel = HttpContext.Current.Session[SessionVariable] as List<int>;
 
             if (productsIdSel == null)
                 productsIdSel = new List<int>();
@@ -678,14 +678,14 @@ namespace EDUAR_UI.Utilidades
             //
             productsIdSel.AddRange(checkedProd);
 
-            HttpContext.Current.Session[SessionVariable] = productsIdSel;
+			HttpContext.Current.Session[SessionVariable] = productsIdSel;
 
         }
 
         public static void RestoreSelection(GridView grid, string SessionVariable)
         {
 
-            List<int> productsIdSel = HttpContext.Current.Session[SessionVariable] as List<int>;
+			List<int> productsIdSel = HttpContext.Current.Session[SessionVariable] as List<int>;
 
             if (productsIdSel == null)
                 return;

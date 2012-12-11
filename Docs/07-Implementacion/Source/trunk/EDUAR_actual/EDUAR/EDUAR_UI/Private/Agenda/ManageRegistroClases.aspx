@@ -256,7 +256,7 @@
         TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
     </ajaxToolkit:ModalPopupExtender>
-    <asp:Panel ID="pnlContenidos" runat="server" Width="600px" Height="400px" Style="display: none;
+    <asp:Panel ID="pnlContenidos" runat="server" Width="600px" Height="510px" Style="display: none;
         text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
         <asp:UpdatePanel ID="udpContenidosAsociados" runat="server">
             <ContentTemplate>
@@ -270,7 +270,7 @@
                         <td align="right">
                             <asp:ImageButton ID="btnGuardarPopUp" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
                                 OnClick="btnGuardarPopUp_Click" />
-                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver <br />Descartar Cambios"
+                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver - Descartar Cambios"
                                 ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverPopUp_Click" />
                         </td>
                     </tr>

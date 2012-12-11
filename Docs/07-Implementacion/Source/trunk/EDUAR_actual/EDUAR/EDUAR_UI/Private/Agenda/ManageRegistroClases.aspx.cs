@@ -124,11 +124,11 @@ namespace EDUAR_UI
 		{
 			get
 			{
-				if (HttpContext.Current.Session["listaSeleccion"] == null)
-					HttpContext.Current.Session["listaSeleccion"] = new List<int>();
-				return (List<int>)HttpContext.Current.Session["listaSeleccion"];
+				if (Session["listaSeleccion"] == null)
+					Session["listaSeleccion"] = new List<int>();
+				return (List<int>)Session["listaSeleccion"];
 			}
-			set { HttpContext.Current.Session["listaSeleccion"] = value; }
+			set { Session["listaSeleccion"] = value; }
 		}
 
 		/// <summary>
@@ -141,11 +141,11 @@ namespace EDUAR_UI
 		{
 			get
 			{
-				if (HttpContext.Current.Session["listaSeleccionPorcentajes"] == null)
-					HttpContext.Current.Session["listaSeleccionPorcentajes"] = new List<string>();
-				return (List<string>)HttpContext.Current.Session["listaSeleccionPorcentajes"];
+				if (Session["listaSeleccionPorcentajes"] == null)
+					Session["listaSeleccionPorcentajes"] = new List<string>();
+				return (List<string>)Session["listaSeleccionPorcentajes"];
 			}
-			set { HttpContext.Current.Session["listaSeleccionPorcentajes"] = value; }
+			set { Session["listaSeleccionPorcentajes"] = value; }
 		}
 
 		/// <summary>
@@ -158,11 +158,11 @@ namespace EDUAR_UI
 		{
 			get
 			{
-				if (HttpContext.Current.Session["listaSeleccionGuardar"] == null)
-					HttpContext.Current.Session["listaSeleccionGuardar"] = new List<int>();
-				return (List<int>)HttpContext.Current.Session["listaSeleccionGuardar"];
+				if (Session["listaSeleccionGuardar"] == null)
+					Session["listaSeleccionGuardar"] = new List<int>();
+				return (List<int>)Session["listaSeleccionGuardar"];
 			}
-			set { HttpContext.Current.Session["listaSeleccionGuardar"] = value; }
+			set { Session["listaSeleccionGuardar"] = value; }
 		}
 		#endregion
 
@@ -789,6 +789,13 @@ namespace EDUAR_UI
 				ddlMeses.Enabled = true;
 				chkActivoEdit.Checked = entidad.activo;
 				ddlTipoRegistroClase.SelectedValue = entidad.tipoRegistro.idTipoRegistroClases.ToString();
+
+				//Cargar la lista listaSeleccionGuardar
+				BLRegistroClases objBLRegistro = new BLRegistroClases(entidad);
+				List<TemaContenido> listaTemporal = objBLRegistro.ObtenerContenidos();
+				listaSeleccionGuardar.Clear();
+				foreach (TemaContenido item in listaTemporal)
+					listaSeleccionGuardar.Add(item.idTemaContenido);
 			}
 		}
 
