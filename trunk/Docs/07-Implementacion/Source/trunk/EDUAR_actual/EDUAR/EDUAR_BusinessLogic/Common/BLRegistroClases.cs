@@ -167,6 +167,28 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        #endregion
-    }
+
+		/// <summary>
+		/// Obteners the contenidos.
+		/// </summary>
+		/// <returns></returns>
+		public List<TemaContenido> ObtenerContenidos()
+		{
+			try
+			{
+				return DataAcces.GetContenidos(Data);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - ObtenerContenidos", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+		#endregion
+
+	}
 }

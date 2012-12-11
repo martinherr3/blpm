@@ -79,11 +79,11 @@ namespace EDUAR_UI
 		{
 			get
 			{
-				if (HttpContext.Current.Session["listaSeleccion"] == null)
-					HttpContext.Current.Session["listaSeleccion"] = new List<int>();
-				return (List<int>)HttpContext.Current.Session["listaSeleccion"];
+				if (Session["listaSeleccion"] == null)
+					Session["listaSeleccion"] = new List<int>();
+				return (List<int>)Session["listaSeleccion"];
 			}
-			set { HttpContext.Current.Session["listaSeleccion"] = value; }
+			set { Session["listaSeleccion"] = value; }
 		}
 
 		/// <summary>
@@ -96,11 +96,11 @@ namespace EDUAR_UI
 		{
 			get
 			{
-				if (HttpContext.Current.Session["listaSeleccionGuardar"] == null)
-					HttpContext.Current.Session["listaSeleccionGuardar"] = new List<int>();
-				return (List<int>)HttpContext.Current.Session["listaSeleccionGuardar"];
+				if (Session["listaSeleccionGuardar"] == null)
+					Session["listaSeleccionGuardar"] = new List<int>();
+				return (List<int>)Session["listaSeleccionGuardar"];
 			}
-			set { HttpContext.Current.Session["listaSeleccionGuardar"] = value; }
+			set { Session["listaSeleccionGuardar"] = value; }
 		}
 
 		/// <summary>

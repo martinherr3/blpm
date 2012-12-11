@@ -239,6 +239,7 @@ namespace EDUAR_UI
                         btnGuardar.Visible = true;
                         btnVolver.Visible = true;
                         btnBuscar.Visible = false;
+						btnNuevo.Visible = false;
                         udpRoles.Visible = true;
                         udpFiltrosBusqueda.Visible = false;
                         gvwUsuarios.Visible = false;
@@ -278,6 +279,7 @@ namespace EDUAR_UI
             btnBuscar.Visible = true;
             btnGuardar.Visible = false;
             btnVolver.Visible = false;
+			btnNuevo.Visible = true;
             udpFiltrosBusqueda.Visible = true;
             gvwUsuarios.Visible = true;
             udpRoles.Visible = false;

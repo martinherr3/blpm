@@ -227,6 +227,47 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+		/// <summary>
+		/// Gets the contenidos.
+		/// </summary>
+		/// <param name="Data">The data.</param>
+		/// <returns></returns>
+		public List<TemaContenido> GetContenidos(RegistroClases entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("DetalleRegistroClases_Select");
+
+				if (entidad.idRegistroClases != 0)
+				{
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idRegistroClases", DbType.Int32, entidad.idRegistroClases);
+				}
+
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<TemaContenido> listaEntidad = new List<TemaContenido>();
+				TemaContenido objEntidad;
+				while (reader.Read())
+				{
+					objEntidad = new TemaContenido();
+					objEntidad.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
+					listaEntidad.Add(objEntidad);
+				}
+				return listaEntidad;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetContenidos()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetContenidos()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
+
 	}
 }
