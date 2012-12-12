@@ -47,18 +47,19 @@
                     </table>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" class="TD110px">
+                            <td valign="top" class="TD50px">
                                 <asp:Label ID="lblAmbito" runat="server" Text="Ambito:"></asp:Label>
                             </td>
                             <td valign="top" class="TD50px">
                                 <asp:DropDownList ID="ddlAmbito" runat="server" />
                             </td>
-                            <td valign="top" class="TD110px">
+                            <td valign="top" class="TD110px" align="right">
                                 <asp:Label ID="lblActivo" runat="server" Text="Activos:"></asp:Label>
                             </td>
                             <td valign="top" class="TD50px">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="false" />
                             </td>
+                            <td></td>
                         </tr>
                     </table>
                 </ContentTemplate>
