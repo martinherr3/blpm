@@ -1,0 +1,70 @@
+#popup_container
+{
+    /*font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;     font-size: 11px;     font-style: normal;     text-transform: none;     color: #6EA214;     background-color: #BEE386;     text-align: left;     text-indent: 5px;*/
+    min-width: 450px; /* Dialog will be no smaller than this */
+    max-width: 450px; /* Dialog will wrap after this width */ /*background: #FFF;     border: solid 5px #999;     color: #000;     -moz-border-radius: 5px;     -webkit-border-radius: 5px;     border-radius: 5px;*/
+    z-index: 100010;
+}
+
+#popup_title
+{
+    /*font-size: 14px;     font-weight: bold;     text-align: center;     line-height: 1.75em;     color: #666;     background: #CCC url(images/title.gif) top repeat-x;     border: solid 1px #FFF;     border-bottom: solid 1px #999;     cursor: default;     padding: 0em;     margin: 0em;*/ /*background: #CCC url(images/title.gif) top repeat-x;*/
+   font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif, Symbol;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: none;
+    color: #6EA214;
+    background-color: #BEE386;
+    text-align: left;
+    text-indent: 5px;
+    z-index: 100010;
+    padding-top: 5px;
+    height: 16px;
+}
+
+#popup_content
+{
+    /*  background: 16px 16px no-repeat url(images/ventanaConfirmacion.png);     background-color: #E0F2C6;     padding: 1em 1.75em;     margin: 0em;     color: #464545;*/
+    left: 0;
+    top: 5;
+    visibility: inherit;
+    padding-top: 25px;
+    padding-bottom: 5px;
+    border: solid #BEE386 1px;
+    width: 450; /*height:130;*/
+    background-color: #E0F2C6;
+    clip: rect(0,450,150,0);
+    z-index: 100010;
+}
+
+#popup_content.alert
+{
+    background: #E0F2C6 16px 16px no-repeat url(images/ventanaSatisfactorio.png);
+}
+
+#popup_content.confirm
+{
+    background: #E0F2C6 16px 16px no-repeat url(images/ventanaAdvertencia.png);
+}
+
+#popup_content.prompt
+{
+    background: #E0F2C6 16px 16px no-repeat url(images/ventanaConfirmacion.png);
+}
+
+#popup_message
+{
+    padding-left: 50px;
+}
+
+#popup_panel
+{
+    text-align: right;
+    margin: 1em 1.5em 0em 1em;
+}
+
+#popup_prompt
+{
+    margin: .5em 0em;
+}
