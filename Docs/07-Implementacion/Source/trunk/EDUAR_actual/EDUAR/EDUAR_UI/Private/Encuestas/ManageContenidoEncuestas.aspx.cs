@@ -685,6 +685,12 @@ namespace EDUAR_UI
 		{
 			string mensaje = string.Empty;
 			calFechaCierre.ValidarRangoDesde(false, true);
+            
+            if (!calFechaCierre.ValorFecha.HasValue)
+                mensaje += "- Fecha de cierre<br />";
+
+            if (string.IsNullOrEmpty(txtNombreEdit.Text))
+                mensaje += "- Nombre Encuesta<br />";
 
 			int validador = 0;
 			int.TryParse(ddlAmbitoEdit.SelectedValue, out validador);
