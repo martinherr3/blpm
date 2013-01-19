@@ -693,11 +693,13 @@ namespace EDUAR_UI
                 mensaje += "- Nombre Encuesta<br />";
 
 			int validador = 0;
-			int.TryParse(ddlAmbitoEdit.SelectedValue, out validador);
-			if (validador <= 0)
+			
+            int.TryParse(ddlAmbitoEdit.SelectedValue, out validador);
+            
+            if (validador <= 0)
 				mensaje += "- Ambito<br />";
 			int.TryParse(ddlCurso.SelectedValue, out validador);
-			if (validador <= 0)
+			if (validador <= 0 && validador != -2)
 				mensaje += "- Curso<br />";
 
 			bool hayAmbito = false;
