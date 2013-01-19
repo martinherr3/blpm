@@ -315,14 +315,16 @@ namespace EDUAR_UI
 			try
 			{
 				string mensaje = ValidarPagina();
-				if (mensaje == string.Empty)
-					if (Page.IsValid)
-					{
-						AccionPagina = enumAcciones.Guardar;
-						Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
-					}
-					else
-						Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
+                if (mensaje == string.Empty)
+                {
+                    if (Page.IsValid)
+                    {
+                        AccionPagina = enumAcciones.Guardar;
+                        Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+                    }
+                }
+                else
+                    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
 			}
 			catch (Exception ex)
 			{
