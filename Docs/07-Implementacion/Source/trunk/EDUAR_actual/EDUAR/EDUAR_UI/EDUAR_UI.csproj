@@ -238,6 +238,7 @@
     <Content Include="Private\Encuestas\Cuestionario.aspx" />
     <Content Include="Private\Encuestas\VerRespuestas.aspx" />
     <Content Include="Private\Encuestas\ResultadosEncuestas.aspx" />
+    <Content Include="Private\Manuales\Administrador.aspx" />
     <Content Include="Private\Manuales\Administrador\Administrar Usuarios.jpg" />
     <Content Include="Private\Manuales\Administrador\advertenciaVerificar.jpg" />
     <Content Include="Private\Manuales\Administrador\barra de menu.jpg" />
@@ -313,6 +314,9 @@
     <Content Include="Private\Manuales\Director\Mensaje\responderMensaje.jpg" />
     <Content Include="Private\Manuales\Director\Mensaje\RespuestaEnviada.jpg" />
     <Content Include="Private\Manuales\Director\Mensaje\SeleccionaTodosMensajes.jpg" />
+    <Content Include="Private\Manuales\Images\elementosBasicos.png" />
+    <Content Include="Private\Manuales\Images\miCuenta.png" />
+    <Content Include="Private\Manuales\Images\preguntaSecreta.png" />
     <Content Include="Private\Manuales\Reportes\botonBuscar.jpg" />
     <Content Include="Private\Manuales\Reportes\ConsultarCalificaciones.jpg" />
     <Content Include="Private\Manuales\Reportes\criterioReporte3.jpg" />
@@ -592,6 +596,20 @@
     </Compile>
     <Compile Include="Private\Encuestas\ResultadosEncuestas.aspx.designer.cs">
       <DependentUpon>ResultadosEncuestas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Manuales\Administrador.aspx.cs">
+      <DependentUpon>Administrador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Manuales\Administrador.aspx.designer.cs">
+      <DependentUpon>Administrador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Manuales\Help.Master.cs">
+      <DependentUpon>Help.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Manuales\Help.Master.designer.cs">
+      <DependentUpon>Help.Master</DependentUpon>
     </Compile>
     <Compile Include="Private\Novedades\ConsultaNovedadAulica.aspx.cs">
       <DependentUpon>ConsultaNovedadAulica.aspx</DependentUpon>
@@ -1025,6 +1043,7 @@
     <Content Include="Private\Monitoreo\web.config" />
     <Content Include="Private\Novedades\web.config" />
     <Content Include="Private\Encuestas\web.config" />
+    <Content Include="Private\Manuales\Help.Master" />
     <None Include="Scripts\css\blitzer\images\Thumbs.db" />
     <None Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>
