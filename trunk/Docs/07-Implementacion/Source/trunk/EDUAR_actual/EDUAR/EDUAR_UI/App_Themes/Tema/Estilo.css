@@ -178,7 +178,7 @@ div.menu ul li a, div.menu ul li a:visited
     padding: 4px 20px;
     text-decoration: none;
     white-space: nowrap;
-    min-width: 160px; /*max-width: 160px;     min-width: 160px;*/
+    min-width: 158px; /*max-width: 160px;     min-width: 160px;*/
     text-align: center;
     cursor: pointer;
     margin: 2px;
@@ -773,6 +773,11 @@ TD.EncabezadoConfirmación
     width: 10%;
 }
 
+.TD20
+{
+    width: 20%;
+}
+
 .TD25
 {
     width: 25%;
@@ -786,6 +791,16 @@ TD.EncabezadoConfirmación
 .TD75
 {
     width: 75%;
+}
+
+.TD80
+{
+    width: 80%;
+}
+
+.TD90
+{
+    width: 90%;
 }
 
 .TD100
