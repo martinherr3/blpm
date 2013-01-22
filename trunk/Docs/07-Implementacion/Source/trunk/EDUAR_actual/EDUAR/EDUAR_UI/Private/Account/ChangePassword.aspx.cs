@@ -1,10 +1,11 @@
 ﻿using System;
 using EDUAR_UI.Shared;
+using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
-    public partial class ChangePassword : EDUARBasePage
-    {
+	public partial class ChangePassword : EDUARBasePage
+	{
 		/// <summary>
 		/// Método que se ejecuta al dibujar los controles de la página.
 		/// Se utiliza para gestionar las excepciones del método Page_Load().
@@ -24,12 +25,12 @@ namespace EDUAR_UI
 				catch (Exception ex) { Master.ManageExceptions(ex); }
 			}
 		}
-		
+
 		/// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		/// Handles the Load event of the Page control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			try
@@ -52,12 +53,29 @@ namespace EDUAR_UI
 		{
 			try
 			{
-
+				
 			}
 			catch (Exception ex)
 			{
 				Master.ManageExceptions(ex);
 			}
 		}
-    }
+
+		/// <summary>
+		/// Handles the Click event of the CancelPushButton control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void CancelPushButton_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				Response.Redirect("~/Private/Account/Welcome.aspx", false);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+	}
 }

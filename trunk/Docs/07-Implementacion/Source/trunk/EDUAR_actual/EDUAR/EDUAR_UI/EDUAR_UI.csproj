@@ -314,7 +314,9 @@
     <Content Include="Private\Manuales\Director\Mensaje\responderMensaje.jpg" />
     <Content Include="Private\Manuales\Director\Mensaje\RespuestaEnviada.jpg" />
     <Content Include="Private\Manuales\Director\Mensaje\SeleccionaTodosMensajes.jpg" />
+    <Content Include="Private\Manuales\Images\contrasenia.png" />
     <Content Include="Private\Manuales\Images\elementosBasicos.png" />
+    <Content Include="Private\Manuales\Images\email.png" />
     <Content Include="Private\Manuales\Images\miCuenta.png" />
     <Content Include="Private\Manuales\Images\preguntaSecreta.png" />
     <Content Include="Private\Manuales\Reportes\botonBuscar.jpg" />

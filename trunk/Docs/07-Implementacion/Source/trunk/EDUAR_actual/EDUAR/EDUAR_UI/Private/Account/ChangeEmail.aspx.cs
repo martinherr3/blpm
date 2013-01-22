@@ -170,7 +170,6 @@ namespace EDUAR_UI
 		protected void CancelPushButton_Click(object sender, EventArgs e)
 		{
 			Response.Redirect("~/Private/Account/Welcome.aspx", false);
-
 		}
 		#endregion
 

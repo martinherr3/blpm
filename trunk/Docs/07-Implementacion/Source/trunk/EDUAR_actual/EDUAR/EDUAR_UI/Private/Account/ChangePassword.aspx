@@ -11,13 +11,13 @@
                 <h2>
                     Modificar contraseña
                 </h2>
-				<br />
-				<table class="tablaInterna" cellpadding="0" cellspacing="0">
-					<tr>
-						<td>
-						</td>
-					</tr>
-				</table>
+                <br />
+                <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
             </td>
             <td style="width: 20%; text-align: right" rowspan="2">
                 <asp:Image ID="Image1" ImageUrl="~/Images/user-properties.png" runat="server" AlternateText="Modificar contraseña"
@@ -33,7 +33,7 @@
         <%= Membership.MinRequiredPasswordLength %>
         caracteres.
     </p>
-    <asp:ChangePassword ID="ChangeUserPassword" runat="server" CancelDestinationPageUrl="~/"
+    <asp:ChangePassword ID="ChangeUserPassword" runat="server" CancelDestinationPageUrl="~/Private/Account/Welcome.aspx"
         EnableViewState="false" RenderOuterTable="false" SuccessPageUrl="ChangePasswordSuccess.aspx">
         <ChangePasswordTemplate>
             <span class="failureNotification">
@@ -75,7 +75,7 @@
                         <tr>
                             <td style="width: 80%">
                                 <asp:Button ID="CancelPushButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                    Text="Cancelar" />
+                                    OnClick="CancelPushButton_Click" Text="Cancelar" />
                             </td>
                             <td style="width: 20%">
                                 <asp:Button ID="ChangePasswordPushButton" runat="server" CommandName="ChangePassword"
