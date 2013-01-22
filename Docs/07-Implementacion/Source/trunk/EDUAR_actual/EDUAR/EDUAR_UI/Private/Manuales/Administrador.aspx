@@ -28,8 +28,12 @@
                         <li>
                             <asp:LinkButton ID="lnkPreguntaSecreta" Text="Pregunta Secreta" runat="server" OnClick="CambiarPanel_Click"
                                 CommandArgument="pnlPreguntaSecreta" /></li>
-                        <li><a href="#encabezado5">Cambiar mi contraseña</a></li>
-                        <li><a href="#encabezado6">Cambiar la dirección de email</a></li>
+                        <li>
+                            <asp:LinkButton ID="lnkContrasenia" Text="Contraseña" runat="server" OnClick="CambiarPanel_Click"
+                                CommandArgument="pnlContrasenia" /></li>
+                        <li>
+                            <asp:LinkButton ID="lnkEmail" Text="Email" runat="server" OnClick="CambiarPanel_Click"
+                                CommandArgument="pnlEmail" /></li>
                     </ol>
                     <li><a href="#encabezado7">Administración de Roles</a></li>
                     <ol>
@@ -96,8 +100,26 @@
                             <asp:Image ID="Image2" ImageUrl="~/Private/Manuales/Images/preguntaSecreta.png" runat="server" /><br />
                             <li>Ingresar la nueva pregunta secreta, luego la respuesta correspondiente y por último,
                                 confirme el cambio presionando el botón "Cambiar Pregunta".</li>
-                            <li>Si desea omitir los cambios realizados, presione el botón "Cancelar", el cual lo retornará
-                                a la página de inicio.</li>
+                            <li>Si desea omitir los cambios realizados, presione el botón "Cancelar", el cual lo
+                                retornará a la página de inicio.</li>
+                        </asp:Panel>
+                        <asp:Panel ID="pnlContrasenia" runat="server" Visible="false">
+                            <asp:Image ID="Image3" ImageUrl="~/Private/Manuales/Images/contrasenia.png" runat="server" /><br />
+                            <li>Ingrese la nueva contraseña, recuerde que la misma debe ser alfanumérica, y poseer
+                                más de 5 caracteres. Repita la contraseña para poder confirmar la misma. Luego de
+                                completar los datos requeridos, presione el botón "Cambiar contraseña".</li>
+                            <li>Si desea omitir los cambios realizados, presione el botón "Cancelar", el cual lo
+                                retornará a la página de inicio.</li>
+                        </asp:Panel>
+                        <asp:Panel ID="pnlEmail" runat="server" Visible="false">
+                            <asp:Image ID="Image4" ImageUrl="~/Private/Manuales/Images/email.png" runat="server" /><br />
+                            <li>Ingrese la dirección de email, como por ejemplo xxx@gmail.com., que quiere asociar
+                                a <b>EDU@R 2.0</b>, luego confirme el cambio presionando el botón "Cambiar Email".
+                                A partir del momento en que se modifique el email, esta dirección será la utilizada
+                                por <b>EDU@R 2.0</b> para enviar informes y/o notificaciones, así como también para
+                                recuperar su contraseña en caso de olvido.</li>
+                            <li>Si desea omitir los cambios realizados, presione el botón "Cancelar", el cual lo
+                                retornará a la página de inicio.</li>
                         </asp:Panel>
                     </ContentTemplate>
                 </asp:UpdatePanel>
