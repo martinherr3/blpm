@@ -17,9 +17,9 @@
                     </td>
                     <td align="right">
                         <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
-                            ImageUrl="~/Images/botonBuscar.png" />
+                            ImageUrl="~/Images/botonBuscar.png" Visible="false" />
                         <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
-                            ImageUrl="~/Images/botonNuevo.png" />
+                            ImageUrl="~/Images/botonNuevo.png" Visible="false" />
                         <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                             ImageUrl="~/Images/botonGuardar.png" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
@@ -32,21 +32,20 @@
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td colspan="2">
-                                <h3>
+                                <h3 style="visibility: hidden">
                                     Buscar</h3>
                             </td>
                         </tr>
                         <tr>
                             <td valign="top" style="width: 10%">
-                                <asp:Label ID="lblRolesBusqueda" runat="server" Text="Perfiles:"></asp:Label>
+                                <asp:Label ID="lblRolesBusqueda" runat="server" Text="Perfiles:" Visible="false"></asp:Label>
                             </td>
                             <td style="width: 90%">
-                                <asp:CheckBoxList ID="chkListRolesBusqueda" TabIndex="2" runat="server">
+                                <asp:CheckBoxList ID="chkListRolesBusqueda" TabIndex="2" runat="server" Visible="false">
                                 </asp:CheckBoxList>
                             </td>
                         </tr>
                     </table>
-                    <br />
                 </ContentTemplate>
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />

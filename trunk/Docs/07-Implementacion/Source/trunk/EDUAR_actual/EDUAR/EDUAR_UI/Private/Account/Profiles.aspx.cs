@@ -287,9 +287,11 @@ namespace EDUAR_UI
             udpNewRol.Visible = false;
 			btnVolver.Visible = false;
             btnGuardar.Visible = false;
+			btnBuscar.Visible = false;
+			btnNuevo.Visible = false;
             udpControlesBusqueda.Visible = true;
-            btnNuevo.Visible = true;
-            btnBuscar.Visible = true;
+			//btnNuevo.Visible = true;
+			//btnBuscar.Visible = true;
             gvwPerfiles.Visible = true;
             udpFiltros.Update();
             udpGrilla.Update();

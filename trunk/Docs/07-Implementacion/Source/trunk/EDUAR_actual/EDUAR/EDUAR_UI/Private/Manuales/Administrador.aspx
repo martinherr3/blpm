@@ -12,7 +12,7 @@
         y como realizar las mismas.</p>
     <table class="tablaInterna" cellpadding="8" cellspacing="1">
         <tr>
-            <td class="TD10">
+            <td class="TD10" valign="top">
                 <ol>
                     <li>
                         <asp:LinkButton ID="lnkPresentacion" Text="Presentación" runat="server" OnClick="CambiarPanel_Click"
@@ -35,11 +35,19 @@
                             <asp:LinkButton ID="lnkEmail" Text="Email" runat="server" OnClick="CambiarPanel_Click"
                                 CommandArgument="pnlEmail" /></li>
                     </ol>
-                    <li><a href="#encabezado7">Administración de Roles</a></li>
+                    <li>
+                        <asp:LinkButton ID="lnkAdministracion" Text="Administración" runat="server" OnClick="CambiarPanel_Click"
+                            CommandArgument="pnlAdministracion" /></li>
                     <ol>
-                        <li><a href="#encabezado8">Crear un nuevo Perfil</a></li>
-                        <li><a href="#encabezado9">Editar un Perfil </a></li>
-                        <li><a href="#encabezado10">Eliminar un Perfil </a></li>
+                        <li>
+                            <asp:LinkButton ID="lnkIndicadores" Text="Indicadores" runat="server" OnClick="CambiarPanel_Click"
+                                CommandArgument="pnlIndicadores" /></li></li>
+                        <li>
+                            <asp:LinkButton ID="lnkRoles" Text="Roles" runat="server" OnClick="CambiarPanel_Click"
+                                CommandArgument="pnlRoles" /></li></li>
+                        <li>
+                            <asp:LinkButton ID="lnkUsuarios" Text="Usuarios" runat="server" OnClick="CambiarPanel_Click"
+                                CommandArgument="pnlUsuarios" /></li></li>
                     </ol>
                     <li><a href="#encabezado11">Administración de Usuarios</a></li>
                     <ol>
@@ -120,6 +128,31 @@
                                 recuperar su contraseña en caso de olvido.</li>
                             <li>Si desea omitir los cambios realizados, presione el botón "Cancelar", el cual lo
                                 retornará a la página de inicio.</li>
+                        </asp:Panel>
+                        <asp:Panel ID="pnlAdministracion" runat="server" Visible="false">
+                            <asp:Image ID="Image5" ImageUrl="~/Private/Manuales/Images/administracion.png" runat="server" /><br />
+                            <li>Al posicionar el puntero sobre el menu Administración, se despliegan 3 opciones
+                                posibles: Indicadores, Roles y Usuarios. Desde cada uno de estos items se puede
+                                acceder a las configuraciones respectivas para cada sección.</li>
+                        </asp:Panel>
+                        <asp:Panel ID="pnlIndicadores" runat="server" Visible="false">
+                            <asp:Image ID="Image6" ImageUrl="~/Private/Manuales/Images/indicadores.png" runat="server" /><br />
+                            <li>Al seleccionar la opción Indicadores se accede al listado de indicadores definidos,
+                                y luego, seleccionando la opción "Editar" se pueden modificar los parámetros que
+                                definen al mismo.</li><br />
+                            <asp:Image ID="Image7" ImageUrl="~/Private/Manuales/Images/configurarIndicador.png"
+                                runat="server" /><br /><br />
+                            <li>En la parte superior de la pantalla contamos con las opciones "Guardar", que guarda
+                                las modificaciones realizadas y "Volver" el cual cierra la pantalla descartando
+                                los cambios.</li>
+                            <li>Cada indicador cuenta con la opción "Invertir Escala" el cual define si el valor
+                                "Verde" se aplica para los valores más cercanos a 0 o a la inversa. Del mismo modo
+                                aplica para los indicadores Rojo y Amarillo.</li>
+                            <li>A su vez, cada indicador, posee 3 niveles de Análisis: <b>Principal</b>, <b>Intermedio</b>
+                                y <b>Secundario</b>, los cuales determinan el nivel de análisis en cuanto a las
+                                fechas para cada uno. El nivel <b>Principal</b> se utiliza para las fechas más recientes,
+                                <b>Intermedio</b> para un periodo anterior y <b>Secundario</b> para fechas anteriores
+                                al nivel Intermedio.</li>
                         </asp:Panel>
                     </ContentTemplate>
                 </asp:UpdatePanel>
