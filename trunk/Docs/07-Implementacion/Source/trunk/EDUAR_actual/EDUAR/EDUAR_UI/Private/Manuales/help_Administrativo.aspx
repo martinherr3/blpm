@@ -1,5 +1,5 @@
-﻿<%@ Page Title="Ayuda para el Administrador" Language="C#" MasterPageFile="~/Private/Manuales/Help.Master"
-    AutoEventWireup="true" CodeBehind="Administrador.aspx.cs" Inherits="EDUAR_UI.Administrador" %>
+﻿<%@ Page Title="Ayuda para el Administrativo" Language="C#" MasterPageFile="~/Private/Manuales/Help.Master"
+    AutoEventWireup="true" CodeBehind="help_Administrativo.aspx.cs" Inherits="EDUAR_UI.help_Administrativo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
@@ -41,13 +41,13 @@
                     <ol>
                         <li>
                             <asp:LinkButton ID="lnkIndicadores" Text="Indicadores" runat="server" OnClick="CambiarPanel_Click"
-                                CommandArgument="pnlIndicadores" /></li></li>
+                                CommandArgument="pnlIndicadores" /></li>
                         <li>
                             <asp:LinkButton ID="lnkRoles" Text="Roles" runat="server" OnClick="CambiarPanel_Click"
-                                CommandArgument="pnlRoles" /></li></li>
+                                CommandArgument="pnlRoles" /></li>
                         <li>
                             <asp:LinkButton ID="lnkUsuarios" Text="Usuarios" runat="server" OnClick="CambiarPanel_Click"
-                                CommandArgument="pnlUsuarios" /></li></li>
+                                CommandArgument="pnlUsuarios" /></li>
                     </ol>
                     <li><a href="#encabezado11">Administración de Usuarios</a></li>
                     <ol>
@@ -141,7 +141,8 @@
                                 y luego, seleccionando la opción "Editar" se pueden modificar los parámetros que
                                 definen al mismo.</li><br />
                             <asp:Image ID="Image7" ImageUrl="~/Private/Manuales/Images/configurarIndicador.png"
-                                runat="server" /><br /><br />
+                                runat="server" /><br />
+                            <br />
                             <li>En la parte superior de la pantalla contamos con las opciones "Guardar", que guarda
                                 las modificaciones realizadas y "Volver" el cual cierra la pantalla descartando
                                 los cambios.</li>
@@ -153,6 +154,24 @@
                                 fechas para cada uno. El nivel <b>Principal</b> se utiliza para las fechas más recientes,
                                 <b>Intermedio</b> para un periodo anterior y <b>Secundario</b> para fechas anteriores
                                 al nivel Intermedio.</li>
+                        </asp:Panel>
+                        <asp:Panel ID="pnlRoles" runat="server" Visible="false">
+                            <asp:Image ID="Image8" ImageUrl="~/Private/Manuales/Images/roles.png" runat="server" /><br />
+                            <li>Cada usuario tendrá asociado un Rol o Perfil dependiendo de la naturaleza de su
+                                relación con la entidad educativa. Cada Perfil tiene restricciones y permisos de
+                                acceso diferentes. En <b>EDU@R 2.0</b> el usuario con Perfil Administrador sólo
+                                puede modificar la descripción asociada a cada Perfil, para adecuarlo a cada institución.
+                            </li>
+                            <br />
+                            <asp:Image ID="Image9" ImageUrl="~/Private/Manuales/Images/editarRol.png" runat="server" /><br />
+                            <br />
+                            <li>Una vez ingresada la descripción y presionado el botón "Guardar", el sistema solicitará
+                                Confirmación para actualizar la información.</li>
+                            <asp:Image ID="Image10" ImageUrl="~/Private/Manuales/Images/confirmar.png" runat="server" /><br />
+                            <br />
+                            <li>Una vez actualizada la información en el sistema, se muestra un mensaje informando
+                                el resultado Satisfactorio.</li>
+                            <asp:Image ID="Image11" ImageUrl="~/Private/Manuales/Images/satisfactorio.png" runat="server" /><br />
                         </asp:Panel>
                     </ContentTemplate>
                 </asp:UpdatePanel>
