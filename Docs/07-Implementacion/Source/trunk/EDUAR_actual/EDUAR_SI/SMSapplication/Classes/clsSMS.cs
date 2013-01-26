@@ -148,7 +148,7 @@ namespace SMSapplication
                 port.RtsEnable = true;
                
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ////_logger.Error("OpenPort", ex);
                 return null;
@@ -230,25 +230,25 @@ namespace SMSapplication
         //Execute AT Command
         public string ExecCommand(SerialPort port,string command, int responseTimeout, string errorMessage)
         {
-            int idLinea = 0;
+			//int idLinea = 0;
             try
             {
                 
                 port.DiscardOutBuffer();
-                idLinea = 1;
+				//idLinea = 1;
                 port.DiscardInBuffer();
-                idLinea = 2;
+				//idLinea = 2;
                 receiveNow.Reset();
-                idLinea = 3;
+				//idLinea = 3;
                 port.Write(command + "\r");
-                idLinea = 4;
+				//idLinea = 4;
                 ////_logger.Debug(String.Format("ExecCommand Puerto: {0} Comando: {1}", port.PortName, command));
-                idLinea = 5;
+				//idLinea = 5;
                 string input = ReadResponse(port, responseTimeout);
-                idLinea = 6;
+				//idLinea = 6;
                 if ((input.Length == 0) || ((!input.EndsWith("\r\n> ")) && (!input.EndsWith("\r\nOK\r\n"))))
                 {                
-                    idLinea = 7;
+					//idLinea = 7;
                     throw new ApplicationException("No success message was received. Comando:  "  + command + " leo: " + input);
                     //idLinea = 8;
                 }
@@ -256,8 +256,8 @@ namespace SMSapplication
             }
             catch (Exception ex)
             {
-               // //_logger.Error("ExecCommand", ex);
-                ////_logger.Error("ExecCommand linea: " + idLinea + " " + ex.StackTrace, ex);
+                //_logger.Error("ExecCommand", ex);
+                //_logger.Error("ExecCommand linea: " + idLinea + " " + ex.StackTrace, ex);
                 //Console.WriteLine("ExecCommand linea: " + idLinea  + " Ex: " + ex.Message);
                 throw new ApplicationException(errorMessage, ex);
             }
