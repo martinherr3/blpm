@@ -238,7 +238,7 @@
     <Content Include="Private\Encuestas\Cuestionario.aspx" />
     <Content Include="Private\Encuestas\VerRespuestas.aspx" />
     <Content Include="Private\Encuestas\ResultadosEncuestas.aspx" />
-    <Content Include="Private\Manuales\Administrador.aspx" />
+    <Content Include="Private\Manuales\help_Administrador.aspx" />
     <Content Include="Private\Manuales\Administrador\Administrar Usuarios.jpg" />
     <Content Include="Private\Manuales\Administrador\advertenciaVerificar.jpg" />
     <Content Include="Private\Manuales\Administrador\barra de menu.jpg" />
@@ -290,6 +290,13 @@
     <Content Include="Private\Manuales\Alumno\Boletin\SelecionPeriodo.jpg" />
     <Content Include="Private\Manuales\Alumno\elementos.jpg" />
     <Content Include="Private\Manuales\Alumno\Logo_chico.png" />
+    <Content Include="Private\Manuales\help_Administrativo.aspx" />
+    <Content Include="Private\Manuales\help_Alumno.aspx" />
+    <Content Include="Private\Manuales\help_Tutor.aspx" />
+    <Content Include="Private\Manuales\help_Psicopedagogo.aspx" />
+    <Content Include="Private\Manuales\help_Preceptor.aspx" />
+    <Content Include="Private\Manuales\help_Docente.aspx" />
+    <Content Include="Private\Manuales\help_Director.aspx" />
     <Content Include="Private\Manuales\Director\Cuenta\barra de menu.jpg" />
     <Content Include="Private\Manuales\Director\Cuenta\cambio de contraseña.jpg" />
     <Content Include="Private\Manuales\Director\Cuenta\Cambio de pregunta secreta.jpg" />
@@ -316,12 +323,16 @@
     <Content Include="Private\Manuales\Director\Mensaje\SeleccionaTodosMensajes.jpg" />
     <Content Include="Private\Manuales\Images\administracion.png" />
     <Content Include="Private\Manuales\Images\configurarIndicador.png" />
+    <Content Include="Private\Manuales\Images\confirmar.png" />
     <Content Include="Private\Manuales\Images\contrasenia.png" />
+    <Content Include="Private\Manuales\Images\editarRol.png" />
     <Content Include="Private\Manuales\Images\elementosBasicos.png" />
     <Content Include="Private\Manuales\Images\email.png" />
     <Content Include="Private\Manuales\Images\indicadores.png" />
     <Content Include="Private\Manuales\Images\miCuenta.png" />
     <Content Include="Private\Manuales\Images\preguntaSecreta.png" />
+    <Content Include="Private\Manuales\Images\roles.png" />
+    <Content Include="Private\Manuales\Images\satisfactorio.png" />
     <Content Include="Private\Manuales\Reportes\botonBuscar.jpg" />
     <Content Include="Private\Manuales\Reportes\ConsultarCalificaciones.jpg" />
     <Content Include="Private\Manuales\Reportes\criterioReporte3.jpg" />
@@ -602,12 +613,61 @@
     <Compile Include="Private\Encuestas\ResultadosEncuestas.aspx.designer.cs">
       <DependentUpon>ResultadosEncuestas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Private\Manuales\Administrador.aspx.cs">
-      <DependentUpon>Administrador.aspx</DependentUpon>
+    <Compile Include="Private\Manuales\help_Administrador.aspx.cs">
+      <DependentUpon>help_Administrador.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Private\Manuales\Administrador.aspx.designer.cs">
-      <DependentUpon>Administrador.aspx</DependentUpon>
+    <Compile Include="Private\Manuales\help_Administrador.aspx.designer.cs">
+      <DependentUpon>help_Administrador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Administrativo.aspx.cs">
+      <DependentUpon>help_Administrativo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Administrativo.aspx.designer.cs">
+      <DependentUpon>help_Administrativo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Alumno.aspx.cs">
+      <DependentUpon>help_Alumno.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Alumno.aspx.designer.cs">
+      <DependentUpon>help_Alumno.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Tutor.aspx.cs">
+      <DependentUpon>help_Tutor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Tutor.aspx.designer.cs">
+      <DependentUpon>help_Tutor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Psicopedagogo.aspx.cs">
+      <DependentUpon>help_Psicopedagogo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Psicopedagogo.aspx.designer.cs">
+      <DependentUpon>help_Psicopedagogo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Preceptor.aspx.cs">
+      <DependentUpon>help_Preceptor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Preceptor.aspx.designer.cs">
+      <DependentUpon>help_Preceptor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Docente.aspx.cs">
+      <DependentUpon>help_Docente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Docente.aspx.designer.cs">
+      <DependentUpon>help_Docente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Director.aspx.cs">
+      <DependentUpon>help_Director.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Manuales\help_Director.aspx.designer.cs">
+      <DependentUpon>help_Director.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Manuales\Help.Master.cs">
       <DependentUpon>Help.Master</DependentUpon>

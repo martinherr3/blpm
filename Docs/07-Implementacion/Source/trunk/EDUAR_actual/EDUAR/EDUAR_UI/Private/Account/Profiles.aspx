@@ -70,7 +70,7 @@
                             <asp:ImageButton ID="modificarPerfil" runat="server" CommandName="Editar" CommandArgument='<%# Bind("RoleId") %>'
                                 ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
                             <asp:ImageButton ID="eliminarPerfil" runat="server" CommandName="Eliminar" CommandArgument='<%# Bind("Nombre") %>'
-                                ToolTip="Eliminar" ImageUrl="~/Images/Grillas/action_delete.png" />
+                                ToolTip="Eliminar" ImageUrl="~/Images/Grillas/action_delete.png" Visible="false" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Perfil">
