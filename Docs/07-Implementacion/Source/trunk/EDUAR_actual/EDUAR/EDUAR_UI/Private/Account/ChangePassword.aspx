@@ -48,7 +48,7 @@
                         <asp:Label ID="CurrentPasswordLabel" runat="server" AssociatedControlID="CurrentPassword">Contraseña anterior:</asp:Label>
                         <asp:TextBox ID="CurrentPassword" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="CurrentPasswordRequired" runat="server" ControlToValidate="CurrentPassword"
-                            CssClass="failureNotification" ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña anterior es obligatoria."
+                            CssClass="failureNotification" ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña actual es obligatoria."
                             ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:RequiredFieldValidator>
                     </p>
                     <p class="ui-widget">
@@ -77,9 +77,8 @@
                                 <%--<asp:Button ID="CancelPushButton" runat="server" CausesValidation="False" CommandName="Cancel"
                                     OnClick="CancelPushButton_Click" Text="Cancelar" />--%>
                                 <asp:ImageButton ImageUrl="~/Images/botonSiguiente.png" ID="ChangePasswordPushButton"
-                                    runat="server" CommandName="ChangePassword" ToolTip="Cambiar contraseña" ValidationGroup="ChangeUserPasswordValidationGroup" />
-                            <%--</td>
-                            <td style="width: 20%">--%>
+                                    runat="server" CommandName="ChangePassword" ToolTip="Cambiar contraseña" ValidationGroup="ChangeUserPasswordValidationGroup"
+                                    OnClick="ChangePasswordPushButton_Click" />
                                 <%--<asp:Button ID="ChangePasswordPushButton" runat="server" CommandName="ChangePassword"
                                     Text="Cambiar contraseña" ValidationGroup="ChangeUserPasswordValidationGroup" />--%>
                                 <asp:ImageButton ImageUrl="~/Images/botonVolver.png" ID="CancelPushButton" CausesValidation="false"

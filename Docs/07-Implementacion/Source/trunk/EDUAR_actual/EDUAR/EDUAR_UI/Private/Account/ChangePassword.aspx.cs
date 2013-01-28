@@ -1,6 +1,8 @@
 ﻿using System;
 using EDUAR_UI.Shared;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_Entities.Security;
+using EDUAR_BusinessLogic.Security;
 
 namespace EDUAR_UI
 {
@@ -71,6 +73,31 @@ namespace EDUAR_UI
 			try
 			{
 				Response.Redirect("~/Private/Account/Welcome.aspx", false);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
+
+		protected void ChangePasswordPushButton_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+		{
+			try
+			{
+				//Response.Redirect("~/Private/Account/Welcome.aspx", false);
+				DTSeguridad objDTSeguridad = new DTSeguridad
+				{
+					Usuario =
+					{
+						Nombre = ObjSessionDataUI.ObjDTUsuario.Nombre,
+						Password = BLEncriptacion.Encrypt(ChangeUserPassword.CurrentPassword.Trim()),
+						PasswordNuevo = BLEncriptacion.Encrypt(ChangeUserPassword.NewPassword.Trim())
+					}
+				};
+
+				BLSeguridad objSeguridadBL = new BLSeguridad(objDTSeguridad);
+				objSeguridadBL.CambiarPassword();
+				Response.Redirect("~/Private/Account/ChangePasswordSuccess.aspx", false);
 			}
 			catch (Exception ex)
 			{

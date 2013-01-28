@@ -60,10 +60,10 @@ namespace EDUAR_UI
 					BLSeguridad objBLSeguridad = new BLSeguridad(propSeguridad);
 					if (Request.Params["const"] != null)
 					{
-						string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString().Replace(' ','+'));
+						string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString().Replace(' ', '+'));
 						ObjSessionDataUI.ObjDTUsuario.Nombre = user;
-                       // Provisoriamnente lo guardo en una variale de sesion userName porque el Page_Load de la Master me borra si HTTP.context es igual a null
-                        Session["userName"] = user;
+						// Provisoriamnente lo guardo en una variale de sesion userName porque el Page_Load de la Master me borra si HTTP.context es igual a null
+						Session["userName"] = user;
 						propSeguridad.Usuario.Nombre = user;
 						objBLSeguridad = new BLSeguridad(propSeguridad);
 						objBLSeguridad.GetUsuario();
@@ -190,7 +190,7 @@ namespace EDUAR_UI
 					Usuario =
 					{
 						Nombre = LoginUser.UserName.Trim(),
-						Password = LoginUser.Password.Trim()
+						Password = BLEncriptacion.Encrypt(LoginUser.Password.Trim())
 					}
 				};
 
