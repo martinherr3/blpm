@@ -64,13 +64,13 @@ namespace EDUAR_BusinessLogic.Security
 
 			foreach (string rolUsuario in arrRoles)
 			{
-                foreach (DTRol rol in Data.ListaRoles)
-                {
-                    if (rolUsuario == rol.Nombre || rolUsuario == rol.Nombre.ToLower())
-                    {
-                        Data.Usuario.ListaRoles.Add(rol);
-                    }
-                }
+				foreach (DTRol rol in Data.ListaRoles)
+				{
+					if (rolUsuario == rol.Nombre || rolUsuario == rol.Nombre.ToLower())
+					{
+						Data.Usuario.ListaRoles.Add(rol);
+					}
+				}
 			}
 		}
 
@@ -198,29 +198,33 @@ namespace EDUAR_BusinessLogic.Security
 				//DASeguridad dataAcces = new DASeguridad();
 				//Data.Usuario.UsuarioValido = dataAcces.Autenticar(Data.Usuario.Nombre, Data.Usuario.Password);
 
-
-				if (Data.Usuario.UsuarioValido)
-				{
-					MembershipUser usuario = Membership.GetUser(Data.Usuario.Nombre);
-
-					ObtenerRolesUsuario();
-					//ObtenerIntervalosActualizacionUsuario(Data.Usuario);
-					MembershipUser us = Membership.GetUser(Data.Usuario.Nombre);
-
-					if (us.CreationDate == us.LastPasswordChangedDate
-						 || us.GetPassword() == BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial))
-						Data.Usuario.EsUsuarioInicial = true;
-				}
-				else
+				if (!Data.Usuario.UsuarioValido)
 				{
 					MembershipUser usuario = Membership.GetUser(Data.Usuario.Nombre);
 					if (usuario != null && usuario.IsLockedOut)
-						throw new CustomizedException("El usuario se encuentra bloqueado.", null,
-														  enuExceptionType.SecurityException);
+					{
+						DateTime fechaActual = DateTime.Now;
+						if ((fechaActual.TimeOfDay.Add(usuario.LastLockoutDate.TimeOfDay)).Minutes > 10)
+						{
+							usuario.UnlockUser();
+							Data.Usuario.UsuarioValido = Membership.ValidateUser(Data.Usuario.Nombre, Data.Usuario.Password);
+						}
+						else
+							throw new CustomizedException("El usuario se encuentra bloqueado.", null,
+								enuExceptionType.SecurityException);
+					}
 					else
 						throw new CustomizedException("No se encuentra el usuario.", null,
-														  enuExceptionType.SecurityException);
+							enuExceptionType.SecurityException);
 				}
+
+				ObtenerRolesUsuario();
+				//ObtenerIntervalosActualizacionUsuario(Data.Usuario);
+				MembershipUser us = Membership.GetUser(Data.Usuario.Nombre);
+
+				if (us.CreationDate == us.LastPasswordChangedDate
+					 || us.GetPassword() == BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial))
+					Data.Usuario.EsUsuarioInicial = true;
 			}
 			catch (CustomizedException ex)
 			{ throw ex; }
@@ -235,16 +239,16 @@ namespace EDUAR_BusinessLogic.Security
 		/// Validars the respuesta.
 		/// </summary>
 		public void ValidarRespuesta()
-        {
+		{
 			try
 			{
-                DASeguridad dataAcces = new DASeguridad();
-                DTUsuario usuario = dataAcces.GetUsuarioByEmail(Data.Usuario.Email);
+				DASeguridad dataAcces = new DASeguridad();
+				DTUsuario usuario = dataAcces.GetUsuarioByEmail(Data.Usuario.Email);
 
-                if (!usuario.PaswordRespuesta.Equals(Data.Usuario.PaswordRespuesta))
-                {
-                    throw new MembershipPasswordException();
-                }
+				if (!usuario.PaswordRespuesta.Equals(Data.Usuario.PaswordRespuesta))
+				{
+					throw new MembershipPasswordException();
+				}
 
 			}
 			catch (MembershipPasswordException ex)
@@ -267,7 +271,9 @@ namespace EDUAR_BusinessLogic.Security
 			try
 			{
 				MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
-				user.ChangePassword(user.GetPassword(Data.Usuario.PaswordRespuesta), Data.Usuario.PasswordNuevo);
+				if (!user.ChangePassword(Data.Usuario.Password, Data.Usuario.PasswordNuevo))
+					throw new CustomizedException("La contraseña indicada no es correcta.", null,
+															  enuExceptionType.SecurityException);
 			}
 			catch (ArgumentException)
 			{
@@ -688,49 +694,49 @@ namespace EDUAR_BusinessLogic.Security
 			}
 		}
 
-        public List<DTRol> GetRolesByTipoPersona(int tipoPersona)
-        {
-            List<DTRol> retListRoles = new List<DTRol>();
-            List<String> roles = new List<String>();
+		public List<DTRol> GetRolesByTipoPersona(int tipoPersona)
+		{
+			List<DTRol> retListRoles = new List<DTRol>();
+			List<String> roles = new List<String>();
 
-            this.GetRoles();
+			this.GetRoles();
 
-            try
-            {
-                //DASeguridad dataAcces = new DASeguridad();
-                //D = dataAcces.GetRoles(Data);
-                DAPersona dataAccessPersona = new DAPersona();
-                roles = dataAccessPersona.GetRolesByTipoPersona(tipoPersona);
+			try
+			{
+				//DASeguridad dataAcces = new DASeguridad();
+				//D = dataAcces.GetRoles(Data);
+				DAPersona dataAccessPersona = new DAPersona();
+				roles = dataAccessPersona.GetRolesByTipoPersona(tipoPersona);
 
 
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetRoles", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetRoles", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
 
-            foreach (DTRol rol in Data.ListaRoles)
-            {
-                foreach (String rolUser in roles)
-                {
-                    if (rolUser.ToLower().Trim() == rol.NombreCorto.Trim() || rolUser.Trim() == rol.NombreCorto.Trim())
-                    {
-                        retListRoles.Add(rol);
-                    }
+			foreach (DTRol rol in Data.ListaRoles)
+			{
+				foreach (String rolUser in roles)
+				{
+					if (rolUser.ToLower().Trim() == rol.NombreCorto.Trim() || rolUser.Trim() == rol.NombreCorto.Trim())
+					{
+						retListRoles.Add(rol);
+					}
 
-                }
+				}
 
-            }
+			}
 
-            return (retListRoles);
+			return (retListRoles);
 
-        }
-        
+		}
+
 		#endregion
 	}
 }
