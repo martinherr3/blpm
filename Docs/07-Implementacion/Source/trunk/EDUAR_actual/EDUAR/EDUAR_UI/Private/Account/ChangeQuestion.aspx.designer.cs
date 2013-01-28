@@ -100,7 +100,16 @@ namespace EDUAR_UI {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnChangeQuestion;
+        protected global::System.Web.UI.WebControls.ImageButton btnChangeQuestion;
+        
+        /// <summary>
+        /// Control CancelPushButton.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton CancelPushButton;
         
         /// <summary>
         /// Propiedad Master.

@@ -136,6 +136,7 @@
     <Content Include="Images\botonRecibidos.png" />
     <Content Include="Images\botonReunion.png" />
     <Content Include="Images\botonSiguiente.png" />
+    <Content Include="Images\botonSiguiente_small.png" />
     <Content Include="Images\botonVolver.png" />
     <Content Include="Images\btnEncuesta.png" />
     <Content Include="Images\calendario.png" />
