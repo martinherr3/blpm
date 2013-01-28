@@ -73,13 +73,17 @@
                 <p class="submitButton">
                     <table width="100%" style="text-align: right">
                         <tr>
-                            <td style="width: 80%">
-                                <asp:Button ID="CancelPushButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                    OnClick="CancelPushButton_Click" Text="Cancelar" />
-                            </td>
-                            <td style="width: 20%">
-                                <asp:Button ID="ChangePasswordPushButton" runat="server" CommandName="ChangePassword"
-                                    Text="Cambiar contraseña" ValidationGroup="ChangeUserPasswordValidationGroup" />
+                            <td style="width: 100%">
+                                <%--<asp:Button ID="CancelPushButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                                    OnClick="CancelPushButton_Click" Text="Cancelar" />--%>
+                                <asp:ImageButton ImageUrl="~/Images/botonSiguiente.png" ID="ChangePasswordPushButton"
+                                    runat="server" CommandName="ChangePassword" ToolTip="Cambiar contraseña" ValidationGroup="ChangeUserPasswordValidationGroup" />
+                            <%--</td>
+                            <td style="width: 20%">--%>
+                                <%--<asp:Button ID="ChangePasswordPushButton" runat="server" CommandName="ChangePassword"
+                                    Text="Cambiar contraseña" ValidationGroup="ChangeUserPasswordValidationGroup" />--%>
+                                <asp:ImageButton ImageUrl="~/Images/botonVolver.png" ID="CancelPushButton" CausesValidation="false"
+                                    runat="server" CommandName="Cancel" ToolTip="Volver" OnClick="CancelPushButton_Click" />
                             </td>
                         </tr>
                     </table>
