@@ -1,5 +1,6 @@
 using System;
 using EDUAR_Entities.Shared;
+using System.Collections.Generic;
 
 namespace EDUAR_Entities.DEC
 {
@@ -12,5 +13,11 @@ namespace EDUAR_Entities.DEC
 		public float pesoMinimo { get; set; }
 		public float pesoMaximo { get; set; }
 		public bool maximiza { get; set; }
+		public List<ConfigFuncionPreferencia> listaConfig { get; set; }
+
+		public Indicador()
+		{
+			listaConfig = new List<ConfigFuncionPreferencia>();
+		}
 	}
 }
