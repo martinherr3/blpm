@@ -186,7 +186,7 @@ namespace EDUAR_UI
                 {
                     propSeguridad.Usuario.PaswordPregunta = ObjSessionDataUI.ObjDTUsuario.PaswordPregunta;
                     propSeguridad.Usuario.PaswordRespuesta = ObjSessionDataUI.ObjDTUsuario.PaswordRespuesta;
-                    propSeguridad.Usuario.PasswordNuevo = txtPassword.Text.Trim();
+					propSeguridad.Usuario.PasswordNuevo = BLEncriptacion.Encrypt(txtPassword.Text.Trim());
                     // Ya que el nombre de usuario no lo tengo guardado (porque en el Page_Load de la Master me lo borro porque el 
                     // HTTP.context era igual a null), provisoriamente lo guarda en una variable de sesion, para tenerlo disponible aqui
                     propSeguridad.Usuario.Nombre = (Session["userName"]).ToString();

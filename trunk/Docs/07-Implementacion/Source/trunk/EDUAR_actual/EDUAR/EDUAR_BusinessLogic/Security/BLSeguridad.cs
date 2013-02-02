@@ -201,21 +201,27 @@ namespace EDUAR_BusinessLogic.Security
 				if (!Data.Usuario.UsuarioValido)
 				{
 					MembershipUser usuario = Membership.GetUser(Data.Usuario.Nombre);
-					if (usuario != null && usuario.IsLockedOut)
+					if (usuario != null)
 					{
-						DateTime fechaActual = DateTime.Now;
-						if ((fechaActual.TimeOfDay.Add(usuario.LastLockoutDate.TimeOfDay)).Minutes > 10)
+						if (usuario.IsLockedOut)
 						{
-							usuario.UnlockUser();
-							Data.Usuario.UsuarioValido = Membership.ValidateUser(Data.Usuario.Nombre, Data.Usuario.Password);
+							DateTime fechaActual = DateTime.Now;
+							if ((fechaActual.TimeOfDay.Add(usuario.LastLockoutDate.TimeOfDay)).Minutes > 10)
+							{
+								usuario.UnlockUser();
+								Data.Usuario.UsuarioValido = Membership.ValidateUser(Data.Usuario.Nombre, Data.Usuario.Password);
+							}
+							else
+								throw new CustomizedException("El usuario se encuentra bloqueado.", null,
+									enuExceptionType.SecurityException);
 						}
-						else
-							throw new CustomizedException("El usuario se encuentra bloqueado.", null,
+						if (usuario.IsApproved)
+							throw new CustomizedException("El usuario y/o la contraseña ingresada es incorrecto.", null,
 								enuExceptionType.SecurityException);
 					}
 					else
 						throw new CustomizedException("No se encuentra el usuario.", null,
-							enuExceptionType.SecurityException);
+									enuExceptionType.SecurityException);
 				}
 
 				ObtenerRolesUsuario();
@@ -271,7 +277,8 @@ namespace EDUAR_BusinessLogic.Security
 			try
 			{
 				MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
-				if (!user.ChangePassword(Data.Usuario.Password, Data.Usuario.PasswordNuevo))
+
+				if (!user.ChangePassword(user.GetPassword(), Data.Usuario.PasswordNuevo))
 					throw new CustomizedException("La contraseña indicada no es correcta.", null,
 															  enuExceptionType.SecurityException);
 			}

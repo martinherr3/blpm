@@ -9,7 +9,7 @@ namespace EDUAR_Utility.Constantes
         public const string MensajeLoginFallido = "El usuario o contraseña ingresada no son validos.";
         public const string MensajeLoginNoExisteUsuario = "El Usuario no existe.";
         public const string MensajeLoginUsuarioNoActivo = "El Usuario no se encuentra activo. Comunicarse con un Administrador para que active el usuario.";
-        public const string MensajeNuevoPassword = "El nuevo password ha sido creado con éxito.";
+        public const string MensajeNuevoPassword = "La nueva contraseña ha sido creada con éxito.";
         public const string MensajeErrorPreguntaSeguridad = "Debe ingresar la respuesta a la pregunta de seguridad.";
         public const string MensajeUsuarioExiste = "Ya posee un usuario para el sistema, <br />será redirigido a la página de recuperación de contraseña.";
         #endregion

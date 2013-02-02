@@ -59,8 +59,9 @@
                 <tr>
                     <td style="width: 80%; vertical-align: text-top">
                         <h2>
-                            Iniciar Sesión<hr />
+                            Iniciar Sesión
                         </h2>
+                        <hr />
                     </td>
                     <td style="width: 20%; text-align: right" rowspan="2">
                         <asp:Image ID="Image1" ImageUrl="~/Images/web/login.png" runat="server" AlternateText="Iniciar Sesión"
@@ -71,7 +72,8 @@
                     <td style="width: 80%">
                         <p class="ui-widget">
                             Especifique su nombre de usuario y contraseña y a continuación presione el botón
-                            <asp:Image ImageUrl="~/Images/botonSiguiente_small.png" runat="server" ToolTip="Iniciar Sesión" AlternateText="Iniciar Sesión" Style="vertical-align: middle"/>
+                            <asp:Image ImageUrl="~/Images/botonSiguiente_small.png" runat="server" ToolTip="Iniciar Sesión"
+                                AlternateText="Iniciar Sesión" Style="vertical-align: middle" />
                             para iniciar su sesión.
                             <br />
                             <br />

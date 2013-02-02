@@ -74,7 +74,7 @@
                     </table>
                     <table width="100%" cellpadding="1" cellspacing="5" border="0">
                         <tr>
-                            <td>
+                            <td class="TD160px">
                                 <asp:Literal Text="Pregunta Secreta" runat="server" />
                             </td>
                             <td>
@@ -82,13 +82,20 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="TD160px">
                                 <asp:Literal Text="Respuesta" runat="server" />
                             </td>
                             <td>
-                                <asp:TextBox ID="txtRespuesta" runat="server" ViewStateMode="Disabled" /><asp:ImageButton
-                                    ID="btnRecoverPassword" ImageUrl="~/Images/botonSiguiente.png" runat="server"
-                                    ToolTip="Siguiente" OnClick="btnRecoverPassword_Click" ImageAlign="AbsMiddle" />
+                                <asp:TextBox ID="txtRespuesta" runat="server" ViewStateMode="Disabled" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td align="left">
+                                <asp:ImageButton ID="btnRecoverPassword" ImageUrl="~/Images/botonSiguiente.png" runat="server"
+                                    ToolTip="Siguiente" OnClick="btnRecoverPassword_Click" ImageAlign="AbsMiddle"
+                                    Style="margin-left: 150px" />
                             </td>
                         </tr>
                     </table>
@@ -119,25 +126,50 @@
                             </td>
                         </tr>
                     </table>
+                    <asp:ValidationSummary ID="ChangeUserPasswordValidationSummary" runat="server" CssClass="failureNotification"
+                        ValidationGroup="ChangeUserPasswordValidationGroup" />
                     <table width="100%" cellpadding="1" cellspacing="5" border="0">
                         <tr>
-                            <td>
+                            <td class="TD160px">
                                 <asp:Literal Text="Nueva Contraseña" runat="server" />
                             </td>
                             <td>
-                                <asp:TextBox runat="server" ID="txtPassword" TextMode="Password" /><asp:CompareValidator
-                                    ID="CompareValidator1" runat="server" ErrorMessage="Las contraseñas no son iguales"
-                                    ControlToCompare="txtPassword" ControlToValidate="txtPasswordConfirm"></asp:CompareValidator>
+                                <asp:TextBox runat="server" ID="txtPassword" TextMode="Password" />
+                                <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtPassword"
+                                    ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña es obligatoria."
+                                    ValidationGroup="ChangeUserPasswordValidationGroup" ForeColor="Red">*</asp:RequiredFieldValidator>
+                                <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Las contraseñas no son iguales"
+                                    ControlToCompare="txtPassword" ControlToValidate="txtPasswordConfirm" ForeColor="Red"
+                                    ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:CompareValidator>--%>
+                                <asp:RegularExpressionValidator ErrorMessage="La Contraseña debe tener al menos 5 caracteres, de los cuales uno debe ser numérico."
+                                    ControlToValidate="txtPassword" runat="server" Display="Dynamic" ForeColor="Red"
+                                    ValidationExpression="^[a-zA-Z0-9,'+-_¿!¡=;:\.\?]\w{5,20}$" ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:RegularExpressionValidator>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="TD160px">
+                                <asp:Literal Text="Repita la Contraseña" runat="server" />
+                            </td>
+                            <td>
+                                <asp:TextBox runat="server" ID="txtPasswordConfirm" TextMode="Password" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtPasswordConfirm"
+                                    ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña es obligatoria." ForeColor="Red"
+                                    ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:RequiredFieldValidator>
+                                    <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Las contraseñas no son iguales"
+                                    ControlToCompare="txtPasswordConfirm" ControlToValidate="txtPassword" ForeColor="Red"
+                                    ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:CompareValidator>
+                                <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator1" ErrorMessage="La Contraseña debe tener al menos 5 caracteres, de los cuales uno debe ser numérico."
+                                    ControlToValidate="txtPasswordConfirm" runat="server" Display="Dynamic" ForeColor="Red"
+                                    ValidationExpression="^[a-zA-Z0-9,'+-_¿!¡=;:\.\?]\w{5,20}$" />--%>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Literal Text="Repita la Contraseña" runat="server" />
                             </td>
-                            <td>
-                                <asp:TextBox runat="server" ID="txtPasswordConfirm" TextMode="Password" />&nbsp;<asp:ImageButton
-                                    ID="btnConfirmarPassword" ImageUrl="~/Images/botonSiguiente.png" runat="server"
-                                    ToolTip="Siguiente" OnClick="btnConfirmarPassword_Click" ImageAlign="AbsMiddle" />
+                            <td align="left">
+                                <asp:ImageButton ID="btnConfirmarPassword" ImageUrl="~/Images/botonSiguiente.png"
+                                    runat="server" ToolTip="Siguiente" OnClick="btnConfirmarPassword_Click" ImageAlign="AbsMiddle"
+                                    ValidationGroup="ChangeUserPasswordValidationGroup" Style="margin-left: 150px" />
                             </td>
                         </tr>
                     </table>

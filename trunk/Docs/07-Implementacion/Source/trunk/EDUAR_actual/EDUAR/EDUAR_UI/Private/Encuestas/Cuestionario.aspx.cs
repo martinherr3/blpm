@@ -16,7 +16,6 @@ namespace EDUAR_UI
 		#region --[Atributos]--
 		BLEncuesta objBLEncuesta;
 		BLPregunta objBLPregunta;
-		BLRespuesta objBLRespuesta;
 		BLEncuestaDisponible objBLEncuestaDisponible;
 		#endregion
 
