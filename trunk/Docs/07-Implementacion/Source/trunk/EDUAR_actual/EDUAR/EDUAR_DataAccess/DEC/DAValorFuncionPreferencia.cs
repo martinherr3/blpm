@@ -5,6 +5,7 @@ using EDUAR_DataAccess.Shared;
 using EDUAR_Entities;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using System.Collections.Generic;
 
 namespace EDUAR_DataAccess.Common
 {
@@ -32,54 +33,50 @@ namespace EDUAR_DataAccess.Common
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		// public List<ValorFuncionPreferencia> GetValorFuncionPreferencias(ValorFuncionPreferencia entidad)
-		// {
-		// try
-		// {
-		// Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ValorFuncionPreferencias_Select");
-		// if (entidad != null)
-		// {
-		// if (entidad.idValorFuncionPreferencia > 0)
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idValorFuncionPreferencia", DbType.Int32, entidad.idValorFuncionPreferencia);
-		// if (entidad.pagina.idPagina > 0)
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
-		// if (!string.IsNullOrEmpty(entidad.pagina.titulo))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
-		// if (ValidarFechaSQL(entidad.fecha))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
-		// if (ValidarFechaSQL(entidad.hora))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
-		// }
-		// IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+		public List<ValorFuncionPreferencia> GetValorFuncionPreferencias(ValorFuncionPreferencia entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ValorFuncionPreferencias_Select");
+				if (entidad != null)
+				{
+					if (entidad.idValorFuncionPreferencia > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idValorFuncionPreferencia", DbType.Int32, entidad.idValorFuncionPreferencia);
+					//if (entidad.pagina.idPagina > 0)
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
+					//if (!string.IsNullOrEmpty(entidad.pagina.titulo))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
+					//if (ValidarFechaSQL(entidad.fecha))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
+					//if (ValidarFechaSQL(entidad.hora))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-		// List<ValorFuncionPreferencia> listaValorFuncionPreferencias = new List<ValorFuncionPreferencia>();
-		// ValorFuncionPreferencia objValorFuncionPreferencia;
-		// while (reader.Read())
-		// {
-		// objValorFuncionPreferencia = new ValorFuncionPreferencia();
+				List<ValorFuncionPreferencia> listaValorFuncionPreferencias = new List<ValorFuncionPreferencia>();
+				ValorFuncionPreferencia objValorFuncionPreferencia;
+				while (reader.Read())
+				{
+					objValorFuncionPreferencia = new ValorFuncionPreferencia();
 
-		// objValorFuncionPreferencia.idValorFuncionPreferencia = Convert.ToInt32(reader["idValorFuncionPreferencia"]);
-		// objValorFuncionPreferencia.pagina.idPagina = Convert.ToInt32(reader["idPagina"]);
-		// objValorFuncionPreferencia.pagina.titulo = reader["titulo"].ToString();
-		// objValorFuncionPreferencia.pagina.url = reader["url"].ToString();
-		// objValorFuncionPreferencia.fecha = Convert.ToDateTime(reader["fecha"].ToString());
-		// objValorFuncionPreferencia.hora = Convert.ToDateTime(reader["hora"].ToString());
+					objValorFuncionPreferencia.idValorFuncionPreferencia = Convert.ToInt32(reader["idValorFuncionPreferencia"]);
+					objValorFuncionPreferencia.nombre = reader["nombre"].ToString();
 
-		// listaValorFuncionPreferencias.Add(objValorFuncionPreferencia);
-		// }
-		// return listaValorFuncionPreferencias;
-		// }
-		// catch (SqlException ex)
-		// {
-		// throw new CustomizedException(string.Format("Fallo en {0} - GetValorFuncionPreferencias()", ClassName),
-		// ex, enuExceptionType.SqlException);
-		// }
-		// catch (Exception ex)
-		// {
-		// throw new CustomizedException(string.Format("Fallo en {0} - GetValorFuncionPreferencias()", ClassName),
-		// ex, enuExceptionType.DataAccesException);
-		// }
-		// }
+					listaValorFuncionPreferencias.Add(objValorFuncionPreferencia);
+				}
+				return listaValorFuncionPreferencias;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetValorFuncionPreferencias()", ClassName),
+				ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetValorFuncionPreferencias()", ClassName),
+				ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 
 		#region --[Implementación métodos heredados]--

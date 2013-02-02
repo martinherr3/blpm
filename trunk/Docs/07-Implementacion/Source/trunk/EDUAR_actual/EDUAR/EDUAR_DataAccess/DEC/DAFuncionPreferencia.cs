@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using EDUAR_DataAccess.Shared;
@@ -32,54 +33,51 @@ namespace EDUAR_DataAccess.Common
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		// public List<FuncionPreferencia> GetFuncionPreferencias(FuncionPreferencia entidad)
-		// {
-		// try
-		// {
-		// Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("FuncionPreferencias_Select");
-		// if (entidad != null)
-		// {
-		// if (entidad.idFuncionPreferencia > 0)
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idFuncionPreferencia", DbType.Int32, entidad.idFuncionPreferencia);
-		// if (entidad.pagina.idPagina > 0)
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
-		// if (!string.IsNullOrEmpty(entidad.pagina.titulo))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
-		// if (ValidarFechaSQL(entidad.fecha))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
-		// if (ValidarFechaSQL(entidad.hora))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
-		// }
-		// IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+		public List<FuncionPreferencia> GetFuncionPreferencias(FuncionPreferencia entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("DEC_FuncionPreferencia_Select");
+				if (entidad != null)
+				{
+					if (entidad.idFuncionPreferencia > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idFuncionPreferencia", DbType.Int32, entidad.idFuncionPreferencia);
+					//if (entidad.pagina.idPagina > 0)
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
+					//if (!string.IsNullOrEmpty(entidad.pagina.titulo))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
+					//if (ValidarFechaSQL(entidad.fecha))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
+					//if (ValidarFechaSQL(entidad.hora))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-		// List<FuncionPreferencia> listaFuncionPreferencias = new List<FuncionPreferencia>();
-		// FuncionPreferencia objFuncionPreferencia;
-		// while (reader.Read())
-		// {
-		// objFuncionPreferencia = new FuncionPreferencia();
+				List<FuncionPreferencia> listaFuncionPreferencias = new List<FuncionPreferencia>();
+				FuncionPreferencia objFuncionPreferencia;
+				while (reader.Read())
+				{
+					objFuncionPreferencia = new FuncionPreferencia();
 
-		// objFuncionPreferencia.idFuncionPreferencia = Convert.ToInt32(reader["idFuncionPreferencia"]);
-		// objFuncionPreferencia.pagina.idPagina = Convert.ToInt32(reader["idPagina"]);
-		// objFuncionPreferencia.pagina.titulo = reader["titulo"].ToString();
-		// objFuncionPreferencia.pagina.url = reader["url"].ToString();
-		// objFuncionPreferencia.fecha = Convert.ToDateTime(reader["fecha"].ToString());
-		// objFuncionPreferencia.hora = Convert.ToDateTime(reader["hora"].ToString());
+					objFuncionPreferencia.idFuncionPreferencia = Convert.ToInt32(reader["idFuncionPreferencia"]);
+					objFuncionPreferencia.nombre = reader["nombre"].ToString();
+					objFuncionPreferencia.ayuda = reader["ayuda"].ToString();
 
-		// listaFuncionPreferencias.Add(objFuncionPreferencia);
-		// }
-		// return listaFuncionPreferencias;
-		// }
-		// catch (SqlException ex)
-		// {
-		// throw new CustomizedException(string.Format("Fallo en {0} - GetFuncionPreferencias()", ClassName),
-		// ex, enuExceptionType.SqlException);
-		// }
-		// catch (Exception ex)
-		// {
-		// throw new CustomizedException(string.Format("Fallo en {0} - GetFuncionPreferencias()", ClassName),
-		// ex, enuExceptionType.DataAccesException);
-		// }
-		// }
+					listaFuncionPreferencias.Add(objFuncionPreferencia);
+				}
+				return listaFuncionPreferencias;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetFuncionPreferencias()", ClassName),
+				ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetFuncionPreferencias()", ClassName),
+				ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 
 		#region --[Implementación métodos heredados]--

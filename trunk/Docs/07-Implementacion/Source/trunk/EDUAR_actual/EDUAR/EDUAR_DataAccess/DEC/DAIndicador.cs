@@ -5,6 +5,7 @@ using EDUAR_DataAccess.Shared;
 using EDUAR_Entities.DEC;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
+using System.Collections.Generic;
 
 namespace EDUAR_DataAccess.Common
 {
@@ -32,54 +33,55 @@ namespace EDUAR_DataAccess.Common
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		// public List<Indicador> GetIndicadors(Indicador entidad)
-		// {
-		// try
-		// {
-		// Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Indicadors_Select");
-		// if (entidad != null)
-		// {
-		// if (entidad.idIndicador > 0)
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idIndicador", DbType.Int32, entidad.idIndicador);
-		// if (entidad.pagina.idPagina > 0)
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
-		// if (!string.IsNullOrEmpty(entidad.pagina.titulo))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
-		// if (ValidarFechaSQL(entidad.fecha))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
-		// if (ValidarFechaSQL(entidad.hora))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
-		// }
-		// IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+		public List<Indicador> GetIndicadores(Indicador entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("DEC_Indicador_Select");
+				if (entidad != null)
+				{
+					if (entidad.idIndicador > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idIndicador", DbType.Int32, entidad.idIndicador);
+					//if (entidad.pagina.idPagina > 0)
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
+					//if (!string.IsNullOrEmpty(entidad.pagina.titulo))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
+					//if (ValidarFechaSQL(entidad.fecha))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
+					//if (ValidarFechaSQL(entidad.hora))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-		// List<Indicador> listaIndicadors = new List<Indicador>();
-		// Indicador objIndicador;
-		// while (reader.Read())
-		// {
-		// objIndicador = new Indicador();
+				List<Indicador> listaIndicadors = new List<Indicador>();
+				Indicador objIndicador;
+				while (reader.Read())
+				{
+					objIndicador = new Indicador();
 
-		// objIndicador.idIndicador = Convert.ToInt32(reader["idIndicador"]);
-		// objIndicador.pagina.idPagina = Convert.ToInt32(reader["idPagina"]);
-		// objIndicador.pagina.titulo = reader["titulo"].ToString();
-		// objIndicador.pagina.url = reader["url"].ToString();
-		// objIndicador.fecha = Convert.ToDateTime(reader["fecha"].ToString());
-		// objIndicador.hora = Convert.ToDateTime(reader["hora"].ToString());
+					objIndicador.idIndicador = Convert.ToInt32(reader["idIndicador"]);
+					objIndicador.nombre = reader["nombre"].ToString();
+					objIndicador.pesoDefault =  (float)Convert.ToDecimal(reader["pesoDefault"]);
+					objIndicador.escala = reader["url"].ToString();
+					objIndicador.pesoMinimo = (float)Convert.ToDecimal(reader["fecha"].ToString());
+					objIndicador.pesoMaximo = (float)Convert.ToDecimal(reader["hora"].ToString());
+					objIndicador.maximiza = Convert.ToBoolean(reader["maximiza"].ToString());
 
-		// listaIndicadors.Add(objIndicador);
-		// }
-		// return listaIndicadors;
-		// }
-		// catch (SqlException ex)
-		// {
-		// throw new CustomizedException(string.Format("Fallo en {0} - GetIndicadors()", ClassName),
-		// ex, enuExceptionType.SqlException);
-		// }
-		// catch (Exception ex)
-		// {
-		// throw new CustomizedException(string.Format("Fallo en {0} - GetIndicadors()", ClassName),
-		// ex, enuExceptionType.DataAccesException);
-		// }
-		// }
+					listaIndicadors.Add(objIndicador);
+				}
+				return listaIndicadors;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetIndicadors()", ClassName),
+				ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetIndicadors()", ClassName),
+				ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 
 		#region --[Implementación métodos heredados]--
