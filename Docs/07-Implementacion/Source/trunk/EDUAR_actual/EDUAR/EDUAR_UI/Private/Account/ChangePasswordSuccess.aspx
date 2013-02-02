@@ -26,6 +26,6 @@
         </tr>
     </table>
     <p class="ui-widget">
-        La contraseña se ha cambiado correctamente.
+        La contraseña ha sido actualizada correctamente.
     </p>
 </asp:Content>
