@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DEC\ConfigFuncionPreferencia.cs" />
+    <Compile Include="DEC\FuncionPreferencia.cs" />
+    <Compile Include="DEC\Indicador.cs" />
+    <Compile Include="DEC\ValorFuncionPreferencia.cs" />
     <Compile Include="Entities\Package Administracion\Pagina.cs" />
     <Compile Include="Entities\Package Agenda\AgendaActividades.cs" />
     <Compile Include="Entities\Package Agenda\DetalleRegistroClases.cs" />

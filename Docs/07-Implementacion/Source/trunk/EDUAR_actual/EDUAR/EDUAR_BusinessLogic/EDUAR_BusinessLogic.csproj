@@ -110,6 +110,10 @@
     <Compile Include="Common\BLDetalleRegistroClases.cs" />
     <Compile Include="Common\BLRegistroClases.cs" />
     <Compile Include="Common\BLEstadoNovedad.cs" />
+    <Compile Include="DEC\BLConfigFuncionPreferencia.cs" />
+    <Compile Include="DEC\BLFuncionPreferencia.cs" />
+    <Compile Include="DEC\BLIndicador.cs" />
+    <Compile Include="DEC\BLValorFuncionPreferencia.cs" />
     <Compile Include="Encuestas\BLAmbitoEncuesta.cs" />
     <Compile Include="Encuestas\BLCategoriaPregunta.cs" />
     <Compile Include="Encuestas\BLEncuesta.cs" />

@@ -117,6 +117,10 @@
     <Compile Include="Common\DAReunion.cs" />
     <Compile Include="Common\DATipoDocumento.cs" />
     <Compile Include="Common\DATipoEventoInstitucional.cs" />
+    <Compile Include="DEC\DAConfigFuncionPreferencia.cs" />
+    <Compile Include="DEC\DAFuncionPreferencia.cs" />
+    <Compile Include="DEC\DAIndicador.cs" />
+    <Compile Include="DEC\DAValorFuncionPreferencia.cs" />
     <Compile Include="Encuestas\DAEncuestaDisponible.cs" />
     <Compile Include="Encuestas\DARespuesta.cs" />
     <Compile Include="Encuestas\DAAmbitoEncuesta.cs" />
