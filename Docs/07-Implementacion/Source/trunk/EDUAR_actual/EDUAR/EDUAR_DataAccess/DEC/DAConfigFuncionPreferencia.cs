@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using EDUAR_DataAccess.Shared;
@@ -27,59 +28,57 @@ namespace EDUAR_DataAccess.Common
 		#endregion
 
 		#region --[Métodos Públicos]--
-		/// <summary>
-		/// Gets the ConfigFuncionPreferencias.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		/// <returns></returns>
-		// public List<ConfigFuncionPreferencia> GetConfigFuncionPreferencias(ConfigFuncionPreferencia entidad)
-		// {
-		// try
-		// {
-		// Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ConfigFuncionPreferencias_Select");
-		// if (entidad != null)
-		// {
-		// if (entidad.idConfigFuncionPreferencia > 0)
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idConfigFuncionPreferencia", DbType.Int32, entidad.idConfigFuncionPreferencia);
-		// if (entidad.pagina.idPagina > 0)
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
-		// if (!string.IsNullOrEmpty(entidad.pagina.titulo))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
-		// if (ValidarFechaSQL(entidad.fecha))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
-		// if (ValidarFechaSQL(entidad.hora))
-		// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
-		// }
-		// IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+		///<summary>
+		///Gets the ConfigFuncionPreferencias.
+		///</summary>
+		///<param name="entidad">The entidad.</param>
+		///<returns></returns>
+		public List<ConfigFuncionPreferencia> GetConfigFuncionPreferencias(ConfigFuncionPreferencia entidad)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("DEC_ConfigFuncionPreferencia_Select");
+				if (entidad != null)
+				{
+					if (entidad.idFuncionPreferencia > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idFuncionPreferencia", DbType.Int32, entidad.idFuncionPreferencia);
+					//if (entidad.pagina.idPagina > 0)
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
+					//if (!string.IsNullOrEmpty(entidad.pagina.titulo))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
+					//if (ValidarFechaSQL(entidad.fecha))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
+					//if (ValidarFechaSQL(entidad.hora))
+					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
+				}
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-		// List<ConfigFuncionPreferencia> listaConfigFuncionPreferencias = new List<ConfigFuncionPreferencia>();
-		// ConfigFuncionPreferencia objConfigFuncionPreferencia;
-		// while (reader.Read())
-		// {
-		// objConfigFuncionPreferencia = new ConfigFuncionPreferencia();
+				List<ConfigFuncionPreferencia> listaConfigFuncionPreferencias = new List<ConfigFuncionPreferencia>();
+				ConfigFuncionPreferencia objConfigFuncionPreferencia;
+				while (reader.Read())
+				{
+					objConfigFuncionPreferencia = new ConfigFuncionPreferencia();
 
-		// objConfigFuncionPreferencia.idConfigFuncionPreferencia = Convert.ToInt32(reader["idConfigFuncionPreferencia"]);
-		// objConfigFuncionPreferencia.pagina.idPagina = Convert.ToInt32(reader["idPagina"]);
-		// objConfigFuncionPreferencia.pagina.titulo = reader["titulo"].ToString();
-		// objConfigFuncionPreferencia.pagina.url = reader["url"].ToString();
-		// objConfigFuncionPreferencia.fecha = Convert.ToDateTime(reader["fecha"].ToString());
-		// objConfigFuncionPreferencia.hora = Convert.ToDateTime(reader["hora"].ToString());
+					objConfigFuncionPreferencia.idConfigFuncionPreferencia = Convert.ToInt32(reader["idConfigFuncionPreferencia"]);
+					objConfigFuncionPreferencia.idFuncionPreferencia = Convert.ToInt32(reader["idFuncionPreferencia"]);
+					objConfigFuncionPreferencia.idValorFuncionPreferencia = Convert.ToInt32(reader["idValorFuncionPreferencia"]);
+					objConfigFuncionPreferencia.valorDefault = Convert.ToInt32(reader["valorDefault"]);
 
-		// listaConfigFuncionPreferencias.Add(objConfigFuncionPreferencia);
-		// }
-		// return listaConfigFuncionPreferencias;
-		// }
-		// catch (SqlException ex)
-		// {
-		// throw new CustomizedException(string.Format("Fallo en {0} - GetConfigFuncionPreferencias()", ClassName),
-		// ex, enuExceptionType.SqlException);
-		// }
-		// catch (Exception ex)
-		// {
-		// throw new CustomizedException(string.Format("Fallo en {0} - GetConfigFuncionPreferencias()", ClassName),
-		// ex, enuExceptionType.DataAccesException);
-		// }
-		// }
+					listaConfigFuncionPreferencias.Add(objConfigFuncionPreferencia);
+				}
+				return listaConfigFuncionPreferencias;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetConfigFuncionPreferencias()", ClassName),
+				ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetConfigFuncionPreferencias()", ClassName),
+				ex, enuExceptionType.DataAccesException);
+			}
+		}
 		#endregion
 
 		#region --[Implementación métodos heredados]--

@@ -162,22 +162,27 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-		//public List<ValorFuncionPreferencia> GetValorFuncionPreferencias(ValorFuncionPreferencia entidad)
-		//{
-		//    try
-		//    {
-		//        return DataAcces.GetValorFuncionPreferencias(entidad);
-		//    }
-		//    catch (CustomizedException ex)
-		//    {
-		//        throw ex;
-		//    }
-		//    catch (Exception ex)
-		//    {
-		//        throw new CustomizedException(string.Format("Fallo en {0} - GetValorFuncionPreferencias", ClassName), ex,
-		//                                      enuExceptionType.BusinessLogicException);
-		//    }
-		//}
+		/// <summary>
+		/// Gets the valor funcion preferencias.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<ValorFuncionPreferencia> GetValorFuncionPreferencias(ValorFuncionPreferencia entidad)
+		{
+			try
+			{
+				return DataAcces.GetValorFuncionPreferencias(entidad);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetValorFuncionPreferencias", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
         #endregion
     }
 }
