@@ -231,7 +231,7 @@ namespace EDUAR_UI
 		private void CargarIndicadores()
 		{
 			Indicador indi = null;
-			BLIndicador objBLIndicador = new BLIndicador();
+			EDUAR_BusinessLogic.Reports.BLIndicador objBLIndicador = new EDUAR_BusinessLogic.Reports.BLIndicador();
 			List<EDUAR_Entities.Reports.Indicador> listaIndicadores = objBLIndicador.GetIndicadores(null);
 
 			for (int i = 1; i <= listaIndicadores.Count; i++)
