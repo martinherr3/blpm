@@ -480,9 +480,18 @@ namespace EDUAR_UI
         private void CargarPresentacion()
         {
             CargarComboCursos();
+			CargarIndicadores();
             if (!User.IsInRole(enumRoles.Administrador.ToString()))
                 btnExcel.Visible = false;
         }
+
+		private void CargarIndicadores()
+		{
+			EDUAR_BusinessLogic.Common.BLIndicador objBLIndicador = new EDUAR_BusinessLogic.Common.BLIndicador();
+			List<EDUAR_Entities.DEC.Indicador> listaIndicadores = objBLIndicador.GetIndicadores(null);
+
+			
+		}
 
         /// <summary>
         /// Cargars the combo cursos.

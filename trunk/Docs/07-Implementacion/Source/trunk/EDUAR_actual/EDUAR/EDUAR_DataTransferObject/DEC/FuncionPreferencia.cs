@@ -3,6 +3,7 @@ using EDUAR_Entities.Shared;
 
 namespace EDUAR_Entities
 {
+	[Serializable]
 	public class FuncionPreferencia : DTBase
 	{
 		public int idFuncionPreferencia { get; set; }

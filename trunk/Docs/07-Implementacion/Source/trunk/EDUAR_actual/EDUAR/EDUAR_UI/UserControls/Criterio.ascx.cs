@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_UI.Utilidades;
+using EDUAR_BusinessLogic.Common;
+using EDUAR_Entities;
 
 namespace EDUAR_UI.UserControls
 {
@@ -18,6 +20,24 @@ namespace EDUAR_UI.UserControls
 		#endregion
 
 		#region --[Propiedades]--
+		/// <summary>
+		/// Gets or sets the indicador.
+		/// </summary>
+		/// <value>
+		/// The indicador.
+		/// </value>
+		private EDUAR_Entities.DEC.Indicador indicador
+		{
+			get
+			{
+				return (EDUAR_Entities.DEC.Indicador)ViewState[this.UniqueID + this.nombre];
+			}
+			set
+			{
+				ViewState[this.UniqueID + this.nombre] = value;
+			}
+		}
+
 		/// <summary>
 		/// Gets or sets the limite indiferencia.
 		/// </summary>
@@ -94,8 +114,8 @@ namespace EDUAR_UI.UserControls
 			}
 			set
 			{
-				pesoCriterio = value;
-				txtCriterio.Text = pesoCriterio.ToString();
+				//pesoCriterio = value;
+				txtCriterio.Text = value.ToString();
 			}
 		}
 
@@ -178,8 +198,23 @@ namespace EDUAR_UI.UserControls
 		#region --[Eventos]--
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			//if (!Page.IsPostBack)
-			//    pseudoCriterio.SelectedValue = "1";
+			if (!Page.IsPostBack)
+			{
+				indicador = new EDUAR_Entities.DEC.Indicador();
+				indicador.nombre = this.nombre;
+
+				BLIndicador objBLIndicador = new BLIndicador();
+				indicador = objBLIndicador.GetIndicador(indicador);
+
+				this.esMaximzante = indicador.maximiza;
+				this.pesoCriterio = indicador.pesoDefault;
+
+				valCriterioMax.ValueToCompare = indicador.pesoMaximo.ToString();
+				valCriterioMax.ErrorMessage = "El valor MÁXIMO admitido es " + indicador.pesoMaximo.ToString();
+
+				valCriterioMin.ValueToCompare = indicador.pesoMinimo.ToString();
+				valCriterioMin.ErrorMessage = "El valor MÍNIMO admitido es " + indicador.pesoMinimo.ToString();
+			}
 		}
 
 		/// <summary>
@@ -195,26 +230,37 @@ namespace EDUAR_UI.UserControls
 				bool verLimiteIndiferencia = false;
 				bool verLimitePreferencia = false;
 				bool verLimiteSigma = false;
+				string sigma = string.Empty, limiteIndiferencia = string.Empty, limitePreferencia = string.Empty;
+
+				List<ConfigFuncionPreferencia> config = indicador.listaConfig.FindAll(p => p.idFuncionPreferencia == Convert.ToInt16(pseudoCriterio.SelectedValue));
+
 				switch (pseudoCriterio.SelectedValue)
 				{
 					case "1":
 						break;
 					case "2":
 						verLimiteIndiferencia = true;
+						txtLimiteIndiferencia.Text = config.Find(p=> p.idValorFuncionPreferencia == 1).valorDefault.ToString();
 						break;
 					case "3":
 						verLimitePreferencia = true;
+						txtLimitePreferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 3).valorDefault.ToString();
 						break;
 					case "4":
 						verLimiteIndiferencia = true;
 						verLimitePreferencia = true;
+						txtLimiteIndiferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 1).valorDefault.ToString();
+						txtLimitePreferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 3).valorDefault.ToString();
 						break;
 					case "5":
 						verLimiteIndiferencia = true;
 						verLimitePreferencia = true;
+						txtLimiteIndiferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 1).valorDefault.ToString();
+						txtLimitePreferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 3).valorDefault.ToString();
 						break;
 					case "6":
 						verLimiteSigma = true;
+						txtLimiteSigma.Text = config.Find(p => p.idValorFuncionPreferencia == 2).valorDefault.ToString();
 						break;
 					default:
 						break;
@@ -225,6 +271,7 @@ namespace EDUAR_UI.UserControls
 				txtLimitePreferencia.Visible = verLimitePreferencia;
 				lblLimiteSigma.Visible = verLimiteSigma;
 				txtLimiteSigma.Visible = verLimiteSigma;
+
 				udpLimites.Update();
 			}
 			catch (Exception ex)

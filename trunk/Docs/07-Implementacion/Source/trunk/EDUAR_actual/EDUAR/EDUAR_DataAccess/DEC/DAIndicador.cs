@@ -44,8 +44,8 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idIndicador", DbType.Int32, entidad.idIndicador);
 					//if (entidad.pagina.idPagina > 0)
 					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
-					//if (!string.IsNullOrEmpty(entidad.pagina.titulo))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
+					if (!string.IsNullOrEmpty(entidad.nombre))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
 					//if (ValidarFechaSQL(entidad.fecha))
 					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
 					//if (ValidarFechaSQL(entidad.hora))
@@ -61,10 +61,10 @@ namespace EDUAR_DataAccess.Common
 
 					objIndicador.idIndicador = Convert.ToInt32(reader["idIndicador"]);
 					objIndicador.nombre = reader["nombre"].ToString();
-					objIndicador.pesoDefault =  (float)Convert.ToDecimal(reader["pesoDefault"]);
-					objIndicador.escala = reader["url"].ToString();
-					objIndicador.pesoMinimo = (float)Convert.ToDecimal(reader["fecha"].ToString());
-					objIndicador.pesoMaximo = (float)Convert.ToDecimal(reader["hora"].ToString());
+					objIndicador.pesoDefault =  Convert.ToDecimal(reader["pesoDefault"]);
+					objIndicador.escala = reader["escala"].ToString();
+					objIndicador.pesoMinimo = Convert.ToDecimal(reader["pesoMinimo"].ToString());
+					objIndicador.pesoMaximo = Convert.ToDecimal(reader["pesoMaximo"].ToString());
 					objIndicador.maximiza = Convert.ToBoolean(reader["maximiza"].ToString());
 
 					listaIndicadors.Add(objIndicador);
