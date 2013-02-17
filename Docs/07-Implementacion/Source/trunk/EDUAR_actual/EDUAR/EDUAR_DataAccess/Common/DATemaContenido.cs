@@ -180,6 +180,48 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
+        /// <summary>
+        /// Gets the tema contenidos by Tema Planificacion.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<TemaContenido> GetTemaContenidos(TemaPlanificacionAnual entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaContenidoByTemaPlanificacion_Select");
+                if (entidad != null && entidad.idTemaPlanificacion > 0)
+                {
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, entidad.idTemaPlanificacion);
+                }
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<TemaContenido> listaContenidos = new List<TemaContenido>();
+                TemaContenido objContenido;
+                while (reader.Read())
+                {
+                    objContenido = new TemaContenido();
+                    objContenido.idContenido = Convert.ToInt32(reader["idContenido"]);
+                    objContenido.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
+                    objContenido.detalle = reader["detalle"].ToString();
+                    objContenido.titulo = reader["titulo"].ToString();
+                    objContenido.obligatorio = Convert.ToBoolean(reader["obligatorio"]);
+                    listaContenidos.Add(objContenido);
+                }
+                return listaContenidos;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
 		/// <summary>
 		/// Gets the tema contenidos.
 		/// </summary>

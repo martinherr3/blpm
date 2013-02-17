@@ -237,6 +237,11 @@
                                     Rows="5"></asp:TextBox>
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblRecordatorio" runat="server" Text="Label"></asp:Label>
+                            </td>
+                        </tr>
                     </table>
                 </ContentTemplate>
                 <Triggers>
@@ -314,4 +319,77 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </asp:Panel>
+
+
+
+
+
+
+    <ajaxToolkit:ModalPopupExtender ID="mpeContenidoAtrasado" runat="server" PopupControlID="pnlContenidosAtrasados"
+        TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
+    </ajaxToolkit:ModalPopupExtender>
+  
+    <asp:Panel ID="pnlContenidosAtrasados" runat="server" Width="600px" Height="510px" Style="display: none;
+        text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+        <asp:UpdatePanel ID="udpContenidosAsociadosAtrasados" runat="server">
+            <ContentTemplate>
+                <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <h2>
+                                <asp:Label ID="LabelContenidosAtrasados" Text="Recordatorio de Contenidos Planificados Atrasados" runat="server" /></h2>
+                            <br />
+                        </td>
+                        <td align="right">
+                        
+                            <asp:ImageButton ID="btnVolverContenidoAtrasadoPopUp" runat="server" ToolTip="Volver - Descartar Cambios"
+                                ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverContenidosAtrasadosPopUp_Click" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr />
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <asp:GridView ID="gvwContenidosAtrasados" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListadoSize10"
+                                AutoGenerateColumns="false" Width="500px" DataKeyNames="idTemaContenido" OnPageIndexChanging="gvwContenidosAtrasados_PageIndexChanging"
+                                OnPageIndexChanged="gvwContenidosAtrasados_PageIndexChanged">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Fecha Inicio">
+                                        <HeaderStyle HorizontalAlign="left" Width="25%" />
+                                        <ItemStyle HorizontalAlign="left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblFechaContenido" runat="server" Text='<%# Bind("fechaInicio") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="Tema">
+                                        <HeaderStyle HorizontalAlign="left" Width="50%" />
+                                        <ItemStyle HorizontalAlign="left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblTituloContenidos" runat="server" Text='<%# Bind("Titulo") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Obligatorio">
+                                        <HeaderStyle HorizontalAlign="center" Width="25%" />
+                                        <ItemStyle HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblObligatorio" runat="server" Text='<%# Boolean.Parse(Eval("Obligatorio").ToString()) ? "Sí" : "No"  %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </asp:Panel>
+
+
+
 </asp:Content>

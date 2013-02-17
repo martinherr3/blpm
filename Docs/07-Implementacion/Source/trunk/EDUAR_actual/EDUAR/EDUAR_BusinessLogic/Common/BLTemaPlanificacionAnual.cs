@@ -224,6 +224,40 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
 
+
+        /// <summary>
+        /// Gets the temas planificacion anual.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<TemaPlanificacionAnual> GetTemasPlanificacionAnualAtrasados(/*PlanificacionAnual entidad*/ int idCursoCicloLectivo, int idAsignatura)
+        {
+            DATemaContenido DataAcessTC = new DATemaContenido();
+
+            List<TemaPlanificacionAnual> TemasPlanificadosAtrasados = new List<TemaPlanificacionAnual>();
+            try
+            {
+                TemasPlanificadosAtrasados = DataAcces.GetTemasPlanificacionAnualAtrasados(/*entidad*/idCursoCicloLectivo, idAsignatura);
+
+                foreach (TemaPlanificacionAnual Tema in TemasPlanificadosAtrasados)
+                {
+                    Tema.listaContenidos = DataAcessTC.GetTemaContenidos(Tema);
+                }
+
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnual", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+
+            return (TemasPlanificadosAtrasados);
+        }
+
 		/// <summary>
 		/// Obteners the contenidos.
 		/// </summary>

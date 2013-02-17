@@ -303,6 +303,38 @@ namespace EDUAR_UI
 			}
 		}
 
+        protected void CargarRecordatorio(int idAsignaturaCicloLectivo)
+        {
+            List<TemaPlanificacionAnual> TemasPlanificadosAtrasados = new List<TemaPlanificacionAnual>();
+            List<TemaContenidoAtrasado> TemasContenidosAtrasados = new List<TemaContenidoAtrasado>();
+            BLPlanificacionAnual objBLPlanificacion = new BLPlanificacionAnual();
+
+            TemasPlanificadosAtrasados = objBLPlanificacion.GetContenidosNoAsignados(propAgenda.cursoCicloLectivo.idCursoCicloLectivo, idAsignaturaCicloLectivo);
+            foreach (TemaPlanificacionAnual TemaPlanificado in TemasPlanificadosAtrasados)
+            {
+                foreach(TemaContenido Contenido in TemaPlanificado.listaContenidos)
+                {
+                    TemasContenidosAtrasados.Add(new TemaContenidoAtrasado(Contenido.idTemaContenido, Contenido.titulo, TemaPlanificado.fechaInicioEstimada, Contenido.obligatorio));
+                }
+            }
+            try
+			{
+                // Arreglo provisorio. Ver porque no esta paginando.
+                //TemasContenidosAtrasados.RemoveRange(5, TemasContenidosAtrasados.Count - 6);
+                CargarContenidosAtrasados(TemasContenidosAtrasados);
+                //if (TemasContenidosAtrasados.Count > 6)
+                //{
+                //    TemasContenidosAtrasados.RemoveRange(5, TemasContenidosAtrasados.Count - 6);
+                //}
+                ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
+                mpeContenidoAtrasado.Show();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+        }
+
 		/// <summary>
 		/// Handles the Click event of the btnAsignarRol control.
 		/// </summary>
@@ -432,9 +464,18 @@ namespace EDUAR_UI
 					btnContenidosPopUp.Visible = true;
 					//btnContenidosPopUp.Enabled = true;
 					ddlMeses.Enabled = true;
-					ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
-					ddlDia.Enabled = true;
+                    if (DateTime.Now.Month >= 3)
+                    {
+                        ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
+                    }
+                    else
+                    {
+
+                        ddlMeses.SelectedValue = "3";
+                    }
+                    ddlDia.Enabled = true;
 					BindComboModulos(DateTime.Now.Month);
+                    CargarRecordatorio(idAsignatura);
 				}
 				else
 				{
@@ -476,6 +517,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
+                btnGuardarPopUp.Visible = true;
 				CargarContenidos();
 				listaSeleccion = listaSeleccionGuardar;
 				ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
@@ -504,6 +546,24 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+        /// <summary>
+        /// Handles the Click event of the btnVolverPopUp control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void btnVolverContenidosAtrasadosPopUp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                mpeContenido.Hide();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
 
 		/// <summary>
 		/// Handles the Click event of the btnGuardarPopUp control.
@@ -544,6 +604,26 @@ namespace EDUAR_UI
 			}
 		}
 
+        /// <summary>
+        /// Handles the PageIndexChanging event of the gvwContenido control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+        protected void gvwContenidosAtrasados_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                ProductsSelectionManager.KeepSelection(gvwContenidosAtrasados, "listaSeleccion");
+
+                gvwContenidosAtrasados.PageIndex = e.NewPageIndex;
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+
 		/// <summary>
 		/// Handles the PageIndexChanged event of the gvwContenidos control.
 		/// </summary>
@@ -560,6 +640,24 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+
+        /// <summary>
+        /// Handles the PageIndexChanged event of the gvwContenidos control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void gvwContenidosAtrasados_PageIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ProductsSelectionManager.RestoreSelection(gvwContenidosAtrasados, "listaSeleccion");
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -869,6 +967,52 @@ namespace EDUAR_UI
 			gvwContenidos.DataSource = listaContenido;
 			gvwContenidos.DataBind();
 		}
+
+        private void CargarContenidosAtrasados(List<TemaContenidoAtrasado> listaContenidoAtrasado)
+        {
+            gvwContenidosAtrasados.DataSource = listaContenidoAtrasado;
+            gvwContenidosAtrasados.DataBind();
+        }
+
+
+
 		#endregion
 	}
+
+
+    [Serializable]
+    public class TemaContenidoAtrasado 
+    {
+        public int idTemaContenido { get; set; }
+        public string titulo { get; set; }
+        public string detalle { get; set; }
+        public bool obligatorio { get; set; }
+        public int idContenido { get; set; }
+        public DateTime? fechaInicio { get; set; }
+
+        public TemaContenidoAtrasado()
+        {
+            obligatorio = true;
+        }
+
+        public TemaContenidoAtrasado(int unIdTemaContenido, string unTitulo, DateTime? unaFechaInicio, bool esObligatorio)
+        {
+            idTemaContenido = unIdTemaContenido;
+            titulo = unTitulo;
+            fechaInicio = unaFechaInicio;
+            obligatorio = esObligatorio;
+        }
+
+
+        ~TemaContenidoAtrasado()
+        {
+
+        }
+
+        public virtual void Dispose()
+        {
+
+        }
+    }//end TemaContenido
+
 }
