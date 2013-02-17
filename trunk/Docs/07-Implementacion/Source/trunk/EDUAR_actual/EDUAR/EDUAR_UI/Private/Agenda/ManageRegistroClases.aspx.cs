@@ -319,13 +319,7 @@ namespace EDUAR_UI
             }
             try
 			{
-                // Arreglo provisorio. Ver porque no esta paginando.
-                //TemasContenidosAtrasados.RemoveRange(5, TemasContenidosAtrasados.Count - 6);
                 CargarContenidosAtrasados(TemasContenidosAtrasados);
-                //if (TemasContenidosAtrasados.Count > 6)
-                //{
-                //    TemasContenidosAtrasados.RemoveRange(5, TemasContenidosAtrasados.Count - 6);
-                //}
                 ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
                 mpeContenidoAtrasado.Show();
 			}
