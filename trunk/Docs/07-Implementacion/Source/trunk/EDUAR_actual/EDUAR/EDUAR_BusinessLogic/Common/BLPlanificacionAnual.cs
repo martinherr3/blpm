@@ -225,6 +225,56 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
+
+        /// <summary>
+        /// Gets the planificacion.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public PlanificacionAnual GetPlanificacionByAsignaturaAtrasados(int idCursoCicloLectivo, int idAsignaturaCicloLectivo)
+        {
+            try
+            {
+                PlanificacionAnual objPlanificacion = new PlanificacionAnual();
+                //PlanificacionAnual objPlanificacion = DataAcces.GetPlanificacion(idAsignaturaCicloLectivo);
+                //if (objPlanificacion != null)
+                //{
+                    BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
+                    objPlanificacion.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnualAtrasados(idCursoCicloLectivo, idAsignaturaCicloLectivo);
+                //}
+                return objPlanificacion;
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPlanificacionByAsignatura", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+
+        // TALLERES!!!
+        public List<TemaPlanificacionAnual> GetContenidosNoAsignados(int idCursoCicloLectivo, int idAsignaturaCicloLectivo)
+        {
+            //List<TemaPlanificacionAnual> ListaTemasPlanificados = new List<TemaPlanificacionAnual>;
+
+            try
+            {
+                return (this.GetPlanificacionByAsignaturaAtrasados(idCursoCicloLectivo, idAsignaturaCicloLectivo)).listaTemasPlanificacion;
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturas", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
 		#endregion
 	}
 }

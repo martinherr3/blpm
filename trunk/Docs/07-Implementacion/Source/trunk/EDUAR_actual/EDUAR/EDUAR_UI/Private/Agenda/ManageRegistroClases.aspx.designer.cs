@@ -310,6 +310,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtDescripcionEdit;
         
         /// <summary>
+        /// Control lblRecordatorio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRecordatorio;
+        
+        /// <summary>
         /// Control HiddenField1.
         /// </summary>
         /// <remarks>
@@ -380,6 +389,60 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvwContenidos;
+        
+        /// <summary>
+        /// Control mpeContenidoAtrasado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender mpeContenidoAtrasado;
+        
+        /// <summary>
+        /// Control pnlContenidosAtrasados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlContenidosAtrasados;
+        
+        /// <summary>
+        /// Control udpContenidosAsociadosAtrasados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpContenidosAsociadosAtrasados;
+        
+        /// <summary>
+        /// Control LabelContenidosAtrasados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelContenidosAtrasados;
+        
+        /// <summary>
+        /// Control btnVolverContenidoAtrasadoPopUp.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnVolverContenidoAtrasadoPopUp;
+        
+        /// <summary>
+        /// Control gvwContenidosAtrasados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvwContenidosAtrasados;
         
         /// <summary>
         /// Propiedad Master.

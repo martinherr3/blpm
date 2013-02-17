@@ -259,6 +259,65 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
+        /// <summary>
+        /// Gets the temas planificacion anual which are behind the schedule.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<TemaPlanificacionAnual> GetTemasPlanificacionAnualAtrasados(/*PlanificacionAnual entidad*/ int idCursoCicloLectivo, int idAsignaturaCicloLectivo)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaPlanificacionAnualAtrasados_Select");
+
+                if (idCursoCicloLectivo > 0)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, idCursoCicloLectivo);
+                if (idAsignaturaCicloLectivo > 0)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, idAsignaturaCicloLectivo);
+
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<TemaPlanificacionAnual> listaEntidad = new List<TemaPlanificacionAnual>();
+                TemaPlanificacionAnual objEntidad;
+                while (reader.Read())
+                {
+                    objEntidad = new TemaPlanificacionAnual();
+                    DateTime objFecha;
+                    if (DateTime.TryParse(reader["fechaAprobada"].ToString(), out objFecha))
+                        objEntidad.fechaAprobada = objFecha;
+                    else
+                        objEntidad.fechaAprobada = null;
+
+                    objEntidad.fechaInicioEstimada = Convert.ToDateTime(reader["fechaInicioEstimada"]);
+                    objEntidad.fechaFinEstimada = Convert.ToDateTime(reader["fechaFinEstimada"]);
+                    objEntidad.idPlanificacionAnual = Convert.ToInt32(reader["idPlanificacionAnual"]);
+                    objEntidad.contenidosActitudinales = reader["contenidosActitudinales"].ToString();
+                    objEntidad.contenidosConceptuales = reader["contenidosConceptuales"].ToString();
+                    objEntidad.contenidosProcedimentales = reader["contenidosProcedimentales"].ToString();
+                    objEntidad.criteriosEvaluacion = reader["criteriosEvaluacion"].ToString();
+                    objEntidad.estrategiasAprendizaje = reader["estrategiasAprendizaje"].ToString();
+                    objEntidad.instrumentosEvaluacion = reader["instrumentosEvaluacion"].ToString();
+                    objEntidad.idTemaPlanificacion = Convert.ToInt32(reader["idTemaPlanificacion"]);
+                    objEntidad.observaciones = reader["observaciones"].ToString();
+                    objEntidad.asignatura.nombre = reader["Asignatura"].ToString();
+                    listaEntidad.Add(objEntidad);
+                }
+                return listaEntidad;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnual()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnual()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+
 		/// <summary>
 		/// Deletes the contenidos.
 		/// </summary>
