@@ -1,18 +1,19 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Criterio.ascx.cs" Inherits="EDUAR_UI.UserControls.Criterio" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<asp:TextBox ID="txtCriterio" runat="server" CssClass="EstiloTxtCorto80" />
+<asp:TextBox ID="txtCriterio" runat="server" CssClass="EstiloTxtCorto80" AutoPostBack="true" />
+<ajaxToolkit:SliderExtender ID="SliderExtender1" BoundControlID="slider1_display"
+    Decimals="2" runat="server" TargetControlID="txtCriterio" EnableHandleAnimation="true"
+    TooltipText="{0}">
+</ajaxToolkit:SliderExtender>
+<asp:Label ID="slider1_display" runat="server"></asp:Label>
 <asp:ImageButton ImageUrl="~/Images/Grillas/action_enable.png" AlternateText="Habilitado"
     ToolTip="Habilitado" ID="btnDesHabilitar" runat="server" OnClick="btnDesHabilitar_Click"
     ImageAlign="AbsMiddle" />
-<asp:CompareValidator ID="valCriterioMax" ErrorMessage="" ControlToValidate="txtCriterio"
-    runat="server" Type="Double" Operator="LessThanEqual" ForeColor="Red" Display="Dynamic" />
-<asp:CompareValidator ID="valCriterioMin" ErrorMessage="" ControlToValidate="txtCriterio"
-    runat="server" Type="Double" Operator="GreaterThanEqual" ForeColor="Red" Display="Dynamic" />
-<cc1:MaskedEditExtender runat="server" ID="maskCriterio" Mask="99.99" MaskType="Number"
-    InputDirection="RightToLeft" AcceptNegative="None" DisplayMoney="None" TargetControlID="txtCriterio">
-</cc1:MaskedEditExtender>
-<cc1:PopupControlExtender ID="extCriterio" runat="server" TargetControlID="txtCriterio"
-    PopupControlID="Panel1" Position="Right" />
+<asp:LinkButton Text="Configurar" ID="lnkConfig" runat="server" OnClick="lnkConfig_Click" />
+<ajaxToolkit:CollapsiblePanelExtender ID="cpe" runat="Server" TargetControlID="Panel1"
+    CollapsedSize="0" ExpandedSize="220" Collapsed="True" ExpandControlID="lnkConfig"
+    CollapseControlID="lnkConfig" AutoCollapse="False" AutoExpand="False" ScrollContents="false"
+    ExpandDirection="Vertical" />
 <asp:Panel runat="server" ID="Panel1" BackColor="#EDEDED" Width="500px">
     <table width="100%">
         <tr>

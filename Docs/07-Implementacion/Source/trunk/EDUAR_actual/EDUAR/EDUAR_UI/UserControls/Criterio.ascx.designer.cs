@@ -22,6 +22,24 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.WebControls.TextBox txtCriterio;
         
         /// <summary>
+        /// Control SliderExtender1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.SliderExtender SliderExtender1;
+        
+        /// <summary>
+        /// Control slider1_display.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label slider1_display;
+        
+        /// <summary>
         /// Control btnDesHabilitar.
         /// </summary>
         /// <remarks>
@@ -31,40 +49,22 @@ namespace EDUAR_UI.UserControls {
         protected global::System.Web.UI.WebControls.ImageButton btnDesHabilitar;
         
         /// <summary>
-        /// Control valCriterioMax.
+        /// Control lnkConfig.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator valCriterioMax;
+        protected global::System.Web.UI.WebControls.LinkButton lnkConfig;
         
         /// <summary>
-        /// Control valCriterioMin.
+        /// Control cpe.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator valCriterioMin;
-        
-        /// <summary>
-        /// Control maskCriterio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::AjaxControlToolkit.MaskedEditExtender maskCriterio;
-        
-        /// <summary>
-        /// Control extCriterio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::AjaxControlToolkit.PopupControlExtender extCriterio;
+        protected global::AjaxControlToolkit.CollapsiblePanelExtender cpe;
         
         /// <summary>
         /// Control Panel1.

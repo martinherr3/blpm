@@ -198,6 +198,7 @@ namespace EDUAR_UI.UserControls
 		#region --[Eventos]--
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			txtCriterio.TextChanged += (ActualizarCriterio);
 			if (!Page.IsPostBack)
 			{
 				indicador = new EDUAR_Entities.DEC.Indicador();
@@ -209,12 +210,19 @@ namespace EDUAR_UI.UserControls
 				this.esMaximzante = indicador.maximiza;
 				this.pesoCriterio = indicador.pesoDefault;
 
-				valCriterioMax.ValueToCompare = indicador.pesoMaximo.ToString();
-				valCriterioMax.ErrorMessage = "El valor MÁXIMO admitido es " + indicador.pesoMaximo.ToString();
+				SliderExtender1.Minimum = (double)indicador.pesoMinimo;
+				SliderExtender1.Maximum = (double)indicador.pesoMaximo;
+				//valCriterioMax.ValueToCompare = indicador.pesoMaximo.ToString();
+				//valCriterioMax.ErrorMessage = "El valor MÁXIMO admitido es " + indicador.pesoMaximo.ToString();
 
-				valCriterioMin.ValueToCompare = indicador.pesoMinimo.ToString();
-				valCriterioMin.ErrorMessage = "El valor MÍNIMO admitido es " + indicador.pesoMinimo.ToString();
+				//valCriterioMin.ValueToCompare = indicador.pesoMinimo.ToString();
+				//valCriterioMin.ErrorMessage = "El valor MÍNIMO admitido es " + indicador.pesoMinimo.ToString();
 			}
+		}
+
+		void ActualizarCriterio(object sender, EventArgs e)
+		{
+			onCriterioTextChanged(CriterioScroll, e);
 		}
 
 		/// <summary>
@@ -240,7 +248,7 @@ namespace EDUAR_UI.UserControls
 						break;
 					case "2":
 						verLimiteIndiferencia = true;
-						txtLimiteIndiferencia.Text = config.Find(p=> p.idValorFuncionPreferencia == 1).valorDefault.ToString();
+						txtLimiteIndiferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 1).valorDefault.ToString();
 						break;
 					case "3":
 						verLimitePreferencia = true;
@@ -271,8 +279,21 @@ namespace EDUAR_UI.UserControls
 				txtLimitePreferencia.Visible = verLimitePreferencia;
 				lblLimiteSigma.Visible = verLimiteSigma;
 				txtLimiteSigma.Visible = verLimiteSigma;
+				ActualizarCriterio(sender, e);
 
 				udpLimites.Update();
+			}
+			catch (Exception ex)
+			{
+				throw ex; //Master.ManageExceptions(ex);
+			}
+		}
+
+		protected void lnkConfig_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				ActualizarCriterio(sender, e);
 			}
 			catch (Exception ex)
 			{
@@ -287,7 +308,41 @@ namespace EDUAR_UI.UserControls
 		/// <param name="e">The <see cref="System.Web.UI.ImageClickEventArgs"/> instance containing the event data.</param>
 		protected void btnDesHabilitar_Click(object sender, ImageClickEventArgs e)
 		{
-			habilitarCriterio = !habilitarCriterio;
+			try
+			{
+				habilitarCriterio = !habilitarCriterio;
+				SliderExtender1.Enabled = habilitarCriterio;
+				//lnkConfig.Enabled = habilitarCriterio;
+				Panel1.Visible = habilitarCriterio;
+				txtCriterio.Visible = habilitarCriterio;
+				lnkConfig.Visible = habilitarCriterio;
+				ActualizarCriterio(sender, e);
+			}
+			catch (Exception ex)
+			{
+				throw ex; //Master.ManageExceptions(ex);
+			}
+		}
+		#endregion
+
+		#region --[Delegados]--
+
+		public delegate void ValorCriterioScrollHandler(object sender, EventArgs e);
+
+		public event ValorCriterioScrollHandler CriterioScroll;
+
+		/// <summary>
+		/// Called when [exportar PDF click].
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		public virtual void onCriterioTextChanged(ValorCriterioScrollHandler sender, EventArgs e)
+		{
+			if (sender != null)
+			{
+				//Invoca el delegados
+				sender(this, e);
+			}
 		}
 		#endregion
 
@@ -372,5 +427,8 @@ namespace EDUAR_UI.UserControls
 			return mensaje;
 		}
 		#endregion
+
+
+
 	}
 }
