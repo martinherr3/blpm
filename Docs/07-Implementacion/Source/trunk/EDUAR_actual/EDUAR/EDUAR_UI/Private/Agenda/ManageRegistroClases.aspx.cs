@@ -114,6 +114,25 @@ namespace EDUAR_UI
 			set { ViewState["listaContenido"] = value; }
 		}
 
+        /// <summary>
+        /// Lista de TODOS los contenidos atrasados
+        /// </summary>
+        /// <value>
+        /// The lista contenido atrasados.
+        /// </value>
+        protected List<TemaContenidoAtrasado> listaContenidoAtrasado
+        {
+            get
+            {
+                if (ViewState["listaContenidoAtrasado"] == null)
+                {
+                    ViewState["listaContenidoAtrasado"] = new List<TemaContenidoAtrasado>();
+                }
+                return (List<TemaContenidoAtrasado>)ViewState["listaContenidoAtrasado"];
+            }
+            set { ViewState["listaContenidoAtrasado"] = value; }
+        }
+
 		/// <summary>
 		/// Lista de contenidos SELECCIONADOS
 		/// </summary>
@@ -131,6 +150,22 @@ namespace EDUAR_UI
 			set { Session["listaSeleccion"] = value; }
 		}
 
+        /// <summary>
+        /// Lista de contenidos SELECCIONADOS
+        /// </summary>
+        /// <value>
+        /// The lista seleccion.
+        /// </value>
+        protected List<int> listaSeleccionContenidosAtrasados
+        {
+            get
+            {
+                if (Session["listaSeleccionContenidosAtrasados"] == null)
+                    Session["listaSeleccionContenidosAtrasados"] = new List<int>();
+                return (List<int>)Session["listaSeleccionContenidosAtrasados"];
+            }
+            set { Session["listaSeleccionContenidosAtrasados"] = value; }
+        }
 		/// <summary>
 		/// Gets or sets the lista seleccion porcentajes.
 		/// </summary>
@@ -319,8 +354,8 @@ namespace EDUAR_UI
             }
             try
 			{
-                CargarContenidosAtrasados(TemasContenidosAtrasados);
-                ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
+                listaContenidoAtrasado = TemasContenidosAtrasados;
+                CargarContenidosAtrasados(listaContenidoAtrasado);
                 mpeContenidoAtrasado.Show();
 			}
 			catch (Exception ex)
@@ -550,7 +585,7 @@ namespace EDUAR_UI
         {
             try
             {
-                mpeContenido.Hide();
+                mpeContenidoAtrasado.Hide();
             }
             catch (Exception ex)
             {
@@ -607,9 +642,8 @@ namespace EDUAR_UI
         {
             try
             {
-                ProductsSelectionManager.KeepSelection(gvwContenidosAtrasados, "listaSeleccion");
-
                 gvwContenidosAtrasados.PageIndex = e.NewPageIndex;
+                CargarContenidosAtrasados();
             }
             catch (Exception ex)
             {
@@ -643,14 +677,6 @@ namespace EDUAR_UI
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void gvwContenidosAtrasados_PageIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                ProductsSelectionManager.RestoreSelection(gvwContenidosAtrasados, "listaSeleccion");
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
         }
 		#endregion
 
@@ -962,51 +988,19 @@ namespace EDUAR_UI
 			gvwContenidos.DataBind();
 		}
 
-        private void CargarContenidosAtrasados(List<TemaContenidoAtrasado> listaContenidoAtrasado)
+        private void CargarContenidosAtrasados(List<TemaContenidoAtrasado> listadoContenidoAtrasado)
         {
-            gvwContenidosAtrasados.DataSource = listaContenidoAtrasado;
+            gvwContenidosAtrasados.DataSource = listadoContenidoAtrasado;
             gvwContenidosAtrasados.DataBind();
+        }
+
+        private void CargarContenidosAtrasados()
+        {
+            CargarContenidosAtrasados(listaContenidoAtrasado);
         }
 
 
 
 		#endregion
 	}
-
-
-    [Serializable]
-    public class TemaContenidoAtrasado 
-    {
-        public int idTemaContenido { get; set; }
-        public string titulo { get; set; }
-        public string detalle { get; set; }
-        public bool obligatorio { get; set; }
-        public int idContenido { get; set; }
-        public DateTime? fechaInicio { get; set; }
-
-        public TemaContenidoAtrasado()
-        {
-            obligatorio = true;
-        }
-
-        public TemaContenidoAtrasado(int unIdTemaContenido, string unTitulo, DateTime? unaFechaInicio, bool esObligatorio)
-        {
-            idTemaContenido = unIdTemaContenido;
-            titulo = unTitulo;
-            fechaInicio = unaFechaInicio;
-            obligatorio = esObligatorio;
-        }
-
-
-        ~TemaContenidoAtrasado()
-        {
-
-        }
-
-        public virtual void Dispose()
-        {
-
-        }
-    }//end TemaContenido
-
 }
