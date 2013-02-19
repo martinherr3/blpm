@@ -257,10 +257,10 @@
         </Triggers>
     </asp:UpdatePanel>
     <asp:HiddenField ID="HiddenField1" runat="server" />
-    <ajaxToolkit:ModalPopupExtender ID="mpeContenido" runat="server" PopupControlID="pnlContenidos"
-        TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
-        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
-    </ajaxToolkit:ModalPopupExtender>
+        <ajaxToolkit:ModalPopupExtender ID="mpeContenido" runat="server" PopupControlID="pnlContenidos"
+            TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
+            BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
+        </ajaxToolkit:ModalPopupExtender>
     <asp:Panel ID="pnlContenidos" runat="server" Width="600px" Height="510px" Style="display: none;
         text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
         <asp:UpdatePanel ID="udpContenidosAsociados" runat="server">
@@ -324,10 +324,10 @@
 
 
 
-
+    <asp:HiddenField ID="HiddenField2" runat="server" />
     <ajaxToolkit:ModalPopupExtender ID="mpeContenidoAtrasado" runat="server" PopupControlID="pnlContenidosAtrasados"
-        TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
-        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
+        TargetControlID="HiddenField2" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidosAtrasados">
     </ajaxToolkit:ModalPopupExtender>
   
     <asp:Panel ID="pnlContenidosAtrasados" runat="server" Width="600px" Height="510px" Style="display: none;
