@@ -175,11 +175,14 @@ namespace EDUAR_BusinessLogic.Common
 				List<Indicador> listaIndicadores = DataAcces.GetIndicadores(entidad);
 
 				BLConfigFuncionPreferencia objBLConfiguracion = new BLConfigFuncionPreferencia();
-				List<ConfigFuncionPreferencia> listaConfiguracion = objBLConfiguracion.GetConfigFuncionPreferencias(null);
-			
-				foreach (Indicador item in listaIndicadores)
-					item.listaConfig = listaConfiguracion;
+				ConfigFuncionPreferencia config = null;
 
+				foreach (Indicador item in listaIndicadores)
+				{
+					config = new ConfigFuncionPreferencia();
+					config.idIndicador = item.idIndicador;
+					item.listaConfig = objBLConfiguracion.GetConfigFuncionPreferencias(config);
+				}
 				return listaIndicadores;
 			}
 			catch (CustomizedException ex)
@@ -202,16 +205,16 @@ namespace EDUAR_BusinessLogic.Common
 		{
 			try
 			{
-				List<Indicador> listaIndicadores = DataAcces.GetIndicadores(entidad);
-
+				Indicador miIndicador = DataAcces.GetIndicador(entidad);
+				ConfigFuncionPreferencia config = null;
 				BLConfigFuncionPreferencia objBLConfiguracion = new BLConfigFuncionPreferencia();
-				
-				List<ConfigFuncionPreferencia> listaConfiguracion = objBLConfiguracion.GetConfigFuncionPreferencias(null);
 
-				foreach (Indicador item in listaIndicadores)
-					item.listaConfig = listaConfiguracion;
+				config = new ConfigFuncionPreferencia();
+				config.idIndicador = miIndicador.idIndicador;
 
-				return listaIndicadores[0];
+				miIndicador.listaConfig = objBLConfiguracion.GetConfigFuncionPreferencias(config);
+
+				return miIndicador;
 			}
 			catch (CustomizedException ex)
 			{

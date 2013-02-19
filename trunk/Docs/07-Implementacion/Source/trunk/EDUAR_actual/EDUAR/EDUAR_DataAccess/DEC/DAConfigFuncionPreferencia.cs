@@ -42,8 +42,8 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (entidad.idFuncionPreferencia > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idFuncionPreferencia", DbType.Int32, entidad.idFuncionPreferencia);
-					//if (entidad.pagina.idPagina > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
+					if (entidad.idIndicador > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idIndicador", DbType.Int32, entidad.idIndicador);
 					//if (!string.IsNullOrEmpty(entidad.pagina.titulo))
 					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
 					//if (ValidarFechaSQL(entidad.fecha))
@@ -60,6 +60,7 @@ namespace EDUAR_DataAccess.Common
 					objConfigFuncionPreferencia = new ConfigFuncionPreferencia();
 
 					objConfigFuncionPreferencia.idConfigFuncionPreferencia = Convert.ToInt32(reader["idConfigFuncionPreferencia"]);
+					objConfigFuncionPreferencia.idIndicador = Convert.ToInt32(reader["idIndicador"]);
 					objConfigFuncionPreferencia.idFuncionPreferencia = Convert.ToInt32(reader["idFuncionPreferencia"]);
 					objConfigFuncionPreferencia.idValorFuncionPreferencia = Convert.ToInt32(reader["idValorFuncionPreferencia"]);
 					objConfigFuncionPreferencia.valorDefault = Convert.ToInt32(reader["valorDefault"]);

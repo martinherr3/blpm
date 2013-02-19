@@ -36,22 +36,22 @@ namespace EDUAR_UI.UserControls
         {
             get
             {
-                if (ViewState["Desde"] != null)
-                    return Convert.ToDateTime(ViewState["Desde"].ToString());
+                if (Session["Fecha_Desde_Indicador"] != null)
+					return Convert.ToDateTime(Session["Fecha_Desde_Indicador"].ToString());
                 return DateTime.MinValue;
             }
-            set { ViewState["Desde"] = value; }
+			set { Session["Fecha_Desde_Indicador"] = value; }
         }
 
         public DateTime Hasta
         {
             get
             {
-                if (ViewState["Hasta"] != null)
-                    return Convert.ToDateTime(ViewState["Hasta"].ToString());
+				if (Session["Fecha_Hasta_Indicador"] != null)
+					return Convert.ToDateTime(Session["Fecha_Hasta_Indicador"].ToString());
                 return DateTime.MinValue;
             }
-            set { ViewState["Hasta"] = value; }
+			set { Session["Fecha_Hasta_Indicador"] = value; }
         }
 
         public string Titulo

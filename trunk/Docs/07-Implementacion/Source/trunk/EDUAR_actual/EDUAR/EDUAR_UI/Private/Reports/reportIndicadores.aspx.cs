@@ -489,8 +489,6 @@ namespace EDUAR_UI
 		{
 			EDUAR_BusinessLogic.Common.BLIndicador objBLIndicador = new EDUAR_BusinessLogic.Common.BLIndicador();
 			List<EDUAR_Entities.DEC.Indicador> listaIndicadores = objBLIndicador.GetIndicadores(null);
-
-			
 		}
 
         /// <summary>
