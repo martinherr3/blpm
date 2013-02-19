@@ -47,7 +47,7 @@
         </siteMapNode>
         <siteMapNode url="" title="Historicos" roles="Administrador,Director" >
             <siteMapNode url="~/Private/Reports/Historicos/reportRendimiento.aspx" title="Rendimiento" roles="Administrador,Director" />
-            <siteMapNode url="~/Private/Reports/Historicos/reportHistoricoAlumno.aspx" title="Alumno" roles="Administrador,Director" />
+            <!--<siteMapNode url="~/Private/Reports/Historicos/reportHistoricoAlumno.aspx" title="Alumno" roles="Administrador,Director" />-->
         </siteMapNode>
         <siteMapNode url="" title="Administración" roles="Administrador,Director">
             <siteMapNode url="~/Private/Monitoreo/ConfigIndicadores.aspx" title="Indicadores" roles="Administrador,Director" />
