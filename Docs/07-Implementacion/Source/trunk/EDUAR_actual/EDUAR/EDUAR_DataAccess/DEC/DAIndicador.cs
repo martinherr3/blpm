@@ -29,6 +29,33 @@ namespace EDUAR_DataAccess.Common
 
 		#region --[Métodos Públicos]--
 		/// <summary>
+		/// Gets the indicador.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public Indicador GetIndicador(Indicador entidad)
+		{
+			try
+			{
+				List<Indicador> lista = this.GetIndicadores(entidad);
+				if (lista != null)
+					if (lista.Count == 1)
+						return lista[0];
+				throw new CustomizedException("No se encuentra el Indicador.", null, enuExceptionType.DataAccesException);
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetIndicadors()", ClassName),
+				ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetIndicadors()", ClassName),
+				ex, enuExceptionType.DataAccesException);
+			}
+		}
+
+		/// <summary>
 		/// Gets the Indicadors.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
@@ -61,7 +88,7 @@ namespace EDUAR_DataAccess.Common
 
 					objIndicador.idIndicador = Convert.ToInt32(reader["idIndicador"]);
 					objIndicador.nombre = reader["nombre"].ToString();
-					objIndicador.pesoDefault =  Convert.ToDecimal(reader["pesoDefault"]);
+					objIndicador.pesoDefault = Convert.ToDecimal(reader["pesoDefault"]);
 					objIndicador.escala = reader["escala"].ToString();
 					objIndicador.pesoMinimo = Convert.ToDecimal(reader["pesoMinimo"].ToString());
 					objIndicador.pesoMaximo = Convert.ToDecimal(reader["pesoMaximo"].ToString());
