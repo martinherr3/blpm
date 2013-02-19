@@ -103,6 +103,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.DropDownList ddlTop;
         
         /// <summary>
+        /// Control udpCriterios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpCriterios;
+        
+        /// <summary>
         /// Control lblCalificaciones.
         /// </summary>
         /// <remarks>
@@ -119,6 +128,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::EDUAR_UI.UserControls.Criterio criterioCalificacion;
+        
+        /// <summary>
+        /// Control chartCriterios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart chartCriterios;
         
         /// <summary>
         /// Control lblInasistencias.
