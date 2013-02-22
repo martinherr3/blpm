@@ -14,7 +14,7 @@
     CollapsedSize="0" ExpandedSize="220" Collapsed="True" ExpandControlID="lnkConfig"
     CollapseControlID="lnkConfig" AutoCollapse="False" AutoExpand="False" ScrollContents="false"
     ExpandDirection="Vertical" />
-<asp:Panel runat="server" ID="Panel1" BackColor="#EDEDED" Width="500px">
+<asp:Panel runat="server" ID="Panel1" BackColor="#FFFFFF" Width="500px">
     <table width="100%">
         <tr>
             <td style="width: 60%">

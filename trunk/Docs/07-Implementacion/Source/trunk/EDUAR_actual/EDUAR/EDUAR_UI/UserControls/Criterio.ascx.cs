@@ -196,6 +196,11 @@ namespace EDUAR_UI.UserControls
 		#endregion
 
 		#region --[Eventos]--
+		/// <summary>
+		/// Handles the Load event of the Page control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			txtCriterio.TextChanged += (ActualizarCriterio);
@@ -218,11 +223,6 @@ namespace EDUAR_UI.UserControls
 				//valCriterioMin.ValueToCompare = indicador.pesoMinimo.ToString();
 				//valCriterioMin.ErrorMessage = "El valor MÍNIMO admitido es " + indicador.pesoMinimo.ToString();
 			}
-		}
-
-		void ActualizarCriterio(object sender, EventArgs e)
-		{
-			onCriterioTextChanged(CriterioScroll, e);
 		}
 
 		/// <summary>
@@ -289,6 +289,11 @@ namespace EDUAR_UI.UserControls
 			}
 		}
 
+		/// <summary>
+		/// Handles the Click event of the lnkConfig control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void lnkConfig_Click(object sender, EventArgs e)
 		{
 			try
@@ -352,6 +357,16 @@ namespace EDUAR_UI.UserControls
 			txtLimiteIndiferencia.Text = string.Empty;
 			txtLimitePreferencia.Text = string.Empty;
 			txtLimiteSigma.Text = string.Empty;
+		}
+
+		/// <summary>
+		/// Actualizars the criterio.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		void ActualizarCriterio(object sender, EventArgs e)
+		{
+			onCriterioTextChanged(CriterioScroll, e);
 		}
 		#endregion
 
@@ -427,8 +442,6 @@ namespace EDUAR_UI.UserControls
 			return mensaje;
 		}
 		#endregion
-
-
 
 	}
 }

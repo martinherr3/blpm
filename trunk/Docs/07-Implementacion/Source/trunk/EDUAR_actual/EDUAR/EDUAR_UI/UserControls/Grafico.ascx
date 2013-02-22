@@ -120,7 +120,7 @@
                                         ToolTip="Más Información" AlternateText="Más Información" />
                                 </td>
                                 <td style="width: 99%">
-                                    <asp:LinkButton ID="LinkButton1" Text="Más Información" runat="server" OnClick="btnExportar_Click" />
+                                    <asp:LinkButton ID="lnkExportar" Text="Más Información" runat="server" OnClick="btnExportar_Click" />
                                 </td>
                             </tr>
                         </table>

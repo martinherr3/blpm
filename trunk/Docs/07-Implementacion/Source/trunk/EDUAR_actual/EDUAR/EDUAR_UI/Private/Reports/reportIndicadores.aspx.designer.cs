@@ -103,15 +103,6 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.DropDownList ddlTop;
         
         /// <summary>
-        /// Control udpCriterios.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpCriterios;
-        
-        /// <summary>
         /// Control lblCalificaciones.
         /// </summary>
         /// <remarks>
@@ -128,15 +119,6 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::EDUAR_UI.UserControls.Criterio criterioCalificacion;
-        
-        /// <summary>
-        /// Control chartCriterios.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.DataVisualization.Charting.Chart chartCriterios;
         
         /// <summary>
         /// Control lblInasistencias.
@@ -175,6 +157,42 @@ namespace EDUAR_UI {
         protected global::EDUAR_UI.UserControls.Criterio criterioSancion;
         
         /// <summary>
+        /// Control updDistribucion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updDistribucion;
+        
+        /// <summary>
+        /// Control chartCriterios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart chartCriterios;
+        
+        /// <summary>
+        /// Control udpImgPodio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpImgPodio;
+        
+        /// <summary>
+        /// Control chartPodio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart chartPodio;
+        
+        /// <summary>
         /// Control udpResultado.
         /// </summary>
         /// <remarks>
@@ -182,6 +200,33 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel udpResultado;
+        
+        /// <summary>
+        /// Control lnkConfig.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkConfig;
+        
+        /// <summary>
+        /// Control cpe.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CollapsiblePanelExtender cpe;
+        
+        /// <summary>
+        /// Control pnlResultado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlResultado;
         
         /// <summary>
         /// Control lblResultadoGrilla.
@@ -202,6 +247,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblResultado;
         
         /// <summary>
+        /// Control UpdatePanel1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// Control gvwResultado.
         /// </summary>
         /// <remarks>
@@ -209,24 +263,6 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvwResultado;
-        
-        /// <summary>
-        /// Control udpImgPodio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpImgPodio;
-        
-        /// <summary>
-        /// Control imgPodio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgPodio;
         
         /// <summary>
         /// Propiedad Master.
