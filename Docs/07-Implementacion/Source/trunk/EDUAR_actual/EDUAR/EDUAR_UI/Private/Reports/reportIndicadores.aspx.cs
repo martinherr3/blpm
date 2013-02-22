@@ -188,6 +188,7 @@ namespace EDUAR_UI
 					CargarPresentacion();
 					GraficarDistribucion();
 				}
+				//GraficarDistribucion();
 			}
 			catch (Exception ex)
 			{
@@ -275,6 +276,7 @@ namespace EDUAR_UI
 				{
 					if (tablaResultado != null && tablaResultado.Rows.Count > 0)
 					{
+						lnkConfig.Visible = true;
 						string filename = "Indicadores " + ddlCurso.SelectedItem.Text + " " + cicloLectivoActual.nombre + ".xls";
 						filename = filename.Replace(" ", "_");
 						Response.ContentType = "application/vnd.ms-excel";
@@ -284,11 +286,11 @@ namespace EDUAR_UI
 						InitializeWorkbook();
 						GenerateData();
 						Response.BinaryWrite(WriteToStream().GetBuffer());
+						udpResultado.Update();
 					}
 					else
 						Master.MostrarMensaje("Advertencia", "No se ha realizado ningún cálculo.", enumTipoVentanaInformacion.Advertencia);
 				}
-				GraficarDistribucion();
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -321,7 +323,7 @@ namespace EDUAR_UI
 					else
 						Master.MostrarMensaje("Advertencia", "No se ha realizado ningún cálculo.", enumTipoVentanaInformacion.Advertencia);
 				}
-				GraficarDistribucion();
+				//GraficarDistribucion();
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -339,7 +341,11 @@ namespace EDUAR_UI
 				string mensaje = ValidarDatos();
 				if (!string.IsNullOrEmpty(mensaje))
 					Master.MostrarMensaje("Advertencia", mensaje, enumTipoVentanaInformacion.Advertencia);
-				GraficarDistribucion();
+				else
+				{
+					lnkConfig.Visible = true;
+					udpResultado.Update();
+				}
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -485,16 +491,40 @@ namespace EDUAR_UI
 			//}
 		}
 
+		/// <summary>
+		/// Handles the SelectedIndexChanged event of the ddlCurso control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void ddlCurso_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			lblResultadoGrilla.Visible = false;
 			lblResultado.Visible = false;
 			gvwResultado.DataSource = null;
 			gvwResultado.DataBind();
-			imgPodio.Visible = false;
-			imgPodio.ImageUrl = "";
+			chartPodio.Visible = false;
+			//imgPodio.ImageUrl = "";
+			lnkConfig.Visible = false;
+			GraficarDistribucion();
 			udpImgPodio.Update();
 			udpResultado.Update();
+		}
+
+		/// <summary>
+		/// Handles the Click event of the lnkConfig control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void lnkConfig_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				//ActualizarCriterio(sender, e);
+			}
+			catch (Exception ex)
+			{
+				throw ex; //Master.ManageExceptions(ex);
+			}
 		}
 		#endregion
 
@@ -505,19 +535,10 @@ namespace EDUAR_UI
 		private void CargarPresentacion()
 		{
 			CargarComboCursos();
-			//CargarIndicadores();
+			chartPodio.Visible = false;
 			if (!User.IsInRole(enumRoles.Administrador.ToString()))
 				btnExcel.Visible = false;
 		}
-
-		/// <summary>
-		/// Cargars the indicadores.
-		/// </summary>
-		//private void CargarIndicadores()
-		//{
-		//    EDUAR_BusinessLogic.Common.BLIndicador objBLIndicador = new EDUAR_BusinessLogic.Common.BLIndicador();
-		//    List<EDUAR_Entities.DEC.Indicador> listaIndicadores = objBLIndicador.GetIndicadores(null);
-		//}
 
 		/// <summary>
 		/// Cargars the combo cursos.
@@ -877,6 +898,11 @@ namespace EDUAR_UI
 		/// </summary>
 		private void GraficarPodioResultado()
 		{
+			List<EDUAR_Entities.DEC.Indicador> listaIndicador = new List<EDUAR_Entities.DEC.Indicador>();
+			listaIndicador.Add(new EDUAR_Entities.DEC.Indicador());
+			listaIndicador.Add(new EDUAR_Entities.DEC.Indicador());
+			listaIndicador.Add(new EDUAR_Entities.DEC.Indicador());
+
 			#region --[Top 3 Alumnos]--
 			for (int i = 0; i < 3; i++)
 			{
@@ -890,14 +916,20 @@ namespace EDUAR_UI
 					case 0:
 						valor1 = Convert.ToSingle(100);
 						Alumno1 = TopAlumno.ElementAt(0).ToString();
+						listaIndicador[1].pesoDefault = (decimal)valor1;
+						listaIndicador[1].nombre = Alumno1;
 						break;
 					case 1:
 						valor2 = Convert.ToSingle(75);
 						Alumno2 = TopAlumno.ElementAt(0).ToString();
+						listaIndicador[0].pesoDefault = (decimal)valor2;
+						listaIndicador[0].nombre = Alumno2;
 						break;
 					case 2:
 						valor3 = Convert.ToSingle(50);
 						Alumno3 = TopAlumno.ElementAt(0).ToString();
+						listaIndicador[2].pesoDefault = (decimal)valor3;
+						listaIndicador[2].nombre = Alumno3;
 						break;
 					default:
 						break;
@@ -905,99 +937,27 @@ namespace EDUAR_UI
 			}
 			#endregion
 
-			//Dreclaramos el objeto BitMap y Graphic
-			Bitmap objBitmap = new Bitmap(340, 250);
+			chartPodio.Titles.Clear();
+			chartPodio.Series.Clear();
 
-			Graphics objGraphic = Graphics.FromImage(objBitmap);
+			chartPodio.Titles.Add("Resultados");
+			chartPodio.Titles[0].Font = new Font("Tahoma", 14);
+			chartPodio.Titles[0].ForeColor = Color.DimGray;
 
-			//Declaramos las barras asignándoles un color
-			SolidBrush TurquoiseBrush = new SolidBrush(Color.Turquoise);
-			SolidBrush VioletBrush = new SolidBrush(Color.Violet);
-			SolidBrush SalmonBrush = new SolidBrush(Color.Salmon);
+			chartPodio.Series.Add("Alumnos");
 
-			//Definimos el fondo de color blanco
-			SolidBrush whiteBrush = new SolidBrush(Color.White);
+			chartPodio.Series["Alumnos"].ChartType = SeriesChartType.Column;
+			chartPodio.Series["Alumnos"].ShadowOffset = 2;
+			chartPodio.Series["Alumnos"].ToolTip = "#VALX";
 
-			//Aquí es donde creamos el fondo, de color
-			//blanco tal y como especificamos anteriormente
-			objGraphic.FillRectangle(whiteBrush, 0, 0, 340, 250);
+			chartPodio.Series["Alumnos"].MarkerStyle = MarkerStyle.Star5;
+			chartPodio.Series["Alumnos"].Points.DataBind(listaIndicador, "nombre", "pesoDefault", "");
+			chartPodio.Series["Alumnos"].Font = new Font("Tahoma", 10);
 
-			//Comprobamos cual es la más grande, que tendrá un tamaño
-			//del 100%, y las otras 2 serán más pequeñas en proporción
-			//a la diferencia de tamaño con respecto a la mayor.
-			if (valor1 > valor2)
-				sngMayorValor = valor1;
-			else
-				sngMayorValor = valor2;
-
-			if (valor3 > sngMayorValor)
-				sngMayorValor = valor3;
-
-			if (sngMayorValor == 0)
-				sngMayorValor = 1;
-
-			sngMayor1 = (valor1 / sngMayorValor) * 190;
-			sngMayor2 = (valor2 / sngMayorValor) * 190;
-			sngMayor3 = (valor3 / sngMayorValor) * 190;
-
-			//Con todos los cálculos realizado, creamos ahora sí
-			//las columnas de la imagen 
-			objGraphic.FillRectangle(TurquoiseBrush, 10, 244 - sngMayor2, 100, sngMayor2);
-			objGraphic.FillRectangle(VioletBrush, 120, 244 - sngMayor1, 100, sngMayor1);
-			objGraphic.FillRectangle(SalmonBrush, 230, 244 - sngMayor3, 100, sngMayor3);
-
-			// Create font and brush.
-			Font drawFont = new Font("Verdana", 10);
-			SolidBrush drawBrush = new SolidBrush(Color.Black);
-			Font drawFontTitulo = new Font("Verdana", 14);
-
-			// Create rectangle for drawing.
-			RectangleF drawRect1 = new RectangleF(10, 244 - sngMayor2, 100, sngMayor2);
-			RectangleF drawRect2 = new RectangleF(120, 244 - sngMayor1, 100, sngMayor1);
-			RectangleF drawRect3 = new RectangleF(230, 244 - sngMayor3, 100, sngMayor3);
-			RectangleF drawRectTitulo = new RectangleF(10, 10, 300, 75);
-
-			// Draw rectangle to screen.
-			Pen blackPen = new Pen(Color.Transparent);
-			objGraphic.DrawRectangle(blackPen, 10, 194 - sngMayor2, 100, sngMayor2);
-			objGraphic.DrawRectangle(blackPen, 120, 194 - sngMayor1, 100, sngMayor1);
-			objGraphic.DrawRectangle(blackPen, 230, 194 - sngMayor3, 100, sngMayor3);
-
-			// Set format of string.
-			StringFormat drawFormat = new StringFormat();
-			drawFormat.Alignment = StringAlignment.Center;
-
-			// Draw string to screen.
-			objGraphic.DrawString(Alumno1, drawFont, drawBrush, drawRect2, drawFormat);
-			objGraphic.DrawString(Alumno2, drawFont, drawBrush, drawRect1, drawFormat);
-			objGraphic.DrawString(Alumno3, drawFont, drawBrush, drawRect3, drawFormat);
-			objGraphic.DrawString("Podio de Resultados", drawFontTitulo, drawBrush, drawRectTitulo, drawFormat);
-
-			//Definimos el tipo de fichero
-			Response.ContentType = "image/png";
-
-			string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oImgPath"];
-			UIUtilidades.EliminarArchivosSession(Session.SessionID);
-			//Crea el directorio.
-			if (!System.IO.Directory.Exists(TmpPath))
-				System.IO.Directory.CreateDirectory(TmpPath);
-
-			NombrePNG = TmpPath + "\\Podio_" + Session.SessionID + ".png";
-			string ruta = Request.PhysicalApplicationPath + "\\Images\\TMP\\Podio_" + Session.SessionID + ".png";
-			//Y finalmente lo guardamos
-			objBitmap.Save(NombrePNG, ImageFormat.Png);
-
-			File.Copy(NombrePNG, ruta);
-			objBitmap.Dispose();
-			GC.WaitForPendingFinalizers();
-			GC.Collect();
-			//imgPodio.ImageUrl = "";
-			//udpImgPodio.Update();
-			imgPodio.ImageUrl = "~/Images/TMP/Podio_" + Session.SessionID + ".png";
-			imgPodio.Visible = true;
+			chartPodio.Legends.Clear();
+			chartPodio.Visible = true;
 			udpImgPodio.Update();
 			udpResultado.Update();
-
 		}
 
 		/// <summary>
@@ -1200,7 +1160,7 @@ namespace EDUAR_UI
 			chartCriterios.Series["Criterios"].Font = new Font("Tahoma", 10);
 
 			chartCriterios.Legends.Clear();
-			udpCriterios.Update();
+			updDistribucion.Update();
 		}
 
 		#region --[Generación de Excel]--
