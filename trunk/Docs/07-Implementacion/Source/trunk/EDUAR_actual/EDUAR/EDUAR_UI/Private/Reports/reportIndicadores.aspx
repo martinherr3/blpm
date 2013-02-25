@@ -36,8 +36,15 @@
                     <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="top" class="TDCriterios25">
-                    <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
-                    </asp:DropDownList>
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:PostBackTrigger ControlID="ddlCurso" />
+                        </Triggers>
+                    </asp:UpdatePanel>
                 </td>
                 <td valign="top" class="TDCriterios25">
                     <asp:Label ID="lblAlumnos" runat="server" Text="Obtener los primeros:" CssClass="lblCriterios"></asp:Label>
@@ -118,9 +125,9 @@
                     <div style="width: 100%; text-align: center">
                         <asp:UpdatePanel ID="udpImgPodio" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
-                                <%--<asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
-                                    Visible="false" Style="text-align: center" />--%>
-                                <asp:Chart ID="chartPodio" runat="server" Height="300px" Width="350px" ImageType="Png"
+                                <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
+                                    Visible="false" Style="text-align: center" />
+                                <%--<asp:Chart ID="chartPodio" runat="server" Height="300px" Width="350px" ImageType="Png"
                                     AntiAliasing="All" Palette="SeaGreen" RenderType="ImageTag" Visible="false">
                                     <ChartAreas>
                                         <asp:ChartArea Name="ChartArea1" BorderColor="64, 64, 64, 64">
@@ -128,7 +135,7 @@
                                                 WallWidth="0" IsClustered="False" Enable3D="true"></Area3DStyle>
                                         </asp:ChartArea>
                                     </ChartAreas>
-                                </asp:Chart>
+                                </asp:Chart>--%>
                             </ContentTemplate>
                             <Triggers>
                                 <asp:AsyncPostBackTrigger ControlID="btnCalcular" EventName="Click" />
