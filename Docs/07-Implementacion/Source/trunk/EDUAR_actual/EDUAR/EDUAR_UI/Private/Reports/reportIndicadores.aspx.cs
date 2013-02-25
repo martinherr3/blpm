@@ -502,8 +502,8 @@ namespace EDUAR_UI
 			lblResultado.Visible = false;
 			gvwResultado.DataSource = null;
 			gvwResultado.DataBind();
-			chartPodio.Visible = false;
-			//imgPodio.ImageUrl = "";
+			//chartPodio.Visible = false;
+			imgPodio.ImageUrl = "";
 			lnkConfig.Visible = false;
 			GraficarDistribucion();
 			udpImgPodio.Update();
@@ -535,7 +535,8 @@ namespace EDUAR_UI
 		private void CargarPresentacion()
 		{
 			CargarComboCursos();
-			chartPodio.Visible = false;
+			//chartPodio.Visible = false;
+			imgPodio.Visible = false;
 			if (!User.IsInRole(enumRoles.Administrador.ToString()))
 				btnExcel.Visible = false;
 		}
@@ -898,11 +899,6 @@ namespace EDUAR_UI
 		/// </summary>
 		private void GraficarPodioResultado()
 		{
-			List<EDUAR_Entities.DEC.Indicador> listaIndicador = new List<EDUAR_Entities.DEC.Indicador>();
-			listaIndicador.Add(new EDUAR_Entities.DEC.Indicador());
-			listaIndicador.Add(new EDUAR_Entities.DEC.Indicador());
-			listaIndicador.Add(new EDUAR_Entities.DEC.Indicador());
-
 			#region --[Top 3 Alumnos]--
 			for (int i = 0; i < 3; i++)
 			{
@@ -916,20 +912,14 @@ namespace EDUAR_UI
 					case 0:
 						valor1 = Convert.ToSingle(100);
 						Alumno1 = TopAlumno.ElementAt(0).ToString();
-						listaIndicador[1].pesoDefault = (decimal)valor1;
-						listaIndicador[1].nombre = Alumno1;
 						break;
 					case 1:
 						valor2 = Convert.ToSingle(75);
 						Alumno2 = TopAlumno.ElementAt(0).ToString();
-						listaIndicador[0].pesoDefault = (decimal)valor2;
-						listaIndicador[0].nombre = Alumno2;
 						break;
 					case 2:
 						valor3 = Convert.ToSingle(50);
 						Alumno3 = TopAlumno.ElementAt(0).ToString();
-						listaIndicador[2].pesoDefault = (decimal)valor3;
-						listaIndicador[2].nombre = Alumno3;
 						break;
 					default:
 						break;
@@ -937,25 +927,99 @@ namespace EDUAR_UI
 			}
 			#endregion
 
-			chartPodio.Titles.Clear();
-			chartPodio.Series.Clear();
+			//Dreclaramos el objeto BitMap y Graphic
+			Bitmap objBitmap = new Bitmap(340, 250);
 
-			chartPodio.Titles.Add("Resultados");
-			chartPodio.Titles[0].Font = new Font("Tahoma", 14);
-			chartPodio.Titles[0].ForeColor = Color.DimGray;
+			Graphics objGraphic = Graphics.FromImage(objBitmap);
 
-			chartPodio.Series.Add("Alumnos");
+			//Declaramos las barras asignándoles un color
+			SolidBrush TurquoiseBrush = new SolidBrush(Color.MediumAquamarine);
+			SolidBrush VioletBrush = new SolidBrush(Color.SteelBlue);
+			SolidBrush SalmonBrush = new SolidBrush(Color.SeaGreen);
 
-			chartPodio.Series["Alumnos"].ChartType = SeriesChartType.Column;
-			chartPodio.Series["Alumnos"].ShadowOffset = 2;
-			chartPodio.Series["Alumnos"].ToolTip = "#VALX";
+			//Definimos el fondo de color blanco
+			SolidBrush whiteBrush = new SolidBrush(Color.White);
 
-			chartPodio.Series["Alumnos"].MarkerStyle = MarkerStyle.Star5;
-			chartPodio.Series["Alumnos"].Points.DataBind(listaIndicador, "nombre", "pesoDefault", "");
-			chartPodio.Series["Alumnos"].Font = new Font("Tahoma", 10);
+			//Aquí es donde creamos el fondo, de color
+			//blanco tal y como especificamos anteriormente
+			objGraphic.FillRectangle(whiteBrush, 0, 0, 340, 250);
 
-			chartPodio.Legends.Clear();
-			chartPodio.Visible = true;
+			//Comprobamos cual es la más grande, que tendrá un tamaño
+			//del 100%, y las otras 2 serán más pequeñas en proporción
+			//a la diferencia de tamaño con respecto a la mayor.
+			if (valor1 > valor2)
+				sngMayorValor = valor1;
+			else
+				sngMayorValor = valor2;
+
+			if (valor3 > sngMayorValor)
+				sngMayorValor = valor3;
+
+			if (sngMayorValor == 0)
+				sngMayorValor = 1;
+
+			sngMayor1 = (valor1 / sngMayorValor) * 190;
+			sngMayor2 = (valor2 / sngMayorValor) * 190;
+			sngMayor3 = (valor3 / sngMayorValor) * 190;
+
+			//Con todos los cálculos realizado, creamos ahora sí
+			//las columnas de la imagen 
+			objGraphic.FillRectangle(TurquoiseBrush, 10, 244 - sngMayor2, 100, sngMayor2);
+			objGraphic.FillRectangle(VioletBrush, 120, 244 - sngMayor1, 100, sngMayor1);
+			objGraphic.FillRectangle(SalmonBrush, 230, 244 - sngMayor3, 100, sngMayor3);
+
+			// Create font and brush.
+			Font drawFont = new Font("Tahoma", 10);
+			SolidBrush drawBrush = new SolidBrush(Color.DimGray);
+			SolidBrush drawBrushNegro = new SolidBrush(Color.Black);
+			Font drawFontTitulo = new Font("Tahoma", 14);
+
+			// Create rectangle for drawing.
+			RectangleF drawRect1 = new RectangleF(10, 244 - sngMayor2, 100, sngMayor2);
+			RectangleF drawRect2 = new RectangleF(120, 244 - sngMayor1, 100, sngMayor1);
+			RectangleF drawRect3 = new RectangleF(230, 244 - sngMayor3, 100, sngMayor3);
+			RectangleF drawRectTitulo = new RectangleF(10, 10, 300, 75);
+
+			// Draw rectangle to screen.
+			Pen blackPen = new Pen(Color.Transparent);
+			objGraphic.DrawRectangle(blackPen, 10, 194 - sngMayor2, 100, sngMayor2);
+			objGraphic.DrawRectangle(blackPen, 120, 194 - sngMayor1, 100, sngMayor1);
+			objGraphic.DrawRectangle(blackPen, 230, 194 - sngMayor3, 100, sngMayor3);
+
+			// Set format of string.
+			StringFormat drawFormat = new StringFormat();
+			drawFormat.Alignment = StringAlignment.Center;
+
+			// Draw string to screen.
+			objGraphic.DrawString(Alumno1, drawFont, drawBrushNegro, drawRect2, drawFormat);
+			objGraphic.DrawString(Alumno2, drawFont, drawBrushNegro, drawRect1, drawFormat);
+			objGraphic.DrawString(Alumno3, drawFont, drawBrushNegro, drawRect3, drawFormat);
+			objGraphic.DrawString("Resultados", drawFontTitulo, drawBrush, drawRectTitulo, drawFormat);
+
+			//Definimos el tipo de fichero
+			Response.ContentType = "image/png";
+
+			string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oImgPath"];
+			UIUtilidades.EliminarArchivosSession(Session.SessionID);
+			//Crea el directorio.
+			if (!System.IO.Directory.Exists(TmpPath))
+				System.IO.Directory.CreateDirectory(TmpPath);
+
+			NombrePNG = TmpPath + "\\Podio_" + Session.SessionID + ".png";
+			string ruta = Request.PhysicalApplicationPath + "\\Images\\TMP\\Podio_" + Session.SessionID + ".png";
+			//Y finalmente lo guardamos
+			objBitmap.Save(NombrePNG, ImageFormat.Png);
+
+			File.Copy(NombrePNG, ruta);
+			objBitmap.Dispose();
+			GC.WaitForPendingFinalizers();
+			GC.Collect();
+
+			imgPodio.ImageUrl = "~/Images/TMP/Podio_" + Session.SessionID + ".png";
+			imgPodio.Visible = true;
+			udpImgPodio.Update();
+			udpResultado.Update();
+
 			udpImgPodio.Update();
 			udpResultado.Update();
 		}
