@@ -142,20 +142,6 @@ namespace EDUAR_UI
 				AccionPagina = enumAcciones.Limpiar;
 				LimpiarCampos();
 				CargarPresentacion();
-				//CargarComboAsignatura();
-				////BindComboModulos(DateTime.Now.Month);
-				//esNuevo = true;
-				//btnGuardar.Visible = true;
-				//btnBuscar.Visible = false;
-				//btnVolver.Visible = true;
-				//btnNuevo.Visible = false;
-				//gvwReporte.Visible = false;
-				//litEditar.Visible = false;
-				//litNuevo.Visible = true;
-				//udpEdit.Visible = true;
-				//udpFiltrosBusqueda.Visible = false;
-				//udpFiltros.Update();
-				//udpGrilla.Update();
 			}
 			catch (Exception ex)
 			{
@@ -415,6 +401,52 @@ namespace EDUAR_UI
 		private string ValidarPagina()
 		{
 			string mensaje = string.Empty;
+			decimal prueba = 0;
+
+			decimal.TryParse(txtPesoDefault.Text, out prueba);
+			if (!(prueba > 0))
+				mensaje = " - Peso Predeterminado<br />";
+			prueba = 0;
+			decimal.TryParse(txtPesoMinimo.Text, out prueba);
+			if (!(prueba > 0))
+				mensaje += " - Peso Mínimo<br />";
+			prueba = 0; 
+			decimal.TryParse(txtPesoMaximo.Text, out prueba);
+			if (!(prueba > 0))
+				mensaje += " - Peso Máximo<br />";
+
+			prueba = 0;
+			decimal.TryParse(txtCCLimIndiferencia.Text, out prueba);
+			if (!(prueba > 0))
+				mensaje += " - Cuasi Criterio: Límite de Indiferencia<br />";
+
+			prueba = 0;
+			decimal.TryParse(txtPCLimPreferencia.Text, out prueba);
+			if (!(prueba > 0))
+				mensaje += " - Pseudo Criterio con Preferencia Lineal: Límite de Preferencia<br />";
+
+			prueba = 0;
+			decimal.TryParse(txtLCLimIndiferencia.Text, out prueba);
+			if (!(prueba > 0))
+				mensaje += " - Level Criterio: Límite de Indiferencia<br />";
+			prueba = 0;
+			decimal.TryParse(txtLCLimPreferencia.Text, out prueba);
+			if (!(prueba > 0))
+				mensaje += " - Level Criterio: Límite de Preferencia<br />";
+
+			prueba = 0;
+			decimal.TryParse(txtPLLimIndiferencia.Text, out prueba);
+			if (!(prueba > 0))
+				mensaje += " - Preferencia Lineal y Área de Indiferencia: Límite de Indiferencia<br />";
+			prueba = 0;
+			decimal.TryParse(txtPLLimPreferencia.Text, out prueba);
+			if (!(prueba > 0))
+				mensaje += " - Preferencia Lineal y Área de Indiferencia: Límite de Preferencia<br />";
+
+			prueba = 0;
+			decimal.TryParse(txtGSigma.Text, out prueba);
+			if (!(prueba > 0))
+				mensaje += " - Criterio Gaussiano: Sigma<br />";
 
 			return mensaje;
 		}
