@@ -224,6 +224,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPresentacion()
 		{
+			AccionPagina = enumAcciones.Limpiar;
 			LimpiarCampos();
 			BuscarIndicadores(new Indicador());
 			udpEdit.Visible = false;
@@ -231,6 +232,7 @@ namespace EDUAR_UI
 			btnGuardar.Visible = false;
 			gvwReporte.Visible = true;
 			udpGrilla.Update();
+			udpBotonera.Update();
 		}
 
 		/// <summary>
