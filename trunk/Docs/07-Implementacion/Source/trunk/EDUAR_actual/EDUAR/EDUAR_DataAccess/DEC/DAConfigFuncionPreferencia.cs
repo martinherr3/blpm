@@ -137,9 +137,35 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
+		/// <summary>
+		/// Updates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
 		public override void Update(ConfigFuncionPreferencia entidad)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("DEC_ConfigFuncionPreferencia_Update"))
+				{
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idConfigFuncionPreferencia", DbType.Int32, entidad.idConfigFuncionPreferencia);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@valorDefault", DbType.Decimal, entidad.valorDefault);
+
+					if (Transaction.Transaction != null)
+						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+					else
+						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+				}
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
 		}
 
 		public override void Delete(ConfigFuncionPreferencia entidad)

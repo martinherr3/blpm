@@ -93,6 +93,13 @@ namespace EDUAR_BusinessLogic.Common
 				else
 					DataAcces.Update(Data);
 
+				BLConfigFuncionPreferencia objBLConfig;
+				foreach (ConfigFuncionPreferencia item in Data.listaConfig)
+				{
+					objBLConfig = new BLConfigFuncionPreferencia(item);
+					objBLConfig.Save();
+				}
+
 				//Se da el OK para la transaccion.
 				DataAcces.Transaction.CommitTransaction();
 			}
