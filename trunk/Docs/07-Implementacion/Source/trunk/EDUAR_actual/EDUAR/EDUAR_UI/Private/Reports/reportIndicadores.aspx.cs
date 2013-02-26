@@ -1006,7 +1006,7 @@ namespace EDUAR_UI
 				System.IO.Directory.CreateDirectory(TmpPath);
 
 			NombrePNG = TmpPath + "\\Podio_" + Session.SessionID + ".png";
-			string ruta = Request.PhysicalApplicationPath + "\\Images\\TMP\\Podio_" + Session.SessionID + ".png";
+			string ruta = Request.PhysicalApplicationPath + "Images\\TMP\\Podio_" + Session.SessionID + ".png";
 			//Y finalmente lo guardamos
 			objBitmap.Save(NombrePNG, ImageFormat.Png);
 
