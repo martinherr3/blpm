@@ -166,9 +166,42 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
+		/// <summary>
+		/// Updates the specified entidad.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
 		public override void Update(Indicador entidad)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("DEC_Indicador_Update"))
+				{
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idIndicador", DbType.Int32, entidad.idIndicador);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@escala", DbType.String, entidad.escala);
+
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@pesoDefault", DbType.Decimal, entidad.pesoDefault);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@pesoMinimo", DbType.Decimal, entidad.pesoMinimo);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@pesoMaximo", DbType.Decimal, entidad.pesoMaximo);
+
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@maximiza", DbType.Boolean, entidad.maximiza);
+
+					if (Transaction.Transaction != null)
+						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+					else
+						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+				}
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - Update()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
 		}
 
 		public override void Delete(Indicador entidad)

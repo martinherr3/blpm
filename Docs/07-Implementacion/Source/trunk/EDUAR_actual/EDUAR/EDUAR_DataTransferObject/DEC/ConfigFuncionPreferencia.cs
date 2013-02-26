@@ -10,6 +10,6 @@ namespace EDUAR_Entities
 		public int idIndicador { get; set; }
 		public int idFuncionPreferencia { get; set; }
 		public int idValorFuncionPreferencia { get; set; }
-		public float valorDefault { get; set; }
+		public decimal valorDefault { get; set; }
 	}
 }

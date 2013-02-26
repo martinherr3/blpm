@@ -51,6 +51,7 @@
         </siteMapNode>
         <siteMapNode url="" title="Administración" roles="Administrador,Director">
             <siteMapNode url="~/Private/Monitoreo/ConfigIndicadores.aspx" title="Indicadores" roles="Administrador,Director" />
+            <siteMapNode url="~/Private/Reports/ManageIndicadores.aspx" title="Indicadores DEC" roles="Administrador,Director" />
             <siteMapNode url="~/Private/Account/Profiles.aspx" title="Roles" roles="Administrador" />
             <siteMapNode url="~/Private/Account/ChangeUser.aspx" title="Usuarios" roles="Administrador" />
             <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar Usuario" roles="Administrador" visible="false"/>
