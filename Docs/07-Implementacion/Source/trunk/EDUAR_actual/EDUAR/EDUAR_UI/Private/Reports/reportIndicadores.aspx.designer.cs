@@ -13,15 +13,6 @@ namespace EDUAR_UI {
     public partial class reportIndicadores {
         
         /// <summary>
-        /// Control divAccion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAccion;
-        
-        /// <summary>
         /// Control lblCicloLectivo.
         /// </summary>
         /// <remarks>
@@ -58,15 +49,6 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnCalcular;
         
         /// <summary>
-        /// Control divFiltros.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divFiltros;
-        
-        /// <summary>
         /// Control lblCurso.
         /// </summary>
         /// <remarks>
@@ -76,13 +58,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblCurso;
         
         /// <summary>
-        /// Control UpdatePanel2.
+        /// Control udpCurso.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
+        protected global::System.Web.UI.UpdatePanel udpCurso;
         
         /// <summary>
         /// Control ddlCurso.
