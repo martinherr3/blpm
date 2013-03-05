@@ -237,11 +237,6 @@
                                     Rows="5"></asp:TextBox>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <asp:Label ID="lblRecordatorio" runat="server" Text="Label"></asp:Label>
-                            </td>
-                        </tr>
                     </table>
                 </ContentTemplate>
                 <Triggers>
