@@ -189,7 +189,7 @@ namespace EDUAR_DataAccess.Common
         {
             try
             {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaContenidoByTemaPlanificacion_Select");
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaContenidoByTemaPlanificacionAtrasado_Select");
                 if (entidad != null && entidad.idTemaPlanificacion > 0)
                 {
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, entidad.idTemaPlanificacion);

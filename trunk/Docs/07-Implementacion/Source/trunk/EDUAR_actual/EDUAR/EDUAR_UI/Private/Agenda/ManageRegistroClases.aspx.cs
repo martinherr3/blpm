@@ -356,7 +356,10 @@ namespace EDUAR_UI
 			{
                 listaContenidoAtrasado = TemasContenidosAtrasados;
                 CargarContenidosAtrasados(listaContenidoAtrasado);
-                mpeContenidoAtrasado.Show();
+                if (listaContenidoAtrasado.Count > 0)
+                {
+                    mpeContenidoAtrasado.Show();
+                }
 			}
 			catch (Exception ex)
 			{
