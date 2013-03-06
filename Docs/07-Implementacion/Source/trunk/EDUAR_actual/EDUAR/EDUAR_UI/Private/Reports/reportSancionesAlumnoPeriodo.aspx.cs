@@ -894,6 +894,9 @@ namespace EDUAR_UI
 					listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(miCurso);
 				}
 
+				if (User.IsInRole(enumRoles.Administrador.ToString()) || User.IsInRole(enumRoles.Director.ToString()))
+					listaCurso = objBLCicloLectivo.GetCursosByCicloLectivo(idCicloLectivo);
+
 				UIUtilidades.BindCombo<Curso>(ddlCurso, listaCurso, "idCurso", "nombre", true);
 				ddlCurso.Enabled = true;
 			}
