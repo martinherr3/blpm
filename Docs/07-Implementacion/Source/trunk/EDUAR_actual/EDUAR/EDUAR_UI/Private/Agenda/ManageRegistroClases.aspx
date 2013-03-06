@@ -338,7 +338,7 @@
                         </td>
                         <td align="right">
                         
-                            <asp:ImageButton ID="btnVolverContenidoAtrasadoPopUp" runat="server" ToolTip="Volver - Descartar Cambios"
+                            <asp:ImageButton ID="btnVolverContenidoAtrasadoPopUp" runat="server" ToolTip="Volver"
                                 ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverContenidosAtrasadosPopUp_Click" />
                         </td>
                     </tr>
@@ -355,22 +355,22 @@
                                 OnPageIndexChanged="gvwContenidosAtrasados_PageIndexChanged">
                                 <Columns>
                                     <asp:TemplateField HeaderText="Fecha Inicio">
-                                        <HeaderStyle HorizontalAlign="left" Width="25%" />
+                                        <HeaderStyle HorizontalAlign="left" Width="20%" />
                                         <ItemStyle HorizontalAlign="left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblFechaContenido" runat="server" Text='<%# Bind("fechaInicio") %>'></asp:Label>
+                                            <asp:Label ID="lblFechaContenido" runat="server" Text='<%# Bind("fechaInicio","{0:d}") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
                                     <asp:TemplateField HeaderText="Tema">
-                                        <HeaderStyle HorizontalAlign="left" Width="50%" />
+                                        <HeaderStyle HorizontalAlign="left" Width="60%" />
                                         <ItemStyle HorizontalAlign="left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblTituloContenidos" runat="server" Text='<%# Bind("Titulo") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Obligatorio">
-                                        <HeaderStyle HorizontalAlign="center" Width="25%" />
+                                        <HeaderStyle HorizontalAlign="center" Width="20%" />
                                         <ItemStyle HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblObligatorio" runat="server" Text='<%# Boolean.Parse(Eval("Obligatorio").ToString()) ? "Sí" : "No"  %>'></asp:Label>
