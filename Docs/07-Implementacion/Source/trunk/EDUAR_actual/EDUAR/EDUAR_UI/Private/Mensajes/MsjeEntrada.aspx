@@ -47,7 +47,7 @@
                             <asp:TemplateField HeaderText="Acciones" HeaderStyle-VerticalAlign="Middle">
                                 <HeaderStyle HorizontalAlign="left" Width="10%" />
                                 <HeaderTemplate>
-                                    <asp:CheckBox ID="cboxhead" AutoPostBack="true" Text='Acciones' runat="server" Width="80px"
+                                    <asp:CheckBox ID="cboxhead" AutoPostBack="true" Text='Acciones' runat="server" Width="90px"
                                         ClientIDMode="Static" OnCheckedChanged="HeaderCheckedChanged" Style="margin-bottom: 4px" />
                                 </HeaderTemplate>
                                 <ItemStyle HorizontalAlign="left" />
