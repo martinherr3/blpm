@@ -252,10 +252,10 @@
         </Triggers>
     </asp:UpdatePanel>
     <asp:HiddenField ID="HiddenField1" runat="server" />
-        <ajaxToolkit:ModalPopupExtender ID="mpeContenido" runat="server" PopupControlID="pnlContenidos"
-            TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
-            BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
-        </ajaxToolkit:ModalPopupExtender>
+    <ajaxToolkit:ModalPopupExtender ID="mpeContenido" runat="server" PopupControlID="pnlContenidos"
+        TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
+    </ajaxToolkit:ModalPopupExtender>
     <asp:Panel ID="pnlContenidos" runat="server" Width="600px" Height="510px" Style="display: none;
         text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
         <asp:UpdatePanel ID="udpContenidosAsociados" runat="server">
@@ -296,7 +296,7 @@
                                         <HeaderStyle HorizontalAlign="left" Width="75%" />
                                         <ItemStyle HorizontalAlign="left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblTituloContenidos" runat="server" Text='<%# Bind("Titulo") %>'></asp:Label>
+                                            <asp:Label ID="lblTituloContenidos" runat="server" Text='<%#Bind("Contenido") + " - " + Bind("Titulo") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Obligatorio">
@@ -314,31 +314,25 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </asp:Panel>
-
-
-
-
-
     <asp:HiddenField ID="HiddenField2" runat="server" />
     <ajaxToolkit:ModalPopupExtender ID="mpeContenidoAtrasado" runat="server" PopupControlID="pnlContenidosAtrasados"
         TargetControlID="HiddenField2" RepositionMode="RepositionOnWindowResizeAndScroll"
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidosAtrasados">
     </ajaxToolkit:ModalPopupExtender>
-  
-    <asp:Panel ID="pnlContenidosAtrasados" runat="server" Width="600px" Height="510px" Style="display: none;
-        text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+    <asp:Panel ID="pnlContenidosAtrasados" runat="server" Width="600px" Height="510px"
+        Style="display: none; text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
         <asp:UpdatePanel ID="udpContenidosAsociadosAtrasados" runat="server">
             <ContentTemplate>
                 <table class="tablaInterna" cellpadding="0" cellspacing="0">
                     <tr>
                         <td>
                             <h2>
-                                <asp:Label ID="LabelContenidosAtrasados" Text="Recordatorio de Contenidos Planificados Atrasados" runat="server" /></h2>
+                                <asp:Label ID="LabelContenidosAtrasados" Text="Recordatorio de Contenidos Planificados Atrasados"
+                                    runat="server" /></h2>
                             <br />
                         </td>
                         <td align="right">
-                        
-                            <asp:ImageButton ID="btnVolverContenidoAtrasadoPopUp" runat="server" ToolTip="Volver"
+                            <asp:ImageButton ID="btnVolverContenidoAtrasadoPopUp" runat="server" ToolTip="Volver - Descartar Cambios"
                                 ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverContenidosAtrasadosPopUp_Click" />
                         </td>
                     </tr>
@@ -354,23 +348,22 @@
                                 AutoGenerateColumns="false" Width="500px" DataKeyNames="idTemaContenido" OnPageIndexChanging="gvwContenidosAtrasados_PageIndexChanging"
                                 OnPageIndexChanged="gvwContenidosAtrasados_PageIndexChanged">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="Fecha Inicio">
-                                        <HeaderStyle HorizontalAlign="left" Width="20%" />
-                                        <ItemStyle HorizontalAlign="left" />
+                                    <asp:TemplateField HeaderText="Fecha Planificada">
+                                        <HeaderStyle HorizontalAlign="center" Width="25%" />
+                                        <ItemStyle HorizontalAlign="center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblFechaContenido" runat="server" Text='<%# Bind("fechaInicio","{0:d}") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-
                                     <asp:TemplateField HeaderText="Tema">
-                                        <HeaderStyle HorizontalAlign="left" Width="60%" />
+                                        <HeaderStyle HorizontalAlign="left" Width="65%" />
                                         <ItemStyle HorizontalAlign="left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblTituloContenidos" runat="server" Text='<%# Bind("Titulo") %>'></asp:Label>
+                                            <asp:Label ID="lblTituloContenidos" runat="server" Text='<%# Bind("Contenido") + " - " + Bind("Titulo") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Obligatorio">
-                                        <HeaderStyle HorizontalAlign="center" Width="20%" />
+                                        <HeaderStyle HorizontalAlign="center" Width="10%" />
                                         <ItemStyle HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblObligatorio" runat="server" Text='<%# Boolean.Parse(Eval("Obligatorio").ToString()) ? "Sí" : "No"  %>'></asp:Label>
@@ -384,7 +377,4 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </asp:Panel>
-
-
-
 </asp:Content>

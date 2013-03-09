@@ -201,6 +201,11 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
 
+		/// <summary>
+		/// Gets the temas by curso asignatura.
+		/// </summary>
+		/// <param name="objAsignatura">The obj asignatura.</param>
+		/// <returns></returns>
 		public List<TemaContenido> GetTemasByCursoAsignatura(AsignaturaCicloLectivo objAsignatura)
 		{
 			try

@@ -180,72 +180,18 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
-        /// <summary>
-        /// Gets the tema contenidos by Tema Planificacion.
-        /// </summary>
-        /// <param name="entidad">The entidad.</param>
-        /// <returns></returns>
-        public List<TemaContenido> GetTemaContenidos(TemaPlanificacionAnual entidad)
-        {
-            try
-            {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaContenidoByTemaPlanificacionAtrasado_Select");
-                if (entidad != null && entidad.idTemaPlanificacion > 0)
-                {
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, entidad.idTemaPlanificacion);
-                }
-
-                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-
-                List<TemaContenido> listaContenidos = new List<TemaContenido>();
-                TemaContenido objContenido;
-                while (reader.Read())
-                {
-                    objContenido = new TemaContenido();
-                    objContenido.idContenido = Convert.ToInt32(reader["idContenido"]);
-                    objContenido.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
-                    objContenido.detalle = reader["detalle"].ToString();
-                    objContenido.titulo = reader["titulo"].ToString();
-                    objContenido.obligatorio = Convert.ToBoolean(reader["obligatorio"]);
-                    listaContenidos.Add(objContenido);
-                }
-                return listaContenidos;
-            }
-            catch (SqlException ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
-                                    ex, enuExceptionType.DataAccesException);
-            }
-        }
 		/// <summary>
-		/// Gets the tema contenidos.
+		/// Gets the tema contenidos by Tema Planificacion.
 		/// </summary>
 		/// <param name="entidad">The entidad.</param>
 		/// <returns></returns>
-		public List<TemaContenido> GetTemaContenidos(TemaContenido entidad, AsignaturaCicloLectivo objAsignatura)
+		public List<TemaContenido> GetTemaContenidos(TemaPlanificacionAnual entidad)
 		{
 			try
 			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaContenido_Select");
-				if (entidad != null)
-				{
-					if (!string.IsNullOrEmpty(entidad.titulo))
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.titulo);
-					if (entidad.idTemaContenido > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.idTemaContenido);
-					if (!string.IsNullOrEmpty(entidad.detalle))
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle);
-					if (entidad.idContenido > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idContenido", DbType.Int32, entidad.idContenido);
-				}
-				if(objAsignatura != null)
-					if (objAsignatura.idAsignaturaCicloLectivo > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, objAsignatura.idAsignaturaCicloLectivo);
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaContenidoByTemaPlanificacionAtrasado_Select");
+				if (entidad != null && entidad.idTemaPlanificacion > 0)
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, entidad.idTemaPlanificacion);
 
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -274,6 +220,59 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+		/// <summary>
+		/// Gets the tema contenidos.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<TemaContenido> GetTemaContenidos(TemaContenido entidad, AsignaturaCicloLectivo objAsignatura)
+		{
+			try
+			{
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaContenido_Select");
+				if (entidad != null)
+				{
+					if (!string.IsNullOrEmpty(entidad.titulo))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.titulo);
+					if (entidad.idTemaContenido > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.idTemaContenido);
+					if (!string.IsNullOrEmpty(entidad.detalle))
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle);
+					if (entidad.idContenido > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idContenido", DbType.Int32, entidad.idContenido);
+				}
+				if (objAsignatura != null)
+					if (objAsignatura.idAsignaturaCicloLectivo > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, objAsignatura.idAsignaturaCicloLectivo);
+
+				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+				List<TemaContenido> listaContenidos = new List<TemaContenido>();
+				TemaContenido objContenido;
+				while (reader.Read())
+				{
+					objContenido = new TemaContenido();
+					objContenido.idContenido = Convert.ToInt32(reader["idContenido"]);
+					objContenido.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
+					objContenido.detalle = reader["detalle"].ToString();
+					objContenido.titulo = reader["titulo"].ToString();
+					objContenido.contenido = reader["contenido"].ToString();
+					objContenido.obligatorio = Convert.ToBoolean(reader["obligatorio"]);
+					listaContenidos.Add(objContenido);
+				}
+				return listaContenidos;
+			}
+			catch (SqlException ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
+									ex, enuExceptionType.SqlException);
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
+									ex, enuExceptionType.DataAccesException);
+			}
+		}
 
 		/// <summary>
 		/// Gets the contenidos planificados.
@@ -285,7 +284,7 @@ namespace EDUAR_DataAccess.Common
 			try
 			{
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ContenidosPlanificados_Select");
-				
+
 				if (entidad != null)
 					if (entidad.idAsignaturaCicloLectivo > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, entidad.idAsignaturaCicloLectivo);
