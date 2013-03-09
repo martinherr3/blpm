@@ -2,6 +2,8 @@
 using System.IO;
 using EDUAR_UI.Utilidades;
 using System.Web;
+using System.Web.Security;
+using System.Security.Principal;
 
 namespace EDUAR_UI
 {
@@ -69,11 +71,29 @@ namespace EDUAR_UI
 		{
 			// Código que se ejecuta cuando finaliza una sesión.
 			UIUtilidades.EliminarArchivosSession(Session.SessionID);
-
 			// Nota: el evento Session_End se desencadena sólo cuando el modo sessionstate
 			// se establece como InProc en el archivo Web.config. Si el modo de sesión se establece como StateServer 
 			// o SQLServer, el evento no se genera.
 			Session.Abandon();
+		}
+
+		protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+		{
+			//Fires upon attempting to authenticate the use
+			if (!(HttpContext.Current.User == null))
+			{
+				if (HttpContext.Current.User.Identity.IsAuthenticated)
+				{
+					if (HttpContext.Current.User.Identity.GetType() == typeof(FormsIdentity))
+					{
+						FormsIdentity fi = (FormsIdentity)HttpContext.Current.User.Identity;
+						FormsAuthenticationTicket fat = fi.Ticket;
+
+						String[] astrRoles = fat.UserData.Split('|');
+						HttpContext.Current.User = new GenericPrincipal(fi, astrRoles);
+					}
+				}
+			}
 		}
 	}
 }
