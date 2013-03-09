@@ -16,6 +16,7 @@ namespace EDUAR_Entities
         public int idTemaContenido { get; set; }
 		public string titulo { get; set; }
 		public string detalle { get; set; }
+		public string contenido { get; set; }
 		public bool obligatorio { get; set; }
 		public int idContenido { get; set; }
 

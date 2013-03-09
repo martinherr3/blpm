@@ -114,24 +114,24 @@ namespace EDUAR_UI
 			set { ViewState["listaContenido"] = value; }
 		}
 
-        /// <summary>
-        /// Lista de TODOS los contenidos atrasados
-        /// </summary>
-        /// <value>
-        /// The lista contenido atrasados.
-        /// </value>
-        protected List<TemaContenidoAtrasado> listaContenidoAtrasado
-        {
-            get
-            {
-                if (ViewState["listaContenidoAtrasado"] == null)
-                {
-                    ViewState["listaContenidoAtrasado"] = new List<TemaContenidoAtrasado>();
-                }
-                return (List<TemaContenidoAtrasado>)ViewState["listaContenidoAtrasado"];
-            }
-            set { ViewState["listaContenidoAtrasado"] = value; }
-        }
+		/// <summary>
+		/// Lista de TODOS los contenidos atrasados
+		/// </summary>
+		/// <value>
+		/// The lista contenido atrasados.
+		/// </value>
+		protected List<TemaContenidoAtrasado> listaContenidoAtrasado
+		{
+			get
+			{
+				if (ViewState["listaContenidoAtrasado"] == null)
+				{
+					ViewState["listaContenidoAtrasado"] = new List<TemaContenidoAtrasado>();
+				}
+				return (List<TemaContenidoAtrasado>)ViewState["listaContenidoAtrasado"];
+			}
+			set { ViewState["listaContenidoAtrasado"] = value; }
+		}
 
 		/// <summary>
 		/// Lista de contenidos SELECCIONADOS
@@ -150,22 +150,22 @@ namespace EDUAR_UI
 			set { Session["listaSeleccion"] = value; }
 		}
 
-        /// <summary>
-        /// Lista de contenidos SELECCIONADOS
-        /// </summary>
-        /// <value>
-        /// The lista seleccion.
-        /// </value>
-        protected List<int> listaSeleccionContenidosAtrasados
-        {
-            get
-            {
-                if (Session["listaSeleccionContenidosAtrasados"] == null)
-                    Session["listaSeleccionContenidosAtrasados"] = new List<int>();
-                return (List<int>)Session["listaSeleccionContenidosAtrasados"];
-            }
-            set { Session["listaSeleccionContenidosAtrasados"] = value; }
-        }
+		/// <summary>
+		/// Lista de contenidos SELECCIONADOS
+		/// </summary>
+		/// <value>
+		/// The lista seleccion.
+		/// </value>
+		protected List<int> listaSeleccionContenidosAtrasados
+		{
+			get
+			{
+				if (Session["listaSeleccionContenidosAtrasados"] == null)
+					Session["listaSeleccionContenidosAtrasados"] = new List<int>();
+				return (List<int>)Session["listaSeleccionContenidosAtrasados"];
+			}
+			set { Session["listaSeleccionContenidosAtrasados"] = value; }
+		}
 		/// <summary>
 		/// Gets or sets the lista seleccion porcentajes.
 		/// </summary>
@@ -338,34 +338,31 @@ namespace EDUAR_UI
 			}
 		}
 
-        protected void CargarRecordatorio(int idAsignaturaCicloLectivo)
-        {
-            List<TemaPlanificacionAnual> TemasPlanificadosAtrasados = new List<TemaPlanificacionAnual>();
-            List<TemaContenidoAtrasado> TemasContenidosAtrasados = new List<TemaContenidoAtrasado>();
-            BLPlanificacionAnual objBLPlanificacion = new BLPlanificacionAnual();
-
-            TemasPlanificadosAtrasados = objBLPlanificacion.GetContenidosNoAsignados(propAgenda.cursoCicloLectivo.idCursoCicloLectivo, idAsignaturaCicloLectivo);
-            foreach (TemaPlanificacionAnual TemaPlanificado in TemasPlanificadosAtrasados)
-            {
-                foreach(TemaContenido Contenido in TemaPlanificado.listaContenidos)
-                {
-                    TemasContenidosAtrasados.Add(new TemaContenidoAtrasado(Contenido.idTemaContenido, Contenido.titulo, TemaPlanificado.fechaInicioEstimada, Contenido.obligatorio));
-                }
-            }
-            try
+		protected void CargarRecordatorio(int idAsignaturaCicloLectivo)
+		{
+			try
 			{
-                listaContenidoAtrasado = TemasContenidosAtrasados;
-                CargarContenidosAtrasados(listaContenidoAtrasado);
-                if (listaContenidoAtrasado.Count > 0)
-                {
-                    mpeContenidoAtrasado.Show();
-                }
+				List<TemaPlanificacionAnual> TemasPlanificadosAtrasados = new List<TemaPlanificacionAnual>();
+				List<TemaContenidoAtrasado> TemasContenidosAtrasados = new List<TemaContenidoAtrasado>();
+				BLPlanificacionAnual objBLPlanificacion = new BLPlanificacionAnual();
+
+				TemasPlanificadosAtrasados = objBLPlanificacion.GetContenidosNoAsignados(propAgenda.cursoCicloLectivo.idCursoCicloLectivo, idAsignaturaCicloLectivo);
+				foreach (TemaPlanificacionAnual TemaPlanificado in TemasPlanificadosAtrasados)
+					foreach (TemaContenido Contenido in TemaPlanificado.listaContenidos)
+						TemasContenidosAtrasados.Add(new TemaContenidoAtrasado(Contenido.idTemaContenido, Contenido.titulo, TemaPlanificado.fechaInicioEstimada, Contenido.obligatorio));
+
+				listaContenidoAtrasado = TemasContenidosAtrasados;
+				CargarContenidosAtrasados(listaContenidoAtrasado);
+				if (listaContenidoAtrasado.Count > 0)
+				{
+					mpeContenidoAtrasado.Show();
+				}
 			}
 			catch (Exception ex)
 			{
 				Master.ManageExceptions(ex);
 			}
-        }
+		}
 
 		/// <summary>
 		/// Handles the Click event of the btnAsignarRol control.
@@ -417,17 +414,17 @@ namespace EDUAR_UI
 			{
 				//CargarPresentacion();
 				//BuscarAgenda(propFiltroAgenda);
-                if (AccionPagina == enumAcciones.Nuevo || AccionPagina == enumAcciones.Modificar)
-                {
-                    Response.Redirect("ManageRegistroClases.aspx", false);
+				if (AccionPagina == enumAcciones.Nuevo || AccionPagina == enumAcciones.Modificar)
+				{
+					Response.Redirect("ManageRegistroClases.aspx", false);
 
-                }
-                else
-                {
-                    Response.Redirect("ManageAgendaActividades.aspx", false);
-                }
-                
-            }
+				}
+				else
+				{
+					Response.Redirect("ManageAgendaActividades.aspx", false);
+				}
+
+			}
 			catch (Exception ex)
 			{
 				Master.ManageExceptions(ex);
@@ -496,18 +493,18 @@ namespace EDUAR_UI
 					btnContenidosPopUp.Visible = true;
 					//btnContenidosPopUp.Enabled = true;
 					ddlMeses.Enabled = true;
-                    if (DateTime.Now.Month >= 3)
-                    {
-                        ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
-                    }
-                    else
-                    {
+					if (DateTime.Now.Month >= 3)
+					{
+						ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
+					}
+					else
+					{
 
-                        ddlMeses.SelectedValue = "3";
-                    }
-                    ddlDia.Enabled = true;
+						ddlMeses.SelectedValue = "3";
+					}
+					ddlDia.Enabled = true;
 					BindComboModulos(DateTime.Now.Month);
-                    CargarRecordatorio(idAsignatura);
+					CargarRecordatorio(idAsignatura);
 				}
 				else
 				{
@@ -549,7 +546,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-                btnGuardarPopUp.Visible = true;
+				btnGuardarPopUp.Visible = true;
 				CargarContenidos();
 				listaSeleccion = listaSeleccionGuardar;
 				ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
@@ -579,22 +576,22 @@ namespace EDUAR_UI
 			}
 		}
 
-        /// <summary>
-        /// Handles the Click event of the btnVolverPopUp control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void btnVolverContenidosAtrasadosPopUp_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                mpeContenidoAtrasado.Hide();
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
+		/// <summary>
+		/// Handles the Click event of the btnVolverPopUp control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void btnVolverContenidosAtrasadosPopUp_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				mpeContenidoAtrasado.Hide();
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 
 
 		/// <summary>
@@ -636,23 +633,23 @@ namespace EDUAR_UI
 			}
 		}
 
-        /// <summary>
-        /// Handles the PageIndexChanging event of the gvwContenido control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
-        protected void gvwContenidosAtrasados_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            try
-            {
-                gvwContenidosAtrasados.PageIndex = e.NewPageIndex;
-                CargarContenidosAtrasados();
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
+		/// <summary>
+		/// Handles the PageIndexChanging event of the gvwContenido control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+		protected void gvwContenidosAtrasados_PageIndexChanging(object sender, GridViewPageEventArgs e)
+		{
+			try
+			{
+				gvwContenidosAtrasados.PageIndex = e.NewPageIndex;
+				CargarContenidosAtrasados(listaContenidoAtrasado);
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 
 
 		/// <summary>
@@ -673,14 +670,14 @@ namespace EDUAR_UI
 		}
 
 
-        /// <summary>
-        /// Handles the PageIndexChanged event of the gvwContenidos control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void gvwContenidosAtrasados_PageIndexChanged(object sender, EventArgs e)
-        {
-        }
+		/// <summary>
+		/// Handles the PageIndexChanged event of the gvwContenidos control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		protected void gvwContenidosAtrasados_PageIndexChanged(object sender, EventArgs e)
+		{
+		}
 		#endregion
 
 		#region --[Métodos Privados]--
@@ -718,7 +715,7 @@ namespace EDUAR_UI
 			if (ddlAsignaturaEdit.Items.Count > 0) ddlAsignaturaEdit.SelectedIndex = 0;
 			//if (listaContenido != null && listaContenido.Count > 0) listaContenido.Clear();
 			txtDescripcionEdit.Text = string.Empty;
-            listaSeleccionGuardar.Clear();
+			listaSeleccionGuardar.Clear();
 		}
 
 		/// <summary>
@@ -991,16 +988,16 @@ namespace EDUAR_UI
 			gvwContenidos.DataBind();
 		}
 
-        private void CargarContenidosAtrasados(List<TemaContenidoAtrasado> listadoContenidoAtrasado)
-        {
-            gvwContenidosAtrasados.DataSource = listadoContenidoAtrasado;
-            gvwContenidosAtrasados.DataBind();
-        }
+		private void CargarContenidosAtrasados(List<TemaContenidoAtrasado> listadoContenidoAtrasado)
+		{
+			gvwContenidosAtrasados.DataSource = listadoContenidoAtrasado;
+			gvwContenidosAtrasados.DataBind();
+		}
 
-        private void CargarContenidosAtrasados()
-        {
-            CargarContenidosAtrasados(listaContenidoAtrasado);
-        }
+		private void CargarContenidosAtrasados()
+		{
+			CargarContenidosAtrasados(listaContenidoAtrasado);
+		}
 
 
 
