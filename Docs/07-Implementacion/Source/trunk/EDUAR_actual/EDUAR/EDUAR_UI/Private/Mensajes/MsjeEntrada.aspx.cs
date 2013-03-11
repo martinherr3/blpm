@@ -426,7 +426,8 @@ namespace EDUAR_UI
 		private void BuscarMensajes()
 		{
 			Mensaje entidad = new Mensaje();
-			entidad.destinatario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+			//entidad.destinatario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+			entidad.destinatario.username = Context.User.Identity.Name;
 			CargarLista(entidad);
 			CargarGrilla();
 		}

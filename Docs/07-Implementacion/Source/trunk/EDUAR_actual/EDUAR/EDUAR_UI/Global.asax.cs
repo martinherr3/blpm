@@ -77,23 +77,23 @@ namespace EDUAR_UI
 			Session.Abandon();
 		}
 
-		protected void Application_AuthenticateRequest(Object sender, EventArgs e)
-		{
-			//Fires upon attempting to authenticate the use
-			if (!(HttpContext.Current.User == null))
-			{
-				if (HttpContext.Current.User.Identity.IsAuthenticated)
-				{
-					if (HttpContext.Current.User.Identity.GetType() == typeof(FormsIdentity))
-					{
-						FormsIdentity fi = (FormsIdentity)HttpContext.Current.User.Identity;
-						FormsAuthenticationTicket fat = fi.Ticket;
+		//protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+		//{
+		//    //Fires upon attempting to authenticate the use
+		//    if (!(HttpContext.Current.User == null))
+		//    {
+		//        if (HttpContext.Current.User.Identity.IsAuthenticated)
+		//        {
+		//            if (HttpContext.Current.User.Identity.GetType() == typeof(FormsIdentity))
+		//            {
+		//                FormsIdentity fi = (FormsIdentity)HttpContext.Current.User.Identity;
+		//                FormsAuthenticationTicket fat = fi.Ticket;
 
-						String[] astrRoles = fat.UserData.Split('|');
-						HttpContext.Current.User = new GenericPrincipal(fi, astrRoles);
-					}
-				}
-			}
-		}
+		//                String[] astrRoles = fat.UserData.Split('|');
+		//                HttpContext.Current.User = new GenericPrincipal(fi, astrRoles);
+		//            }
+		//        }
+		//    }
+		//}
 	}
 }

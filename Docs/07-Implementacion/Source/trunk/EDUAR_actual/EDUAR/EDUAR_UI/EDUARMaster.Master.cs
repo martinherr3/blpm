@@ -14,6 +14,7 @@ using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
 using System.Text;
+using EDUAR_BusinessLogic.Security;
 
 namespace EDUAR_UI
 {
@@ -99,10 +100,19 @@ namespace EDUAR_UI
 				//Llama a la funcionalidad que redirecciona a la pagina de Login cuando finaliza el tiempo de session
 				((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
 
+				//11-3-13
 				if (HttpContext.Current.User == null || (ObjSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty))
 				{
-					HttpContext.Current.User = null;
-					ObjSessionDataUI = null;
+					//HttpContext.Current.User = null;
+					//ObjSessionDataUI = null;
+					if (HttpContext.Current.User != null)
+					{
+						DTSeguridad propSeguridad = new DTSeguridad();
+						propSeguridad.Usuario.Nombre = HttpContext.Current.User.Identity.Name;
+						BLSeguridad objBLSeguridad = new BLSeguridad(propSeguridad);
+						objBLSeguridad.GetUsuario();
+						ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
+					}
 				}
 				if (HttpContext.Current.User == null)
 				{
@@ -112,6 +122,7 @@ namespace EDUAR_UI
 					CargarURLIniciarSesion();
 				}
 				else
+				{
 					if (HttpContext.Current.User.Identity.IsAuthenticated)
 					{
 						divInfo.Visible = true;
@@ -167,6 +178,7 @@ namespace EDUAR_UI
 
 						CargarURLIniciarSesion();
 					}
+				}
 				NavigationMenu.MenuItemDataBound += (NavigationMenu_OnItemBound);
 				NavigationMenu.DataBind();
 
@@ -323,7 +335,7 @@ namespace EDUAR_UI
 				Response.Cookies.Clear();
 				Session.Abandon();
 				//HttpContext.Current = null;
-				ObjSessionDataUI = null;
+				//ObjSessionDataUI = null;
 				objSessionPersona = null;
 				FormsAuthentication.SignOut();
 				Response.Redirect("~/Login.aspx", false);
