@@ -205,15 +205,12 @@ namespace EDUAR_UI
 					FormsAuthentication.SetAuthCookie(LoginUser.UserName.Trim(), false);
 					ObjSessionDataUI.ObjDTUsuario = objDTSeguridad.Usuario;
 					UIUtilidades.EliminarArchivosSession(Session.SessionID);
-					
-					//FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, LoginUser.UserName.Trim(), DateTime.Now, DateTime.Now.AddMinutes(30), false, "", "/");
-					//string strEncTicket = FormsAuthentication.Encrypt(ticket);
-					//HttpCookie authCookie = new HttpCookie(".ASPNETAUTH", strEncTicket);
-					//authCookie.Path = "/";
-					//HttpContext.Current.Response.Cookies.Add(authCookie);
 
 					if (ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial)
 						Response.Redirect("~/Private/Account/ChangePassword.aspx", false);
+					//else
+					//    if (Request.Params["ReturnUrl"] != null)
+					//        FormsAuthentication.RedirectFromLoginPage(LoginUser.UserName.Trim(), false);
 				}
 				else
 				{
