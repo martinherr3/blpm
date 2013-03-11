@@ -104,7 +104,6 @@ namespace EDUAR_SI_DataAccess
                     command.Connection = sqlConnectionConfig;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.CommandText = "SancionInformeSMS_Select"; // Como no hay sanciones cargadas en la ultima semana, usamos el del mail para probar
-                   // command.CommandText = "SancionInformeMail_Select";
                     command.CommandTimeout = 10;
 
                     command.Parameters.AddWithValue("@idProcesoAutomatico", idProcesoAutomatico);
@@ -123,7 +122,7 @@ namespace EDUAR_SI_DataAccess
                         {
                             nombre = reader["nombreTutor"].ToString(),
                             apellido = reader["apellidoTutor"].ToString(),
-                            telefonoCelular = reader["email"].ToString(),
+                            telefonoCelular = reader["telefonoCelular"].ToString(),
                             idPersona = Convert.ToInt32(reader["idPersonaTutor"])
                         });
                         objSancion.motivoSancion.descripcion = reader["motivoSancion"].ToString();
