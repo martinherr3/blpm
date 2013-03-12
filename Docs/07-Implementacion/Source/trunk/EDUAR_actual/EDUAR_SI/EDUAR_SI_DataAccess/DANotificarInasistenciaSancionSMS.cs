@@ -44,7 +44,6 @@ namespace EDUAR_SI_DataAccess
 					command.Connection = sqlConnectionConfig;
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "AsistenciaInformeSMS_Select";
-                    //command.CommandText = "AsistenciaInformeMail_Select"; // Como no hay cargadas inasistencias en la ultima semana 
                     command.CommandTimeout = 10;
 
 					command.Parameters.AddWithValue("@idProcesoAutomatico", idProcesoAutomatico);
@@ -103,7 +102,7 @@ namespace EDUAR_SI_DataAccess
 
                     command.Connection = sqlConnectionConfig;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = "SancionInformeSMS_Select"; // Como no hay sanciones cargadas en la ultima semana, usamos el del mail para probar
+                    command.CommandText = "SancionInformeSMS_Select";
                     command.CommandTimeout = 10;
 
                     command.Parameters.AddWithValue("@idProcesoAutomatico", idProcesoAutomatico);
@@ -137,12 +136,12 @@ namespace EDUAR_SI_DataAccess
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetInformeSanciones()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - GetInformeSancionesSMS()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(String.Format("Fallo en {0} - GetInformeSanciones()", ClassName),
+                throw new CustomizedException(String.Format("Fallo en {0} - GetInformeSancionesSMS()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
