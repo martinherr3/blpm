@@ -6,6 +6,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Common;
+using EDUAR_BusinessLogic.Security;
 using EDUAR_Entities;
 using EDUAR_Entities.Security;
 using EDUAR_Entities.Shared;
@@ -13,8 +14,6 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
-using System.Text;
-using EDUAR_BusinessLogic.Security;
 
 namespace EDUAR_UI
 {

@@ -230,7 +230,7 @@
                             </td>
                             <td colspan="3">
                                 <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="500px" TextMode="MultiLine"
-                                    Rows="5"></asp:TextBox>
+                                    Rows="5" CssClass="txtMultilinea"></asp:TextBox>
                             </td>
                         </tr>
                     </table>

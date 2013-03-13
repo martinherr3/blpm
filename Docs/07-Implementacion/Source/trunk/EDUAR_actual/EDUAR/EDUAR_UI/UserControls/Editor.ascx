@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Editor.ascx.cs" Inherits="EDUAR_UI.UserControls.Editor" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
-<asp:TextBox ID="txtEditor" runat="server" Width="707px" Height="200px" TextMode="MultiLine" />
+<asp:TextBox ID="txtEditor" runat="server" Width="707px" Height="200px" TextMode="MultiLine" CssClass="txtMultilinea"/>
 <ajaxToolkit:HtmlEditorExtender ID="HtmlEditorExtender1" TargetControlID="txtEditor" 
     runat="server"   >
     <Toolbar>

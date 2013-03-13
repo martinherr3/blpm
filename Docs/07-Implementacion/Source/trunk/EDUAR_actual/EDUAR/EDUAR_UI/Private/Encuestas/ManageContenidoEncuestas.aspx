@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Administrar Contenido Encuestas" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+﻿<%@ Page Title="Administrar Encuestas" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="ManageContenidoEncuestas.aspx.cs" Inherits="EDUAR_UI.ManageContenidoEncuestas"
     Theme="Tema" %>
 
@@ -14,7 +14,7 @@
                 <tr>
                     <td>
                         <h2>
-                            Contenido
+                            Administrar
                             <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
                         <br />
                     </td>

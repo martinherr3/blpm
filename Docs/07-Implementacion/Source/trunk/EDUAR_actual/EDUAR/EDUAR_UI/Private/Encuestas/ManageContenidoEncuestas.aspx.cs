@@ -539,7 +539,7 @@ namespace EDUAR_UI
 			LimpiarCampos();
 			calFechaCierre.startDate = cicloLectivoActual.fechaInicio;
 			calFechaCierre.endDate = cicloLectivoActual.fechaFin;
-			lblTitulo.Text = "Encuesta";
+			lblTitulo.Text = "Encuestas";
 			CargarCombos();
 			udpEdit.Visible = false;
 			btnVolver.Visible = false;

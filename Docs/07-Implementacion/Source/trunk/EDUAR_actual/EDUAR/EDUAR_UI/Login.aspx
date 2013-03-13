@@ -5,15 +5,19 @@
 <!doctype html>
 <html lang="es">
 <head id="Head1" runat="server">
-    <title title="Iniciar Sesión"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>EDU@R 2.0</title>
     <link rel="icon" type="image/png" href="~/favicon.ico" />
-    <link href="~/App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
+    <link href="App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
 </head>
 <body style="background-color: White">
-    <form id="Form1" runat="server">
+    <form runat="server">
     <asp:ScriptManager ID="scmManager" runat="server" AsyncPostBackTimeout="9000" EnablePartialRendering="true"
         ScriptMode="Release" LoadScriptsBeforeUI="false" EnableScriptLocalization="true"
-        EnableScriptGlobalization="true" />
+        EnableScriptGlobalization="true">
+        <Scripts>
+        </Scripts>
+    </asp:ScriptManager>
     <div class="page">
         <div class="header">
             <table border="0" cellpadding="1" cellspacing="5" style="width: 1020px;">
@@ -23,18 +27,32 @@
                             <img src="/EDUAR_UI/Images/Logo_chico.png" alt="EDU@R 2.0" style="vertical-align: middle;" />
                         </div>
                     </td>
-                    <td style="width: 25%">
+                    <td style="width: 40%">
                         <div id="divInfo" runat="server" visible="false" style="vertical-align: text-top">
                             <table border="0" cellpadding="1" cellspacing="5" style="width: 100%; text-align: center">
                                 <tr>
-                                    <td>
+                                    <td>&nbsp;
                                     </td>
                                 </tr>
                             </table>
                         </div>
                     </td>
-                    <td style="width: 50%; text-align: right;">
+                    <td style="width: 25%; text-align: right">
                         <div class="loginDisplay">
+                            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; text-align: center">
+                                <tr>
+                                    <td style="width: 50%">&nbsp;
+                                    </td>
+                                    <td align="center" style="width: 50%">&nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 50%">
+                                    </td>
+                                    <td align="center" style="width: 50%">&nbsp;
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </td>
                 </tr>
@@ -48,8 +66,11 @@
             </table>
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
-                    IncludeStyleBlock="true" Orientation="Horizontal" OnPreRender="NavigationMenu_PreRender">
+                    RenderingMode="List" IncludeStyleBlock="true" Orientation="Horizontal" OnPreRender="NavigationMenu_PreRender"
+                    Width="100%" StaticPopOutImageUrl="~/Images/draw-arrow-down.png">
                 </asp:Menu>
+                <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" ShowStartingNode="false"
+                    SiteMapProvider="WebXmlSiteMapProvider" />
                 <asp:SiteMapDataSource ID="SiteMapAnonymusEDUAR" runat="server" ShowStartingNode="false"
                     SiteMapProvider="AnonymusXmlSiteMapProvider" />
             </div>
@@ -131,7 +152,7 @@
             </table>
         </div>
         <div class="clear">
-            <table style="width: 100%">
+            <table style="width: 1020px">
                 <tr>
                     <td style="width: 100%; text-align: center">
                         Copyright (c)

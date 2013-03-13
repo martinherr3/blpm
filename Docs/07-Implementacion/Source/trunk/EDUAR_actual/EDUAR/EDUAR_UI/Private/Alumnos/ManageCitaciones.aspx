@@ -254,7 +254,7 @@
                             </td>
                             <td colspan="4" class="TDCriterios75">
                                 <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="600px" TextMode="MultiLine"
-                                    Rows="5"></asp:TextBox>
+                                    Rows="5" CssClass="txtMultilinea"></asp:TextBox>
                             </td>
                         </tr>
                     </table>
