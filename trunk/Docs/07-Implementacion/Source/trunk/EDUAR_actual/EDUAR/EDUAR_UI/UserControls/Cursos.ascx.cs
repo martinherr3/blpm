@@ -101,6 +101,14 @@ namespace EDUAR_UI.UserControls
 				btnIndicador.Enabled = false;
 				btnIndicador.Visible = false;
 			}
+
+			if (HttpContext.Current.User.IsInRole(enumRoles.Psicopedagogo.ToString()))
+			{
+				btnActividad.Enabled = false;
+				btnActividad.Visible = false;
+				btnPlanificacion.Enabled = false;
+				btnPlanificacion.Visible = false;
+			}
 		}
 
 		protected void btnActividad_Click(object sender, EventArgs e)

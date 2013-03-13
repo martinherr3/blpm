@@ -150,7 +150,7 @@
                             <td colspan="2">
                                 <h3>
                                     <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
-                                    <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
+                                    <asp:Literal ID="litNuevo" runat="server" Text="Nuevo "></asp:Literal>
                                     Registro De Clases</h3>
                             </td>
                         </tr>
@@ -234,7 +234,7 @@
                             </td>
                             <td class="TDCriterios80" colspan="3">
                                 <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="500px" TextMode="MultiLine"
-                                    Rows="5"></asp:TextBox>
+                                    Rows="5" CssClass="txtMultilinea" ></asp:TextBox>
                             </td>
                         </tr>
                     </table>
