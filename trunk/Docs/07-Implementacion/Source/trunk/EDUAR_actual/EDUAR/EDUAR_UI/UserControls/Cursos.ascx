@@ -23,7 +23,7 @@
                 <tr>
                     <td style="width: 64px; height: 64px;">
                         <asp:ImageButton ImageUrl="~/Images/botonNotificacion.png" ID="btnNotificacion" runat="server"
-                            AlternateText="Notificaciones" ToolTip="Notificaciones" OnClick="btnNotificacion_Click"/>
+                            AlternateText="Notificaciones" ToolTip="Novedades Aulicas" OnClick="btnNotificacion_Click"/>
                     </td>
                     <td style="width: 64px; height: 64px;">
                         <asp:ImageButton ImageUrl="~/Images/botonIndicadores.png" ID="btnIndicador" runat="server"
