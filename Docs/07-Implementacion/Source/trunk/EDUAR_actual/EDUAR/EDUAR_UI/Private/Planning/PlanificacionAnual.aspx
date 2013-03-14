@@ -45,13 +45,6 @@
             <div id="divFiltros" runat="server">
                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                     <tr>
-                        <%--<td class="TD110px">
-                            <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
-                        </td>
-                        <td class="TD140px">
-                            <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </td>--%>
                         <td class="TD100px">
                             <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                         </td>
@@ -138,10 +131,9 @@
                                 <asp:Label ID="lblFechaFinGrilla" runat="server" Text='<%# Bind("fechaFinEstimada","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-
-                         <asp:TemplateField HeaderText="Descripcion">
+                        <asp:TemplateField HeaderText="Descripcion">
                             <HeaderStyle HorizontalAlign="Center" Width="60%" />
-                            <ItemStyle HorizontalAlign="Center" />
+                            <ItemStyle HorizontalAlign="left" />
                             <ItemTemplate>
                                 <asp:Label ID="lblDescripcion" runat="server" Text='<%# Bind("contenidosConceptuales","{0:d}") %>'></asp:Label>
                             </ItemTemplate>
@@ -177,67 +169,76 @@
                     </tr>
                     <tr>
                         <td class="TD250px" colspan="2" style="text-align: center; vertical-align: middle">
-                            <%--<asp:Button ID="btnContenidosPopUp" runat="server" Text="Asociar Contenidos"
-CssClass="button" OnClick="btnContenidosPopUp_Click" />--%>
                         </td>
-                    </tr>
-                    <tr>
-                    
-                        <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblCConceptuales" runat="server" Text="Contenidos
-Conceptuales"></asp:Label>
-                            <br />
-                            <asp:TextBox ID="txtCConceptuales" runat="server" Columns="75" 
-                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
-                        </td>
-                    
-                    </tr>
-                    <tr>
-                        <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblCProcedimentales" runat="server" 
-                                Text="Contenidos Procedimentales"></asp:Label>
-                            <br />
-                            <asp:TextBox ID="txtCProcedimentales" runat="server" Columns="75" 
-                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblCActitudinales" runat="server" 
-                                Text="Contenidos Actitudinales"></asp:Label>
-                            <br />
-                            <asp:TextBox ID="txtCActitudinales" runat="server" Columns="75" 
-                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblEstrategias" runat="server" Text="Estrategias"></asp:Label>
-                            <br />
-                            <asp:TextBox ID="txtEstrategias" runat="server" Columns="75" 
-                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblCriteriosEvaluacion" runat="server" 
-                                Text="Criterios de Evaluación"></asp:Label>
-                            <br />
-                            <asp:TextBox ID="txtCriteriosEvaluacion" runat="server" Columns="75" 
-                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="TD250px" colspan="2">
-                            <asp:Label ID="lblInstrumentosEvaluación" runat="server" Text="Instrumentos
-de Evaluación"></asp:Label>
-                            <br />
-                            <asp:TextBox ID="txtInstrumentosEvaluacion" runat="server" Columns="75" 
-                                CssClass="txtMultilinea99" Rows="10" TextMode="MultiLine" />
-                        </td>
-                    </tr>
                     </tr>
                 </table>
+                <ajaxtoolkit:Accordion ID="MyAccordion" runat="Server" SelectedIndex="0" HeaderCssClass="accordionHeader"
+                    HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent"
+                    AutoSize="None" FadeTransitions="true" TransitionDuration="250"
+                    FramesPerSecond="50" RequireOpenedPane="false" SuppressHeaderPostbacks="true">
+                    <Panes>
+                        <ajaxtoolkit:AccordionPane ID="acpContenidosConceptuales" runat="server" HeaderCssClass="accordionHeader"
+                            HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent">
+                            <Header>
+                                Contenidos Conceptuales
+                            </Header>
+                            <Content>
+                                <asp:TextBox ID="txtCConceptuales" runat="server" Columns="75" CssClass="txtMultilinea99"
+                                    Rows="10" TextMode="MultiLine" />
+                            </Content>
+                        </ajaxtoolkit:AccordionPane>
+                        <ajaxtoolkit:AccordionPane ID="acpContenidosProcedimentales" runat="server" HeaderCssClass="accordionHeader"
+                            HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent">
+                            <Header>
+                                Contenidos Procedimentales
+                            </Header>
+                            <Content>
+                                <asp:TextBox ID="txtCProcedimentales" runat="server" Columns="75" CssClass="txtMultilinea99"
+                                Rows="10" TextMode="MultiLine" />
+                            </Content>
+                        </ajaxtoolkit:AccordionPane>
+                        <ajaxtoolkit:AccordionPane ID="acpContenidosActitudinales" runat="server" HeaderCssClass="accordionHeader"
+                            HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent">
+                            <Header>
+                                Contenidos Actitudinales
+                            </Header>
+                            <Content>
+                                <asp:TextBox ID="txtCActitudinales" runat="server" Columns="75" CssClass="txtMultilinea99"
+                                Rows="10" TextMode="MultiLine" />
+                            </Content>
+                        </ajaxtoolkit:AccordionPane>
+                        <ajaxtoolkit:AccordionPane ID="acpEstrategias" runat="server" HeaderCssClass="accordionHeader"
+                            HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent">
+                            <Header>
+                                Estrategias
+                            </Header>
+                            <Content>
+                                <asp:TextBox ID="txtEstrategias" runat="server" Columns="75" CssClass="txtMultilinea99"
+                                Rows="10" TextMode="MultiLine" />
+                            </Content>
+                        </ajaxtoolkit:AccordionPane>
+                        <ajaxtoolkit:AccordionPane ID="acpCriteriosEvaluacion" runat="server" HeaderCssClass="accordionHeader"
+                            HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent">
+                            <Header>
+                                Criterios de Evaluación
+                            </Header>
+                            <Content>
+                                <asp:TextBox ID="txtCriteriosEvaluacion" runat="server" Columns="75" CssClass="txtMultilinea99"
+                                Rows="10" TextMode="MultiLine" />
+                            </Content>
+                        </ajaxtoolkit:AccordionPane>
+                        <ajaxtoolkit:AccordionPane ID="acpInstrumentosEvaluación" runat="server" HeaderCssClass="accordionHeader"
+                            HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent">
+                            <Header>
+                                Instrumentos de Evaluación
+                            </Header>
+                            <Content>
+                                <asp:TextBox ID="txtInstrumentosEvaluacion" runat="server" Columns="75" CssClass="txtMultilinea99"
+                                Rows="10" TextMode="MultiLine" />
+                            </Content>
+                        </ajaxtoolkit:AccordionPane>
+                    </Panes>
+                </ajaxtoolkit:Accordion>
             </div>
         </ContentTemplate>
         <Triggers>

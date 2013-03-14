@@ -265,13 +265,22 @@ namespace EDUAR_UI {
         protected global::EDUAR_UI.UserControls.Calendario calFechaFin;
         
         /// <summary>
-        /// Control lblCConceptuales.
+        /// Control MyAccordion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCConceptuales;
+        protected global::AjaxControlToolkit.Accordion MyAccordion;
+        
+        /// <summary>
+        /// Control acpContenidosConceptuales.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AccordionPane acpContenidosConceptuales;
         
         /// <summary>
         /// Control txtCConceptuales.
@@ -283,13 +292,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtCConceptuales;
         
         /// <summary>
-        /// Control lblCProcedimentales.
+        /// Control acpContenidosProcedimentales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCProcedimentales;
+        protected global::AjaxControlToolkit.AccordionPane acpContenidosProcedimentales;
         
         /// <summary>
         /// Control txtCProcedimentales.
@@ -301,13 +310,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtCProcedimentales;
         
         /// <summary>
-        /// Control lblCActitudinales.
+        /// Control acpContenidosActitudinales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCActitudinales;
+        protected global::AjaxControlToolkit.AccordionPane acpContenidosActitudinales;
         
         /// <summary>
         /// Control txtCActitudinales.
@@ -319,13 +328,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtCActitudinales;
         
         /// <summary>
-        /// Control lblEstrategias.
+        /// Control acpEstrategias.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEstrategias;
+        protected global::AjaxControlToolkit.AccordionPane acpEstrategias;
         
         /// <summary>
         /// Control txtEstrategias.
@@ -337,13 +346,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtEstrategias;
         
         /// <summary>
-        /// Control lblCriteriosEvaluacion.
+        /// Control acpCriteriosEvaluacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCriteriosEvaluacion;
+        protected global::AjaxControlToolkit.AccordionPane acpCriteriosEvaluacion;
         
         /// <summary>
         /// Control txtCriteriosEvaluacion.
@@ -355,13 +364,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.TextBox txtCriteriosEvaluacion;
         
         /// <summary>
-        /// Control lblInstrumentosEvaluación.
+        /// Control acpInstrumentosEvaluación.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInstrumentosEvaluación;
+        protected global::AjaxControlToolkit.AccordionPane acpInstrumentosEvaluación;
         
         /// <summary>
         /// Control txtInstrumentosEvaluacion.
