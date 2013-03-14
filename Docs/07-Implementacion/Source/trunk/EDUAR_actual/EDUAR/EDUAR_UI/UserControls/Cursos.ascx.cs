@@ -66,14 +66,16 @@ namespace EDUAR_UI.UserControls
 					Session["idCursoCicloLectivo"] = 0;
 				return (int)Session["idCursoCicloLectivo"];
 			}
-			set {
+			set
+			{
 				if (value > 0)
 				{
 					BLCurso objBLCurso = new BLCurso();
 					cursoActual.idCursoCicloLectivo = value;
 					cursoActual = objBLCurso.GetCursoCicloLectivo(cursoActual);
 				}
-				Session["idCursoCicloLectivo"] = value; }
+				Session["idCursoCicloLectivo"] = value;
+			}
 		}
 
 		/// <summary>
@@ -99,15 +101,27 @@ namespace EDUAR_UI.UserControls
 			if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
 			{
 				btnIndicador.Enabled = false;
-				btnIndicador.Visible = false;
+				btnIndicador.ImageUrl = "~/Images/DisabledbotonIndicadores.png";
+				//btnIndicador.Visible = false;
 			}
 
 			if (HttpContext.Current.User.IsInRole(enumRoles.Psicopedagogo.ToString()))
 			{
 				btnActividad.Enabled = false;
-				btnActividad.Visible = false;
+				btnActividad.ImageUrl = "~/Images/DisabledbotonActividades.png";
+				//btnActividad.Visible = false;
 				btnPlanificacion.Enabled = false;
-				btnPlanificacion.Visible = false;
+				btnPlanificacion.ImageUrl = "~/Images/DisabledbotonPlanificacion.png";
+				//btnPlanificacion.Visible = false;
+			}
+			if (HttpContext.Current.User.IsInRole(enumRoles.Preceptor.ToString()))
+			{
+				btnIndicador.Enabled = false;
+				btnIndicador.ImageUrl = "~/Images/DisabledbotonIndicadores.png";
+				//btnActividad.Visible = false;
+				btnPlanificacion.Enabled = false;
+				btnPlanificacion.ImageUrl = "~/Images/DisabledbotonPlanificacion.png";
+				//btnPlanificacion.Visible = false;
 			}
 		}
 
