@@ -185,13 +185,13 @@
                     </table>
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" style="width: 17%; text-align: left">
+                            <td valign="top" class="TDCriterios10">
                                 <asp:Label ID="Label3" runat="server" Text="Fecha:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
                                 <cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
                             </td>
-                            <td valign="top" class="TDCriterios10" colspan="2">
+                            <td valign="top" class="TDCriterios10" colspan="1">
                                 <asp:Label runat="server" ID="lblHora" Text="Hora:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40">
@@ -220,36 +220,38 @@
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios10">
                                 <asp:Label ID="Label7" runat="server" Text="Motivo de Citación:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios40">
                                 <asp:DropDownList ID="ddlMotivoEdit" runat="server">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TDCriterios25" colspan="2">
+                            <td valign="top" class="TDCriterios10" colspan="1">
                                 <asp:Label ID="lblActivoEdit" runat="server" Text="Activo:" ToolTip="Setear en activo cuando la citacion este en curso, porque aparecera como Citacion al tutor"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios40">
                                 <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="true" ToolTip="Setear en activo cuando la citacion este en curso, porque aparecera como Citacion al tutor" />
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios10">
                                 <asp:Label ID="Label6" runat="server" Text="Tutor:" CssClass="lblCriterios"></asp:Label>
                             </td>
-                            <td valign="top" style="width: 40%; text-align: left;" colspan="2">
+                            <td valign="top" class="TDCriterios40" colspan="1">
                                 <asp:DropDownList ID="ddlTutorEdit" runat="server" Enabled="false" CssClass="EstiloTxtLargo250"
                                     AutoPostBack="true" OnSelectedIndexChanged="ddlTutorEdit_SelectedIndexChanged">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TDCriterios75">
+                            <td valign="top" class="TDCriterios10">
                                 <asp:Label ID="Label4" runat="server" CssClass="lblTutor" Text="Alumno:"></asp:Label>
+                            </td>
+                            <td valign="top" class="TDCriterios40" colspan="1">
                                 <asp:TextBox ID="txtAlumno" runat="server" Enabled="False"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TD25">
+                            <td valign="top" class="TDCriterios25">
                                 <asp:Label runat="server" ID="Label9" Text="Descripción:"></asp:Label>
                             </td>
                             <td colspan="4" class="TDCriterios75">
