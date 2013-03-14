@@ -146,6 +146,9 @@
     <Content Include="Images\cuestionario.jpg" />
     <Content Include="Images\design.png" />
     <Content Include="Images\dialog-more.png" />
+    <Content Include="Images\DisabledbotonActividades.png" />
+    <Content Include="Images\DisabledbotonIndicadores.png" />
+    <Content Include="Images\DisabledbotonPlanificacion.png" />
     <Content Include="Images\draw-arrow-down.png" />
     <Content Include="Images\ExportarExcel.png" />
     <Content Include="Images\ExportarGrafico.png" />
@@ -1120,9 +1123,9 @@
     <Content Include="Private\Manuales\Help.Master" />
     <Content Include="packages.config" />
     <None Include="Scripts\css\blitzer\images\Thumbs.db" />
-    <None Include="WebAnonymus.sitemap">
+    <Content Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>
-    </None>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
