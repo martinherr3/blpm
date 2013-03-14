@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Modificar Perfiles" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+﻿<%@ Page Title="Administrar Perfiles" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="Profiles.aspx.cs" Inherits="EDUAR_UI.Profiles" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
@@ -11,7 +11,7 @@
                 <tr>
                     <td>
                         <h2>
-                            Modificar Roles
+                            Administrar Perfiles
                         </h2>
                         <br />
                     </td>
