@@ -15,7 +15,7 @@
                 <siteMapNode url="~/Private/Encuestas/Cuestionario.aspx" title="Cuestionarios" roles="Administrador,Tutor,Alumno" visible="false" />
                 <siteMapNode url="~/Private/Encuestas/ResultadosEncuestas.aspx" title="Resultados Encuestas" roles="Administrador,Docente,Director" visible="false" />
             </siteMapNode>
-            <siteMapNode url="~/Private/Novedades/ConsultaNovedadAulica.aspx" title="Novedades" roles="Administrador,Director,Docente,Psicopedagogo" visible="false" />
+            <siteMapNode url="~/Private/Novedades/ConsultaNovedadAulica.aspx" title="Novedades" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" visible="false" />
 
             <siteMapNode url="~/Private/Planning/PlanificacionAnual.aspx" title="Planificación" roles="Administrador,Director,Docente" visible="false" />
             <siteMapNode url="~/Private/Monitoreo/GetIndicadores.aspx" title="Indicadores" roles="Administrador,Director" visible="false"/>

@@ -317,7 +317,7 @@ namespace EDUAR_UI
 				AccionPagina = enumAcciones.Nuevo;
 				LimpiarCampos();
 				CargarComboAsignatura();
-				ddlTipoRegistroClase.SelectedValue = EDUAR_Utility.Enumeraciones.enumTipoRegistroClases.ClaseNormal.GetHashCode().ToString();
+				ddlTipoRegistroClase.SelectedValue = enumTipoRegistroClases.ClaseNormal.GetHashCode().ToString();
 				esNuevo = true;
 				//btnContenidosPopUp.Visible = true;
 				btnGuardar.Visible = true;
@@ -338,24 +338,29 @@ namespace EDUAR_UI
 			}
 		}
 
+		/// <summary>
+		/// Cargars the recordatorio.
+		/// </summary>
+		/// <param name="idAsignaturaCicloLectivo">The id asignatura ciclo lectivo.</param>
 		protected void CargarRecordatorio(int idAsignaturaCicloLectivo)
 		{
 			try
 			{
-				List<TemaPlanificacionAnual> TemasPlanificadosAtrasados = new List<TemaPlanificacionAnual>();
-				List<TemaContenidoAtrasado> TemasContenidosAtrasados = new List<TemaContenidoAtrasado>();
-				BLPlanificacionAnual objBLPlanificacion = new BLPlanificacionAnual();
-
-				TemasPlanificadosAtrasados = objBLPlanificacion.GetContenidosNoAsignados(propAgenda.cursoCicloLectivo.idCursoCicloLectivo, idAsignaturaCicloLectivo);
-				foreach (TemaPlanificacionAnual TemaPlanificado in TemasPlanificadosAtrasados)
-					foreach (TemaContenido Contenido in TemaPlanificado.listaContenidos)
-						TemasContenidosAtrasados.Add(new TemaContenidoAtrasado(Contenido.idTemaContenido, Contenido.titulo, TemaPlanificado.fechaInicioEstimada, Contenido.obligatorio));
-
-				listaContenidoAtrasado = TemasContenidosAtrasados;
-				CargarContenidosAtrasados(listaContenidoAtrasado);
-				if (listaContenidoAtrasado.Count > 0)
+				if (User.IsInRole(enumRoles.Docente.ToString()))
 				{
-					mpeContenidoAtrasado.Show();
+					List<TemaPlanificacionAnual> TemasPlanificadosAtrasados = new List<TemaPlanificacionAnual>();
+					List<TemaContenidoAtrasado> TemasContenidosAtrasados = new List<TemaContenidoAtrasado>();
+					BLPlanificacionAnual objBLPlanificacion = new BLPlanificacionAnual();
+
+					TemasPlanificadosAtrasados = objBLPlanificacion.GetContenidosNoAsignados(propAgenda.cursoCicloLectivo.idCursoCicloLectivo, idAsignaturaCicloLectivo);
+					foreach (TemaPlanificacionAnual TemaPlanificado in TemasPlanificadosAtrasados)
+						foreach (TemaContenido Contenido in TemaPlanificado.listaContenidos)
+							TemasContenidosAtrasados.Add(new TemaContenidoAtrasado(Contenido.idTemaContenido, Contenido.titulo, TemaPlanificado.fechaInicioEstimada, Contenido.obligatorio));
+
+					listaContenidoAtrasado = TemasContenidosAtrasados;
+					CargarContenidosAtrasados(listaContenidoAtrasado);
+					if (listaContenidoAtrasado.Count > 0)
+						mpeContenidoAtrasado.Show();
 				}
 			}
 			catch (Exception ex)
@@ -490,7 +495,7 @@ namespace EDUAR_UI
 				int.TryParse(ddlAsignaturaEdit.SelectedValue, out idAsignatura);
 				if (idAsignatura > 0)
 				{
-					btnContenidosPopUp.Visible = true;
+					btnContenidosPopUp.Visible = User.IsInRole(enumRoles.Docente.ToString());
 					//btnContenidosPopUp.Enabled = true;
 					ddlMeses.Enabled = true;
 					if (DateTime.Now.Month >= 3)
@@ -902,7 +907,7 @@ namespace EDUAR_UI
 					ddlDia.SelectedIndex = 0;
 				ddlAsignaturaEdit.SelectedValue = entidad.asignatura.idAsignatura.ToString();
 				//btnContenidosPopUp.Enabled = true;
-				btnContenidosPopUp.Visible = true;
+				btnContenidosPopUp.Visible = User.IsInRole(enumRoles.Docente.ToString());
 				ddlAsignaturaEdit.Enabled = false;
 				ddlMeses.Enabled = true;
 				chkActivoEdit.Checked = entidad.activo;
@@ -953,7 +958,7 @@ namespace EDUAR_UI
 			litNuevo.Visible = false;
 			btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
-			btnContenidosPopUp.Visible = true;
+			btnContenidosPopUp.Visible = User.IsInRole(enumRoles.Docente.ToString());
 			btnVolver.Visible = true;
 			btnGuardar.Visible = true;
 			gvwReporte.Visible = false;
