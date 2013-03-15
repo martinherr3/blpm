@@ -315,16 +315,16 @@ namespace EDUAR_UI
 			try
 			{
 				string mensaje = ValidarPagina();
-                if (mensaje == string.Empty)
-                {
-                    if (Page.IsValid)
-                    {
-                        AccionPagina = enumAcciones.Guardar;
-                        Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
-                    }
-                }
-                else
-                    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
+				if (mensaje == string.Empty)
+				{
+					if (Page.IsValid)
+					{
+						AccionPagina = enumAcciones.Guardar;
+						Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
+					}
+				}
+				else
+					Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
 			}
 			catch (Exception ex)
 			{
@@ -685,19 +685,27 @@ namespace EDUAR_UI
 		{
 			string mensaje = string.Empty;
 			calFechaCierre.ValidarRangoDesde(false, true);
-            
-            if (!calFechaCierre.ValorFecha.HasValue)
-                mensaje += "- Fecha de cierre<br />";
 
-            if (string.IsNullOrEmpty(txtNombreEdit.Text))
-                mensaje += "- Nombre Encuesta<br />";
+			if (!calFechaCierre.ValorFecha.HasValue)
+				mensaje += "- Fecha de cierre<br />";
+
+			if (string.IsNullOrEmpty(txtNombreEdit.Text))
+				mensaje += "- Nombre Encuesta<br />";
 
 			int validador = 0;
-			
-            int.TryParse(ddlAmbitoEdit.SelectedValue, out validador);
-            
-            if (validador <= 0)
+
+			int.TryParse(ddlAmbitoEdit.SelectedValue, out validador);
+
+			if (validador <= 0)
 				mensaje += "- Ambito<br />";
+
+			if (validador == enumAmbitoEncuesta.Asignatura.GetHashCode())
+			{
+				int.TryParse(ddlCurso.SelectedValue, out validador);
+				if (validador == -2)
+					mensaje += "- UN Curso<br />";
+			}
+
 			int.TryParse(ddlCurso.SelectedValue, out validador);
 			if (validador <= 0 && validador != -2)
 				mensaje += "- Curso<br />";
@@ -712,9 +720,10 @@ namespace EDUAR_UI
 
 			if (!hayAmbito)
 				mensaje += "- Rol o Roles a Asociar<br />";
+
+			int.TryParse(ddlAsignatura.SelectedValue, out validador);
 			if (ddlAsignatura.Visible)
 			{
-				int.TryParse(ddlAsignatura.SelectedValue, out validador);
 				if (validador <= 0)
 					mensaje += "- Asignatura<br />";
 			}
@@ -814,8 +823,20 @@ namespace EDUAR_UI
 					if (User.IsInRole(enumRoles.Docente.ToString()))
 						objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
+					lblAsignatura.Visible = true;
+					ddlAsignatura.Visible = true;
 					UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
 				}
+				else
+				{
+					lblAsignatura.Visible = false;
+					ddlAsignatura.Visible = false;
+				}
+			}
+			else
+			{
+				lblAsignatura.Visible = false;
+				ddlAsignatura.Visible = false;
 			}
 		}
 
