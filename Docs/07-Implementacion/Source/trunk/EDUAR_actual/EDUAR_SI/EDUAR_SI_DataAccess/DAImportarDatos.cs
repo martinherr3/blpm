@@ -1272,7 +1272,9 @@ namespace EDUAR_SI_DataAccess
 						command.Parameters.AddWithValue("idCursoCicloLectivoTransaccional", cursosCicloLectivo.idCursoCicloLectivoTransaccional);
 						command.Parameters.AddWithValue("idCurso", cursosCicloLectivo.idCurso);
 						command.Parameters.AddWithValue("idCicloLectivo", cursosCicloLectivo.idCicloLectivo);
-						//command.Parameters.AddWithValue("idPreceptor", cursosCicloLectivo.curso.idCursoTransaccional);
+                        command.Parameters.AddWithValue("idOrientacion", cursosCicloLectivo.idOrientacionTransaccional);
+                        command.Parameters.AddWithValue("idPreceptor", cursosCicloLectivo.curso.preceptor.idPersonalTransaccional);
+                        
 						command.ExecuteNonQuery();
 						command.Parameters.Clear();
 					}

@@ -1816,7 +1816,8 @@ namespace EDUAR_SI_DataAccess
 						objCursoCicloLectivo.idCursoCicloLectivoTransaccional = Convert.ToInt32(reader["id"]);
 						objCursoCicloLectivo.idCurso = Convert.ToInt32(reader["fk_curso"]);
 						objCursoCicloLectivo.idCicloLectivo = Convert.ToInt32(reader["fk_ciclolectivo"]);
-
+                        objCursoCicloLectivo.curso.preceptor.idPersonalTransaccional = Convert.ToInt32(reader["fk_id_preceptor"]);
+                        objCursoCicloLectivo.idOrientacionTransaccional = Convert.ToInt32(reader["fk_id_orientacion"]);
 						listadoCursoCicloLectivo.Add(objCursoCicloLectivo);
 					}
 					command.Connection.Close();
