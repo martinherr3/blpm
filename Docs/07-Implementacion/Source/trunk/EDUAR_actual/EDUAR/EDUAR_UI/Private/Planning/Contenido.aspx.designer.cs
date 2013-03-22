@@ -49,22 +49,22 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divFiltros;
         
         /// <summary>
-        /// Control lblCurso.
+        /// Control lblNivel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurso;
+        protected global::System.Web.UI.WebControls.Label lblNivel;
         
         /// <summary>
-        /// Control ddlCurso.
+        /// Control ddlNivel.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCurso;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNivel;
         
         /// <summary>
         /// Control lblAsignatura.
