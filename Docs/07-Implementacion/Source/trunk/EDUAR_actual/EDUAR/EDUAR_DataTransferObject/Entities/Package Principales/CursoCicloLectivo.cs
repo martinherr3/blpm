@@ -8,6 +8,8 @@ namespace EDUAR_Entities
 	{
 		public int idCursoCicloLectivo { get; set; }
 		public int idCursoCicloLectivoTransaccional { get; set; }
+        public int idOrientacion { get; set; }
+        public int idOrientacionTransaccional { get; set; }
 		public int idCurso { get; set; }
 		public int idCicloLectivo { get; set; }
 		public Curso curso { get; set; }
