@@ -1291,6 +1291,53 @@ namespace EDUAR_SI_DataAccess
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
-		#endregion
-	}
+
+        /// <summary>
+        /// Grabars the asignatura nivel.
+        /// </summary>
+        /// <param name="listaAsignaturaNivel">The lista asignatura nivel.</param>
+        /// <param name="transaccion">The transaccion.</param>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public void GrabarAsignaturaNivel(List<AsignaturaNivel> listaAsignaturaNivel, SqlTransaction transaccion)
+        {
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "AsignaturaNivel_Insert";
+                    command.CommandTimeout = 10;
+
+                    command.Connection = transaccion.Connection;
+                    command.Transaction = transaccion;
+
+                    foreach (AsignaturaNivel asignaturaNivel in listaAsignaturaNivel)
+                    {
+                        command.Parameters.AddWithValue("idAsignaturaNivel", 0);
+                        command.Parameters.AddWithValue("idAsignaturaNivelTransaccional", asignaturaNivel.idAsignaturaNivelTransaccional);
+                        command.Parameters.AddWithValue("idAsinatura", asignaturaNivel.asignatura.idAsignaturaTransaccional);
+                        command.Parameters.AddWithValue("idNivel", asignaturaNivel.nivel.idNivelTransaccional);
+                        command.Parameters.AddWithValue("idOrientacion", asignaturaNivel.orientacion.idOrientacionTransaccional);
+                        command.Parameters.AddWithValue("cargaHoraria", asignaturaNivel.cargaHoraria);
+
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsignaturaNivel()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - GrabarAsignaturaNivel()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+        #endregion
+
+    }
 }

@@ -120,6 +120,8 @@ namespace EDUAR_SI_BusinessLogic
 
 				objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion), transaccion);
 
+                objDAImportarDatos.GrabarAsignaturaNivel(objDAObtenerDatos.obtenerAsignaturaNivelBDTransaccional(objConfiguracion), transaccion);
+
 				objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion), transaccion);
 			}
 			catch (Exception ex)
