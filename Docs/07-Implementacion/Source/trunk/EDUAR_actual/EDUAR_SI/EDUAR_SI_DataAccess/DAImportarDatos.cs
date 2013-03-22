@@ -1316,7 +1316,7 @@ namespace EDUAR_SI_DataAccess
                     {
                         command.Parameters.AddWithValue("idAsignaturaNivel", 0);
                         command.Parameters.AddWithValue("idAsignaturaNivelTransaccional", asignaturaNivel.idAsignaturaNivelTransaccional);
-                        command.Parameters.AddWithValue("idAsinatura", asignaturaNivel.asignatura.idAsignaturaTransaccional);
+                        command.Parameters.AddWithValue("idAsignatura", asignaturaNivel.asignatura.idAsignaturaTransaccional);
                         command.Parameters.AddWithValue("idNivel", asignaturaNivel.nivel.idNivelTransaccional);
                         command.Parameters.AddWithValue("idOrientacion", asignaturaNivel.orientacion.idOrientacionTransaccional);
                         command.Parameters.AddWithValue("cargaHoraria", asignaturaNivel.cargaHoraria);
