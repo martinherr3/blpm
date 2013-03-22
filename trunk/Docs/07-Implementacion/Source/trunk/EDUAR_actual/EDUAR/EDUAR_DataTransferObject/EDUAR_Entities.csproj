@@ -66,11 +66,13 @@
     <Compile Include="Entities\Package Perfiles\Permiso.cs" />
     <Compile Include="Entities\Package Perfiles\Seccion.cs" />
     <Compile Include="Entities\Package Perfiles\Usuario.cs" />
+    <Compile Include="Entities\Package Planificacion Clases\Curricula.cs" />
     <Compile Include="Entities\Package Planificacion Clases\TemaContenidoAtrasado.cs" />
     <Compile Include="Entities\Package Planificacion Clases\Modulo.cs" />
     <Compile Include="Entities\Package Principales\AlumnoCurso.cs" />
     <Compile Include="Entities\Package Principales\AlumnoCursoCicloLectivo.cs" />
     <Compile Include="Entities\Package Principales\AsignaturaCicloLectivo.cs" />
+    <Compile Include="Entities\Package Principales\AsignaturaNivel.cs" />
     <Compile Include="Entities\Package Principales\CicloLectivo.cs" />
     <Compile Include="Entities\Package Principales\Asistencia.cs" />
     <Compile Include="Entities\Package Principales\CursoCicloLectivo.cs" />
