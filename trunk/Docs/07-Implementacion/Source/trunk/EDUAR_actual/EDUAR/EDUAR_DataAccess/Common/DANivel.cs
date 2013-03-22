@@ -75,11 +75,8 @@ namespace EDUAR_DataAccess.Common
 			try
 			{
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("NivelesCursoCicloLectivo_Select");
-				//if (entidad != null)
-				//{
 				if (entidad.idCicloLectivo > 0)
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
-				//}
 
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -108,17 +105,17 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 
-
+        /// <summary>
+        /// Gets the niveles.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException">
+        /// </exception>
         public List<Nivel> GetNiveles()
         {
             try
             {
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("NivelesCursoCicloLectivo_Select");
-                //if (entidad != null)
-                //{
-                //if (entidad.idCicloLectivo > 0)
-                //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
-                //}
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Carga de Contenidos" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+﻿<%@ Page Title="Administración De Currículas Oficiales" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="Contenido.aspx.cs" Inherits="EDUAR_UI.Contenido" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
@@ -11,7 +11,7 @@
             <tr>
                 <td>
                     <h2>
-                        Carga De Contenidos</h2>
+                        Administración De Currículas Oficiales</h2>
                     <br />
                 </td>
                 <td align="right" rowspan="2">
@@ -22,7 +22,6 @@
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
-                            <%--<asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />--%>
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
@@ -34,10 +33,10 @@
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
                 <td class="TD50px">
-                    <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
+                    <asp:Label ID="lblNivel" runat="server" Text="Nivel:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td class="TD140px">
-                    <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddlNivel" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlNivel_SelectedIndexChanged">
                     </asp:DropDownList>
                 </td>
                 <td class="TD50px">
@@ -51,7 +50,7 @@
                             </asp:DropDownList>
                         </ContentTemplate>
                         <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="ddlNivel" EventName="SelectedIndexChanged" />
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>

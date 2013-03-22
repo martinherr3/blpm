@@ -164,23 +164,6 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<Nivel> GetNivels(Nivel entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetNivels(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetNivels", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
-
 		/// <summary>
 		/// Gets the by curso ciclo lectivo.
 		/// </summary>
@@ -203,6 +186,11 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
 
+        /// <summary>
+        /// Gets the niveles.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
         public List<Nivel> GetNiveles()
         {
             try

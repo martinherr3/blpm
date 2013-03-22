@@ -230,6 +230,106 @@ namespace EDUAR_DataAccess.Common
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
+
+        /// <summary>
+        /// Gets the asignaturas nivel.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public List<AsignaturaNivel> GetAsignaturasNivel(AsignaturaNivel entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AsignaturaNivel_Select");
+                if (entidad != null)
+                {
+                    if (entidad.asignatura.idAsignatura > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.asignatura.idAsignatura);
+                    if (entidad.nivel.idNivel > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32, entidad.nivel.idNivel);
+                    if (entidad.orientacion.idOrientacion > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idOrientacion", DbType.Int32, entidad.orientacion.idOrientacion);
+                }
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<AsignaturaNivel> listaAsignaturaNivel = new List<AsignaturaNivel>();
+                AsignaturaNivel objAsignaturaNivel;
+                while (reader.Read())
+                {
+                    objAsignaturaNivel = new AsignaturaNivel();
+                    objAsignaturaNivel.idAsignaturaNivel = Convert.ToInt32(reader["idAsignaturaNivel"]);
+                    objAsignaturaNivel.asignatura.idAsignatura = Convert.ToInt32(reader["idAsignatura"]);
+                    objAsignaturaNivel.asignatura.nombre = reader["Asignatura"].ToString();
+                    objAsignaturaNivel.nivel.idNivel = Convert.ToInt32(reader["idNivel"]);
+                    objAsignaturaNivel.nivel.nombre = reader["Nivel"].ToString();
+                    objAsignaturaNivel.orientacion.idOrientacion = Convert.ToInt32(reader["idOrientacion"]);
+                    objAsignaturaNivel.orientacion.nombre = reader["Orientacion"].ToString();
+                    objAsignaturaNivel.cargaHoraria = Convert.ToInt32(reader["cargaHoraria"]);
+
+                    listaAsignaturaNivel.Add(objAsignaturaNivel);
+                }
+                return listaAsignaturaNivel;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivel()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivel()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        /// <summary>
+        /// Gets the asignaturas nivel.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public List<Asignatura> GetAsignaturasNivel(Nivel entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AsignaturaNivel_Select");
+                if (entidad != null)
+                {
+                    //if (entidad.asignatura.idAsignatura > 0)
+                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.asignatura.idAsignatura);
+                    if (entidad.idNivel > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32, entidad.idNivel);
+                    //if (entidad.orientacion.idOrientacion > 0)
+                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idOrientacion", DbType.Int32, entidad.orientacion.idOrientacion);
+                }
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<Asignatura> listaAsignatura = new List<Asignatura>();
+                Asignatura objAsignatura;
+                while (reader.Read())
+                {
+                    objAsignatura = new Asignatura();
+                    objAsignatura.idAsignatura = Convert.ToInt32(reader["idAsignatura"]);
+                    objAsignatura.nombre = reader["Asignatura"].ToString();
+
+                    listaAsignatura.Add(objAsignatura);
+                }
+                return listaAsignatura;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivel()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivel()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
 		#endregion
 
 		#region --[Implementación métodos heredados]--
@@ -416,5 +516,7 @@ namespace EDUAR_DataAccess.Common
 			//}
 		}
 		#endregion
-	}
+
+       
+    }
 }

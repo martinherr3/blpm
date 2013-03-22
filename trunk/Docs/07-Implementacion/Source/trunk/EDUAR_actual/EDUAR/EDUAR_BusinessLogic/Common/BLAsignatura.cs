@@ -247,6 +247,30 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+        /// <summary>
+        /// Gets the asignaturas nivel.
+        /// </summary>
+        /// <param name="asignaturaNivel">The asignatura nivel.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public List<Asignatura> GetAsignaturasNivel(Nivel nivel)
+        {
+            try
+            {
+                return DataAcces.GetAsignaturasNivel(nivel);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetAsignaturasNivel", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
+
     }
 }
