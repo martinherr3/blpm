@@ -8,6 +8,9 @@ using MySql.Data.MySqlClient;
 
 namespace EDUAR_SI_DataAccess
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DAObtenerDatos : DABase
     {
         #region --[Atributos]--
@@ -1835,8 +1838,59 @@ namespace EDUAR_SI_DataAccess
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
-		#endregion
 
-	}
+        /// <summary>
+        /// Obteners the asignatura nivel BD transaccional.
+        /// </summary>
+        /// <param name="configuracion">The configuracion.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public List<AsignaturaNivel> obtenerAsignaturaNivelBDTransaccional(Configuraciones configuracion)
+        {
+            List<AsignaturaNivel> listadoAsignaturaNivel = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandText = @"SELECT * 
+                                            FROM rel_nivel_asignatura";
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    AsignaturaNivel objAsignaturaNivel;
+                    listadoAsignaturaNivel = new List<AsignaturaNivel>();
+                    while (reader.Read())
+                    {
+                        objAsignaturaNivel = new AsignaturaNivel();
+
+                        objAsignaturaNivel.idAsignaturaNivelTransaccional = Convert.ToInt32(reader["id"]);
+                        objAsignaturaNivel.cargaHoraria = Convert.ToInt32(reader["cargaHoraria"]);
+                        objAsignaturaNivel.nivel.idNivelTransaccional = Convert.ToInt32(reader["fk_nivel_id"]);
+                        objAsignaturaNivel.asignatura.idAsignaturaTransaccional = Convert.ToInt32(reader["fk_asignatura_id"]);
+                        objAsignaturaNivel.orientacion.idOrientacionTransaccional = Convert.ToInt32(reader["fk_orientacion_id"]);
+                        listadoAsignaturaNivel.Add(objAsignaturaNivel);
+                    }
+                    command.Connection.Close();
+                    return listadoAsignaturaNivel;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsignaturaNivelBDTransaccional()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsignaturaNivelBDTransaccional()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+        #endregion
+
+    }
 }
 
