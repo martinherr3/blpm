@@ -256,7 +256,7 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                BLTemaContenido objBLTemaContenido = new BLTemaContenido(new TemaContenido() { idContenido = Data.idContenido });
+                BLTemaContenido objBLTemaContenido = new BLTemaContenido(new TemaContenido() { idContenido = Data.idContenido , usuarioBaja = Data.usuarioBaja});
 
                 objBLTemaContenido.Delete(DataAcces.Transaction);
 

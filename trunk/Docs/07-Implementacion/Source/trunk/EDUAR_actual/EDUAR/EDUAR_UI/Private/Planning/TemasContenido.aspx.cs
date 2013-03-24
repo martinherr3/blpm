@@ -122,7 +122,7 @@ namespace EDUAR_UI
 			try
 			{
 				Master.BotonAvisoAceptar += (VentanaAceptar);
-
+                btnNuevo.Visible = contenidoEditar.activo;
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
@@ -368,6 +368,7 @@ namespace EDUAR_UI
 		{
 			TemaContenido objEliminar = new TemaContenido();
 			objEliminar.idTemaContenido = idTemaContenido;
+            objEliminar.usuarioBaja.username = User.Identity.Name;
 			BLTemaContenido ojbBLContenido = new BLTemaContenido(objEliminar);
 			ojbBLContenido.Delete();
 

@@ -261,7 +261,7 @@ namespace EDUAR_DataAccess.Common
                     objContenido.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
                     objContenido.detalle = reader["detalle"].ToString();
                     objContenido.titulo = reader["titulo"].ToString();
-                    //objContenido.contenido = reader["contenido"].ToString();
+                    objContenido.activo = Convert.ToBoolean(reader["activo"]);
                     objContenido.obligatorio = Convert.ToBoolean(reader["obligatorio"]);
                     listaContenidos.Add(objContenido);
                 }

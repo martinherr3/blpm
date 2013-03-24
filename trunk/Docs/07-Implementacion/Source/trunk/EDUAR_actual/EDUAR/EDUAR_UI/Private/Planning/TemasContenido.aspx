@@ -125,9 +125,10 @@
                             <ItemStyle HorizontalAlign="center" />
                             <ItemTemplate>
                                 <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idTemaContenido") %>'
-                                    ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
+                                    ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "activo") %>' />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
-                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaContenido") %>' />
+                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaContenido") %>'
+                                    Visible='<%#DataBinder.Eval(Container.DataItem, "activo") %>' />
                                 <!--OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> el tema seleccionado?','Confirmación')"-->
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -143,6 +144,13 @@
                             <ItemStyle HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblObligatorioGrilla" runat="server" Text='<%# Boolean.Parse(Eval("obligatorio").ToString()) ? "Sí" : "No"  %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Activo">
+                            <HeaderStyle HorizontalAlign="center" Width="10%" />
+                            <ItemStyle HorizontalAlign="Center" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblActivo" runat="server" Text='<%# Boolean.Parse(Eval("activo").ToString()) ? "Sí" : "No"  %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
