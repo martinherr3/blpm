@@ -39,7 +39,7 @@ namespace EDUAR_UI.Utilidades
         public static void BindRespuestaCualitativa(RadioButtonList rdlUsuario)
         {
             foreach (enumRespCualitativa tipoRespuesta in Enum.GetValues(typeof(enumRespCualitativa)))
-            {               
+            {
                 if (((int)tipoRespuesta) > 0)
                     rdlUsuario.Items.Add(new ListItem(tipoRespuesta.ToString().Replace("_", " "), ((int)tipoRespuesta).ToString()));
             }
@@ -96,7 +96,7 @@ namespace EDUAR_UI.Utilidades
         /// <param name="fieldId">The field id.</param>
         /// <param name="fieldDescription">The field description.</param>
         /// <param name="addDefaultValue">if set to <c>true</c> [add default value].</param>
-        public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescription, bool addDefaultValue, bool addAllValue)
+        public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescription, bool addDefaultValue, bool addAllValue, string campoAnterior)
         {
             DataView dataView = new DataView(BuildDataTable(lista));
             dropDownList.Items.Clear();
@@ -116,7 +116,7 @@ namespace EDUAR_UI.Utilidades
             }
             if (addDefaultValue)
             {
-                dropDownList.Items.Insert(0, new ListItem("[Seleccione]", "-1"));
+                dropDownList.Items.Insert(0, new ListItem("[" + ("Seleccione " + campoAnterior).Trim() + "]", "-1"));
                 dropDownList.SelectedValue = "-1";
             }
         }
@@ -132,7 +132,12 @@ namespace EDUAR_UI.Utilidades
         /// <param name="addDefaultValue">if set to <c>true</c> [add default value].</param>
         public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescription, bool addDefaultValue)
         {
-            BindCombo<T>(dropDownList, lista, fieldId, fieldDescription, addDefaultValue, false);
+            BindCombo<T>(dropDownList, lista, fieldId, fieldDescription, addDefaultValue, false, string.Empty);
+        }
+
+        public static void BindCombo<T>(DropDownList dropDownList, IList<T> lista, string fieldId, string fieldDescription, bool addDefaultValue, bool addAllValue)
+        {
+            BindCombo<T>(dropDownList, lista, fieldId, fieldDescription, addDefaultValue, addAllValue, string.Empty);
         }
 
         /// <summary>
@@ -217,11 +222,11 @@ namespace EDUAR_UI.Utilidades
             var archivo = "*" + sessionID + "*.png";
             if (Directory.Exists(TmpPath))
             {
-				foreach (string item in Directory.GetFiles(TmpPath, archivo, SearchOption.TopDirectoryOnly))
+                foreach (string item in Directory.GetFiles(TmpPath, archivo, SearchOption.TopDirectoryOnly))
                 {
                     File.Delete(item);
                 }
-				archivo = "Podio_" + sessionID + ".png";
+                archivo = "Podio_" + sessionID + ".png";
             }
             if (Directory.Exists(ImgPath))
             {
@@ -359,67 +364,67 @@ namespace EDUAR_UI.Utilidades
             return grilla;
         }
 
-		/// <summary>
-		/// Strings the wrap.
-		/// </summary>
-		/// <param name="srcStr">The SRC STR.</param>
-		/// <param name="maxWidth">Width of the max.</param>
-		/// <returns></returns>
-		public static List<string> StringWrap(string srcStr, int maxWidth)
-		{
-			List<string> lstLines = new List<string>();
-			int spcCount = 0;
+        /// <summary>
+        /// Strings the wrap.
+        /// </summary>
+        /// <param name="srcStr">The SRC STR.</param>
+        /// <param name="maxWidth">Width of the max.</param>
+        /// <returns></returns>
+        public static List<string> StringWrap(string srcStr, int maxWidth)
+        {
+            List<string> lstLines = new List<string>();
+            int spcCount = 0;
 
-			if (!string.IsNullOrEmpty(srcStr))
-			{
+            if (!string.IsNullOrEmpty(srcStr))
+            {
 
-				string[] Lines = srcStr.Split(new char[] { '\n', '\r' });
-				foreach (string Line in Lines)
-				{
-					string[] Words = Line.Split(' ');
-					string curLine = "";
-					foreach (var word in Words)
-					{
-						spcCount = (curLine.Length > 0 ? 1 : 0);
-						if (curLine.Length + word.Length + spcCount > maxWidth && !string.IsNullOrEmpty(curLine))
-						{
-							lstLines.Add(curLine.PadRight(maxWidth));
-							curLine = "";
-						}
+                string[] Lines = srcStr.Split(new char[] { '\n', '\r' });
+                foreach (string Line in Lines)
+                {
+                    string[] Words = Line.Split(' ');
+                    string curLine = "";
+                    foreach (var word in Words)
+                    {
+                        spcCount = (curLine.Length > 0 ? 1 : 0);
+                        if (curLine.Length + word.Length + spcCount > maxWidth && !string.IsNullOrEmpty(curLine))
+                        {
+                            lstLines.Add(curLine.PadRight(maxWidth));
+                            curLine = "";
+                        }
 
-						if (word.Length <= maxWidth)
-						{
-							//if length of a word is <= to specified width
-							if (string.IsNullOrEmpty(curLine))
-								curLine = word;
-							else
-								curLine += " " + word;
-						}
-						else
-						{
-							//force a word to split if it is > to specified width
-							if (!string.IsNullOrEmpty(curLine))
-							{
-								lstLines.Add(curLine.PadRight(maxWidth));
-								curLine = "";
-							}
-							for (int j = 0; j < word.Length; j += maxWidth)
-							{
-								if (j + maxWidth < word.Length)
-									lstLines.Add(word.Substring(j, maxWidth));
-								else
-									lstLines.Add(word.Substring(j).PadRight(maxWidth));
+                        if (word.Length <= maxWidth)
+                        {
+                            //if length of a word is <= to specified width
+                            if (string.IsNullOrEmpty(curLine))
+                                curLine = word;
+                            else
+                                curLine += " " + word;
+                        }
+                        else
+                        {
+                            //force a word to split if it is > to specified width
+                            if (!string.IsNullOrEmpty(curLine))
+                            {
+                                lstLines.Add(curLine.PadRight(maxWidth));
+                                curLine = "";
+                            }
+                            for (int j = 0; j < word.Length; j += maxWidth)
+                            {
+                                if (j + maxWidth < word.Length)
+                                    lstLines.Add(word.Substring(j, maxWidth));
+                                else
+                                    lstLines.Add(word.Substring(j).PadRight(maxWidth));
 
-							}
-						}
+                            }
+                        }
 
-					}
-					if (!string.IsNullOrEmpty(curLine))
-						lstLines.Add(curLine.PadRight(maxWidth));
-				}
-			}
-			return lstLines;
-		}
+                    }
+                    if (!string.IsNullOrEmpty(curLine))
+                        lstLines.Add(curLine.PadRight(maxWidth));
+                }
+            }
+            return lstLines;
+        }
 
         #region sorting methods
         /// <summary>
@@ -658,7 +663,7 @@ namespace EDUAR_UI.Utilidades
             //
             // se recupera de session la lista de seleccionados previamente
             //
-			List<int> productsIdSel = HttpContext.Current.Session[SessionVariable] as List<int>;
+            List<int> productsIdSel = HttpContext.Current.Session[SessionVariable] as List<int>;
 
             if (productsIdSel == null)
                 productsIdSel = new List<int>();
@@ -678,14 +683,14 @@ namespace EDUAR_UI.Utilidades
             //
             productsIdSel.AddRange(checkedProd);
 
-			HttpContext.Current.Session[SessionVariable] = productsIdSel;
+            HttpContext.Current.Session[SessionVariable] = productsIdSel;
 
         }
 
         public static void RestoreSelection(GridView grid, string SessionVariable)
         {
 
-			List<int> productsIdSel = HttpContext.Current.Session[SessionVariable] as List<int>;
+            List<int> productsIdSel = HttpContext.Current.Session[SessionVariable] as List<int>;
 
             if (productsIdSel == null)
                 return;

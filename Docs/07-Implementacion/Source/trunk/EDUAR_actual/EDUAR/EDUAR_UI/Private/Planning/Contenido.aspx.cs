@@ -61,27 +61,44 @@ namespace EDUAR_UI
             get
             {
                 if (Session["idNivel"] == null)
-                    Session["idNivel"] = 0;
+                    idNivel = 0;
                 return (int)Session["idNivel"];
             }
             set { Session["idNivel"] = value; }
         }
 
         /// <summary>
-        /// Gets or sets the id asignatura Nivel.
+        /// Gets or sets the id asignatura.
         /// </summary>
         /// <value>
-        /// The id asignatura Nivel.
+        /// The id asignatura.
         /// </value>
-        public int idAsignaturaNivel
+        public int idAsignatura
         {
             get
             {
-                if (Session["idAsignaturaNivel"] == null)
-                    Session["idAsignaturaNivel"] = 0;
-                return (int)Session["idAsignaturaNivel"];
+                if (Session["idAsignatura"] == null)
+                    idAsignatura = 0;
+                return (int)Session["idAsignatura"];
             }
-            set { Session["idAsignaturaNivel"] = value; }
+            set { Session["idAsignatura"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the id orientacion.
+        /// </summary>
+        /// <value>
+        /// The id orientacion.
+        /// </value>
+        public int idOrientacion
+        {
+            get
+            {
+                if (Session["idOrientacion"] == null)
+                    idOrientacion = 0;
+                return (int)Session["idOrientacion"];
+            }
+            set { Session["idOrientacion"] = value; }
         }
 
         /// <summary>
@@ -159,10 +176,10 @@ namespace EDUAR_UI
                         ddlNivel.SelectedValue = idNivel.ToString();
                         ddlAsignatura.Enabled = true;
                         CargarComboAsignatura(idNivel);
-                        ddlAsignatura.SelectedValue = idAsignaturaNivel.ToString();
+                        ddlAsignatura.SelectedValue = idAsignatura.ToString();
                         ddlAsignatura.Enabled = idNivel > 0;
-                        btnNuevo.Visible = idAsignaturaNivel > 0;
-                        CargarContenido(idAsignaturaNivel);
+                        btnNuevo.Visible = idAsignatura > 0;
+                        CargarContenido();
                     }
                 }
                 //else
@@ -274,11 +291,12 @@ namespace EDUAR_UI
                 if (!string.IsNullOrEmpty(txtDescripcion.Text))
                 {
                     EDUAR_Entities.Contenido nuevoContenido = new EDUAR_Entities.Contenido();
-                    nuevoContenido.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaNivel;
+                    //nuevoContenido.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignatura;
                     nuevoContenido.descripcion = txtDescripcion.Text;
                     nuevoContenido.idContenido = idContenido;
 
                     GuardarContenido(nuevoContenido);
+
                     txtDescripcion.Text = string.Empty;
                     mpeContenido.Hide();
                 }
@@ -333,8 +351,10 @@ namespace EDUAR_UI
                     ddlAsignatura.Items.Clear();
                     ddlAsignatura.Items.Add("[Seleccione Nivel]");
                 }
+                ddlOrientacion.Items.Clear();
                 ddlAsignatura.Enabled = idNivel > 0;
                 udpAsignatura.Update();
+                VerOrientacion(false);
                 udpGrilla.Update();
             }
             catch (Exception ex)
@@ -354,11 +374,39 @@ namespace EDUAR_UI
             {
                 int idAsignatura = 0;
                 int.TryParse(ddlAsignatura.SelectedValue, out idAsignatura);
-                btnNuevo.Visible = idAsignatura > 0;
                 if (idAsignatura > 0)
                 {
-                    idAsignaturaNivel = idAsignatura;
+                    this.idAsignatura = idAsignatura;
                     //CargarContenido(idAsignatura);
+                    CargarOrientacion();
+                }
+                else
+                    VerOrientacion(false);
+
+                udpBotonera.Update();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the ddlOrientacion control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ddlOrientacion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int idOrientacion = 0;
+                int.TryParse(ddlOrientacion.SelectedValue, out idOrientacion);
+                btnNuevo.Visible = idOrientacion > 0;
+                if (idOrientacion > 0)
+                {
+                    this.idOrientacion = idOrientacion;
+                    CargarGrilla();
                 }
                 udpBotonera.Update();
             }
@@ -400,7 +448,7 @@ namespace EDUAR_UI
                     case "Eliminar":
                         AccionPagina = enumAcciones.Eliminar;
                         idContenido = Convert.ToInt32(e.CommandArgument.ToString());
-                        Master.MostrarMensaje("Eliminar Contenido", "¿Desea <b>eliminar</b> el contenido seleccionado?", enumTipoVentanaInformacion.Confirmación);
+                        Master.MostrarMensaje("Eliminar Contenido", "¿Desea <b>eliminar</b> el contenido seleccionado y todos sus temas asociados?", enumTipoVentanaInformacion.Confirmación);
                         //EliminarContenido();
                         break;
                     case "Temas":
@@ -429,7 +477,7 @@ namespace EDUAR_UI
             ddlAsignatura.Items.Add("[Seleccione Nivel]");
             pnlContenidos.Attributes["display"] = "none";
             //pnlContenidos.Visible = false;
-
+            VerOrientacion(false);
             udpBotonera.Update();
         }
 
@@ -469,15 +517,22 @@ namespace EDUAR_UI
         /// <param name="nuevoContenido">The nuevo contenido.</param>
         private void GuardarContenido(EDUAR_Entities.Contenido nuevoContenido)
         {
-            BLContenido objBLContenido = new BLContenido(nuevoContenido);
-            objBLContenido.Save();
+            Curricula curricula = new Curricula();
+            curricula.nivel.idNivel = this.idNivel;
+            curricula.asignatura.idAsignatura = this.idAsignatura;
+            curricula.orientacion.idOrientacion = this.idOrientacion;
+            curricula.personaModificacion.username = User.Identity.Name;
+            curricula.personaAlta.username = User.Identity.Name;
+
+            BLCurricula objBLCurricula = new BLCurricula();
+            objBLCurricula.GuardarContenidos(curricula, nuevoContenido);
 
             lblTitulo.Text = "Nuevo Contenido";
             txtDescripcion.Text = string.Empty;
             idContenido = 0;
             pnlContenidos.Attributes["display"] = "none";
             udpBotonera.Update();
-            CargarContenido(idAsignaturaNivel);
+            CargarContenido();
         }
 
         /// <summary>
@@ -487,23 +542,66 @@ namespace EDUAR_UI
         {
             EDUAR_Entities.Contenido objEliminar = new EDUAR_Entities.Contenido();
             objEliminar.idContenido = idContenido;
+            objEliminar.usuarioBaja.username = User.Identity.Name;
             BLContenido ojbBLContenido = new BLContenido(objEliminar);
-            ojbBLContenido.Delete();
+            ojbBLContenido.EliminarContenidos();
 
-            CargarContenido(idAsignaturaNivel);
+            CargarContenido();
         }
 
         /// <summary>
         /// Cargars the contenido.
         /// </summary>
         /// <param name="idAsignaturaCicloLectivo">The id asignatura ciclo lectivo.</param>
-        private void CargarContenido(int idAsignaturaCicloLectivo)
+        private void CargarContenido()
         {
-            EDUAR_Entities.Contenido objContenido = new EDUAR_Entities.Contenido();
-            objContenido.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCicloLectivo;
-            BLContenido objBL = new BLContenido();
-            listaContenido = objBL.GetByAsignaturaCicloLectivo(objContenido);
+            Curricula entidad = new Curricula();
+            entidad.nivel.idNivel = this.idNivel;
+            entidad.asignatura.idAsignatura = this.idAsignatura;
+            entidad.orientacion.idOrientacion = this.idOrientacion;
+
+            BLCurricula objBL = new BLCurricula();
+            listaContenido = objBL.GetCurriculaAsignaturaNivel(entidad);
             CargarGrilla();
+        }
+
+        /// <summary>
+        /// Cargars the orientacion.
+        /// </summary>
+        /// <param name="idAsignaturaNivel">The id asignatura nivel.</param>
+        private void CargarOrientacion()
+        {
+            AsignaturaNivel objAsignatura = new AsignaturaNivel();
+            objAsignatura.asignatura.idAsignatura = this.idAsignatura;
+            objAsignatura.nivel.idNivel = this.idNivel;
+            BLOrientacion objBLOrientacion = new BLOrientacion();
+            List<Orientacion> listaOrientaciones = objBLOrientacion.GetOrientacionesByAsignaturaNivel(objAsignatura);
+            if (listaOrientaciones != null && listaOrientaciones.Count > 0)
+            {
+                UIUtilidades.BindCombo<Orientacion>(ddlOrientacion, listaOrientaciones, "idOrientacion", "nombre", true, false, "Nivel");
+                if (listaOrientaciones.Count == 1)
+                {
+                    ddlOrientacion.SelectedIndex = 1;
+                    idOrientacion = listaOrientaciones[0].idOrientacion;
+                    CargarContenido();
+                }
+                btnNuevo.Visible = listaOrientaciones.Count == 1;
+                ddlOrientacion.Enabled = !(listaOrientaciones.Count == 1);
+            }
+
+            VerOrientacion(listaOrientaciones != null);
+            udpOrientacion.Update();
+        }
+
+        /// <summary>
+        /// Vers the orientacion.
+        /// </summary>
+        /// <param name="verCampos">if set to <c>true</c> [ver campos].</param>
+        private void VerOrientacion(bool verCampos)
+        {
+            lblOrientacion.Visible = verCampos;
+            ddlOrientacion.Visible = verCampos;
+            udpOrientacion.Update();
         }
         #endregion
     }

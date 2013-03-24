@@ -180,6 +180,30 @@ namespace EDUAR_BusinessLogic.Common
         //                                      enuExceptionType.BusinessLogicException);
         //    }
         //}
+
+        /// <summary>
+        /// Gets the orientaciones by asignatura nivel.
+        /// </summary>
+        /// <param name="objAsignatura">The obj asignatura.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public List<Orientacion> GetOrientacionesByAsignaturaNivel(AsignaturaNivel objAsignatura)
+        {
+            try
+            {
+                return DataAcces.GetOrientacionesByAsignaturaNivel(objAsignatura);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetOrientacionesByAsignaturaNivel", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
+
     }
 }

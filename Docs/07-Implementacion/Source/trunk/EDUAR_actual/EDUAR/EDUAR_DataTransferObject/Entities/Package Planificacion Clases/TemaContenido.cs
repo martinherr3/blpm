@@ -16,13 +16,18 @@ namespace EDUAR_Entities
         public int idTemaContenido { get; set; }
 		public string titulo { get; set; }
 		public string detalle { get; set; }
-		public string contenido { get; set; }
+        //public string contenido { get; set; }
 		public bool obligatorio { get; set; }
 		public int idContenido { get; set; }
+        public bool activo { get; set; }
+        public DateTime fechaBaja { get; set; }
+        public Persona usuarioBaja { get; set; }
 
         public TemaContenido()
         {
 			obligatorio = true;
+            usuarioBaja = new Persona();
+            
         }
 
         ~TemaContenido()
