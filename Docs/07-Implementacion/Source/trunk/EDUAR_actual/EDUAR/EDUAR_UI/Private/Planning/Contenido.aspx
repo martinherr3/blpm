@@ -87,7 +87,7 @@
                             <ItemStyle HorizontalAlign="center" />
                             <ItemTemplate>
                                 <asp:ImageButton ID="btnTemas" runat="server" CommandName="Temas" CommandArgument='<%# Bind("idContenido") %>'
-                                    ToolTip="Ver Temas" ImageUrl="~/Images/Grillas/action_new.png" Visible='<%#DataBinder.Eval(Container.DataItem, "activo") %>' />
+                                    ToolTip="Ver Temas" ImageUrl="~/Images/Grillas/action_new.png" />
                                 <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idContenido") %>'
                                     ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "activo") %>' />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"

@@ -184,6 +184,12 @@ namespace EDUAR_BusinessLogic.Common
 		#endregion
 
 		#region --[Métodos publicos]--
+        /// <summary>
+        /// Gets the temas by contenido.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
 		public List<TemaContenido> GetTemasByContenido(TemaContenido entidad)
 		{
 			try
