@@ -10,13 +10,17 @@ namespace EDUAR_Entities
         public DateTime fechaModificacion { get; set; }
         public Persona personaAlta { get; set; }
         public Persona personaModificacion { get; set; }
-        public Asignatura asigantura { get; set; }
+        public Asignatura asignatura { get; set; }
         public Nivel nivel { get; set; }
         public Orientacion orientacion { get; set; }
 
         public Curricula()
         {
-
+            personaAlta = new Persona();
+            personaModificacion = new Persona();
+            asignatura = new Asignatura();
+            nivel = new Nivel();
+            orientacion = new Orientacion();
         }
 
         ~Curricula()

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Administración De Currículas Oficiales" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+﻿<%@ Page Title="Administración De Contenidos Curriculares" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="Contenido.aspx.cs" Inherits="EDUAR_UI.Contenido" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
@@ -11,14 +11,16 @@
             <tr>
                 <td>
                     <h2>
-                        Administración De Currículas Oficiales</h2>
+                        Administración De Contenidos Curriculares</h2>
                     <br />
                 </td>
                 <td align="right" rowspan="2">
                     <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
-                                Visible="false" OnClick="btnNuevo_Click"/>
+                            <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo Contenido" ImageUrl="~/Images/botonNuevo.png"
+                                Visible="false" OnClick="btnNuevo_Click" />
+                            <%--<asp:ImageButton ID="btnCurricula" runat="server" ToolTip="Nueva Curricula" ImageUrl="~/Images/botonCurricula.png"
+                                Visible="true" OnClick="btnNuevo_Click"/>--%>
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
@@ -28,18 +30,17 @@
             </tr>
         </table>
     </div>
-    
     <div id="divFiltros" runat="server">
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
-                <td class="TD50px">
+                <td class="TD75px">
                     <asp:Label ID="lblNivel" runat="server" Text="Nivel:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td class="TD140px">
                     <asp:DropDownList ID="ddlNivel" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlNivel_SelectedIndexChanged">
                     </asp:DropDownList>
                 </td>
-                <td class="TD50px">
+                <td class="TD100px">
                     <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td>
@@ -56,6 +57,25 @@
                 </td>
             </tr>
         </table>
+        <asp:UpdatePanel runat="server" ID="udpOrientacion" UpdateMode="Conditional">
+            <ContentTemplate>
+                <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
+                    <tr>
+                        <td class="TD75px">
+                            <asp:Label ID="lblOrientacion" runat="server" Text="Orientación:" CssClass="lblCriterios"></asp:Label>
+                        </td>
+                        <td colspan="3">
+                            <asp:DropDownList ID="ddlOrientacion" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlOrientacion_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
+                <asp:PostBackTrigger ControlID="ddlOrientacion" />
+            </Triggers>
+        </asp:UpdatePanel>
         <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
                 <asp:GridView ID="gvwContenido" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
@@ -67,11 +87,12 @@
                             <ItemStyle HorizontalAlign="center" />
                             <ItemTemplate>
                                 <asp:ImageButton ID="btnTemas" runat="server" CommandName="Temas" CommandArgument='<%# Bind("idContenido") %>'
-                                    ToolTip="Ver Temas" ImageUrl="~/Images/Grillas/action_new.png" />
+                                    ToolTip="Ver Temas" ImageUrl="~/Images/Grillas/action_new.png" Visible='<%#DataBinder.Eval(Container.DataItem, "activo") %>' />
                                 <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idContenido") %>'
-                                    ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />
+                                    ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "activo") %>' />
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
-                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idContenido") %>' />
+                                    AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idContenido") %>'
+                                    Visible='<%#DataBinder.Eval(Container.DataItem, "activo") %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Descripción">
@@ -79,6 +100,13 @@
                             <ItemStyle HorizontalAlign="left" />
                             <ItemTemplate>
                                 <asp:Label ID="lblDescripcionGrilla" runat="server" Text='<%# Bind("descripcion") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Activo">
+                            <HeaderStyle HorizontalAlign="center" Width="10%" />
+                            <ItemStyle HorizontalAlign="Center" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblActivo" runat="server" Text='<%# Boolean.Parse(Eval("activo").ToString()) ? "Sí" : "No"  %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

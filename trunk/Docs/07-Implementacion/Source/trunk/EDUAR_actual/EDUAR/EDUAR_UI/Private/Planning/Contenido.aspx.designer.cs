@@ -94,6 +94,33 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.DropDownList ddlAsignatura;
         
         /// <summary>
+        /// Control udpOrientacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpOrientacion;
+        
+        /// <summary>
+        /// Control lblOrientacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOrientacion;
+        
+        /// <summary>
+        /// Control ddlOrientacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrientacion;
+        
+        /// <summary>
         /// Control udpGrilla.
         /// </summary>
         /// <remarks>

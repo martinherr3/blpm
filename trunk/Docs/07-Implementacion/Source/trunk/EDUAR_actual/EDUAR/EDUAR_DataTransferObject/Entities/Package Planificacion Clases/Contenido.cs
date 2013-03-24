@@ -15,14 +15,17 @@ namespace EDUAR_Entities
 	public class Contenido : DTBase
 	{
 		public int idContenido { get; set; }
+        public int idCurricula { get; set; }
 		public string descripcion { get; set; }
-		public AsignaturaCicloLectivo asignaturaCicloLectivo { get; set; }
-		public BibliografiaRecomendada bibliografia { get; set; }
+        public bool activo { get; set; }
+        public DateTime fechaBaja { get; set; }
+        public Persona usuarioBaja { get; set; }
 		public List<TemaContenido> listaContenidos { get; set; }
 
 		public Contenido()
 		{
-			asignaturaCicloLectivo = new AsignaturaCicloLectivo();
+            listaContenidos = new List<TemaContenido>();
+            usuarioBaja = new Persona();
 		}
 
 		~Contenido()

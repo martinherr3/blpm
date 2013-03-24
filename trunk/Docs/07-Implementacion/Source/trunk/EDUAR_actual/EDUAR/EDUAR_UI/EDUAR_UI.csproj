@@ -120,6 +120,7 @@
     <Content Include="Images\botonCancel.png" />
     <Content Include="Images\botonCancelar48.png" />
     <Content Include="Images\botonContenidos.png" />
+    <Content Include="Images\botonCurricula.png" />
     <Content Include="Images\botonEnviados.png" />
     <Content Include="Images\botonEnviarMail.png" />
     <Content Include="Images\botonEvaluacion.png" />

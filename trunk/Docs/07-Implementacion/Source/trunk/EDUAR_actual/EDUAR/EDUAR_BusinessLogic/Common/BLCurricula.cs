@@ -12,37 +12,37 @@ using EDUAR_DataAccess.Shared;
 
 namespace EDUAR_BusinessLogic.Common
 {
-    public class BLContenido : BusinessLogicBase<Contenido, DAContenido>
+    public class BLCurricula : BusinessLogicBase<Curricula, DACurricula>
     {
         #region --[Constante]--
-        private const string ClassName = "BLContenido";
+        private const string ClassName = "BLCurricula";
         #endregion
 
         #region --[Constructores]--
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLContenido(DTBase objContenido)
+        public BLCurricula(DTBase objCurricula)
         {
-            Data = (Contenido)objContenido;
+            Data = (Curricula)objCurricula;
         }
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public BLContenido()
+        public BLCurricula()
         {
-            Data = new Contenido();
+            Data = new Curricula();
         }
         #endregion
 
         #region --[Propiedades Override]--
-        protected override sealed DAContenido DataAcces
+        protected override sealed DACurricula DataAcces
         {
             get { return dataAcces; }
             set { dataAcces = value; }
         }
 
-        public override sealed Contenido Data
+        public override sealed Curricula Data
         {
             get { return data; }
             set { data = value; }
@@ -87,10 +87,10 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                int idContenido = 0;
+                int idCurricula = 0;
 
-                if (Data.idContenido == 0)
-                    DataAcces.Create(Data, out idContenido);
+                if (Data.idCurricula == 0)
+                    DataAcces.Create(Data, out idCurricula);
                 else
                     DataAcces.Update(Data);
 
@@ -120,13 +120,15 @@ namespace EDUAR_BusinessLogic.Common
             try
             {
                 //Si no viene el Id es porque se esta creando la entidad
-                DataAcces = new DAContenido(objDATransaction);
-                if (Data.idContenido == 0)
-                    DataAcces.Create(Data);
-                else
+                DataAcces = new DACurricula(objDATransaction);
+                int idCurricula = 0;
+                if (Data.idCurricula == 0)
                 {
-                    DataAcces.Update(Data);
+                    DataAcces.Create(Data, out idCurricula);
+                    Data.idCurricula = idCurricula;
                 }
+                else
+                    DataAcces.Update(Data);
             }
             catch (CustomizedException ex)
             {
@@ -139,15 +141,11 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
-        /// <summary>
-        /// Deletes this instance.
-        /// </summary>
-        /// <exception cref="CustomizedException"></exception>
         public override void Delete()
         {
             try
             {
-                DataAcces = new DAContenido();
+                DataAcces = new DACurricula();
                 DataAcces.Delete(Data);
             }
             catch (CustomizedException ex)
@@ -161,16 +159,11 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
-        /// <summary>
-        /// Deletes the specified obj DA transaction.
-        /// </summary>
-        /// <param name="objDATransaction">The obj DA transaction.</param>
-        /// <exception cref="CustomizedException"></exception>
         public override void Delete(DATransaction objDATransaction)
         {
             try
             {
-                DataAcces = new DAContenido(objDATransaction);
+                DataAcces = new DACurricula(objDATransaction);
                 DataAcces.Delete(Data);
             }
             catch (CustomizedException ex)
@@ -186,33 +179,39 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<Contenido> GetContenidos(Contenido entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetContenidos(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetContenidos", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+        /// <summary>
+        /// Gets the curriculas.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public List<Curricula> GetCurriculas(Curricula entidad)
+        {
+            try
+            {
+                return DataAcces.GetCurriculas(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCurriculas", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
 
         /// <summary>
         /// Gets the by asignatura ciclo lectivo.
         /// </summary>
         /// <param name="objFiltro">The obj filtro.</param>
         /// <returns></returns>
-        public List<Contenido> GetByAsignaturaCicloLectivo(Contenido objFiltro)
+        public List<Curricula> GetByAsignaturaCicloLectivo(Curricula objFiltro)
         {
             try
             {
-                return DataAcces.GetContenidos(objFiltro);
+                return DataAcces.GetCurriculas(objFiltro);
             }
             catch (CustomizedException ex)
             {
@@ -231,12 +230,18 @@ namespace EDUAR_BusinessLogic.Common
         /// <param name="objFiltro">The obj filtro.</param>
         /// <returns></returns>
         /// <exception cref="CustomizedException"></exception>
-        public List<Contenido> GetCurriculaAsignaturaNivel(Contenido objFiltro)
+        public List<Contenido> GetCurriculaAsignaturaNivel(Curricula objFiltro)
         {
             try
             {
-                return DataAcces.GetContenidos(objFiltro);
-                //return null;
+                Contenido objCurricula = new Contenido();
+                objCurricula.idCurricula = DataAcces.GetByAsignaturaNivelOrientacion(objFiltro);
+                if (objCurricula.idCurricula > 0)
+                {
+                    BLContenido objBLContenido = new BLContenido();
+                    return objBLContenido.GetCurriculaAsignaturaNivel(objCurricula);
+                }
+                return new List<Contenido>();
             }
             catch (CustomizedException ex)
             {
@@ -249,30 +254,42 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
-
-        public void EliminarContenidos()
+        /// <summary>
+        /// Guardars the contenidos.
+        /// </summary>
+        /// <param name="curricula">The curricula.</param>
+        /// <param name="nuevoContenido">The nuevo contenido.</param>
+        /// <exception cref="CustomizedException"></exception>
+        public void GuardarContenidos(Curricula curricula, Contenido nuevoContenido)
         {
             try
             {
+                //busca si existe el id
+                curricula.idCurricula = DataAcces.GetByAsignaturaNivelOrientacion(curricula);
+                Data = curricula;
+
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                BLTemaContenido objBLTemaContenido = new BLTemaContenido(new TemaContenido() { idContenido = Data.idContenido });
+                this.Save(DataAcces.Transaction);
+                nuevoContenido.idCurricula = Data.idCurricula;
 
-                objBLTemaContenido.Delete(DataAcces.Transaction);
+                BLContenido objBLContenido = new BLContenido(nuevoContenido);
+                objBLContenido.Save(DataAcces.Transaction);
 
-                this.Delete(DataAcces.Transaction);
-
+                //Se da el OK para la transaccion.
                 DataAcces.Transaction.CommitTransaction();
             }
             catch (CustomizedException ex)
             {
-                DataAcces.Transaction.RollbackTransaction();
+                if (DataAcces != null && DataAcces.Transaction != null)
+                    DataAcces.Transaction.RollbackTransaction();
                 throw ex;
             }
             catch (Exception ex)
             {
-                DataAcces.Transaction.RollbackTransaction();
-                throw new CustomizedException(string.Format("Fallo en {0} - Save()", ClassName), ex,
+                if (DataAcces != null && DataAcces.Transaction != null)
+                    DataAcces.Transaction.RollbackTransaction();
+                throw new CustomizedException(string.Format("Fallo en {0} - GuardarContenidos()", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
