@@ -61,6 +61,8 @@
             <siteMapNode url="~/Private/Account/ChangeUser.aspx" title="Usuarios" roles="Administrador" />
             <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar Usuario" roles="Administrador" visible="false"/>
         </siteMapNode>
-        
+      <siteMapNode url="" title="Testing" roles="Administrador" >
+        <siteMapNode url="~/Private/Encuestas/ManageCategoriasPregunta.aspx" title="Administración Categorías" roles="Administrador" />
+      </siteMapNode>
     </siteMapNode>
 </siteMap>

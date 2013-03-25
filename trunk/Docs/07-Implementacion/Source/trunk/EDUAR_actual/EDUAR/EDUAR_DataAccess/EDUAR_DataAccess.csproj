@@ -138,6 +138,7 @@
     <Compile Include="DEC\DAFuncionPreferencia.cs" />
     <Compile Include="DEC\DAIndicador.cs" />
     <Compile Include="DEC\DAValorFuncionPreferencia.cs" />
+    <Compile Include="Encuestas\DAValorEscala.cs" />
     <Compile Include="Encuestas\DAEncuestaDisponible.cs" />
     <Compile Include="Encuestas\DARespuesta.cs" />
     <Compile Include="Encuestas\DAAmbitoEncuesta.cs" />
