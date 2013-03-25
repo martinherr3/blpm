@@ -6,7 +6,7 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <asp:CreateUserWizard ID="RegisterUser" runat="server" EnableViewState="false" OnCreatedUser="RegisterUser_CreatedUser"
-        ContinueDestinationPageUrl="~/Private/Account/Welcome.aspx" >
+        ContinueDestinationPageUrl="~/Private/Account/Welcome.aspx">
         <LayoutTemplate>
             <asp:PlaceHolder ID="wizardStepPlaceholder" runat="server"></asp:PlaceHolder>
             <asp:PlaceHolder ID="navigationPlaceholder" runat="server"></asp:PlaceHolder>
@@ -101,8 +101,10 @@
                                         </p>
                                     </fieldset>
                                     <p class="submitButton">
-                                        <asp:Button ID="CreateUserButton" runat="server" CommandName="MoveNext" Text="Crear usuario"
-                                            ValidationGroup="RegisterUserValidationGroup" />
+                                        <%--<asp:Button ID="CreateUserButton" runat="server" CommandName="MoveNext" Text="Crear usuario"
+                                            ValidationGroup="RegisterUserValidationGroup" />--%>
+                                        <asp:ImageButton ImageUrl="~/Images/botonSiguiente.png" ID="CreateUserButton" runat="server"
+                                            CommandName="MoveNext" ToolTip="Crear usuario" ValidationGroup="RegisterUserValidationGroup" />
                                     </p>
                                 </div>
                             </td>
