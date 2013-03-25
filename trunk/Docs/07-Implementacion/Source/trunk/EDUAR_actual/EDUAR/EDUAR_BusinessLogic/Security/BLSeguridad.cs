@@ -104,13 +104,15 @@ namespace EDUAR_BusinessLogic.Security
 			try
 			{
 				MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
+                if (user != null)
+                {
+                    //Data.Usuario.Password = user.GetPassword();
+                    Data.Usuario.Aprobado = user.IsApproved;
+                    Data.Usuario.PaswordPregunta = user.PasswordQuestion;
+                    Data.Usuario.Email = user.Email;
 
-				//Data.Usuario.Password = user.GetPassword();
-				Data.Usuario.Aprobado = user.IsApproved;
-				Data.Usuario.PaswordPregunta = user.PasswordQuestion;
-				Data.Usuario.Email = user.Email;
-
-				ObtenerRolesUsuario();
+                    ObtenerRolesUsuario();
+                }
 			}
 			catch (Exception ex)
 			{
