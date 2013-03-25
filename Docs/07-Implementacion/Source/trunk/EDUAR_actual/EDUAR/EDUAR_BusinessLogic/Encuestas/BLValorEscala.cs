@@ -12,37 +12,37 @@ using EDUAR_DataAccess.Shared;
 
 namespace EDUAR_BusinessLogic.Encuestas
 {
-    public class BLCategoriaPregunta: BusinessLogicBase<CategoriaPregunta, DACategoriaPregunta>
+    public class BLValorEscala : BusinessLogicBase<ValorEscalaMedicion, DAValorEscala>
     {
         #region --[Constante]--
-        private const string ClassName = "BLCategoriaPregunta";
+        private const string ClassName = "BLValorEscala";
         #endregion
 
         #region --[Constructores]--
         /// <summary>
         /// Constructor con DTO como parámetro.
         /// </summary>
-        public BLCategoriaPregunta(DTBase objCategoriaPregunta)
+        public BLValorEscala(DTBase objValorEscalaMedicion)
         {
-            Data = (CategoriaPregunta)objCategoriaPregunta;
+            Data = (ValorEscalaMedicion)objValorEscalaMedicion;
         }
         /// <summary>
         /// Constructor vacio
         /// </summary>
-        public BLCategoriaPregunta()
+        public BLValorEscala()
         {
-            Data = new CategoriaPregunta();
+            Data = new ValorEscalaMedicion();
         }
         #endregion
 
         #region --[Propiedades Override]--
-        protected override sealed DACategoriaPregunta DataAcces
+        protected override sealed DAValorEscala DataAcces
         {
             get { return dataAcces; }
             set { dataAcces = value; }
         }
 
-        public override sealed CategoriaPregunta Data
+        public override sealed ValorEscalaMedicion Data
         {
             get { return data; }
             set { data = value; }
@@ -87,10 +87,10 @@ namespace EDUAR_BusinessLogic.Encuestas
             {
                 //Abre la transaccion que se va a utilizar
                 DataAcces.Transaction.OpenTransaction();
-                int idCategoriaPregunta = 0;
+                int idEscala = 0;
 
-                if (Data.idCategoriaPregunta == 0)
-                    DataAcces.Create(Data, out idCategoriaPregunta);
+                if (Data.idValorEscala == 0)
+                    DataAcces.Create(Data, out idEscala);
                 else
                     DataAcces.Update(Data);
 
@@ -120,8 +120,8 @@ namespace EDUAR_BusinessLogic.Encuestas
             try
             {
                 //Si no viene el Id es porque se esta creando la entidad
-                DataAcces = new DACategoriaPregunta(objDATransaction);
-                if (Data.idCategoriaPregunta == 0)
+                DataAcces = new DAValorEscala(objDATransaction);
+                if (Data.idValorEscala == 0)
                     DataAcces.Create(Data);
                 else
                 {
@@ -143,7 +143,7 @@ namespace EDUAR_BusinessLogic.Encuestas
         {
 			try
 			{
-				DataAcces = new DACategoriaPregunta();
+				DataAcces = new DAValorEscala();
 				DataAcces.Delete(Data);
 			}
 			catch (CustomizedException ex)
@@ -161,7 +161,7 @@ namespace EDUAR_BusinessLogic.Encuestas
         {
             try
             {
-                DataAcces = new DACategoriaPregunta(objDATransaction);
+                DataAcces = new DAValorEscala(objDATransaction);
                 DataAcces.Delete(Data);
             }
             catch (CustomizedException ex)
@@ -178,15 +178,15 @@ namespace EDUAR_BusinessLogic.Encuestas
 
         #region --[Métodos publicos]--
         /// <summary>
-        /// Obtiene las categorias de pregunta disponibles.
+        /// Obtiene las escalas de medición disponibles.
         /// </summary>
         /// <param name="objFiltro">The obj filtro.</param>
         /// <returns></returns>
-        public List<CategoriaPregunta> GetCategoriasPregunta(CategoriaPregunta objFiltro)
+        public List<ValorEscalaMedicion> GetValoresEscalasMedicion(EscalaMedicion objFiltro)
         {
             try
             {
-                return DataAcces.GetCategoriasPregunta(objFiltro);
+                return DataAcces.GetValoresEscalasMedicion(objFiltro);
             }
             catch (CustomizedException ex)
             {
@@ -194,29 +194,7 @@ namespace EDUAR_BusinessLogic.Encuestas
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetCategoriasPregunta", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
-
-        /// <summary>
-        /// Verifica que la categoría en cuestión no está siendo utilizada en ninguna encuesta.
-        /// </summary>
-        /// <param name="entidad">The entidad.</param>
-        /// <returns></returns>
-        public bool EsCategoriaDisponible(int objFiltroId)
-        {
-            try
-            {
-                return DataAcces.EsCategoriaDisponible(objFiltroId);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - EsCategoriaUtilizada", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetValoresEscalasMedicion", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }

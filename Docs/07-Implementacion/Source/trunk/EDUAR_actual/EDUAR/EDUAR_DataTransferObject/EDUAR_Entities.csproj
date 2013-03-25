@@ -56,6 +56,7 @@
     <Compile Include="Entities\Package Agenda\TipoEventoAgenda.cs" />
     <Compile Include="Entities\Package Encuestas\AmbitoEncuesta.cs" />
     <Compile Include="Entities\Package Encuestas\CategoriaPregunta.cs" />
+    <Compile Include="Entities\Package Encuestas\ValorEscalaMedicion.cs" />
     <Compile Include="Entities\Package Encuestas\EncuestaAnalisis.cs" />
     <Compile Include="Entities\Package Encuestas\EncuestaDisponible.cs" />
     <Compile Include="Entities\Package Encuestas\EscalaMedicion.cs" />
