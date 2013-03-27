@@ -250,6 +250,7 @@ namespace EDUAR_DataAccess.Common
                 {
                     if (objCurricula.idCurricula > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurricula", DbType.Int32, objCurricula.idCurricula);
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
                 }
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);

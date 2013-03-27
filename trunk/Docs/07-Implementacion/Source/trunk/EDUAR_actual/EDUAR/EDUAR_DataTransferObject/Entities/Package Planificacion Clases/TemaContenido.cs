@@ -26,6 +26,7 @@ namespace EDUAR_Entities
         public TemaContenido()
         {
 			obligatorio = true;
+            activo = true;
             usuarioBaja = new Persona();
             
         }
