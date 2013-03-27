@@ -398,6 +398,7 @@ namespace EDUAR_DataAccess.Common
                     objEntidad = new TemaContenido();
                     objEntidad.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
                     objEntidad.obligatorio = Convert.ToBoolean(reader["obligatorio"]);
+                    objEntidad.activo = Convert.ToBoolean(reader["activo"]);
                     listaEntidad.Add(objEntidad);
                 }
                 return listaEntidad;
@@ -414,6 +415,46 @@ namespace EDUAR_DataAccess.Common
             }
         }
 
+        /// <summary>
+        /// Gets the contenidos desactivados.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public List<TemaContenido> GetContenidosDesactivados(TemaPlanificacionAnual entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaPlanificacionTemaContenidoDesactivado_Select");
+
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, entidad.idTemaPlanificacion);
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<TemaContenido> listaEntidad = new List<TemaContenido>();
+                TemaContenido objEntidad;
+                while (reader.Read())
+                {
+                    objEntidad = new TemaContenido();
+                    objEntidad.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
+                    objEntidad.obligatorio = Convert.ToBoolean(reader["obligatorio"]);
+                    objEntidad.activo = Convert.ToBoolean(reader["activo"]);
+                    listaEntidad.Add(objEntidad);
+                }
+                return listaEntidad;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetContenidosDesactivados()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetContenidosDesactivados()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
         #endregion
     }
 }

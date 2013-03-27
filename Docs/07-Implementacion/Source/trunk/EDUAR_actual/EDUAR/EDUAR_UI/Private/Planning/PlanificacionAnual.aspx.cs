@@ -55,6 +55,7 @@ namespace EDUAR_UI
                     objFiltro.nivel.idNivel = idNivel;
                     objFiltro.orientacion.idOrientacion = idOrientacion;
 
+                    //devuelve todos los temas activos
                     listaContenido = objBLCurricula.GetTemasContenidoByCurricula(objFiltro);
                 }
                 return (List<TemaContenido>)ViewState["listaContenido"];
@@ -1077,6 +1078,12 @@ namespace EDUAR_UI
             BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual(objFiltro);
             listaContenidosPlanificados = objBLTemas.ObtenerContenidos();
 
+            List<TemaContenido> listaAuxiliar = new List<TemaContenido>();
+            listaAuxiliar = objBLTemas.ObtenerContenidosDesactivados();
+
+            foreach (TemaContenido item in listaAuxiliar)
+                listaContenido.Add(item);
+            
             return (listaContenidosPlanificados);
         }
 

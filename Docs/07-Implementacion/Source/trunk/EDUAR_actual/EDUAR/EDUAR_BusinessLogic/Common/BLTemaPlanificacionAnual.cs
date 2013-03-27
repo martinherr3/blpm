@@ -274,6 +274,28 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
-		#endregion
-	}
+
+        /// <summary>
+        /// Obteners the contenidos desactivados.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public List<TemaContenido> ObtenerContenidosDesactivados()
+        {
+            try
+            {
+                return DataAcces.GetContenidosDesactivados(Data);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - ObtenerContenidosDesactivados", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+        #endregion
+    }
 }
