@@ -224,7 +224,6 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
 
-
 		/// <summary>
 		/// Gets the temas planificacion anual.
 		/// </summary>

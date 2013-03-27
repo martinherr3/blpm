@@ -12,6 +12,9 @@ using EDUAR_DataAccess.Shared;
 
 namespace EDUAR_BusinessLogic.Common
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class BLCurricula : BusinessLogicBase<Curricula, DACurricula>
     {
         #region --[Constante]--
@@ -234,12 +237,14 @@ namespace EDUAR_BusinessLogic.Common
         {
             try
             {
-                Contenido objCurricula = new Contenido();
-                objCurricula.idCurricula = DataAcces.GetByAsignaturaNivelOrientacion(objFiltro);
-                if (objCurricula.idCurricula > 0)
+                Curricula miCurricula = new Curricula();
+                miCurricula = DataAcces.GetByAsignaturaNivelOrientacion(objFiltro);
+                if (miCurricula.idCurricula > 0)
                 {
+                    Contenido objContenido = new Contenido();
+                    objContenido.idCurricula = miCurricula.idCurricula;
                     BLContenido objBLContenido = new BLContenido();
-                    return objBLContenido.GetCurriculaAsignaturaNivel(objCurricula);
+                    return objBLContenido.GetCurriculaAsignaturaNivel(objContenido);
                 }
                 return new List<Contenido>();
             }
@@ -265,7 +270,7 @@ namespace EDUAR_BusinessLogic.Common
             try
             {
                 //busca si existe el id
-                curricula.idCurricula = DataAcces.GetByAsignaturaNivelOrientacion(curricula);
+                curricula = DataAcces.GetByAsignaturaNivelOrientacion(curricula);
                 Data = curricula;
 
                 //Abre la transaccion que se va a utilizar
@@ -290,6 +295,61 @@ namespace EDUAR_BusinessLogic.Common
                 if (DataAcces != null && DataAcces.Transaction != null)
                     DataAcces.Transaction.RollbackTransaction();
                 throw new CustomizedException(string.Format("Fallo en {0} - GuardarContenidos()", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        /// <summary>
+        /// Gets the by asignatura nivel orientacion.
+        /// </summary>
+        /// <param name="objFiltro">The obj filtro.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public Curricula GetByAsignaturaNivelOrientacion(Curricula objFiltro)
+        {
+            try
+            {
+                Curricula objCurricula = new Curricula();
+                objCurricula = DataAcces.GetByAsignaturaNivelOrientacion(objFiltro);
+                return objCurricula;
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetByAsignaturaNivelOrientacion", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        /// <summary>
+        /// Gets the temas contenido by curricula.
+        /// </summary>
+        /// <param name="objFiltro">The obj filtro.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public List<TemaContenido> GetTemasContenidoByCurricula(Curricula objFiltro)
+        {
+            try
+            {
+                Curricula miCurricula = new Curricula();
+                miCurricula = DataAcces.GetByAsignaturaNivelOrientacion(objFiltro);
+                if (miCurricula.idCurricula > 0)
+                {
+                    BLTemaContenido objBLContenido = new BLTemaContenido();
+                    return objBLContenido.GetTemasByCursoAsignatura(miCurricula);
+                }
+                return new List<TemaContenido>();
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCurriculaAsignaturaNivel", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }

@@ -204,7 +204,7 @@ namespace EDUAR_DataAccess.Common
         /// <returns></returns>
         /// <exception cref="CustomizedException">
         /// </exception>
-        public int GetByAsignaturaNivelOrientacion(Curricula entidad)
+        public Curricula GetByAsignaturaNivelOrientacion(Curricula entidad)
         {
             try
             {
@@ -219,11 +219,28 @@ namespace EDUAR_DataAccess.Common
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idOrientacion", DbType.Int32, entidad.orientacion.idOrientacion);
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+                Curricula objCurricula = new Curricula();
+                DateTime fecha = new DateTime();
 
                 while (reader.Read())
-                    return Convert.ToInt32(reader["idCurricula"]);
+                {
+                    objCurricula.idCurricula = Convert.ToInt32(reader["idCurricula"]);
+                    objCurricula.asignatura.idAsignatura = Convert.ToInt32(reader["idAsignatura"]);
+                    objCurricula.asignatura.nombre = reader["Asignatura"].ToString();
+                    objCurricula.nivel.idNivel = Convert.ToInt32(reader["idNivel"]);
+                    objCurricula.nivel.nombre = reader["Nivel"].ToString();
+                    objCurricula.orientacion.idOrientacion = Convert.ToInt32(reader["idOrientacion"]);
+                    objCurricula.orientacion.nombre = reader["Orientacion"].ToString();
+                    objCurricula.personaAlta.username = reader["UsuarioAlta"].ToString();
+                    objCurricula.personaModificacion.username = reader["UsuarioModificacion"].ToString();
 
-                return 0;
+                    DateTime.TryParse(reader["fechaAlta"].ToString(), out fecha);
+                    objCurricula.fechaAlta = fecha;
+                    DateTime.TryParse(reader["fechaModificacion"].ToString(), out fecha);
+                    objCurricula.fechaModificacion = fecha;
+                    return objCurricula;
+                }
+                return objCurricula;
             }
             catch (SqlException ex)
             {

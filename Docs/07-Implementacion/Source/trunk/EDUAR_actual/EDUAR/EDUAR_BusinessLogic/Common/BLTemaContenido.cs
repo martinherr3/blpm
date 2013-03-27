@@ -212,7 +212,7 @@ namespace EDUAR_BusinessLogic.Common
 		/// </summary>
 		/// <param name="objAsignatura">The obj asignatura.</param>
 		/// <returns></returns>
-		public List<TemaContenido> GetTemasByCursoAsignatura(AsignaturaCicloLectivo objAsignatura)
+        public List<TemaContenido> GetTemasByCursoAsignatura(Curricula objAsignatura)
 		{
 			try
 			{
