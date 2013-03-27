@@ -239,7 +239,6 @@
     <Content Include="Private\Agenda\ManageEvaluaciones.aspx" />
     <Content Include="Private\Agenda\ManageExcursiones.aspx" />
     <Content Include="Private\Agenda\ManageRegistroClases.aspx" />
-    <Content Include="Private\Encuestas\CategoriasPreguntas.aspx" />
     <Content Include="Private\Encuestas\ManageCategoriasPregunta.aspx" />
     <Content Include="Private\Encuestas\Cuestionario.aspx" />
     <Content Include="Private\Encuestas\VerRespuestas.aspx" />
@@ -598,13 +597,6 @@
     </Compile>
     <Compile Include="Private\Agenda\ManageRegistroClases.aspx.designer.cs">
       <DependentUpon>ManageRegistroClases.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Encuestas\CategoriasPreguntas.aspx.cs">
-      <DependentUpon>CategoriasPreguntas.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Encuestas\CategoriasPreguntas.aspx.designer.cs">
-      <DependentUpon>CategoriasPreguntas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Encuestas\ManageCategoriasPregunta.aspx.cs">
       <DependentUpon>ManageCategoriasPregunta.aspx</DependentUpon>

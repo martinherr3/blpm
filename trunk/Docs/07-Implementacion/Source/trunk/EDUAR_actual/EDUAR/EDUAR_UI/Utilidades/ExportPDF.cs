@@ -355,9 +355,10 @@ namespace EDUAR_UI.Utilidades
 			writerPdf.PageEvent = ev;
 			documento.Open();
 
-			string strTitulo = "Asignatura: " + objPlanificacion.asignaturaCicloLectivo.asignatura.nombre
-						  + "\n Curso: " + objPlanificacion.asignaturaCicloLectivo.cursoCicloLectivo.curso.nivel.nombre + " "
-						  + objPlanificacion.asignaturaCicloLectivo.cursoCicloLectivo.curso.nombre;
+            //string strTitulo = "Asignatura: " + objPlanificacion.asignaturaCicloLectivo.asignatura.nombre
+            //              + "\n Curso: " + objPlanificacion.asignaturaCicloLectivo.cursoCicloLectivo.curso.nivel.nombre + " "
+            //              + objPlanificacion.asignaturaCicloLectivo.cursoCicloLectivo.curso.nombre;
+            string strTitulo = "ESTO HAY QUE ACTUALIZARLO CON LA INFO DE CURRICULA";
 
 			string fecha = DateTime.Now.ToShortDateString() + " " + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0');
 

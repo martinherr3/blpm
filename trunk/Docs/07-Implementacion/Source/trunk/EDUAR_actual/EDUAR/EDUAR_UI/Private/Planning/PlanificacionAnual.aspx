@@ -45,23 +45,49 @@
             <div id="divFiltros" runat="server">
                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                     <tr>
+                        <td class="TD75px">
+                            <asp:Label ID="lblNivel" runat="server" Text="Nivel:" CssClass="lblCriterios"></asp:Label>
+                        </td>
+                        <td class="TD140px">
+                            <asp:DropDownList ID="ddlNivel" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlNivel_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </td>
                         <td class="TD100px">
                             <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:" CssClass="lblCriterios"></asp:Label>
                         </td>
                         <td>
                             <asp:UpdatePanel ID="udpAsignatura" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
-                                    <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="true" AutoPostBack="true"
+                                    <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false" AutoPostBack="true"
                                         OnSelectedIndexChanged="ddlAsignatura_SelectedIndexChanged">
                                     </asp:DropDownList>
                                 </ContentTemplate>
                                 <Triggers>
-                                    <%--<asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />--%>
+                                    <asp:AsyncPostBackTrigger ControlID="ddlNivel" EventName="SelectedIndexChanged" />
                                 </Triggers>
                             </asp:UpdatePanel>
                         </td>
                     </tr>
                 </table>
+                <asp:UpdatePanel runat="server" ID="udpOrientacion" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
+                            <tr>
+                                <td class="TD75px">
+                                    <asp:Label ID="lblOrientacion" runat="server" Text="Orientación:" CssClass="lblCriterios"></asp:Label>
+                                </td>
+                                <td colspan="3">
+                                    <asp:DropDownList ID="ddlOrientacion" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlOrientacion_SelectedIndexChanged">
+                                    </asp:DropDownList>
+                                </td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
+                        <asp:PostBackTrigger ControlID="ddlOrientacion" />
+                    </Triggers>
+                </asp:UpdatePanel>
                 <br />
                 <asp:UpdatePanel runat="server" ID="udpAprobacion" UpdateMode="Conditional">
                     <ContentTemplate>
@@ -174,8 +200,8 @@
                 </table>
                 <ajaxtoolkit:Accordion ID="MyAccordion" runat="Server" SelectedIndex="0" HeaderCssClass="accordionHeader"
                     HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent"
-                    AutoSize="None" FadeTransitions="true" TransitionDuration="250"
-                    FramesPerSecond="50" RequireOpenedPane="false" SuppressHeaderPostbacks="true">
+                    AutoSize="None" FadeTransitions="true" TransitionDuration="250" FramesPerSecond="50"
+                    RequireOpenedPane="false" SuppressHeaderPostbacks="true">
                     <Panes>
                         <ajaxtoolkit:AccordionPane ID="acpContenidosConceptuales" runat="server" HeaderCssClass="accordionHeader"
                             HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent">
@@ -194,7 +220,7 @@
                             </Header>
                             <Content>
                                 <asp:TextBox ID="txtCProcedimentales" runat="server" Columns="75" CssClass="txtMultilinea99"
-                                Rows="10" TextMode="MultiLine" />
+                                    Rows="10" TextMode="MultiLine" />
                             </Content>
                         </ajaxtoolkit:AccordionPane>
                         <ajaxtoolkit:AccordionPane ID="acpContenidosActitudinales" runat="server" HeaderCssClass="accordionHeader"
@@ -204,7 +230,7 @@
                             </Header>
                             <Content>
                                 <asp:TextBox ID="txtCActitudinales" runat="server" Columns="75" CssClass="txtMultilinea99"
-                                Rows="10" TextMode="MultiLine" />
+                                    Rows="10" TextMode="MultiLine" />
                             </Content>
                         </ajaxtoolkit:AccordionPane>
                         <ajaxtoolkit:AccordionPane ID="acpEstrategias" runat="server" HeaderCssClass="accordionHeader"
@@ -214,7 +240,7 @@
                             </Header>
                             <Content>
                                 <asp:TextBox ID="txtEstrategias" runat="server" Columns="75" CssClass="txtMultilinea99"
-                                Rows="10" TextMode="MultiLine" />
+                                    Rows="10" TextMode="MultiLine" />
                             </Content>
                         </ajaxtoolkit:AccordionPane>
                         <ajaxtoolkit:AccordionPane ID="acpCriteriosEvaluacion" runat="server" HeaderCssClass="accordionHeader"
@@ -224,7 +250,7 @@
                             </Header>
                             <Content>
                                 <asp:TextBox ID="txtCriteriosEvaluacion" runat="server" Columns="75" CssClass="txtMultilinea99"
-                                Rows="10" TextMode="MultiLine" />
+                                    Rows="10" TextMode="MultiLine" />
                             </Content>
                         </ajaxtoolkit:AccordionPane>
                         <ajaxtoolkit:AccordionPane ID="acpInstrumentosEvaluación" runat="server" HeaderCssClass="accordionHeader"
@@ -234,7 +260,7 @@
                             </Header>
                             <Content>
                                 <asp:TextBox ID="txtInstrumentosEvaluacion" runat="server" Columns="75" CssClass="txtMultilinea99"
-                                Rows="10" TextMode="MultiLine" />
+                                    Rows="10" TextMode="MultiLine" />
                             </Content>
                         </ajaxtoolkit:AccordionPane>
                     </Panes>
@@ -284,7 +310,7 @@ Contenidos" runat="server" /></h2>
                                         <ItemTemplate>
                                             <asp:CheckBox ID="chkSelection" Text='<%# Eval("idTemaContenido")%>' runat="server"
                                                 CssClass="HiddenText" Width="30px" ClientIDMode="Static" Enabled='<%#
-planificacionEditar.fechaAprobada.HasValue == true ? false : true%>' />
+planificacionEditar.fechaAprobada.HasValue == true ? false : Eval("activo") %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Tema">

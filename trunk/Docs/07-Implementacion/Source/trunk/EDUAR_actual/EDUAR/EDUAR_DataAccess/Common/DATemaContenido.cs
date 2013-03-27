@@ -230,7 +230,7 @@ namespace EDUAR_DataAccess.Common
         /// </summary>
         /// <param name="entidad">The entidad.</param>
         /// <returns></returns>
-        public List<TemaContenido> GetTemaContenidos(TemaContenido entidad, AsignaturaCicloLectivo objAsignatura)
+        public List<TemaContenido> GetTemaContenidos(TemaContenido entidad, Curricula objCurricula)
         {
             try
             {
@@ -246,9 +246,11 @@ namespace EDUAR_DataAccess.Common
                     if (entidad.idContenido > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idContenido", DbType.Int32, entidad.idContenido);
                 }
-                if (objAsignatura != null)
-                    if (objAsignatura.idAsignaturaCicloLectivo > 0)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, objAsignatura.idAsignaturaCicloLectivo);
+                if (objCurricula != null)
+                {
+                    if (objCurricula.idCurricula > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurricula", DbType.Int32, objCurricula.idCurricula);
+                }
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

@@ -14,7 +14,7 @@ namespace EDUAR_Entities
 	public class PlanificacionAnual : DTBase
 	{
 		public int idPlanificacionAnual { get; set; }
-		public AsignaturaCicloLectivo asignaturaCicloLectivo { get; set; }
+		public Curricula curricula { get; set; }
 		public Persona creador { get; set; }
 		public DateTime fechaCreacion { get; set; }
 		public DateTime? fechaAprobada { get; set; }
@@ -24,7 +24,7 @@ namespace EDUAR_Entities
 
 		public PlanificacionAnual()
 		{
-			asignaturaCicloLectivo = new AsignaturaCicloLectivo();
+            curricula = new Curricula();
 			creador = new Persona();
 			listaTemasPlanificacion = new List<TemaPlanificacionAnual>();
 		}
