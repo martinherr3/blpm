@@ -437,7 +437,7 @@ namespace EDUAR_BusinessLogic.Common
                 }
                 if (temasContenidosCurricula > 0)
                 {
-                    unaPlanificacion.porcentajeCobertura = Math.Round(temasContenidosCubiertos / temasContenidosCurricula, 2);
+                    unaPlanificacion.porcentajeCobertura = Math.Round((temasContenidosCubiertos / temasContenidosCurricula)*100, 2);
                 }
                 else
                 {

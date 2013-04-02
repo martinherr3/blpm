@@ -15,7 +15,6 @@
                     <td>
                         <h2>
                             Administrar Planificaciones de Clases
-                            <%--<asp:Label Text="" runat="server" ID="lblTitulo" />--%></h2>
                         <br />
                     </td>
                     <td align="right">
@@ -23,12 +22,6 @@
                             <ContentTemplate>
                                 <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                                     ImageUrl="~/Images/botonBuscar.png" />
-                                <%--<asp:ImageButton ID="btnContenidosPopUp" OnClick="btnContenidosPopUp_Click" runat="server"
-                                    ToolTip="Asociar Contenidos" ImageUrl="~/Images/botonContenidos.png" />
-                                <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo"
-                                    ImageUrl="~/Images/botonNuevo.png" />
-                                <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
-                                    ImageUrl="~/Images/botonGuardar.png" CausesValidation="true" ValidationGroup="validarEdit" /--%>>
                                 <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                                     ImageUrl="~/Images/botonVolver.png" />
                             </ContentTemplate>
@@ -80,15 +73,9 @@
                         </tr>
                     </table>
                 </ContentTemplate>
-<%--                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
-                </Triggers>
---%>            </asp:UpdatePanel>
+            </asp:UpdatePanel>
         </ContentTemplate>
-<%--        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
-        </Triggers>
---%>    </asp:UpdatePanel>
+   </asp:UpdatePanel>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
@@ -252,16 +239,11 @@
                         </tr>
                     </table>
                 </ContentTemplate>
-<%--                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
-                </Triggers>
---%>            </asp:UpdatePanel>
+            </asp:UpdatePanel>
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
-<%--            <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
-            <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
---%>            <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
+            <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
         </Triggers>
     </asp:UpdatePanel>
     <asp:HiddenField ID="HiddenField1" runat="server" />

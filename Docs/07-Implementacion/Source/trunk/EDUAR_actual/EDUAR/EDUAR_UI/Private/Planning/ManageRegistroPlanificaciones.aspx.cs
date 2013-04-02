@@ -222,7 +222,8 @@ namespace EDUAR_UI
                 switch (e.CommandName)
                 {
                     case "Editar":
-                        CargarGrilla();
+                        //propEvento.idEventoAgenda = Convert.ToInt32(e.CommandArgument.ToString());
+                        //CargaAgenda();
                         break;
                 }
             }
@@ -327,22 +328,22 @@ namespace EDUAR_UI
             }
         }
 
-        /// <summary>
-        /// Handles the PageIndexChanged event of the gvwContenidos control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void gvwReporte_PageIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
+        ///// <summary>
+        ///// Handles the PageIndexChanged event of the gvwContenidos control.
+        ///// </summary>
+        ///// <param name="sender">The source of the event.</param>
+        ///// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        //protected void gvwReporte_PageIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        //ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Master.ManageExceptions(ex);
+        //    }
+        //}
 
 
         #endregion
@@ -501,22 +502,6 @@ namespace EDUAR_UI
             //UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
         }
 
-        /// <summary>
-        /// Cargars the contenidos.
-        /// </summary>
-        private void CargarContenidos()
-        {
-            gvwReporte = null; //listaContenido;
-            gvwReporte.DataBind();
-        }
-
-
-
-
         #endregion
-
-
-
-
     }
 }
