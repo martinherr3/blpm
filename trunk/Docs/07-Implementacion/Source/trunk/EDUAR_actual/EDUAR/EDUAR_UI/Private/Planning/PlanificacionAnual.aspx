@@ -22,6 +22,8 @@
                                 ToolTip="Asociar Contenidos" ImageUrl="~/Images/botonContenidos.png" Visible="false" />
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
                                 Visible="false" OnClick="btnNuevo_Click" />
+                            <asp:ImageButton ID="btnCursos" runat="server" ToolTip="Cursos" ImageUrl="~/Images/botonLista.png"
+                                Visible="false" OnClick="btnCursos_Click" />
                             <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
                                 Visible="false" OnClick="btnPDF_Click" />
                             <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
@@ -88,11 +90,10 @@
                         <asp:PostBackTrigger ControlID="ddlOrientacion" />
                     </Triggers>
                 </asp:UpdatePanel>
-                <br />
                 <asp:UpdatePanel runat="server" ID="udpAprobacion" UpdateMode="Conditional">
                     <ContentTemplate>
                         <div id="divAprobacion" runat="server" visible="false">
-                            <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                            <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
                                 <tr>
                                     <td class="TD140px">
                                         <asp:Label ID="lblSolicitarAprobacion" runat="server" Text="Solicitar Aprobación:"></asp:Label>
@@ -270,6 +271,64 @@
         <Triggers>
         </Triggers>
     </asp:UpdatePanel>
+    <asp:HiddenField ID="HiddenField2" runat="server" />
+    <ajaxtoolkit:ModalPopupExtender ID="mpeCursos" runat="server" PopupControlID="pnlCursos"
+        TargetControlID="HiddenField2" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlCursos">
+    </ajaxtoolkit:ModalPopupExtender>
+    <asp:Panel ID="pnlCursos" runat="server" Width="600px" Height="300px" Style="display: none;
+        text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+        <asp:UpdatePanel ID="udpCursosAsociados" runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
+                <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <h2>
+                                <asp:Label ID="Label1" Text="Asociar Cursos" runat="server" /></h2>
+                            <br />
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="btnGuardarCursos" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
+                                OnClick="btnGuardarCursos_Click" />
+                            <asp:ImageButton ID="btnVolverCursos" runat="server" ToolTip="Volver - Descartar Cambios"
+                                ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverPopUp_Click" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <hr />
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <asp:GridView ID="gvwCursos" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListadoSize10"
+                                AutoGenerateColumns="false" Width="500px" DataKeyNames="idCursoCicloLectivo" OnPageIndexChanging="gvwCursos_PageIndexChanging"
+                                OnPageIndexChanged="gvwCursos_PageIndexChanged">
+                                <Columns>
+                                    <asp:TemplateField>
+                                        <HeaderStyle HorizontalAlign="left" Width="10%" />
+                                        <ItemStyle HorizontalAlign="center" />
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="chkSelection" Text='<%# Eval("idCursoCicloLectivo")%>' runat="server" CssClass="HiddenText"
+                                                Width="30px" ClientIDMode="Static" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Curso">
+                                        <HeaderStyle HorizontalAlign="left" Width="90%" />
+                                        <ItemStyle HorizontalAlign="left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCurso" runat="server" Text='<%# Bind("curso.nombre") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </asp:Panel>
     <asp:HiddenField ID="HiddenField1" runat="server" />
     <ajaxtoolkit:ModalPopupExtender ID="mpeContenido" runat="server" PopupControlID="pnlContenidos"
         TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
@@ -283,14 +342,13 @@
                     <tr>
                         <td>
                             <h2>
-                                <asp:Label ID="lblTitulo" Text="Asociar
-Contenidos" runat="server" /></h2>
+                                <asp:Label ID="lblTitulo" Text="Asociar Contenidos" runat="server" /></h2>
                             <br />
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="btnGuardarPopUp" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
                                 OnClick="btnGuardarPopUp_Click" />
-                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver <br />Descartar Cambios"
+                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver - Descartar Cambios"
                                 ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverPopUp_Click" />
                         </td>
                     </tr>

@@ -270,7 +270,7 @@ namespace EDUAR_BusinessLogic.Common
             try
             {
                 //busca si existe el id
-                curricula = DataAcces.GetByAsignaturaNivelOrientacion(curricula);
+                curricula.idCurricula = DataAcces.GetByAsignaturaNivelOrientacion(curricula).idCurricula;
                 Data = curricula;
 
                 //Abre la transaccion que se va a utilizar

@@ -99,6 +99,70 @@ namespace EDUAR_UI
         }
 
         /// <summary>
+        /// Gets or sets the lista cursos.
+        /// </summary>
+        /// <value>
+        /// The lista cursos.
+        /// </value>
+        public List<CursoCicloLectivo> listaCursos
+        {
+            get
+            {
+                if (Session["listaCursos"] == null && cicloLectivoActual != null)
+                {
+                    BLCurso objBLCurso = new BLCurso();
+
+                    //Asignatura objFiltro = new Asignatura();
+                    //objFiltro.curso.cicloLectivo = cicloLectivoActual;
+                    //if (User.IsInRole(enumRoles.Docente.ToString()))
+                    //    //nombre del usuario logueado
+                    //    objFiltro.docente.username = User.Identity.Name;
+
+                    Nivel objFiltro = new Nivel();
+                    objFiltro.idNivel = idNivel;
+                    listaCursos = objBLCurso.GetCursosCicloLectivo(objFiltro, cicloLectivoActual);
+                }
+                return (List<CursoCicloLectivo>)Session["listaCursos"];
+            }
+            set { Session["listaCursos"] = value; }
+        }
+
+
+        /// <summary>
+        /// Lista de Cursos SELECCIONADOS
+        /// </summary>
+        /// <value>
+        /// The lista seleccion.
+        /// </value>
+        protected List<int> listaSeleccionCursos
+        {
+            get
+            {
+                if (Session["listaSeleccionCursos"] == null)
+                    Session["listaSeleccionCursos"] = new List<int>();
+                return (List<int>)Session["listaSeleccionCursos"];
+            }
+            set { Session["listaSeleccionCursos"] = value; }
+        }
+
+        /// <summary>
+        /// Lista de Cursos seleccionados en el momento que presiona GUARDAR
+        /// </summary>
+        /// <value>
+        /// The lista seleccion guardar.
+        /// </value>
+        protected List<int> listaSeleccionGuardarCursos
+        {
+            get
+            {
+                if (Session["listaSeleccionGuardarCursos"] == null)
+                    Session["listaSeleccionGuardarCursos"] = new List<int>();
+                return (List<int>)Session["listaSeleccionGuardarCursos"];
+            }
+            set { Session["listaSeleccionGuardarCursos"] = value; }
+        }
+
+        /// <summary>
         /// Gets or sets the id Nivel.
         /// </summary>
         /// <value>
@@ -279,6 +343,7 @@ namespace EDUAR_UI
                         break;
                     case enumAcciones.AprobarPlanificacion:
                         AprobarPlanificacion();
+                        btnCursos.Visible = btnNuevo.Visible = false;
                         udpAprobacion.Update();
                         break;
                     case enumAcciones.SolicitarAprobacion:
@@ -341,7 +406,7 @@ namespace EDUAR_UI
                 btnPDF.Visible = false;
                 btnVolver.Visible = true;
                 btnVolverAnterior.Visible = false;
-                btnNuevo.Visible = false;
+                btnCursos.Visible = btnNuevo.Visible = false;
                 gvwPlanificacion.Visible = false;
                 divControles.Visible = true;
                 udpGrilla.Update();
@@ -382,6 +447,7 @@ namespace EDUAR_UI
                     GuardarPlanificacion();
                     btnPDF.Visible = planificacionEditar.listaTemasPlanificacion.Count > 0;
                     btnNuevo.Visible = true;
+                    btnCursos.Visible = true;
                     btnContenidosPopUp.Visible = false;
                     ddlAsignatura.Enabled = true;
                     ddlNivel.Enabled = true;
@@ -424,6 +490,7 @@ namespace EDUAR_UI
             {
                 idTemaPlanificacion = 0;
                 btnNuevo.Visible = true;
+                btnCursos.Visible = true;
                 btnContenidosPopUp.Visible = false;
                 btnPDF.Visible = true;
                 CargarPresentacion();
@@ -465,8 +532,6 @@ namespace EDUAR_UI
             {
                 int idNivel = 0;
                 int.TryParse(ddlNivel.SelectedValue, out idNivel);
-                //gvwContenido.DataSource = null;
-                //gvwContenido.DataBind();
                 if (idNivel > 0)
                 {
                     this.idNivel = idNivel;
@@ -476,9 +541,12 @@ namespace EDUAR_UI
                 {
                     CargarPresentacion();
                     btnNuevo.Visible = false;
+                    btnCursos.Visible = false;
                     btnVolverAnterior.Visible = false;
                     btnVolver.Visible = false;
                 }
+                listaCursos.Clear();
+                listaCursos = null;
                 ddlOrientacion.Items.Clear();
                 ddlAsignatura.Enabled = idNivel > 0;
                 udpAsignatura.Update();
@@ -507,13 +575,6 @@ namespace EDUAR_UI
                 {
                     this.idAsignatura = idAsignatura;
                     CargarOrientacion();
-                    //idTemaPlanificacion = 0;
-                    //ObtenerPlanificacion(idAsignatura);
-                    //if (planificacionEditar.fechaAprobada.HasValue) btnNuevo.Visible = false;
-                    //else btnNuevo.Visible = true;
-                    //btnPDF.Visible = planificacionEditar.listaTemasPlanificacion.Count > 0;
-                    //divControles.Visible = false;
-                    //udpDivControles.Update();
                 }
                 else
                 {
@@ -528,6 +589,8 @@ namespace EDUAR_UI
                     gvwPlanificacion.DataBind();
                     udpGrilla.Update();
                 }
+                listaSeleccionCursos.Clear();
+                listaSeleccionGuardarCursos.Clear();
                 udpBotonera.Update();
             }
             catch (Exception ex)
@@ -548,7 +611,7 @@ namespace EDUAR_UI
             {
                 int idOrientacion = 0;
                 int.TryParse(ddlOrientacion.SelectedValue, out idOrientacion);
-                btnNuevo.Visible = idOrientacion > 0;
+                btnCursos.Visible = btnNuevo.Visible = idOrientacion > 0;
                 if (idOrientacion > 0)
                 {
                     this.idOrientacion = idOrientacion;
@@ -582,11 +645,11 @@ namespace EDUAR_UI
                         btnContenidosPopUp.Visible = true;
                         divAprobacion.Visible = false;
                         divControles.Visible = true;
-                        //ddlCurso.Enabled = false;
                         ddlAsignatura.Enabled = false;
                         gvwPlanificacion.Visible = false;
                         btnGuardar.Visible = true;
                         btnNuevo.Visible = false;
+                        btnCursos.Visible = false;
                         btnVolver.Visible = true;
                         btnVolverAnterior.Visible = false;
                         btnPDF.Visible = false;
@@ -598,9 +661,6 @@ namespace EDUAR_UI
                         AccionPagina = enumAcciones.Eliminar;
                         idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
                         Master.MostrarMensaje("Eliminar Planificación", "¿Desea <b>eliminar</b> la planificación seleccionada?", enumTipoVentanaInformacion.Confirmación);
-                        //EliminarPlanificacion();
-                        //ObtenerPlanificacion(idAsignaturaCurso);
-                        //idTemaPlanificacion = 0;
                         break;
                     case "Consultar":
                         idTemaPlanificacion = Convert.ToInt32(e.CommandArgument.ToString());
@@ -608,11 +668,11 @@ namespace EDUAR_UI
                         DesHabilitarCampos(false);
                         divAprobacion.Visible = false;
                         divControles.Visible = true;
-                        //ddlCurso.Enabled = false;
                         ddlAsignatura.Enabled = false;
                         gvwPlanificacion.Visible = false;
                         btnGuardar.Visible = false;
                         btnNuevo.Visible = false;
+                        btnCursos.Visible = false;
                         btnVolver.Visible = true;
                         btnVolverAnterior.Visible = false;
                         btnPDF.Visible = false;
@@ -689,6 +749,27 @@ namespace EDUAR_UI
         }
 
         /// <summary>
+        /// Handles the Click event of the btnCursos_Click control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnCursos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CargarCursosCicloLectivo();
+                listaSeleccionCursos = listaSeleccionGuardarCursos;
+                ProductsSelectionManager.RestoreSelection(gvwCursos, "listaSeleccionCursos");
+                btnGuardarCursos.Visible = !planificacionEditar.fechaAprobada.HasValue;
+                mpeCursos.Show();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
         /// Handles the Click event of the btnVolverPopUp control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -698,6 +779,7 @@ namespace EDUAR_UI
             try
             {
                 mpeContenido.Hide();
+                mpeCursos.Hide();
             }
             catch (Exception ex)
             {
@@ -717,6 +799,39 @@ namespace EDUAR_UI
                 ProductsSelectionManager.KeepSelection(gvwContenidos, "listaSeleccion");
                 listaSeleccionGuardar = listaSeleccion;
                 mpeContenido.Hide();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnGuardarCursos control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnGuardarCursos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ProductsSelectionManager.KeepSelection(gvwCursos, "listaSeleccionCursos");
+                listaSeleccionGuardarCursos = listaSeleccionCursos;
+
+                PlanificacionAnual objPlanificacion = new PlanificacionAnual();
+                objPlanificacion = planificacionGuardar();
+
+                List<CursoCicloLectivo> listaTemporalCursos = new List<CursoCicloLectivo>();
+                foreach (int item in listaSeleccionGuardarCursos)
+                    listaTemporalCursos.Add(new CursoCicloLectivo() { idCursoCicloLectivo = item });
+                objPlanificacion.listaCursos = listaTemporalCursos;
+
+                BLPlanificacionAnual objPlanificacionBL = new BLPlanificacionAnual(objPlanificacion);
+                objPlanificacionBL.GrabarPlanificacion();
+
+                planificacionEditar = objPlanificacion;
+
+                mpeCursos.Hide();
             }
             catch (Exception ex)
             {
@@ -760,6 +875,43 @@ namespace EDUAR_UI
                 Master.ManageExceptions(ex);
             }
         }
+
+        /// <summary>
+        /// Handles the PageIndexChanged event of the gvwCursos control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void gvwCursos_PageIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ProductsSelectionManager.RestoreSelection(gvwCursos, "listaSeleccionCursos");
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles the PageIndexChanging event of the gvwCursos control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridViewPageEventArgs"/> instance containing the event data.</param>
+        protected void gvwCursos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                ProductsSelectionManager.KeepSelection(gvwCursos, "listaSeleccionCursos");
+
+                gvwCursos.PageIndex = e.NewPageIndex;
+                CargarCursosCicloLectivo();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
         #endregion
 
         #region --[Métodos Privados]--
@@ -786,7 +938,6 @@ namespace EDUAR_UI
 
             VerOrientacion(false);
 
-            divFiltros.Visible = true;
             divControles.Visible = false;
             divFiltros.Visible = true;
             divAprobacion.Visible = false;
@@ -795,7 +946,7 @@ namespace EDUAR_UI
             btnVolverAnterior.Visible = false;
             btnGuardar.Visible = false;
             btnPDF.Visible = false;
-            btnNuevo.Visible = false;
+            btnCursos.Visible = btnNuevo.Visible = false;
 
             udpBotonera.Update();
             udpDivControles.Update();
@@ -837,6 +988,8 @@ namespace EDUAR_UI
         {
             listaSeleccion.Clear();
             listaSeleccionGuardar.Clear();
+            listaSeleccionCursos.Clear();
+            listaSeleccionGuardarCursos.Clear();
             txtCActitudinales.Text = string.Empty;
             txtCConceptuales.Text = string.Empty;
             txtCProcedimentales.Text = string.Empty;
@@ -1046,8 +1199,10 @@ namespace EDUAR_UI
             objFiltro.nivel.idNivel = idNivel;
             objFiltro.orientacion.idOrientacion = idOrientacion;
             ObtenerPlanificacion(objFiltro);
-            if (planificacionEditar.fechaAprobada.HasValue) btnNuevo.Visible = false;
-            else btnNuevo.Visible = true;
+            if (planificacionEditar.fechaAprobada.HasValue)
+                btnCursos.Visible = btnNuevo.Visible = false;
+
+            else btnCursos.Visible = btnNuevo.Visible = true;
             btnPDF.Visible = planificacionEditar.listaTemasPlanificacion.Count > 0;
             divControles.Visible = false;
             udpDivControles.Update();
@@ -1069,7 +1224,6 @@ namespace EDUAR_UI
                 listaSeleccionGuardar.Clear();
                 foreach (TemaContenido item in listaTemporal)
                     listaSeleccionGuardar.Add(item.idTemaContenido);
-                //listaSeleccion = objBLTemaPlanificacion.ObtenerContenidos();
             }
         }
 
@@ -1099,6 +1253,7 @@ namespace EDUAR_UI
             BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual(objFiltro);
             listaContenidosPlanificados = objBLTemas.ObtenerContenidos();
 
+            //TODO: temas incluidos en la planificacion y luego han sido desactivados
             //List<TemaContenido> listaAuxiliar = new List<TemaContenido>();
             //listaAuxiliar = objBLTemas.ObtenerContenidosDesactivados();
 
@@ -1108,6 +1263,24 @@ namespace EDUAR_UI
             return (listaContenidosPlanificados);
         }
 
+        /// <summary>
+        /// Gets the cursos planificados.
+        /// </summary>
+        /// <returns></returns>
+        protected List<CursoCicloLectivo> getCursosPlanificados()
+        {
+            List<CursoCicloLectivo> listaCursosPlanificados = new List<CursoCicloLectivo>();
+
+            AsignaturaNivel objFiltro = new AsignaturaNivel();
+            objFiltro.asignatura.idAsignatura = idAsignatura;
+            objFiltro.nivel.idNivel = idNivel;
+            objFiltro.orientacion.idOrientacion = idOrientacion;
+
+            BLPlanificacionAnual objBLPlanificacion = new BLPlanificacionAnual();
+            listaCursosPlanificados = objBLPlanificacion.GetPlanificacionByAsignatura(objFiltro).listaCursos;
+
+            return (listaCursosPlanificados);
+        }
 
         /// <summary>
         /// Cargars the contenidos.
@@ -1161,7 +1334,6 @@ namespace EDUAR_UI
             objTema.fechaFinEstimada = calFechaFin.ValorFecha;
             objTema.fechaInicioEstimada = calFechaDesde.ValorFecha;
             objTema.instrumentosEvaluacion = txtInstrumentosEvaluacion.Text.Trim();
-            //objTema.listaContenidos = listaSeleccionGuardar;
             List<TemaContenido> listaTemporal = new List<TemaContenido>();
             foreach (int item in listaSeleccionGuardar)
                 listaTemporal.Add(new TemaContenido() { idTemaContenido = item });
@@ -1171,6 +1343,24 @@ namespace EDUAR_UI
                 objTema.idTemaPlanificacion = idTemaPlanificacion;
 
             PlanificacionAnual objPlanificacion = new PlanificacionAnual();
+            objPlanificacion = planificacionGuardar();
+            objPlanificacion.listaTemasPlanificacion.Add(objTema);
+
+
+            //List<CursoCicloLectivo> listaTemporalCursos = new List<CursoCicloLectivo>();
+            //foreach (int item in listaSeleccionGuardarCursos)
+            //    listaTemporalCursos.Add(new CursoCicloLectivo() { idCursoCicloLectivo = item });
+            //objPlanificacion.listaCursos = listaTemporalCursos;
+
+            BLPlanificacionAnual objPlanificacionBL = new BLPlanificacionAnual(objPlanificacion);
+            objPlanificacionBL.GrabarPlanificacion();
+            idTemaPlanificacion = 0;
+            ObtenerPlanificacion(new AsignaturaNivel());
+        }
+
+        private PlanificacionAnual planificacionGuardar()
+        {
+            PlanificacionAnual objPlanificacion = new PlanificacionAnual();
 
             objPlanificacion.curricula.asignatura.idAsignatura = idAsignatura;
             objPlanificacion.curricula.nivel.idNivel = idNivel;
@@ -1179,16 +1369,11 @@ namespace EDUAR_UI
             objPlanificacion.curricula.personaModificacion.username = User.Identity.Name;
 
             objPlanificacion.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
-            //objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
             objPlanificacion.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
             objPlanificacion.solicitarAprobacion = planificacionEditar.solicitarAprobacion;
             objPlanificacion.fechaAprobada = planificacionEditar.fechaAprobada;
-            objPlanificacion.listaTemasPlanificacion.Add(objTema);
-            BLPlanificacionAnual objPlanificacionBL = new BLPlanificacionAnual(objPlanificacion);
-            objPlanificacionBL.GrabarPlanificacion();
-            idTemaPlanificacion = 0;
-            //ObtenerPlanificacion(objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo);
-            ObtenerPlanificacion(new AsignaturaNivel());
+
+            return objPlanificacion;
         }
 
         /// <summary>
@@ -1198,7 +1383,6 @@ namespace EDUAR_UI
         {
             PlanificacionAnual objAprobar = new PlanificacionAnual();
             objAprobar.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
-            //objAprobar.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
             objAprobar.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
             objAprobar.solicitarAprobacion = planificacionEditar.solicitarAprobacion;
             objAprobar.fechaAprobada = DateTime.Today;
@@ -1206,8 +1390,6 @@ namespace EDUAR_UI
             BLPlanificacionAnual objBLAprobar = new BLPlanificacionAnual(objAprobar);
             objBLAprobar.Save();
 
-            //ObtenerPlanificacion(idAsignaturaCurso);
-            btnNuevo.Visible = false;
         }
 
         /// <summary>
@@ -1217,15 +1399,12 @@ namespace EDUAR_UI
         {
             PlanificacionAnual objAprobar = new PlanificacionAnual();
             objAprobar.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
-            //objAprobar.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
             objAprobar.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
             objAprobar.fechaAprobada = planificacionEditar.fechaAprobada;
             objAprobar.solicitarAprobacion = true;
             planificacionEditar.solicitarAprobacion = true;
             BLPlanificacionAnual objBLAprobar = new BLPlanificacionAnual(objAprobar);
             objBLAprobar.Save();
-
-            //ObtenerPlanificacion(idAsignaturaCurso);
         }
 
         /// <summary>
@@ -1272,7 +1451,7 @@ namespace EDUAR_UI
                     idOrientacion = listaOrientaciones[0].idOrientacion;
                     CargarPlanificacion();
                 }
-                btnNuevo.Visible = listaOrientaciones.Count == 1;
+                btnCursos.Visible = btnNuevo.Visible = listaOrientaciones.Count == 1;
                 ddlOrientacion.Enabled = !(listaOrientaciones.Count == 1);
             }
 
@@ -1289,6 +1468,41 @@ namespace EDUAR_UI
             lblOrientacion.Visible = verCampos;
             ddlOrientacion.Visible = verCampos;
             udpOrientacion.Update();
+        }
+
+        /// <summary>
+        /// Cargars the cursos ciclo lectivo.
+        /// </summary>
+        private void CargarCursosCicloLectivo()
+        {
+            List<CursoCicloLectivo> listaCursosPlanificados = getCursosPlanificados(); ;
+
+            bool quitarCurso = false;
+
+            List<bool> seleccionCurso = new List<bool>();
+
+            foreach (CursoCicloLectivo contenido in listaCursos)
+            {
+                foreach (CursoCicloLectivo contenidoPlanificado in listaCursosPlanificados)
+                    if (contenido.idCursoCicloLectivo == contenidoPlanificado.idCursoCicloLectivo)
+                        quitarCurso = true;
+
+                foreach (int contenidoActualPlanificacion in listaSeleccionGuardarCursos)
+                    if (contenido.idCursoCicloLectivo == contenidoActualPlanificacion)
+                        quitarCurso = false;
+
+                seleccionCurso.Add(quitarCurso);
+                quitarCurso = false;
+            }
+
+            for (int i = seleccionCurso.Count - 1; i > -1; i--)
+                if (seleccionCurso[i])
+                    listaCursos.RemoveAt(i);
+            listaCursosPlanificados.Clear();
+
+            gvwCursos.DataSource = listaCursos;
+            gvwCursos.DataBind();
+            udpCursosAsociados.Update();
         }
         #endregion
     }

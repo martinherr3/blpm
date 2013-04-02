@@ -61,12 +61,12 @@ namespace EDUAR_DataAccess.Common
                 {
 
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@obligatorio", DbType.Boolean, entidad.obligatorio);
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.titulo);
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.titulo.Trim());
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idContenido", DbType.Int32, entidad.idContenido);
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, 0);
 
                     if (!string.IsNullOrEmpty(entidad.detalle))
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle.Trim());
                     else
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, DBNull.Value);
 
@@ -101,11 +101,11 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaContenido_Update");
 
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@obligatorio", DbType.Boolean, entidad.obligatorio);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.titulo);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.titulo.Trim());
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idContenido", DbType.Int32, entidad.idContenido);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.idTemaContenido);
                 if (!string.IsNullOrEmpty(entidad.detalle))
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle);
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle.Trim());
                 else
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, DBNull.Value);
 

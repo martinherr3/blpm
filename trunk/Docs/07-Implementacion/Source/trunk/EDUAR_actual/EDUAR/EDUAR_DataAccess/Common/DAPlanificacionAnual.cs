@@ -196,6 +196,110 @@ namespace EDUAR_DataAccess.Common
                                     ex, enuExceptionType.DataAccesException);
             }
         }
+
+        /// <summary>
+        /// Deletes the cursos planificacion.
+        /// </summary>
+        /// <param name="idPlanificacionAnual">The id planificacion anual.</param>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public void DeleteCursosPlanificacion(int idPlanificacionAnual)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("RelPlanificacionCurso_Delete");
+
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPlanificacionAnual", DbType.Int32, idPlanificacionAnual);
+
+                if (Transaction.Transaction != null)
+                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+                else
+                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - DeleteCursosPlanificacion()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - DeleteCursosPlanificacion()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        /// <summary>
+        /// Saves the cursos.
+        /// </summary>
+        /// <param name="idPlanificacionAnual">The id planificacion anual.</param>
+        /// <param name="idCursoCicloLectivo">The id curso ciclo lectivo.</param>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public void SaveCursos(int idPlanificacionAnual, int idCursoCicloLectivo)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("RelPlanificacionCurso_Insert");
+
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPlanificacionAnual", DbType.Int32, idPlanificacionAnual);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, idCursoCicloLectivo);
+
+                if (Transaction.Transaction != null)
+                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+                else
+                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - SaveCursos()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - SaveCursos()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        /// <summary>
+        /// Gets the cursos.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public List<CursoCicloLectivo> GetCursos(PlanificacionAnual entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("RelPlanificacionCurso_Select");
+
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPlanificacionAnual", DbType.Int32, entidad.idPlanificacionAnual);
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<CursoCicloLectivo> listaEntidad = new List<CursoCicloLectivo>();
+                CursoCicloLectivo objEntidad;
+                while (reader.Read())
+                {
+                    objEntidad = new CursoCicloLectivo();
+                    objEntidad.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
+                    listaEntidad.Add(objEntidad);
+                }
+                return listaEntidad;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCursos()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCursos()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
         #endregion
+
     }
 }

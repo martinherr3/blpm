@@ -164,11 +164,11 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-		/// <summary>
-		/// Gets the cursos.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		/// <returns></returns>
+        /// <summary>
+        /// Gets the cursos.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
         public List<Curso> GetCursos(Curso entidad)
         {
             try
@@ -186,16 +186,16 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
-		/// <summary>
-		/// Gets the curso ciclo lectivo.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		/// <returns></returns>
-		public CursoCicloLectivo GetCursoCicloLectivo(CursoCicloLectivo entidad)
+        /// <summary>
+        /// Gets the curso ciclo lectivo.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public CursoCicloLectivo GetCursoCicloLectivo(CursoCicloLectivo entidad)
         {
             try
             {
-				return DataAcces.GetCursoCicloLectivo(entidad);
+                return DataAcces.GetCursoCicloLectivo(entidad);
             }
             catch (CustomizedException ex)
             {
@@ -203,7 +203,31 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-				throw new CustomizedException(string.Format("Fallo en {0} - GetCursoCicloLectivo", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCursoCicloLectivo", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        /// <summary>
+        /// Gets the cursos ciclo lectivo.
+        /// </summary>
+        /// <param name="nivel">The nivel.</param>
+        /// <param name="cicloLectivo">The ciclo lectivo.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public List<CursoCicloLectivo> GetCursosCicloLectivo(Nivel nivel, CicloLectivo cicloLectivo)
+        {
+            try
+            {
+                return DataAcces.GetCursosCicloLectivo(nivel, cicloLectivo);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCursosCicloLectivo", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }
