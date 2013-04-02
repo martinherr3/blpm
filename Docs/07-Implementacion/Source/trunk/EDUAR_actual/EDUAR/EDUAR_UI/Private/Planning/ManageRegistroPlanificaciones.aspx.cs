@@ -11,6 +11,7 @@ using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
 
 
+
 namespace EDUAR_UI
 {
     public partial class ManageRegistroPlanificaciones : EDUARBasePage
@@ -98,7 +99,7 @@ namespace EDUAR_UI
                 }
                 calfechas.startDate = cicloLectivoActual.fechaInicio;
                 calfechas.endDate = cicloLectivoActual.fechaFin;
-                this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
+                //this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
             }
             catch (Exception ex)
             {
@@ -153,68 +154,10 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Handles the Click event of the btnNuevo control.
+        /// Handles the RowCommand event of the gvwReporte control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void btnNuevo_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                AccionPagina = enumAcciones.Nuevo;
-                LimpiarCampos();
-                ddlTipoRegistroClase.SelectedValue = enumTipoRegistroClases.ClaseNormal.GetHashCode().ToString();
-                esNuevo = true;
-                btnBuscar.Visible = false;
-                btnVolver.Visible = true;
-                gvwReporte.Visible = false;
-                litEditar.Visible = false;
-                litNuevo.Visible = true;
-                udpEdit.Visible = true;
-                udpFiltrosBusqueda.Visible = false;
-                udpFiltros.Update();
-                udpGrilla.Update();
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
-
-
-        
-
-        /// <summary>
-        /// Handles the Click event of the btnVolver control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void btnVolver_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (AccionPagina == enumAcciones.Nuevo || AccionPagina == enumAcciones.Modificar)
-                {
-                    Response.Redirect("ManageRegistroClases.aspx", false);
-
-                }
-                else
-                {
-                    Response.Redirect("ManageAgendaActividades.aspx", false);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
-
-        /// <summary>
-        /// Método que se llama al hacer click sobre las acciones de la grilla
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="GridViewCommandEventArgs"/> instance containing the event data.</param>
         protected void gvwReporte_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -234,21 +177,15 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Handles the SelectedIndexChanged event of the ddlMeses control.
+        /// Handles the SelectedIndexChanged event of the gvwReporte control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ddlMeses_SelectedIndexChanged(object sender, EventArgs e)
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void gvwReporte_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                int mes = 0;
-                int.TryParse(ddlMeses.SelectedValue, out mes);
-                if (mes > 0)
-                {
-                    ddlDia.Enabled = true;
-                    //BindComboModulos(mes);
-                }
+                
             }
             catch (Exception ex)
             {
@@ -257,95 +194,49 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Handles the SelectedIndexChanged event of the ddlAsignaturaEdit control.
+        /// Handles the Click event of the btnNuevo control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ddlAsignaturaEdit_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnNuevo_Click(object sender, EventArgs e)
         {
             try
             {
-                int idAsignatura = 0;
-                int.TryParse(ddlAsignaturaEdit.SelectedValue, out idAsignatura);
-                if (idAsignatura > 0)
-                {
-                    ddlMeses.Enabled = true;
-                    if (DateTime.Now.Month >= 3)
-                    {
-                        ddlMeses.SelectedValue = DateTime.Now.Month.ToString();
-                    }
-                    else
-                    {
+                AccionPagina = enumAcciones.Nuevo;
+                LimpiarCampos();
+                esNuevo = true;
+                btnBuscar.Visible = false;
+                btnVolver.Visible = true;
+                gvwReporte.Visible = false;
+                udpFiltrosBusqueda.Visible = false;
+                udpFiltros.Update();
+                udpGrilla.Update();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
 
-                        ddlMeses.SelectedValue = "3";
-                    }
-                    ddlDia.Enabled = true;
-                    //BindComboModulos(DateTime.Now.Month);
-                }
+        /// <summary>
+        /// Handles the Click event of the btnVolver control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (AccionPagina == enumAcciones.Nuevo || AccionPagina == enumAcciones.Modificar)
+                    Response.Redirect("ManageRegistroClases.aspx", false);
                 else
-                {
-                    ddlMeses.Enabled = false;
-                    ddlDia.Enabled = false;
-                }
-                udpBotonera.Update();
-                udpEdit.Update();
+                    Response.Redirect("ManageAgendaActividades.aspx", false);
             }
             catch (Exception ex)
             {
                 Master.ManageExceptions(ex);
             }
         }
-
-        /// <summary>
-        /// Handles the PageIndexChanging event of the gvwReporte control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
-        protected void gvwReporte_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            try
-            {
-                gvwReporte.PageIndex = e.NewPageIndex;
-                CargarGrilla();
-            }
-            catch (Exception ex) { Master.ManageExceptions(ex); }
-        }
-
-        /// <summary>
-        /// Handles the Click event of the btnVolverPopUp control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void btnVolverPopUp_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                mpeContenido.Hide();
-            }
-            catch (Exception ex)
-            {
-                //Master.ManageExceptions(ex);
-            }
-        }
-
-        ///// <summary>
-        ///// Handles the PageIndexChanged event of the gvwContenidos control.
-        ///// </summary>
-        ///// <param name="sender">The source of the event.</param>
-        ///// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        //protected void gvwReporte_PageIndexChanged(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        //ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Master.ManageExceptions(ex);
-        //    }
-        //}
-
-
         #endregion
 
 
@@ -356,8 +247,6 @@ namespace EDUAR_UI
         private void CargarPresentacion()
         {
             LimpiarCampos();
-            CargarCombos();
-            udpEdit.Visible = false;
             btnVolver.Visible = true;
             udpFiltrosBusqueda.Visible = true;
             btnBuscar.Visible = true;
@@ -372,42 +261,8 @@ namespace EDUAR_UI
         private void LimpiarCampos()
         {
             chkActivo.Checked = true;
-            chkActivoEdit.Checked = false;
-            if (ddlMeses.Items.Count > 0) ddlMeses.SelectedIndex = 0;
-            if (ddlDia.Items.Count > 0) ddlDia.SelectedIndex = 0;
             calfechas.LimpiarControles();
-            if (ddlAsignatura.Items.Count > 0) ddlAsignatura.SelectedIndex = 0;
-            if (ddlAsignaturaEdit.Items.Count > 0) ddlAsignaturaEdit.SelectedIndex = 0;
-            //if (listaContenido != null && listaContenido.Count > 0) listaContenido.Clear();
-            txtDescripcionEdit.Text = string.Empty;
-            //listaSeleccionGuardar.Clear();
         }
-
-        /// <summary>
-        /// Cargars the combos.
-        /// </summary>
-        private void CargarCombos()
-        {
-            //BLAsignatura objBLAsignatura = new BLAsignatura();
-            //Asignatura objAsignatura = new Asignatura();
-            //objAsignatura.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
-            //objAsignatura.cursoCicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
-            //if (User.IsInRole(enumRoles.Docente.ToString()))
-            //    objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-
-            //ddlAsignatura.Items.Clear();
-            //ddlAsignaturaEdit.Items.Clear();
-            //ddlMeses.Items.Clear();
-            //UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false, true);
-            //UIUtilidades.BindComboMeses(ddlMeses, false, cicloLectivoActual.fechaInicio.Month);
-            //ddlMeses.Enabled = false;
-
-            //BLTipoRegistroClases objBLTipoRegistroClase = new BLTipoRegistroClases();
-            //List<TipoRegistroClases> listaRegistros = new List<TipoRegistroClases>();
-            //listaRegistros = objBLTipoRegistroClase.GetTipoRegistroClases(new TipoRegistroClases());
-            //UIUtilidades.BindCombo<TipoRegistroClases>(ddlTipoRegistroClase, listaRegistros, "idTipoRegistroClases", "nombre", true, false);
-        }
-
 
         /// Cargars the grilla.
         /// </summary>
@@ -417,7 +272,6 @@ namespace EDUAR_UI
         {
             gvwReporte.DataSource = UIUtilidades.BuildDataTable<PlanificacionAnual>(listaPlanificaciones).DefaultView;
             gvwReporte.DataBind();
-            udpEdit.Visible = false;
             udpGrilla.Update();
         }
 
@@ -428,10 +282,6 @@ namespace EDUAR_UI
         {
             calfechas.ValidarRangoDesdeHasta(false);
             PlanificacionAnual entidad = new PlanificacionAnual();
-            //entidad.asignatura.idAsignatura = Convert.ToInt32(ddlAsignatura.SelectedValue);
-            //entidad.fechaEventoDesde = Convert.ToDateTime(calfechas.ValorFechaDesde);
-            //entidad.fechaEventoHasta = Convert.ToDateTime(calfechas.ValorFechaHasta);
-            //entidad.activo = chkActivo.Checked;
             propFiltroEvento = entidad;
             BuscarPlanificacion();
         }
@@ -457,7 +307,6 @@ namespace EDUAR_UI
             calcularCobertura();
         }
 
-
         private void calcularCobertura()
         {
             objBLPlanificacion = new BLPlanificacionAnual();
@@ -471,19 +320,6 @@ namespace EDUAR_UI
         private string ValidarPagina()
         {
             string mensaje = string.Empty;
-            if (txtDescripcionEdit.Text.Trim().Length == 0)
-                mensaje = "- Descripcion<br />";
-            if (string.IsNullOrEmpty(ddlAsignaturaEdit.SelectedValue) || !(Convert.ToInt32(ddlAsignaturaEdit.SelectedValue) > 0))
-                mensaje += "- Asignatura<br />";
-            if (string.IsNullOrEmpty(ddlMeses.SelectedValue)
-                || !(Convert.ToInt32(ddlMeses.SelectedValue) > 0)
-                || string.IsNullOrEmpty(ddlDia.SelectedValue)
-                || !(Convert.ToInt32(ddlDia.SelectedValue) > 0))
-                mensaje += "- Fecha de Registro<br />";
-            int idTipoClase = 0;
-            int.TryParse(ddlTipoRegistroClase.SelectedValue, out idTipoClase);
-            if (idTipoClase <= 0)
-                mensaje += "- Tipo de Registro de Clase<br />";
             return mensaje;
         }
 
@@ -501,7 +337,6 @@ namespace EDUAR_UI
 
             //UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
         }
-
         #endregion
     }
 }

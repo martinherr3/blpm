@@ -13,7 +13,7 @@ namespace EDUAR_DataAccess.Common
     public class DATemaPlanificacionAnual : DataAccesBase<TemaPlanificacionAnual>
     {
         #region --[Atributos]--
-        private const string ClassName = "DATemasPlanificadosAsignatura";
+        private const string ClassName = "DATemaPlanificacionAnual";
         #endregion
 
         #region --[Constructor]--
@@ -304,12 +304,12 @@ namespace EDUAR_DataAccess.Common
             }
             catch (SqlException ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnual()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnualAtrasados()", ClassName),
                                     ex, enuExceptionType.SqlException);
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnual()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnualAtrasados()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
