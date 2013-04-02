@@ -398,7 +398,7 @@ namespace EDUAR_DataAccess.Common
                     objEntidad = new TemaContenido();
                     objEntidad.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
                     objEntidad.obligatorio = Convert.ToBoolean(reader["obligatorio"]);
-                    objEntidad.activo = Convert.ToBoolean(reader["activo"]);
+                    //objEntidad.activo = Convert.ToBoolean(reader["activo"]);
                     listaEntidad.Add(objEntidad);
                 }
                 return listaEntidad;

@@ -62,6 +62,7 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("PlanificacionAnual_Insert");
 
                 Transaction.DataBase.AddOutParameter(Transaction.DBcomand, "@idPlanificacionAnual", DbType.Int32, 2);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurricula", DbType.Int32, entidad.curricula.idCurricula);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioCreador", DbType.String, entidad.creador.username);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, DateTime.Now);
                 if (entidad.fechaAprobada.HasValue
@@ -101,7 +102,7 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("PlanificacionAnual_Update");
 
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPlanificacionAnual", DbType.Int32, entidad.idPlanificacionAnual);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCreador", DbType.String, entidad.creador.idPersona);
+                //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCreador", DbType.String, entidad.creador.idPersona);
                 if (ValidarFechaSQL(entidad.fechaCreacion))
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, entidad.fechaCreacion);
                 if (entidad.fechaAprobada.HasValue
@@ -158,13 +159,19 @@ namespace EDUAR_DataAccess.Common
 
                 List<PlanificacionAnual> listaEntidad = new List<PlanificacionAnual>();
                 PlanificacionAnual objEntidad;
+                DateTime fecha = new DateTime();
                 while (reader.Read())
                 {
                     objEntidad = new PlanificacionAnual();
                     objEntidad.idPlanificacionAnual = Convert.ToInt32(reader["idPlanificacionAnual"]);
                     objEntidad.creador = new Persona() { idPersona = Convert.ToInt32(reader["idCreador"]) };
-                    objEntidad.fechaAprobada = Convert.ToDateTime(reader["fechaAprobada"]);
-                    objEntidad.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"]);
+
+                    if (DateTime.TryParse(reader["fechaAprobada"].ToString(), out fecha))
+                        objEntidad.fechaAprobada = fecha;
+
+                    if (DateTime.TryParse(reader["fechaCreacion"].ToString(), out fecha))
+                        objEntidad.fechaCreacion = fecha;
+
                     objEntidad.observaciones = reader["observaciones"].ToString();
                     objEntidad.solicitarAprobacion = Convert.ToBoolean(reader["solicitarAprobacion"]);
                     objEntidad.curricula.idCurricula = Convert.ToInt32(reader["idCurricula"]);
