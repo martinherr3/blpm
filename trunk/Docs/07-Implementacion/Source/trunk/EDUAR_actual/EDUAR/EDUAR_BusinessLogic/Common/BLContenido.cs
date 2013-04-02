@@ -233,10 +233,17 @@ namespace EDUAR_BusinessLogic.Common
         /// <exception cref="CustomizedException"></exception>
         public List<Contenido> GetCurriculaAsignaturaNivel(Contenido objFiltro)
         {
+            BLTemaContenido TemaContenidoBL = new BLTemaContenido();
+
+            List<Contenido> listaContenidos = new List<Contenido>();
             try
             {
-                return DataAcces.GetContenidos(objFiltro);
-                //return null;
+                listaContenidos = DataAcces.GetContenidos(objFiltro);
+
+                foreach (Contenido unContenido in listaContenidos)
+                {
+                    unContenido.listaContenidos = TemaContenidoBL.GetTemasByContenido(unContenido);
+                }
             }
             catch (CustomizedException ex)
             {
@@ -247,6 +254,8 @@ namespace EDUAR_BusinessLogic.Common
                 throw new CustomizedException(string.Format("Fallo en {0} - GetCurriculaAsignaturaNivel", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
+
+            return (listaContenidos);
         }
 
 

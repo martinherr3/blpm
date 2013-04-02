@@ -395,6 +395,7 @@
     <Content Include="Private\Monitoreo\ConfigIndicadores.aspx" />
     <Content Include="Private\Monitoreo\GetIndicadores.aspx" />
     <Content Include="Private\Planning\Contenido.aspx" />
+    <Content Include="Private\Planning\ManageRegistroPlanificaciones.aspx" />
     <Content Include="Private\Planning\PlanificacionAnual.aspx" />
     <Content Include="Private\Planning\TemasContenido.aspx" />
     <Content Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx" />
@@ -803,6 +804,13 @@
     </Compile>
     <Compile Include="Private\Planning\Contenido.aspx.designer.cs">
       <DependentUpon>Contenido.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Planning\ManageRegistroPlanificaciones.aspx.cs">
+      <DependentUpon>ManageRegistroPlanificaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Planning\ManageRegistroPlanificaciones.aspx.designer.cs">
+      <DependentUpon>ManageRegistroPlanificaciones.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Planning\PlanificacionAnual.aspx.cs">
       <DependentUpon>PlanificacionAnual.aspx</DependentUpon>

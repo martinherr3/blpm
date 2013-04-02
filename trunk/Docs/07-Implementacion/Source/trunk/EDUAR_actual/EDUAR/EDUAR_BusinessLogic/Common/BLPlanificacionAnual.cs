@@ -216,6 +216,32 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
+
+        /// <summary>
+        /// Gets the planificacion.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<PlanificacionAnual> GetPlanificacion(CicloLectivo  entidad)
+        {
+            try
+            {
+                List<PlanificacionAnual> lista = DataAcces.GetPlanificacion(entidad);
+                BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
+                foreach (PlanificacionAnual item in lista)
+                    item.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnual(item);
+                return lista;
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPlanificacion", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         /// <summary>
         /// Gets the planificacion.
         /// </summary>
@@ -375,6 +401,60 @@ namespace EDUAR_BusinessLogic.Common
                 throw new CustomizedException(string.Format("Fallo en {0} - GrabarCursos()", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
+        }
+
+        public void calcularCobertura(List<PlanificacionAnual> listaPlanificaciones)
+        {
+            BLContenido contenidoBL = new BLContenido();
+            List<Contenido> ContenidosDeCurricula = new List<Contenido>();
+            Contenido unContenido = new Contenido();
+            decimal temasContenidosCubiertos = 0;
+            decimal temasContenidosCurricula = 0;
+
+            foreach (PlanificacionAnual unaPlanificacion in listaPlanificaciones)
+            {
+                unContenido.idCurricula = unaPlanificacion.curricula.idCurricula;
+
+                ContenidosDeCurricula = contenidoBL.GetCurriculaAsignaturaNivel(unContenido);
+
+                foreach (TemaPlanificacionAnual unTemaPlanificacionAnual in unaPlanificacion.listaTemasPlanificacion)
+                {
+                    foreach(TemaContenido unTemaContenidoPlanificado in unTemaPlanificacionAnual.listaContenidos)
+                    {
+                        foreach (Contenido unContenidoCurricula in ContenidosDeCurricula)
+                        {
+                            foreach(TemaContenido unTemaContenidoCurricula in unContenidoCurricula.listaContenidos)
+                            {
+                                if (unTemaContenidoPlanificado.idTemaContenido == unTemaContenidoCurricula.idTemaContenido)
+                                {
+                                    temasContenidosCubiertos++;
+                                }
+                                temasContenidosCurricula++;
+                            }
+                        }
+                    }
+                
+                }
+                if (temasContenidosCurricula > 0)
+                {
+                    unaPlanificacion.porcentajeCobertura = Math.Round(temasContenidosCubiertos / temasContenidosCurricula, 2);
+                }
+                else
+                {
+                    unaPlanificacion.porcentajeCobertura = 0;
+                }
+
+                temasContenidosCubiertos = 0;
+                temasContenidosCurricula = 0;
+            }
+
+
+
+            
+            
+
+             
+
         }
         #endregion
     }

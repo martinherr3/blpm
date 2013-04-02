@@ -208,6 +208,30 @@ namespace EDUAR_BusinessLogic.Common
         }
 
         /// <summary>
+        /// Gets the temas by contenido.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public List<TemaContenido> GetTemasByContenido(Contenido entidad)
+        {
+            TemaContenido unTemaContenido = new TemaContenido();
+            unTemaContenido.idContenido = entidad.idContenido;
+            try
+            {
+                return DataAcces.GetTemaContenidos(unTemaContenido);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasByContenido", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+        /// <summary>
         /// Gets the temas by curso asignatura.
         /// </summary>
         /// <param name="objAsignatura">The obj asignatura.</param>

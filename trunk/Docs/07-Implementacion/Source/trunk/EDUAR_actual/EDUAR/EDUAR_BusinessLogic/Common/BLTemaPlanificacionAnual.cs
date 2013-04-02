@@ -209,9 +209,18 @@ namespace EDUAR_BusinessLogic.Common
 		/// <returns></returns>
 		public List<TemaPlanificacionAnual> GetTemasPlanificacionAnual(PlanificacionAnual entidad)
 		{
+            BLTemaContenido TemaContenidoBL = new BLTemaContenido();
 			try
 			{
-				return DataAcces.GetTemasPlanificacionAnual(entidad);
+                List<TemaPlanificacionAnual> listaTemasPlanificacionAnual = DataAcces.GetTemasPlanificacionAnual(entidad);
+				
+                foreach(TemaPlanificacionAnual unTemaPlanificacionAnual in listaTemasPlanificacionAnual)
+                {
+                    unTemaPlanificacionAnual.listaContenidos = TemaContenidoBL.GetTemasByCursoAsignatura(entidad.curricula);
+                }
+                            
+                return (listaTemasPlanificacionAnual);
+
 			}
 			catch (CustomizedException ex)
 			{

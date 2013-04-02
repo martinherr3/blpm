@@ -197,6 +197,7 @@ namespace EDUAR_DataAccess.Common
             }
         }
 
+
         /// <summary>
         /// Deletes the cursos planificacion.
         /// </summary>
@@ -296,6 +297,67 @@ namespace EDUAR_DataAccess.Common
             catch (Exception ex)
             {
                 throw new CustomizedException(string.Format("Fallo en {0} - GetCursos()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+        /// <summary>
+        /// Gets the planificacion.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public List<PlanificacionAnual> GetPlanificacion(CicloLectivo cicloLectivoActual)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("PlanificacionAnual_Select");
+
+                if (cicloLectivoActual != null && cicloLectivoActual.idCicloLectivo > 0)
+                {
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, cicloLectivoActual.idCicloLectivo);
+                }
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<PlanificacionAnual> listaEntidad = new List<PlanificacionAnual>();
+                PlanificacionAnual objEntidad;
+                while (reader.Read())
+                {
+                    objEntidad = new PlanificacionAnual();
+                    objEntidad.idPlanificacionAnual = Convert.ToInt32(reader["idPlanificacionAnual"]);
+                    objEntidad.creador = new Persona() { idPersona = Convert.ToInt32(reader["idCreador"]) };
+                    if(reader["fechaAprobada"] != DBNull.Value)
+                    {
+                        objEntidad.fechaAprobada = Convert.ToDateTime(reader["fechaAprobada"]);
+                    }
+                    objEntidad.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"]);
+                    if (reader["observaciones"] != DBNull.Value)
+                    {
+                        objEntidad.observaciones = reader["observaciones"].ToString();
+                    }
+                    objEntidad.solicitarAprobacion = Convert.ToBoolean(reader["solicitarAprobacion"]);
+                    objEntidad.curricula.idCurricula = Convert.ToInt32(reader["idCurricula"]);
+                    objEntidad.curricula.asignatura.idAsignatura = Convert.ToInt32(reader["idAsignatura"]);
+                    objEntidad.curricula.asignatura.nombre = reader["Asignatura"].ToString();
+                    objEntidad.curricula.nivel.idNivel = Convert.ToInt32(reader["idNivel"]);
+                    objEntidad.curricula.nivel.nombre = reader["Nivel"].ToString();
+                    objEntidad.curricula.orientacion.idOrientacion = Convert.ToInt32(reader["idOrientacion"]);
+                    objEntidad.curricula.orientacion.nombre = reader["Orientacion"].ToString();
+                    objEntidad.creador.nombre = reader["nombreCreador"].ToString();
+                    objEntidad.creador.apellido = reader["apellidoCreador"].ToString();
+                    listaEntidad.Add(objEntidad);
+                }
+                return listaEntidad;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPlanificacion()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPlanificacion()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
