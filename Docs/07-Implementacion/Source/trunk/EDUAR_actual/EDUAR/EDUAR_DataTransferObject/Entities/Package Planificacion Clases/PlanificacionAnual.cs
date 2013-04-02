@@ -22,6 +22,8 @@ namespace EDUAR_Entities
 		public List<TemaPlanificacionAnual> listaTemasPlanificacion {get; set;}
         public List<CursoCicloLectivo> listaCursos { get; set; }
 		public bool solicitarAprobacion { get; set; }
+        public decimal porcentajeCobertura { get; set; }
+
 
 		public PlanificacionAnual()
 		{
@@ -40,5 +42,6 @@ namespace EDUAR_Entities
 		{
 
 		}
+
 	}//end PlanificacionAnual
 }
