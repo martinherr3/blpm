@@ -148,6 +148,8 @@ namespace EDUAR_BusinessLogic.Common
                         objBLPlanificacion.Save(DataAcces.Transaction);
                     }
                 }
+
+                GrabarCursos(idPlanificacionAnual);
             }
             catch (CustomizedException ex)
             {
@@ -197,7 +199,10 @@ namespace EDUAR_BusinessLogic.Common
                 List<PlanificacionAnual> lista = DataAcces.GetPlanificacion(entidad);
                 BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
                 foreach (PlanificacionAnual item in lista)
+                {
                     item.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnual(item);
+                    item.listaCursos = DataAcces.GetCursos(item);
+                }
                 return lista;
             }
             catch (CustomizedException ex)
@@ -237,6 +242,7 @@ namespace EDUAR_BusinessLogic.Common
                         objPlanificacion.idPlanificacionAnual = listaPlanificaciones[0].idPlanificacionAnual;
                         BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
                         objPlanificacion.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnual(objPlanificacion);
+                        objPlanificacion.listaCursos = DataAcces.GetCursos(objPlanificacion);
                     }
                     return objPlanificacion;
                 }
@@ -341,7 +347,35 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
-        #endregion
 
+        /// <summary>
+        /// Grabars the cursos.
+        /// </summary>
+        /// <param name="idPlanificacionAnual">The id planificacion anual.</param>
+        /// <exception cref="CustomizedException"></exception>
+        private void GrabarCursos(int idPlanificacionAnual)
+        {
+            try
+            {
+                if (Data.idPlanificacionAnual > 0) DataAcces.DeleteCursosPlanificacion(Data.idPlanificacionAnual);
+                if (Data.listaCursos.Count > 0)
+                    foreach (CursoCicloLectivo item in Data.listaCursos)
+                        DataAcces.SaveCursos(idPlanificacionAnual > 0 ? idPlanificacionAnual : Data.idPlanificacionAnual, item.idCursoCicloLectivo);
+            }
+            catch (CustomizedException ex)
+            {
+                if (DataAcces != null && DataAcces.Transaction != null)
+                    DataAcces.Transaction.RollbackTransaction();
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                if (DataAcces != null && DataAcces.Transaction != null)
+                    DataAcces.Transaction.RollbackTransaction();
+                throw new CustomizedException(string.Format("Fallo en {0} - GrabarCursos()", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+        #endregion
     }
 }

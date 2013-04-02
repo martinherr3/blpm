@@ -127,6 +127,7 @@
     <Content Include="Images\botonExcursion.png" />
     <Content Include="Images\botonImprimir.png" />
     <Content Include="Images\botonIndicadores.png" />
+    <Content Include="Images\botonLista.png" />
     <Content Include="Images\botonNotificacion.png" />
     <Content Include="Images\botonNovedades.png" />
     <Content Include="Images\botonNuevo.png" />
