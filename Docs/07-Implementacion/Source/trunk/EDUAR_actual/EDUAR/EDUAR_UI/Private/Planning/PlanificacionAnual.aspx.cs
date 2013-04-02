@@ -250,7 +250,11 @@ namespace EDUAR_UI
                         break;
                     case enumAcciones.Eliminar:
                         EliminarPlanificacion();
-                        //ObtenerPlanificacion(idAsignaturaCurso);
+                        AsignaturaNivel objFiltro = new AsignaturaNivel();
+                        objFiltro.asignatura.idAsignatura = idAsignatura;
+                        objFiltro.nivel.idNivel = idNivel;
+                        objFiltro.orientacion.idOrientacion = idOrientacion;
+                        ObtenerPlanificacion(objFiltro);
                         idTemaPlanificacion = 0;
                         break;
                     case enumAcciones.Seleccionar:
@@ -373,7 +377,7 @@ namespace EDUAR_UI
             try
             {
                 string mensaje = ValidarPagina();
-                if (string.IsNullOrEmpty(mensaje))
+                if (string.IsNullOrEmpty(mensaje) || mensaje.Equals(UIConstantesGenerales.MensajeDatosFaltantes))
                 {
                     GuardarPlanificacion();
                     btnPDF.Visible = planificacionEditar.listaTemasPlanificacion.Count > 0;
@@ -381,12 +385,28 @@ namespace EDUAR_UI
                     btnContenidosPopUp.Visible = false;
                     ddlAsignatura.Enabled = true;
                     ddlNivel.Enabled = true;
-                    CargarPresentacion();
+                    LimpiarCampos();
+                    btnPDF.Visible = true;
+                    divAprobacion.Visible = false;
+                    chkAprobada.Enabled = false;
+                    chkSolicitarAprobacion.Enabled = false;
+                    chkAprobada.Checked = false;
+                    chkSolicitarAprobacion.Checked = false;
+
+                    CargarPlanificacion();
+                    divFiltros.Visible = true;
+                    divControles.Visible = false;
+                    btnVolver.Visible = false;
+                    btnVolverAnterior.Visible = false;
+                    btnGuardar.Visible = false;
+                    udpBotonera.Update();
+                    udpDivControles.Update();
+                    udpGrilla.Update();
                 }
                 else
                 {
                     //AccionPagina = enumAcciones.Error;
-                    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosFaltantes + mensaje, enumTipoVentanaInformacion.Advertencia);
+                    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), mensaje, enumTipoVentanaInformacion.Advertencia);
                 }
             }
             catch (Exception ex)
@@ -454,15 +474,17 @@ namespace EDUAR_UI
                 }
                 else
                 {
-                    ddlAsignatura.SelectedIndex = 0;
-                    ddlAsignatura.Items.Clear();
-                    ddlAsignatura.Items.Add("[Seleccione Nivel]");
+                    CargarPresentacion();
+                    btnNuevo.Visible = false;
+                    btnVolverAnterior.Visible = false;
+                    btnVolver.Visible = false;
                 }
                 ddlOrientacion.Items.Clear();
                 ddlAsignatura.Enabled = idNivel > 0;
                 udpAsignatura.Update();
                 VerOrientacion(false);
                 udpGrilla.Update();
+                udpBotonera.Update();
             }
             catch (Exception ex)
             {
@@ -511,6 +533,7 @@ namespace EDUAR_UI
             catch (Exception ex)
             {
                 Master.ManageExceptions(ex);
+                CargarPresentacion();
             }
         }
 
@@ -746,23 +769,37 @@ namespace EDUAR_UI
         private void CargarPresentacion()
         {
             UIUtilidades.BindCombo<Nivel>(ddlNivel, listaNiveles, "idNivel", "Nombre", true);
+            ddlAsignatura.Items.Clear();
             ddlAsignatura.Items.Add("[Seleccione Nivel]");
+            ddlAsignatura.Enabled = false;
             pnlContenidos.Attributes["display"] = "none";
-            //pnlContenidos.Visible = false;
+
+            LimpiarCampos();
+            chkAprobada.Enabled = false;
+            chkSolicitarAprobacion.Enabled = false;
+            chkAprobada.Checked = false;
+            chkSolicitarAprobacion.Checked = false;
+            listaContenido = null;
+
+            gvwPlanificacion.DataSource = null;
+            gvwPlanificacion.DataBind();
+
             VerOrientacion(false);
-            udpBotonera.Update();
 
             divFiltros.Visible = true;
             divControles.Visible = false;
-            btnVolver.Visible = false;
-            btnVolverAnterior.Visible = true;
-            btnGuardar.Visible = false;
             divFiltros.Visible = true;
-            //ddlCurso.Enabled = true;
+            divAprobacion.Visible = false;
+
+            btnVolver.Visible = false;
+            btnVolverAnterior.Visible = false;
+            btnGuardar.Visible = false;
+            btnPDF.Visible = false;
+            btnNuevo.Visible = false;
+
             udpBotonera.Update();
             udpDivControles.Update();
             udpGrilla.Update();
-            listaContenido = null;
         }
 
         /// <summary>
@@ -818,16 +855,10 @@ namespace EDUAR_UI
         /// <returns></returns>
         protected string CheckNull(object objGrid)
         {
-            //			if (object.ReferenceEquals(objGrid, DBNull.Value))
             if (object.ReferenceEquals(objGrid, null))
-            {
                 return " - ";
-            }
             else
-            {
                 return Convert.ToDateTime(objGrid).ToShortDateString();
-                //return objGrid.ToString();
-            }
         }
 
         /// <summary>
@@ -838,7 +869,6 @@ namespace EDUAR_UI
         /// <returns></returns>
         protected bool CheckAprobada(object objGrid, bool editar)
         {
-            //			if (object.ReferenceEquals(objGrid, DBNull.Value))
             bool aux;
             if (object.ReferenceEquals(objGrid, null))
                 aux = false;
@@ -862,7 +892,7 @@ namespace EDUAR_UI
         /// <returns></returns>
         private string ValidarPagina()
         {
-            string mensaje = string.Empty;
+            string mensaje = UIConstantesGenerales.MensajeDatosFaltantes;
             bool hayContenido = false;
             if (txtCConceptuales.Text.Trim().Length == 0)
                 mensaje += "- Contenidos Conceptuales<br />";
@@ -889,34 +919,32 @@ namespace EDUAR_UI
             else
                 hayContenido = true;
 
+            calFechaDesde.EtiquetaDesde = "Fecha Inicio:";
             calFechaDesde.ValidarRangoDesde(false);
+            calFechaDesde.EtiquetaDesde = string.Empty;
+
+            calFechaFin.EtiquetaDesde = "Fecha Finalización:";
             calFechaFin.ValidarRangoDesde(false);
-            if (
-                (Convert.ToDateTime(calFechaFin.ValorFecha).Subtract(Convert.ToDateTime(calFechaDesde.ValorFecha))).TotalDays < 0)
+            calFechaDesde.EtiquetaDesde = string.Empty;
+            if ((Convert.ToDateTime(calFechaFin.ValorFecha).Subtract(Convert.ToDateTime(calFechaDesde.ValorFecha))).TotalDays < 0)
             {
                 hayContenido = false;
-                mensaje = "- La Fecha de Inicio no puede ser superior a la Fecha de Finalización";
+                mensaje = "La Fecha de Inicio no puede ser superior a la Fecha de Finalización";
             }
             foreach (TemaPlanificacionAnual unTema in planificacionEditar.listaTemasPlanificacion)
             {
-
-
                 if (hayContenido)
                 {
                     if (((calFechaDesde.ValorFecha >= unTema.fechaInicioEstimada && calFechaDesde.ValorFecha <= unTema.fechaFinEstimada) ||
-                        (calFechaFin.ValorFecha >= unTema.fechaInicioEstimada && calFechaFin.ValorFecha <= unTema.fechaFinEstimada))
-                        && unTema.idTemaPlanificacion != idTemaPlanificacion)
+                         (calFechaFin.ValorFecha >= unTema.fechaInicioEstimada && calFechaFin.ValorFecha <= unTema.fechaFinEstimada))
+                         && unTema.idTemaPlanificacion != idTemaPlanificacion)
                     {
                         hayContenido = false;
-                        mensaje = "Existe otro tema planificado para ser dado entre:" + unTema.fechaInicioEstimada.Value.ToShortDateString() + " y " + unTema.fechaFinEstimada.Value.ToShortDateString();
+                        mensaje = "Existe otro tema planificado para el periodo " + unTema.fechaInicioEstimada.Value.ToShortDateString() + " - " + unTema.fechaFinEstimada.Value.ToShortDateString();
                     }
-
                 }
                 else
-                {
                     break;
-                }
-
             }
 
             if (hayContenido) return string.Empty;
@@ -962,10 +990,8 @@ namespace EDUAR_UI
                 }
                 else
                 {
-                    if ((User.IsInRole(enumRoles.Director.ToString())
-                    || User.IsInRole(enumRoles.Administrador.ToString()))
-                    && planificacionEditar.solicitarAprobacion
-                    )
+                    if ((User.IsInRole(enumRoles.Director.ToString()) || User.IsInRole(enumRoles.Administrador.ToString()))
+                        && planificacionEditar.solicitarAprobacion)
                     {
                         chkAprobada.Enabled = true;
                         chkSolicitarAprobacion.Enabled = false;
@@ -979,7 +1005,7 @@ namespace EDUAR_UI
                             )
                             chkSolicitarAprobacion.Enabled = true;
                         else
-                        { chkSolicitarAprobacion.Checked = true; }
+                            chkSolicitarAprobacion.Checked = true;
                     }
                 }
             }
@@ -1004,13 +1030,10 @@ namespace EDUAR_UI
             calFechaFin.Habilitado = habilitar;
             chkSolicitarAprobacion.Enabled = habilitar;
 
-
             calFechaDesde.startDate = cicloLectivoActual.fechaInicio;
             calFechaDesde.endDate = cicloLectivoActual.fechaFin;
             calFechaFin.startDate = cicloLectivoActual.fechaInicio;
             calFechaFin.endDate = cicloLectivoActual.fechaFin;
-
-
         }
 
         /// <summary>
@@ -1045,9 +1068,7 @@ namespace EDUAR_UI
                 List<TemaContenido> listaTemporal = objBLTemaPlanificacion.ObtenerContenidos();
                 listaSeleccionGuardar.Clear();
                 foreach (TemaContenido item in listaTemporal)
-                {
                     listaSeleccionGuardar.Add(item.idTemaContenido);
-                }
                 //listaSeleccion = objBLTemaPlanificacion.ObtenerContenidos();
             }
         }
@@ -1078,12 +1099,12 @@ namespace EDUAR_UI
             BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual(objFiltro);
             listaContenidosPlanificados = objBLTemas.ObtenerContenidos();
 
-            List<TemaContenido> listaAuxiliar = new List<TemaContenido>();
-            listaAuxiliar = objBLTemas.ObtenerContenidosDesactivados();
+            //List<TemaContenido> listaAuxiliar = new List<TemaContenido>();
+            //listaAuxiliar = objBLTemas.ObtenerContenidosDesactivados();
 
-            foreach (TemaContenido item in listaAuxiliar)
-                listaContenido.Add(item);
-            
+            //foreach (TemaContenido item in listaAuxiliar)
+            //    listaContenido.Add(item);
+
             return (listaContenidosPlanificados);
         }
 
@@ -1105,33 +1126,21 @@ namespace EDUAR_UI
             foreach (TemaContenido contenido in listaContenido)
             {
                 foreach (TemaContenido contenidoPlanificado in listaContenidosPlanificados)
-                {
                     if (contenido.idTemaContenido == contenidoPlanificado.idTemaContenido)
-                    {
                         sacarContenido = true;
-                    }
-                }
+
                 foreach (int contenidoActualPlanificacion in listaSeleccionGuardar)
-                {
                     if (contenido.idTemaContenido == contenidoActualPlanificacion)
-                    {
                         sacarContenido = false;
-                    }
-                }
 
                 seleccionContenidos.Add(sacarContenido);
                 sacarContenido = false;
             }
 
             for (int i = seleccionContenidos.Count - 1; i > -1; i--)
-            {
                 if (seleccionContenidos[i])
-                {
                     listaContenido.RemoveAt(i);
-                }
-            }
             listaContenidosPlanificados.Clear();
-
 
             gvwContenidos.DataSource = listaContenido;
             gvwContenidos.DataBind();
@@ -1142,6 +1151,7 @@ namespace EDUAR_UI
         /// </summary>
         private void GuardarPlanificacion()
         {
+
             TemaPlanificacionAnual objTema = new TemaPlanificacionAnual();
             objTema.contenidosActitudinales = txtCActitudinales.Text.Trim();
             objTema.contenidosConceptuales = txtCConceptuales.Text.Trim();
@@ -1154,15 +1164,20 @@ namespace EDUAR_UI
             //objTema.listaContenidos = listaSeleccionGuardar;
             List<TemaContenido> listaTemporal = new List<TemaContenido>();
             foreach (int item in listaSeleccionGuardar)
-            {
                 listaTemporal.Add(new TemaContenido() { idTemaContenido = item });
-            }
             objTema.listaContenidos = listaTemporal;
 
             if (idTemaPlanificacion > 0)
                 objTema.idTemaPlanificacion = idTemaPlanificacion;
 
             PlanificacionAnual objPlanificacion = new PlanificacionAnual();
+
+            objPlanificacion.curricula.asignatura.idAsignatura = idAsignatura;
+            objPlanificacion.curricula.nivel.idNivel = idNivel;
+            objPlanificacion.curricula.orientacion.idOrientacion = idOrientacion;
+            objPlanificacion.curricula.personaAlta.username = User.Identity.Name;
+            objPlanificacion.curricula.personaModificacion.username = User.Identity.Name;
+
             objPlanificacion.creador.username = (string.IsNullOrEmpty(planificacionEditar.creador.username)) ? User.Identity.Name : planificacionEditar.creador.username;
             //objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignaturaCurso;
             objPlanificacion.idPlanificacionAnual = planificacionEditar.idPlanificacionAnual;
@@ -1170,7 +1185,7 @@ namespace EDUAR_UI
             objPlanificacion.fechaAprobada = planificacionEditar.fechaAprobada;
             objPlanificacion.listaTemasPlanificacion.Add(objTema);
             BLPlanificacionAnual objPlanificacionBL = new BLPlanificacionAnual(objPlanificacion);
-            objPlanificacionBL.Save();
+            objPlanificacionBL.GrabarPlanificacion();
             idTemaPlanificacion = 0;
             //ObtenerPlanificacion(objPlanificacion.asignaturaCicloLectivo.idAsignaturaCicloLectivo);
             ObtenerPlanificacion(new AsignaturaNivel());

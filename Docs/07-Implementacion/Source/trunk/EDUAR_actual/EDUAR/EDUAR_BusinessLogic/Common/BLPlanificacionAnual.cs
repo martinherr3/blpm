@@ -129,11 +129,24 @@ namespace EDUAR_BusinessLogic.Common
             {
                 //Si no viene el Id es porque se esta creando la entidad
                 DataAcces = new DAPlanificacionAnual(objDATransaction);
+                int idPlanificacionAnual = 0;
                 if (Data.idPlanificacionAnual == 0)
-                    DataAcces.Create(Data);
-                else
                 {
+                    DataAcces.Create(Data, out idPlanificacionAnual);
+                    Data.idPlanificacionAnual = idPlanificacionAnual;
+                }
+                else
                     DataAcces.Update(Data);
+
+                if (Data.listaTemasPlanificacion.Count > 0)
+                {
+                    BLTemaPlanificacionAnual objBLPlanificacion;
+                    foreach (TemaPlanificacionAnual item in Data.listaTemasPlanificacion)
+                    {
+                        item.idPlanificacionAnual = idPlanificacionAnual > 0 ? idPlanificacionAnual : Data.idPlanificacionAnual;
+                        objBLPlanificacion = new BLTemaPlanificacionAnual(item);
+                        objBLPlanificacion.Save(DataAcces.Transaction);
+                    }
                 }
             }
             catch (CustomizedException ex)
@@ -215,14 +228,21 @@ namespace EDUAR_BusinessLogic.Common
 
                 PlanificacionAnual objPlanificacion = new PlanificacionAnual();
                 objPlanificacion.curricula = objBLCurricula.GetByAsignaturaNivelOrientacion(objCurricula);
-                List<PlanificacionAnual> listaPlanificaciones = DataAcces.GetPlanificacion(objPlanificacion);
-
-                if (listaPlanificaciones != null)
+                if (objPlanificacion.curricula.idCurricula > 0)
                 {
-                    BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
-                    objPlanificacion.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnual(objPlanificacion);
+                    List<PlanificacionAnual> listaPlanificaciones = DataAcces.GetPlanificacion(objPlanificacion);
+
+                    if (listaPlanificaciones != null && listaPlanificaciones.Count > 0)
+                    {
+                        objPlanificacion.idPlanificacionAnual = listaPlanificaciones[0].idPlanificacionAnual;
+                        BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
+                        objPlanificacion.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnual(objPlanificacion);
+                    }
+                    return objPlanificacion;
                 }
-                return objPlanificacion;
+                else
+                    throw new CustomizedException("Aún no se ha generado la Currícula para la asignatura seleccionada", new Exception(),
+                                                enuExceptionType.ValidationException);
             }
             catch (CustomizedException ex)
             {
@@ -282,6 +302,46 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+        /// <summary>
+        /// Grabars the planificacion.
+        /// </summary>
+        /// <exception cref="CustomizedException"></exception>
+        public void GrabarPlanificacion()
+        {
+            try
+            {
+                BLCurricula objBLCurricula = new BLCurricula(Data.curricula);
+
+                //busca si existe el id
+                Data.curricula = objBLCurricula.GetByAsignaturaNivelOrientacion(Data.curricula);
+
+                //Abre la transaccion que se va a utilizar
+                DataAcces.Transaction.OpenTransaction();
+                if (Data.curricula.idCurricula == 0)
+                    objBLCurricula.Save(DataAcces.Transaction);
+                //nuevoContenido.idCurricula = Data.idCurricula;
+
+                this.Save(DataAcces.Transaction);
+
+                //Se da el OK para la transaccion.
+                DataAcces.Transaction.CommitTransaction();
+            }
+            catch (CustomizedException ex)
+            {
+                if (DataAcces != null && DataAcces.Transaction != null)
+                    DataAcces.Transaction.RollbackTransaction();
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                if (DataAcces != null && DataAcces.Transaction != null)
+                    DataAcces.Transaction.RollbackTransaction();
+                throw new CustomizedException(string.Format("Fallo en {0} - GrabarPlanificacion()", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
+
     }
 }

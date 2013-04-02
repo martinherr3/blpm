@@ -284,7 +284,10 @@ namespace EDUAR_BusinessLogic.Common
         {
             try
             {
-                return DataAcces.GetContenidosDesactivados(Data);
+                TemaPlanificacionAnual filtro = new TemaPlanificacionAnual();
+                filtro = Data;
+
+                return DataAcces.GetContenidosDesactivados(filtro);
             }
             catch (CustomizedException ex)
             {

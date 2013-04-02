@@ -22,7 +22,7 @@
                             <asp:Image ID="imgIconoVentana" runat="server" />
                         </td>
                         <td id="TDEtiquetas2" runat="server" style="text-align: left">
-                            <asp:Label ID="lblDetalleSys" runat="server" Width="80%" Style="text-align: left" />
+                            <asp:Label ID="lblDetalleSys" runat="server" Width="90%" Style="text-align: left" />
                         </td>
                     </tr>
                     <tr>
