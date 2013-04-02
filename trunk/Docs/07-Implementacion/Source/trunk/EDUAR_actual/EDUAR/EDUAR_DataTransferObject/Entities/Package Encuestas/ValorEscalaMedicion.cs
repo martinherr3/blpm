@@ -18,6 +18,8 @@ namespace EDUAR_Entities
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public int idEscalaMedicion { get; set; }
+        public int orden { get; set; }
+        public bool eliminable { get; set; }
 
         public ValorEscalaMedicion()
         {

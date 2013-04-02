@@ -91,60 +91,6 @@ namespace EDUAR_UI
 			}
 			set { ViewState["listaAmbitos"] = value; }
 		}
-
-        public int idCategoriaPregunta
-		{
-			get
-			{
-                if (ViewState["idCategoriaPregunta"] == null) idCategoriaPregunta = 0;
-
-                return (int)ViewState["idCategoriaPregunta"];
-			}
-            set { ViewState["idCategoriaPregunta"] = value; }
-		}
-
-		public int idAmbito
-		{
-			get
-			{
-				if (ViewState["idAmbito"] == null) idAmbito = 0;
-
-				return (int)ViewState["idAmbito"];
-			}
-			set { ViewState["idAmbito"] = value; }
-		}
-
-		/// <summary>
-		/// Gets or sets the categoria sesion.
-		/// </summary>
-		/// <value>
-		/// The encuesta sesion.
-		/// </value>
-        public CategoriaPregunta categoriaPreguntaSesion
-		{
-			get
-			{
-                if (Session["categoriaPreguntaSesion"] == null)
-                    categoriaPreguntaSesion = new CategoriaPregunta();
-
-                return (CategoriaPregunta)Session["categoriaPreguntaSesion"];
-			}
-            set { Session["categoriaPreguntaSesion"] = value; }
-		}
-
-        //public bool categoriaUtilizada
-        //{
-        //    get
-        //    {
-        //        if (ViewState["categoriaUtilizada"] == null)
-        //        {
-        //            objBLCategoriaPregunta = new BLCategoriaPregunta(propCategoriaPregunta);
-        //            categoriaUtilizada = objBLCategoriaPregunta.EsCategoriaUtilizada(propCategoriaPregunta);
-        //        }
-        //        return (bool)ViewState["categoriaUtilizada"];
-        //    }
-        //    set { ViewState["categoriaUtilizada"] = value; }
-        //}
 		#endregion
 
 		#region --[Eventos]--
@@ -502,7 +448,7 @@ namespace EDUAR_UI
 			ddlAmbitoEdit.SelectedValue = categoria.ambito.idAmbitoEncuesta.ToString();
             txtNombreEdit.Text = categoria.nombre;
 			txtDescripcionEdit.Text = categoria.descripcion;
-            if (!objBLCategoriaPregunta.EsCategoriaDisponible(idEntidad)) lblUtilizada.Text = "<b>Esta categoría está siendo actualmente utilizada en al menos una encuesta</b>";
+            if (!categoria.eliminable) lblUtilizada.Text = "<b>Esta categoría está siendo actualmente utilizada en al menos una encuesta</b>";
             else lblUtilizada.Text = "<b>Esta categoría no está siendo actualmente utilizada en ninguna encuesta</b>";
 		}
 

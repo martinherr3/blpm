@@ -198,28 +198,6 @@ namespace EDUAR_BusinessLogic.Encuestas
                                               enuExceptionType.BusinessLogicException);
             }
         }
-
-        /// <summary>
-        /// Verifica que la categoría en cuestión no está siendo utilizada en ninguna encuesta.
-        /// </summary>
-        /// <param name="entidad">The entidad.</param>
-        /// <returns></returns>
-        public bool EsCategoriaDisponible(int objFiltroId)
-        {
-            try
-            {
-                return DataAcces.EsCategoriaDisponible(objFiltroId);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - EsCategoriaUtilizada", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
         #endregion
     }
 }
