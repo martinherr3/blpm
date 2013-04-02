@@ -86,7 +86,7 @@ namespace EDUAR_DataAccess.Encuestas
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ValorEscalaPonderacion_Update");
 
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idValorEscalaPonderacion", DbType.Int32, entidad.idValorEscala);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.Int32, entidad.nombre);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEscalaPonderacion", DbType.Int32, entidad.idEscalaMedicion);
 
@@ -107,9 +107,34 @@ namespace EDUAR_DataAccess.Encuestas
             }
         }
 
+        /// <summary>
+        /// Deletes the specified entidad.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
         public override void Delete(ValorEscalaMedicion entidad)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ValorEscalaPonderacion_Delete");
+
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idValorEscalaPonderacion", DbType.Int32, entidad.idValorEscala);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEscalaPonderacion", DbType.Int32, entidad.idEscalaMedicion);
+
+                if (Transaction.Transaction != null)
+                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+                else
+                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
         }
         #endregion
 
@@ -131,19 +156,21 @@ namespace EDUAR_DataAccess.Encuestas
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
-                List<ValorEscalaMedicion> listaEscalas = entidad.valoresEscalas;
-                ValorEscalaMedicion objEscala;
+                List<ValorEscalaMedicion> listaEscalas = new List<ValorEscalaMedicion>();
+                ValorEscalaMedicion objValorEscala;
 
                 while (reader.Read())
                 {
-                    objEscala = new ValorEscalaMedicion();
+                    objValorEscala = new ValorEscalaMedicion();
 
-                    objEscala.idValorEscala = Convert.ToInt32(reader["idValorEscalaPonderacion"]);
-                    objEscala.nombre = reader["nombre"].ToString();
-                    objEscala.descripcion = reader["descripcion"].ToString();
-                    //objEscala.idEscalaMedicion = Convert.ToInt32(reader["idEscalaPonderacion"]);
+                    objValorEscala.idValorEscala = Convert.ToInt32(reader["idValorEscalaPonderacion"]);
+                    objValorEscala.nombre = reader["nombre"].ToString();
+                    objValorEscala.descripcion = reader["descripcion"].ToString();
+                    objValorEscala.idEscalaMedicion = Convert.ToInt32(reader["idEscalaPonderacion"]);
 
-                    listaEscalas.Add(objEscala);
+                    objValorEscala.eliminable = Convert.ToInt32(reader["cantidadEncuestas"]) == 0;
+
+                    listaEscalas.Add(objValorEscala);
                 }
                 return listaEscalas;
             }

@@ -240,8 +240,10 @@
     <Content Include="Private\Agenda\ManageEvaluaciones.aspx" />
     <Content Include="Private\Agenda\ManageExcursiones.aspx" />
     <Content Include="Private\Agenda\ManageRegistroClases.aspx" />
+    <Content Include="Private\Encuestas\ItemsEscalaPonderacion.aspx" />
     <Content Include="Private\Encuestas\ManageCategoriasPregunta.aspx" />
     <Content Include="Private\Encuestas\Cuestionario.aspx" />
+    <Content Include="Private\Encuestas\ManageEscalasPonderacion.aspx" />
     <Content Include="Private\Encuestas\VerRespuestas.aspx" />
     <Content Include="Private\Encuestas\ResultadosEncuestas.aspx" />
     <Content Include="Private\Manuales\help_Administrador.aspx" />
@@ -599,6 +601,13 @@
     <Compile Include="Private\Agenda\ManageRegistroClases.aspx.designer.cs">
       <DependentUpon>ManageRegistroClases.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Private\Encuestas\ItemsEscalaPonderacion.aspx.cs">
+      <DependentUpon>ItemsEscalaPonderacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Encuestas\ItemsEscalaPonderacion.aspx.designer.cs">
+      <DependentUpon>ItemsEscalaPonderacion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Private\Encuestas\ManageCategoriasPregunta.aspx.cs">
       <DependentUpon>ManageCategoriasPregunta.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -612,6 +621,13 @@
     </Compile>
     <Compile Include="Private\Encuestas\Cuestionario.aspx.designer.cs">
       <DependentUpon>Cuestionario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Encuestas\ManageEscalasPonderacion.aspx.cs">
+      <DependentUpon>ManageEscalasPonderacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Encuestas\ManageEscalasPonderacion.aspx.designer.cs">
+      <DependentUpon>ManageEscalasPonderacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Encuestas\VerRespuestas.aspx.cs">
       <DependentUpon>VerRespuestas.aspx</DependentUpon>

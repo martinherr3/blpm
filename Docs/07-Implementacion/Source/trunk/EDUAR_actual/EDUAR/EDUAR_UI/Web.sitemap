@@ -62,8 +62,9 @@
             <siteMapNode url="~/Private/Account/ChangeUser.aspx" title="Usuarios" roles="Administrador" />
             <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar Usuario" roles="Administrador" visible="false"/>
         </siteMapNode>
-      <siteMapNode url="" title="Testing" roles="Administrador" >
-        <siteMapNode url="~/Private/Encuestas/ManageCategoriasPregunta.aspx" title="Administración Categorías" roles="Administrador" />
+        <siteMapNode url="" title="Configuración Encuestas" roles="Administrador,Director,Docente" >
+          <siteMapNode url="~/Private/Encuestas/ManageCategoriasPregunta.aspx" title="Configuración Categorías de Preguntas" roles="Administrador,Director,Docente" />
+          <siteMapNode url="~/Private/Encuestas/ManageEscalasPonderacion.aspx" title="Configuración Escalas de Ponderación" roles="Administrador,Director,Docente" />
+        </siteMapNode>
       </siteMapNode>
-    </siteMapNode>
 </siteMap>

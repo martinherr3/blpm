@@ -85,7 +85,7 @@ namespace EDUAR_DataAccess.Encuestas
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EscalaPonderacion_Update");
 
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEscalaPonderacion", DbType.Int32, entidad.idEscala);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.Int32, entidad.nombre);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
 
                 if (Transaction.Transaction != null)
@@ -107,7 +107,27 @@ namespace EDUAR_DataAccess.Encuestas
 
         public override void Delete(EscalaMedicion entidad)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EscalaPonderacion_Delete");
+
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEscalaPonderacion", DbType.Int32, entidad.idEscala);
+
+                if (Transaction.Transaction != null)
+                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+                else
+                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
         }
         #endregion
 
@@ -127,9 +147,9 @@ namespace EDUAR_DataAccess.Encuestas
                     if (entidad.idEscala > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEscala", DbType.Int32, entidad.idEscala);
                     if (!string.IsNullOrEmpty(entidad.nombre))
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.Int32, entidad.nombre);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
                     if (!string.IsNullOrEmpty(entidad.descripcion))
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.Int32, entidad.descripcion);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -143,6 +163,8 @@ namespace EDUAR_DataAccess.Encuestas
                     objEscala.idEscala = Convert.ToInt32(reader["idEscalaPonderacion"]);
                     objEscala.nombre = reader["nombre"].ToString();
                     objEscala.descripcion = reader["descripcion"].ToString();
+
+                    objEscala.eliminable = Convert.ToInt32(reader["cantidadEncuestas"]) == 0;
 
                     listaEscalas.Add(objEscala);
                 }

@@ -199,11 +199,6 @@ namespace EDUAR_DataAccess.Encuestas
                     objCategoriaPregunta.nombre = reader["nombreCategoria"].ToString();
                     objCategoriaPregunta.descripcion = reader["descripcionCategoria"].ToString();
 
-                    //int valor = Convert.ToInt32(reader["cantidadEncuestas"]);
-
-                    //if(valor > 0) objCategoriaPregunta.asignada = true;
-                    //else objCategoriaPregunta.asignada = false;
-
                     objCategoriaPregunta.ambito = new AmbitoEncuesta();
                     {
                         objCategoriaPregunta.ambito.idAmbitoEncuesta = Convert.ToInt32(reader["idAmbito"]);
@@ -211,7 +206,7 @@ namespace EDUAR_DataAccess.Encuestas
                         objCategoriaPregunta.ambito.descripcion = reader["descripcionAmbito"].ToString();
                     }
 
-                    objCategoriaPregunta.disponible = EsCategoriaDisponible(objCategoriaPregunta.idCategoriaPregunta);
+                    objCategoriaPregunta.eliminable = Convert.ToInt32(reader["cantidadEncuestas"]) == 0;
 
                     listaCategoriasPregunta.Add(objCategoriaPregunta);
                 }
@@ -225,42 +220,6 @@ namespace EDUAR_DataAccess.Encuestas
             catch (Exception ex)
             {
                 throw new CustomizedException(string.Format("Fallo en {0} - GetCategoriasPregunta()", ClassName),
-                                    ex, enuExceptionType.DataAccesException);
-            }
-        }
-
-        /// <summary>
-        /// Verifica que la categoría en cuestión no está siendo utilizada en ninguna encuesta.
-        /// </summary>
-        /// <param name="entidad">The entidad.</param>
-        /// <returns></returns>
-        public bool EsCategoriaDisponible(int idEntidad)
-        {
-            try
-            {
-                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("CategoriaPregunta_Select");
-                if (idEntidad != 0)
-                {
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCategoria", DbType.Int32, idEntidad);
-                }
-                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-
-                bool estaDisponible = false;
-
-                while (reader.Read())
-                {
-                    if (Convert.ToInt32(reader["cantidadEncuestas"]) == 0) estaDisponible = true;
-                }
-                return estaDisponible;
-            }
-            catch (SqlException ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - EsCategoriaUtilizada()", ClassName),
-                                    ex, enuExceptionType.SqlException);
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - EsCategoriaUtilizada()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }
