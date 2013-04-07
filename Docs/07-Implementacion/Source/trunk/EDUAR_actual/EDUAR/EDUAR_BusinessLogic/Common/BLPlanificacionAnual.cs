@@ -222,7 +222,7 @@ namespace EDUAR_BusinessLogic.Common
         /// </summary>
         /// <param name="entidad">The entidad.</param>
         /// <returns></returns>
-        public List<PlanificacionAnual> GetPlanificacion(CicloLectivo  entidad)
+        public List<PlanificacionAnual> GetPlanificacion(CicloLectivo entidad)
         {
             try
             {
@@ -247,7 +247,7 @@ namespace EDUAR_BusinessLogic.Common
         /// </summary>
         /// <param name="entidad">The entidad.</param>
         /// <returns></returns>
-        public PlanificacionAnual GetPlanificacionByAsignatura(AsignaturaNivel entidad)
+        public PlanificacionAnual GetPlanificacionByAsignatura(AsignaturaNivel entidad, CicloLectivo cicloLectivo)
         {
             try
             {
@@ -259,13 +259,14 @@ namespace EDUAR_BusinessLogic.Common
 
                 PlanificacionAnual objPlanificacion = new PlanificacionAnual();
                 objPlanificacion.curricula = objBLCurricula.GetByAsignaturaNivelOrientacion(objCurricula);
+                objPlanificacion.cicloLectivo = cicloLectivo;
                 if (objPlanificacion.curricula.idCurricula > 0)
                 {
                     List<PlanificacionAnual> listaPlanificaciones = DataAcces.GetPlanificacion(objPlanificacion);
 
                     if (listaPlanificaciones != null && listaPlanificaciones.Count > 0)
                     {
-                        objPlanificacion.idPlanificacionAnual = listaPlanificaciones[0].idPlanificacionAnual;
+                        objPlanificacion = listaPlanificaciones[0];
                         BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
                         objPlanificacion.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnual(objPlanificacion);
                         objPlanificacion.listaCursos = DataAcces.GetCursos(objPlanificacion);
@@ -419,11 +420,11 @@ namespace EDUAR_BusinessLogic.Common
 
                 foreach (TemaPlanificacionAnual unTemaPlanificacionAnual in unaPlanificacion.listaTemasPlanificacion)
                 {
-                    foreach(TemaContenido unTemaContenidoPlanificado in unTemaPlanificacionAnual.listaContenidos)
+                    foreach (TemaContenido unTemaContenidoPlanificado in unTemaPlanificacionAnual.listaContenidos)
                     {
                         foreach (Contenido unContenidoCurricula in ContenidosDeCurricula)
                         {
-                            foreach(TemaContenido unTemaContenidoCurricula in unContenidoCurricula.listaContenidos)
+                            foreach (TemaContenido unTemaContenidoCurricula in unContenidoCurricula.listaContenidos)
                             {
                                 if (unTemaContenidoPlanificado.idTemaContenido == unTemaContenidoCurricula.idTemaContenido)
                                 {
@@ -433,11 +434,11 @@ namespace EDUAR_BusinessLogic.Common
                             }
                         }
                     }
-                
+
                 }
                 if (temasContenidosCurricula > 0)
                 {
-                    unaPlanificacion.porcentajeCobertura = Math.Round((temasContenidosCubiertos / temasContenidosCurricula)*100, 2);
+                    unaPlanificacion.porcentajeCobertura = Math.Round((temasContenidosCubiertos / temasContenidosCurricula) * 100, 2);
                 }
                 else
                 {
@@ -450,10 +451,10 @@ namespace EDUAR_BusinessLogic.Common
 
 
 
-            
-            
 
-             
+
+
+
 
         }
         #endregion

@@ -1,9 +1,9 @@
 ﻿using System;
-using EDUAR_DataAccess.Shared;
-using EDUAR_Entities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using EDUAR_DataAccess.Shared;
+using EDUAR_Entities;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
 
@@ -63,6 +63,7 @@ namespace EDUAR_DataAccess.Common
 
                 Transaction.DataBase.AddOutParameter(Transaction.DBcomand, "@idPlanificacionAnual", DbType.Int32, 2);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurricula", DbType.Int32, entidad.curricula.idCurricula);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cicloLectivo.idCicloLectivo);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioCreador", DbType.String, entidad.creador.username);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaCreacion", DbType.Date, DateTime.Now);
                 if (entidad.fechaAprobada.HasValue
@@ -154,6 +155,8 @@ namespace EDUAR_DataAccess.Common
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurricula", DbType.Int32, entidad.curricula.idCurricula);
                     if (entidad.idPlanificacionAnual > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPlanificacionAnual", DbType.Int32, entidad.idPlanificacionAnual);
+                    if (entidad.cicloLectivo.idCicloLectivo > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cicloLectivo.idCicloLectivo);
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -164,6 +167,8 @@ namespace EDUAR_DataAccess.Common
                 {
                     objEntidad = new PlanificacionAnual();
                     objEntidad.idPlanificacionAnual = Convert.ToInt32(reader["idPlanificacionAnual"]);
+                    objEntidad.cicloLectivo.idCicloLectivo = Convert.ToInt32(reader["idCicloLectivo"]);
+                    objEntidad.cicloLectivo.nombre = reader["cicloLectivo"].ToString();
                     objEntidad.creador = new Persona() { idPersona = Convert.ToInt32(reader["idCreador"]) };
 
                     if (DateTime.TryParse(reader["fechaAprobada"].ToString(), out fecha))
@@ -285,6 +290,7 @@ namespace EDUAR_DataAccess.Common
                 {
                     objEntidad = new CursoCicloLectivo();
                     objEntidad.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
+                    objEntidad.curso.nombre = reader["curso"].ToString();
                     listaEntidad.Add(objEntidad);
                 }
                 return listaEntidad;
@@ -327,7 +333,7 @@ namespace EDUAR_DataAccess.Common
                     objEntidad = new PlanificacionAnual();
                     objEntidad.idPlanificacionAnual = Convert.ToInt32(reader["idPlanificacionAnual"]);
                     objEntidad.creador = new Persona() { idPersona = Convert.ToInt32(reader["idCreador"]) };
-                    if(reader["fechaAprobada"] != DBNull.Value)
+                    if (reader["fechaAprobada"] != DBNull.Value)
                     {
                         objEntidad.fechaAprobada = Convert.ToDateTime(reader["fechaAprobada"]);
                     }
@@ -336,6 +342,8 @@ namespace EDUAR_DataAccess.Common
                     {
                         objEntidad.observaciones = reader["observaciones"].ToString();
                     }
+                    objEntidad.cicloLectivo.idCicloLectivo = Convert.ToInt32(reader["idCicloLectivo"]);
+                    objEntidad.cicloLectivo.nombre = reader["cicloLectivo"].ToString();
                     objEntidad.solicitarAprobacion = Convert.ToBoolean(reader["solicitarAprobacion"]);
                     objEntidad.curricula.idCurricula = Convert.ToInt32(reader["idCurricula"]);
                     objEntidad.curricula.asignatura.idAsignatura = Convert.ToInt32(reader["idAsignatura"]);
@@ -365,3 +373,4 @@ namespace EDUAR_DataAccess.Common
 
     }
 }
+

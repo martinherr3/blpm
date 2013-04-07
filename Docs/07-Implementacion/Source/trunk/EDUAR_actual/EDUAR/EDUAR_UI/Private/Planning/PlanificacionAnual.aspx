@@ -19,19 +19,19 @@
                     <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:ImageButton ID="btnContenidosPopUp" OnClick="btnContenidosPopUp_Click" runat="server"
-                                ToolTip="Asociar Contenidos" ImageUrl="~/Images/botonContenidos.png" Visible="false" />
-                            <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
-                                Visible="false" OnClick="btnNuevo_Click" />
+                                ToolTip="Contenidos" ImageUrl="~/Images/botonContenidos.png" Visible="false" />
                             <asp:ImageButton ID="btnCursos" runat="server" ToolTip="Cursos" ImageUrl="~/Images/botonLista.png"
                                 Visible="false" OnClick="btnCursos_Click" />
+                            <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo" ImageUrl="~/Images/botonNuevo.png"
+                                Visible="false" OnClick="btnNuevo_Click" />
                             <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
                                 Visible="false" OnClick="btnPDF_Click" />
                             <asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
                                 ImageUrl="~/Images/botonGuardar.png" Visible="false" />
                             <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                                 ImageUrl="~/Images/botonVolver.png" Visible="false" />
-                            <asp:ImageButton ID="btnVolverAnterior" OnClick="btnVolverAnterior_Click" runat="server"
-                                ToolTip="Volver" ImageUrl="~/Images/botonVolver.png" Visible="true" />
+                            <%--<asp:ImageButton ID="btnVolverAnterior" OnClick="btnVolverAnterior_Click" runat="server"
+                                ToolTip="Volver" ImageUrl="~/Images/botonVolver.png" Visible="true" />--%>
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />
@@ -284,7 +284,7 @@
                     <tr>
                         <td>
                             <h2>
-                                <asp:Label ID="Label1" Text="Asociar Cursos" runat="server" /></h2>
+                                <asp:Label ID="Label1" Text="Cursos Asociados" runat="server" /></h2>
                             <br />
                         </td>
                         <td align="right">
@@ -303,15 +303,16 @@
                     <tr>
                         <td colspan="2" align="center">
                             <asp:GridView ID="gvwCursos" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListadoSize10"
-                                AutoGenerateColumns="false" Width="500px" DataKeyNames="idCursoCicloLectivo" OnPageIndexChanging="gvwCursos_PageIndexChanging"
-                                OnPageIndexChanged="gvwCursos_PageIndexChanged">
+                                AutoGenerateColumns="false" Width="500px" DataKeyNames="idCursoCicloLectivo"
+                                OnPageIndexChanging="gvwCursos_PageIndexChanging" OnPageIndexChanged="gvwCursos_PageIndexChanged">
                                 <Columns>
                                     <asp:TemplateField>
                                         <HeaderStyle HorizontalAlign="left" Width="10%" />
                                         <ItemStyle HorizontalAlign="center" />
                                         <ItemTemplate>
-                                            <asp:CheckBox ID="chkSelection" Text='<%# Eval("idCursoCicloLectivo")%>' runat="server" CssClass="HiddenText"
-                                                Width="30px" ClientIDMode="Static" />
+                                            <asp:CheckBox ID="chkSelection" Text='<%# Eval("idCursoCicloLectivo")%>' runat="server"
+                                                CssClass="HiddenText" Width="30px" ClientIDMode="Static" Enabled='<%#
+planificacionEditar.fechaAprobada.HasValue == true ? false : true %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Curso">
@@ -342,7 +343,7 @@
                     <tr>
                         <td>
                             <h2>
-                                <asp:Label ID="lblTitulo" Text="Asociar Contenidos" runat="server" /></h2>
+                                <asp:Label ID="lblTitulo" Text="Contenidos Asociados" runat="server" /></h2>
                             <br />
                         </td>
                         <td align="right">
