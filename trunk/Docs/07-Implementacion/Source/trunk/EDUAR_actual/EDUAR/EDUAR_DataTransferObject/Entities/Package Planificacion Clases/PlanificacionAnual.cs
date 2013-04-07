@@ -21,6 +21,7 @@ namespace EDUAR_Entities
 		public string observaciones { get; set; }
 		public List<TemaPlanificacionAnual> listaTemasPlanificacion {get; set;}
         public List<CursoCicloLectivo> listaCursos { get; set; }
+        public CicloLectivo cicloLectivo { get; set; }
 		public bool solicitarAprobacion { get; set; }
         public decimal porcentajeCobertura { get; set; }
 
@@ -29,6 +30,7 @@ namespace EDUAR_Entities
 		{
             curricula = new Curricula();
 			creador = new Persona();
+            cicloLectivo = new CicloLectivo();
 			listaTemasPlanificacion = new List<TemaPlanificacionAnual>();
             listaCursos = new List<CursoCicloLectivo>();
 		}
