@@ -369,14 +369,14 @@ planificacionEditar.fechaAprobada.HasValue == true ? false : true %>' />
                                         <ItemTemplate>
                                             <asp:CheckBox ID="chkSelection" Text='<%# Eval("idTemaContenido")%>' runat="server"
                                                 CssClass="HiddenText" Width="30px" ClientIDMode="Static" Enabled='<%#
-planificacionEditar.fechaAprobada.HasValue == true ? false : Eval("activo") %>' />
+planificacionEditar.fechaAprobada.HasValue == true ? false : true %>' />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Tema">
                                         <HeaderStyle HorizontalAlign="left" Width="75%" />
                                         <ItemStyle HorizontalAlign="left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblTituloContenidos" runat="server" Text='<%# Bind("Titulo") %>'></asp:Label>
+                                            <asp:Label ID="lblTituloContenidos" runat="server" Text='<%# Bind("Titulo") %>' Font-Italic='<%# (bool)Eval("activo") ? false : true %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Obligatorio">
@@ -384,7 +384,7 @@ planificacionEditar.fechaAprobada.HasValue == true ? false : Eval("activo") %>' 
                                         <ItemStyle HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblObligatorio" runat="server" Text='<%# Boolean.Parse(Eval("Obligatorio").ToString())
-? "Sí" : "No" %>'></asp:Label>
+? "Sí" : "No" %>' Font-Italic='<%# (bool)Eval("activo") ? false : true %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>

@@ -189,6 +189,29 @@ namespace EDUAR_BusinessLogic.Common
         /// <summary>
         /// Gets the niveles.
         /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public List<Nivel> GetNiveles(AsignaturaCicloLectivo entidad)
+        {
+            try
+            {
+                return DataAcces.GetNiveles(entidad);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetNiveles", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        /// <summary>
+        /// Gets the niveles.
+        /// </summary>
         /// <returns></returns>
         /// <exception cref="CustomizedException"></exception>
         public List<Nivel> GetNiveles()
@@ -203,7 +226,7 @@ namespace EDUAR_BusinessLogic.Common
             }
             catch (Exception ex)
             {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetByCursoCicloLectivo", ClassName), ex,
+                throw new CustomizedException(string.Format("Fallo en {0} - GetNiveles", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
         }

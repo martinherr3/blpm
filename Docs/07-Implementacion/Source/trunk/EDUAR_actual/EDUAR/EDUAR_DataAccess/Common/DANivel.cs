@@ -111,12 +111,59 @@ namespace EDUAR_DataAccess.Common
         /// <returns></returns>
         /// <exception cref="CustomizedException">
         /// </exception>
+        public List<Nivel> GetNiveles(AsignaturaCicloLectivo entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("AsignaturaNivel_Select");
+                if (entidad != null)
+                {
+                    if (entidad.cursoCicloLectivo.cicloLectivo.idCicloLectivo > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cursoCicloLectivo.cicloLectivo.idCicloLectivo);
+                    if (entidad.cursoCicloLectivo.curso.nivel.idNivel > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32, entidad.cursoCicloLectivo.curso.nivel.idNivel);
+                    if (entidad.docente != null && !string.IsNullOrEmpty(entidad.docente.username))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@docente", DbType.String, entidad.docente.username);
+                }
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<Nivel> listaNiveles = new List<Nivel>();
+                Nivel objNivel;
+                while (reader.Read())
+                {
+                    objNivel = new Nivel();
+
+                    objNivel.idNivel = Convert.ToInt32(reader["idNivel"]);
+                    objNivel.nombre = reader["nivel"].ToString();
+
+                    listaNiveles.Add(objNivel);
+                }
+                return listaNiveles;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetNiveles(AsignaturaCicloLectivo)", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetNiveles(AsignaturaCicloLectivo)", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        /// <summary>
+        /// Gets the niveles.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException">
+        /// </exception>
         public List<Nivel> GetNiveles()
         {
             try
             {
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("NivelesCursoCicloLectivo_Select");
-
+               
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
                 List<Nivel> listaNiveles = new List<Nivel>();
