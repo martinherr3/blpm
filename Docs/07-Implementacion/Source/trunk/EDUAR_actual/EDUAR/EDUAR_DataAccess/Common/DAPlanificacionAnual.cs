@@ -337,7 +337,10 @@ namespace EDUAR_DataAccess.Common
                     {
                         objEntidad.fechaAprobada = Convert.ToDateTime(reader["fechaAprobada"]);
                     }
-                    objEntidad.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"]);
+                    if (reader["fechaCreacion"] != DBNull.Value)
+                    {
+                        objEntidad.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"]);
+                    }
                     if (reader["observaciones"] != DBNull.Value)
                     {
                         objEntidad.observaciones = reader["observaciones"].ToString();

@@ -85,7 +85,11 @@
                             <asp:ImageButton ID="editarPlanificacion" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
                                 ToolTip="Editar Planificacion de Clases" ImageUrl="~/Images/Grillas/action_edit.png" />
                             <asp:ImageButton ID="aprobarPlanificacion" runat="server" CommandName="Aprobar" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
-                                ToolTip="Aprobar la Planificacion de clases" ImageUrl="~/Images/Grillas/action_enable.png" />
+                                ToolTip="Aprobar la Planificacion de clases" ImageUrl="~/Images/Grillas/action_enable.png"
+                                 Visible='<%# DataBinder.Eval(Container.DataItem, "fechaAprobada").ToString() != String.Empty ? false: true %>' />
+                           <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La Planificación ya ha sido aprobada"
+                                ImageUrl="~/Images/Grillas/lock.png" Visible='<%# DataBinder.Eval(Container.DataItem, "fechaAprobada").ToString() == String.Empty ? false: true %>' />
+
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fechade Creacion">
@@ -95,6 +99,15 @@
                             <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# Bind("fechaCreacion","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
+
+                      <asp:TemplateField HeaderText="Fechade Aprobacion">
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <ItemStyle HorizontalAlign="center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblFechaAproadaGrilla" runat="server" Text='<%# Bind("fechaAprobada","{0:d}") %>'></asp:Label>
+                        </ItemTemplate>
+                      </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Asignatura">
                         <HeaderStyle HorizontalAlign="left" Width="15%" />
                         <ItemStyle HorizontalAlign="left" />

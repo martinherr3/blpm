@@ -203,23 +203,6 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Gets or sets the id asignatura.
-        /// </summary>
-        /// <value>
-        /// The id asignatura.
-        /// </value>
-        public int idAsignatura
-        {
-            get
-            {
-                if (Session["idAsignatura"] == null)
-                    idAsignatura = 0;
-                return (int)Session["idAsignatura"];
-            }
-            set { Session["idAsignatura"] = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the id orientacion.
         /// </summary>
         /// <value>
@@ -306,6 +289,7 @@ namespace EDUAR_UI
                 if (!Page.IsPostBack)
                 {
                     idNivel = cursoActual.curso.nivel.idNivel;
+                    idOrientacion = cursoActual.curso.orientacion.idOrientacion;
                     CargarPresentacion();
                     CargarCurso();
                     CargarFiltros();
@@ -564,7 +548,7 @@ namespace EDUAR_UI
                 if (idNivel > 0)
                 {
                     this.idNivel = idNivel;
-                    CargarComboAsignatura(idNivel);
+                    CargarComboAsignatura();
                 }
                 else
                 {
@@ -1005,6 +989,10 @@ namespace EDUAR_UI
         {
             ddlNivel.SelectedValue = idNivel.ToString();
             ddlNivel.Enabled = ddlNivel.Items.Count > 0;
+            if (ddlAsignatura.Items.Count <= 1)
+            {
+                CargarComboAsignatura();
+            }
             ddlAsignatura.SelectedValue = idAsignatura.ToString();
             ddlAsignatura.Enabled = ddlAsignatura.Items.Count > 0;
             if (idAsignatura > 0)
@@ -1017,7 +1005,7 @@ namespace EDUAR_UI
         /// <summary>
         /// Cargars the asignaturas.
         /// </summary>
-        private void CargarComboAsignatura(int idCursoCicloLectivo)
+        private void CargarComboAsignatura()
         {
             ddlAsignatura.Items.Clear();
             List<Asignatura> listaAsignaturas = new List<Asignatura>();
@@ -1464,7 +1452,7 @@ namespace EDUAR_UI
         {
             if (base.idCursoCicloLectivo > 0)
             {
-                CargarComboAsignatura(base.idCursoCicloLectivo);
+                CargarComboAsignatura();
                 lblTituloPrincipal.Text = "Planificación de Contenidos - " + base.cursoActual.curso.nivel.nombre;
             }
 

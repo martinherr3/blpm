@@ -224,6 +224,23 @@ namespace EDUAR_UI.Shared
 			}
 			set { Session["cursoActual"] = value; }
 		}
+
+        /// <summary>
+        /// Gets or sets the id asignatura.
+        /// </summary>
+        /// <value>
+        /// The id asignatura.
+        /// </value>
+        public int idAsignatura
+        {
+            get
+            {
+                if (Session["idAsignatura"] == null)
+                    idAsignatura = 0;
+                return (int)Session["idAsignatura"];
+            }
+            set { Session["idAsignatura"] = value; }
+        }
 		#endregion
 
 		#region --[Eventos]--

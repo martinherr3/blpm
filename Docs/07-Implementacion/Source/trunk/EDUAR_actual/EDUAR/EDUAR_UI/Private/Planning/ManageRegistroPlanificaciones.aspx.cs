@@ -29,12 +29,12 @@ namespace EDUAR_UI
         /// <value>
         /// The prop filtro evento.
         /// </value>
-        public PlanificacionAnual propFiltroEvento
+        public PlanificacionAnual propFiltroPlanificacion
         {
             get
             {
                 if (ViewState["propFiltroEvento"] == null)
-                    propFiltroEvento = new PlanificacionAnual();
+                    propFiltroPlanificacion = new PlanificacionAnual();
 
                 return (PlanificacionAnual)ViewState["propFiltroEvento"];
             }
@@ -165,8 +165,14 @@ namespace EDUAR_UI
                 switch (e.CommandName)
                 {
                     case "Editar":
-                        //propEvento.idEventoAgenda = Convert.ToInt32(e.CommandArgument.ToString());
-                        //CargaAgenda();
+                        propFiltroPlanificacion.idPlanificacionAnual = Convert.ToInt32(e.CommandArgument.ToString());
+                        editarPlanificacion();
+                        break;
+                    case "Aprobar":
+                        propFiltroPlanificacion.idPlanificacionAnual = Convert.ToInt32(e.CommandArgument.ToString());
+                        AprobarPlanificacion();
+                        break;
+                    case "Default":
                         break;
                 }
             }
@@ -282,7 +288,7 @@ namespace EDUAR_UI
         {
             calfechas.ValidarRangoDesdeHasta(false);
             PlanificacionAnual entidad = new PlanificacionAnual();
-            propFiltroEvento = entidad;
+            propFiltroPlanificacion = entidad;
             BuscarPlanificacion();
         }
 
@@ -336,6 +342,67 @@ namespace EDUAR_UI
             //    objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
             //UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
+        }
+
+        /// <summary>
+        /// Aprobars the planificacion.
+        /// </summary>
+        private void AprobarPlanificacion()
+        {
+
+            foreach (PlanificacionAnual unaPlanificacion in listaPlanificaciones)
+            {
+                if (propFiltroPlanificacion.idPlanificacionAnual == unaPlanificacion.idPlanificacionAnual)
+                {
+                    propFiltroPlanificacion.creador = unaPlanificacion.creador;
+                    propFiltroPlanificacion.curricula = unaPlanificacion.curricula;
+                    propFiltroPlanificacion.fechaAprobada = unaPlanificacion.fechaAprobada;
+                    propFiltroPlanificacion.fechaCreacion = unaPlanificacion.fechaCreacion;
+                    propFiltroPlanificacion.listaCursos = unaPlanificacion.listaCursos;
+                    propFiltroPlanificacion.listaTemasPlanificacion = unaPlanificacion.listaTemasPlanificacion;
+                    propFiltroPlanificacion.observaciones = unaPlanificacion.observaciones;
+                    propFiltroPlanificacion.porcentajeCobertura = unaPlanificacion.porcentajeCobertura;
+                    propFiltroPlanificacion.solicitarAprobacion = unaPlanificacion.solicitarAprobacion;
+                }
+            }
+
+            PlanificacionAnual objAprobar = new PlanificacionAnual();
+            objAprobar.creador.username = (string.IsNullOrEmpty(propFiltroPlanificacion.creador.username)) ? User.Identity.Name : propFiltroPlanificacion.creador.username;
+            objAprobar.idPlanificacionAnual = propFiltroPlanificacion.idPlanificacionAnual;
+            objAprobar.solicitarAprobacion = propFiltroPlanificacion.solicitarAprobacion;
+            objAprobar.fechaAprobada = DateTime.Today;
+            propFiltroPlanificacion.fechaAprobada = DateTime.Today;
+            BLPlanificacionAnual objBLAprobar = new BLPlanificacionAnual(objAprobar);
+            objBLAprobar.Save();
+
+        }
+
+        private void editarPlanificacion()
+        {
+            foreach (PlanificacionAnual unaPlanificacion in listaPlanificaciones)
+            {
+                if (propFiltroPlanificacion.idPlanificacionAnual == unaPlanificacion.idPlanificacionAnual)
+                {
+                    propFiltroPlanificacion.creador = unaPlanificacion.creador;
+                    propFiltroPlanificacion.curricula = unaPlanificacion.curricula;
+                    propFiltroPlanificacion.fechaAprobada = unaPlanificacion.fechaAprobada;
+                    propFiltroPlanificacion.fechaCreacion = unaPlanificacion.fechaCreacion;
+                    propFiltroPlanificacion.listaCursos = unaPlanificacion.listaCursos;
+                    propFiltroPlanificacion.listaTemasPlanificacion = unaPlanificacion.listaTemasPlanificacion;
+                    propFiltroPlanificacion.observaciones = unaPlanificacion.observaciones;
+                    propFiltroPlanificacion.porcentajeCobertura = unaPlanificacion.porcentajeCobertura;
+                    propFiltroPlanificacion.solicitarAprobacion = unaPlanificacion.solicitarAprobacion;
+                }
+            }
+
+            cursoActual.curso.nivel.idNivel = propFiltroPlanificacion.curricula.nivel.idNivel ;
+            cursoActual.curso.orientacion.idOrientacion = propFiltroPlanificacion.curricula.orientacion.idOrientacion;
+            idAsignatura = propFiltroPlanificacion.curricula.asignatura.idAsignatura;
+
+            Response.Redirect("~/Private/Planning/PlanificacionAnual.aspx", false);
+
+
+ 
         }
         #endregion
     }
