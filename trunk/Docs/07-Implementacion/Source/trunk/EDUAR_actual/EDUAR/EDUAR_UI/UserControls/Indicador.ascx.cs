@@ -158,7 +158,6 @@ namespace EDUAR_UI.UserControls
 			}
 			set { ViewState["InvertirRangos_" + this.UniqueID] = value; }
 		}
-
 		#endregion
 
 		#region --[Eventos]--

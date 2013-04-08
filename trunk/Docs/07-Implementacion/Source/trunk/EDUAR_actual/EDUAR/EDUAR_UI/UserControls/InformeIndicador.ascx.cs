@@ -3,6 +3,8 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_BusinessLogic.Reports;
+using EDUAR_Entities;
+using EDUAR_BusinessLogic.Common;
 
 
 namespace EDUAR_UI.UserControls
@@ -37,21 +39,21 @@ namespace EDUAR_UI.UserControls
             get
             {
                 if (Session["Fecha_Desde_Indicador"] != null)
-					return Convert.ToDateTime(Session["Fecha_Desde_Indicador"].ToString());
+                    return Convert.ToDateTime(Session["Fecha_Desde_Indicador"].ToString());
                 return DateTime.MinValue;
             }
-			set { Session["Fecha_Desde_Indicador"] = value; }
+            set { Session["Fecha_Desde_Indicador"] = value; }
         }
 
         public DateTime Hasta
         {
             get
             {
-				if (Session["Fecha_Hasta_Indicador"] != null)
-					return Convert.ToDateTime(Session["Fecha_Hasta_Indicador"].ToString());
+                if (Session["Fecha_Hasta_Indicador"] != null)
+                    return Convert.ToDateTime(Session["Fecha_Hasta_Indicador"].ToString());
                 return DateTime.MinValue;
             }
-			set { Session["Fecha_Hasta_Indicador"] = value; }
+            set { Session["Fecha_Hasta_Indicador"] = value; }
         }
 
         public string Titulo
@@ -65,12 +67,34 @@ namespace EDUAR_UI.UserControls
             set { ViewState["Titulo"] = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the ciclo lectivo actual.
+        /// </summary>
+        /// <value>
+        /// The ciclo lectivo actual.
+        /// </value>
+        public CicloLectivo cicloLectivoActual
+        {
+            get
+            {
+                if (ViewState["cicloLectivoActual"] == null)
+                {
+                    BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+                    cicloLectivoActual = objBLCicloLectivo.GetCicloLectivoActual();
+                }
+                return (CicloLectivo)ViewState["cicloLectivoActual"];
+            }
+            set { ViewState["cicloLectivoActual"] = value; }
+        }
         #endregion
 
         #region --[Métodos Públicos]--
         protected void Page_Load(object sender, EventArgs e)
         {
             btnSalir.Click += (InformeIndicadorSalir);
+            calFechaDesde.startDate = cicloLectivoActual.fechaInicio;
+            calFechaHasta.startDate = cicloLectivoActual.fechaInicio;
+
             calFechaDesde.endDate = DateTime.Today;
             calFechaHasta.endDate = DateTime.Today;
         }
@@ -193,8 +217,8 @@ namespace EDUAR_UI.UserControls
             SortExpressionInf = null;
             SortDirectionInf = null;
             SP = null;
-            Desde = DateTime.MinValue;
-            Hasta = DateTime.MinValue;
+            Desde = cicloLectivoActual.fechaInicio;
+            Hasta = DateTime.Today;
             Titulo = "";
             grvInforme.DataSource = new DataTable();
             grvInforme.DataBind();
@@ -208,6 +232,11 @@ namespace EDUAR_UI.UserControls
         {
             BLInformeIndicador objBLInforme = new BLInformeIndicador();
             DateTime desde = Convert.ToDateTime(calFechaDesde.ValorFecha);
+            if (desde.Subtract(cicloLectivoActual.fechaInicio).Days < 0)
+            {
+                desde = cicloLectivoActual.fechaInicio;
+                calFechaDesde.Fecha.Text = desde.ToShortDateString();
+            }
             DateTime hasta = Convert.ToDateTime(calFechaHasta.ValorFecha);
             DataTable dt = objBLInforme.GetInformeIndicador(SP, idCursoCicloLectivo, desde, hasta);
             grvInforme.DataSource = dt;
