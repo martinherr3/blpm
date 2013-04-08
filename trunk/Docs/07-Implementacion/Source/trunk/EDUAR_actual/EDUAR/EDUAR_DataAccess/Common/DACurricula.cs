@@ -217,6 +217,9 @@ namespace EDUAR_DataAccess.Common
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32, entidad.nivel.idNivel);
                     if (entidad.orientacion.idOrientacion > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idOrientacion", DbType.Int32, entidad.orientacion.idOrientacion);
+                    if (entidad.idCurricula > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurricula", DbType.Int32, entidad.idCurricula);
+
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
                 Curricula objCurricula = new Curricula();
