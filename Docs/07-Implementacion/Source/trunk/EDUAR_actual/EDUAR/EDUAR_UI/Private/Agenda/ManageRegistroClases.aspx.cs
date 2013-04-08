@@ -346,7 +346,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				if (User.IsInRole(enumRoles.Docente.ToString()))
+				if (User.IsInRole(enumRoles.Docente.ToString()) || User.IsInRole(enumRoles.Administrador.ToString()))
 				{
 					List<TemaPlanificacionAnual> TemasPlanificadosAtrasados = new List<TemaPlanificacionAnual>();
 					List<TemaContenidoAtrasado> TemasContenidosAtrasados = new List<TemaContenidoAtrasado>();
@@ -907,7 +907,7 @@ namespace EDUAR_UI
 					ddlDia.SelectedIndex = 0;
 				ddlAsignaturaEdit.SelectedValue = entidad.asignatura.idAsignatura.ToString();
 				//btnContenidosPopUp.Enabled = true;
-				btnContenidosPopUp.Visible = User.IsInRole(enumRoles.Docente.ToString());
+                btnContenidosPopUp.Visible = User.IsInRole(enumRoles.Docente.ToString()) || User.IsInRole(enumRoles.Administrador.ToString());
 				ddlAsignaturaEdit.Enabled = false;
 				ddlMeses.Enabled = true;
 				chkActivoEdit.Checked = entidad.activo;
@@ -958,7 +958,7 @@ namespace EDUAR_UI
 			litNuevo.Visible = false;
 			btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
-			btnContenidosPopUp.Visible = User.IsInRole(enumRoles.Docente.ToString());
+			btnContenidosPopUp.Visible = User.IsInRole(enumRoles.Docente.ToString()) || User.IsInRole(enumRoles.Administrador.ToString());
 			btnVolver.Visible = true;
 			btnGuardar.Visible = true;
 			gvwReporte.Visible = false;
