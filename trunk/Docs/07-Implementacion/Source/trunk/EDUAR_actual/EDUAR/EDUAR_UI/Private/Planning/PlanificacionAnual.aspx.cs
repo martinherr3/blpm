@@ -28,7 +28,17 @@ namespace EDUAR_UI
                 if (ViewState["listaNiveles"] == null && cicloLectivoActual != null)
                 {
                     BLNivel objBLNivel = new BLNivel();
-                    listaNiveles = objBLNivel.GetNiveles();
+
+
+                    if (User.IsInRole(enumRoles.Docente.ToString()))
+                    {
+                        AsignaturaCicloLectivo asignatura = new AsignaturaCicloLectivo();
+                        asignatura.docente.username = User.Identity.Name;
+                        asignatura.cursoCicloLectivo.cicloLectivo = cicloLectivoActual;
+                        listaNiveles = objBLNivel.GetNiveles(asignatura);
+                    }
+                    else
+                        listaNiveles = objBLNivel.GetNiveles();
                 }
                 return (List<Nivel>)ViewState["listaNiveles"];
             }
@@ -57,6 +67,19 @@ namespace EDUAR_UI
 
                     //devuelve todos los temas activos
                     listaContenido = objBLCurricula.GetTemasContenidoByCurricula(objFiltro);
+
+                    if (idTemaPlanificacion > 0)
+                    {
+                        List<TemaContenido> listaAuxiliar = new List<TemaContenido>();
+
+                        TemaPlanificacionAnual objFiltroDesactivados = new TemaPlanificacionAnual();
+                        objFiltroDesactivados.idTemaPlanificacion = idTemaPlanificacion;
+                        BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual(objFiltroDesactivados);
+                        listaAuxiliar = objBLTemas.ObtenerContenidosDesactivados();
+
+                        foreach (TemaContenido item in listaAuxiliar)
+                            listaContenido.Add(item);
+                    }
                 }
                 return (List<TemaContenido>)ViewState["listaContenido"];
             }
@@ -282,8 +305,10 @@ namespace EDUAR_UI
                 Master.BotonAvisoCancelar += (VentanaCancelar);
                 if (!Page.IsPostBack)
                 {
+                    idNivel = cursoActual.curso.nivel.idNivel;
                     CargarPresentacion();
                     CargarCurso();
+                    CargarFiltros();
                 }
                 //chkAprobada.Attributes.Add("onclick", "if(!jConfirm('¿Desea aprobar la presente planificación?','Confirmación')) {return false};");
                 //chkSolicitarAprobacion.Attributes.Add("onclick", "if(!jConfirm('¿Desea solicitar la aprobación de la presente planificación?''Confirmación')) {return false};");
@@ -408,7 +433,6 @@ namespace EDUAR_UI
                 ddlOrientacion.Enabled = false;
                 btnPDF.Visible = false;
                 btnVolver.Visible = true;
-                //btnVolverAnterior.Visible = false;
                 btnCursos.Visible = btnNuevo.Visible = false;
                 gvwPlanificacion.Visible = false;
                 divControles.Visible = true;
@@ -457,7 +481,6 @@ namespace EDUAR_UI
                     btnContenidosPopUp.Visible = false;
                     btnPDF.Visible = true;
                     btnVolver.Visible = false;
-                    //btnVolverAnterior.Visible = false;
                     btnGuardar.Visible = false;
 
                     ddlAsignatura.Enabled = true;
@@ -477,10 +500,7 @@ namespace EDUAR_UI
                     udpGrilla.Update();
                 }
                 else
-                {
-                    //AccionPagina = enumAcciones.Error;
                     Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), mensaje, enumTipoVentanaInformacion.Advertencia);
-                }
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
@@ -551,7 +571,6 @@ namespace EDUAR_UI
                     CargarPresentacion();
                     btnNuevo.Visible = false;
                     btnCursos.Visible = false;
-                    //btnVolverAnterior.Visible = false;
                     btnVolver.Visible = false;
                 }
                 listaCursos.Clear();
@@ -658,7 +677,6 @@ namespace EDUAR_UI
                         btnNuevo.Visible = false;
                         btnCursos.Visible = false;
                         btnVolver.Visible = true;
-                        //btnVolverAnterior.Visible = false;
                         btnPDF.Visible = false;
                         btnContenidosPopUp.Visible = true;
 
@@ -688,7 +706,6 @@ namespace EDUAR_UI
                         btnNuevo.Visible = false;
                         btnCursos.Visible = false;
                         btnVolver.Visible = true;
-                        //btnVolverAnterior.Visible = false;
                         btnPDF.Visible = false;
                         btnContenidosPopUp.Visible = true;
 
@@ -972,7 +989,6 @@ namespace EDUAR_UI
             divAprobacion.Visible = false;
 
             btnVolver.Visible = false;
-            //btnVolverAnterior.Visible = false;
             btnGuardar.Visible = false;
             btnPDF.Visible = false;
             btnCursos.Visible = btnNuevo.Visible = false;
@@ -991,8 +1007,11 @@ namespace EDUAR_UI
             ddlNivel.Enabled = ddlNivel.Items.Count > 0;
             ddlAsignatura.SelectedValue = idAsignatura.ToString();
             ddlAsignatura.Enabled = ddlAsignatura.Items.Count > 0;
-            ddlOrientacion.SelectedValue = idOrientacion.ToString();
-            CargarOrientacion();
+            if (idAsignatura > 0)
+            {
+                ddlOrientacion.SelectedValue = idOrientacion.ToString();
+                CargarOrientacion();
+            }
         }
 
         /// <summary>
@@ -1000,27 +1019,27 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarComboAsignatura(int idCursoCicloLectivo)
         {
-            //Docente docente = null;
-            //if (User.IsInRole(enumRoles.Docente.ToString()))
-            //{
-            //    docente = new Docente();
-            //    docente.username = User.Identity.Name;
-            //}
-            //curso.idCursoCicloLectivo = idCursoCicloLectivo;
-            //listaAsignaturas = objBLAsignatura.GetAsignaturasCurso(new Asignatura() { cursoCicloLectivo = curso, docente = docente });
+            ddlAsignatura.Items.Clear();
             List<Asignatura> listaAsignaturas = new List<Asignatura>();
             BLAsignatura objBLAsignatura = new BLAsignatura();
-            Nivel Nivel = new Nivel();
-            Docente docente = null;
+            AsignaturaCicloLectivo asignatura = new AsignaturaCicloLectivo();
+
             if (User.IsInRole(enumRoles.Docente.ToString()))
-            {
-                docente = new Docente();
-                docente.username = User.Identity.Name;
-            }
-            Nivel.idNivel = idNivel;
-            listaAsignaturas = objBLAsignatura.GetAsignaturasNivel(Nivel);
+                asignatura.docente.username = User.Identity.Name;
+            asignatura.cursoCicloLectivo.curso.nivel.idNivel = idNivel;
+            asignatura.cursoCicloLectivo.cicloLectivo = cicloLectivoActual;
+
+            listaAsignaturas = objBLAsignatura.GetAsignaturasNivel(asignatura);
             if (listaAsignaturas != null && listaAsignaturas.Count > 0)
+            {
                 UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignaturas, "idAsignatura", "nombre", true);
+                if (listaAsignaturas.Count == 1)
+                {
+                    ddlAsignatura.SelectedIndex = 1;
+                    idAsignatura = listaAsignaturas[0].idAsignatura;
+                    CargarOrientacion();
+                }
+            }
         }
 
         /// <summary>
@@ -1291,13 +1310,6 @@ namespace EDUAR_UI
             BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual(objFiltro);
             listaContenidosPlanificados = objBLTemas.ObtenerContenidos();
 
-            //TODO: temas incluidos en la planificacion y luego han sido desactivados
-            //List<TemaContenido> listaAuxiliar = new List<TemaContenido>();
-            //listaAuxiliar = objBLTemas.ObtenerContenidosDesactivados();
-
-            //foreach (TemaContenido item in listaAuxiliar)
-            //    listaContenido.Add(item);
-
             return (listaContenidosPlanificados);
         }
 
@@ -1387,6 +1399,7 @@ namespace EDUAR_UI
             BLPlanificacionAnual objPlanificacionBL = new BLPlanificacionAnual(objPlanificacion);
             objPlanificacionBL.GrabarPlanificacion();
             idTemaPlanificacion = 0;
+            listaContenido = null;
             ObtenerPlanificacion(new AsignaturaNivel());
         }
 
@@ -1452,7 +1465,7 @@ namespace EDUAR_UI
             if (base.idCursoCicloLectivo > 0)
             {
                 CargarComboAsignatura(base.idCursoCicloLectivo);
-                lblTituloPrincipal.Text = "Planificación de Contenidos - " + base.cursoActual.curso.nombre;
+                lblTituloPrincipal.Text = "Planificación de Contenidos - " + base.cursoActual.curso.nivel.nombre;
             }
 
             divAprobacion.Visible = false;

@@ -152,7 +152,8 @@ namespace EDUAR_DataAccess.Common
 
                     objCurso.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
                     objCurso.curso.nombre = reader["nombre"].ToString();
-                    //objCurso.nivel.idNivel = (int)reader["idCurso"];
+                    objCurso.curso.nivel.nombre = reader["nivel"].ToString();
+                    objCurso.curso.nivel.idNivel = Convert.ToInt32(reader["idNivel"]);
                     // Preguntar como hacer con esto
                     // objCurso.orientacion = (int)reader["idOrientacion"];
                     //if (reader["idPreceptor"] != DBNull.Value)
