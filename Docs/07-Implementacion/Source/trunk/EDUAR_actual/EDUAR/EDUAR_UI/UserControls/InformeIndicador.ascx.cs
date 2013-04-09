@@ -86,6 +86,28 @@ namespace EDUAR_UI.UserControls
             }
             set { ViewState["cicloLectivoActual"] = value; }
         }
+
+                /// <summary>
+        /// Gets or sets the id curso ciclo lectivo.
+        /// </summary>
+        /// <value>
+        /// The id curso ciclo lectivo.
+        /// </value>
+        public int idCursoIndicador
+        {
+            get
+            {
+                if (ViewState["idCursoIndicador_" + this.UniqueID] == null)
+                {
+                    if (idCursoCicloLectivo > 0)
+                        idCursoIndicador = idCursoCicloLectivo;
+                    else
+                        idCursoIndicador = 0;
+                }
+                return (int)ViewState["idCursoIndicador_" + this.UniqueID];
+            }
+            set { ViewState["idCursoIndicador_" + this.UniqueID] = value; }
+        }
         #endregion
 
         #region --[Métodos Públicos]--
@@ -238,7 +260,7 @@ namespace EDUAR_UI.UserControls
                 calFechaDesde.Fecha.Text = desde.ToShortDateString();
             }
             DateTime hasta = Convert.ToDateTime(calFechaHasta.ValorFecha);
-            DataTable dt = objBLInforme.GetInformeIndicador(SP, idCursoCicloLectivo, desde, hasta);
+            DataTable dt = objBLInforme.GetInformeIndicador(SP, idCursoIndicador, desde, hasta);
             grvInforme.DataSource = dt;
             grvInforme.DataBind();
 
