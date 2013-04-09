@@ -17,7 +17,7 @@
             </siteMapNode>
             <siteMapNode url="~/Private/Novedades/ConsultaNovedadAulica.aspx" title="Novedades" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" visible="false" />
 
-            <!--<siteMapNode url="~/Private/Planning/PlanificacionAnual.aspx" title="Planificación" roles="Administrador,Director,Docente" visible="false" />-->
+            <siteMapNode url="~/Private/Monitoreo/IndicadoresGenerales.aspx" title="Indicadores Generales" roles="Administrador,Director" visible="true" />
             <siteMapNode url="~/Private/Monitoreo/GetIndicadores.aspx" title="Indicadores" roles="Administrador,Director" visible="false"/>
 
             <siteMapNode url="~/Private/Novedades/RegNovedadInstitucion.aspx" title="Novedades" roles="Administrador,Director" />
@@ -63,8 +63,8 @@
             <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar Usuario" roles="Administrador" visible="false"/>
         </siteMapNode>
         <siteMapNode url="" title="Configuración Encuestas" roles="Administrador,Director,Docente" >
-          <siteMapNode url="~/Private/Encuestas/ManageCategoriasPregunta.aspx" title="Configuración Categorías de Preguntas" roles="Administrador,Director,Docente" />
-          <siteMapNode url="~/Private/Encuestas/ManageEscalasPonderacion.aspx" title="Configuración Escalas de Ponderación" roles="Administrador,Director,Docente" />
+            <siteMapNode url="~/Private/Encuestas/ManageCategoriasPregunta.aspx" title="Configuración Categorías de Preguntas" roles="Administrador,Director,Docente" />
+            <siteMapNode url="~/Private/Encuestas/ManageEscalasPonderacion.aspx" title="Configuración Escalas de Ponderación" roles="Administrador,Director,Docente" />
         </siteMapNode>
-      </siteMapNode>
+    </siteMapNode>
 </siteMap>

@@ -9,6 +9,7 @@
                         <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td align="center" style="height:40px; vertical-align:middle;">
+                                    <asp:Label ID="lblCurso" runat="server" Font-Underline="true" Font-Bold="true" Text=""></asp:Label>
                                     <asp:Label ID="lblTitulo" runat="server" Font-Underline="true" Font-Bold="true" Text="-"></asp:Label>
                                 </td>
                             </tr>

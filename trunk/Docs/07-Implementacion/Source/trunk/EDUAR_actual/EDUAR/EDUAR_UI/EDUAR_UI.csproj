@@ -373,6 +373,7 @@
     <Content Include="Private\Manuales\Reportes\SelecCicloLectivo.jpg" />
     <Content Include="Private\Manuales\Reportes\seleccionarFecha.jpg" />
     <Content Include="Private\Manuales\Reportes\unCursoTodas Asig1.jpg" />
+    <Content Include="Private\Monitoreo\IndicadoresGenerales.aspx" />
     <Content Include="Private\Novedades\ConsultaNovedadAulica.aspx" />
     <Content Include="Private\Novedades\RegNovedadInstitucion.aspx" />
     <Content Include="Private\Agenda\ManageReuniones.aspx" />
@@ -706,6 +707,13 @@
     </Compile>
     <Compile Include="Private\Manuales\Help.Master.designer.cs">
       <DependentUpon>Help.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Private\Monitoreo\IndicadoresGenerales.aspx.cs">
+      <DependentUpon>IndicadoresGenerales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Private\Monitoreo\IndicadoresGenerales.aspx.designer.cs">
+      <DependentUpon>IndicadoresGenerales.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Novedades\ConsultaNovedadAulica.aspx.cs">
       <DependentUpon>ConsultaNovedadAulica.aspx</DependentUpon>
