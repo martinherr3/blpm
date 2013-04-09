@@ -216,36 +216,6 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
-
-        /// <summary>
-        /// Gets the planificacion.
-        /// </summary>
-        /// <param name="entidad">The entidad.</param>
-        /// <returns></returns>
-        public List<PlanificacionAnual> GetPlanificacion(CicloLectivo entidad)
-        {
-            try
-            {
-                List<PlanificacionAnual> lista = DataAcces.GetPlanificacion(entidad);
-                BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
-                BLCurricula objBLCurricula = new BLCurricula();
-                foreach (PlanificacionAnual item in lista)
-                {
-                    item.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnual(item);
-                    item.curricula = objBLCurricula.GetByAsignaturaNivelOrientacion(item.curricula);
-                }
-                return lista;
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetPlanificacion", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
         /// <summary>
         /// Gets the planificacion.
         /// </summary>
