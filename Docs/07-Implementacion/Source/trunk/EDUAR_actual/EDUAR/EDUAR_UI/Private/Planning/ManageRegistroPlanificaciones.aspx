@@ -21,9 +21,9 @@
                             <ContentTemplate>
                                 <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                                     ImageUrl="~/Images/botonBuscar.png" />
-                                <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
+<%--                                <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                                     ImageUrl="~/Images/botonVolver.png" />
-                            </ContentTemplate>
+--%>                            </ContentTemplate>
                         </asp:UpdatePanel>
                     </td>
                 </tr>
@@ -45,29 +45,32 @@
                     </table>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
+                            <td> 
+                                 <asp:Label ID="Label1" runat="server" Text="Nivel:" CssClass="lblCriterios"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="ddlNivel" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlNivel_SelectedIndexChanged">
+                                </asp:DropDownList>
+                            </td>
+                        </tr>
+                        <tr>
                             <td valign="top" class="TD100px">
                                 <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:"></asp:Label>
                             </td>
                             <td valign="top" style="width: 500px">
-                                <asp:DropDownList ID="ddlAsignatura" runat="server">
-                                </asp:DropDownList>
+                                <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false" AutoPostBack="true"
+                                        OnSelectedIndexChanged="ddlAsignatura_SelectedIndexChanged">
+                                    </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TD50px">
+<%--                            <td valign="top" class="TD50px">
                                 <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
                             </td>
                             <td valign="top" class="TD50px">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
                             </td>
-                        </tr>
+--%>                        </tr>
                     </table>
-                    <table width="600px" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td valign="top" class="TDCriterios100">
-                                <cal:Calendario ID="calfechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
-                                    EtiquetaHasta="Fecha Hasta:" TipoAlineacion="Izquierda" />
-                            </td>
-                        </tr>
-                    </table>
+
                 </ContentTemplate>
             </asp:UpdatePanel>
         </ContentTemplate>

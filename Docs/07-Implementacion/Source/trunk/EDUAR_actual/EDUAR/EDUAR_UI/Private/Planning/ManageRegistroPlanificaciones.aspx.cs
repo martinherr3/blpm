@@ -22,6 +22,34 @@ namespace EDUAR_UI
         #endregion
 
         #region --[Propiedades]--
+        /// <summary>
+        /// Gets or sets the lista Niveles.
+        /// </summary>
+        /// <value>
+        /// The lista Niveles.
+        /// </value>
+        public List<Nivel> listaNiveles
+        {
+            get
+            {
+                if (ViewState["listaNiveles"] == null && cicloLectivoActual != null)
+                {
+                    BLNivel objBLNivel = new BLNivel();
+
+                    if (User.IsInRole(enumRoles.Docente.ToString()))
+                    {
+                        AsignaturaCicloLectivo asignatura = new AsignaturaCicloLectivo();
+                        asignatura.docente.username = User.Identity.Name;
+                        asignatura.cursoCicloLectivo.cicloLectivo = cicloLectivoActual;
+                        listaNiveles = objBLNivel.GetNiveles(asignatura);
+                    }
+                    else
+                        listaNiveles = objBLNivel.GetNiveles();
+                }
+                return (List<Nivel>)ViewState["listaNiveles"];
+            }
+            set { ViewState["listaNiveles"] = value; }
+        }
 
         /// <summary>
         /// Gets or sets the prop filtro evento.
@@ -59,6 +87,46 @@ namespace EDUAR_UI
             set { ViewState["listaPlanificaciones"] = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the id Nivel.
+        /// </summary>
+        /// <value>
+        /// The id Nivel.
+        /// </value>
+        public int idNivel
+        {
+            get
+            {
+                if (Session["idNivel"] == null)
+                    idNivel = 0;
+                return (int)Session["idNivel"];
+            }
+            set { Session["idNivel"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the lista cursos.
+        /// </summary>
+        /// <value>
+        /// The lista cursos.
+        /// </value>
+        public List<CursoCicloLectivo> listaCursos
+        {
+            get
+            {
+                if (Session["listaCursos"] == null && cicloLectivoActual != null)
+                {
+                    BLCurso objBLCurso = new BLCurso();
+                    Nivel objFiltro = new Nivel();
+                    objFiltro.idNivel = idNivel;
+                    listaCursos = objBLCurso.GetCursosCicloLectivo(objFiltro, cicloLectivoActual);
+                }
+                return (List<CursoCicloLectivo>)Session["listaCursos"];
+            }
+            set { Session["listaCursos"] = value; }
+        }
+
+
         #endregion
 
         #region --[Eventos]--
@@ -95,11 +163,8 @@ namespace EDUAR_UI
                 if (!Page.IsPostBack)
                 {
                     CargarPresentacion();
-                    BuscarPlanificacion();
+                    BuscarFiltrando();
                 }
-                calfechas.startDate = cicloLectivoActual.fechaInicio;
-                calfechas.endDate = cicloLectivoActual.fechaFin;
-                //this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
             }
             catch (Exception ex)
             {
@@ -122,7 +187,6 @@ namespace EDUAR_UI
                     case enumAcciones.Limpiar:
                         CargarPresentacion();
                         BuscarFiltrando();
-                        //BuscarAgenda(propEvento);
                         break;
                     case enumAcciones.Error:
                         break;
@@ -199,24 +263,33 @@ namespace EDUAR_UI
             }
         }
 
+
         /// <summary>
-        /// Handles the Click event of the btnNuevo control.
+        /// Handles the SelectedIndexChanged event of the ddlNivel control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void btnNuevo_Click(object sender, EventArgs e)
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ddlNivel_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                AccionPagina = enumAcciones.Nuevo;
-                LimpiarCampos();
-                esNuevo = true;
-                btnBuscar.Visible = false;
-                btnVolver.Visible = true;
-                gvwReporte.Visible = false;
-                udpFiltrosBusqueda.Visible = false;
-                udpFiltros.Update();
+                int idNivel = 0;
+                int.TryParse(ddlNivel.SelectedValue, out idNivel);
+                if (idNivel > 0)
+                {
+                    this.idNivel = idNivel;
+                    CargarComboAsignatura();
+                    BuscarFiltrando();
+                }
+                else
+                {
+                    CargarPresentacion();
+                }
+                listaCursos.Clear();
+                listaCursos = null;
+                ddlAsignatura.Enabled = idNivel > 0;
                 udpGrilla.Update();
+                udpBotonera.Update();
             }
             catch (Exception ex)
             {
@@ -225,24 +298,34 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Handles the Click event of the btnVolver control.
+        /// Handles the SelectedIndexChanged event of the ddlAsignatura control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void btnVolver_Click(object sender, EventArgs e)
+        protected void ddlAsignatura_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                if (AccionPagina == enumAcciones.Nuevo || AccionPagina == enumAcciones.Modificar)
-                    Response.Redirect("ManageRegistroClases.aspx", false);
+                int idAsignatura = 0;
+                int.TryParse(ddlAsignatura.SelectedValue, out idAsignatura);
+                if (idAsignatura > 0)
+                {
+                    this.idAsignatura = idAsignatura;
+                    BuscarFiltrando();
+                }
                 else
-                    Response.Redirect("ManageAgendaActividades.aspx", false);
+                {
+                    udpGrilla.Update();
+                }
+                udpBotonera.Update();
             }
             catch (Exception ex)
             {
                 Master.ManageExceptions(ex);
+                idAsignatura = -1;
             }
         }
+
         #endregion
 
 
@@ -252,22 +335,16 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarPresentacion()
         {
-            LimpiarCampos();
-            btnVolver.Visible = true;
             udpFiltrosBusqueda.Visible = true;
             btnBuscar.Visible = true;
             gvwReporte.Visible = true;
             udpFiltros.Update();
             udpGrilla.Update();
-        }
+            UIUtilidades.BindCombo<Nivel>(ddlNivel, listaNiveles, "idNivel", "Nombre", true);
+            ddlAsignatura.Items.Clear();
+            ddlAsignatura.Items.Add("[Seleccione Nivel]");
+            ddlAsignatura.Enabled = false;
 
-        /// <summary>
-        /// Limpiars the campos.
-        /// </summary>
-        private void LimpiarCampos()
-        {
-            chkActivo.Checked = true;
-            calfechas.LimpiarControles();
         }
 
         /// Cargars the grilla.
@@ -286,18 +363,6 @@ namespace EDUAR_UI
         /// </summary>
         private void BuscarFiltrando()
         {
-            calfechas.ValidarRangoDesdeHasta(false);
-            PlanificacionAnual entidad = new PlanificacionAnual();
-            propFiltroPlanificacion = entidad;
-            BuscarPlanificacion();
-        }
-
-        /// <summary>
-        /// Buscars the entidads.
-        /// </summary>
-        /// <param name="entidad">The entidad.</param>
-        private void BuscarPlanificacion(/*RegistroClases entidad*/)
-        {
             CargarLista();
             CargarGrilla();
         }
@@ -309,7 +374,17 @@ namespace EDUAR_UI
         private void CargarLista()
         {
             objBLPlanificacion = new BLPlanificacionAnual();
-            listaPlanificaciones = objBLPlanificacion.GetPlanificacion(cicloLectivoActual);
+            PlanificacionAnual entidad = new PlanificacionAnual();
+            if (this.idNivel > 0)
+            {
+                entidad.curricula.nivel.idNivel = this.idNivel;
+            }
+            if (this.idAsignatura > 0)
+            {
+                entidad.curricula.asignatura.idAsignatura = this.idAsignatura;
+            }
+            entidad.cicloLectivo = cicloLectivoActual;
+            listaPlanificaciones = objBLPlanificacion.GetPlanificacion(entidad);
             calcularCobertura();
         }
 
@@ -334,14 +409,26 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarComboAsignatura()
         {
-            //BLAsignatura objBLAsignatura = new BLAsignatura();
-            //Asignatura objAsignatura = new Asignatura();
-            //objAsignatura.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
-            //objAsignatura.curso.cicloLectivo.idCicloLectivo = propAgenda.cursoCicloLectivo.idCicloLectivo;
-            //if (User.IsInRole(enumRoles.Docente.ToString()))
-            //    objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+            ddlAsignatura.Items.Clear();
+            List<Asignatura> listaAsignaturas = new List<Asignatura>();
+            BLAsignatura objBLAsignatura = new BLAsignatura();
+            AsignaturaCicloLectivo asignatura = new AsignaturaCicloLectivo();
 
-            //UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
+            if (User.IsInRole(enumRoles.Docente.ToString()))
+                asignatura.docente.username = User.Identity.Name;
+            asignatura.cursoCicloLectivo.curso.nivel.idNivel = idNivel;
+            asignatura.cursoCicloLectivo.cicloLectivo = cicloLectivoActual;
+
+            listaAsignaturas = objBLAsignatura.GetAsignaturasNivel(asignatura);
+            if (listaAsignaturas != null && listaAsignaturas.Count > 0)
+            {
+                UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignaturas, "idAsignatura", "nombre", true);
+                if (listaAsignaturas.Count == 1)
+                {
+                    ddlAsignatura.SelectedIndex = 1;
+                    idAsignatura = listaAsignaturas[0].idAsignatura;
+                }
+            }
         }
 
         /// <summary>
@@ -400,9 +487,6 @@ namespace EDUAR_UI
             idAsignatura = propFiltroPlanificacion.curricula.asignatura.idAsignatura;
 
             Response.Redirect("~/Private/Planning/PlanificacionAnual.aspx", false);
-
-
- 
         }
         #endregion
     }
