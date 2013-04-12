@@ -1,18 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DataAccess;
 using DataAccess.Entity;
+using NPOI.HSSF.UserModel;
 using Promethee.Utility;
+using NPOI.HPSF;
+using NPOI.SS.UserModel;
 
 namespace Promethee
 {
     public partial class Modelos : System.Web.UI.Page
     {
+        #region --[Atributos]--
+        /// <summary>
+        /// The excel file
+        /// </summary>
+        HSSFWorkbook excelFile;
+        #endregion
+
         #region --[Propiedades]--
         /// <summary>
         /// Gets or sets the modelo entity.
@@ -48,6 +59,24 @@ namespace Promethee
                 return (int)ViewState["idModelo"];
             }
             set { ViewState["idModelo"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the mi modelo.
+        /// </summary>
+        /// <value>
+        /// The mi modelo.
+        /// </value>
+        public ModeloEntity miModelo
+        {
+            get
+            {
+                if (ViewState["miModelo"] == null)
+                    miModelo = new ModeloEntity();
+
+                return (ModeloEntity)ViewState["miModelo"];
+            }
+            set { ViewState["miModelo"] = value; }
         }
         #endregion
 
@@ -101,11 +130,11 @@ namespace Promethee
             if (e.Row.RowType != DataControlRowType.DataRow)
                 return;
 
-            ModeloEntity miModelo = (ModeloEntity)e.Row.DataItem;
+            miModelo = (ModeloEntity)e.Row.DataItem;
 
             GridView gvDetails = (GridView)e.Row.FindControl("gvwDetalle");
 
-            gvDetails.DataSource = buscarModelo(miModelo).DefaultView;
+            gvDetails.DataSource = buscarModelo().DefaultView;
             gvDetails.DataBind();
         }
 
@@ -120,7 +149,7 @@ namespace Promethee
             {
                 int idModeloEdit = 0;
                 int.TryParse(e.CommandArgument.ToString(), out idModeloEdit);
-                ModeloEntity miModelo = listaModelos.Find(p => p.idModelo == idModeloEdit);
+                miModelo = listaModelos.Find(p => p.idModelo == idModeloEdit);
                 if (miModelo != null)
                     idModelo = idModeloEdit;
                 switch (e.CommandName)
@@ -135,11 +164,39 @@ namespace Promethee
                     case "addCriterio":
                         mpeCriterios.Show();
                         break;
+                    //case "download":
+                    //    DescargarPlantilla();
+                    //    udpModelos.Update();
+                    //    break;
+                    case "solve":
+                        //DescargarPlantilla();
+                        break;
                 }
             }
             catch (Exception ex)
             {
                 Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles the OnClick event of the btnDownload control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnDownload_OnClick(object sender, EventArgs e)
+        {
+            GridViewRow datarow = (GridViewRow)(((Control)sender).NamingContainer);
+            int i = datarow.RowIndex;
+            foreach (GridViewRow rowItem in gvwModelo.Rows)
+            {
+                if (rowItem.RowIndex == i)
+                {
+                    miModelo = listaModelos[i];
+                    DescargarPlantilla();
+                    udpModelos.Update();
+                    break;
+                }
             }
         }
 
@@ -300,7 +357,7 @@ namespace Promethee
         /// </summary>
         /// <param name="miModelo">The mi modelo.</param>
         /// <returns></returns>
-        private DataTable buscarModelo(ModeloEntity miModelo)
+        private DataTable buscarModelo()
         {
             List<AlternativaEntity> listaAlternativa = AlternativasDA.Select(miModelo);
             List<CriterioEntity> listaCriterio = CriteriosDA.Select(new CriterioEntity() { idModelo = miModelo.idModelo });
@@ -344,7 +401,7 @@ namespace Promethee
             ConfigFuncionPreferenciaEntity miConfiguracion = new ConfigFuncionPreferenciaEntity();
             miConfiguracion.idCriterio = nuevaEntidad.idCriterio;
             miConfiguracion.idFuncionPreferencia = datos.tipoFuncion.GetHashCode();
-            
+
             switch (datos.tipoFuncion)
             {
                 case enumFuncionPreferencia.None:
@@ -388,6 +445,185 @@ namespace Promethee
             }
             CriteriosDA.Save(nuevaEntidad, listaConfig);
         }
+
+        /// <summary>
+        /// Descargars the plantilla.
+        /// </summary>
+        private void DescargarPlantilla()
+        {
+            CrearPlantilla();
+            Response.Clear();
+
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", miModelo.nombre.Replace(" ", "") + ".xls"));
+            Response.BinaryWrite(WriteToStream().GetBuffer());
+
+            Response.End();
+        }
+
+        /// <summary>
+        /// Crears the plantilla.
+        /// </summary>
+        private void CrearPlantilla()
+        {
+            string[] strCriterios = new string[miModelo.criterios];
+            string[] strAlternativas = new string[miModelo.alternativas];
+
+            DataTable modelo = buscarModelo();
+
+            for (int i = 1; i < modelo.Columns.Count; i++)
+                strCriterios[i - 1] = modelo.Columns[i].ColumnName;
+            for (int i = 0; i < modelo.Rows.Count; i++)
+                strAlternativas[i] = modelo.Rows[i][0].ToString();
+
+            InitializeWorkbook();
+            GenerarPlantilla(strCriterios, strAlternativas);
+        }
+
+        #region --[Generación de Excel]--
+        /// <summary>
+        /// Initializes the workbook.
+        /// </summary>
+        void InitializeWorkbook()
+        {
+            excelFile = new HSSFWorkbook();
+
+            //create a entry of DocumentSummaryInformation
+            DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
+            dsi.Company = "Promethee";
+            excelFile.DocumentSummaryInformation = dsi;
+
+            //create a entry of SummaryInformation
+            SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
+            si.Subject = "Archivo generado medinte la librería NPOI";
+            excelFile.SummaryInformation = si;
+        }
+
+        /// <summary>
+        /// Writes to stream.
+        /// </summary>
+        /// <returns></returns>
+        MemoryStream WriteToStream()
+        {
+            //Write the stream data of workbook to the root directory
+            MemoryStream file = new MemoryStream();
+            excelFile.Write(file);
+            return file;
+        }
+
+        /// <summary>
+        /// Generates the data.
+        /// </summary>
+        /// <param name="strCriterios">The STR criterios.</param>
+        /// <param name="strAlternativas">The STR alternativas.</param>
+        private void GenerarPlantilla(string[] strCriterios, string[] strAlternativas)
+        {
+            #region --[Estilos]--
+            IFont fuenteTitulo = excelFile.CreateFont();
+            fuenteTitulo.FontName = "Calibri";
+            fuenteTitulo.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
+
+            IFont unaFuente = excelFile.CreateFont();
+            unaFuente.FontName = "Tahoma";
+
+            IFont fuenteEncabezado = excelFile.CreateFont();
+            fuenteEncabezado.FontName = "Tahoma";
+            fuenteEncabezado.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
+
+            ICellStyle unEstiloDecimal = excelFile.CreateCellStyle();
+            IDataFormat format = excelFile.CreateDataFormat();
+            unEstiloDecimal.DataFormat = format.GetFormat("0.00");
+            unEstiloDecimal.SetFont(unaFuente);
+
+            ICellStyle estiloBloqueada = excelFile.CreateCellStyle();
+            estiloBloqueada.IsLocked = true;
+            estiloBloqueada.SetFont(fuenteEncabezado);
+            #endregion
+
+            NPOI.SS.Util.CellRangeAddress rango = new NPOI.SS.Util.CellRangeAddress(0, 0, 1, strCriterios.Length);
+
+            #region --[Hoja Datos]--
+            ISheet hojaUno = excelFile.CreateSheet("Cargar Datos");
+
+            hojaUno.AddMergedRegion(rango);
+            hojaUno.ProtectSheet("laura");
+
+            IRow filaEncabezado = hojaUno.CreateRow(0);
+            int auxNumRow = 0;
+            filaEncabezado.CreateCell(1).SetCellValue("Criterio");
+            filaEncabezado.Cells[0].CellStyle.SetFont(fuenteTitulo);
+            filaEncabezado.Cells[0].CellStyle.Alignment = HorizontalAlignment.CENTER;
+
+            filaEncabezado = hojaUno.CreateRow(1);
+            auxNumRow++;
+            filaEncabezado.CreateCell(0).SetCellValue("Alternativas");
+            filaEncabezado.Cells[0].CellStyle.SetFont(fuenteTitulo);
+            filaEncabezado.Cells[0].CellStyle.Alignment = HorizontalAlignment.CENTER;
+
+            for (int i = 0; i < strCriterios.Length; i++)
+            {
+                filaEncabezado.CreateCell(i + 1).SetCellValue(strCriterios[i]);
+                filaEncabezado.Cells[i + 1].CellStyle.SetFont(fuenteTitulo);
+            }
+
+            HSSFPatriarch patr = (HSSFPatriarch)hojaUno.CreateDrawingPatriarch();
+            IComment comment = patr.CreateCellComment(new HSSFClientAnchor(0, 0, 0, 0, 0, 0, 4, 4));
+            comment.String = new HSSFRichTextString("Completa los datos del modelo, luego deberas cargar el archivo para obtener los resultados. Gracias");
+            comment.Author = "Laura";
+            filaEncabezado.CreateCell(strCriterios.Length + 1).CellComment = comment;
+
+            //filaEncabezado.CreateCell(strCriterios.Length).SetCellValue(strCriterios.Length);
+            //filaEncabezado.Cells[strCriterios.Length].CellStyle = estiloBloqueada;
+
+            auxNumRow++;
+            for (int i = 0; i < strAlternativas.Length; i++, auxNumRow++)
+            {
+                filaEncabezado = hojaUno.CreateRow(auxNumRow);
+                filaEncabezado.CreateCell(0).SetCellValue(strAlternativas[i]);
+                filaEncabezado.Cells[0].CellStyle.SetFont(unaFuente);
+
+                for (int j = 1; j < strCriterios.Length + 1; j++)
+                {
+                    filaEncabezado.CreateCell(j).SetCellType(CellType.NUMERIC);
+                    filaEncabezado.Cells[j].CellStyle = unEstiloDecimal;
+                    filaEncabezado.Cells[j].CellStyle.IsLocked = false;
+                }
+            }
+
+            //hojaUno.AutoSizeColumn(0);
+            //hojaUno.AutoSizeColumn(1);
+
+            for (int i = 0; i <= strCriterios.Length; i++)
+            {
+                hojaUno.AutoSizeColumn(i);
+            }
+
+            #endregion
+
+            ISheet hojaDos = excelFile.CreateSheet("Datos Protegidos");
+
+            filaEncabezado = hojaDos.CreateRow(0);
+            filaEncabezado.CreateCell(0).SetCellValue("Total Criterios");
+            filaEncabezado.Cells[0].CellStyle = estiloBloqueada;
+
+            filaEncabezado.CreateCell(1).SetCellValue(strCriterios.Length);
+            filaEncabezado.Cells[1].CellStyle = estiloBloqueada;
+
+            filaEncabezado = hojaDos.CreateRow(1);
+            filaEncabezado.CreateCell(0).SetCellValue("Total Alternativas");
+            filaEncabezado.Cells[0].CellStyle = estiloBloqueada;
+
+            filaEncabezado.CreateCell(1).SetCellValue(strAlternativas.Length);
+            filaEncabezado.Cells[1].CellStyle = estiloBloqueada;
+
+            hojaDos.AutoSizeColumn(0);
+
+            hojaDos.AutoSizeColumn(1);
+
+            excelFile.SetSheetHidden(1, SheetState.HIDDEN);
+        }
+
+        #endregion
         #endregion
     }
 }

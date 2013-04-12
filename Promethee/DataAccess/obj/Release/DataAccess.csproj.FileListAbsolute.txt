@@ -1,4 +1,0 @@
-D:\Documentos\Visual Studio 2010\Projects\Promethee\DataAccess\bin\Release\DataAccess.dll
-D:\Documentos\Visual Studio 2010\Projects\Promethee\DataAccess\bin\Release\DataAccess.pdb
-D:\Documentos\Visual Studio 2010\Projects\Promethee\DataAccess\obj\Release\DataAccess.dll
-D:\Documentos\Visual Studio 2010\Projects\Promethee\DataAccess\obj\Release\DataAccess.pdb
