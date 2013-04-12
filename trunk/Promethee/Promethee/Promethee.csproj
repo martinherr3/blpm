@@ -44,7 +44,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>DLL\AjaxControlToolkit.resources.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NPOI, Version=2.0.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\NPOI.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -66,6 +74,12 @@
     <Content Include="Default2.aspx" />
     <Content Include="DLL\AjaxControlToolkit.dll" />
     <Content Include="DLL\AjaxControlToolkit.resources.dll" />
+    <Content Include="DLL\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="DLL\NPOI.dll" />
+    <Content Include="DLL\NPOI.OOXML.dll" />
+    <Content Include="DLL\NPOI.OpenXml4Net.dll" />
+    <Content Include="DLL\NPOI.OpenXmlFormats.dll" />
+    <Content Include="DLL\NPOI.XML" />
     <Content Include="DLL\SanitizerProviders.dll" />
     <Content Include="favicon.ico" />
     <Content Include="frmLogin.aspx" />
@@ -118,10 +132,12 @@
     <Content Include="Images\Grillas\add_Criteria.png" />
     <Content Include="Images\Grillas\dialog-fewer.png" />
     <Content Include="Images\Grillas\dialog-more.png" />
+    <Content Include="Images\Grillas\download.png" />
     <Content Include="Images\Grillas\edit_Model.png" />
     <Content Include="Images\Grillas\grd_alt.png" />
     <Content Include="Images\Grillas\grd_head.png" />
     <Content Include="Images\Grillas\grd_pgr.png" />
+    <Content Include="Images\Grillas\solve.png" />
     <Content Include="Images\hard_disk.png" />
     <Content Include="Images\help1.png" />
     <Content Include="Images\home1.png" />

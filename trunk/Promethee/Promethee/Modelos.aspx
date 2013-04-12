@@ -49,7 +49,7 @@
         OnRowDataBound="gvwModelo_RowDataBound">
         <Columns>
             <asp:TemplateField HeaderText="Acciones">
-                <HeaderStyle HorizontalAlign="center" Width="10%" />
+                <HeaderStyle HorizontalAlign="center" Width="15%" />
                 <ItemStyle HorizontalAlign="center" />
                 <ItemTemplate>
                     <img alt="Detalle" src="Images/Grillas/dialog-more.png" orderid="<%# Eval("idModelo") %>"
@@ -60,6 +60,10 @@
                         CommandArgument='<%# Bind("idModelo") %>' ToolTip="Agregar Alternativa" ImageUrl="~/Images/Grillas/add_Alternative.png" />
                     <asp:ImageButton ID="addCriterio" runat="server" CommandName="addCriterio" CommandArgument='<%# Bind("idModelo") %>'
                         ToolTip="Agregar Criterio" ImageUrl="~/Images/Grillas/add_Criteria.png" />
+                    <asp:ImageButton ID="btnDownload" runat="server" ToolTip="Descargar Planilla" ImageUrl="~/Images/Grillas/download.png"
+                        OnClick="btnDownload_OnClick" />
+                    <asp:ImageButton ID="solve" runat="server" CommandName="Solve" CommandArgument='<%# Bind("idModelo") %>'
+                        ToolTip="Resolver" ImageUrl="~/Images/Grillas/solve.png" />
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Fecha de Creación">
@@ -102,6 +106,12 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
+    <asp:UpdatePanel runat="server" ID="udpModelos" UpdateMode="Conditional">
+        <ContentTemplate>
+        </ContentTemplate>
+        <Triggers>
+        </Triggers>
+    </asp:UpdatePanel>
     <asp:HiddenField ID="HiddenField1" runat="server" />
     <ajaxtoolkit:ModalPopupExtender ID="mpeModelo" runat="server" PopupControlID="pnlModelos"
         TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
