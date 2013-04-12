@@ -43,6 +43,7 @@
     </table>
     <asp:ImageButton ID="btnNuevo" ImageUrl="~/Images/programs.png" runat="server" ToolTip="Nuevo Modelo"
         OnClick="btnNuevo_Click" />
+    <asp:FileUpload ID="fuCargarArchivo" runat="server" />
     <asp:GridView ID="gvwModelo" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
         AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idModelo"
         OnRowCommand="gvwModelo_RowCommand" OnPageIndexChanging="gvwModelo_PageIndexChanging"
@@ -60,8 +61,10 @@
                         CommandArgument='<%# Bind("idModelo") %>' ToolTip="Agregar Alternativa" ImageUrl="~/Images/Grillas/add_Alternative.png" />
                     <asp:ImageButton ID="addCriterio" runat="server" CommandName="addCriterio" CommandArgument='<%# Bind("idModelo") %>'
                         ToolTip="Agregar Criterio" ImageUrl="~/Images/Grillas/add_Criteria.png" />
-                    <asp:ImageButton ID="btnDownload" runat="server" ToolTip="Descargar Planilla" ImageUrl="~/Images/Grillas/download.png"
+                    <asp:ImageButton ID="btnDownload" runat="server" ToolTip="Descargar Planilla" ImageUrl="~/Images/Grillas/downloads.png"
                         OnClick="btnDownload_OnClick" />
+                    <asp:ImageButton ID="btnUpload" runat="server" ToolTip="Cargar Planilla" ImageUrl="~/Images/Grillas/uploads.png"
+                        OnClick="btnUpload_OnClick" />
                     <asp:ImageButton ID="solve" runat="server" CommandName="Solve" CommandArgument='<%# Bind("idModelo") %>'
                         ToolTip="Resolver" ImageUrl="~/Images/Grillas/solve.png" />
                 </ItemTemplate>

@@ -132,12 +132,13 @@
     <Content Include="Images\Grillas\add_Criteria.png" />
     <Content Include="Images\Grillas\dialog-fewer.png" />
     <Content Include="Images\Grillas\dialog-more.png" />
-    <Content Include="Images\Grillas\download.png" />
+    <Content Include="Images\Grillas\downloads.png" />
     <Content Include="Images\Grillas\edit_Model.png" />
     <Content Include="Images\Grillas\grd_alt.png" />
     <Content Include="Images\Grillas\grd_head.png" />
     <Content Include="Images\Grillas\grd_pgr.png" />
     <Content Include="Images\Grillas\solve.png" />
+    <Content Include="Images\Grillas\uploads.png" />
     <Content Include="Images\hard_disk.png" />
     <Content Include="Images\help1.png" />
     <Content Include="Images\home1.png" />
@@ -233,6 +234,9 @@
       <Project>{4F82DF45-A8A8-454E-9FF8-128589783983}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Files\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
