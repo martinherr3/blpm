@@ -200,6 +200,35 @@ namespace Promethee
             }
         }
 
+
+        /// <summary>
+        /// Handles the OnClick event of the btnUpload control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnUpload_OnClick(object sender, EventArgs e)
+        {
+            GridViewRow datarow = (GridViewRow)(((Control)sender).NamingContainer);
+            int i = datarow.RowIndex;
+            foreach (GridViewRow rowItem in gvwModelo.Rows)
+            {
+                if (rowItem.RowIndex == i)
+                {
+                    //miModelo = listaModelos[i];
+                    //DescargarPlantilla();
+
+                    fuCargarArchivo.SaveAs(MapPath("~/Files/" + miModelo.idModelo + "_" + Session.SessionID + ".xls"));
+                    //Mostramos un mensaje de exito al usuario
+                    //lMensajeExito.Text = “El archivo: “ + fuCargarArchivo.FileName.ToString() + ” se cargo con exito en el servidor”;
+                    //Llamo el metodo listar archivos subidos al servidor
+                    //ListarArchivosServidor();
+
+                    udpModelos.Update();
+                    break;
+                }
+            }
+        }
+
         /// <summary>
         /// Handles the PageIndexChanging event of the gvwModelo control.
         /// </summary>
@@ -569,11 +598,8 @@ namespace Promethee
             HSSFPatriarch patr = (HSSFPatriarch)hojaUno.CreateDrawingPatriarch();
             IComment comment = patr.CreateCellComment(new HSSFClientAnchor(0, 0, 0, 0, 0, 0, 4, 4));
             comment.String = new HSSFRichTextString("Completa los datos del modelo, luego deberas cargar el archivo para obtener los resultados. Gracias");
-            comment.Author = "Laura";
+            comment.Author = "Promethee";
             filaEncabezado.CreateCell(strCriterios.Length + 1).CellComment = comment;
-
-            //filaEncabezado.CreateCell(strCriterios.Length).SetCellValue(strCriterios.Length);
-            //filaEncabezado.Cells[strCriterios.Length].CellStyle = estiloBloqueada;
 
             auxNumRow++;
             for (int i = 0; i < strAlternativas.Length; i++, auxNumRow++)
@@ -590,35 +616,33 @@ namespace Promethee
                 }
             }
 
-            //hojaUno.AutoSizeColumn(0);
-            //hojaUno.AutoSizeColumn(1);
-
             for (int i = 0; i <= strCriterios.Length; i++)
-            {
                 hojaUno.AutoSizeColumn(i);
-            }
 
             #endregion
 
             ISheet hojaDos = excelFile.CreateSheet("Datos Protegidos");
 
             filaEncabezado = hojaDos.CreateRow(0);
+            filaEncabezado.CreateCell(0).SetCellValue("idModelo");
+            filaEncabezado.Cells[0].CellStyle = estiloBloqueada;
+
+            filaEncabezado.CreateCell(1).SetCellValue(miModelo.idModelo);
+            filaEncabezado.Cells[1].CellStyle = estiloBloqueada;
+
+            filaEncabezado = hojaDos.CreateRow(1);
             filaEncabezado.CreateCell(0).SetCellValue("Total Criterios");
             filaEncabezado.Cells[0].CellStyle = estiloBloqueada;
 
             filaEncabezado.CreateCell(1).SetCellValue(strCriterios.Length);
             filaEncabezado.Cells[1].CellStyle = estiloBloqueada;
 
-            filaEncabezado = hojaDos.CreateRow(1);
+            filaEncabezado = hojaDos.CreateRow(2);
             filaEncabezado.CreateCell(0).SetCellValue("Total Alternativas");
             filaEncabezado.Cells[0].CellStyle = estiloBloqueada;
 
             filaEncabezado.CreateCell(1).SetCellValue(strAlternativas.Length);
             filaEncabezado.Cells[1].CellStyle = estiloBloqueada;
-
-            hojaDos.AutoSizeColumn(0);
-
-            hojaDos.AutoSizeColumn(1);
 
             excelFile.SetSheetHidden(1, SheetState.HIDDEN);
         }
