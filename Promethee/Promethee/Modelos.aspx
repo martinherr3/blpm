@@ -62,10 +62,10 @@
                     <asp:ImageButton ID="addCriterio" runat="server" CommandName="addCriterio" CommandArgument='<%# Bind("idModelo") %>'
                         ToolTip="Agregar Criterio" ImageUrl="~/Images/Grillas/add_Criteria.png" Visible='<%# Eval("filename").ToString() != string.Empty ? false : true %>' />
                     <asp:ImageButton ID="btnDownload" runat="server" ToolTip="Descargar Planilla" ImageUrl="~/Images/Grillas/downloads.png"
-                        OnClick="btnDownload_OnClick" Visible='<%# Convert.ToInt32(Eval("criterios")) > 2 && Convert.ToInt32(Eval("alternativas")) > 2 ? true : false %>' />
+                        OnClick="btnDownload_OnClick" Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
                     <asp:ImageButton ID="btnUpload" CommandName="upload" CommandArgument='<%# Bind("idModelo") %>'
                         runat="server" ToolTip="Cargar Planilla" ImageUrl="~/Images/Grillas/uploads.png"
-                        Visible='<%# Convert.ToInt32(Eval("criterios")) > 2 && Convert.ToInt32(Eval("alternativas")) > 2 ? true : false %>' />
+                        Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
                     <asp:ImageButton ID="solve" runat="server" CommandName="solve" CommandArgument='<%# Bind("idModelo") %>'
                         ToolTip="Resolver" ImageUrl="~/Images/Grillas/solve.png" Visible='<%# Eval("filename").ToString() != string.Empty ? true:false %>' />
                 </ItemTemplate>
@@ -157,7 +157,7 @@
         TargetControlID="HiddenField2" RepositionMode="RepositionOnWindowResizeAndScroll"
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlAlternativas">
     </ajaxtoolkit:ModalPopupExtender>
-    <asp:Panel ID="pnlAlternativas" runat="server" Width="500px" Height="180px" Style="display: none;
+    <asp:Panel ID="pnlAlternativas" runat="server" Width="500px" Height="200px" Style="display: none;
         text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
             <tr>
@@ -176,6 +176,11 @@
                     <asp:TextBox ID="txtAlternativa" runat="server" CssClass="EstiloTxtLargo250" MaxLength="50" />
                 </td>
                 <td>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <asp:Label Text="" ID="lblErrorAlternativa" runat="server" ForeColor="Red" Font-Bold="true" />
                 </td>
             </tr>
             <tr>

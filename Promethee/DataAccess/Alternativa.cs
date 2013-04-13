@@ -14,9 +14,11 @@ namespace DataAccess
         /// <summary>
         /// Selects the specified usuario.
         /// </summary>
-        /// <param name="usuario">The usuario.</param>
+        /// <param name="entidad">The entidad.</param>
         /// <returns></returns>
-        public static List<AlternativaEntity> Select(ModeloEntity modelo)
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public static List<AlternativaEntity> Select(AlternativaEntity entidad)
         {
             try
             {
@@ -27,9 +29,12 @@ namespace DataAccess
                     command.Connection = conn;
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.CommandText = "Alternativa_Select";
-                    command.Parameters.AddWithValue("@idAlternativa", DBNull.Value);
-                    command.Parameters.AddWithValue("@idModelo", modelo.idModelo);
-                    command.Parameters.AddWithValue("@nombre", DBNull.Value);
+                    if (entidad.idAlternativa > 0)
+                        command.Parameters.AddWithValue("@idAlternativa", entidad.idAlternativa);
+                    if (entidad.idModelo > 0)
+                        command.Parameters.AddWithValue("@idModelo", entidad.idModelo);
+                    if (!string.IsNullOrEmpty(entidad.nombre))
+                        command.Parameters.AddWithValue("@nombre", entidad.nombre);
 
                     command.CommandTimeout = 10;
 
