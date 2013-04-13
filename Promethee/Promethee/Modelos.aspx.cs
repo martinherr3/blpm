@@ -12,6 +12,7 @@ using NPOI.HSSF.UserModel;
 using Promethee.Utility;
 using NPOI.HPSF;
 using NPOI.SS.UserModel;
+using System.Collections;
 
 namespace Promethee
 {
@@ -78,6 +79,64 @@ namespace Promethee
             }
             set { ViewState["miModelo"] = value; }
         }
+
+        #region --[Tablas]--
+        public DataTable tablaResultado
+        {
+            get
+            {
+                if (Session["tablaResultado"] == null)
+                    Session["tablaResultado"] = new DataTable();
+                return (DataTable)Session["tablaResultado"];
+            }
+            set
+            {
+                Session["tablaResultado"] = value;
+            }
+        }
+
+        public DataTable tablaPaso1
+        {
+            get
+            {
+                if (Session["tablaPaso1"] == null)
+                    Session["tablaPaso1"] = new DataTable();
+                return (DataTable)Session["tablaPaso1"];
+            }
+            set
+            {
+                Session["tablaPaso1"] = value;
+            }
+        }
+
+        public DataTable tablaPaso2
+        {
+            get
+            {
+                if (Session["tablaPaso2"] == null)
+                    Session["tablaPaso2"] = new DataTable();
+                return (DataTable)Session["tablaPaso2"];
+            }
+            set
+            {
+                Session["tablaPaso2"] = value;
+            }
+        }
+
+        public DataTable tablaPaso3
+        {
+            get
+            {
+                if (Session["tablaPaso3"] == null)
+                    Session["tablaPaso3"] = new DataTable();
+                return (DataTable)Session["tablaPaso3"];
+            }
+            set
+            {
+                Session["tablaPaso3"] = value;
+            }
+        }
+        #endregion
         #endregion
 
         #region --[Eventos]--
@@ -164,12 +223,11 @@ namespace Promethee
                     case "addCriterio":
                         mpeCriterios.Show();
                         break;
-                    //case "download":
-                    //    DescargarPlantilla();
-                    //    udpModelos.Update();
-                    //    break;
+                    case "upload":
+                        mpuUpload.Show();
+                        break;
                     case "solve":
-                        //DescargarPlantilla();
+                        ResolverModelo();
                         break;
                 }
             }
@@ -200,32 +258,28 @@ namespace Promethee
             }
         }
 
-
         /// <summary>
         /// Handles the OnClick event of the btnUpload control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void btnUpload_OnClick(object sender, EventArgs e)
         {
-            GridViewRow datarow = (GridViewRow)(((Control)sender).NamingContainer);
-            int i = datarow.RowIndex;
-            foreach (GridViewRow rowItem in gvwModelo.Rows)
+            try
             {
-                if (rowItem.RowIndex == i)
-                {
-                    //miModelo = listaModelos[i];
-                    //DescargarPlantilla();
+                string FileExtension = Path.GetExtension(fuCargarArchivo.PostedFile.FileName).Substring(1);
 
-                    fuCargarArchivo.SaveAs(MapPath("~/Files/" + miModelo.idModelo + "_" + Session.SessionID + ".xls"));
-                    //Mostramos un mensaje de exito al usuario
-                    //lMensajeExito.Text = “El archivo: “ + fuCargarArchivo.FileName.ToString() + ” se cargo con exito en el servidor”;
-                    //Llamo el metodo listar archivos subidos al servidor
-                    //ListarArchivosServidor();
+                string FileName = Guid.NewGuid().ToString() + "." + FileExtension;
 
-                    udpModelos.Update();
-                    break;
-                }
+                fuCargarArchivo.SaveAs(MapPath("~/Files/" + FileName));
+
+                ModelosDA.SaveFile(idModelo, FileName);
+                //TODO: eliminar los archivos viejos y dejar solo el último subido para el modelo
+                mpuUpload.Hide();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
             }
         }
 
@@ -311,7 +365,7 @@ namespace Promethee
                 {
                     CriterioEntity test = new CriterioEntity();
                     test.idModelo = idModelo;
-                    test.nombre = nuevoCriterio.nombreCriterio;
+                    //test.nombre = nuevoCriterio.nombreCriterio;
                     List<CriterioEntity> listaCriterios = CriteriosDA.Select(test);
 
                     if (listaCriterios.Count == 0)
@@ -351,6 +405,8 @@ namespace Promethee
                 LimpiarCampos();
                 mpeModelo.Hide();
                 mpeAlternativas.Hide();
+                mpuUpload.Hide();
+                udpModelosAsociados.Update();
             }
             catch (Exception ex)
             {
@@ -506,6 +562,7 @@ namespace Promethee
                 strAlternativas[i] = modelo.Rows[i][0].ToString();
 
             InitializeWorkbook();
+
             GenerarPlantilla(strCriterios, strAlternativas);
         }
 
@@ -648,6 +705,66 @@ namespace Promethee
         }
 
         #endregion
+        #endregion
+
+        #region --[Resolver]--
+        /// <summary>
+        /// Resolvers the modelo.
+        /// </summary>
+        private void ResolverModelo()
+        {
+            tablaPaso1 = CargarTablaPaso1();
+        }
+
+        /// <summary>
+        /// Cargars the tabla paso1.
+        /// </summary>
+        /// <returns></returns>
+        private DataTable CargarTablaPaso1()
+        {
+            InitializeWorkbook(MapPath("~/Files/" + miModelo.filename));
+
+            return ConvertToDataTable();
+        }
+
+        /// <summary>
+        /// Initializes the workbook.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        void InitializeWorkbook(string path)
+        {
+            //read the template via FileStream, it is suggested to use FileAccess.Read to prevent file lock.
+            //book1.xls is an Excel-2007-generated file, so some new unknown BIFF records are added. 
+            using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                excelFile = new HSSFWorkbook(file);
+            }
+        }
+
+        /// <summary>
+        /// Converts to data table.
+        /// </summary>
+        /// <returns></returns>
+        private DataTable ConvertToDataTable()
+        {
+            ISheet sheet = excelFile.GetSheetAt(1);
+            //valido que la plantilla se haya creado para el modelo 
+            if (miModelo.idModelo == sheet.GetRow(0).Cells[1].NumericCellValue)
+            {
+                sheet = excelFile.GetSheetAt(0);
+
+                DataTable dt = new DataTable();
+                dt = buscarModelo();
+
+                //for recorriendo las filas o cantidades de mimodelo.alternativas
+                //tengo que arrancar en fila 2, columna 1
+                for (int i = 0; i < miModelo.alternativas; i++)
+                    for (int j = 1; j <= miModelo.criterios; j++)
+                        dt.Rows[i][j] = sheet.GetRow(i + 2).Cells[j].NumericCellValue;
+                return dt;
+            }
+            return null;
+        }
         #endregion
     }
 }

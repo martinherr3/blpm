@@ -10,7 +10,7 @@ namespace DataAccess.Entity
 		public string nombre { get; set; }
 		public DateTime fechaCreacion { get; set; }
 		public string username { get; set; }
-
+        public string filename { get; set; }
 		public int alternativas { get; set; }
 		public int criterios { get; set; }
 	}
