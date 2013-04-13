@@ -48,6 +48,8 @@ namespace DataAccess
 						objEntidad.nombre = reader["nombre"].ToString();
 						objEntidad.alternativas = Convert.ToInt32(reader["alternativas"]);
 						objEntidad.criterios = Convert.ToInt32(reader["criterios"]);
+                        objEntidad.filename = reader["filename"].ToString();
+
 						lista.Add(objEntidad);
 					}
 					conn.Close();
@@ -107,5 +109,46 @@ namespace DataAccess
 									ex, enuExceptionType.DataAccesException);
 			}
 		}
-	}
+
+        /// <summary>
+        /// Saves the file.
+        /// </summary>
+        /// <param name="idModelo">The id modelo.</param>
+        /// <param name="FileName">Name of the file.</param>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public static void SaveFile(int idModelo, string FileName)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ToString()))
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = conn;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Modelos_FileName";
+                    command.Parameters.AddWithValue("@idModelo", idModelo);
+                    command.Parameters.AddWithValue("@filename", FileName);
+
+                    command.CommandTimeout = 10;
+
+                    conn.Open();
+
+                    command.ExecuteScalar();
+
+                    conn.Close();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - SaveFile()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - SaveFile()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+    }
 }
