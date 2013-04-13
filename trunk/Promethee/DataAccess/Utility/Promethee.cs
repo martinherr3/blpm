@@ -27,11 +27,13 @@ namespace Promethee.Utility
 
     public class Promethee
     {
+        public string nombreCriterio { get; set; }
         public decimal pesoCriterio { get; set; }
         public enumFuncionPreferencia tipoFuncion { get; set; }
         public decimal limitePreferencia { get; set; }
         public decimal limiteIndiferencia { get; set; }
         public decimal limiteSigma { get; set; }
+        public bool maximiza { get; set; }
 
         /// <summary>
         /// Obteners the valor func preferencia.

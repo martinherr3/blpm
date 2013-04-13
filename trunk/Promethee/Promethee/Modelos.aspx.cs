@@ -95,6 +95,26 @@ namespace Promethee
             }
         }
 
+        /// <summary>
+        /// Contiene los datos del EXCEL
+        /// </summary>
+        /// <value>
+        /// The tabla paso0.
+        /// </value>
+        public DataTable tablaPaso0
+        {
+            get
+            {
+                if (Session["tablaPaso0"] == null)
+                    Session["tablaPaso0"] = new DataTable();
+                return (DataTable)Session["tablaPaso0"];
+            }
+            set
+            {
+                Session["tablaPaso0"] = value;
+            }
+        }
+
         public DataTable tablaPaso1
         {
             get
@@ -206,6 +226,7 @@ namespace Promethee
         {
             try
             {
+                LimpiarCampos();
                 int idModeloEdit = 0;
                 int.TryParse(e.CommandArgument.ToString(), out idModeloEdit);
                 miModelo = listaModelos.Find(p => p.idModelo == idModeloEdit);
@@ -336,15 +357,25 @@ namespace Promethee
         {
             try
             {
-                AlternativaEntity nuevaAlternativa = new AlternativaEntity();
-                nuevaAlternativa.idModelo = idModelo;
-                nuevaAlternativa.nombre = txtAlternativa.Text.Trim();
-                AlternativasDA.Save(nuevaAlternativa);
+                AlternativaEntity test = new AlternativaEntity();
+                test.idModelo = miModelo.idModelo;
+                test.nombre = txtAlternativa.Text.Trim();
+                List<AlternativaEntity> listaAlternativa = AlternativasDA.Select(test);
 
-                CargarGrilla();
+                if (listaAlternativa.Count == 0)
+                {
+                    GuardarAlternativa();
 
-                LimpiarCampos();
-                mpeAlternativas.Hide();
+                    LimpiarCampos();
+                    mpeAlternativas.Hide();
+
+                    CargarGrilla();
+                }
+                else
+                {
+                    lblErrorAlternativa.Text = "Ya existe una Alternativa con el mismo nombre.";
+                    mpeAlternativas.Show();
+                }
             }
             catch (Exception ex)
             {
@@ -365,7 +396,7 @@ namespace Promethee
                 {
                     CriterioEntity test = new CriterioEntity();
                     test.idModelo = idModelo;
-                    //test.nombre = nuevoCriterio.nombreCriterio;
+                    test.nombre = nuevoCriterio.nombreCriterio;
                     List<CriterioEntity> listaCriterios = CriteriosDA.Select(test);
 
                     if (listaCriterios.Count == 0)
@@ -435,6 +466,10 @@ namespace Promethee
             idModelo = 0;
             txtAlternativa.Text = string.Empty;
             txtNombre.Text = string.Empty;
+            nuevoCriterio.nombreCriterio = string.Empty;
+            nuevoCriterio.pesoCriterio = 0;
+            nuevoCriterio.LimpiarControles();
+            lblErrorAlternativa.Text = string.Empty;
         }
 
         /// <summary>
@@ -444,7 +479,7 @@ namespace Promethee
         /// <returns></returns>
         private DataTable buscarModelo()
         {
-            List<AlternativaEntity> listaAlternativa = AlternativasDA.Select(miModelo);
+            List<AlternativaEntity> listaAlternativa = AlternativasDA.Select(new AlternativaEntity() { idModelo = miModelo.idModelo });
             List<CriterioEntity> listaCriterio = CriteriosDA.Select(new CriterioEntity() { idModelo = miModelo.idModelo });
 
             DataTable resultado = new DataTable();
@@ -465,6 +500,17 @@ namespace Promethee
                 resultado.Rows.Add(fila);
             }
             return resultado;
+        }
+
+        /// <summary>
+        /// Guardars the alternativa.
+        /// </summary>
+        private void GuardarAlternativa()
+        {
+            AlternativaEntity nuevaAlternativa = new AlternativaEntity();
+            nuevaAlternativa.idModelo = miModelo.idModelo;
+            nuevaAlternativa.nombre = txtAlternativa.Text.Trim();
+            AlternativasDA.Save(nuevaAlternativa);
         }
 
         /// <summary>
@@ -713,14 +759,160 @@ namespace Promethee
         /// </summary>
         private void ResolverModelo()
         {
-            tablaPaso1 = CargarTablaPaso1();
+            List<Utility.Promethee> listaConfiguracion = ObtenerConfiguracion();
+
+            tablaPaso0 = CargarTablaPaso0();
+
+            EjecutarPaso1(listaConfiguracion);
+        }
+
+        /// <summary>
+        /// Ejecutars the paso1.
+        /// </summary>
+        /// <param name="listaConfiguracion">The lista configuracion.</param>
+        private void EjecutarPaso1(List<Utility.Promethee> listaConfiguracion)
+        {
+            decimal diferenciaCriterio = 0;
+            decimal valorFuncPreferencia = 0;
+
+            decimal valorPrincipal = 0, valorSecundario = 0;
+            tablaPaso1 = new DataTable("Promethee1");
+
+            tablaPaso1.Columns.Add("Alternativas");
+            foreach (Utility.Promethee item in listaConfiguracion)
+                tablaPaso1.Columns.Add(item.nombreCriterio);
+
+            DataRow fila;
+            // Paso 1: determinar como se situan las alternativas con respecto a cada atributo.
+            #region --[Paso 1]--
+            for (int i = 0; i < tablaPaso0.Rows.Count; i++)
+            {
+                for (int j = 0; j < tablaPaso0.Rows.Count; j++)
+                {
+                    if (i != j)
+                    {
+                        fila = tablaPaso1.NewRow();
+                        fila["Alternativas"] = tablaPaso0.Rows[i][0] + "-" + tablaPaso0.Rows[j][0];
+
+                        foreach (Utility.Promethee item in listaConfiguracion)
+                        {
+                            #region --[CRITERIOS]--
+                            valorFuncPreferencia = -1;
+                            diferenciaCriterio = 0;
+                            decimal.TryParse(tablaPaso0.Rows[i][item.nombreCriterio].ToString(), out valorPrincipal);
+                            decimal.TryParse(tablaPaso0.Rows[j][item.nombreCriterio].ToString(), out valorSecundario);
+
+                            if (item.maximiza)
+                            {
+                                if (valorPrincipal >= valorSecundario)
+                                {
+                                    diferenciaCriterio = Math.Abs(valorPrincipal - valorSecundario);
+                                    valorFuncPreferencia = Utility.Promethee.obtenerValorFuncPreferencia(item, diferenciaCriterio);
+                                }
+                            }
+                            else
+                            {
+                                if (valorPrincipal <= valorSecundario)
+                                {
+                                    diferenciaCriterio = Math.Abs(valorPrincipal - valorSecundario);
+                                    valorFuncPreferencia = Utility.Promethee.obtenerValorFuncPreferencia(item, diferenciaCriterio);
+                                }
+                            }
+                            if (valorFuncPreferencia >= 0) fila[item.nombreCriterio] = valorFuncPreferencia;
+                            else fila[item.nombreCriterio] = DBNull.Value;
+                            #endregion
+                        }
+                        tablaPaso1.Rows.Add(fila);
+                    }
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Obteners the configuracion.
+        /// </summary>
+        /// <returns></returns>
+        private List<Utility.Promethee> ObtenerConfiguracion()
+        {
+            List<Utility.Promethee> listaCriteriosPromethee = new List<Utility.Promethee>();
+            Utility.Promethee esteCriterio = null;
+
+            List<ConfigFuncionPreferenciaEntity> listaConfiguracion =
+                ConfigFuncionPreferenciaDA.Select(new ConfigFuncionPreferenciaEntity(), new CriterioEntity() { idModelo = miModelo.idModelo });
+
+            List<CriterioEntity> listaCriterio = CriteriosDA.Select(new CriterioEntity() { idModelo = miModelo.idModelo });
+
+            List<ConfigFuncionPreferenciaEntity> listaConfiguracionAux = null;
+            foreach (CriterioEntity item in listaCriterio)
+            {
+                listaConfiguracionAux = listaConfiguracion.FindAll(p => p.idCriterio == item.idCriterio);
+                esteCriterio = new Utility.Promethee();
+                esteCriterio.pesoCriterio = item.pesoDefault;
+                esteCriterio.nombreCriterio = item.nombre;
+                esteCriterio.maximiza = item.maximiza;
+
+                foreach (ConfigFuncionPreferenciaEntity itemConfig in listaConfiguracionAux)
+                {
+                    switch (itemConfig.idFuncionPreferencia)
+                    {
+                        case 1:
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.VerdaderoCriterio;
+                            break;
+                        case 2:
+                            esteCriterio.limiteIndiferencia = itemConfig.valorDefault;
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.CuasiCriterio;
+                            break;
+                        case 3:
+                            esteCriterio.limitePreferencia = itemConfig.valorDefault;
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.PseudoCriterioConPreferenciaLineal;
+                            break;
+                        case 4:
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.LevelCriterio;
+                            switch (itemConfig.idValorFuncionPreferencia)
+                            {
+                                case (int)enumValorFuncionPreferencia.LimiteIndiferencia:
+                                    esteCriterio.limiteIndiferencia = itemConfig.valorDefault;
+                                    break;
+                                case (int)enumValorFuncionPreferencia.LimitePreferencia:
+                                    esteCriterio.limitePreferencia = itemConfig.valorDefault;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case 5:
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.PseudoCriterioConPreferenciaLineal;
+                            switch (itemConfig.idValorFuncionPreferencia)
+                            {
+                                case (int)enumValorFuncionPreferencia.LimiteIndiferencia:
+                                    esteCriterio.limiteIndiferencia = itemConfig.valorDefault;
+                                    break;
+                                case (int)enumValorFuncionPreferencia.LimitePreferencia:
+                                    esteCriterio.limitePreferencia = itemConfig.valorDefault;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case 6:
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.CriterioGaussiano;
+                            esteCriterio.limiteSigma = itemConfig.valorDefault;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                listaCriteriosPromethee.Add(esteCriterio);
+            }
+            return listaCriteriosPromethee;
         }
 
         /// <summary>
         /// Cargars the tabla paso1.
         /// </summary>
         /// <returns></returns>
-        private DataTable CargarTablaPaso1()
+        private DataTable CargarTablaPaso0()
         {
             InitializeWorkbook(MapPath("~/Files/" + miModelo.filename));
 

@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alternativa.cs" />
+    <Compile Include="ConfigFuncionPreferencia.cs" />
     <Compile Include="Criterio.cs" />
     <Compile Include="Entity\AlternativaEntity.cs" />
     <Compile Include="Entity\ConfigFuncionPreferenciaEntity.cs" />
