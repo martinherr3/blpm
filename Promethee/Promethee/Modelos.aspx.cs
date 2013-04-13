@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DataAccess;
 using DataAccess.Entity;
-using NPOI.HSSF.UserModel;
-using Promethee.Utility;
 using NPOI.HPSF;
+using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
-using System.Collections;
+using Promethee.Utility;
+using System.Drawing;
+using System.Drawing.Imaging;
+using Promethee.Scripts;
 
 namespace Promethee
 {
@@ -23,6 +26,10 @@ namespace Promethee
         /// The excel file
         /// </summary>
         HSSFWorkbook excelFile;
+        //Variables para calcular el tamaño de cada columna
+        Single sngMayorValor, sngMayor1, sngMayor2, sngMayor3;
+        Single valor1, valor2, valor3;
+        string Alternativa1, Alternativa2, Alternativa3;
         #endregion
 
         #region --[Propiedades]--
@@ -78,6 +85,56 @@ namespace Promethee
                 return (ModeloEntity)ViewState["miModelo"];
             }
             set { ViewState["miModelo"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the lista alternativa.
+        /// </summary>
+        /// <value>
+        /// The lista alternativa.
+        /// </value>
+        public List<AlternativaEntity> listaAlternativa
+        {
+            get
+            {
+                if (ViewState["listaAlternativa"] == null)
+                    listaAlternativa = new List<AlternativaEntity>();
+
+                return (List<AlternativaEntity>)ViewState["listaAlternativa"];
+            }
+            set { ViewState["listaAlternativa"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the lista criterios.
+        /// </summary>
+        /// <value>
+        /// The lista criterios.
+        /// </value>
+        public List<CriterioEntity> listaCriterio
+        {
+            get
+            {
+                if (ViewState["listaCriterios"] == null)
+                    listaCriterio = new List<CriterioEntity>();
+
+                return (List<CriterioEntity>)ViewState["listaCriterios"];
+            }
+            set { ViewState["listaCriterios"] = value; }
+        }
+
+        public string NombrePNG
+        {
+            get
+            {
+                if (ViewState["NombrePNG"] == null)
+                    ViewState["NombrePNG"] = string.Empty;
+                return ViewState["NombrePNG"].ToString();
+            }
+            set
+            {
+                ViewState["NombrePNG"] = value;
+            }
         }
 
         #region --[Tablas]--
@@ -249,6 +306,7 @@ namespace Promethee
                         break;
                     case "solve":
                         ResolverModelo();
+                        udpModelos.Update();
                         break;
                 }
             }
@@ -272,8 +330,16 @@ namespace Promethee
                 if (rowItem.RowIndex == i)
                 {
                     miModelo = listaModelos[i];
-                    DescargarPlantilla();
-                    udpModelos.Update();
+                    //DescargarPlantilla();
+
+                    CrearPlantilla();
+                    Response.Clear();
+
+                    Response.ContentType = "application/vnd.ms-excel";
+                    Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", miModelo.nombre.Replace(" ", "") + ".xls"));
+                    Response.BinaryWrite(WriteToStream().GetBuffer());
+                    //Response.Flush();
+                    Response.End();
                     break;
                 }
             }
@@ -479,8 +545,8 @@ namespace Promethee
         /// <returns></returns>
         private DataTable buscarModelo()
         {
-            List<AlternativaEntity> listaAlternativa = AlternativasDA.Select(new AlternativaEntity() { idModelo = miModelo.idModelo });
-            List<CriterioEntity> listaCriterio = CriteriosDA.Select(new CriterioEntity() { idModelo = miModelo.idModelo });
+            listaAlternativa = AlternativasDA.Select(new AlternativaEntity() { idModelo = miModelo.idModelo });
+            listaCriterio = CriteriosDA.Select(new CriterioEntity() { idModelo = miModelo.idModelo });
 
             DataTable resultado = new DataTable();
             DataRow fila = null;
@@ -761,13 +827,280 @@ namespace Promethee
         {
             List<Utility.Promethee> listaConfiguracion = ObtenerConfiguracion();
 
-            tablaPaso0 = CargarTablaPaso0();
+            CargarTablaPaso0();
 
             EjecutarPaso1(listaConfiguracion);
+
+            EjecutarPaso2(listaConfiguracion);
+
+            EjecutarPaso3();
+
+            EjecutarPaso4();
+
+            PresentarResultado();
         }
 
         /// <summary>
-        /// Ejecutars the paso1.
+        /// Presentars the resultado.
+        /// </summary>
+        private void PresentarResultado()
+        {
+            AlternativaEntity aux = null;
+            for (int i = 0; i < tablaResultado.Rows.Count; i++)
+            {
+                aux = listaAlternativa.Find(p => p.idAlternativa == Convert.ToInt16(tablaResultado.Rows[i][0].ToString()));
+                tablaResultado.Rows[i][0] = aux.nombre;
+            }
+            tablaResultado.Columns.Remove("FlujoEntrante");
+
+            //CargarGrilla();
+
+            tablaPaso3.Columns.Add("Ranking", System.Type.GetType("System.Decimal"));
+            tablaPaso3.Rows[0][tablaPaso3.Columns.Count - 1] = DBNull.Value;
+
+            GraficarPodioResultado();
+        }
+
+        /// <summary>
+        /// Graficars the podio resultado.
+        /// </summary>
+        private void GraficarPodioResultado()
+        {
+            #region --[Top 3 Alumnos]--
+            for (int i = 0; i < 3; i++)
+            {
+                var TopAlumno = from p in listaAlternativa
+                                where p.nombre == tablaResultado.Rows[i][0].ToString()
+                                select p.nombre;
+                switch (i)
+                {
+                    case 0:
+                        valor1 = Convert.ToSingle(100);
+                        Alternativa1 = TopAlumno.ElementAt(0).ToString();
+                        break;
+                    case 1:
+                        valor2 = Convert.ToSingle(75);
+                        Alternativa2 = TopAlumno.ElementAt(0).ToString();
+                        break;
+                    case 2:
+                        valor3 = Convert.ToSingle(50);
+                        Alternativa3 = TopAlumno.ElementAt(0).ToString();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            #endregion
+
+            //Dreclaramos el objeto BitMap y Graphic
+            Bitmap objBitmap = new Bitmap(340, 250);
+
+            Graphics objGraphic = Graphics.FromImage(objBitmap);
+
+            //Declaramos las barras asignándoles un color
+            SolidBrush TurquoiseBrush = new SolidBrush(Color.MediumAquamarine);
+            SolidBrush VioletBrush = new SolidBrush(Color.SteelBlue);
+            SolidBrush SalmonBrush = new SolidBrush(Color.SeaGreen);
+
+            //Definimos el fondo de color blanco
+            SolidBrush whiteBrush = new SolidBrush(Color.White);
+
+            //Aquí es donde creamos el fondo, de color
+            //blanco tal y como especificamos anteriormente
+            objGraphic.FillRectangle(whiteBrush, 0, 0, 340, 250);
+
+            //Comprobamos cual es la más grande, que tendrá un tamaño
+            //del 100%, y las otras 2 serán más pequeñas en proporción
+            //a la diferencia de tamaño con respecto a la mayor.
+            if (valor1 > valor2)
+                sngMayorValor = valor1;
+            else
+                sngMayorValor = valor2;
+
+            if (valor3 > sngMayorValor)
+                sngMayorValor = valor3;
+
+            if (sngMayorValor == 0)
+                sngMayorValor = 1;
+
+            sngMayor1 = (valor1 / sngMayorValor) * 190;
+            sngMayor2 = (valor2 / sngMayorValor) * 190;
+            sngMayor3 = (valor3 / sngMayorValor) * 190;
+
+            //Con todos los cálculos realizado, creamos ahora sí
+            //las columnas de la imagen 
+            objGraphic.FillRectangle(TurquoiseBrush, 10, 244 - sngMayor2, 100, sngMayor2);
+            objGraphic.FillRectangle(VioletBrush, 120, 244 - sngMayor1, 100, sngMayor1);
+            objGraphic.FillRectangle(SalmonBrush, 230, 244 - sngMayor3, 100, sngMayor3);
+
+            // Create font and brush.
+            Font drawFont = new Font("Tahoma", 10);
+            SolidBrush drawBrush = new SolidBrush(Color.DimGray);
+            SolidBrush drawBrushNegro = new SolidBrush(Color.Black);
+            Font drawFontTitulo = new Font("Tahoma", 14);
+
+            // Create rectangle for drawing.
+            RectangleF drawRect1 = new RectangleF(10, 244 - sngMayor2, 100, sngMayor2);
+            RectangleF drawRect2 = new RectangleF(120, 244 - sngMayor1, 100, sngMayor1);
+            RectangleF drawRect3 = new RectangleF(230, 244 - sngMayor3, 100, sngMayor3);
+            RectangleF drawRectTitulo = new RectangleF(10, 10, 300, 75);
+
+            // Draw rectangle to screen.
+            Pen blackPen = new Pen(Color.Transparent);
+            objGraphic.DrawRectangle(blackPen, 10, 194 - sngMayor2, 100, sngMayor2);
+            objGraphic.DrawRectangle(blackPen, 120, 194 - sngMayor1, 100, sngMayor1);
+            objGraphic.DrawRectangle(blackPen, 230, 194 - sngMayor3, 100, sngMayor3);
+
+            // Set format of string.
+            StringFormat drawFormat = new StringFormat();
+            drawFormat.Alignment = StringAlignment.Center;
+
+            // Draw string to screen.
+            objGraphic.DrawString(Alternativa1, drawFont, drawBrushNegro, drawRect2, drawFormat);
+            objGraphic.DrawString(Alternativa2, drawFont, drawBrushNegro, drawRect1, drawFormat);
+            objGraphic.DrawString(Alternativa3, drawFont, drawBrushNegro, drawRect3, drawFormat);
+            objGraphic.DrawString("Resultados - " + miModelo.nombre, drawFontTitulo, drawBrush, drawRectTitulo, drawFormat);
+
+            //Definimos el tipo de fichero
+            Response.ContentType = "image/png";
+
+            string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oImgPath"];
+            UIUtility.EliminarArchivosSession(Session.SessionID);
+            //Crea el directorio.
+            if (!System.IO.Directory.Exists(TmpPath))
+                System.IO.Directory.CreateDirectory(TmpPath);
+
+            NombrePNG = TmpPath + "\\Podio_" + Session.SessionID + ".png";
+            string ruta = Request.PhysicalApplicationPath + "Images\\TMP\\Podio_" + Session.SessionID + ".png";
+            //Y finalmente lo guardamos
+            objBitmap.Save(NombrePNG, ImageFormat.Png);
+
+            File.Copy(NombrePNG, ruta);
+            objBitmap.Dispose();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
+            imgPodio.ImageUrl = "~/Images/TMP/Podio_" + Session.SessionID + ".png";
+            imgPodio.Visible = true;
+            //udpImgPodio.Update();
+            //udpResultado.Update();
+
+            //udpImgPodio.Update();
+            //udpResultado.Update();
+        }
+
+        /// <summary>
+        /// Paso 4: Obtener el Preorden Total
+        /// </summary>
+        private void EjecutarPaso4()
+        {
+            #region --[Paso 4]--
+            tablaPaso2.Columns.Add("Ranking", System.Type.GetType("System.Decimal"));
+            for (int i = 0; i < tablaPaso2.Rows.Count; i++)
+            {
+                tablaPaso2.Rows[i][tablaPaso2.Columns.Count - 1] = Convert.ToDecimal(tablaPaso2.Rows[i][tablaPaso2.Columns.Count - 2])
+                    - Convert.ToDecimal(tablaPaso3.Rows[0][i + 1]);
+            }
+
+            tablaPaso2.DefaultView.Sort = "Ranking DESC";
+            tablaResultado = tablaPaso2.DefaultView.ToTable();
+            #endregion
+        }
+
+        /// <summary>
+        /// Paso 3: Expresar como Xi supera a las demás alternativas y cómo es superada por las otras.
+        /// </summary>
+        private void EjecutarPaso3()
+        {
+            #region --[Paso 3]--
+            tablaPaso3 = new DataTable("Promethee2");
+            tablaPaso3 = tablaPaso2.Clone();
+            tablaPaso3.Columns[0].DataType = System.Type.GetType("System.String");
+            DataRow nuevaFila = tablaPaso3.NewRow();
+            nuevaFila[0] = "FlujoSaliente";
+            tablaPaso3.Rows.Add(nuevaFila);
+
+            decimal acumuladorFila, acumuladorColumna;
+            for (int i = 0; i < tablaPaso2.Rows.Count; i++)
+            {
+                acumuladorFila = 0;
+                for (int j = 1; j < tablaPaso2.Columns.Count - 1; j++)
+                {
+                    acumuladorFila += (tablaPaso2.Rows[i][j] != DBNull.Value) ? Convert.ToDecimal(tablaPaso2.Rows[i][j]) : 0;
+                }
+                tablaPaso2.Rows[i][tablaPaso2.Columns.Count - 1] = acumuladorFila;
+            }
+
+            for (int i = 1; i < tablaPaso2.Columns.Count - 1; i++)
+            {
+                acumuladorColumna = 0;
+                for (int j = 0; j < tablaPaso2.Rows.Count; j++)
+                {
+                    acumuladorColumna += (tablaPaso2.Rows[j][i] != DBNull.Value) ? Convert.ToDecimal(tablaPaso2.Rows[j][i]) : 0;
+                }
+                tablaPaso3.Rows[0][i] = acumuladorColumna;
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Paso 2: Expresar la intensidad de la preferencia de la alternativa Xi comparada con Xk
+        /// </summary>
+        /// <param name="listaConfiguracion">The lista configuracion.</param>
+        private void EjecutarPaso2(List<Utility.Promethee> listaConfiguracion)
+        {
+            #region --[Paso 2]--
+            tablaPaso2 = new DataTable("Promethee2");
+            tablaPaso2.Columns.Add("Alternativas");
+            DataRow nuevaFila;
+            AlternativaEntity altAux = new AlternativaEntity();
+            AlternativaEntity altAux2 = new AlternativaEntity();
+
+            for (int i = 0; i < tablaPaso0.Rows.Count; i++)
+            {
+                altAux = listaAlternativa.Find(p => p.nombre == tablaPaso0.Rows[i][0].ToString());
+
+                tablaPaso2.Columns.Add(altAux.idAlternativa.ToString(), System.Type.GetType("System.Decimal"));
+                nuevaFila = tablaPaso2.NewRow();
+                tablaPaso2.Rows.Add(nuevaFila);
+                tablaPaso2.Rows[i]["Alternativas"] = altAux.idAlternativa.ToString();
+            }
+            tablaPaso2.Columns.Add("FlujoEntrante", System.Type.GetType("System.Decimal"));
+
+            string[] alternativas;
+            int indexFila = 0;
+            int indexColumna = 0;
+            decimal sumaPesos = 0;
+            foreach (Utility.Promethee item in listaConfiguracion)
+                sumaPesos += item.pesoCriterio;
+
+            int nroFila;
+            decimal valorAcumulado = 0;
+            decimal valorCriterio = 0;
+
+            foreach (DataRow item in tablaPaso1.Rows)
+            {
+                valorAcumulado = 0;
+                valorCriterio = 0;
+                alternativas = item[0].ToString().Split('-');
+                //item 0: fila
+                //item 1: columna
+                int.TryParse(alternativas[0], out indexFila);
+                int.TryParse(alternativas[1], out indexColumna);
+                nroFila = tablaPaso2.Rows.IndexOf(tablaPaso2.Select("Alternativas='" + indexFila.ToString() + "'")[0]);
+
+                foreach (Utility.Promethee criterio in listaConfiguracion)
+                {
+                    valorCriterio = (item[criterio.nombreCriterio] != DBNull.Value) ? Convert.ToDecimal(item[criterio.nombreCriterio]) : 0;
+                    valorAcumulado += valorCriterio * criterio.pesoCriterio;
+                }
+                tablaPaso2.Rows[nroFila][indexColumna.ToString()] = Math.Round((valorAcumulado / (sumaPesos)), 2);
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Paso 1: determinar como se situan las alternativas con respecto a cada atributo.
         /// </summary>
         /// <param name="listaConfiguracion">The lista configuracion.</param>
         private void EjecutarPaso1(List<Utility.Promethee> listaConfiguracion)
@@ -783,7 +1116,9 @@ namespace Promethee
                 tablaPaso1.Columns.Add(item.nombreCriterio);
 
             DataRow fila;
-            // Paso 1: determinar como se situan las alternativas con respecto a cada atributo.
+            AlternativaEntity altAux = new AlternativaEntity();
+            AlternativaEntity altAux2 = new AlternativaEntity();
+
             #region --[Paso 1]--
             for (int i = 0; i < tablaPaso0.Rows.Count; i++)
             {
@@ -792,7 +1127,10 @@ namespace Promethee
                     if (i != j)
                     {
                         fila = tablaPaso1.NewRow();
-                        fila["Alternativas"] = tablaPaso0.Rows[i][0] + "-" + tablaPaso0.Rows[j][0];
+                        altAux = listaAlternativa.Find(p => p.nombre == tablaPaso0.Rows[i][0].ToString());
+                        altAux2 = listaAlternativa.Find(p => p.nombre == tablaPaso0.Rows[j][0].ToString());
+
+                        fila["Alternativas"] = altAux.idAlternativa + "-" + altAux2.idAlternativa;
 
                         foreach (Utility.Promethee item in listaConfiguracion)
                         {
@@ -840,8 +1178,6 @@ namespace Promethee
 
             List<ConfigFuncionPreferenciaEntity> listaConfiguracion =
                 ConfigFuncionPreferenciaDA.Select(new ConfigFuncionPreferenciaEntity(), new CriterioEntity() { idModelo = miModelo.idModelo });
-
-            List<CriterioEntity> listaCriterio = CriteriosDA.Select(new CriterioEntity() { idModelo = miModelo.idModelo });
 
             List<ConfigFuncionPreferenciaEntity> listaConfiguracionAux = null;
             foreach (CriterioEntity item in listaCriterio)
@@ -912,11 +1248,11 @@ namespace Promethee
         /// Cargars the tabla paso1.
         /// </summary>
         /// <returns></returns>
-        private DataTable CargarTablaPaso0()
+        private void CargarTablaPaso0()
         {
             InitializeWorkbook(MapPath("~/Files/" + miModelo.filename));
 
-            return ConvertToDataTable();
+            tablaPaso0 = ConvertToDataTable();
         }
 
         /// <summary>

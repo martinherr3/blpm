@@ -110,10 +110,22 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:UpdatePanel runat="server" ID="udpModelos" UpdateMode="Conditional">
+    <%--<asp:UpdatePanel ID="udpImgPodio" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
+            <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
+                Visible="false" Style="text-align: center" />
         </ContentTemplate>
         <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />
+        </Triggers>
+    </asp:UpdatePanel>--%>
+    <asp:UpdatePanel runat="server" ID="udpModelos" UpdateMode="Conditional">
+        <ContentTemplate>
+            <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
+                Visible="false" Style="text-align: center" />
+        </ContentTemplate>
+        <Triggers>
+            <%--<asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />--%>
         </Triggers>
     </asp:UpdatePanel>
     <asp:HiddenField ID="HiddenField1" runat="server" />
@@ -229,7 +241,7 @@
     </asp:Panel>
     <asp:HiddenField ID="HiddenField4" runat="server" />
     <ajaxtoolkit:ModalPopupExtender ID="mpuUpload" runat="server" PopupControlID="pnlUpload"
-        TargetControlID="HiddenField2" RepositionMode="RepositionOnWindowResizeAndScroll"
+        TargetControlID="HiddenField4" RepositionMode="RepositionOnWindowResizeAndScroll"
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlAlternativas">
     </ajaxtoolkit:ModalPopupExtender>
     <asp:Panel ID="pnlUpload" runat="server" Width="500px" Height="180px" Style="display: none;
