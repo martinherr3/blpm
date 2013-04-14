@@ -19,9 +19,9 @@
                     <td align="right">
                         <asp:UpdatePanel ID="udpBotonera" UpdateMode="Conditional" runat="server">
                             <ContentTemplate>
-                                <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
+<%--                                <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                                     ImageUrl="~/Images/botonBuscar.png" />
-<%--                                <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
+--%><%--                                <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                                     ImageUrl="~/Images/botonVolver.png" />
 --%>                            </ContentTemplate>
                         </asp:UpdatePanel>
