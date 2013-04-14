@@ -273,7 +273,6 @@ namespace EDUAR_UI
                 listaCursos = null;
                 ddlAsignatura.Enabled = idNivel > 0;
                 udpGrilla.Update();
-                udpBotonera.Update();
             }
             catch (Exception ex)
             {
@@ -302,7 +301,6 @@ namespace EDUAR_UI
                     udpGrilla.Update();
                 }
                 BuscarFiltrando();
-                udpBotonera.Update();
             }
             catch (Exception ex)
             {
