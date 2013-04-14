@@ -200,22 +200,6 @@ namespace EDUAR_UI
             }
         }
 
-        /// <summary>
-        /// Handles the Click event of the btnBuscar control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void btnBuscar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                BuscarFiltrando();
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
 
         /// <summary>
         /// Handles the RowCommand event of the gvwReporte control.
@@ -279,12 +263,12 @@ namespace EDUAR_UI
                 {
                     this.idNivel = idNivel;
                     CargarComboAsignatura();
-                    BuscarFiltrando();
                 }
                 else
                 {
                     CargarPresentacion();
                 }
+                BuscarFiltrando();
                 listaCursos.Clear();
                 listaCursos = null;
                 ddlAsignatura.Enabled = idNivel > 0;
@@ -311,12 +295,13 @@ namespace EDUAR_UI
                 if (idAsignatura > 0)
                 {
                     this.idAsignatura = idAsignatura;
-                    BuscarFiltrando();
                 }
                 else
                 {
+                    CargarPresentacion();
                     udpGrilla.Update();
                 }
+                BuscarFiltrando();
                 udpBotonera.Update();
             }
             catch (Exception ex)
@@ -336,7 +321,6 @@ namespace EDUAR_UI
         private void CargarPresentacion()
         {
             udpFiltrosBusqueda.Visible = true;
-            btnBuscar.Visible = true;
             gvwReporte.Visible = true;
             udpFiltros.Update();
             udpGrilla.Update();
@@ -344,7 +328,8 @@ namespace EDUAR_UI
             ddlAsignatura.Items.Clear();
             ddlAsignatura.Items.Add("[Seleccione Nivel]");
             ddlAsignatura.Enabled = false;
-
+            this.idAsignatura = 0;
+            this.idNivel = 0;
         }
 
         /// Cargars the grilla.
