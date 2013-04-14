@@ -16,16 +16,6 @@
                             Administrar Planificaciones de Clases
                             <br />
                     </td>
-                    <td align="right">
-                        <asp:UpdatePanel ID="udpBotonera" UpdateMode="Conditional" runat="server">
-                            <ContentTemplate>
-<%--                                <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
-                                    ImageUrl="~/Images/botonBuscar.png" />
---%><%--                                <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
-                                    ImageUrl="~/Images/botonVolver.png" />
---%>                            </ContentTemplate>
-                        </asp:UpdatePanel>
-                    </td>
                 </tr>
             </table>
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
@@ -62,13 +52,7 @@
                                         OnSelectedIndexChanged="ddlAsignatura_SelectedIndexChanged">
                                     </asp:DropDownList>
                             </td>
-<%--                            <td valign="top" class="TD50px">
-                                <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
-                            </td>
-                            <td valign="top" class="TD50px">
-                                <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
-                            </td>
---%>                        </tr>
+                       </tr>
                     </table>
 
                 </ContentTemplate>
@@ -151,7 +135,6 @@
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="gvwReporte" EventName="RowCommand" />
-            <%--<asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />--%>
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

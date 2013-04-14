@@ -22,15 +22,6 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpFiltros;
         
         /// <summary>
-        /// Control udpBotonera.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpBotonera;
-        
-        /// <summary>
         /// Control udpFiltrosBusqueda.
         /// </summary>
         /// <remarks>
