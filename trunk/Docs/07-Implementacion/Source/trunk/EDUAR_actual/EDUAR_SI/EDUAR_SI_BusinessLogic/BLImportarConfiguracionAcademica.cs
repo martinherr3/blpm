@@ -39,8 +39,8 @@ namespace EDUAR_SI_BusinessLogic
 			{
 				objDAImportarDatos = new DAImportarDatos(ConnectionString);
 
-				objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDEVDesdeRemoto);
-				//objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDesdeRemoto);
+				//objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDEVDesdeRemoto);
+                objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDEVDesdeRemoto);
 
 				//Método que realmente lleva a cabo las tareas
 				ImportarDatos();

@@ -1226,9 +1226,19 @@ namespace EDUAR_SI_DataAccess
                 {
                     conMySQL = new MySqlConnection(configuracion.valor);
                     command.Connection = conMySQL;
-
-					command.CommandText = @"SELECT *
-                                            FROM boletincalificaciones";
+                    command.CommandTimeout = 360;
+                    command.CommandText = @"SELECT *
+                                            FROM boletincalificaciones
+                                            WHERE fk_periodo_id IN
+                                                (SELECT id 
+                                                FROM periodo
+                                                WHERE fk_ciclolectivo_id =
+                                                (
+                                                    SELECT id 
+                                                    FROM ciclolectivo
+                                                    WHERE actual=1
+                                                )
+                                            )";
                     conMySQL.Open();
 
                     MySqlDataReader reader = command.ExecuteReader();

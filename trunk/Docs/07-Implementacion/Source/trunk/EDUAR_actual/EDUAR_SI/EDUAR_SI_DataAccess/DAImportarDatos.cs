@@ -726,7 +726,7 @@ namespace EDUAR_SI_DataAccess
 				{
 					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.CommandText = "Calificacion_Insert";
-					command.CommandTimeout = 10;
+					command.CommandTimeout = 300;
 
 					command.Connection = transaccion.Connection;
 					command.Transaction = transaccion;

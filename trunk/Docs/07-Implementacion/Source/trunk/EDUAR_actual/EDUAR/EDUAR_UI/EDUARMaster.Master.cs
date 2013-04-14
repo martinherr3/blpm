@@ -120,6 +120,7 @@ namespace EDUAR_UI
 				{
 					NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
 					SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
+                    NavigationMenu.Visible = true;
 
 					CargarURLIniciarSesion();
 				}
@@ -177,6 +178,7 @@ namespace EDUAR_UI
 					{
 						NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
 						SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
+                        NavigationMenu.Visible = true;
 
 						CargarURLIniciarSesion();
 					}

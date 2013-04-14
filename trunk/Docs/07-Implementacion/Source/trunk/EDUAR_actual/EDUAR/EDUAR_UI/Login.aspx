@@ -20,7 +20,7 @@
     </asp:ScriptManager>
     <div class="page">
         <div class="header">
-            <table border="0" cellpadding="1" cellspacing="5" style="width: 1020px;">
+            <table  style="width: 1020px;">
                 <tr>
                     <td style="width: 25%">
                         <div class="title">
@@ -29,7 +29,7 @@
                     </td>
                     <td style="width: 40%">
                         <div id="divInfo" runat="server" visible="false" style="vertical-align: text-top">
-                            <table border="0" cellpadding="1" cellspacing="5" style="width: 100%; text-align: center">
+                            <table  style="width: 100%; text-align: center">
                                 <tr>
                                     <td>&nbsp;
                                     </td>
