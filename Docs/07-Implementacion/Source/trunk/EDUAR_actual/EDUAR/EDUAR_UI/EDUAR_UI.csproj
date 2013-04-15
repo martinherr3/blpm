@@ -182,6 +182,7 @@
     <Content Include="Images\Home\Reportes.png" />
     <Content Include="Images\Home\VerAprobaciones.png" />
     <Content Include="Images\Home\VerCitaciones.png" />
+    <Content Include="Images\Home\verConfigIndicadores.png" />
     <Content Include="Images\Home\VerConsolidado.png" />
     <Content Include="Images\Home\VerContenidos.png" />
     <Content Include="Images\Home\VerHistorico.png" />
@@ -195,6 +196,7 @@
     <Content Include="Images\Home\VerNovedades.png" />
     <Content Include="Images\Home\VerPlanificacion.png" />
     <Content Include="Images\Home\VerSanciones.png" />
+    <Content Include="Images\Home\VerUsuarios.png" />
     <Content Include="Images\Indicadores\IndAmarillo.png" />
     <Content Include="Images\Indicadores\IndAmarilloSecundario.png" />
     <Content Include="Images\Indicadores\IndRojo.png" />
@@ -221,6 +223,7 @@
     <Content Include="Images\ventanaConfirmacion.png" />
     <Content Include="Images\verAprobaciones.png" />
     <Content Include="Images\verCitaciones.png" />
+    <Content Include="Images\verConfigIndicadores.png" />
     <Content Include="Images\verConsolidado.png" />
     <Content Include="Images\verContenidos.png" />
     <Content Include="Images\verHistorico.png" />
@@ -234,6 +237,7 @@
     <Content Include="Images\verNovedades.png" />
     <Content Include="Images\verPlanificacion.png" />
     <Content Include="Images\verSanciones.png" />
+    <Content Include="Images\verUsuarios.png" />
     <Content Include="Images\view-sort-ascending.png" />
     <Content Include="Images\view-sort-descending.png" />
     <Content Include="Images\web\about.png" />

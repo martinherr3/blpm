@@ -90,7 +90,7 @@
                 </td>
                 <td>
                     <asp:ImageButton ID="btnAdministracion" ImageUrl="~/Images/Home/Administracion.png"
-                        ToolTip="Administracion" runat="server" />
+                        ToolTip="Administración" runat="server" CommandArgument="Administracion" OnClick="btnPopUP_Click"/>
                 </td>
             </tr>
         </table>
@@ -304,6 +304,40 @@
                 <td>
                     <asp:ImageButton ID="btnNovedades" ImageUrl="~/Images/Home/VerNovedades.png" ToolTip="Novedades Institucionales"
                         runat="server" CommandArgument="Novedades" OnClick="btnRedireccion_Click" />
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+
+    <!-- Administracion -->
+    <asp:HiddenField ID="HiddenField6" runat="server" />
+    <ajaxToolkit:ModalPopupExtender ID="mpeAdministracion" runat="server" PopupControlID="pnlAdministracion"
+        TargetControlID="HiddenField6" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlAdministracion">
+    </ajaxToolkit:ModalPopupExtender>
+    <asp:Panel ID="pnlAdministracion" runat="server" Width="500px" Height="250px" Style="display: none;
+        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+            <tr>
+                <td valign="top">
+                    <h2>
+                        <asp:Label ID="Label6" Text="Administración" runat="server" /></h2>
+                </td>
+                <td align="right">
+                    <asp:ImageButton ID="btnCerrarAdministracion" OnClick="btnCerrarPopup_Click" ImageUrl="~/Images/PopUp/botonCerrar.png"
+                        ToolTip="Cerrar" runat="server" CommandArgument="Administracion" />
+                </td>
+            </tr>
+        </table>
+        <table class="tablaInterna" cellpadding="1" cellspacing="5" style="text-align: center">
+            <tr>
+                <td>
+                    <asp:ImageButton ID="btnVerUsuarios" ImageUrl="~/Images/Home/VerUsuarios.png" ToolTip="Usuarios"
+                        runat="server" CommandArgument="Usuarios" OnClick="btnRedireccion_Click" />
+                </td>
+                <td>
+                    <asp:ImageButton ID="btnVerConfigIndicadores" ImageUrl="~/Images/Home/VerConfigIndicadores.png"
+                        ToolTip="Configuración Indicadores" runat="server" CommandArgument="ConfigIndicadores" OnClick="btnRedireccion_Click" />
                 </td>
             </tr>
         </table>
