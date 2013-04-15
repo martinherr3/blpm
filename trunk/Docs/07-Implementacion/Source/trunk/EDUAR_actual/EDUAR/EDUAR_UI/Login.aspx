@@ -113,7 +113,7 @@
                             <asp:HyperLink ID="ForgotPasswordHyperLink" runat="server" EnableViewState="false">Aquí</asp:HyperLink>
                         </p>
                         <asp:Login ID="LoginUser" runat="server" EnableViewState="false" RenderOuterTable="false"
-                            OnAuthenticate="LoginUsuario_Authenticate">
+                            OnAuthenticate="LoginUsuario_Authenticate" DestinationPageUrl="~/Private/Account/Welcome.aspx">
                             <LayoutTemplate>
                                 <span class="failureNotification">
                                     <asp:Literal ID="FailureText" runat="server"></asp:Literal>

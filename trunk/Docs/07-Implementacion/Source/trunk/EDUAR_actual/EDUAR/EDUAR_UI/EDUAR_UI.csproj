@@ -192,9 +192,12 @@
     <Content Include="Images\Home\VerEncuestas.png" />
     <Content Include="Images\Home\VerEscalas.png" />
     <Content Include="Images\Home\VerIndicadores.png" />
+    <Content Include="Images\Home\VerMail.png" />
     <Content Include="Images\Home\VerMensajes.png" />
     <Content Include="Images\Home\VerNovedades.png" />
+    <Content Include="Images\Home\VerPassword.png" />
     <Content Include="Images\Home\VerPlanificacion.png" />
+    <Content Include="Images\Home\VerPregunta.png" />
     <Content Include="Images\Home\VerSanciones.png" />
     <Content Include="Images\Home\VerUsuarios.png" />
     <Content Include="Images\Indicadores\IndAmarillo.png" />
@@ -226,6 +229,7 @@
     <Content Include="Images\verConfigIndicadores.png" />
     <Content Include="Images\verConsolidado.png" />
     <Content Include="Images\verContenidos.png" />
+    <Content Include="Images\verCuenta.png" />
     <Content Include="Images\verHistorico.png" />
     <Content Include="Images\VerInasistencia.png" />
     <Content Include="Images\verCalificaciones.png" />
@@ -233,9 +237,12 @@
     <Content Include="Images\verEncuestas.png" />
     <Content Include="Images\verEscalas.png" />
     <Content Include="Images\verIndicadores.png" />
+    <Content Include="Images\verMail.png" />
     <Content Include="Images\verMensajes.png" />
     <Content Include="Images\verNovedades.png" />
+    <Content Include="Images\verPassword.png" />
     <Content Include="Images\verPlanificacion.png" />
+    <Content Include="Images\verPregunta.png" />
     <Content Include="Images\verSanciones.png" />
     <Content Include="Images\verUsuarios.png" />
     <Content Include="Images\view-sort-ascending.png" />

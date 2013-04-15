@@ -12,6 +12,7 @@ using EDUAR_Entities.Security;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_Utility.Excepciones;
 using EDUAR_Utility.Utilidades;
+using EDUAR_BusinessLogic.Common;
 
 namespace EDUAR_BusinessLogic.Security
 {
@@ -195,9 +196,14 @@ namespace EDUAR_BusinessLogic.Security
         {
             try
             {
+                //chequear que el usuario está activo
+                bool personaActiva = new BLPersona().CheckUsuario(Data.Usuario.Nombre);
                 Data.Usuario.UsuarioValido = Membership.ValidateUser(Data.Usuario.Nombre, Data.Usuario.Password);
                 //DASeguridad dataAcces = new DASeguridad();
                 //Data.Usuario.UsuarioValido = dataAcces.Autenticar(Data.Usuario.Nombre, Data.Usuario.Password);
+
+                if (!personaActiva)
+                    throw new CustomizedException("No se encuentra el usuario.", null, enuExceptionType.SecurityException);
 
                 if (!Data.Usuario.UsuarioValido)
                 {

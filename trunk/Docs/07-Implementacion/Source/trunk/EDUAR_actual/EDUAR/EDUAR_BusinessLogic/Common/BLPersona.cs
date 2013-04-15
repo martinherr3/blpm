@@ -182,27 +182,27 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
-		/// <summary>
-		/// Gets the personas.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		/// <returns></returns>
-		public List<Persona> GetPersonas(Persona entidad, bool bNoRegistrado)
-		{
-			try
-			{
-				return DataAcces.GetPersonas(entidad, bNoRegistrado);
-			}
-			catch (CustomizedException ex)
-			{
-				throw ex;
-			}
-			catch (Exception ex)
-			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetPersonas", ClassName), ex,
-											  enuExceptionType.BusinessLogicException);
-			}
-		}
+        /// <summary>
+        /// Gets the personas.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Persona> GetPersonas(Persona entidad, bool bNoRegistrado)
+        {
+            try
+            {
+                return DataAcces.GetPersonas(entidad, bNoRegistrado);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetPersonas", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
 
         /// <summary>
         /// Gets the by id.
@@ -252,6 +252,35 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+        /// <summary>
+        /// Checks the usuario.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public bool CheckUsuario(string username)
+        {
+            try
+            {
+                Data.username = username;
+                this.GetPersonaByEntidad();
+                if (Data != null)
+                    return (bool)Data.activo;
+                else
+                    return false;
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - CheckUsuario", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
+
     }
 }

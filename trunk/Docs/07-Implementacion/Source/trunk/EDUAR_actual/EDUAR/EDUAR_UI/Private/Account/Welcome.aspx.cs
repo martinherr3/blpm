@@ -487,7 +487,7 @@ namespace EDUAR_UI
         private void CargarAgenda()
         {
             CargarValoresEnPantalla();
-            propAgenda.listaEventos.Sort((p, q) => DateTime.Compare(p.fechaEvento, q.fechaEvento));
+            if (propAgenda.listaEventos.Count > 0) propAgenda.listaEventos.Sort((p, q) => DateTime.Compare(p.fechaEvento, q.fechaEvento));
             CargarGrillaAgenda();
             udpGrilla.Update();
         }
