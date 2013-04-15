@@ -349,8 +349,9 @@ namespace EDUAR_UI
                     case "Comunicacion":
                         mpeComunicacion.Hide();
                         break;
-                    //case "Historico":
-                    //    break;
+                    case "Administracion":
+                        mpeAdministracion.Hide();
+                        break;
                     default:
                         break;
                 }
@@ -389,8 +390,9 @@ namespace EDUAR_UI
                     case "Comunicacion":
                         mpeComunicacion.Show();
                         break;
-                    //case "Historico":
-                    //    break;
+                    case "Administracion":
+                        mpeAdministracion.Show();
+                        break;
                     default:
                         break;
                 }
@@ -458,6 +460,12 @@ namespace EDUAR_UI
                         break;
                     case "Novedades":
                         Response.Redirect("~/Private/Novedades/RegNovedadInstitucion.aspx", false);
+                        break;
+                    case "Usuarios":
+                        Response.Redirect("~/Private/Account/ChangeUser.aspx", false);
+                        break;
+                    case "ConfigIndicadores":
+                        Response.Redirect("~/Private/Monitoreo/ConfigIndicadores.aspx", false);
                         break;
                     default:
                         break;
