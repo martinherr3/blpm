@@ -11,15 +11,15 @@
         <tr>
             <td>
                 <h2>
-                    Mensajes Enviados
+                    Enviados
                 </h2>
                 <br />
             </td>
             <td align="right">
                 <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo Mensaje"
                     ImageUrl="~/Images/botonNuevoMail.png" Visible="true" />
-                <asp:ImageButton ID="btnRecibidos" OnClick="btnRecibidos_Click" runat="server" ToolTip="Bandeja de Entrada"
-                    ImageUrl="~/Images/botonRecibidos.png" Visible="true" />
+                <asp:ImageButton ID="btnRecibidos" OnClick="btnRecibidos_Click" runat="server" ToolTip="Recibidos"
+                    ImageUrl="~/Images/verMensajes.png" Visible="true" />
                 <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Eliminar Seleccionados"
                     AlternateText="Eliminar Seleccionados" ImageUrl="~/Images/mail-delete.png" OnClick="btnEliminar_Click" />
             </td>
