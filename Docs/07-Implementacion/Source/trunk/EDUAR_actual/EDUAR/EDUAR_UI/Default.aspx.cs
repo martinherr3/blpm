@@ -74,6 +74,9 @@ namespace EDUAR_UI
 						objBLSeguridad.GetUsuario();
 						Response.Redirect("~/Private/Account/ForgotPassword.aspx", false);
 					}
+
+                    if(User.Identity.IsAuthenticated)
+                        Response.Redirect("~/Private/Account/Welcome.aspx", false);
 				}
 			}
 			catch (Exception ex)

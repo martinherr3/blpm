@@ -148,8 +148,8 @@
                                                 <asp:HyperLink ID="linkAyuda" NavigateUrl="" ImageUrl="~/Images/help.png" runat="server"
                                                     ToolTip="Ayuda" Style="cursor: pointer" Target="_blank" />
                                                 <td align="center" style="">
-                                                    <asp:ImageButton ID="btnLogout" ImageUrl="~/Images/web/user-online.png" OnClick="btnLogout_Click"
-                                                        runat="server" AlternateText="Cerrar Sesión" ToolTip="Cerrar Sesión" />
+                                                    <asp:ImageButton ID="btnCuenta" ImageUrl="~/Images/verCuenta.png" OnClick="btnCuenta_Click"
+                                                        runat="server" AlternateText="Cuenta" ToolTip="Cuenta" />
                                                 </td>
                                         </tr>
                                         <tr>
@@ -239,7 +239,43 @@
     </div>
     <div class="footer">
     </div>
+    <!-- Cuenta -->
+    <asp:HiddenField ID="HiddenField1" runat="server" />
+    <ajaxToolkit:ModalPopupExtender ID="mpeCuenta" runat="server" PopupControlID="pnlCuenta"
+        TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlCursos">
+    </ajaxToolkit:ModalPopupExtender>
+    <asp:Panel ID="pnlCuenta" runat="server" Width="500px" Height="250px" Style="display: none;
+        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+            <tr>
+                <td valign="top">
+                    <h2>
+                        <asp:Label ID="lblTituloPrincipal" Text="Admministrar Cuenta" runat="server" /></h2>
+                </td>
+                <td align="right">
+                    <asp:ImageButton ID="btnCerrarCursos" OnClick="btnCerrarPopup_Click" ImageUrl="~/Images/PopUp/botonCerrar.png"
+                        ToolTip="Cerrar" runat="server" />
+                </td>
+            </tr>
+        </table>
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+            <tr>
+                <td>
+                    <asp:ImageButton ID="btnVerPassword" ImageUrl="~/Images/Home/VerPassword.png"
+                        ToolTip="Cambiar Password" runat="server" CommandArgument="Password" OnClick="btnRedireccion_Click" />
+                </td>
+                <td>
+                    <asp:ImageButton ID="btnVerPregunta" ImageUrl="~/Images/Home/VerPregunta.png" ToolTip="Pregunta Secreta"
+                        runat="server" CommandArgument="Pregunta" OnClick="btnRedireccion_Click" />
+                </td>
+                <td>
+                    <asp:ImageButton ID="btnVerMail" ImageUrl="~/Images/Home/VerMail.png" ToolTip="Email"
+                        runat="server" CommandArgument="Mail" OnClick="btnRedireccion_Click" />
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
     </form>
-    
 </body>
 </html>

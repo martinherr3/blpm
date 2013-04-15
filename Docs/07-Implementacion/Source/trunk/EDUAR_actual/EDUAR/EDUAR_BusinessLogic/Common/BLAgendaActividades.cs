@@ -378,11 +378,16 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
 
-		/// <summary>
-		/// Gets the agenda actividades by alumno.
-		/// </summary>
-		/// <param name="entidad">The entidad.</param>
-		/// <returns></returns>
+        /// <summary>
+        /// Gets the agenda actividades by alumno.
+        /// </summary>
+        /// <param name="alumno">The alumno.</param>
+        /// <param name="docente">The docente.</param>
+        /// <param name="curso">The curso.</param>
+        /// <param name="fechaDesde">The fecha desde.</param>
+        /// <param name="fechaHasta">The fecha hasta.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
 		public List<EventoAgenda> GetAgendaActividadesByRol(Alumno alumno, Docente docente, CursoCicloLectivo curso, DateTime fechaDesde, DateTime fechaHasta)
 		{
 			try
@@ -393,7 +398,10 @@ namespace EDUAR_BusinessLogic.Common
 					objAlumno.alumno = alumno;
 					BLAlumno objBLAlumno = new BLAlumno(alumno);
 					objAlumno = objBLAlumno.GetCursoActualAlumno(curso.cicloLectivo);
-					Data.cursoCicloLectivo.idCursoCicloLectivo = objAlumno.cursoCicloLectivo.idCursoCicloLectivo;
+                    if (objAlumno != null)
+                        Data.cursoCicloLectivo.idCursoCicloLectivo = objAlumno.cursoCicloLectivo.idCursoCicloLectivo;
+                    else
+                        return new List<EventoAgenda>();
 				}
 				else
 					if (curso != null)

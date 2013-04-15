@@ -93,114 +93,114 @@ namespace EDUAR_UI
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
-		{
-			try
-			{
-				//Llama a la funcionalidad que redirecciona a la pagina de Login cuando finaliza el tiempo de session
-				((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
+        {
+            try
+            {
+                //Llama a la funcionalidad que redirecciona a la pagina de Login cuando finaliza el tiempo de session
+                ((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
 
-				//11-3-13
-				if (HttpContext.Current.User == null || (ObjSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty))
-				{
-					//HttpContext.Current.User = null;
-					//ObjSessionDataUI = null;
-					if (HttpContext.Current.User != null)
-					{
-						DTSeguridad propSeguridad = new DTSeguridad();
-						propSeguridad.Usuario.Nombre = HttpContext.Current.User.Identity.Name;
-						BLSeguridad objBLSeguridad = new BLSeguridad(propSeguridad);
-						objBLSeguridad.GetUsuario();
+                //11-3-13
+                if (HttpContext.Current.User == null || (ObjSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty))
+                {
+                    //HttpContext.Current.User = null;
+                    //ObjSessionDataUI = null;
+                    if (HttpContext.Current.User != null)
+                    {
+                        DTSeguridad propSeguridad = new DTSeguridad();
+                        propSeguridad.Usuario.Nombre = HttpContext.Current.User.Identity.Name;
+                        BLSeguridad objBLSeguridad = new BLSeguridad(propSeguridad);
+                        objBLSeguridad.GetUsuario();
                         if (objBLSeguridad.Data.Usuario != null)
                             ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
                         else
                             HttpContext.Current.User = null;
-					}
-				}
-				if (HttpContext.Current.User == null)
-				{
-					NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
-					SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
+                    }
+                }
+                if (HttpContext.Current.User == null)
+                {
+                    NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
+                    SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
                     NavigationMenu.Visible = true;
 
-					CargarURLIniciarSesion();
-				}
-				else
-				{
-					if (HttpContext.Current.User.Identity.IsAuthenticated)
-					{
-						divInfo.Visible = true;
+                    CargarURLIniciarSesion();
+                }
+                else
+                {
+                    if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        divInfo.Visible = true;
 
-						CargaInforUsuario();
+                        CargaInforUsuario();
 
-						// ~/Private/Manuales/{0}/index.htm
-						string rol = string.Empty;
-						if (HttpContext.Current.User.IsInRole(enumRoles.Administrador.ToString()))
-							rol = enumRoles.Administrador.ToString();
-						if (HttpContext.Current.User.IsInRole(enumRoles.Administrativo.ToString()))
-							rol = enumRoles.Administrativo.ToString();
-						if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
-							rol = enumRoles.Alumno.ToString();
-						if (HttpContext.Current.User.IsInRole(enumRoles.Director.ToString()))
-							rol = enumRoles.Director.ToString();
-						if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
-							rol = enumRoles.Docente.ToString();
-						if (HttpContext.Current.User.IsInRole(enumRoles.Preceptor.ToString()))
-							rol = enumRoles.Preceptor.ToString();
-						if (HttpContext.Current.User.IsInRole(enumRoles.Psicopedagogo.ToString()))
-							rol = enumRoles.Psicopedagogo.ToString();
-						if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
-							rol = enumRoles.Tutor.ToString();
+                        // ~/Private/Manuales/{0}/index.htm
+                        string rol = string.Empty;
+                        if (HttpContext.Current.User.IsInRole(enumRoles.Administrador.ToString()))
+                            rol = enumRoles.Administrador.ToString();
+                        if (HttpContext.Current.User.IsInRole(enumRoles.Administrativo.ToString()))
+                            rol = enumRoles.Administrativo.ToString();
+                        if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
+                            rol = enumRoles.Alumno.ToString();
+                        if (HttpContext.Current.User.IsInRole(enumRoles.Director.ToString()))
+                            rol = enumRoles.Director.ToString();
+                        if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
+                            rol = enumRoles.Docente.ToString();
+                        if (HttpContext.Current.User.IsInRole(enumRoles.Preceptor.ToString()))
+                            rol = enumRoles.Preceptor.ToString();
+                        if (HttpContext.Current.User.IsInRole(enumRoles.Psicopedagogo.ToString()))
+                            rol = enumRoles.Psicopedagogo.ToString();
+                        if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
+                            rol = enumRoles.Tutor.ToString();
 
-						if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")) != null)
-							((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")).NavigateUrl = string.Format("~/Private/Manuales/help_{0}.aspx", rol);
+                        if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")) != null)
+                            ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")).NavigateUrl = string.Format("~/Private/Manuales/help_{0}.aspx", rol);
 
-						if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")) != null)
-							((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")).NavigateUrl = string.Format("~/Private/Manuales/help_{0}.aspx", rol);
+                        if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")) != null)
+                            ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")).NavigateUrl = string.Format("~/Private/Manuales/help_{0}.aspx", rol);
 
-						#region --[Mensajes en header]--
-						//StringBuilder s = new StringBuilder();
-						//string er;
-						//  configura los llamados a RaiseCallbackEvent y GetCallbackResult
-						//er = Page.ClientScript.GetCallbackEventReference(this, "clientTime('')", "putCallbackResult", "null", "clientErrorCallback", true);
+                        #region --[Mensajes en header]--
+                        //StringBuilder s = new StringBuilder();
+                        //string er;
+                        //  configura los llamados a RaiseCallbackEvent y GetCallbackResult
+                        //er = Page.ClientScript.GetCallbackEventReference(this, "clientTime('')", "putCallbackResult", "null", "clientErrorCallback", true);
 
-						//  funcion que llama a RaiseCallbackEvent
-						//s.Append(" function callServerTask() { ");
-						//s.Append((er + ";"));
-						//s.Append(" } ");
-						////  inserta el script en la pgina
-						//Page.ClientScript.RegisterClientScriptBlock(
-						//     this.GetType(), "callServerTask", s.ToString(), true);
-						//  NOTA:
-						//  La función callServerTask() es llamada desde la function timerEvent()
-						#endregion
-					}
-					else
-					{
-						NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
-						SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
+                        //  funcion que llama a RaiseCallbackEvent
+                        //s.Append(" function callServerTask() { ");
+                        //s.Append((er + ";"));
+                        //s.Append(" } ");
+                        ////  inserta el script en la pgina
+                        //Page.ClientScript.RegisterClientScriptBlock(
+                        //     this.GetType(), "callServerTask", s.ToString(), true);
+                        //  NOTA:
+                        //  La función callServerTask() es llamada desde la function timerEvent()
+                        #endregion
+                    }
+                    else
+                    {
+                        NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
+                        SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
                         NavigationMenu.Visible = true;
 
-						CargarURLIniciarSesion();
-					}
-				}
-				NavigationMenu.MenuItemDataBound += (NavigationMenu_OnItemBound);
-				NavigationMenu.DataBind();
+                        CargarURLIniciarSesion();
+                    }
+                }
+                NavigationMenu.MenuItemDataBound += (NavigationMenu_OnItemBound);
+                NavigationMenu.DataBind();
 
-				// Ocultar la ventana de información
-				ventanaInfoMaster.Visible = false;
+                // Ocultar la ventana de información
+                ventanaInfoMaster.Visible = false;
 
-				//Suscribe los eventos de la ventana emergente. 
-				ventanaInfoMaster.VentanaAceptarClick += (Aceptar);
-				ventanaInfoMaster.VentanaCancelarClick += (Cancelar);
+                //Suscribe los eventos de la ventana emergente. 
+                ventanaInfoMaster.VentanaAceptarClick += (Aceptar);
+                ventanaInfoMaster.VentanaCancelarClick += (Cancelar);
 
-				if (!Page.IsPostBack)
-					CargarMenu();
-			}
-			catch (Exception ex)
-			{
-				ManageExceptions(ex);
-			}
-		}
+                if (!Page.IsPostBack)
+                    CargarMenu();
+            }
+            catch (Exception ex)
+            {
+                ManageExceptions(ex);
+            }
+        }
 
         private void CargarURLIniciarSesion()
         {
@@ -327,22 +327,23 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Handles the Click event of the btnLogout control.
+        /// Handles the Click event of the btnCuenta control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void btnLogout_Click(object sender, EventArgs e)
+        /// <param name="e">The <see cref="System.EventArgs" /> instance containing the event data.</param>
+        protected void btnCuenta_Click(object sender, EventArgs e)
         {
             try
             {
-                UIUtilidades.EliminarArchivosSession(Session.SessionID);
-                Response.Cookies.Clear();
-                Session.Abandon();
-                //HttpContext.Current = null;
-                //ObjSessionDataUI = null;
-                objSessionPersona = null;
-                FormsAuthentication.SignOut();
-                Response.Redirect("~/Login.aspx", false);
+                //UIUtilidades.EliminarArchivosSession(Session.SessionID);
+                //Response.Cookies.Clear();
+                //Session.Abandon();
+                ////HttpContext.Current = null;
+                ////ObjSessionDataUI = null;
+                //objSessionPersona = null;
+                //FormsAuthentication.SignOut();
+                //Response.Redirect("~/Login.aspx", false);
+                mpeCuenta.Show();
             }
             catch (Exception ex)
             {
@@ -513,6 +514,39 @@ namespace EDUAR_UI
 
             //Response.Write("<a id='link' style='visibility: hidden' href='" + urlForo + "' target='_blank' onClick='window.open(this.href, this.target, 'width=300,height=400'); return false;'></a><script>link.click();</script>");
             ScriptManager.RegisterStartupScript(Page, GetType(), "Foro", "AbrirPopupForo('" + urlForo + "');", true);
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnCerrarPopup control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnCerrarPopup_Click(object sender, EventArgs e)
+        {
+            mpeCuenta.Hide();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnRedireccion control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnRedireccion_Click(object sender, EventArgs e)
+        {
+            switch (((ImageButton)sender).CommandArgument)
+            {
+                case "Password":
+                    Response.Redirect("~/Private/Account/ChangePassword.aspx", false);
+                    break;
+                case "Pregunta":
+                    Response.Redirect("~/Private/Account/ChangeQuestion.aspx", false);
+                    break;
+                case "Mail":
+                    Response.Redirect("~/Private/Account/ChangeEmail.aspx", false);
+                    break;
+                default:
+                    break;
+            }
         }
         #endregion
 
