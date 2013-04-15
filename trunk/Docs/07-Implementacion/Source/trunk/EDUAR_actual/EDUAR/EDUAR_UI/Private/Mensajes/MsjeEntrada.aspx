@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Bandeja de Entrada" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+﻿<%@ Page Title="Recibidos" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="MsjeEntrada.aspx.cs" Inherits="EDUAR_UI.MsjeEntrada"
     Theme="Tema" StylesheetTheme="Tema" %>
 
@@ -14,7 +14,7 @@
                 <tr>
                     <td>
                         <h2>
-                            Bandeja de Entrada
+                            Recibidos
                         </h2>
                         <br />
                     </td>
@@ -23,7 +23,7 @@
                             ImageUrl="~/Images/botonEnviarMail.png" Visible="false" />
                         <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo Mensaje"
                             ImageUrl="~/Images/botonNuevoMail.png" Visible="true" />
-                            <asp:ImageButton ID="btnEnviados" OnClick="btnEnviados_Click" runat="server" ToolTip="Mensajes Enviados"
+                            <asp:ImageButton ID="btnEnviados" OnClick="btnEnviados_Click" runat="server" ToolTip="Enviados"
                             ImageUrl="~/Images/botonEnviados.png" Visible="true" />
                         <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Eliminar Seleccionados"
                             AlternateText="Eliminar Seleccionados" ImageUrl="~/Images/mail-delete.png" OnClick="btnEliminar_Click" />

@@ -18,10 +18,7 @@
                 <siteMapNode url="~/Private/Encuestas/ManageEscalasPonderacion.aspx" title="Escalas de Ponderación" roles="Administrador,Director,Docente" />
             </siteMapNode>
             <siteMapNode url="~/Private/Novedades/ConsultaNovedadAulica.aspx" title="Novedades" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" visible="false" />
-
-
             <siteMapNode url="~/Private/Monitoreo/GetIndicadores.aspx" title="Indicadores" roles="Administrador,Director" visible="false"/>
-
             <siteMapNode url="~/Private/Novedades/RegNovedadInstitucion.aspx" title="Novedades" roles="Administrador,Director" />
         </siteMapNode>
         <siteMapNode url="" title="Alumnos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
@@ -32,10 +29,11 @@
         <siteMapNode url="" title="Contenidos" roles="Administrador,Docente,Director,Administrativo" >
             <siteMapNode url="~/Private/Planning/Contenido.aspx" title="Gestionar" roles="Administrador,Director,Docente,Administrativo" />
             <siteMapNode url="~/Private/Planning/PlanificacionAnual.aspx" title="Planificar" roles="Administrador,Director,Docente" />
+            <siteMapNode url="~/Private/Planning/ManageRegistroPlanificaciones.aspx" title="Planificaciones" roles="Administrador,Director" />
             <siteMapNode url="~/Private/Planning/TemasContenido.aspx" title="Temas Contenidos" roles="Administrador,Director,Docente,Administrativo" visible="false" />
         </siteMapNode>
         <siteMapNode url="" title="Mensajeria" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
-            <siteMapNode url="~/Private/Mensajes/MsjeEntrada.aspx" title="Bandeja de Entrada" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
+            <siteMapNode url="~/Private/Mensajes/MsjeEntrada.aspx" title="Recibidos" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
             <siteMapNode url="~/Private/Mensajes/MsjeRedactar.aspx" title="Nuevo Mensaje" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false"/>
             <siteMapNode url="~/Private/Mensajes/MsjeEnviado.aspx" title="Bandeja de Salida" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false"/>
         </siteMapNode>

@@ -343,10 +343,12 @@ namespace EDUAR_UI
                     case "Reportes":
                         mpeReportes.Hide();
                         break;
-                    //case "Consolidado":
-                    //    break;
-                    //case "Indicadores":
-                    //    break;
+                    case "Contenidos":
+                        mpeContenidos.Hide();
+                        break;
+                    case "Comunicacion":
+                        mpeComunicacion.Hide();
+                        break;
                     //case "Historico":
                     //    break;
                     default:
@@ -381,10 +383,12 @@ namespace EDUAR_UI
                     case "Reportes":
                         mpeReportes.Show();
                         break;
-                    //case "Consolidado":
-                    //    break;
-                    //case "Indicadores":
-                    //    break;
+                    case "Contenidos":
+                        mpeContenidos.Show();
+                        break;
+                    case "Comunicacion":
+                        mpeComunicacion.Show();
+                        break;
                     //case "Historico":
                     //    break;
                     default:
@@ -436,6 +440,24 @@ namespace EDUAR_UI
                         break;
                     case "Historico":
                         Response.Redirect("~/Private/Reports/Historicos/reportRendimiento.aspx", false);
+                        break;
+                    case "Contenidos":
+                        Response.Redirect("~/Private/Planning/Contenido.aspx", false);
+                        break;
+                    case "Planificacion":
+                        Response.Redirect("~/Private/Planning/PlanificacionAnual.aspx", false);
+                        break;
+                    case "Aprobar":
+                        Response.Redirect("~/Private/Planning/ManageRegistroPlanificaciones.aspx", false);
+                        break;
+                    case "Mensajes":
+                        Response.Redirect("~/Private/Mensajes/MsjeEntrada.aspx", false);
+                        break;
+                    case "Citaciones":
+                        Response.Redirect("~/Private/Alumnos/ManageCitaciones.aspx", false);
+                        break;
+                    case "Novedades":
+                        Response.Redirect("~/Private/Novedades/RegNovedadInstitucion.aspx", false);
                         break;
                     default:
                         break;

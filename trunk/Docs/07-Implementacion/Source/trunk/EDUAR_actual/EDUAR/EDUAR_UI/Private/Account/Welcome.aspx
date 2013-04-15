@@ -82,11 +82,11 @@
             <tr>
                 <td>
                     <asp:ImageButton ID="btnContenidos" ImageUrl="~/Images/Home/Contenidos.png" ToolTip="Contenidos"
-                        runat="server" />
+                        runat="server" CommandArgument="Contenidos" OnClick="btnPopUP_Click" />
                 </td>
                 <td>
                     <asp:ImageButton ID="btnComunicacion" ImageUrl="~/Images/Home/Comunicacion.png" ToolTip="Comunicación"
-                        runat="server" />
+                        runat="server" CommandArgument="Comunicacion" OnClick="btnPopUP_Click"  />
                 </td>
                 <td>
                     <asp:ImageButton ID="btnAdministracion" ImageUrl="~/Images/Home/Administracion.png"
@@ -175,7 +175,7 @@
     <!-- Reportes -->
     <asp:HiddenField ID="HiddenField3" runat="server" />
     <ajaxToolkit:ModalPopupExtender ID="mpeReportes" runat="server" PopupControlID="pnlReportes"
-        TargetControlID="HiddenField2" RepositionMode="RepositionOnWindowResizeAndScroll"
+        TargetControlID="HiddenField3" RepositionMode="RepositionOnWindowResizeAndScroll"
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlReportes">
     </ajaxToolkit:ModalPopupExtender>
     <asp:Panel ID="pnlReportes" runat="server" Width="500px" Height="450px" Style="display: none;
@@ -229,6 +229,81 @@
                 <td>
                     <asp:ImageButton ID="btnHistorico" ImageUrl="~/Images/Home/VerHistorico.png" ToolTip="Histórico"
                         runat="server" CommandArgument="Historico" OnClick="btnRedireccion_Click" />
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+    <!-- Reportes -->
+    <asp:HiddenField ID="HiddenField4" runat="server" />
+    <ajaxToolkit:ModalPopupExtender ID="mpeContenidos" runat="server" PopupControlID="pnlContenidos"
+        TargetControlID="HiddenField4" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
+    </ajaxToolkit:ModalPopupExtender>
+    <asp:Panel ID="pnlContenidos" runat="server" Width="500px" Height="250px" Style="display: none;
+        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+            <tr>
+                <td valign="top">
+                    <h2>
+                        <asp:Label ID="Label4" Text="Contenidos y Planificacion" runat="server" /></h2>
+                </td>
+                <td align="right">
+                    <asp:ImageButton ID="btnCerrarContenidos" OnClick="btnCerrarPopup_Click" ImageUrl="~/Images/PopUp/botonCerrar.png"
+                        ToolTip="Cerrar" runat="server" CommandArgument="Reportes" />
+                </td>
+            </tr>
+        </table>
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+            <tr>
+                <td>
+                    <asp:ImageButton ID="btnVerCurricula" ImageUrl="~/Images/Home/VerContenidos.png"
+                        ToolTip="Contenidos Curriculares" runat="server" CommandArgument="Contenidos"
+                        OnClick="btnRedireccion_Click" />
+                </td>
+                <td>
+                    <asp:ImageButton ID="btnPlanificacion" ImageUrl="~/Images/Home/VerPlanificacion.png"
+                        ToolTip="Planificacion" runat="server" CommandArgument="Planificacion" OnClick="btnRedireccion_Click" />
+                </td>
+                <td>
+                    <asp:ImageButton ID="btnAprobarPlanificacion" ImageUrl="~/Images/Home/VerAprobaciones.png"
+                        ToolTip="Aprobar Planificaciones" runat="server" CommandArgument="Aprobar" OnClick="btnRedireccion_Click" />
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+    <!-- Comunicacion -->
+    <asp:HiddenField ID="HiddenField5" runat="server" />
+    <ajaxToolkit:ModalPopupExtender ID="mpeComunicacion" runat="server" PopupControlID="pnlComunicacion"
+        TargetControlID="HiddenField5" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlComunicacion">
+    </ajaxToolkit:ModalPopupExtender>
+    <asp:Panel ID="pnlComunicacion" runat="server" Width="500px" Height="250px" Style="display: none;
+        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+            <tr>
+                <td valign="top">
+                    <h2>
+                        <asp:Label ID="Label5" Text="Comunicación" runat="server" /></h2>
+                </td>
+                <td align="right">
+                    <asp:ImageButton ID="btnCerrarComunicacion" OnClick="btnCerrarPopup_Click" ImageUrl="~/Images/PopUp/botonCerrar.png"
+                        ToolTip="Cerrar" runat="server" CommandArgument="Comunicacion" />
+                </td>
+            </tr>
+        </table>
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+            <tr>
+                <td>
+                    <asp:ImageButton ID="btnMensajes" ImageUrl="~/Images/Home/VerMensajes.png" ToolTip="Mensajes"
+                        runat="server" CommandArgument="Mensajes" OnClick="btnRedireccion_Click" />
+                </td>
+                <td>
+                    <asp:ImageButton ID="btnCitaciones" ImageUrl="~/Images/Home/VerCitaciones.png"
+                        ToolTip="Citaciones" runat="server" CommandArgument="Citaciones" OnClick="btnRedireccion_Click" />
+                </td>
+                <td>
+                    <asp:ImageButton ID="btnNovedades" ImageUrl="~/Images/Home/VerNovedades.png" ToolTip="Novedades Institucionales"
+                        runat="server" CommandArgument="Novedades" OnClick="btnRedireccion_Click" />
                 </td>
             </tr>
         </table>
