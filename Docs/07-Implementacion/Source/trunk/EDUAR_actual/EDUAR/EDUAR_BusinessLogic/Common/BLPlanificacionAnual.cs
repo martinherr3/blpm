@@ -384,52 +384,47 @@ namespace EDUAR_BusinessLogic.Common
             List<Contenido> ContenidosDeCurricula = new List<Contenido>();
             Contenido unContenido = new Contenido();
             decimal temasContenidosCubiertos = 0;
-            decimal temasContenidosCurricula = 0;
+            List<TemaContenido> ListaTemasContenidosCurricula = new List<TemaContenido>();
 
             foreach (PlanificacionAnual unaPlanificacion in listaPlanificaciones)
             {
                 unContenido.idCurricula = unaPlanificacion.curricula.idCurricula;
-
                 ContenidosDeCurricula = contenidoBL.GetCurriculaAsignaturaNivel(unContenido);
+
+                foreach (Contenido unContenidoCurricula in ContenidosDeCurricula)
+                {
+                    foreach (TemaContenido unTemaContenidoCurricula in unContenidoCurricula.listaContenidos)
+                    {
+                        ListaTemasContenidosCurricula.Add(unTemaContenidoCurricula);
+                    }
+                }
 
                 foreach (TemaPlanificacionAnual unTemaPlanificacionAnual in unaPlanificacion.listaTemasPlanificacion)
                 {
                     foreach (TemaContenido unTemaContenidoPlanificado in unTemaPlanificacionAnual.listaContenidos)
                     {
-                        foreach (Contenido unContenidoCurricula in ContenidosDeCurricula)
-                        {
-                            foreach (TemaContenido unTemaContenidoCurricula in unContenidoCurricula.listaContenidos)
+                            foreach (TemaContenido unTemaContenidoCurricula in ListaTemasContenidosCurricula)
                             {
                                 if (unTemaContenidoPlanificado.idTemaContenido == unTemaContenidoCurricula.idTemaContenido)
                                 {
                                     temasContenidosCubiertos++;
                                 }
-                                temasContenidosCurricula++;
                             }
-                        }
                     }
 
                 }
-                if (temasContenidosCurricula > 0)
+                if (ListaTemasContenidosCurricula.Count > 0)
                 {
-                    unaPlanificacion.porcentajeCobertura = Math.Round((temasContenidosCubiertos / temasContenidosCurricula) * 100, 2);
+                    unaPlanificacion.porcentajeCobertura = Math.Round((temasContenidosCubiertos / ListaTemasContenidosCurricula.Count) * 100, 2);
                 }
                 else
                 {
                     unaPlanificacion.porcentajeCobertura = 0;
                 }
 
+                ListaTemasContenidosCurricula = new List<TemaContenido>();
                 temasContenidosCubiertos = 0;
-                temasContenidosCurricula = 0;
             }
-
-
-
-
-
-
-
-
         }
         #endregion
     }

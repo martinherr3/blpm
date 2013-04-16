@@ -175,6 +175,9 @@ namespace EDUAR_DataAccess.Common
                     objEntidad.cicloLectivo.idCicloLectivo = Convert.ToInt32(reader["idCicloLectivo"]);
                     objEntidad.cicloLectivo.nombre = reader["cicloLectivo"].ToString();
                     objEntidad.creador = new Persona() { idPersona = Convert.ToInt32(reader["idCreador"]) };
+                    objEntidad.creador.nombre = reader["nombreCreador"].ToString();
+                    objEntidad.creador.apellido = reader["apellidoCreador"].ToString();
+
 
                     if (DateTime.TryParse(reader["fechaAprobada"].ToString(), out fecha))
                         objEntidad.fechaAprobada = fecha;

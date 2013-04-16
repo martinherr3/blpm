@@ -171,7 +171,7 @@ namespace EDUAR_DataAccess.Common
         {
             try
             {
-                return GetTemaContenidos(entidad, null);
+                return GetTemaContenidos(entidad, new Curricula());
             }
             catch (SqlException ex)
             {
@@ -190,7 +190,7 @@ namespace EDUAR_DataAccess.Common
         /// </summary>
         /// <param name="entidad">The entidad.</param>
         /// <returns></returns>
-        public List<TemaContenido> GetTemaContenidos(TemaPlanificacionAnual entidad)
+        public List<TemaContenido> GetTemaContenidosAtrasados(TemaPlanificacionAnual entidad)
         {
             try
             {
@@ -225,10 +225,23 @@ namespace EDUAR_DataAccess.Common
                                     ex, enuExceptionType.DataAccesException);
             }
         }
+
+
+        ///// <summary>
+        ///// Gets the tema contenidos.
+        ///// </summary>
+        ///// <param name="entidad">The entidad.</param>
+        ///// <returns></returns>
+        //public List<TemaContenido> GetTemaContenidos(TemaContenido entidad, TemaPlanificacionAnual objTemaPlanificacion)
+        //{
+        //    return (GetTemaContenidos(entidad, null, objTemaPlanificacion));
+        //}
+
         /// <summary>
         /// Gets the tema contenidos.
         /// </summary>
         /// <param name="entidad">The entidad.</param>
+        ///         /// <param name="objCurricula">The Curricula.</param>
         /// <returns></returns>
         public List<TemaContenido> GetTemaContenidos(TemaContenido entidad, Curricula objCurricula)
         {
@@ -244,15 +257,75 @@ namespace EDUAR_DataAccess.Common
                     if (!string.IsNullOrEmpty(entidad.detalle))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle);
                     if (entidad.idContenido > 0)
+                    {
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idContenido", DbType.Int32, entidad.idContenido);
+                    }
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
                 }
                 if (objCurricula != null)
                 {
                     if (objCurricula.idCurricula > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurricula", DbType.Int32, objCurricula.idCurricula);
-                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
                 }
 
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<TemaContenido> listaContenidos = new List<TemaContenido>();
+                TemaContenido objContenido;
+                while (reader.Read())
+                {
+                    objContenido = new TemaContenido();
+                    objContenido.idContenido = Convert.ToInt32(reader["idContenido"]);
+                    objContenido.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
+                    objContenido.detalle = reader["detalle"].ToString();
+                    objContenido.titulo = reader["contenido"].ToString() + " - " + reader["titulo"].ToString();
+                    objContenido.activo = Convert.ToBoolean(reader["activo"]);
+                    objContenido.obligatorio = Convert.ToBoolean(reader["obligatorio"]);
+                    listaContenidos.Add(objContenido);
+                }
+                return listaContenidos;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        /// <summary>
+        /// Gets the tema contenidos.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<TemaContenido> GetTemaContenidos(TemaContenido entidad,TemaPlanificacionAnual objTemaPlanificacionAnual)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaContenidoPorTemaPlanificacion_Select");
+                if (entidad != null)
+                {
+                    if (!string.IsNullOrEmpty(entidad.titulo))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.titulo);
+                    if (entidad.idTemaContenido > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.idTemaContenido);
+                    if (!string.IsNullOrEmpty(entidad.detalle))
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle);
+                    if (entidad.idContenido > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idContenido", DbType.Int32, entidad.idContenido);
+                    if (entidad.activo != null)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+
+                }
+
+                if (objTemaPlanificacionAnual != null && objTemaPlanificacionAnual.idTemaPlanificacion > 0)
+                {
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, objTemaPlanificacionAnual.idTemaPlanificacion);
+                }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
                 List<TemaContenido> listaContenidos = new List<TemaContenido>();

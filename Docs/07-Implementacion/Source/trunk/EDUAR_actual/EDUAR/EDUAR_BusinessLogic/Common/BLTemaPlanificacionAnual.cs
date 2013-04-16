@@ -216,7 +216,7 @@ namespace EDUAR_BusinessLogic.Common
 				
                 foreach(TemaPlanificacionAnual unTemaPlanificacionAnual in listaTemasPlanificacionAnual)
                 {
-                    unTemaPlanificacionAnual.listaContenidos = TemaContenidoBL.GetTemasByCursoAsignatura(entidad.curricula);
+                    unTemaPlanificacionAnual.listaContenidos = TemaContenidoBL.GetTemasByTemaPlanificacionAnual(unTemaPlanificacionAnual);
                 }
                             
                 return (listaTemasPlanificacionAnual);
@@ -248,7 +248,7 @@ namespace EDUAR_BusinessLogic.Common
 				TemasPlanificadosAtrasados = DataAcces.GetTemasPlanificacionAnualAtrasados(idCursoCicloLectivo, idAsignatura);
 
 				foreach (TemaPlanificacionAnual Tema in TemasPlanificadosAtrasados)
-					Tema.listaContenidos = DataAcessTC.GetTemaContenidos(Tema);
+					Tema.listaContenidos = DataAcessTC.GetTemaContenidosAtrasados(Tema);
 			}
 			catch (CustomizedException ex)
 			{

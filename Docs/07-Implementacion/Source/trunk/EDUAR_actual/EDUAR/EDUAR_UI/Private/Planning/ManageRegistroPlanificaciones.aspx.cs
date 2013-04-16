@@ -445,6 +445,7 @@ namespace EDUAR_UI
             BLPlanificacionAnual objBLAprobar = new BLPlanificacionAnual(objAprobar);
             objBLAprobar.Save();
 
+            BuscarFiltrando();
         }
 
         private void editarPlanificacion()
