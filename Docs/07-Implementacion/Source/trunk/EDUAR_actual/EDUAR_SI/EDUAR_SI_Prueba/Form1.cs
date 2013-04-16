@@ -244,5 +244,12 @@ namespace EDUAR_SI_Prueba
             { btnSancionInasistenciaSMS.Enabled = true; }
         
         }
+
+        private void btnBajaUsuarios_Click(object sender, EventArgs e)
+        {
+            btnBajaUsuarios.Enabled = false;
+            BLBajausuarios objBajaUsuarios = new BLBajausuarios(ddlCadenaConexion.SelectedItem.ToString());
+            objBajaUsuarios.BajaUsuarios();
+        }
 	}
 }

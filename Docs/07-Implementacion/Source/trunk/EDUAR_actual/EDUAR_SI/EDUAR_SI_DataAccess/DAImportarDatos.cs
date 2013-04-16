@@ -1337,6 +1337,32 @@ namespace EDUAR_SI_DataAccess
                                     ex, enuExceptionType.DataAccesException);
             }
         }
+		
+		public void EfectuarBajaUsuarios(SqlTransaction transaccion)
+        {
+            try
+            {
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Baja_Usuarios";
+                    command.CommandTimeout = 10;
+
+                    command.Connection = transaccion.Connection;
+                    command.Transaction = transaccion;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - EfectuarBajaUsuarios()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - EfectuarBajaUsuarios()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
         #endregion
 
     }
