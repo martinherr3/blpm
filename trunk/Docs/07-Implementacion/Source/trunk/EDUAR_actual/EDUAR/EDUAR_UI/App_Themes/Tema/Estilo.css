@@ -177,7 +177,7 @@ div.menu ul li a, div.menu ul li a:visited
     padding: 4px 20px;
     text-decoration: none;
     white-space: nowrap;
-    min-width: 150px; /*max-width: 160px;     min-width: 160px;*/
+    min-width: 158px; /*max-width: 160px;     min-width: 160px;*/
     text-align: center;
     cursor: pointer;
     margin: 2px;
