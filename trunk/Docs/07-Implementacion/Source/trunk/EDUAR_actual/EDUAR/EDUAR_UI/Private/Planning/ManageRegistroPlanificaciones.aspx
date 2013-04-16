@@ -87,7 +87,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
 
-                      <asp:TemplateField HeaderText="Fechade Aprobacion">
+                      <asp:TemplateField HeaderText="Fecha de Aprobacion">
                         <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
