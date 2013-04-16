@@ -80,6 +80,7 @@
     <Compile Include="Entity\FuncionPreferenciaEntity.cs" />
     <Compile Include="Entity\IndicadorEntity.cs" />
     <Compile Include="Entity\ModeloEntity.cs" />
+    <Compile Include="Entity\RelAlternativaCriterioEntity.cs" />
     <Compile Include="Entity\ValorFuncionPreferenciaEntity.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Login.cs" />

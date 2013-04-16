@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -12,10 +14,8 @@ using DataAccess.Entity;
 using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
-using Promethee.Utility;
-using System.Drawing;
-using System.Drawing.Imaging;
 using Promethee.Scripts;
+using Promethee.Utility;
 
 namespace Promethee
 {
@@ -121,6 +121,24 @@ namespace Promethee
                 return (List<CriterioEntity>)ViewState["listaCriterios"];
             }
             set { ViewState["listaCriterios"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the lista valores.
+        /// </summary>
+        /// <value>
+        /// The lista valores.
+        /// </value>
+        public List<RelAlternativaCriterioEntity> listaValores
+        {
+            get
+            {
+                if (ViewState["listaValores"] == null)
+                    listaValores = new List<RelAlternativaCriterioEntity>();
+
+                return (List<RelAlternativaCriterioEntity>)ViewState["listaValores"];
+            }
+            set { ViewState["listaValores"] = value; }
         }
 
         public string NombrePNG
@@ -293,6 +311,7 @@ namespace Promethee
                 {
                     case "editModelo":
                         txtNombre.Text = miModelo.nombre;
+                        udpModelos.Update();
                         mpeModelo.Show();
                         break;
                     case "addAlternativa":
@@ -301,12 +320,23 @@ namespace Promethee
                     case "addCriterio":
                         mpeCriterios.Show();
                         break;
+                    case "download":
+                        CrearPlantilla();
+                        Response.Clear();
+
+                        Response.ContentType = "application/vnd.ms-excel";
+                        Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", miModelo.nombre.Replace(" ", "") + ".xls"));
+                        Response.BinaryWrite(WriteToStream().GetBuffer());
+                        //Response.Flush();
+                        Response.End();
+                        udpModelos.Update();
+                        break;
                     case "upload":
                         mpuUpload.Show();
                         break;
                     case "solve":
                         ResolverModelo();
-                        udpModelos.Update();
+                        //udpModelos.Update();
                         break;
                 }
             }
@@ -323,25 +353,28 @@ namespace Promethee
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void btnDownload_OnClick(object sender, EventArgs e)
         {
-            GridViewRow datarow = (GridViewRow)(((Control)sender).NamingContainer);
-            int i = datarow.RowIndex;
-            foreach (GridViewRow rowItem in gvwModelo.Rows)
+            try
             {
-                if (rowItem.RowIndex == i)
-                {
-                    miModelo = listaModelos[i];
-                    //DescargarPlantilla();
+                int miModeloID = 0;
+                int.TryParse(((ImageButton)sender).CommandArgument, out miModeloID);
+                miModelo = listaModelos.Find(p => p.idModelo == miModeloID);
 
-                    CrearPlantilla();
-                    Response.Clear();
+                CrearPlantilla();
+                Response.Clear();
 
-                    Response.ContentType = "application/vnd.ms-excel";
-                    Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", miModelo.nombre.Replace(" ", "") + ".xls"));
-                    Response.BinaryWrite(WriteToStream().GetBuffer());
-                    //Response.Flush();
-                    Response.End();
-                    break;
-                }
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", miModelo.nombre.Replace(" ", "") + ".xls"));
+                Response.BinaryWrite(WriteToStream().GetBuffer());
+                Response.Flush();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+            finally
+            {
+                Response.End();
+                //udpGrilla.Update();
             }
         }
 
@@ -361,7 +394,9 @@ namespace Promethee
                 fuCargarArchivo.SaveAs(MapPath("~/Files/" + FileName));
 
                 ModelosDA.SaveFile(idModelo, FileName);
-                //TODO: eliminar los archivos viejos y dejar solo el último subido para el modelo
+
+                GuardarValores();
+
                 mpuUpload.Hide();
             }
             catch (Exception ex)
@@ -503,7 +538,7 @@ namespace Promethee
                 mpeModelo.Hide();
                 mpeAlternativas.Hide();
                 mpuUpload.Hide();
-                udpModelosAsociados.Update();
+                //udpModelosAsociados.Update();
             }
             catch (Exception ex)
             {
@@ -521,7 +556,7 @@ namespace Promethee
             listaModelos = ModelosDA.Select(new UsuarioEntity() { username = HttpContext.Current.User.Identity.Name });
             gvwModelo.DataSource = listaModelos;
             gvwModelo.DataBind();
-            udpModelosAsociados.Update();
+            //udpModelosAsociados.Update();
         }
 
         /// <summary>
@@ -545,27 +580,55 @@ namespace Promethee
         /// <returns></returns>
         private DataTable buscarModelo()
         {
-            listaAlternativa = AlternativasDA.Select(new AlternativaEntity() { idModelo = miModelo.idModelo });
-            listaCriterio = CriteriosDA.Select(new CriterioEntity() { idModelo = miModelo.idModelo });
+            buscarAlternativasCriterios();
 
             DataTable resultado = new DataTable();
-            DataRow fila = null;
-            DataColumn columna = null;
-            resultado.Columns.Add("Alternativa\\Criterio");
-            foreach (CriterioEntity item in listaCriterio)
-            {
-                columna = new DataColumn(item.nombre);
-                columna.Caption = item.nombre;
-                resultado.Columns.Add(columna);
-            }
+            //DataRow fila = null;
+            //DataColumn columna = null;
+            //resultado.Columns.Add("Alternativa\\Criterio");
+            //foreach (CriterioEntity item in listaCriterio)
+            //{
+            //    columna = new DataColumn(item.nombre);
+            //    columna.Caption = item.nombre;
+            //    resultado.Columns.Add(columna);
+            //}
 
+            //foreach (AlternativaEntity item in listaAlternativa)
+            //{
+            //    fila = resultado.NewRow();
+            //    fila[0] = item.nombre;
+            //    resultado.Rows.Add(fila);
+            //}
+
+            resultado.Columns.Add("Alternativa\\Criterio");
+            foreach (CriterioEntity itemCriterio in listaCriterio)
+                resultado.Columns.Add(itemCriterio.nombre);
+
+            DataRow nuevaFila;
+            List<RelAlternativaCriterioEntity> listaAux = null;
             foreach (AlternativaEntity item in listaAlternativa)
             {
-                fila = resultado.NewRow();
-                fila[0] = item.nombre;
-                resultado.Rows.Add(fila);
+                nuevaFila = resultado.NewRow();
+                nuevaFila[0] = item.nombre;
+
+                listaAux = listaValores.FindAll(p => p.idAlternativa == item.idAlternativa);
+                foreach (RelAlternativaCriterioEntity itemValor in listaAux)
+                    nuevaFila[itemValor.nombreCriterio] = itemValor.valor;
+
+                resultado.Rows.Add(nuevaFila);
             }
+
             return resultado;
+        }
+
+        /// <summary>
+        /// Buscars the alternativas criterios.
+        /// </summary>
+        private void buscarAlternativasCriterios()
+        {
+            listaAlternativa = AlternativasDA.Select(new AlternativaEntity() { idModelo = miModelo.idModelo });
+            listaCriterio = CriteriosDA.Select(new CriterioEntity() { idModelo = miModelo.idModelo });
+            listaValores = ModelosDA.SelectValores(idModelo);
         }
 
         /// <summary>
@@ -641,6 +704,36 @@ namespace Promethee
                     break;
             }
             CriteriosDA.Save(nuevaEntidad, listaConfig);
+        }
+
+        /// <summary>
+        /// Guardars the valores.
+        /// </summary>
+        private void GuardarValores()
+        {
+            InitializeWorkbook(MapPath("~/Files/" + miModelo.filename));
+
+            tablaPaso0 = ConvertToDataTable();
+
+            List<RelAlternativaCriterioEntity> listaValores = new List<RelAlternativaCriterioEntity>();
+            RelAlternativaCriterioEntity nuevoValor = null;
+            decimal valor = 0;
+            foreach (DataRow item in tablaPaso0.Rows)
+            {
+                for (int i = 1; i < tablaPaso0.Columns.Count; i++)
+                {
+                    nuevoValor = new RelAlternativaCriterioEntity();
+                    nuevoValor.nombreAlternativa = item[0].ToString();
+                    nuevoValor.nombreCriterio = tablaPaso0.Columns[i].ColumnName;
+                    decimal.TryParse(item[i].ToString(), out valor);
+                    nuevoValor.valor = valor;
+                    listaValores.Add(nuevoValor);
+                }
+            }
+            ModelosDA.SaveValores(listaValores, miModelo.idModelo);
+
+            File.Delete(MapPath("~/Files/" + miModelo.filename));
+
         }
 
         /// <summary>
@@ -817,7 +910,6 @@ namespace Promethee
         }
 
         #endregion
-        #endregion
 
         #region --[Resolver]--
         /// <summary>
@@ -825,7 +917,9 @@ namespace Promethee
         /// </summary>
         private void ResolverModelo()
         {
-            List<Utility.Promethee> listaConfiguracion = ObtenerConfiguracion();
+            buscarAlternativasCriterios();
+            List<Utility.Promethee> listaConfiguracion = new List<Utility.Promethee>();
+            listaConfiguracion = ObtenerConfiguracion();
 
             CargarTablaPaso0();
 
@@ -838,6 +932,12 @@ namespace Promethee
             EjecutarPaso4();
 
             PresentarResultado();
+
+            tablaPaso0 = new DataTable();
+            tablaPaso1 = new DataTable();
+            tablaPaso2 = new DataTable();
+            tablaPaso3 = new DataTable();
+            tablaResultado = new DataTable();
         }
 
         /// <summary>
@@ -867,7 +967,9 @@ namespace Promethee
         private void GraficarPodioResultado()
         {
             #region --[Top 3 Alumnos]--
-            for (int i = 0; i < 3; i++)
+            int cantidad = listaAlternativa.Count;
+            int iterador = cantidad < 3 ? cantidad : 3;
+            for (int i = 0; i < iterador; i++)
             {
                 var TopAlumno = from p in listaAlternativa
                                 where p.nombre == tablaResultado.Rows[i][0].ToString()
@@ -962,7 +1064,7 @@ namespace Promethee
             objGraphic.DrawString("Resultados - " + miModelo.nombre, drawFontTitulo, drawBrush, drawRectTitulo, drawFormat);
 
             //Definimos el tipo de fichero
-            Response.ContentType = "image/png";
+            //Response.ContentType = "image/png";
 
             string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oImgPath"];
             UIUtility.EliminarArchivosSession(Session.SessionID);
@@ -975,18 +1077,15 @@ namespace Promethee
             //Y finalmente lo guardamos
             objBitmap.Save(NombrePNG, ImageFormat.Png);
 
+
             File.Copy(NombrePNG, ruta);
             objBitmap.Dispose();
             GC.WaitForPendingFinalizers();
             GC.Collect();
 
-            imgPodio.ImageUrl = "~/Images/TMP/Podio_" + Session.SessionID + ".png";
+            imgPodio.ImageUrl = "http://" + Request.ServerVariables["SERVER_NAME"] + Request.ApplicationPath + "/Images/TMP/Podio_" + Session.SessionID + ".png";
             imgPodio.Visible = true;
-            //udpImgPodio.Update();
-            //udpResultado.Update();
-
-            //udpImgPodio.Update();
-            //udpResultado.Update();
+            udpModelos.Update();
         }
 
         /// <summary>
@@ -1250,9 +1349,25 @@ namespace Promethee
         /// <returns></returns>
         private void CargarTablaPaso0()
         {
-            InitializeWorkbook(MapPath("~/Files/" + miModelo.filename));
+            tablaPaso0 = new DataTable();
 
-            tablaPaso0 = ConvertToDataTable();
+            tablaPaso0.Columns.Add("Alternativas");
+            foreach (CriterioEntity itemCriterio in listaCriterio)
+                tablaPaso0.Columns.Add(itemCriterio.nombre);
+
+            DataRow nuevaFila;
+            List<RelAlternativaCriterioEntity> listaAux = null;
+            foreach (AlternativaEntity item in listaAlternativa)
+            {
+                nuevaFila = tablaPaso0.NewRow();
+                nuevaFila[0] = item.nombre;
+
+                listaAux = listaValores.FindAll(p => p.idAlternativa == item.idAlternativa);
+                foreach (RelAlternativaCriterioEntity itemValor in listaAux)
+                    nuevaFila[itemValor.nombreCriterio] = itemValor.valor;
+
+                tablaPaso0.Rows.Add(nuevaFila);
+            }
         }
 
         /// <summary>
@@ -1294,5 +1409,7 @@ namespace Promethee
             return null;
         }
         #endregion
+        #endregion
+
     }
 }
