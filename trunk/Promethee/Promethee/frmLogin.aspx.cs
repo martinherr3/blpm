@@ -28,7 +28,7 @@ namespace Promethee
             {
                 FormsAuthentication.RedirectFromLoginPage(txtUser.Text, chkPersistLogin.Checked, null);
 
-                Response.Redirect("Modelos.aspx");
+                Response.Redirect("~/Modelos.aspx");
             }
             else
                 ErrorMessage.InnerHtml = "<b>Usuario o contraseña incorrectos...</b> por favor re-ingrese las credenciales...";

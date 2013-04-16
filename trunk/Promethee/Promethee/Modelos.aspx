@@ -2,7 +2,7 @@
     CodeBehind="Modelos.aspx.cs" Inherits="Promethee.Modelos" %>
 
 <%@ MasterType VirtualPath="~/Site.Master" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxtoolkit" %>
+<%@ Register TagPrefix="ajaxtoolkit" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" %>
 <%@ Register Src="~/UserControls/Criterio.ascx" TagName="Criterio" TagPrefix="cri" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
@@ -61,8 +61,11 @@
                         Visible='<%# Eval("filename").ToString() != string.Empty ? false : true %>' />
                     <asp:ImageButton ID="addCriterio" runat="server" CommandName="addCriterio" CommandArgument='<%# Bind("idModelo") %>'
                         ToolTip="Agregar Criterio" ImageUrl="~/Images/Grillas/add_Criteria.png" Visible='<%# Eval("filename").ToString() != string.Empty ? false : true %>' />
+                    <%--<asp:ImageButton ID="btnDownload" ImageUrl="~/Images/Grillas/downloads.png" runat="server"
+                        Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>'
+                        CommandName="download" CommandArgument='<%# Bind("idModelo") %>' />--%>
                     <asp:ImageButton ID="btnDownload" runat="server" ToolTip="Descargar Planilla" ImageUrl="~/Images/Grillas/downloads.png"
-                        OnClick="btnDownload_OnClick" Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
+                        OnClick="btnDownload_OnClick" CommandArgument='<%# Bind("idModelo") %>' Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
                     <asp:ImageButton ID="btnUpload" CommandName="upload" CommandArgument='<%# Bind("idModelo") %>'
                         runat="server" ToolTip="Cargar Planilla" ImageUrl="~/Images/Grillas/uploads.png"
                         Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
@@ -110,23 +113,18 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <%--<asp:UpdatePanel ID="udpImgPodio" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>
-            <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
-                Visible="false" Style="text-align: center" />
-        </ContentTemplate>
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />
-        </Triggers>
-    </asp:UpdatePanel>--%>
+    
     <asp:UpdatePanel runat="server" ID="udpModelos" UpdateMode="Conditional">
         <ContentTemplate>
-            <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
-                Visible="false" Style="text-align: center" />
+            <asp:UpdatePanel ID="udpImgPodio" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
+                        Visible="false" Style="text-align: center" />
+                </ContentTemplate>
+                <Triggers>
+                </Triggers>
+            </asp:UpdatePanel>
         </ContentTemplate>
-        <Triggers>
-            <%--<asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />--%>
-        </Triggers>
     </asp:UpdatePanel>
     <asp:HiddenField ID="HiddenField1" runat="server" />
     <ajaxtoolkit:ModalPopupExtender ID="mpeModelo" runat="server" PopupControlID="pnlModelos"
@@ -160,7 +158,6 @@
                 </table>
             </ContentTemplate>
             <Triggers>
-                <asp:PostBackTrigger ControlID="btnVolverModelo" />
             </Triggers>
         </asp:UpdatePanel>
     </asp:Panel>

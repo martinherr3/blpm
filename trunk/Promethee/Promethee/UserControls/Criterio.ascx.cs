@@ -468,6 +468,7 @@ namespace Promethee.UserControls
             txtPeso.Text = string.Empty;
             txtCriterio.Text = string.Empty;
             lblErrorCriterio.Text = string.Empty;
+            rdlSentido.ClearSelection();
         }
         #endregion
     }
