@@ -107,8 +107,8 @@ namespace EDUAR_SI_DataAccess
 					command.Parameters.AddWithValue("idAlumnoTransaccional", alumno.idAlumnoTransaccional);
 					command.Parameters.AddWithValue("idPersona", alumno.idPersona);
 					command.Parameters.AddWithValue("legajo", alumno.legajo);
-					command.Parameters.AddWithValue("fechaAlta", DBNull.Value);
-					command.Parameters.AddWithValue("fechaBaja", DBNull.Value);
+					command.Parameters.AddWithValue("fechaAlta", alumno.fechaAlta);
+					command.Parameters.AddWithValue("fechaBaja", alumno.fechaBaja);
 					command.ExecuteNonQuery();
 					command.Parameters.Clear();
 				}
@@ -1337,7 +1337,13 @@ namespace EDUAR_SI_DataAccess
                                     ex, enuExceptionType.DataAccesException);
             }
         }
-		
+
+        /// <summary>
+        /// Efectuars the baja usuarios.
+        /// </summary>
+        /// <param name="transaccion">The transaccion.</param>
+        /// <exception cref="CustomizedException">
+        /// </exception>
 		public void EfectuarBajaUsuarios(SqlTransaction transaccion)
         {
             try
@@ -1350,6 +1356,8 @@ namespace EDUAR_SI_DataAccess
 
                     command.Connection = transaccion.Connection;
                     command.Transaction = transaccion;
+
+                    command.ExecuteNonQuery();
                 }
             }
             catch (SqlException ex)
