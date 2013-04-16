@@ -598,6 +598,33 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpCampos;
         
         /// <summary>
+        /// Control btnRecibidosAT.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnRecibidosAT;
+        
+        /// <summary>
+        /// Control btnBoletin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnBoletin;
+        
+        /// <summary>
+        /// Control btnCitacionTutores.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnCitacionTutores;
+        
+        /// <summary>
         /// Control btnBuscar.
         /// </summary>
         /// <remarks>

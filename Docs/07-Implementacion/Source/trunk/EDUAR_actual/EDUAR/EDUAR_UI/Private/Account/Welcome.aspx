@@ -7,27 +7,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <table class="tablaInterna" cellpadding="0" cellspacing="0">
+    <%--<table class="tablaInterna" cellpadding="0" cellspacing="0">
         <tr>
-            <td style="width: 80%; vertical-align: text-top">
-                <h2>
-                    Bienvenido!
-                </h2>
-                <br />
-                <table class="tablaInterna" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td style="width: 20%; text-align: right" rowspan="2">
-                <%--<asp:Image ID="Image1" ImageUrl="~/Images/web/default.png" runat="server" AlternateText="Bienvenido!"
-                    ToolTip="Bienvenido!" />--%>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 100%">
+            <td style="width: 100%">--%>
                 <div id="divMensajes" runat="server">
                     <table width="100%" cellpadding="1" cellspacing="5" border="0">
                         <tr>
@@ -60,11 +42,11 @@
                         </tr>
                     </table>
                 </div>
-            </td>
+           <%-- </td>
         </tr>
-    </table>
+    </table>--%>
     <div id="divSecciones" runat="server">
-        <table class="tablaInternaSinBorde" border="0" cellpadding="1" cellspacing="5" style="text-align: center">
+        <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5" style="text-align: center">
             <tr>
                 <td>
                     <asp:ImageButton ID="btnCursos" ImageUrl="~/Images/Home/Cursos.png" ToolTip="Cursos"
@@ -86,11 +68,11 @@
                 </td>
                 <td>
                     <asp:ImageButton ID="btnComunicacion" ImageUrl="~/Images/Home/Comunicacion.png" ToolTip="Comunicación"
-                        runat="server" CommandArgument="Comunicacion" OnClick="btnPopUP_Click"  />
+                        runat="server" CommandArgument="Comunicacion" OnClick="btnPopUP_Click" />
                 </td>
                 <td>
                     <asp:ImageButton ID="btnAdministracion" ImageUrl="~/Images/Home/Administracion.png"
-                        ToolTip="Administración" runat="server" CommandArgument="Administracion" OnClick="btnPopUP_Click"/>
+                        ToolTip="Administración" runat="server" CommandArgument="Administracion" OnClick="btnPopUP_Click"  Visible="false"/>
                 </td>
             </tr>
         </table>
@@ -298,8 +280,8 @@
                         runat="server" CommandArgument="Mensajes" OnClick="btnRedireccion_Click" />
                 </td>
                 <td>
-                    <asp:ImageButton ID="btnCitaciones" ImageUrl="~/Images/Home/VerCitaciones.png"
-                        ToolTip="Citaciones" runat="server" CommandArgument="Citaciones" OnClick="btnRedireccion_Click" />
+                    <asp:ImageButton ID="btnCitaciones" ImageUrl="~/Images/Home/VerCitaciones.png" ToolTip="Citaciones"
+                        runat="server" CommandArgument="Citaciones" OnClick="btnRedireccion_Click" />
                 </td>
                 <td>
                     <asp:ImageButton ID="btnNovedades" ImageUrl="~/Images/Home/VerNovedades.png" ToolTip="Novedades Institucionales"
@@ -308,7 +290,6 @@
             </tr>
         </table>
     </asp:Panel>
-
     <!-- Administracion -->
     <asp:HiddenField ID="HiddenField6" runat="server" />
     <ajaxToolkit:ModalPopupExtender ID="mpeAdministracion" runat="server" PopupControlID="pnlAdministracion"
@@ -337,7 +318,8 @@
                 </td>
                 <td>
                     <asp:ImageButton ID="btnVerConfigIndicadores" ImageUrl="~/Images/Home/VerConfigIndicadores.png"
-                        ToolTip="Configuración Indicadores" runat="server" CommandArgument="ConfigIndicadores" OnClick="btnRedireccion_Click" />
+                        ToolTip="Configuración Indicadores" runat="server" CommandArgument="ConfigIndicadores"
+                        OnClick="btnRedireccion_Click" />
                 </td>
             </tr>
         </table>
@@ -345,25 +327,27 @@
     <div id="divAgenda" runat="server" visible="false">
         <table width="100%" cellpadding="1" cellspacing="5" border="0">
             <tr>
-                <td style="width: 80%; vertical-align: text-top">
+                <td style="width: 70%; vertical-align: text-top">
                     <h2>
                         Tu Agenda:
                     </h2>
                 </td>
-            </tr>
-        </table>
-        <asp:UpdatePanel ID="udpCampos" runat="server" UpdateMode="Conditional">
-            <ContentTemplate>
-                <table class="tablaInterna" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td align="right">
+                <td align="right">
+                    <asp:UpdatePanel ID="udpCampos" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:ImageButton ID="btnRecibidosAT" OnClick="btnRedireccion_Click" runat="server"
+                                ToolTip="Mensajes Recibidos" ImageUrl="~/Images/verMensajes.png" CommandArgument="Mensajes" />
+                            <asp:ImageButton ID="btnBoletin" OnClick="btnRedireccion_Click" runat="server" ToolTip="Boletín"
+                                ImageUrl="~/Images/verBoletin.png" CommandArgument="Boletin" />
+                            <asp:ImageButton ID="btnCitacionTutores" OnClick="btnRedireccion_Click" runat="server"
+                                ToolTip="Citaciones" ImageUrl="~/Images/verCitacionesTutor.png" CommandArgument="CitacionTutor" />
                             <asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                                 ImageUrl="~/Images/botonBuscar.png" />
-                        </td>
-                    </tr>
-                </table>
-            </ContentTemplate>
-        </asp:UpdatePanel>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+        </table>
         <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
                 <table class="tablaInterna" cellpadding="1" cellspacing="5">

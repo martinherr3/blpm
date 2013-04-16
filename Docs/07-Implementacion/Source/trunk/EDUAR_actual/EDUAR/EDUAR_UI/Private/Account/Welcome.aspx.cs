@@ -154,6 +154,7 @@ namespace EDUAR_UI
                     objBLSeguridad.GetUsuario();
                     ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
                     divEncuesta.Visible = false;
+                    divAgenda.Visible = false;
                     if (User.IsInRole(enumRoles.Alumno.ToString()))
                     {
                         habilitarAlumno(false);
@@ -162,16 +163,21 @@ namespace EDUAR_UI
                         divAgenda.Visible = true;
                         lblCurso.Visible = false;
                         ddlCurso.Visible = false;
+                        divSecciones.Visible = false;
+                        divAgenda.Visible = true;
+                        btnCitacionTutores.Visible = false;
                     }
                     if (User.IsInRole(enumRoles.Docente.ToString()) || User.IsInRole(enumRoles.Preceptor.ToString()))
                     {
-                        divAgenda.Visible = true;
+                        //divAgenda.Visible = true;
+                        divSecciones.Visible = true;
                         habilitarAlumno(false);
                         UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
                     }
                     if (User.IsInRole(enumRoles.Tutor.ToString()))
                     {
                         divAgenda.Visible = true;
+                        divSecciones.Visible = false;
                         habilitarCurso(false);
                         BuscarEncuestas();
                         ddlAlumnos.Items.Clear();
@@ -184,7 +190,10 @@ namespace EDUAR_UI
                         ddlAlumnos.Items.Insert(0, new ListItem("[Seleccione]", "-1"));
                         ddlAlumnos.SelectedValue = "-1";
                     }
-
+                    if (User.IsInRole(enumRoles.Administrador.ToString()))
+                    {
+                        btnAdministracion.Visible = true;
+                    }
                     fechas.startDate = cicloLectivoActual.fechaInicio;
                     fechas.endDate = cicloLectivoActual.fechaFin;
                     fechas.setSelectedDate(DateTime.Now, DateTime.Now.AddDays(15));
@@ -429,7 +438,7 @@ namespace EDUAR_UI
                         Response.Redirect("~/Private/Reports/reportCalificacionesAlumnoPeriodo.aspx", false);
                         break;
                     case "Inasistencias":
-                        Response.Redirect("~/Private/Reports/reportInasistenciasAlumnoPeriodo.asp", false);
+                        Response.Redirect("~/Private/Reports/reportInasistenciasAlumnoPeriodo.aspx", false);
                         break;
                     case "Sanciones":
                         Response.Redirect("~/Private/Reports/reportSancionesAlumnoPeriodo.aspx", false);
@@ -466,6 +475,12 @@ namespace EDUAR_UI
                         break;
                     case "ConfigIndicadores":
                         Response.Redirect("~/Private/Monitoreo/ConfigIndicadores.aspx", false);
+                        break;
+                    case "Boletin":
+                        Response.Redirect("~/Private/Alumnos/Boletin.aspx", false);
+                        break;
+                    case "CitacionTutor":
+                        Response.Redirect("~/Private/Alumnos/CitacionesTutores.aspx", false);
                         break;
                     default:
                         break;
