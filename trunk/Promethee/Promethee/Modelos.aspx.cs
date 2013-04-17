@@ -249,6 +249,7 @@ namespace Promethee
                     Label1.Text = string.Format("Bienvenido al Sistema {0}", Thread.CurrentPrincipal.Identity.Name.ToString().ToUpper());
                     CargarGrilla();
                 }
+                //CargarGrilla();
             }
             catch (Exception ex)
             {
@@ -329,6 +330,7 @@ namespace Promethee
                         Response.BinaryWrite(WriteToStream().GetBuffer());
                         //Response.Flush();
                         Response.End();
+                        //CargarGrilla();
                         udpModelos.Update();
                         break;
                     case "upload":
@@ -398,6 +400,8 @@ namespace Promethee
                 GuardarValores();
 
                 mpuUpload.Hide();
+
+                //CargarGrilla();
             }
             catch (Exception ex)
             {
@@ -415,7 +419,7 @@ namespace Promethee
             try
             {
                 gvwModelo.PageIndex = e.NewPageIndex;
-                //CargarGrilla();
+                CargarGrilla();
             }
             catch (Exception ex)
             {
@@ -438,8 +442,6 @@ namespace Promethee
                 nuevoModelo.fechaCreacion = DateTime.Today;
                 nuevoModelo.username = HttpContext.Current.User.Identity.Name;
                 ModelosDA.Save(nuevoModelo);
-
-                CargarGrilla();
 
                 mpeModelo.Hide();
             }
@@ -538,6 +540,7 @@ namespace Promethee
                 mpeModelo.Hide();
                 mpeAlternativas.Hide();
                 mpuUpload.Hide();
+                mpeCriterios.Hide();
                 //udpModelosAsociados.Update();
             }
             catch (Exception ex)
@@ -556,7 +559,6 @@ namespace Promethee
             listaModelos = ModelosDA.Select(new UsuarioEntity() { username = HttpContext.Current.User.Identity.Name });
             gvwModelo.DataSource = listaModelos;
             gvwModelo.DataBind();
-            //udpModelosAsociados.Update();
         }
 
         /// <summary>
@@ -583,22 +585,6 @@ namespace Promethee
             buscarAlternativasCriterios();
 
             DataTable resultado = new DataTable();
-            //DataRow fila = null;
-            //DataColumn columna = null;
-            //resultado.Columns.Add("Alternativa\\Criterio");
-            //foreach (CriterioEntity item in listaCriterio)
-            //{
-            //    columna = new DataColumn(item.nombre);
-            //    columna.Caption = item.nombre;
-            //    resultado.Columns.Add(columna);
-            //}
-
-            //foreach (AlternativaEntity item in listaAlternativa)
-            //{
-            //    fila = resultado.NewRow();
-            //    fila[0] = item.nombre;
-            //    resultado.Rows.Add(fila);
-            //}
 
             resultado.Columns.Add("Alternativa\\Criterio");
             foreach (CriterioEntity itemCriterio in listaCriterio)
@@ -617,7 +603,6 @@ namespace Promethee
 
                 resultado.Rows.Add(nuevaFila);
             }
-
             return resultado;
         }
 
@@ -1401,9 +1386,14 @@ namespace Promethee
 
                 //for recorriendo las filas o cantidades de mimodelo.alternativas
                 //tengo que arrancar en fila 2, columna 1
+                double valor = 0;
                 for (int i = 0; i < miModelo.alternativas; i++)
                     for (int j = 1; j <= miModelo.criterios; j++)
-                        dt.Rows[i][j] = sheet.GetRow(i + 2).Cells[j].NumericCellValue;
+                    {
+                        try { valor = sheet.GetRow(i + 2).Cells[j].NumericCellValue; }
+                        catch { valor = 0; }
+                        dt.Rows[i][j] = valor;
+                    }
                 return dt;
             }
             return null;

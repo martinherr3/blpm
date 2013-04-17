@@ -248,7 +248,7 @@ namespace Promethee.UserControls
         {
             try
             {
-                LimpiarControles();
+                //LimpiarControles();
                 bool verLimiteIndiferencia = false;
                 bool verLimitePreferencia = false;
                 bool verLimiteSigma = false;
@@ -469,6 +469,13 @@ namespace Promethee.UserControls
             txtCriterio.Text = string.Empty;
             lblErrorCriterio.Text = string.Empty;
             rdlSentido.ClearSelection();
+            pseudoCriterio.ClearSelection();
+            lblLimiteIndiferencia.Visible = false;
+            txtLimiteIndiferencia.Visible = false;
+            lblLimitePreferencia.Visible = false;
+            txtLimitePreferencia.Visible = false;
+            lblLimiteSigma.Visible = false;
+            txtLimiteSigma.Visible = false;
         }
         #endregion
     }
