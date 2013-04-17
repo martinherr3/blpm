@@ -44,7 +44,7 @@
     <asp:ImageButton ID="btnNuevo" ImageUrl="~/Images/programs.png" runat="server" ToolTip="Nuevo Modelo"
         OnClick="btnNuevo_Click" />
     <asp:GridView ID="gvwModelo" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
-        AutoGenerateColumns="false" AllowPaging="false" Width="100%" DataKeyNames="idModelo"
+        AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idModelo"
         OnRowCommand="gvwModelo_RowCommand" OnPageIndexChanging="gvwModelo_PageIndexChanging"
         OnRowDataBound="gvwModelo_RowDataBound">
         <Columns>
@@ -113,7 +113,6 @@
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    
     <asp:UpdatePanel runat="server" ID="udpModelos" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:UpdatePanel ID="udpImgPodio" runat="server" UpdateMode="Conditional">
@@ -133,33 +132,34 @@
     </ajaxtoolkit:ModalPopupExtender>
     <asp:Panel ID="pnlModelos" runat="server" Width="600px" Height="200px" Style="display: none;
         text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
-        <asp:UpdatePanel ID="udpModelosAsociados" runat="server" UpdateMode="Conditional">
-            <ContentTemplate>
-                <h2>
-                    <asp:Label ID="Label2" Text="Modelo" runat="server" /></h2>
-                <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                    <tr>
-                        <td class="TDCriterios30">
-                            Nombre
-                        </td>
-                        <td>
+        <h2>
+            <asp:Label ID="Label2" Text="Modelo" runat="server" /></h2>
+        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+            <tr>
+                <td class="TDCriterios30">
+                    Nombre
+                </td>
+                <td>
+                    <asp:UpdatePanel ID="udpModelosAsociados" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
                             <asp:TextBox ID="txtNombre" runat="server" MaxLength="50" CssClass="EstiloTxtLargo350"
                                 AutoCompleteType="Disabled" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <asp:ImageButton ID="btnGuardarModelo" runat="server" ToolTip="Aceptar" ImageUrl="~/Images/button_ok.png"
-                                OnClick="btnGuardarModelo_Click" />
-                            <asp:ImageButton ID="btnVolverModelo" runat="server" ToolTip="Cancelar" ImageUrl="~/Images/button_cancel.png"
-                                OnClick="btnCerrarPopUp_Click" />
-                        </td>
-                    </tr>
-                </table>
-            </ContentTemplate>
-            <Triggers>
-            </Triggers>
-        </asp:UpdatePanel>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="btnGuardarModelo" EventName="Click" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <asp:ImageButton ID="btnGuardarModelo" runat="server" ToolTip="Aceptar" ImageUrl="~/Images/button_ok.png"
+                        OnClick="btnGuardarModelo_Click" />
+                    <asp:ImageButton ID="btnVolverModelo" runat="server" ToolTip="Cancelar" ImageUrl="~/Images/button_cancel.png"
+                        OnClick="btnCerrarPopUp_Click" />
+                </td>
+            </tr>
+        </table>
     </asp:Panel>
     <asp:HiddenField ID="HiddenField2" runat="server" />
     <ajaxtoolkit:ModalPopupExtender ID="mpeAlternativas" runat="server" PopupControlID="pnlAlternativas"
@@ -221,8 +221,12 @@
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
             <tr>
                 <td>
-                    <cri:Criterio ID="nuevoCriterio" runat="server" nombreCriterio="nuevoCriterio" esMaximzante="false">
-                    </cri:Criterio>
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <cri:Criterio ID="nuevoCriterio" runat="server" nombreCriterio="" esMaximzante="false">
+                            </cri:Criterio>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </td>
             </tr>
             <tr>
@@ -258,10 +262,6 @@
                 </td>
                 <td>
                     <asp:FileUpload ID="fuCargarArchivo" runat="server" />
-                    <%--<asp:RegularExpressionValidator ID="regexValidator" runat="server" ControlToValidate="fuCargarArchivo"
-                        ErrorMessage="<br />Sólo se permiten archivos con extensión XLS" ForeColor="Red"
-                        Display="Dynamic" ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.txt|.TXT|.xls|.XLS)$">
-                    </asp:RegularExpressionValidator>--%>
                     <asp:RegularExpressionValidator ID="regexValidator" runat="server" ControlToValidate="fuCargarArchivo"
                         ErrorMessage="<br />Sólo se permiten archivos XLS" ForeColor="Red" Display="Static"
                         ValidationExpression="^(.*\.xls)|(.*\.XLS)$">
