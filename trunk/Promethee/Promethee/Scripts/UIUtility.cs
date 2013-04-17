@@ -25,7 +25,7 @@ namespace Promethee.Scripts
                 {
                     File.Delete(item);
                 }
-                archivo = "Podio_" + sessionID + ".png";
+                archivo = "Podio_" + sessionID + "*.png";
             }
             if (Directory.Exists(ImgPath))
             {

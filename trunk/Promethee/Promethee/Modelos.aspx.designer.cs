@@ -40,6 +40,15 @@ namespace Promethee {
         protected global::System.Web.UI.WebControls.Label lblError;
         
         /// <summary>
+        /// Control udpGrilla.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpGrilla;
+        
+        /// <summary>
         /// Control gvwModelo.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace Promethee {
         protected global::System.Web.UI.UpdatePanel udpModelos;
         
         /// <summary>
+        /// Control udpResultado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpResultado;
+        
+        /// <summary>
         /// Control udpImgPodio.
         /// </summary>
         /// <remarks>
@@ -74,15 +92,6 @@ namespace Promethee {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgPodio;
-        
-        /// <summary>
-        /// Control udpResultado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpResultado;
         
         /// <summary>
         /// Control divResultado.

@@ -155,6 +155,25 @@ namespace Promethee
             }
         }
 
+        /// <summary>
+        /// Gets or sets the ruta excel.
+        /// </summary>
+        /// <value>
+        /// The ruta excel.
+        /// </value>
+        public string RutaExcel
+        {
+            get
+            {
+                if (Session["RutaExcel"] == null)
+                    RutaExcel = string.Empty;
+                return Session["RutaExcel"].ToString();
+            }
+            set
+            {
+                Session["RutaExcel"] = value;
+            }
+        }
         #region --[Tablas]--
         public DataTable tablaResultado
         {
@@ -249,7 +268,6 @@ namespace Promethee
                     Label1.Text = string.Format("Bienvenido al Sistema {0}", Thread.CurrentPrincipal.Identity.Name.ToString().ToUpper());
                     CargarGrilla();
                 }
-                //CargarGrilla();
             }
             catch (Exception ex)
             {
@@ -287,6 +305,9 @@ namespace Promethee
 
             miModelo = (ModeloEntity)e.Row.DataItem;
 
+            ImageButton btnDownload = (ImageButton)e.Row.FindControl("btnDownload");
+            ScriptManager.GetCurrent(this.Page).RegisterPostBackControl(btnDownload);
+
             GridView gvDetails = (GridView)e.Row.FindControl("gvwDetalle");
 
             gvDetails.DataSource = buscarModelo().DefaultView;
@@ -315,7 +336,7 @@ namespace Promethee
                         break;
                     case "editModelo":
                         txtNombre.Text = miModelo.nombre;
-                        udpModelos.Update();
+                        udpModelosAsociados.Update();
                         mpeModelo.Show();
                         break;
                     case "addAlternativa":
@@ -331,20 +352,14 @@ namespace Promethee
                         Response.ContentType = "application/vnd.ms-excel";
                         Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", miModelo.nombre.Replace(" ", "") + ".xls"));
                         Response.BinaryWrite(WriteToStream().GetBuffer());
-                        //Response.Flush();
-                        Response.End();
-                        //CargarGrilla();
-                        udpModelos.Update();
+                        Response.Flush();
+
                         break;
                     case "upload":
                         mpuUpload.Show();
                         break;
                     case "solve":
-                        //imgPodio.ImageUrl = string.Empty;
-                        //imgPodio.Visible = false;
-                        //udpImgPodio.Update();
                         ResolverModelo();
-                        //udpModelos.Update();
                         break;
                 }
             }
@@ -374,6 +389,17 @@ namespace Promethee
                 Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", miModelo.nombre.Replace(" ", "") + ".xls"));
                 Response.BinaryWrite(WriteToStream().GetBuffer());
                 Response.Flush();
+
+                //RutaExcel = MapPath("~/Files/" + miModelo.nombre.Replace(" ", "") + ".xls");
+                //FileStream fileStream = new FileStream(RutaExcel, FileMode.Create, FileAccess.ReadWrite);
+                //fileStream.Write(WriteToStream().GetBuffer(), 0, WriteToStream().GetBuffer().Length);
+                //Response.AppendHeader("Content-Disposition:", "attachment; filename=" + RutaExcel);
+                //Response.AppendHeader("Content-Length", fileStream.Length.ToString());
+                //fileStream.Close();
+                //Response.ContentType = "application/octet-stream";
+                //Response.TransmitFile(RutaExcel);
+
+                CargarGrilla();
             }
             catch (Exception ex)
             {
@@ -382,7 +408,6 @@ namespace Promethee
             finally
             {
                 Response.End();
-                //udpGrilla.Update();
             }
         }
 
@@ -409,7 +434,7 @@ namespace Promethee
 
                 mpuUpload.Hide();
 
-                //CargarGrilla();
+                CargarGrilla();
             }
             catch (Exception ex)
             {
@@ -451,7 +476,10 @@ namespace Promethee
                 nuevoModelo.username = HttpContext.Current.User.Identity.Name;
                 ModelosDA.Save(nuevoModelo);
 
+                LimpiarCampos();
                 mpeModelo.Hide();
+
+                CargarGrilla();
             }
             catch (Exception ex)
             {
@@ -578,6 +606,7 @@ namespace Promethee
             listaModelos = ModelosDA.Select(new UsuarioEntity() { username = HttpContext.Current.User.Identity.Name });
             gvwModelo.DataSource = listaModelos;
             gvwModelo.DataBind();
+            udpGrilla.Update();
         }
 
         /// <summary>
@@ -738,22 +767,7 @@ namespace Promethee
                 }
                 ModelosDA.SaveValores(listaValores, miModelo.idModelo);
             }
-            File.Delete(MapPath("~/Files/" + miModelo.filename));
-        }
-
-        /// <summary>
-        /// Descargars the plantilla.
-        /// </summary>
-        private void DescargarPlantilla()
-        {
-            CrearPlantilla();
-            Response.Clear();
-
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", miModelo.nombre.Replace(" ", "") + ".xls"));
-            Response.BinaryWrite(WriteToStream().GetBuffer());
-
-            Response.End();
+            File.Delete(MapPath("~/Files/" + FileName));
         }
 
         /// <summary>
@@ -958,10 +972,8 @@ namespace Promethee
             }
             foreach (AlternativaEntity item in listaAlternativa)
                 tablaResultado.Columns[item.idAlternativa.ToString()].ColumnName = item.nombre;
-            
-            tablaResultado.Columns.Remove("FlujoEntrante");
 
-            //CargarGrilla();
+            tablaResultado.Columns.Remove("FlujoEntrante");
 
             tablaPaso3.Columns.Add("Ranking", System.Type.GetType("System.Decimal"));
             tablaPaso3.Rows[0][tablaPaso3.Columns.Count - 1] = DBNull.Value;
@@ -1002,6 +1014,7 @@ namespace Promethee
             }
             #endregion
 
+            #region --[Armar Grafico]--
             //Dreclaramos el objeto BitMap y Graphic
             Bitmap objBitmap = new Bitmap(340, 250);
 
@@ -1080,8 +1093,10 @@ namespace Promethee
             if (!System.IO.Directory.Exists(TmpPath))
                 System.IO.Directory.CreateDirectory(TmpPath);
 
-            NombrePNG = TmpPath + "\\Podio_" + Session.SessionID + ".png";
-            string ruta = Request.PhysicalApplicationPath + "Images\\TMP\\Podio_" + Session.SessionID + ".png";
+            string nombreArchivo = "\\Podio_" + Session.SessionID + "_" + DateTime.Now.TimeOfDay.Milliseconds.ToString() + ".png";
+
+            NombrePNG = TmpPath + nombreArchivo;
+            string ruta = Request.PhysicalApplicationPath + "Images\\TMP\\" + nombreArchivo;
             //Y finalmente lo guardamos
             objBitmap.Save(NombrePNG, ImageFormat.Png);
 
@@ -1089,8 +1104,12 @@ namespace Promethee
             objBitmap.Dispose();
             GC.WaitForPendingFinalizers();
             GC.Collect();
+            #endregion
 
-            imgPodio.ImageUrl = "http://" + Request.ServerVariables["SERVER_NAME"] + Request.ApplicationPath + "/Images/TMP/Podio_" + Session.SessionID + ".png";
+            //imgPodio.ImageUrl = string.Empty;
+            //udpImgPodio.Update();
+
+            imgPodio.ImageUrl = "http://" + Request.ServerVariables["SERVER_NAME"] + Request.ApplicationPath + "/Images/TMP/" + nombreArchivo;
             imgPodio.Visible = true;
             udpImgPodio.Update();
             divResultado.Visible = true;

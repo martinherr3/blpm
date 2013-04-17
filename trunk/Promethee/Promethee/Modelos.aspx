@@ -44,96 +44,106 @@
     <asp:ImageButton ID="btnNuevo" ImageUrl="~/Images/programs.png" runat="server" ToolTip="Nuevo Modelo"
         OnClick="btnNuevo_Click" />
     <asp:Label ID="lblError" ForeColor="Red" Font-Bold="true" Text="" runat="server" />
-    <asp:GridView ID="gvwModelo" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
-        AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idModelo"
-        OnRowCommand="gvwModelo_RowCommand" OnPageIndexChanging="gvwModelo_PageIndexChanging"
-        OnRowDataBound="gvwModelo_RowDataBound">
-        <Columns>
-            <asp:TemplateField HeaderText="Acciones">
-                <HeaderStyle HorizontalAlign="center" Width="15%" />
-                <%--<HeaderTemplate>
+    <asp:UpdatePanel runat="server" ID="udpGrilla" UpdateMode="Conditional">
+        <ContentTemplate>
+            <asp:GridView ID="gvwModelo" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
+                AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idModelo"
+                OnRowCommand="gvwModelo_RowCommand" OnPageIndexChanging="gvwModelo_PageIndexChanging"
+                OnRowDataBound="gvwModelo_RowDataBound">
+                <Columns>
+                    <asp:TemplateField HeaderText="Acciones">
+                        <HeaderStyle HorizontalAlign="center" Width="15%" />
+                        <%--<HeaderTemplate>
                     <asp:ImageButton ID="nuevoModelo" runat="server" CommandName="nuevoModelo" CommandArgument="0"
                         ToolTip="Nuevo Modelo" ImageUrl="~/Images/programs.png" />
                 </HeaderTemplate>--%>
-                <ItemStyle HorizontalAlign="center" />
-                <ItemTemplate>
-                    <img alt="Detalle" src="Images/Grillas/dialog-more.png" orderid="<%# Eval("idModelo") %>"
-                        style="cursor: pointer" />
-                    <asp:ImageButton ID="editModelo" runat="server" CommandName="editModelo" CommandArgument='<%# Bind("idModelo") %>'
-                        ToolTip="Editar Modelo" ImageUrl="~/Images/Grillas/edit_Model.png" />
-                    <asp:ImageButton ID="addAlternativa" runat="server" CommandName="addAlternativa"
-                        CommandArgument='<%# Bind("idModelo") %>' ToolTip="Agregar Alternativa" ImageUrl="~/Images/Grillas/add_Alternative.png"
-                        Visible='<%# Eval("filename").ToString() != string.Empty ? false : true %>' />
-                    <asp:ImageButton ID="addCriterio" runat="server" CommandName="addCriterio" CommandArgument='<%# Bind("idModelo") %>'
-                        ToolTip="Agregar Criterio" ImageUrl="~/Images/Grillas/add_Criteria.png" Visible='<%# Eval("filename").ToString() != string.Empty ? false : true %>' />
-                    <%--<asp:ImageButton ID="btnDownload" ImageUrl="~/Images/Grillas/downloads.png" runat="server"
-                        Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>'
-                        CommandName="download" CommandArgument='<%# Bind("idModelo") %>' />--%>
-                    <asp:ImageButton ID="btnDownload" runat="server" ToolTip="Descargar Planilla" ImageUrl="~/Images/Grillas/downloads.png"
-                        OnClick="btnDownload_OnClick" CommandArgument='<%# Bind("idModelo") %>' Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
-                    <asp:ImageButton ID="btnUpload" CommandName="upload" CommandArgument='<%# Bind("idModelo") %>'
-                        runat="server" ToolTip="Cargar Planilla" ImageUrl="~/Images/Grillas/uploads.png"
-                        Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
-                    <asp:ImageButton ID="solve" runat="server" CommandName="solve" CommandArgument='<%# Bind("idModelo") %>'
-                        ToolTip="Resolver" ImageUrl="~/Images/Grillas/solve.png" Visible='<%# Eval("filename").ToString() != string.Empty ? true:false %>' />
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Fecha de Creación">
-                <HeaderStyle HorizontalAlign="center" Width="10%" />
-                <ItemStyle HorizontalAlign="center" />
-                <ItemTemplate>
-                    <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# Bind("fechaCreacion","{0:d}") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Modelo">
-                <HeaderStyle HorizontalAlign="left" Width="40%" />
-                <ItemStyle HorizontalAlign="left" />
-                <ItemTemplate>
-                    <asp:Label ID="lblModeloGrilla" runat="server" Text='<%# Bind("nombre") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Nro de Alternativas">
-                <HeaderStyle HorizontalAlign="center" Width="10%" />
-                <ItemStyle HorizontalAlign="center" />
-                <ItemTemplate>
-                    <asp:Label ID="lblAlternativasGrilla" runat="server" Text='<%# Bind("alternativas") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
-            <asp:TemplateField HeaderText="Nro de Criterios">
-                <HeaderStyle HorizontalAlign="center" Width="10%" />
-                <ItemStyle HorizontalAlign="center" />
-                <ItemTemplate>
-                    <asp:Label ID="lblCriteriosGrilla" runat="server" Text='<%# Bind("criterios") %>'></asp:Label>
-                    <tr style="display: none;" orderid="<%# Eval("idModelo") %>">
-                        <td colspan="100%">
-                            <div style="position: relative; left: 25px;">
-                                <asp:GridView ID="gvwDetalle" runat="server" AutoGenerateColumns="true" BackColor="White"
-                                    BorderStyle="Solid" CellPadding="0" ForeColor="Black" GridLines="Vertical" CssClass="DatosLista"
-                                    SkinID="gridviewSkinPagerIndicadores">
-                                </asp:GridView>
-                            </div>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
+                        <ItemStyle HorizontalAlign="center" />
+                        <ItemTemplate>
+                            <img alt="Detalle" src="Images/Grillas/dialog-more.png" orderid="<%# Eval("idModelo") %>"
+                                style="cursor: pointer" />
+                            <asp:ImageButton ID="editModelo" runat="server" CommandName="editModelo" CommandArgument='<%# Bind("idModelo") %>'
+                                ToolTip="Editar Modelo" ImageUrl="~/Images/Grillas/edit_Model.png" />
+                            <asp:ImageButton ID="addAlternativa" runat="server" CommandName="addAlternativa"
+                                CommandArgument='<%# Bind("idModelo") %>' ToolTip="Agregar Alternativa" ImageUrl="~/Images/Grillas/add_Alternative.png"
+                                Visible='<%# Eval("filename").ToString() != string.Empty ? false : true %>' />
+                            <asp:ImageButton ID="addCriterio" runat="server" CommandName="addCriterio" CommandArgument='<%# Bind("idModelo") %>'
+                                ToolTip="Agregar Criterio" ImageUrl="~/Images/Grillas/add_Criteria.png" Visible='<%# Eval("filename").ToString() != string.Empty ? false : true %>' />
+                            <asp:ImageButton ID="btnDownload" ImageUrl="~/Images/Grillas/downloads.png" runat="server"
+                                Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>'
+                                CommandName="download" CommandArgument='<%# Bind("idModelo") %>' />
+                            <%--<asp:ImageButton ID="btnDownload" runat="server" ToolTip="Descargar Planilla" ImageUrl="~/Images/Grillas/downloads.png"
+                                OnClick="btnDownload_OnClick" CommandArgument='<%# Bind("idModelo") %>' Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />--%>
+                            <asp:ImageButton ID="btnUpload" CommandName="upload" CommandArgument='<%# Bind("idModelo") %>'
+                                runat="server" ToolTip="Cargar Planilla" ImageUrl="~/Images/Grillas/uploads.png"
+                                Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
+                            <asp:ImageButton ID="solve" runat="server" CommandName="solve" CommandArgument='<%# Bind("idModelo") %>'
+                                ToolTip="Resolver" ImageUrl="~/Images/Grillas/solve.png" Visible='<%# Eval("filename").ToString() != string.Empty ? true:false %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Fecha de Creación">
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <ItemStyle HorizontalAlign="center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# Bind("fechaCreacion","{0:d}") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Modelo">
+                        <HeaderStyle HorizontalAlign="left" Width="40%" />
+                        <ItemStyle HorizontalAlign="left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblModeloGrilla" runat="server" Text='<%# Bind("nombre") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Nro de Alternativas">
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <ItemStyle HorizontalAlign="center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblAlternativasGrilla" runat="server" Text='<%# Bind("alternativas") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Nro de Criterios">
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <ItemStyle HorizontalAlign="center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblCriteriosGrilla" runat="server" Text='<%# Bind("criterios") %>'></asp:Label>
+                            <tr style="display: none;" orderid="<%# Eval("idModelo") %>">
+                                <td colspan="100%">
+                                    <div style="position: relative; left: 25px;">
+                                        <asp:GridView ID="gvwDetalle" runat="server" AutoGenerateColumns="true" BackColor="White"
+                                            BorderStyle="Solid" CellPadding="0" ForeColor="Black" GridLines="Vertical" CssClass="DatosLista"
+                                            SkinID="gridviewSkinPagerIndicadores">
+                                        </asp:GridView>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+        </ContentTemplate>
+        <Triggers>
+            <%--<asp:AsyncPostBackTrigger ControlID="btnUploadFile" EventName="Click" />--%>
+        </Triggers>
+    </asp:UpdatePanel>
     <asp:UpdatePanel runat="server" ID="udpModelos" UpdateMode="Conditional">
         <ContentTemplate>
-            <asp:UpdatePanel ID="udpImgPodio" runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
-                    <table class="tablaInternaSinBorde" border="0" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td align="center">
-                                <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
-                                    Visible="false" Style="text-align: center" /><br />
-                            </td>
-                        </tr>
-                    </table>
-                </ContentTemplate>
-            </asp:UpdatePanel>
             <asp:UpdatePanel runat="server" ID="udpResultado" UpdateMode="Conditional">
                 <ContentTemplate>
+                    <asp:UpdatePanel ID="udpImgPodio" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <table class="tablaInternaSinBorde" border="0" cellpadding="1" cellspacing="5">
+                                <tr>
+                                    <td align="center">
+                                        <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
+                                            Visible="false" Style="text-align: center" /><br />
+                                    </td>
+                                </tr>
+                            </table>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />
+                        </Triggers>
+                    </asp:UpdatePanel>
                     <div id="divResultado" runat="server" visible="false">
                         <table class="tablaInternaSinBorde" border="0" cellpadding="1" cellspacing="5">
                             <tr>
@@ -278,12 +288,8 @@
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
             <tr>
                 <td>
-                    <%-- <asp:UpdatePanel runat="server">
-                        <ContentTemplate>--%>
                     <cri:Criterio ID="nuevoCriterio" runat="server" nombreCriterio="" esMaximzante="false">
                     </cri:Criterio>
-                    <%--</ContentTemplate>
-                    </asp:UpdatePanel>--%>
                 </td>
             </tr>
             <tr>
