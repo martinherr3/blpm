@@ -266,7 +266,7 @@ namespace Promethee
         {
             try
             {
-                btnGuardarModelo.Visible = true;
+                //btnGuardarModelo.Visible = true;
                 mpeModelo.Show();
             }
             catch (Exception ex)
@@ -310,6 +310,9 @@ namespace Promethee
                     idModelo = idModeloEdit;
                 switch (e.CommandName)
                 {
+                    case "nuevoModelo":
+                        mpeModelo.Show();
+                        break;
                     case "editModelo":
                         txtNombre.Text = miModelo.nombre;
                         udpModelos.Update();
@@ -337,6 +340,9 @@ namespace Promethee
                         mpuUpload.Show();
                         break;
                     case "solve":
+                        //imgPodio.ImageUrl = string.Empty;
+                        //imgPodio.Visible = false;
+                        //udpImgPodio.Update();
                         ResolverModelo();
                         //udpModelos.Update();
                         break;
@@ -390,14 +396,16 @@ namespace Promethee
             try
             {
                 string FileExtension = Path.GetExtension(fuCargarArchivo.PostedFile.FileName).Substring(1);
+                //string FileExtension = Path.GetExtension(AsyncFileUpload1.PostedFile.FileName).Substring(1);
 
                 string FileName = Guid.NewGuid().ToString() + "." + FileExtension;
 
                 fuCargarArchivo.SaveAs(MapPath("~/Files/" + FileName));
+                //AsyncFileUpload1.SaveAs(MapPath("~/Files/" + FileName));
 
                 ModelosDA.SaveFile(idModelo, FileName);
 
-                GuardarValores();
+                GuardarValores(FileName);
 
                 mpuUpload.Hide();
 
@@ -535,13 +543,24 @@ namespace Promethee
         {
             try
             {
-                nuevoCriterio.LimpiarControles();
                 LimpiarCampos();
                 mpeModelo.Hide();
                 mpeAlternativas.Hide();
                 mpuUpload.Hide();
                 mpeCriterios.Hide();
-                //udpModelosAsociados.Update();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        protected void gvwResultado_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                gvwResultado.PageIndex = e.NewPageIndex;
+                CargarGrillaResultado();
             }
             catch (Exception ex)
             {
@@ -694,31 +713,32 @@ namespace Promethee
         /// <summary>
         /// Guardars the valores.
         /// </summary>
-        private void GuardarValores()
+        private void GuardarValores(string FileName)
         {
-            InitializeWorkbook(MapPath("~/Files/" + miModelo.filename));
+            InitializeWorkbook(MapPath("~/Files/" + FileName));
 
             tablaPaso0 = ConvertToDataTable();
 
-            List<RelAlternativaCriterioEntity> listaValores = new List<RelAlternativaCriterioEntity>();
-            RelAlternativaCriterioEntity nuevoValor = null;
-            decimal valor = 0;
-            foreach (DataRow item in tablaPaso0.Rows)
+            if (tablaPaso0.Rows.Count > 0)
             {
-                for (int i = 1; i < tablaPaso0.Columns.Count; i++)
+                List<RelAlternativaCriterioEntity> listaValores = new List<RelAlternativaCriterioEntity>();
+                RelAlternativaCriterioEntity nuevoValor = null;
+                decimal valor = 0;
+                foreach (DataRow item in tablaPaso0.Rows)
                 {
-                    nuevoValor = new RelAlternativaCriterioEntity();
-                    nuevoValor.nombreAlternativa = item[0].ToString();
-                    nuevoValor.nombreCriterio = tablaPaso0.Columns[i].ColumnName;
-                    decimal.TryParse(item[i].ToString(), out valor);
-                    nuevoValor.valor = valor;
-                    listaValores.Add(nuevoValor);
+                    for (int i = 1; i < tablaPaso0.Columns.Count; i++)
+                    {
+                        nuevoValor = new RelAlternativaCriterioEntity();
+                        nuevoValor.nombreAlternativa = item[0].ToString();
+                        nuevoValor.nombreCriterio = tablaPaso0.Columns[i].ColumnName;
+                        decimal.TryParse(item[i].ToString(), out valor);
+                        nuevoValor.valor = valor;
+                        listaValores.Add(nuevoValor);
+                    }
                 }
+                ModelosDA.SaveValores(listaValores, miModelo.idModelo);
             }
-            ModelosDA.SaveValores(listaValores, miModelo.idModelo);
-
             File.Delete(MapPath("~/Files/" + miModelo.filename));
-
         }
 
         /// <summary>
@@ -936,6 +956,9 @@ namespace Promethee
                 aux = listaAlternativa.Find(p => p.idAlternativa == Convert.ToInt16(tablaResultado.Rows[i][0].ToString()));
                 tablaResultado.Rows[i][0] = aux.nombre;
             }
+            foreach (AlternativaEntity item in listaAlternativa)
+                tablaResultado.Columns[item.idAlternativa.ToString()].ColumnName = item.nombre;
+            
             tablaResultado.Columns.Remove("FlujoEntrante");
 
             //CargarGrilla();
@@ -951,7 +974,7 @@ namespace Promethee
         /// </summary>
         private void GraficarPodioResultado()
         {
-            #region --[Top 3 Alumnos]--
+            #region --[Top 3 Alternativas]--
             int cantidad = listaAlternativa.Count;
             int iterador = cantidad < 3 ? cantidad : 3;
             for (int i = 0; i < iterador; i++)
@@ -1062,7 +1085,6 @@ namespace Promethee
             //Y finalmente lo guardamos
             objBitmap.Save(NombrePNG, ImageFormat.Png);
 
-
             File.Copy(NombrePNG, ruta);
             objBitmap.Dispose();
             GC.WaitForPendingFinalizers();
@@ -1070,7 +1092,19 @@ namespace Promethee
 
             imgPodio.ImageUrl = "http://" + Request.ServerVariables["SERVER_NAME"] + Request.ApplicationPath + "/Images/TMP/Podio_" + Session.SessionID + ".png";
             imgPodio.Visible = true;
-            udpModelos.Update();
+            udpImgPodio.Update();
+            divResultado.Visible = true;
+            CargarGrillaResultado();
+        }
+
+        /// <summary>
+        /// Cargars the grilla resultado.
+        /// </summary>
+        private void CargarGrillaResultado()
+        {
+            gvwResultado.DataSource = tablaResultado.DefaultView;
+            gvwResultado.DataBind();
+            udpResultado.Update();
         }
 
         /// <summary>
@@ -1377,6 +1411,7 @@ namespace Promethee
         {
             ISheet sheet = excelFile.GetSheetAt(1);
             //valido que la plantilla se haya creado para el modelo 
+            lblError.Text = string.Empty;
             if (miModelo.idModelo == sheet.GetRow(0).Cells[1].NumericCellValue)
             {
                 sheet = excelFile.GetSheetAt(0);
@@ -1396,6 +1431,8 @@ namespace Promethee
                     }
                 return dt;
             }
+            else
+                lblError.Text = "El archivo seleccionado no corresponde al modelo indicado.";
             return null;
         }
         #endregion

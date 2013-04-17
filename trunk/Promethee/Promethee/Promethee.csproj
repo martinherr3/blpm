@@ -83,6 +83,7 @@
     <Content Include="DLL\SanitizerProviders.dll" />
     <Content Include="favicon.ico" />
     <Content Include="frmLogin.aspx" />
+    <Content Include="Images\ajax-loader.gif" />
     <Content Include="Images\applications.png" />
     <Content Include="Images\audio_file.png" />
     <Content Include="Images\back.png" />
