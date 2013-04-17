@@ -43,6 +43,7 @@
     </table>
     <asp:ImageButton ID="btnNuevo" ImageUrl="~/Images/programs.png" runat="server" ToolTip="Nuevo Modelo"
         OnClick="btnNuevo_Click" />
+    <asp:Label ID="lblError" ForeColor="Red" Font-Bold="true" Text="" runat="server" />
     <asp:GridView ID="gvwModelo" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
         AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idModelo"
         OnRowCommand="gvwModelo_RowCommand" OnPageIndexChanging="gvwModelo_PageIndexChanging"
@@ -50,6 +51,10 @@
         <Columns>
             <asp:TemplateField HeaderText="Acciones">
                 <HeaderStyle HorizontalAlign="center" Width="15%" />
+                <%--<HeaderTemplate>
+                    <asp:ImageButton ID="nuevoModelo" runat="server" CommandName="nuevoModelo" CommandArgument="0"
+                        ToolTip="Nuevo Modelo" ImageUrl="~/Images/programs.png" />
+                </HeaderTemplate>--%>
                 <ItemStyle HorizontalAlign="center" />
                 <ItemTemplate>
                     <img alt="Detalle" src="Images/Grillas/dialog-more.png" orderid="<%# Eval("idModelo") %>"
@@ -117,10 +122,62 @@
         <ContentTemplate>
             <asp:UpdatePanel ID="udpImgPodio" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
-                        Visible="false" Style="text-align: center" />
+                    <table class="tablaInternaSinBorde" border="0" cellpadding="1" cellspacing="5">
+                        <tr>
+                            <td align="center">
+                                <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
+                                    Visible="false" Style="text-align: center" /><br />
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+            <asp:UpdatePanel runat="server" ID="udpResultado" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div id="divResultado" runat="server" visible="false">
+                        <table class="tablaInternaSinBorde" border="0" cellpadding="1" cellspacing="5">
+                            <tr>
+                                <td align="center">
+                                    <asp:LinkButton Text="[Más Información]" ID="lnkConfig" runat="server" Visible="true" />
+                                </td>
+                            </tr>
+                        </table>
+                        <ajaxtoolkit:CollapsiblePanelExtender ID="cpe" runat="Server" TargetControlID="pnlResultado"
+                            CollapsedSize="0" ExpandedSize="500" Collapsed="True" ExpandControlID="lnkConfig"
+                            CollapseControlID="lnkConfig" AutoCollapse="False" AutoExpand="False" ScrollContents="false"
+                            ExpandDirection="Vertical" />
+                        <asp:Panel runat="server" ID="pnlResultado">
+                            <asp:Label ID="lblResultadoGrilla" Text="Resultados obtenidos en orden Descendente"
+                                runat="server" Visible="false" Font-Bold="true" /><br />
+                            <asp:Label ID="lblResultado" Text="" runat="server" CssClass="lblCriterios" Visible="false" />
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                <ContentTemplate>
+                                    <asp:GridView ID="gvwResultado" runat="server" CssClass="DatosLista" AllowPaging="True"
+                                        AllowSorting="false" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None"
+                                        ShowFooter="false" OnPageIndexChanging="gvwResultado_PageIndexChanging" PageSize="15">
+                                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                        <EditRowStyle BackColor="#999999" />
+                                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Height="24px" />
+                                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" HorizontalAlign="Center" />
+                                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                                    </asp:GridView>
+                                    <br />
+                                </ContentTemplate>
+                                <Triggers>
+                                    <%--<asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />--%>
+                                </Triggers>
+                            </asp:UpdatePanel>
+                        </asp:Panel>
+                    </div>
                 </ContentTemplate>
                 <Triggers>
+                    <%--<asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />--%>
                 </Triggers>
             </asp:UpdatePanel>
         </ContentTemplate>
@@ -221,12 +278,12 @@
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
             <tr>
                 <td>
-                    <asp:UpdatePanel runat="server">
-                        <ContentTemplate>
-                            <cri:Criterio ID="nuevoCriterio" runat="server" nombreCriterio="" esMaximzante="false">
-                            </cri:Criterio>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
+                    <%-- <asp:UpdatePanel runat="server">
+                        <ContentTemplate>--%>
+                    <cri:Criterio ID="nuevoCriterio" runat="server" nombreCriterio="" esMaximzante="false">
+                    </cri:Criterio>
+                    <%--</ContentTemplate>
+                    </asp:UpdatePanel>--%>
                 </td>
             </tr>
             <tr>
@@ -257,8 +314,8 @@
         </table>
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
             <tr>
-                <td class="TD100px" style="vertical-align: text-bottom">
-                    Subir Archivo
+                <td class="TD140px" style="vertical-align: text-bottom">
+                    Seleccionar Archivo
                 </td>
                 <td>
                     <asp:FileUpload ID="fuCargarArchivo" runat="server" />
@@ -266,6 +323,10 @@
                         ErrorMessage="<br />Sólo se permiten archivos XLS" ForeColor="Red" Display="Static"
                         ValidationExpression="^(.*\.xls)|(.*\.XLS)$">
                     </asp:RegularExpressionValidator>
+                    <%--<ajaxtoolkit:AsyncFileUpload runat="server" ID="AsyncFileUpload1" Width="350px" UploaderStyle="Traditional"
+                        UploadingBackColor="#8FBC8F" ErrorBackColor="#CD5C5C" BackColor="#DCDCDC" CompleteBackColor="#87CEFA"
+                        ThrobberID="imgLoading" />
+                    <asp:Image ID="imgLoading" runat="server" ImageUrl="~/Images/ajax-loader.gif" />--%>
                 </td>
             </tr>
             <tr>
