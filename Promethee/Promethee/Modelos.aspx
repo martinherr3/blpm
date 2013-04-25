@@ -78,6 +78,8 @@
                                 Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
                             <asp:ImageButton ID="solve" runat="server" CommandName="solve" CommandArgument='<%# Bind("idModelo") %>'
                                 ToolTip="Resolver" ImageUrl="~/Images/Grillas/solve.png" Visible='<%# Eval("filename").ToString() != string.Empty ? true:false %>' />
+                            <asp:ImageButton ID="btnEliminar" runat="server" CommandName="eliminar" CommandArgument='<%# Bind("idModelo") %>'
+                                ToolTip="Eliminar" ImageUrl="~/Images/Grillas/trash.png" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fecha de Creación">
@@ -306,7 +308,7 @@
     <asp:HiddenField ID="HiddenField4" runat="server" />
     <ajaxtoolkit:ModalPopupExtender ID="mpuUpload" runat="server" PopupControlID="pnlUpload"
         TargetControlID="HiddenField4" RepositionMode="RepositionOnWindowResizeAndScroll"
-        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlAlternativas">
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlUpload">
     </ajaxtoolkit:ModalPopupExtender>
     <asp:Panel ID="pnlUpload" runat="server" Width="500px" Height="180px" Style="display: none;
         text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
@@ -341,6 +343,42 @@
                     <asp:ImageButton ID="btnUploadFile" runat="server" ToolTip="Aceptar" ImageUrl="~/Images/button_ok.png"
                         OnClick="btnUpload_OnClick" CausesValidation="true" />
                     <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="Cancelar" ImageUrl="~/Images/button_cancel.png"
+                        OnClick="btnCerrarPopUp_Click" CausesValidation="false" />
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+    <asp:HiddenField ID="HiddenField5" runat="server" />
+    <ajaxtoolkit:ModalPopupExtender ID="mpeEliminar" runat="server" PopupControlID="pnlEliminar"
+        TargetControlID="HiddenField5" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlEliminar">
+    </ajaxtoolkit:ModalPopupExtender>
+    <asp:Panel ID="pnlEliminar" runat="server" Width="250px" Height="170px" Style="display: none;
+        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
+            <tr>
+                <td>
+                    <h2>
+                        Eliminar Modelo</h2>
+                </td>
+            </tr>
+        </table>
+        <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
+            <tr>
+                <td class="TD140px" style="vertical-align: text-bottom">
+                    <asp:UpdatePanel UpdateMode="Conditional" ID="udpEliminar" runat="server">
+                        <ContentTemplate>
+                            <asp:Label ID="lblEliminar" Text="" runat="server" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <br />
+                    <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Aceptar" ImageUrl="~/Images/button_ok.png"
+                        OnClick="btnEliminar_OnClick" CausesValidation="true" />
+                    <asp:ImageButton ID="btnCancelEliminar" runat="server" ToolTip="Cancelar" ImageUrl="~/Images/button_cancel.png"
                         OnClick="btnCerrarPopUp_Click" CausesValidation="false" />
                 </td>
             </tr>

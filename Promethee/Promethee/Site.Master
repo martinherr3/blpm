@@ -4,9 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link href="App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="App_Themes/Tema/Estilo.css" />
     <link rel="icon" type="image/png" href="~/favicon.ico" />
-    <script src="Scripts/jquery-1.9.1.js" type="text/javascript"></script>
+    <script type="text/javascript" src="Scripts/jquery-1.9.1.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -15,6 +15,9 @@
     <asp:ScriptManager ID="scmManager" runat="server" AsyncPostBackTimeout="9000" EnablePartialRendering="true"
         ScriptMode="Release" LoadScriptsBeforeUI="false" EnableScriptLocalization="true"
         EnableScriptGlobalization="true">
+        <Scripts>
+            <asp:ScriptReference Path="Scripts/jquery-1.9.1.js" />
+        </Scripts>
     </asp:ScriptManager>
     <br />
     <div class="clear hideSkiplink">
