@@ -246,5 +246,44 @@ namespace DataAccess
                                     ex, enuExceptionType.DataAccesException);
             }
         }
+
+        /// <summary>
+        /// Deletes the specified mi modelo.
+        /// </summary>
+        /// <param name="miModelo">The mi modelo.</param>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public static void Delete(ModeloEntity miModelo)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ToString()))
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = conn;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Modelos_Delete";
+                    command.Parameters.AddWithValue("@idModelo", miModelo.idModelo);
+
+                    command.CommandTimeout = 10;
+
+                    conn.Open();
+
+                    command.ExecuteScalar();
+
+                    conn.Close();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
     }
 }

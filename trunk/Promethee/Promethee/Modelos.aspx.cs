@@ -284,7 +284,7 @@ namespace Promethee
         {
             try
             {
-                //btnGuardarModelo.Visible = true;
+                miModelo = new ModeloEntity();
                 mpeModelo.Show();
             }
             catch (Exception ex)
@@ -360,6 +360,11 @@ namespace Promethee
                         break;
                     case "solve":
                         ResolverModelo();
+                        break;
+                    case "eliminar":
+                        lblEliminar.Text = "¿Desea eliminar el modelo " + miModelo.nombre + "?";
+                        udpEliminar.Update();
+                        mpeEliminar.Show();
                         break;
                 }
             }
@@ -440,6 +445,26 @@ namespace Promethee
             {
                 Master.ManageExceptions(ex);
             }
+        }
+
+        /// <summary>
+        /// Handles the OnClick event of the btnEliminar control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnEliminar_OnClick(object sender, EventArgs e)
+        {
+            try
+            {
+                EliminarModelo();
+                mpeEliminar.Hide();
+                CargarGrilla();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+
         }
 
         /// <summary>
@@ -576,6 +601,7 @@ namespace Promethee
                 mpeAlternativas.Hide();
                 mpuUpload.Hide();
                 mpeCriterios.Hide();
+                mpeEliminar.Hide();
             }
             catch (Exception ex)
             {
@@ -790,6 +816,14 @@ namespace Promethee
             GenerarPlantilla(strCriterios, strAlternativas);
         }
 
+        /// <summary>
+        /// Eliminars the modelo.
+        /// </summary>
+        /// <exception cref="System.NotImplementedException"></exception>
+        private void EliminarModelo()
+        {
+            ModelosDA.Delete(miModelo);
+        }
         #region --[Generación de Excel]--
         /// <summary>
         /// Initializes the workbook.
@@ -1231,7 +1265,7 @@ namespace Promethee
                     valorCriterio = (item[criterio.nombreCriterio] != DBNull.Value) ? Convert.ToDecimal(item[criterio.nombreCriterio]) : 0;
                     valorAcumulado += valorCriterio * criterio.pesoCriterio;
                 }
-                tablaPaso2.Rows[nroFila][indexColumna.ToString()] = Math.Round((valorAcumulado / (sumaPesos)), 2);
+                tablaPaso2.Rows[nroFila][indexColumna.ToString()] = Math.Round((valorAcumulado / (sumaPesos)), 4);
             }
             #endregion
         }
@@ -1355,7 +1389,7 @@ namespace Promethee
                             }
                             break;
                         case 5:
-                            esteCriterio.tipoFuncion = enumFuncionPreferencia.PseudoCriterioConPreferenciaLineal;
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.CriterioConPreferenciaLinealYAreaDeIndiferencia;
                             switch (itemConfig.idValorFuncionPreferencia)
                             {
                                 case (int)enumValorFuncionPreferencia.LimiteIndiferencia:
