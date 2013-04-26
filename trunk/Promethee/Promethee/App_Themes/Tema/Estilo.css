@@ -7,8 +7,7 @@ body
     font-size: .80em;
     font-family: "Trebuchet MS" , Helvetica, sans-serif;
     margin: 0px;
-    padding: 0px 100px 0px 100px;
-    /*color: #696969;*/
+    padding: 0px 100px 0px 100px; /*color: #696969;*/
 }
 
 a:link, a:visited
@@ -39,8 +38,7 @@ p
 
 h1, h2, h3, h4, h5, h6
 {
-    font-size: 1.5em;
-    /*color: #666666;*/
+    font-size: 1.5em; /*color: #666666;*/
     font-variant: small-caps;
     text-transform: none;
     font-weight: 200;
@@ -1062,8 +1060,7 @@ label
 }
 .CajaDialogo
 {
-    background-color: #FFFFFF;
-    /*border-width: 5px;*/
+    background-color: #FFFFFF; /*border-width: 5px;*/
     border-style: none;
     width: 400px; /*font-weight: bold;             font-style: italic;*/
     border-color: #708090;
@@ -1392,15 +1389,16 @@ label
 
 .mGrid a
 {
-    color: #FFFFFF;
+    color: #034AF3;
+    text-decoration: underline;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 .mGrid a:hover
 {
-    color: #9FB6CD;
-    text-decoration: underline,overline;
-    text-transform: uppercase;
+    color: #034AF3;
+    text-decoration: underline;
+    text-transform: capitalize;
 }
 
 .bubble

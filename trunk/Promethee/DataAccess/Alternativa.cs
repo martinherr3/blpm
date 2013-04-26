@@ -108,5 +108,44 @@ namespace DataAccess
                                     ex, enuExceptionType.DataAccesException);
             }
         }
+
+        /// <summary>
+        /// Deletes the specified id alternativa.
+        /// </summary>
+        /// <param name="idAlternativa">The id alternativa.</param>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public static void Delete(int idAlternativa)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ToString()))
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = conn;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Alternativa_Delete";
+                    command.Parameters.AddWithValue("@idAlternativa", idAlternativa);
+
+                    command.CommandTimeout = 10;
+
+                    conn.Open();
+
+                    command.ExecuteScalar();
+
+                    conn.Close();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
     }
 }
