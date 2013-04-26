@@ -915,11 +915,18 @@ namespace Promethee
 
             HSSFPatriarch patr = (HSSFPatriarch)hojaUno.CreateDrawingPatriarch();
             IComment comment = patr.CreateCellComment(new HSSFClientAnchor(0, 0, 0, 0, 0, 0, 4, 4));
-            comment.String = new HSSFRichTextString("Completa los datos del modelo, luego deberas cargar el archivo para obtener los resultados. Gracias");
+            comment.String = new HSSFRichTextString("Completa los datos del modelo, luego podras cargar el archivo y obtener los resultados. Gracias");
             comment.Author = "Promethee";
             filaEncabezado.CreateCell(strCriterios.Length + 1).CellComment = comment;
 
+            comment = patr.CreateCellComment(new HSSFClientAnchor(0, 0, 0, 0, 0, 0, 4, 4));
+            comment.String = new HSSFRichTextString("Si ingresas un valor NO NUMÉRICO en una celda, el mismo será reemplazado por el valor 0 [cero]");
+            comment.Author = "Promethee";
+            filaEncabezado.CreateCell(strCriterios.Length + 2).CellComment = comment;
+
             auxNumRow++;
+            CargarTablaPaso0();
+            double valor;
             for (int i = 0; i < strAlternativas.Length; i++, auxNumRow++)
             {
                 filaEncabezado = hojaUno.CreateRow(auxNumRow);
@@ -931,6 +938,8 @@ namespace Promethee
                     filaEncabezado.CreateCell(j).SetCellType(CellType.NUMERIC);
                     filaEncabezado.Cells[j].CellStyle = unEstiloDecimal;
                     filaEncabezado.Cells[j].CellStyle.IsLocked = false;
+                    double.TryParse(tablaPaso0.Rows[i][j].ToString(), out valor);
+                    filaEncabezado.Cells[j].SetCellValue(valor);
                 }
             }
 
@@ -1468,6 +1477,7 @@ namespace Promethee
             ISheet sheet = excelFile.GetSheetAt(1);
             //valido que la plantilla se haya creado para el modelo 
             lblError.Text = string.Empty;
+            bool errorDato = false;
             if (miModelo.idModelo == sheet.GetRow(0).Cells[1].NumericCellValue)
             {
                 sheet = excelFile.GetSheetAt(0);
@@ -1482,9 +1492,11 @@ namespace Promethee
                     for (int j = 1; j <= miModelo.criterios; j++)
                     {
                         try { valor = sheet.GetRow(i + 2).Cells[j].NumericCellValue; }
-                        catch { valor = 0; }
+                        catch { valor = 0; errorDato = true; }
                         dt.Rows[i][j] = valor;
                     }
+                if (errorDato)
+                    lblError.Text = "Se encontraron datos NO NUMÉRICOS, los mismos fueron reemplazados por el valor 0 [cero]";
                 return dt;
             }
             else
