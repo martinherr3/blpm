@@ -25,8 +25,10 @@ namespace Promethee.Utility
         Nulo = 4
     }
 
+    [Serializable]
     public class Promethee
     {
+        public int idCriterio { get; set; }
         public string nombreCriterio { get; set; }
         public decimal pesoCriterio { get; set; }
         public enumFuncionPreferencia tipoFuncion { get; set; }

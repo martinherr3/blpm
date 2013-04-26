@@ -84,6 +84,7 @@
     <Content Include="DLL\SanitizerProviders.dll" />
     <Content Include="favicon.ico" />
     <Content Include="frmLogin.aspx" />
+    <Content Include="Images\back.png" />
     <Content Include="Images\button_cancel.png" />
     <Content Include="Images\button_ok.png" />
     <Content Include="Images\draw-arrow-down.png" />
@@ -92,6 +93,7 @@
     <Content Include="Images\Grillas\dialog-fewer.png" />
     <Content Include="Images\Grillas\dialog-more.png" />
     <Content Include="Images\Grillas\downloads.png" />
+    <Content Include="Images\Grillas\edit_Criteria.png" />
     <Content Include="Images\Grillas\edit_Model.png" />
     <Content Include="Images\Grillas\grd_alt.png" />
     <Content Include="Images\Grillas\grd_head.png" />

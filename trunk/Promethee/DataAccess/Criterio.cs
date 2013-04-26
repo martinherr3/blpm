@@ -143,6 +143,13 @@ namespace DataAccess
                     transaccion = conn.BeginTransaction();
                     command.Transaction = transaccion;
                     int idCriterio = Convert.ToInt32(command.ExecuteScalar());
+                    idCriterio = nuevoCriterio.idCriterio > 0 ? nuevoCriterio.idCriterio : idCriterio;
+                    
+                    //borro todo lo que exista, sirve para el update
+                    command.CommandText = "ConfigFuncionPreferencia_Delete";
+                    command.Parameters.Clear();
+                    command.Parameters.AddWithValue("@idCriterio", idCriterio);
+                    command.ExecuteNonQuery();
 
                     command.CommandText = "ConfigFuncionPreferencia_Insert";
                     foreach (ConfigFuncionPreferenciaEntity item in listaConfig)

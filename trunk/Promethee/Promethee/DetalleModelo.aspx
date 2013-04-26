@@ -2,21 +2,29 @@
     CodeBehind="DetalleModelo.aspx.cs" Inherits="Promethee.DetalleModelo" %>
 
 <%@ MasterType VirtualPath="~/Site.Master" %>
+<%@ Register Src="~/UserControls/Criterio.ascx" TagName="Criterio" TagPrefix="cri" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <%-- <asp:UpdatePanel runat="server">
-        <ContentTemplate>--%>
-    Modelo:
-    <asp:UpdatePanel runat="server" ID="udpNombre" UpdateMode="Conditional">
-        <ContentTemplate>
-            <asp:Label ID="lblModelo" Text="" runat="server" Font-Bold="true" Font-Size="Large" />
-            [<asp:LinkButton ID="lnkModelo" Text="Editar" runat="server" OnClick="lnkModelo_Click" />]
-        </ContentTemplate>
-    </asp:UpdatePanel>
-    <br />
-    -Editar Criterio (nombre, peso, función)
-    <br />
+    <table border="0" cellpadding="1" cellspacing="5" style="width: 100%">
+        <tr>
+            <td>
+                Modelo:
+                <asp:UpdatePanel runat="server" ID="udpNombre" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <asp:Label ID="lblModelo" Text="" runat="server" Font-Bold="true" Font-Size="Large" />
+                        [<asp:LinkButton ID="lnkModelo" Text="Editar" runat="server" OnClick="lnkModelo_Click" />]
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </td>
+            <td style="width: 10%; text-align: right">
+                <asp:ImageButton ImageUrl="~/Images/back.png" ID="btnVolver" OnClick="btnVolver_Click"
+                    runat="server" ToolTip="Volver" AlternateText="Volver" />
+            </td>
+        </tr>
+    </table>
+    <h2>
+        Edición de Alternativas y Valores</h2>
     <asp:GridView ID="gvwModelo" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
         AllowPaging="false" AutoGenerateColumns="false" AllowSorting="false" Width="100%"
         CellPadding="5" CellSpacing="1" AutoGenerateEditButton="True" OnRowCancelingEdit="gvwModelo_RowCancelingEdit"
@@ -25,12 +33,71 @@
         <AlternatingRowStyle ForeColor="Black" />
         <RowStyle ForeColor="Black" />
     </asp:GridView>
-    <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
-        <ContentTemplate>
-        </ContentTemplate>
-    </asp:UpdatePanel>
-    <%-- </ContentTemplate>
-    </asp:UpdatePanel>--%>
+    <br />
+    <h2>
+        Edición de Criterios</h2>
+    <asp:GridView ID="gvwCriterios" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
+        AllowPaging="false" AutoGenerateColumns="false" AllowSorting="false" Width="100%"
+        CellPadding="5" CellSpacing="1" OnRowCommand="gvwCriterios_RowCommand">
+        <Columns>
+            <asp:TemplateField HeaderText="Acciones">
+                <HeaderStyle HorizontalAlign="center" Width="5%" />
+                <ItemStyle HorizontalAlign="center" />
+                <ItemTemplate>
+                    <asp:ImageButton ID="editCriterio" runat="server" CommandName="editCriterio" CommandArgument='<%# Bind("idCriterio") %>'
+                        ToolTip="Editar Criterio" ImageUrl="~/Images/Grillas/edit_Criteria.png" /></ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Criterio">
+                <HeaderStyle HorizontalAlign="center" Width="10%" />
+                <ItemStyle HorizontalAlign="center" />
+                <ItemTemplate>
+                    <asp:Label ID="lblNombreCriterio" runat="server" Text='<%# Bind("nombreCriterio") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Peso">
+                <HeaderStyle HorizontalAlign="center" Width="5%" />
+                <ItemStyle HorizontalAlign="center" />
+                <ItemTemplate>
+                    <asp:Label ID="lblPesoGrilla" runat="server" Text='<%# Bind("pesoCriterio") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Maximiza">
+                <HeaderStyle HorizontalAlign="center" Width="5%" />
+                <ItemStyle HorizontalAlign="center" />
+                <ItemTemplate>
+                    <asp:Label ID="lblMaximizaGrilla" runat="server" Text='<%# Boolean.Parse(Eval("maximiza").ToString()) ? "Sí" : "No"  %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Función de Preferencia">
+                <HeaderStyle HorizontalAlign="center" Width="15%" />
+                <ItemStyle HorizontalAlign="center" />
+                <ItemTemplate>
+                    <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# GetNombreFuncion(DataBinder.Eval(Container.DataItem, "tipoFuncion").ToString())%>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Límite de Preferencia">
+                <HeaderStyle HorizontalAlign="center" Width="10%" />
+                <ItemStyle HorizontalAlign="center" />
+                <ItemTemplate>
+                    <asp:Label ID="lblLPGrilla" runat="server" Text='<%# Bind("limitePreferencia") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Límite de Indiferencia">
+                <HeaderStyle HorizontalAlign="center" Width="10%" />
+                <ItemStyle HorizontalAlign="center" />
+                <ItemTemplate>
+                    <asp:Label ID="lblLIGrilla" runat="server" Text='<%# Bind("limiteIndiferencia") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Límite Sigma">
+                <HeaderStyle HorizontalAlign="center" Width="8%" />
+                <ItemStyle HorizontalAlign="center" />
+                <ItemTemplate>
+                    <asp:Label ID="lblLSGrilla" runat="server" Text='<%# Bind("limiteSigma") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+    </asp:GridView>
     <asp:HiddenField ID="HiddenField1" runat="server" />
     <ajaxToolkit:ModalPopupExtender ID="mpeModelo" runat="server" PopupControlID="pnlModelos"
         TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
@@ -97,6 +164,39 @@
                     <br />
                     <asp:ImageButton ID="btnError" runat="server" ToolTip="Aceptar" ImageUrl="~/Images/button_ok.png"
                         OnClick="btnCerrarPopUp_Click" CausesValidation="false" />
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+    <asp:HiddenField ID="HiddenField3" runat="server" />
+    <ajaxToolkit:ModalPopupExtender ID="mpeCriterios" runat="server" PopupControlID="pnlCriterios"
+        TargetControlID="HiddenField3" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlCriterios">
+    </ajaxToolkit:ModalPopupExtender>
+    <asp:Panel ID="pnlCriterios" runat="server" Width="500px" Height="500px" Style="display: none;
+        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
+            <tr>
+                <td>
+                    <h2>
+                        Editar Criterio</h2>
+                </td>
+            </tr>
+        </table>
+        <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
+            <tr>
+                <td>
+                    <cri:Criterio ID="nuevoCriterio" runat="server" nombreCriterio="" esMaximzante="false">
+                    </cri:Criterio>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <br />
+                    <asp:ImageButton ID="btnGuardarCriterio" runat="server" ToolTip="Aceptar" ImageUrl="~/Images/button_ok.png"
+                        OnClick="btnGuardarCriterio_Click" />
+                    <asp:ImageButton ID="btnVolverCriterio" runat="server" ToolTip="Cancelar" ImageUrl="~/Images/button_cancel.png"
+                        OnClick="btnCerrarPopUp_Click" />
                 </td>
             </tr>
         </table>

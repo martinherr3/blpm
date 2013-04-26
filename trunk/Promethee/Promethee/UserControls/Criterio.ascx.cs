@@ -53,7 +53,7 @@ namespace Promethee.UserControls
             }
             set
             {
-                limiteIndiferencia = value;
+                txtLimiteIndiferencia.Text = value.ToString();
             }
         }
 
@@ -73,7 +73,7 @@ namespace Promethee.UserControls
             }
             set
             {
-                limitePreferencia = value;
+                txtLimitePreferencia.Text = value.ToString();
             }
         }
 
@@ -93,7 +93,7 @@ namespace Promethee.UserControls
             }
             set
             {
-                limiteSigma = value;
+                txtLimiteSigma.Text = value.ToString();
             }
         }
 
@@ -132,8 +132,12 @@ namespace Promethee.UserControls
                 }
                 return enumFuncionPreferencia.VerdaderoCriterio;
             }
+            set
+            {
+                pseudoCriterio.SelectedValue = value.GetHashCode().ToString();
+                VisibilidadLimites();
+            }
         }
-
 
         /// <summary>
         /// Gets or sets a value indicating whether [es maximzante].
@@ -223,19 +227,8 @@ namespace Promethee.UserControls
                 indicador = new IndicadorEntity();
                 indicador.nombre = this.nombre;
 
-                //BLIndicador objBLIndicador = new BLIndicador();
-                //indicador = objBLIndicador.GetIndicador(indicador);
-
                 this.esMaximzante = indicador.maximiza;
                 this.pesoCriterio = indicador.pesoDefault;
-
-                //SliderExtender1.Minimum = (double)indicador.pesoMinimo;
-                //SliderExtender1.Maximum = (double)indicador.pesoMaximo;
-                //valCriterioMax.ValueToCompare = indicador.pesoMaximo.ToString();
-                //valCriterioMax.ErrorMessage = "El valor MÁXIMO admitido es " + indicador.pesoMaximo.ToString();
-
-                //valCriterioMin.ValueToCompare = indicador.pesoMinimo.ToString();
-                //valCriterioMin.ErrorMessage = "El valor MÍNIMO admitido es " + indicador.pesoMinimo.ToString();
             }
         }
 
@@ -249,50 +242,8 @@ namespace Promethee.UserControls
             try
             {
                 //LimpiarControles();
-                bool verLimiteIndiferencia = false;
-                bool verLimitePreferencia = false;
-                bool verLimiteSigma = false;
-                string sigma = string.Empty, limiteIndiferencia = string.Empty, limitePreferencia = string.Empty;
+                VisibilidadLimites();
 
-                List<ConfigFuncionPreferenciaEntity> config = indicador.listaConfig.FindAll(p => p.idFuncionPreferencia == Convert.ToInt16(pseudoCriterio.SelectedValue));
-
-                switch (pseudoCriterio.SelectedValue)
-                {
-                    case "1":
-                        break;
-                    case "2":
-                        verLimiteIndiferencia = true;
-                        //txtLimiteIndiferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 1).valorDefault.ToString();
-                        break;
-                    case "3":
-                        verLimitePreferencia = true;
-                        //txtLimitePreferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 3).valorDefault.ToString();
-                        break;
-                    case "4":
-                        verLimiteIndiferencia = true;
-                        verLimitePreferencia = true;
-                        //txtLimiteIndiferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 1).valorDefault.ToString();
-                        //txtLimitePreferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 3).valorDefault.ToString();
-                        break;
-                    case "5":
-                        verLimiteIndiferencia = true;
-                        verLimitePreferencia = true;
-                        //txtLimiteIndiferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 1).valorDefault.ToString();
-                        //txtLimitePreferencia.Text = config.Find(p => p.idValorFuncionPreferencia == 3).valorDefault.ToString();
-                        break;
-                    case "6":
-                        verLimiteSigma = true;
-                        //txtLimiteSigma.Text = config.Find(p => p.idValorFuncionPreferencia == 2).valorDefault.ToString();
-                        break;
-                    default:
-                        break;
-                }
-                lblLimiteIndiferencia.Visible = verLimiteIndiferencia;
-                txtLimiteIndiferencia.Visible = verLimiteIndiferencia;
-                lblLimitePreferencia.Visible = verLimitePreferencia;
-                txtLimitePreferencia.Visible = verLimitePreferencia;
-                lblLimiteSigma.Visible = verLimiteSigma;
-                txtLimiteSigma.Visible = verLimiteSigma;
                 ActualizarCriterio(sender, e);
 
                 udpLimites.Update();
@@ -375,6 +326,48 @@ namespace Promethee.UserControls
         {
             onCriterioTextChanged(CriterioScroll, e);
         }
+
+        /// <summary>
+        /// Visibilidads the limites.
+        /// </summary>
+        private void VisibilidadLimites()
+        {
+            bool verLimiteIndiferencia = false;
+            bool verLimitePreferencia = false;
+            bool verLimiteSigma = false;
+            string sigma = string.Empty, limiteIndiferencia = string.Empty, limitePreferencia = string.Empty;
+
+            switch (pseudoCriterio.SelectedValue)
+            {
+                case "1":
+                    break;
+                case "2":
+                    verLimiteIndiferencia = true;
+                    break;
+                case "3":
+                    verLimitePreferencia = true;
+                    break;
+                case "4":
+                    verLimiteIndiferencia = true;
+                    verLimitePreferencia = true;
+                    break;
+                case "5":
+                    verLimiteIndiferencia = true;
+                    verLimitePreferencia = true;
+                    break;
+                case "6":
+                    verLimiteSigma = true;
+                    break;
+                default:
+                    break;
+            }
+            lblLimiteIndiferencia.Visible = verLimiteIndiferencia;
+            txtLimiteIndiferencia.Visible = verLimiteIndiferencia;
+            lblLimitePreferencia.Visible = verLimitePreferencia;
+            txtLimitePreferencia.Visible = verLimitePreferencia;
+            lblLimiteSigma.Visible = verLimiteSigma;
+            txtLimiteSigma.Visible = verLimiteSigma;
+        }
         #endregion
 
         #region --[Métodos Públicos]--
@@ -421,6 +414,9 @@ namespace Promethee.UserControls
                         else
                             if (limitePreferencia <= 0)
                                 mensaje = "Debe ingresar un valor para el límite de Preferencia.";
+                            else
+                                if (limitePreferencia <= limiteIndiferencia)
+                                    mensaje = "El límite de Preferencia debe ser mayor al límite de Indiferencia.";
                     break;
                 case "5":
                     if (limitePreferencia <= 0 && limiteIndiferencia <= 0)
@@ -431,6 +427,9 @@ namespace Promethee.UserControls
                         else
                             if (limitePreferencia <= 0)
                                 mensaje = "Debe ingresar un valor para el límite de Preferencia.";
+                            else
+                                if (limitePreferencia <= limiteIndiferencia)
+                                    mensaje = "El límite de Preferencia debe ser mayor al límite de Indiferencia.";
                     break;
                 case "6":
                     if (limiteSigma <= 0)

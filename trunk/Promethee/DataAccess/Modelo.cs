@@ -317,11 +317,23 @@ namespace DataAccess
 
                     command.ExecuteNonQuery();
 
-                    command.CommandText = "Rel_AlternativasCriterios_Update";
                     foreach (RelAlternativaCriterioEntity item in listaGuardar)
                     {
                         command.Parameters.Clear();
-                        command.Parameters.AddWithValue("@idRelAlternativaCriterio", item.idRelAlternativaCriterio);
+
+                        if (item.idRelAlternativaCriterio > 0)
+                        {
+                            command.CommandText = "Rel_AlternativasCriterios_Update";
+                            command.Parameters.AddWithValue("@idRelAlternativaCriterio", item.idRelAlternativaCriterio);
+                        }
+                        else
+                        {
+                            command.CommandText = "Rel_AlternativasCriterios_Insert";
+
+                            command.Parameters.AddWithValue("@idModelo", alternativaUPD.idModelo);
+                            command.Parameters.AddWithValue("@nombreAlternativa", item.nombreAlternativa);
+                            command.Parameters.AddWithValue("@nombreCriterio", item.nombreCriterio);
+                        }
                         command.Parameters.AddWithValue("@valor", item.valor);
                         command.ExecuteNonQuery();
                     }
