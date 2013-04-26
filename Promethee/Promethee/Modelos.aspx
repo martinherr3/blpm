@@ -41,8 +41,8 @@
             </td>
         </tr>
     </table>
-    <asp:ImageButton ID="btnNuevo" ImageUrl="~/Images/programs.png" runat="server" ToolTip="Nuevo Modelo"
-        OnClick="btnNuevo_Click" />
+    <asp:ImageButton ID="btnNuevo" ImageUrl="~/Images/boton_Nuevo.png" runat="server"
+        ToolTip="Nuevo Modelo" OnClick="btnNuevo_Click" /><br />
     <asp:Label ID="lblError" ForeColor="Red" Font-Bold="true" Text="" runat="server" />
     <asp:UpdatePanel runat="server" ID="udpGrilla" UpdateMode="Conditional">
         <ContentTemplate>
@@ -66,23 +66,22 @@
                                 ToolTip="Agregar Criterio" ImageUrl="~/Images/Grillas/add_Criteria.png" Visible='<%# Eval("filename").ToString() != string.Empty ? false : true %>' />
                             <asp:ImageButton ID="btnDownload" ImageUrl="~/Images/Grillas/downloads.png" runat="server"
                                 Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>'
-                                CommandName="download" CommandArgument='<%# Bind("idModelo") %>' AlternateText="Descargar Planilla" ToolTip="Descargar Planilla" />
-                            <%--<asp:ImageButton ID="btnDownload" runat="server" ToolTip="Descargar Planilla" ImageUrl="~/Images/Grillas/downloads.png"
-                                OnClick="btnDownload_OnClick" CommandArgument='<%# Bind("idModelo") %>' Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />--%>
+                                CommandName="download" CommandArgument='<%# Bind("idModelo") %>' AlternateText="Descargar Planilla"
+                                ToolTip="Descargar Planilla" />
                             <asp:ImageButton ID="btnUpload" CommandName="upload" CommandArgument='<%# Bind("idModelo") %>'
                                 runat="server" ToolTip="Cargar Planilla" AlternateText="Cargar Planilla" ImageUrl="~/Images/Grillas/uploads.png"
                                 Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
                             <asp:ImageButton ID="solve" runat="server" CommandName="solve" CommandArgument='<%# Bind("idModelo") %>'
-                                ToolTip="Resolver" ImageUrl="~/Images/Grillas/solve.png"/>
+                                ToolTip="Resolver" ImageUrl="~/Images/Grillas/solve.png" />
                             <asp:ImageButton ID="btnEliminar" runat="server" CommandName="eliminar" CommandArgument='<%# Bind("idModelo") %>'
                                 ToolTip="Eliminar" ImageUrl="~/Images/Grillas/trash.png" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Función de Preferencia">
+                    <asp:TemplateField HeaderText="Fecha de Creación">
                         <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
-                            <asp:Label ID="lblFuncion" runat="server" Text='<%# Bind("fechaCreacion","{0:d}") %>'></asp:Label>
+                            <asp:Label ID="lblFecha" runat="server" Text='<%# Bind("fechaCreacion","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Modelo">
@@ -119,10 +118,15 @@
                 </Columns>
             </asp:GridView>
         </ContentTemplate>
-        <Triggers>
-            <%--<asp:AsyncPostBackTrigger ControlID="btnUploadFile" EventName="Click" />--%>
-        </Triggers>
     </asp:UpdatePanel>
+    <div id="divExportacion" runat="server" visible="true">
+        <h2>
+            Opciones de Exportación</h2>
+        <asp:ImageButton ID="btnPDF" ImageUrl="~/Images/boton_PDF.png" runat="server" OnClick="btnPDF_Click"
+            ToolTip="Exportar PDF" AlternateText="Exportar PDF" />
+        <asp:ImageButton ID="btnExcel" ImageUrl="~/Images/boton_Excel.png" runat="server"
+            OnClick="btnExcel_Click" ToolTip="Exportar a Excel" AlternateText="Exportar a Excel" />
+    </div>
     <asp:UpdatePanel runat="server" ID="udpModelos" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:UpdatePanel runat="server" ID="udpResultado" UpdateMode="Conditional">
@@ -131,9 +135,11 @@
                         <ContentTemplate>
                             <table class="tablaInternaSinBorde" border="0" cellpadding="1" cellspacing="5">
                                 <tr>
-                                    <td align="center">
+                                    <td align="right">
                                         <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
                                             Visible="false" Style="text-align: center" /><br />
+                                    </td>
+                                    <td style="width: 30%; vertical-align: middle" align="left">
                                     </td>
                                 </tr>
                             </table>
@@ -179,6 +185,7 @@
                                 </ContentTemplate>
                                 <Triggers>
                                     <%--<asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />--%>
+                                    <%--<asp:AsyncPostBackTrigger ControlID="btnPDF" EventName="Click" />--%>
                                 </Triggers>
                             </asp:UpdatePanel>
                         </asp:Panel>

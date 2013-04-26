@@ -141,6 +141,24 @@ namespace Promethee
             set { ViewState["listaValores"] = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the lista config.
+        /// </summary>
+        /// <value>
+        /// The lista config.
+        /// </value>
+        List<Utility.Promethee> listaConfiguracion
+        {
+            get
+            {
+                if (ViewState["listaConfiguracion"] == null)
+                    listaConfiguracion = new List<Utility.Promethee>();
+
+                return (List<Utility.Promethee>)ViewState["listaConfiguracion"];
+            }
+            set { ViewState["listaConfiguracion"] = value; }
+        }
+
         public string NombrePNG
         {
             get
@@ -377,48 +395,6 @@ namespace Promethee
         }
 
         /// <summary>
-        /// Handles the OnClick event of the btnDownload control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void btnDownload_OnClick(object sender, EventArgs e)
-        {
-            try
-            {
-                int miModeloID = 0;
-                int.TryParse(((ImageButton)sender).CommandArgument, out miModeloID);
-                miModelo = listaModelos.Find(p => p.idModelo == miModeloID);
-
-                CrearPlantilla();
-                Response.Clear();
-
-                Response.ContentType = "application/vnd.ms-excel";
-                Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", miModelo.nombre.Replace(" ", "") + ".xls"));
-                Response.BinaryWrite(WriteToStream().GetBuffer());
-                Response.Flush();
-
-                //RutaExcel = MapPath("~/Files/" + miModelo.nombre.Replace(" ", "") + ".xls");
-                //FileStream fileStream = new FileStream(RutaExcel, FileMode.Create, FileAccess.ReadWrite);
-                //fileStream.Write(WriteToStream().GetBuffer(), 0, WriteToStream().GetBuffer().Length);
-                //Response.AppendHeader("Content-Disposition:", "attachment; filename=" + RutaExcel);
-                //Response.AppendHeader("Content-Length", fileStream.Length.ToString());
-                //fileStream.Close();
-                //Response.ContentType = "application/octet-stream";
-                //Response.TransmitFile(RutaExcel);
-
-                CargarGrilla();
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-            finally
-            {
-                Response.End();
-            }
-        }
-
-        /// <summary>
         /// Handles the OnClick event of the btnUpload control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -611,6 +587,67 @@ namespace Promethee
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnPDF control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnPDF_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tablaResultado != null && tablaResultado.Rows.Count > 0)
+                {
+                    DataTable tablaExportPDF = tablaResultado.Copy();
+                    string nombre = string.Empty;
+
+                    for (int i = tablaExportPDF.Columns.Count - 2; i > 0; i--)
+                        tablaExportPDF.Columns.RemoveAt(i);
+
+                    ExportPDF.ExportarPDF(miModelo.nombre, tablaExportPDF, User.Identity.Name, "Resultados obtenidos en orden Descendente", NombrePNG);
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnExcel control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tablaResultado != null && tablaResultado.Rows.Count > 0)
+                {
+                    lnkConfig.Visible = true;
+                    string filename = "Resolucion_" + miModelo.nombre + ".xls";
+                    filename = filename.Replace(" ", "_");
+                    Response.ContentType = "application/vnd.ms-excel";
+                    Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", filename));
+                    Response.Clear();
+
+                    InitializeWorkbook();
+                    GenerateData();
+                    Response.BinaryWrite(WriteToStream().GetBuffer());
+                    udpResultado.Update();
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles the PageIndexChanging event of the gvwResultado control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridViewPageEventArgs"/> instance containing the event data.</param>
         protected void gvwResultado_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
@@ -649,6 +686,24 @@ namespace Promethee
             nuevoCriterio.pesoCriterio = 0;
             nuevoCriterio.LimpiarControles();
             lblErrorAlternativa.Text = string.Empty;
+        }
+
+        /// <summary>
+        /// Gets the nombre funcion.
+        /// </summary>
+        /// <param name="cadena">The cadena.</param>
+        /// <returns></returns>
+        protected string GetNombreFuncion(string cadena)
+        {
+            string nombreFuncion = string.Empty;
+            for (int i = 0; i < cadena.Length; i++)
+            {
+                if (char.IsLower(cadena[i]))
+                    nombreFuncion += cadena[i];
+                else
+                    nombreFuncion += " " + cadena[i];
+            }
+            return nombreFuncion.Trim();
         }
 
         /// <summary>
@@ -983,7 +1038,7 @@ namespace Promethee
         private void ResolverModelo()
         {
             buscarAlternativasCriterios();
-            List<Utility.Promethee> listaConfiguracion = new List<Utility.Promethee>();
+
             listaConfiguracion = ObtenerConfiguracion();
 
             CargarTablaPaso0();
@@ -998,11 +1053,11 @@ namespace Promethee
 
             PresentarResultado();
 
-            tablaPaso0 = new DataTable();
-            tablaPaso1 = new DataTable();
-            tablaPaso2 = new DataTable();
-            tablaPaso3 = new DataTable();
-            tablaResultado = new DataTable();
+            //tablaPaso0 = new DataTable();
+            //tablaPaso1 = new DataTable();
+            //tablaPaso2 = new DataTable();
+            //tablaPaso3 = new DataTable();
+            //tablaResultado = new DataTable();
         }
 
         /// <summary>
@@ -1158,6 +1213,7 @@ namespace Promethee
             imgPodio.ImageUrl = "http://" + Request.ServerVariables["SERVER_NAME"] + Request.ApplicationPath + "/Images/TMP/" + nombreArchivo;
             imgPodio.Visible = true;
             udpImgPodio.Update();
+            //divExportacion.Visible = true;
             divResultado.Visible = true;
             CargarGrillaResultado();
         }
@@ -1502,6 +1558,306 @@ namespace Promethee
             else
                 lblError.Text = "El archivo seleccionado no corresponde al modelo indicado.";
             return null;
+        }
+        #endregion
+
+        #region --[Generar Excel Resolucion]--
+        /// <summary>
+        /// Generates the data.
+        /// </summary>
+        private void GenerateData()
+        {
+            IFont fuenteTitulo = excelFile.CreateFont();
+            fuenteTitulo.FontName = "Calibri";
+            fuenteTitulo.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
+
+            IFont unaFuente = excelFile.CreateFont();
+            unaFuente.FontName = "Tahoma";
+            unaFuente.Boldweight = (short)FontBoldWeight.None.GetHashCode();
+
+            IFont fuenteEncabezado = excelFile.CreateFont();
+            fuenteEncabezado.FontName = "Tahoma";
+            fuenteEncabezado.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
+
+            ICellStyle unEstiloDecimal = excelFile.CreateCellStyle();
+            IDataFormat format = excelFile.CreateDataFormat();
+            unEstiloDecimal.DataFormat = format.GetFormat("0.00");
+            unEstiloDecimal.SetFont(unaFuente);
+
+            ICellStyle unEstiloTexto = excelFile.CreateCellStyle();
+            format = excelFile.CreateDataFormat();
+            //unEstiloTexto.DataFormat = format.GetFormat(.GetFormat("0.00");
+            unEstiloTexto.SetFont(unaFuente);
+
+            #region --[Hoja Datos]--
+            ISheet hojaUno = excelFile.CreateSheet("Datos");
+
+            IRow filaEncabezado = hojaUno.CreateRow(1);
+            filaEncabezado.CreateCell(0).SetCellValue("Criterio");
+            filaEncabezado.CreateCell(1).SetCellValue("Peso");
+            filaEncabezado.Cells[1].CellStyle.SetFont(fuenteTitulo);
+            filaEncabezado.CreateCell(2).SetCellValue("Función de Preferencia");
+            filaEncabezado.Cells[2].CellStyle.SetFont(fuenteTitulo);
+            filaEncabezado.CreateCell(3).SetCellValue("Optimización");
+            filaEncabezado.Cells[3].CellStyle.SetFont(fuenteTitulo);
+
+            int idxUno = 2;
+
+            foreach (Utility.Promethee item in listaConfiguracion)
+            {
+                IRow filaCriterio = hojaUno.CreateRow(idxUno);
+                filaCriterio.CreateCell(0).SetCellValue(item.nombreCriterio);
+                filaCriterio.Cells[0].CellStyle = unEstiloTexto;
+                filaCriterio.CreateCell(1).SetCellValue(Convert.ToDouble(item.pesoCriterio));
+                filaCriterio.Cells[1].CellStyle = unEstiloDecimal;
+                filaCriterio.Cells[1].SetCellType(CellType.NUMERIC);
+                filaCriterio.CreateCell(2).SetCellValue(GetNombreFuncion(item.tipoFuncion.ToString()));
+                filaCriterio.Cells[2].CellStyle = unEstiloTexto;
+                filaCriterio.CreateCell(3).SetCellValue((item.maximiza) ? "Maximizante" : "Minimizante");
+                filaCriterio.Cells[3].CellStyle = unEstiloTexto;
+
+                idxUno++;
+            }
+            idxUno++;
+
+            #region --[Hoja Datos]--
+            NPOI.SS.Util.CellRangeAddress rango = new NPOI.SS.Util.CellRangeAddress(idxUno, idxUno, 1, listaCriterio.Count);
+            hojaUno.AddMergedRegion(rango);
+            //hojaUno.ProtectSheet("laura");
+
+            int auxNumRow = idxUno;
+            IRow filaEncabezado2 = hojaUno.CreateRow(auxNumRow);
+
+            filaEncabezado2.CreateCell(1).SetCellValue("Criterios");
+            filaEncabezado2.Cells[0].CellStyle.SetFont(fuenteTitulo);
+            filaEncabezado2.Cells[0].CellStyle.Alignment = HorizontalAlignment.CENTER;
+
+            auxNumRow++;
+            filaEncabezado2 = hojaUno.CreateRow(auxNumRow);
+
+            filaEncabezado2.CreateCell(0).SetCellValue("Alternativas");
+            filaEncabezado2.Cells[0].CellStyle.SetFont(fuenteTitulo);
+            filaEncabezado2.Cells[0].CellStyle.Alignment = HorizontalAlignment.CENTER;
+            auxNumRow++;
+            for (int i = 0; i < listaCriterio.Count; i++)
+                filaEncabezado2.CreateCell(i + 1).SetCellValue(listaCriterio[i].nombre);
+
+            CargarTablaPaso0();
+            double valor;
+            for (int i = 0; i < listaAlternativa.Count; i++, auxNumRow++)
+            {
+                filaEncabezado2 = hojaUno.CreateRow(auxNumRow);
+                filaEncabezado2.CreateCell(0).SetCellValue(listaAlternativa[i].nombre);
+                filaEncabezado2.Cells[0].CellStyle.SetFont(unaFuente);
+
+                for (int j = 1; j < listaCriterio.Count + 1; j++)
+                {
+                    filaEncabezado2.CreateCell(j).SetCellType(CellType.NUMERIC);
+                    filaEncabezado2.Cells[j].CellStyle = unEstiloDecimal;
+                    filaEncabezado2.Cells[j].CellStyle.IsLocked = false;
+                    double.TryParse(tablaPaso0.Rows[i][j].ToString(), out valor);
+                    filaEncabezado2.Cells[j].SetCellValue(valor);
+                }
+            }
+
+            for (int i = 0; i <= listaCriterio.Count; i++)
+                hojaUno.AutoSizeColumn(i);
+
+            #endregion
+
+            #endregion
+
+            DataTable tabla = tablaPaso1.Copy();
+            string[] alternativas;
+            int indexFila, indexColumna;
+            AlternativaEntity alternativa;
+            string nombre = string.Empty;
+            for (int i = 0; i < tabla.Rows.Count; i++)
+            {
+                nombre = string.Empty;
+                alternativas = tabla.Rows[i][0].ToString().Split('-');
+                int.TryParse(alternativas[0], out indexFila);
+                int.TryParse(alternativas[1], out indexColumna);
+
+                if (indexFila > 0)
+                {
+                    alternativa = listaAlternativa.Find(p => p.idAlternativa == Convert.ToInt16(indexFila));
+                    nombre = alternativa.nombre;
+                }
+                if (indexColumna > 0)
+                {
+                    alternativa = listaAlternativa.Find(p => p.idAlternativa == Convert.ToInt16(indexColumna));
+                    nombre += " - " + alternativa.nombre;
+                }
+                tabla.Rows[i][0] = nombre;
+            }
+
+            CargaHojaExcel(tabla, "Resultados Parciales Paso 1", "Paso 1", false);
+
+            tabla = tablaPaso2.Copy();
+            for (int i = 0; i < tabla.Rows.Count; i++)
+            {
+                nombre = string.Empty;
+                int.TryParse(tabla.Rows[i][0].ToString(), out indexFila);
+
+                if (indexFila > 0)
+                {
+                    alternativa = listaAlternativa.Find(p => p.idAlternativa == Convert.ToInt16(indexFila));
+                    nombre = alternativa.nombre;
+                }
+                tabla.Rows[i][0] = nombre;
+            }
+            decimal acumuladorColumna;
+            DataRow nuevaFila = tabla.NewRow();
+            nuevaFila[0] = "Flujo Saliente";
+            for (int i = 1; i < tabla.Columns.Count - 2; i++)
+            {
+                acumuladorColumna = 0;
+                for (int j = 0; j < tabla.Rows.Count; j++)
+                {
+                    acumuladorColumna += (tabla.Rows[j][i] != DBNull.Value) ? Convert.ToDecimal(tabla.Rows[j][i]) : 0;
+                }
+                nuevaFila[i] = acumuladorColumna;
+            }
+            tabla.Rows.Add(nuevaFila);
+
+            CargaHojaExcel(tabla, "Resultados Parciales", "Paso 2", false);
+
+            CargaHojaExcel(tablaResultado, "Resultados", "Resultados", true);
+
+        }
+
+        private void CargaHojaExcel(DataTable tablaExcel, string titulo, string nombreHoja, bool incluirGrafico)
+        {
+            #region --[Estilos]--
+            IFont fuenteTitulo = excelFile.CreateFont();
+            fuenteTitulo.FontName = "Calibri";
+            //fuenteTitulo.FontHeight = (short)FontSize.Large.GetHashCode();
+            fuenteTitulo.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
+
+            IFont unaFuente = excelFile.CreateFont();
+            unaFuente.FontName = "Tahoma";
+            //unaFuente.FontHeight = (short)FontSize.Medium.GetHashCode();
+
+            IFont fuenteEncabezado = excelFile.CreateFont();
+            fuenteEncabezado.FontName = "Tahoma";
+            //fuenteEncabezado.FontHeight = (short)FontSize.Medium.GetHashCode(); ;
+            fuenteEncabezado.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
+
+            ICellStyle unEstiloDecimal = excelFile.CreateCellStyle();
+            IDataFormat format = excelFile.CreateDataFormat();
+            unEstiloDecimal.DataFormat = format.GetFormat("0.00");
+            unEstiloDecimal.SetFont(unaFuente);
+            #endregion
+
+            #region --[Hoja]--
+            ISheet hojaExcel = excelFile.CreateSheet(nombreHoja);
+
+            NPOI.SS.Util.CellRangeAddress rango = new NPOI.SS.Util.CellRangeAddress(0, 0, 0, tablaExcel.Columns.Count - 1);
+            hojaExcel.AddMergedRegion(rango);
+            hojaExcel.AutoSizeColumn(0);
+            hojaExcel.AutoSizeColumn(1);
+
+            int idxAux = 0;
+            IRow fila = hojaExcel.CreateRow(idxAux);
+            fila.CreateCell(idxAux).SetCellValue(titulo);
+            fila.Cells[idxAux].CellStyle.SetFont(fuenteTitulo);
+            idxAux++;
+
+            fila = hojaExcel.CreateRow(idxAux);
+            idxAux++;
+            //RptIndicadores alumno = null;
+            AlternativaEntity alternativa;
+            int idAlternativa = 0;
+            string nombre = string.Empty;
+
+            hojaExcel.AutoSizeColumn(0);
+
+            //--Agrego los encabezados--
+            #region --[Encabezados]--
+            for (int i = 0; i < tablaExcel.Columns.Count; i++)
+            {
+                fila.CreateCell(i).CellStyle.Alignment = HorizontalAlignment.CENTER;
+                nombre = tablaExcel.Columns[i].ColumnName;
+                //alumno = new RptIndicadores();
+                int.TryParse(tablaExcel.Columns[i].ColumnName, out idAlternativa);
+                if (idAlternativa > 0)
+                {
+                    alternativa = listaAlternativa.Find(p => p.idAlternativa == idAlternativa);
+                    nombre = alternativa.nombre;
+                }
+                fila.CreateCell(i).SetCellValue(nombre);
+                fila.Cells[i].CellStyle.SetFont(fuenteEncabezado);
+                hojaExcel.AutoSizeColumn(i);
+            }
+            #endregion
+
+            //--Agrego los datos hoja--
+            #region --[Datos]--
+            decimal valorDato = 0;
+            int cantFilas = 0;
+            try
+            {
+                for (int i = 0; i < tablaExcel.Rows.Count; i++)
+                {
+                    fila = hojaExcel.CreateRow(idxAux);
+                    idxAux++;
+                    cantFilas++;
+                    for (int j = 0; j < tablaExcel.Columns.Count; j++)
+                    {
+                        try
+                        {
+                            valorDato = decimal.Parse(tablaExcel.Rows[i][j].ToString());
+                            fila.CreateCell(j).SetCellValue(Convert.ToDouble(valorDato));
+                            fila.Cells[j].CellStyle = unEstiloDecimal;
+                            fila.Cells[j].SetCellType(CellType.NUMERIC);
+                        }
+                        catch
+                        {
+                            fila.CreateCell(j).SetCellValue(tablaExcel.Rows[i][j].ToString());
+                            fila.Cells[j].CellStyle.SetFont(fuenteEncabezado);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            { throw ex; }
+            #endregion
+
+            //Acomodo las columnas
+            for (int j = 0; j < tablaExcel.Columns.Count; j++)
+            {
+                hojaExcel.AutoSizeColumn(j);
+            }
+            hojaExcel.AutoSizeColumn(0);
+            #endregion
+
+            if (incluirGrafico)
+            {
+                #region --[Grafico]--
+                //map the path to the img folder
+                //string imagesPath = System.IO.Path.Combine(Server.MapPath("~"), "img");
+                string imagesPath = System.IO.Path.GetFullPath(NombrePNG);
+                //grab the image file
+                //create an image from the path
+                System.Drawing.Image image = System.Drawing.Image.FromFile(imagesPath);
+                MemoryStream ms = new MemoryStream();
+                //pull the memory stream from the image (I need this for the byte array later)
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                //the drawing patriarch will hold the anchor and the master information
+                var patriarch = hojaExcel.CreateDrawingPatriarch();
+                //store the coordinates of which cell and where in the cell the image goes
+                HSSFClientAnchor anchor = new HSSFClientAnchor(20, 0, 40, 20, 3, cantFilas + 3, 4, cantFilas + 10);
+                //types are 0, 2, and 3. 0 resizes within the cell, 2 doesn't
+                anchor.AnchorType = 2;
+                //add the byte array and encode it for the excel file
+                int index = excelFile.AddPicture(ms.ToArray(), PictureType.PNG);
+                var picture = patriarch.CreatePicture(anchor, index);
+                picture.Resize();
+                //picture.LineStyle = HSSFPicture.LINESTYLE_DASHDOTGEL;
+                hojaExcel.ForceFormulaRecalculation = true;
+                #endregion
+            }
         }
         #endregion
         #endregion
