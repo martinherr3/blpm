@@ -285,6 +285,7 @@ namespace Promethee
             try
             {
                 miModelo = new ModeloEntity();
+                idModelo = 0;
                 mpeModelo.Show();
             }
             catch (Exception ex)
@@ -825,6 +826,7 @@ namespace Promethee
         {
             ModelosDA.Delete(miModelo);
         }
+
         #region --[Generación de Excel]--
         /// <summary>
         /// Initializes the workbook.

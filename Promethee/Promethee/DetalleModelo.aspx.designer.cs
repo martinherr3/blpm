@@ -40,6 +40,15 @@ namespace Promethee {
         protected global::System.Web.UI.WebControls.LinkButton lnkModelo;
         
         /// <summary>
+        /// Control btnVolver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnVolver;
+        
+        /// <summary>
         /// Control gvwModelo.
         /// </summary>
         /// <remarks>
@@ -49,13 +58,13 @@ namespace Promethee {
         protected global::System.Web.UI.WebControls.GridView gvwModelo;
         
         /// <summary>
-        /// Control udpGrilla.
+        /// Control gvwCriterios.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpGrilla;
+        protected global::System.Web.UI.WebControls.GridView gvwCriterios;
         
         /// <summary>
         /// Control HiddenField1.
@@ -182,6 +191,60 @@ namespace Promethee {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnError;
+        
+        /// <summary>
+        /// Control HiddenField3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField3;
+        
+        /// <summary>
+        /// Control mpeCriterios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender mpeCriterios;
+        
+        /// <summary>
+        /// Control pnlCriterios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCriterios;
+        
+        /// <summary>
+        /// Control nuevoCriterio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::Promethee.UserControls.Criterio nuevoCriterio;
+        
+        /// <summary>
+        /// Control btnGuardarCriterio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnGuardarCriterio;
+        
+        /// <summary>
+        /// Control btnVolverCriterio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnVolverCriterio;
         
         /// <summary>
         /// Propiedad Master.

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using DataAccess.Entity;
 using DataAccess;
 using System.Data;
+using Promethee.Utility;
 
 namespace Promethee
 {
@@ -29,6 +30,24 @@ namespace Promethee
                 return (int)Session["idModelo"];
             }
             set { Session["idModelo"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the id criterio.
+        /// </summary>
+        /// <value>
+        /// The id criterio.
+        /// </value>
+        public int idCriterio
+        {
+            get
+            {
+                if (ViewState["idCriterio"] == null)
+                    idCriterio = 0;
+
+                return (int)ViewState["idCriterio"];
+            }
+            set { ViewState["idCriterio"] = value; }
         }
 
         /// <summary>
@@ -104,25 +123,33 @@ namespace Promethee
         }
 
         /// <summary>
-        /// Gets or sets the tabla modelo.
+        /// Gets or sets the lista configuracion.
         /// </summary>
         /// <value>
-        /// The tabla modelo.
+        /// The lista configuracion.
         /// </value>
-        //public DataTable tablaModelo
-        //{
-        //    get
-        //    {
-        //        if (ViewState["tablaModelo"] == null)
-        //            tablaModelo = new DataTable();
+        public List<Utility.Promethee> listaConfiguracion
+        {
+            get
+            {
+                if (ViewState["listaConfiguracion"] == null)
+                    listaConfiguracion = ObtenerConfiguracion();
 
-        //        return (DataTable)ViewState["tablaModelo"];
-        //    }
-        //    set { ViewState["tablaModelo"] = value; }
-        //}
+                return (List<Utility.Promethee>)ViewState["listaConfiguracion"];
+            }
+            set { ViewState["listaConfiguracion"] = value; }
+        }
         #endregion
 
         #region --[Eventos]--
+        /// <summary>
+        /// Gets or sets the tabla modelo.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        /// <value>
+        /// The tabla modelo.
+        ///   </value>
         protected void Page_Init(object sender, EventArgs e)
         {
             try
@@ -145,10 +172,55 @@ namespace Promethee
             try
             {
                 lblModelo.Text = miModelo.nombre;
-                if (!Page.IsPostBack)
+                if (!Page.IsPostBack && idModelo > 0)
                 {
                     CargarGrilla();
+
+                    CargarGrillaCriterios();
                 }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnCerrarPopUp control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnCerrarPopUp_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LimpiarCampos();
+                mpeModelo.Hide();
+                mpeError.Hide();
+                mpeCriterios.Hide();
+                //mpeAlternativas.Hide();
+                //mpuUpload.Hide();
+                //mpeCriterios.Hide();
+                //mpeEliminar.Hide();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the btnVolver control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                idModelo = 0;
+                LimpiarCampos();
+                Response.Redirect("Modelos.aspx", false);
             }
             catch (Exception ex)
             {
@@ -204,57 +276,9 @@ namespace Promethee
             }
         }
 
-        /// <summary>
-        /// Handles the Click event of the btnCerrarPopUp control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void btnCerrarPopUp_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                LimpiarCampos();
-                mpeModelo.Hide();
-                mpeError.Hide();
-                //mpeAlternativas.Hide();
-                //mpuUpload.Hide();
-                //mpeCriterios.Hide();
-                //mpeEliminar.Hide();
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
         #endregion
 
-        #region --[Grilla]--
-        /// <summary>
-        /// Handles the RowCommand event of the gvwModelo control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="GridViewCommandEventArgs"/> instance containing the event data.</param>
-        protected void gvwModelo_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
-
-        /// <summary>
-        /// Handles the RowDataBound event of the gvwModelo control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="GridViewRowEventArgs"/> instance containing the event data.</param>
-        protected void gvwModelo_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-
-        }
-
+        #region --[Grilla Modelo]--
         /// <summary>
         /// Handles the RowEditing event of the gvwModelo control.
         /// </summary>
@@ -273,6 +297,11 @@ namespace Promethee
             }
         }
 
+        /// <summary>
+        /// Handles the RowUpdating event of the gvwModelo control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridViewUpdateEventArgs"/> instance containing the event data.</param>
         protected void gvwModelo_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             try
@@ -322,7 +351,83 @@ namespace Promethee
                 Master.ManageExceptions(ex);
             }
         }
+        #endregion
 
+        #region --[Grilla Criterios]--
+        /// <summary>
+        /// Handles the Click event of the btnGuardarCriterio control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnGuardarCriterio_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (nuevoCriterio.ValidarMétodo())
+                {
+                    List<CriterioEntity> listaCheck = listaCriterio.FindAll(p =>
+                                                        p.nombre == nuevoCriterio.nombreCriterio
+                                                        && p.idModelo == idModelo
+                                                        && p.idCriterio != idCriterio);
+
+                    if (listaCheck.Count == 0)
+                    {
+                        GuardarCriterio();
+
+                        LimpiarCampos();
+                        CargarGrillaCriterios();
+
+                        mpeCriterios.Hide();
+                    }
+                    else
+                    {
+                        nuevoCriterio.error = "Ya existe un Criterio con el mismo nombre.";
+                        mpeCriterios.Show();
+                    }
+                }
+                else
+                    mpeCriterios.Show();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles the RowCommand event of the gvwModelo control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridViewCommandEventArgs"/> instance containing the event data.</param>
+        protected void gvwCriterios_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                LimpiarCampos();
+                int idCriterioTest = 0;
+                int.TryParse(e.CommandArgument.ToString(), out idCriterioTest);
+                switch (e.CommandName)
+                {
+                    case "editCriterio":
+                        idCriterio = idCriterioTest;
+                        Utility.Promethee miCriterio = listaConfiguracion.Find(p => p.idCriterio == idCriterio);
+                        nuevoCriterio.error = string.Empty;
+                        nuevoCriterio.nombreCriterio = miCriterio.nombreCriterio;
+                        nuevoCriterio.pesoCriterio = miCriterio.pesoCriterio;
+                        nuevoCriterio.esMaximzante = miCriterio.maximiza;
+                        nuevoCriterio.TipoFuncionPreferencia = (enumFuncionPreferencia)miCriterio.tipoFuncion;
+                        nuevoCriterio.limiteIndiferencia = miCriterio.limiteIndiferencia;
+                        nuevoCriterio.limitePreferencia = miCriterio.limitePreferencia;
+                        nuevoCriterio.limiteSigma = miCriterio.limiteSigma;
+                        mpeCriterios.Show();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
         #endregion
         #endregion
 
@@ -332,8 +437,30 @@ namespace Promethee
         /// </summary>
         private void LimpiarCampos()
         {
+            listaConfiguracion = null;
+            listaCriterio = null;
+            nuevoCriterio.error = string.Empty;
             txtNombre.Text = string.Empty;
             lblError.Text = string.Empty;
+            idCriterio = 0;
+        }
+
+        /// <summary>
+        /// Gets the nombre funcion.
+        /// </summary>
+        /// <param name="cadena">The cadena.</param>
+        /// <returns></returns>
+        protected string GetNombreFuncion(string cadena)
+        {
+            string nombreFuncion = string.Empty;
+            for (int i = 0; i < cadena.Length; i++)
+            {
+                if (char.IsLower(cadena[i]))
+                    nombreFuncion += cadena[i];
+                else
+                    nombreFuncion += " " + cadena[i];
+            }
+            return nombreFuncion.Trim();
         }
 
         /// <summary>
@@ -341,11 +468,17 @@ namespace Promethee
         /// </summary>
         private void CargarGrilla()
         {
-            //tablaModelo = buscarModelo();
-            //gvwModelo.DataSource = listaValores;
             gvwModelo.DataSource = buscarModelo();
             gvwModelo.DataBind();
-            //udpGrilla.Update();
+        }
+
+        /// <summary>
+        /// Cargars the grilla criterios.
+        /// </summary>
+        private void CargarGrillaCriterios()
+        {
+            gvwCriterios.DataSource = listaConfiguracion;
+            gvwCriterios.DataBind();
         }
 
         /// <summary>
@@ -440,7 +573,6 @@ namespace Promethee
             return true;
         }
 
-
         /// <summary>
         /// Guardars the cambios.
         /// </summary>
@@ -459,21 +591,186 @@ namespace Promethee
             alternativaUPD.idAlternativa = idAlternativa;
             alternativaUPD.idModelo = idModelo;
             string nombreTXT = string.Empty;
-            foreach (RelAlternativaCriterioEntity item in itemActualizado)
+            if (itemActualizado.Count > 0)
             {
-                entidadGuardar = new RelAlternativaCriterioEntity();
-                nombreTXT = string.Format("txt{0}_{1}", item.idCriterio.ToString(), item.idCriterio.ToString());
-                TextBox txtEdicion = row.FindControl(nombreTXT) as TextBox;
-                if (txtEdicion != null)
+                foreach (RelAlternativaCriterioEntity item in itemActualizado)
                 {
-                    entidadGuardar.idRelAlternativaCriterio = item.idRelAlternativaCriterio;
-                    entidadGuardar.valor = Convert.ToDecimal(txtEdicion.Text);
-                    listaGuardar.Add(entidadGuardar);
+                    entidadGuardar = new RelAlternativaCriterioEntity();
+                    nombreTXT = string.Format("txt{0}_{1}", item.idCriterio.ToString(), item.idCriterio.ToString());
+                    TextBox txtEdicion = row.FindControl(nombreTXT) as TextBox;
+                    if (txtEdicion != null)
+                    {
+                        entidadGuardar.idRelAlternativaCriterio = item.idRelAlternativaCriterio;
+                        entidadGuardar.nombreAlternativa = alternativaUPD.nombre;
+                        entidadGuardar.nombreCriterio = item.nombreCriterio;
+                        entidadGuardar.valor = Convert.ToDecimal(txtEdicion.Text);
+                        listaGuardar.Add(entidadGuardar);
+                    }
+                }
+            }
+            else
+            {
+                foreach (CriterioEntity item in listaCriterio)
+                {
+                    entidadGuardar = new RelAlternativaCriterioEntity();
+                    nombreTXT = string.Format("txt{0}_{1}", item.idCriterio.ToString(), item.idCriterio.ToString());
+                    TextBox txtEdicion = row.FindControl(nombreTXT) as TextBox;
+                    if (txtEdicion != null)
+                    {
+                        entidadGuardar.idRelAlternativaCriterio = 0;
+                        entidadGuardar.nombreAlternativa = alternativaUPD.nombre;
+                        entidadGuardar.nombreCriterio = item.nombre;
+                        entidadGuardar.valor = Convert.ToDecimal(txtEdicion.Text);
+                        listaGuardar.Add(entidadGuardar);
+                    }
                 }
             }
 
             ModelosDA.ActualizarValores(alternativaUPD, listaGuardar);
             listaValores = null;
+        }
+
+        /// <summary>
+        /// Obteners the configuracion.
+        /// </summary>
+        /// <returns></returns>
+        private List<Utility.Promethee> ObtenerConfiguracion()
+        {
+            List<Utility.Promethee> listaCriteriosPromethee = new List<Utility.Promethee>();
+            Utility.Promethee esteCriterio = null;
+
+            List<ConfigFuncionPreferenciaEntity> listaConfiguracion =
+                ConfigFuncionPreferenciaDA.Select(new ConfigFuncionPreferenciaEntity(), new CriterioEntity() { idModelo = miModelo.idModelo });
+
+            List<ConfigFuncionPreferenciaEntity> listaConfiguracionAux = null;
+            foreach (CriterioEntity item in listaCriterio)
+            {
+                listaConfiguracionAux = listaConfiguracion.FindAll(p => p.idCriterio == item.idCriterio);
+                esteCriterio = new Utility.Promethee();
+                esteCriterio.idCriterio = item.idCriterio;
+                esteCriterio.pesoCriterio = item.pesoDefault;
+                esteCriterio.nombreCriterio = item.nombre;
+                esteCriterio.maximiza = item.maximiza;
+
+                foreach (ConfigFuncionPreferenciaEntity itemConfig in listaConfiguracionAux)
+                {
+                    switch (itemConfig.idFuncionPreferencia)
+                    {
+                        case 1:
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.VerdaderoCriterio;
+                            break;
+                        case 2:
+                            esteCriterio.limiteIndiferencia = itemConfig.valorDefault;
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.CuasiCriterio;
+                            break;
+                        case 3:
+                            esteCriterio.limitePreferencia = itemConfig.valorDefault;
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.PseudoCriterioConPreferenciaLineal;
+                            break;
+                        case 4:
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.LevelCriterio;
+                            switch (itemConfig.idValorFuncionPreferencia)
+                            {
+                                case (int)enumValorFuncionPreferencia.LimiteIndiferencia:
+                                    esteCriterio.limiteIndiferencia = itemConfig.valorDefault;
+                                    break;
+                                case (int)enumValorFuncionPreferencia.LimitePreferencia:
+                                    esteCriterio.limitePreferencia = itemConfig.valorDefault;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case 5:
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.CriterioConPreferenciaLinealYAreaDeIndiferencia;
+                            switch (itemConfig.idValorFuncionPreferencia)
+                            {
+                                case (int)enumValorFuncionPreferencia.LimiteIndiferencia:
+                                    esteCriterio.limiteIndiferencia = itemConfig.valorDefault;
+                                    break;
+                                case (int)enumValorFuncionPreferencia.LimitePreferencia:
+                                    esteCriterio.limitePreferencia = itemConfig.valorDefault;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        case 6:
+                            esteCriterio.tipoFuncion = enumFuncionPreferencia.CriterioGaussiano;
+                            esteCriterio.limiteSigma = itemConfig.valorDefault;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                listaCriteriosPromethee.Add(esteCriterio);
+            }
+            return listaCriteriosPromethee;
+        }
+
+        /// <summary>
+        /// Guardars the criterio.
+        /// </summary>
+        private void GuardarCriterio()
+        {
+            CriterioEntity nuevaEntidad = new CriterioEntity();
+            nuevaEntidad.idModelo = idModelo;
+            nuevaEntidad.idCriterio = idCriterio;
+            nuevaEntidad.nombre = nuevoCriterio.nombreCriterio;
+            nuevaEntidad.pesoDefault = nuevoCriterio.pesoCriterio;
+            nuevaEntidad.maximiza = nuevoCriterio.esMaximzante;
+
+            Promethee.Utility.Promethee datos = nuevoCriterio.obtenerValores();
+
+            ValorFuncionPreferenciaEntity miValor = new ValorFuncionPreferenciaEntity();
+            List<ConfigFuncionPreferenciaEntity> listaConfig = new List<ConfigFuncionPreferenciaEntity>();
+
+            ConfigFuncionPreferenciaEntity miConfiguracion = new ConfigFuncionPreferenciaEntity();
+            miConfiguracion.idCriterio = nuevaEntidad.idCriterio;
+            miConfiguracion.idFuncionPreferencia = datos.tipoFuncion.GetHashCode();
+
+            switch (datos.tipoFuncion)
+            {
+                case enumFuncionPreferencia.None:
+                    break;
+                case enumFuncionPreferencia.VerdaderoCriterio:
+                    miConfiguracion.idValorFuncionPreferencia = enumValorFuncionPreferencia.Nulo.GetHashCode();
+                    miConfiguracion.valorDefault = 0;
+                    listaConfig.Add(miConfiguracion);
+                    break;
+                case enumFuncionPreferencia.CuasiCriterio:
+                    miConfiguracion.idValorFuncionPreferencia = enumValorFuncionPreferencia.LimiteIndiferencia.GetHashCode();
+                    miConfiguracion.valorDefault = datos.limiteIndiferencia;
+                    listaConfig.Add(miConfiguracion);
+                    break;
+                case enumFuncionPreferencia.PseudoCriterioConPreferenciaLineal:
+                    miConfiguracion.idValorFuncionPreferencia = enumValorFuncionPreferencia.LimitePreferencia.GetHashCode();
+                    miConfiguracion.valorDefault = datos.limitePreferencia;
+                    listaConfig.Add(miConfiguracion);
+                    break;
+                case enumFuncionPreferencia.LevelCriterio:
+                case enumFuncionPreferencia.CriterioConPreferenciaLinealYAreaDeIndiferencia:
+                    miConfiguracion.idValorFuncionPreferencia = enumValorFuncionPreferencia.LimitePreferencia.GetHashCode();
+                    miConfiguracion.valorDefault = datos.limitePreferencia;
+                    listaConfig.Add(miConfiguracion);
+
+                    ConfigFuncionPreferenciaEntity otraConfiguracion = new ConfigFuncionPreferenciaEntity();
+                    otraConfiguracion.idCriterio = nuevaEntidad.idCriterio;
+                    otraConfiguracion.idValorFuncionPreferencia = enumValorFuncionPreferencia.LimiteIndiferencia.GetHashCode();
+                    otraConfiguracion.valorDefault = datos.limiteIndiferencia;
+                    otraConfiguracion.idFuncionPreferencia = datos.tipoFuncion.GetHashCode();
+
+                    listaConfig.Add(otraConfiguracion);
+                    break;
+                case enumFuncionPreferencia.CriterioGaussiano:
+                    miConfiguracion.idValorFuncionPreferencia = enumValorFuncionPreferencia.Sigma.GetHashCode();
+                    miConfiguracion.valorDefault = datos.limiteSigma;
+                    listaConfig.Add(miConfiguracion);
+                    break;
+                default:
+                    break;
+            }
+            CriteriosDA.Save(nuevaEntidad, listaConfig);
         }
 
         #region --[Crear Grilla]--
@@ -490,7 +787,7 @@ namespace Promethee
             // Columna Alternativas
             //
             TemplateField tempDesc = new TemplateField();
-            tempDesc.HeaderTemplate = new GridViewHeaderTemplate("Alternativa");
+            tempDesc.HeaderTemplate = new GridViewHeaderTemplate("Alternativa", 0);
             tempDesc.ItemTemplate = new GridViewItemTemplate("nombreAlternativa", 1);
             tempDesc.EditItemTemplate = new GridViewEditTemplate("nombreAlternativa", 1);
             gvwModelo.Columns.Add(tempDesc);
@@ -501,7 +798,7 @@ namespace Promethee
                 // Columna item.Nombre
                 //
                 TemplateField tempColumn = new TemplateField();
-                tempColumn.HeaderTemplate = new GridViewHeaderTemplate(item.nombre);
+                tempColumn.HeaderTemplate = new GridViewHeaderTemplate(item.nombre, item.idCriterio);
                 tempColumn.ItemTemplate = new GridViewItemTemplate(item.idCriterio.ToString(), item.idCriterio);
                 tempColumn.EditItemTemplate = new GridViewEditTemplate(item.idCriterio.ToString(), item.idCriterio);
                 gvwModelo.Columns.Add(tempColumn);
@@ -509,17 +806,17 @@ namespace Promethee
         }
         #endregion
         #endregion
-
     }
 
     #region --[Clases Manejo Grilla]
     public class GridViewHeaderTemplate : ITemplate
     {
         string text;
-
-        public GridViewHeaderTemplate(string text)
+        int idCriterio;
+        public GridViewHeaderTemplate(string text, int idCriterio)
         {
             this.text = text;
+            this.idCriterio = idCriterio;
         }
 
         public void InstantiateIn(System.Web.UI.Control container)
@@ -528,7 +825,6 @@ namespace Promethee
             lc.Text = text;
 
             container.Controls.Add(lc);
-
         }
     }
 
