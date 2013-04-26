@@ -16,6 +16,7 @@ namespace Promethee
 		{
 			if (Menu1.SelectedValue == "Salir")
 			{
+                Session.Abandon();
 				FormsAuthentication.SignOut();
 				FormsAuthentication.RedirectToLoginPage();
 			}

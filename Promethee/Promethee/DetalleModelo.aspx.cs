@@ -51,6 +51,24 @@ namespace Promethee
         }
 
         /// <summary>
+        /// Gets or sets the id alternativa.
+        /// </summary>
+        /// <value>
+        /// The id alternativa.
+        /// </value>
+        public int idAlternativa
+        {
+            get
+            {
+                if (ViewState["idAlternativa"] == null)
+                    idAlternativa = 0;
+
+                return (int)ViewState["idAlternativa"];
+            }
+            set { ViewState["idAlternativa"] = value; }
+        }
+
+        /// <summary>
         /// Gets or sets the mi modelo.
         /// </summary>
         /// <value>
@@ -198,10 +216,7 @@ namespace Promethee
                 mpeModelo.Hide();
                 mpeError.Hide();
                 mpeCriterios.Hide();
-                //mpeAlternativas.Hide();
-                //mpuUpload.Hide();
-                //mpeCriterios.Hide();
-                //mpeEliminar.Hide();
+                mpeEliminar.Hide();
             }
             catch (Exception ex)
             {
@@ -221,6 +236,42 @@ namespace Promethee
                 idModelo = 0;
                 LimpiarCampos();
                 Response.Redirect("Modelos.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Handles the OnClick event of the btnEliminar control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnEliminar_OnClick(object sender, EventArgs e)
+        {
+            try
+            {
+                switch (((ImageButton)sender).CommandName)
+                {
+                    case "EliminarAlternativa":
+                        EliminarAlternativa();
+                        listaAlternativa = null;
+                        CargarGrilla();
+
+                        break;
+                    case "EliminarCriterio":
+                        listaConfiguracion = null;
+                        listaAlternativa = null;
+                        EliminarCriterio();
+                        CargarGrilla();
+                        CargarGrillaCriterios();
+                        break;
+                    default:
+                        break;
+                }
+                mpeEliminar.Hide();
+                btnEliminar.CommandName = string.Empty;
             }
             catch (Exception ex)
             {
@@ -351,6 +402,27 @@ namespace Promethee
                 Master.ManageExceptions(ex);
             }
         }
+
+        /// <summary>
+        /// Handles the RowDeleting event of the gvwModelo control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridViewDeleteEventArgs"/> instance containing the event data.</param>
+        protected void gvwModelo_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            try
+            {
+                idAlternativa = Convert.ToInt32(gvwModelo.DataKeys[e.RowIndex].Value);
+                btnEliminar.CommandName = "EliminarAlternativa";
+                lblEliminar.Text = "¿Desea Eliminar la Alternativa y todos sus datos asociados?";
+                mpeEliminar.Show();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
         #endregion
 
         #region --[Grilla Criterios]--
@@ -421,6 +493,12 @@ namespace Promethee
                         nuevoCriterio.limiteSigma = miCriterio.limiteSigma;
                         mpeCriterios.Show();
                         break;
+                    case "eliminar":
+                        idCriterio = idCriterioTest;
+                        btnEliminar.CommandName = "EliminarCriterio";
+                        lblEliminar.Text = "¿Desea Eliminar el Criterio y todos sus datos asociados?";
+                        mpeEliminar.Show();
+                        break;
                 }
             }
             catch (Exception ex)
@@ -439,6 +517,7 @@ namespace Promethee
         {
             listaConfiguracion = null;
             listaCriterio = null;
+            lblEliminar.Text = string.Empty;
             nuevoCriterio.error = string.Empty;
             txtNombre.Text = string.Empty;
             lblError.Text = string.Empty;
@@ -773,6 +852,23 @@ namespace Promethee
             CriteriosDA.Save(nuevaEntidad, listaConfig);
         }
 
+        /// <summary>
+        /// Eliminars the alternativa.
+        /// </summary>
+        /// <exception cref="System.NotImplementedException"></exception>
+        private void EliminarAlternativa()
+        {
+            AlternativasDA.Delete(idAlternativa);
+        }
+
+        /// <summary>
+        /// Eliminars the criterio.
+        /// </summary>
+        private void EliminarCriterio()
+        {
+            CriteriosDA.Delete(idCriterio);
+        }
+
         #region --[Crear Grilla]--
         private void DefinirColumnas()
         {
@@ -783,6 +879,8 @@ namespace Promethee
             gvwModelo.DataKeyNames = new string[] { "idAlternativa" };
             gvwModelo.Columns.Clear();
 
+            //gvwModelo = new miGridView();
+
             //
             // Columna Alternativas
             //
@@ -791,7 +889,7 @@ namespace Promethee
             tempDesc.ItemTemplate = new GridViewItemTemplate("nombreAlternativa", 1);
             tempDesc.EditItemTemplate = new GridViewEditTemplate("nombreAlternativa", 1);
             gvwModelo.Columns.Add(tempDesc);
-
+            
             foreach (CriterioEntity item in listaCriterio)
             {
                 //
@@ -805,6 +903,7 @@ namespace Promethee
             }
         }
         #endregion
+
         #endregion
     }
 
@@ -893,5 +992,7 @@ namespace Promethee
             l.Text = RawValue;
         }
     }
+
+    
     #endregion
 }

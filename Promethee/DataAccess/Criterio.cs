@@ -180,5 +180,44 @@ namespace DataAccess
                                     ex, enuExceptionType.DataAccesException);
             }
         }
+
+        /// <summary>
+        /// Deletes the specified id criterio.
+        /// </summary>
+        /// <param name="idCriterio">The id criterio.</param>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public static void Delete(int idCriterio)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ToString()))
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = conn;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Criterio_Delete";
+                    command.Parameters.AddWithValue("@idCriterio", idCriterio);
+
+                    command.CommandTimeout = 10;
+
+                    conn.Open();
+
+                    command.ExecuteScalar();
+
+                    conn.Close();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
     }
 }
