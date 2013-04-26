@@ -992,7 +992,6 @@ namespace Promethee
             l.Text = RawValue;
         }
     }
-
     
     #endregion
 }
