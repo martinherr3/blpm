@@ -8,6 +8,7 @@ namespace DataAccess.Entity
     [Serializable]
     public class RelAlternativaCriterioEntity
     {
+        public int idRelAlternativaCriterio { get; set; }
         public int idAlternativa { get; set; }
         public int idCriterio { get; set; }
         public string nombreAlternativa { get; set; }
