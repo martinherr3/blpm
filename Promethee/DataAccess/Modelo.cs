@@ -223,6 +223,7 @@ namespace DataAccess
                     while (reader.Read())
                     {
                         objEntidad = new RelAlternativaCriterioEntity();
+                        objEntidad.idRelAlternativaCriterio = Convert.ToInt32(reader["idRelAlternativaCriterio"]);
                         objEntidad.idAlternativa = Convert.ToInt32(reader["idAlternativa"]);
                         objEntidad.nombreAlternativa = reader["Alternativa"].ToString();
                         objEntidad.nombreCriterio = reader["Criterio"].ToString();
@@ -282,6 +283,64 @@ namespace DataAccess
             catch (Exception ex)
             {
                 throw new CustomizedException(String.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        /// <summary>
+        /// Actualizars the valores.
+        /// </summary>
+        /// <param name="alternativaUPD">The alternativa UPD.</param>
+        /// <param name="listaGuardar">The lista guardar.</param>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public static void ActualizarValores(AlternativaEntity alternativaUPD, List<RelAlternativaCriterioEntity> listaGuardar)
+        {
+            SqlTransaction transaccion = null;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["default"].ToString()))
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = conn;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Alternativa_Update";
+                    command.Parameters.AddWithValue("@idAlternativa", alternativaUPD.idAlternativa);
+                    command.Parameters.AddWithValue("@nombre", alternativaUPD.nombre);
+                    command.Parameters.AddWithValue("@idModelo", alternativaUPD.idModelo);
+
+                    command.CommandTimeout = 10;
+
+                    conn.Open();
+                    transaccion = conn.BeginTransaction();
+                    command.Transaction = transaccion;
+
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = "Rel_AlternativasCriterios_Update";
+                    foreach (RelAlternativaCriterioEntity item in listaGuardar)
+                    {
+                        command.Parameters.Clear();
+                        command.Parameters.AddWithValue("@idRelAlternativaCriterio", item.idRelAlternativaCriterio);
+                        command.Parameters.AddWithValue("@valor", item.valor);
+                        command.ExecuteNonQuery();
+                    }
+                    transaccion.Commit();
+                    conn.Close();
+                }
+            }
+            catch (SqlException ex)
+            {
+                if (transaccion != null)
+                    transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - ActualizarValores()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                if (transaccion != null)
+                    transaccion.Rollback();
+                throw new CustomizedException(String.Format("Fallo en {0} - ActualizarValores()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }

@@ -72,6 +72,7 @@
   <ItemGroup>
     <Content Include="App_Themes\Tema\Estilo.css" />
     <Content Include="Default2.aspx" />
+    <Content Include="DetalleModelo.aspx" />
     <Content Include="DLL\AjaxControlToolkit.dll" />
     <Content Include="DLL\AjaxControlToolkit.resources.dll" />
     <Content Include="DLL\ICSharpCode.SharpZipLib.dll" />
@@ -116,6 +117,13 @@
     </Compile>
     <Compile Include="Default2.aspx.designer.cs">
       <DependentUpon>Default2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleModelo.aspx.cs">
+      <DependentUpon>DetalleModelo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetalleModelo.aspx.designer.cs">
+      <DependentUpon>DetalleModelo.aspx</DependentUpon>
     </Compile>
     <Compile Include="frmLogin.aspx.cs">
       <DependentUpon>frmLogin.aspx</DependentUpon>

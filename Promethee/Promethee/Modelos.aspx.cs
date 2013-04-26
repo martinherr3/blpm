@@ -61,12 +61,12 @@ namespace Promethee
         {
             get
             {
-                if (ViewState["idModelo"] == null)
+                if (Session["idModelo"] == null)
                     idModelo = 0;
 
-                return (int)ViewState["idModelo"];
+                return (int)Session["idModelo"];
             }
-            set { ViewState["idModelo"] = value; }
+            set { Session["idModelo"] = value; }
         }
 
         /// <summary>
@@ -79,12 +79,12 @@ namespace Promethee
         {
             get
             {
-                if (ViewState["miModelo"] == null)
+                if (Session["miModelo"] == null)
                     miModelo = new ModeloEntity();
 
-                return (ModeloEntity)ViewState["miModelo"];
+                return (ModeloEntity)Session["miModelo"];
             }
-            set { ViewState["miModelo"] = value; }
+            set { Session["miModelo"] = value; }
         }
 
         /// <summary>
@@ -335,9 +335,10 @@ namespace Promethee
                         mpeModelo.Show();
                         break;
                     case "editModelo":
-                        txtNombre.Text = miModelo.nombre;
-                        udpModelosAsociados.Update();
-                        mpeModelo.Show();
+                        //txtNombre.Text = miModelo.nombre;
+                        //udpModelosAsociados.Update();
+                        //mpeModelo.Show();
+                        Response.Redirect("DetalleModelo.aspx", false);
                         break;
                     case "addAlternativa":
                         mpeAlternativas.Show();

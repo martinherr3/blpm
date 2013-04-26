@@ -53,10 +53,6 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="15%" />
-                        <%--<HeaderTemplate>
-                    <asp:ImageButton ID="nuevoModelo" runat="server" CommandName="nuevoModelo" CommandArgument="0"
-                        ToolTip="Nuevo Modelo" ImageUrl="~/Images/programs.png" />
-                </HeaderTemplate>--%>
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <img alt="Detalle" src="Images/Grillas/dialog-more.png" orderid="<%# Eval("idModelo") %>"
