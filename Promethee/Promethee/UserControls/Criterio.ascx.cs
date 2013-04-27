@@ -447,6 +447,17 @@ namespace Promethee.UserControls
             if (peso == 0)
                 mensaje = "Debe ingresar el peso para el Criterio.";
 
+            switch (rdlSentido.SelectedValue)
+            { 
+                case "0":
+                    break;
+                case "1":
+                    break;
+                default:
+                    mensaje = "Debe seleccionar el sentido de optimización.";
+                    break;
+            }
+
             if (mensaje != string.Empty)
             {
                 mensaje = "Criterio " + nombreCriterio + ".<br />" + mensaje;

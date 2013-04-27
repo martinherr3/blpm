@@ -363,6 +363,7 @@ namespace Promethee
                         mpeAlternativas.Show();
                         break;
                     case "addCriterio":
+                        nuevoCriterio.LimpiarControles();
                         mpeCriterios.Show();
                         break;
                     case "download":
