@@ -261,9 +261,12 @@ namespace Promethee
 
                         break;
                     case "EliminarCriterio":
-                        listaConfiguracion = null;
-                        listaAlternativa = null;
                         EliminarCriterio();
+                        gvwModelo.DataSource = null;
+                        listaConfiguracion = null;
+                        listaCriterio = null;
+                        listaAlternativa = null;
+                        DefinirColumnas();
                         CargarGrilla();
                         CargarGrillaCriterios();
                         break;
@@ -423,6 +426,23 @@ namespace Promethee
             }
         }
 
+        /// <summary>
+        /// Handles the PageIndexChanging event of the gvwModelo control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridViewPageEventArgs"/> instance containing the event data.</param>
+        protected void gvwModelo_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                gvwModelo.PageIndex = e.NewPageIndex;
+                CargarGrilla();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
         #endregion
 
         #region --[Grilla Criterios]--
@@ -506,6 +526,25 @@ namespace Promethee
                 Master.ManageExceptions(ex);
             }
         }
+
+        /// <summary>
+        /// Handles the PageIndexChanging event of the gvwCriterios control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridViewPageEventArgs"/> instance containing the event data.</param>
+        protected void gvwCriterios_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                gvwCriterios.PageIndex = e.NewPageIndex;
+                CargarGrillaCriterios();
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
         #endregion
         #endregion
 
@@ -889,7 +928,7 @@ namespace Promethee
             tempDesc.ItemTemplate = new GridViewItemTemplate("nombreAlternativa", 1);
             tempDesc.EditItemTemplate = new GridViewEditTemplate("nombreAlternativa", 1);
             gvwModelo.Columns.Add(tempDesc);
-            
+
             foreach (CriterioEntity item in listaCriterio)
             {
                 //
@@ -904,7 +943,10 @@ namespace Promethee
         }
         #endregion
 
+
+
         #endregion
+
     }
 
     #region --[Clases Manejo Grilla]
@@ -942,6 +984,9 @@ namespace Promethee
         {
             TextBox tb = new TextBox();
             tb.ID = string.Format("txt{0}_{1}", columnName, idRelAlternativaCriterio.ToString());
+            tb.MaxLength = 50;
+            if (columnName == idRelAlternativaCriterio.ToString())
+                tb.MaxLength = 6;
             tb.EnableViewState = false;
             tb.DataBinding += new EventHandler(tb_DataBinding);
 
@@ -992,6 +1037,6 @@ namespace Promethee
             l.Text = RawValue;
         }
     }
-    
+
     #endregion
 }

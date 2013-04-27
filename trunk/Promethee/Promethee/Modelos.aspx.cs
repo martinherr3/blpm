@@ -472,17 +472,25 @@ namespace Promethee
         {
             try
             {
-                ModeloEntity nuevoModelo = new ModeloEntity();
-                nuevoModelo.idModelo = idModelo;
-                nuevoModelo.nombre = txtNombre.Text.Trim();
-                nuevoModelo.fechaCreacion = DateTime.Today;
-                nuevoModelo.username = HttpContext.Current.User.Identity.Name;
-                ModelosDA.Save(nuevoModelo);
+                if (!string.IsNullOrEmpty(txtNombre.Text))
+                {
+                    ModeloEntity nuevoModelo = new ModeloEntity();
+                    nuevoModelo.idModelo = idModelo;
+                    nuevoModelo.nombre = txtNombre.Text.Trim();
+                    nuevoModelo.fechaCreacion = DateTime.Today;
+                    nuevoModelo.username = HttpContext.Current.User.Identity.Name;
+                    ModelosDA.Save(nuevoModelo);
 
-                LimpiarCampos();
-                mpeModelo.Hide();
+                    LimpiarCampos();
+                    mpeModelo.Hide();
 
-                CargarGrilla();
+                    CargarGrilla();
+                }
+                else
+                {
+                    lblErrorModelo.Text = "Por Favor ingrese un nombre para el modelo.";
+                    mpeModelo.Show();
+                }
             }
             catch (Exception ex)
             {
@@ -499,23 +507,31 @@ namespace Promethee
         {
             try
             {
-                AlternativaEntity test = new AlternativaEntity();
-                test.idModelo = miModelo.idModelo;
-                test.nombre = txtAlternativa.Text.Trim();
-                List<AlternativaEntity> listaAlternativa = AlternativasDA.Select(test);
-
-                if (listaAlternativa.Count == 0)
+                if (!string.IsNullOrEmpty(txtAlternativa.Text))
                 {
-                    GuardarAlternativa();
+                    AlternativaEntity test = new AlternativaEntity();
+                    test.idModelo = miModelo.idModelo;
+                    test.nombre = txtAlternativa.Text.Trim();
+                    List<AlternativaEntity> listaAlternativa = AlternativasDA.Select(test);
 
-                    LimpiarCampos();
-                    mpeAlternativas.Hide();
+                    if (listaAlternativa.Count == 0)
+                    {
+                        GuardarAlternativa();
 
-                    CargarGrilla();
+                        LimpiarCampos();
+                        mpeAlternativas.Hide();
+
+                        CargarGrilla();
+                    }
+                    else
+                    {
+                        lblErrorAlternativa.Text = "Ya existe una Alternativa con el mismo nombre.";
+                        mpeAlternativas.Show();
+                    }
                 }
                 else
                 {
-                    lblErrorAlternativa.Text = "Ya existe una Alternativa con el mismo nombre.";
+                    lblErrorAlternativa.Text = "Por favor ingrese un nombre para la Alternativa.";
                     mpeAlternativas.Show();
                 }
             }
@@ -681,6 +697,7 @@ namespace Promethee
         {
             idModelo = 0;
             txtAlternativa.Text = string.Empty;
+            lblErrorModelo.Text = string.Empty;
             txtNombre.Text = string.Empty;
             nuevoCriterio.nombreCriterio = string.Empty;
             nuevoCriterio.pesoCriterio = 0;

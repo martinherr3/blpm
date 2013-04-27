@@ -215,7 +215,9 @@
                     <asp:UpdatePanel ID="udpModelosAsociados" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <asp:TextBox ID="txtNombre" runat="server" MaxLength="50" CssClass="EstiloTxtLargo350"
-                                AutoCompleteType="Disabled" />
+                                AutoCompleteType="Disabled" /><br />
+                            <br />
+                            <asp:Label ID="lblErrorModelo" Text="" runat="server" ForeColor="Red" Font-Bold="true" />
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="btnGuardarModelo" EventName="Click" />
