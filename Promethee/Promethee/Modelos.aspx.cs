@@ -698,12 +698,14 @@ namespace Promethee
         {
             idModelo = 0;
             txtAlternativa.Text = string.Empty;
+            lblErrorAlternativa.Text = string.Empty;
             lblErrorModelo.Text = string.Empty;
+            lblError.Text = string.Empty;
+            lblEliminar.Text = string.Empty;
             txtNombre.Text = string.Empty;
             nuevoCriterio.nombreCriterio = string.Empty;
             nuevoCriterio.pesoCriterio = 0;
             nuevoCriterio.LimpiarControles();
-            lblErrorAlternativa.Text = string.Empty;
         }
 
         /// <summary>
@@ -1231,7 +1233,7 @@ namespace Promethee
             imgPodio.ImageUrl = "http://" + Request.ServerVariables["SERVER_NAME"] + Request.ApplicationPath + "/Images/TMP/" + nombreArchivo;
             imgPodio.Visible = true;
             udpImgPodio.Update();
-            //divExportacion.Visible = true;
+            divExportacion.Visible = true;
             divResultado.Visible = true;
             CargarGrillaResultado();
         }

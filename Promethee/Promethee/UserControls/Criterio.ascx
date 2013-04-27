@@ -110,7 +110,7 @@
             <asp:Label ID="Label2" Text="Sentido de Optimización:" runat="server" Font-Bold="true"
                 Font-Italic="true" />
             <asp:RadioButtonList ID="rdlSentido" runat="server">
-                <asp:ListItem Text="Maximizar" Value="1" Selected="True" />
+                <asp:ListItem Text="Maximizar" Value="1" />
                 <asp:ListItem Text="Minimizar" Value="0" />
             </asp:RadioButtonList>
         </td>

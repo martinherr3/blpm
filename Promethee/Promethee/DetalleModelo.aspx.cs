@@ -683,7 +683,8 @@ namespace Promethee
                         if (txtEdicion != null)
                         {
                             entidadGuardar.idRelAlternativaCriterio = item.idRelAlternativaCriterio;
-                            return decimal.TryParse(txtEdicion.Text, out  valor);
+                            if (!decimal.TryParse(txtEdicion.Text, out  valor))
+                                return false;
                         }
                     }
                 }
