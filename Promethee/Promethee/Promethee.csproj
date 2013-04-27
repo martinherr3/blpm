@@ -96,6 +96,7 @@
     <Content Include="Images\button_cancel.png" />
     <Content Include="Images\button_ok.png" />
     <Content Include="Images\draw-arrow-down.png" />
+    <Content Include="Images\go-next-4.png" />
     <Content Include="Images\Grillas\add_Alternative.png" />
     <Content Include="Images\Grillas\add_Criteria.png" />
     <Content Include="Images\Grillas\dialog-fewer.png" />

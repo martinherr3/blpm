@@ -150,11 +150,10 @@
                             <asp:PostBackTrigger ControlID="btnPDF" />
                             <asp:PostBackTrigger ControlID="btnExcel" />
                             <asp:PostBackTrigger ControlID="gvwModelo" />
-                            <%--<asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />--%>
                         </Triggers>
                     </asp:UpdatePanel>
                     <div id="divResultado" runat="server" visible="false">
-                        <table class="tablaInternaSinBorde" border="0" cellpadding="1" cellspacing="5">
+                        <%--<table class="tablaInternaSinBorde" border="0" cellpadding="1" cellspacing="5">
                             <tr>
                                 <td align="center">
                                     <asp:LinkButton Text="[Más Información]" ID="lnkConfig" runat="server" Visible="true" />
@@ -165,31 +164,31 @@
                             CollapsedSize="0" ExpandedSize="500" Collapsed="True" ExpandControlID="lnkConfig"
                             CollapseControlID="lnkConfig" AutoCollapse="False" AutoExpand="False" ScrollContents="false"
                             ExpandDirection="Vertical" />
-                        <asp:Panel runat="server" ID="pnlResultado">
-                            <asp:Label ID="lblResultadoGrilla" Text="Resultados obtenidos en orden Descendente"
-                                runat="server" Visible="false" Font-Bold="true" /><br />
-                            <asp:Label ID="lblResultado" Text="" runat="server" CssClass="lblCriterios" Visible="false" />
-                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                                <ContentTemplate>
-                                    <asp:GridView ID="gvwResultado" runat="server" CssClass="DatosLista" AllowPaging="True"
-                                        AllowSorting="false" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None"
-                                        ShowFooter="false" OnPageIndexChanging="gvwResultado_PageIndexChanging" PageSize="15">
-                                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                                        <EditRowStyle BackColor="#999999" />
-                                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Height="24px" />
-                                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" HorizontalAlign="Center" />
-                                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-                                    </asp:GridView>
-                                    <br />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </asp:Panel>
+                        <asp:Panel runat="server" ID="pnlResultado">--%>
+                        <asp:Label ID="lblResultadoGrilla" Text="Resultados obtenidos en orden Descendente"
+                            runat="server" Visible="true" Font-Bold="true" /><br />
+                        <asp:Label ID="lblResultado" Text="" runat="server" CssClass="lblCriterios" Visible="false" />
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                            <ContentTemplate>
+                                <asp:GridView ID="gvwResultado" runat="server" CssClass="DatosLista" AllowPaging="True"
+                                    AllowSorting="false" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None"
+                                    ShowFooter="false" OnPageIndexChanging="gvwResultado_PageIndexChanging" PageSize="15">
+                                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                    <EditRowStyle BackColor="#999999" />
+                                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Height="24px" />
+                                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" HorizontalAlign="Center" />
+                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                    <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                                    <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                                    <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                                    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                                </asp:GridView>
+                                <br />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <%-- </asp:Panel>--%>
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>

@@ -192,6 +192,7 @@ namespace Promethee
                 Session["RutaExcel"] = value;
             }
         }
+
         #region --[Tablas]--
         public DataTable tablaResultado
         {
@@ -641,7 +642,7 @@ namespace Promethee
             {
                 if (tablaResultado != null && tablaResultado.Rows.Count > 0)
                 {
-                    lnkConfig.Visible = true;
+                    //lnkConfig.Visible = true;
                     string filename = "Resolucion_" + miModelo.nombre + ".xls";
                     filename = filename.Replace(" ", "_");
                     Response.ContentType = "application/vnd.ms-excel";
@@ -1205,9 +1206,6 @@ namespace Promethee
             objGraphic.DrawString(Alternativa3, drawFont, drawBrushNegro, drawRect3, drawFormat);
             objGraphic.DrawString("Resultados - " + miModelo.nombre, drawFontTitulo, drawBrush, drawRectTitulo, drawFormat);
 
-            //Definimos el tipo de fichero
-            //Response.ContentType = "image/png";
-
             string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oImgPath"];
             UIUtility.EliminarArchivosSession(Session.SessionID);
             //Crea el directorio.
@@ -1227,8 +1225,7 @@ namespace Promethee
             GC.Collect();
             #endregion
 
-            //imgPodio.ImageUrl = string.Empty;
-            //udpImgPodio.Update();
+            GraficarPreorden();
 
             imgPodio.ImageUrl = "http://" + Request.ServerVariables["SERVER_NAME"] + Request.ApplicationPath + "/Images/TMP/" + nombreArchivo;
             imgPodio.Visible = true;
@@ -1236,6 +1233,104 @@ namespace Promethee
             divExportacion.Visible = true;
             divResultado.Visible = true;
             CargarGrillaResultado();
+        }
+
+        /// <summary>
+        /// Graficars the preorden.
+        /// </summary>
+        private void GraficarPreorden()
+        {
+            Label titulo = new Label();
+            titulo.Text = "Preorden Completo";
+            titulo.Font.Bold = true;
+            titulo.Font.Size = FontUnit.Large;
+            udpImgPodio.ContentTemplateContainer.Controls.Add(titulo);
+
+            Table tablaContenedora = new Table();
+            tablaContenedora.Width = Unit.Percentage(100);
+            tablaContenedora.HorizontalAlign = HorizontalAlign.Center;
+            TableRow filaContenedora = new TableRow();
+            TableCell celdaContendedora = new TableCell();
+            for (int i = 0; i < tablaResultado.Rows.Count; i++)
+            {
+                celdaContendedora = new TableCell();
+                celdaContendedora.HorizontalAlign = HorizontalAlign.Center;
+                Table nuevaTabla = new Table();
+                nuevaTabla.Width = Unit.Pixel(80);
+                nuevaTabla.CellPadding = 0;
+                nuevaTabla.CellSpacing = 0;
+                TableRow fila = new TableRow();
+                TableCell celda = new TableCell();
+                celda.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+                celda.HorizontalAlign = HorizontalAlign.Center;
+                celda.BorderWidth = Unit.Pixel(1);
+                celda.Width = Unit.Percentage(50);
+                celda.Text = (i + 1).ToString();
+                celda.ColumnSpan = 2;
+                fila.Cells.Add(celda);
+
+                celda = new TableCell();
+                celda.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+                celda.HorizontalAlign = HorizontalAlign.Center;
+                celda.BorderWidth = Unit.Pixel(1);
+                celda.Width = Unit.Percentage(50);
+                celda.ColumnSpan = 2;
+                fila.Cells.Add(celda);
+                nuevaTabla.Rows.Add(fila);
+
+                fila = new TableRow();
+                celda = new TableCell();
+                celda.Width = Unit.Percentage(25);
+                celda.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+                celda.HorizontalAlign = HorizontalAlign.Center;
+                celda.BorderWidth = Unit.Pixel(1);
+                celda.ColumnSpan = 1;
+                fila.Cells.Add(celda);
+
+                celda = new TableCell();
+                celda.Width = Unit.Percentage(75);
+                celda.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+                celda.HorizontalAlign = HorizontalAlign.Center;
+                celda.BorderWidth = Unit.Pixel(1);
+                celda.ColumnSpan = 3;
+                celda.Text = tablaResultado.Rows[i][0].ToString();
+                fila.Cells.Add(celda);
+                nuevaTabla.Rows.Add(fila);
+
+                fila = new TableRow();
+                celda = new TableCell();
+                celda.Width = Unit.Percentage(25);
+                celda.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+                celda.HorizontalAlign = HorizontalAlign.Center;
+                celda.BorderWidth = Unit.Pixel(1);
+                celda.ColumnSpan = 1;
+                fila.Cells.Add(celda);
+
+                celda = new TableCell();
+                celda.Width = Unit.Percentage(75);
+                celda.BorderStyle = System.Web.UI.WebControls.BorderStyle.Solid;
+                celda.HorizontalAlign = HorizontalAlign.Center;
+                celda.BorderWidth = Unit.Pixel(1);
+                celda.ColumnSpan = 3;
+                celda.Text = "ϕ " + tablaResultado.Rows[i][tablaResultado.Columns.Count - 1].ToString();
+                fila.Cells.Add(celda);
+                nuevaTabla.Rows.Add(fila);
+                celdaContendedora.Controls.Add(nuevaTabla);
+                filaContenedora.Cells.Add(celdaContendedora);
+
+                //agregar flecha
+                if (i < tablaResultado.Rows.Count - 1)
+                {
+                    celdaContendedora = new TableCell();
+                    System.Web.UI.WebControls.Image imgFlecha = new System.Web.UI.WebControls.Image();
+                    celdaContendedora.HorizontalAlign = HorizontalAlign.Center;
+                    imgFlecha.ImageUrl = "~/Images/go-next-4.png";
+                    celdaContendedora.Controls.Add(imgFlecha);
+                    filaContenedora.Cells.Add(celdaContendedora);
+                }
+            }
+            tablaContenedora.Rows.Add(filaContenedora);
+            udpImgPodio.ContentTemplateContainer.Controls.Add(tablaContenedora);
         }
 
         /// <summary>

@@ -130,33 +130,6 @@ namespace Promethee {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divResultado;
         
         /// <summary>
-        /// Control lnkConfig.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkConfig;
-        
-        /// <summary>
-        /// Control cpe.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CollapsiblePanelExtender cpe;
-        
-        /// <summary>
-        /// Control pnlResultado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlResultado;
-        
-        /// <summary>
         /// Control lblResultadoGrilla.
         /// </summary>
         /// <remarks>
