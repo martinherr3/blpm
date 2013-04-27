@@ -117,15 +117,10 @@
                 </Columns>
             </asp:GridView>
         </ContentTemplate>
+        <Triggers>
+            <asp:PostBackTrigger ControlID="gvwModelo" />
+        </Triggers>
     </asp:UpdatePanel>
-    <div id="divExportacion" runat="server" visible="true">
-        <h2>
-            Opciones de Exportación</h2>
-        <asp:ImageButton ID="btnPDF" ImageUrl="~/Images/boton_PDF.png" runat="server" OnClick="btnPDF_Click"
-            ToolTip="Exportar PDF" AlternateText="Exportar PDF" />
-        <asp:ImageButton ID="btnExcel" ImageUrl="~/Images/boton_Excel.png" runat="server"
-            OnClick="btnExcel_Click" ToolTip="Exportar a Excel" AlternateText="Exportar a Excel" />
-    </div>
     <asp:UpdatePanel runat="server" ID="udpModelos" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:UpdatePanel runat="server" ID="udpResultado" UpdateMode="Conditional">
@@ -139,12 +134,23 @@
                                             Visible="false" Style="text-align: center" /><br />
                                     </td>
                                     <td style="width: 30%; vertical-align: middle" align="left">
+                                        <div id="divExportacion" runat="server" visible="false">
+                                            <h2>
+                                                Opciones de Exportación</h2>
+                                            <asp:ImageButton ID="btnPDF" ImageUrl="~/Images/boton_PDF.png" runat="server" OnClick="btnPDF_Click"
+                                                ToolTip="Exportar PDF" AlternateText="Exportar PDF" />
+                                            <asp:ImageButton ID="btnExcel" ImageUrl="~/Images/boton_Excel.png" runat="server"
+                                                OnClick="btnExcel_Click" ToolTip="Exportar a Excel" AlternateText="Exportar a Excel" />
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
                         </ContentTemplate>
                         <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />
+                            <asp:PostBackTrigger ControlID="btnPDF" />
+                            <asp:PostBackTrigger ControlID="btnExcel" />
+                            <asp:PostBackTrigger ControlID="gvwModelo" />
+                            <%--<asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />--%>
                         </Triggers>
                     </asp:UpdatePanel>
                     <div id="divResultado" runat="server" visible="false">
@@ -287,8 +293,7 @@
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
             <tr>
                 <td>
-                    <cri:Criterio ID="nuevoCriterio" runat="server" nombreCriterio="">
-                    </cri:Criterio>
+                    <cri:Criterio ID="nuevoCriterio" runat="server" nombreCriterio=""></cri:Criterio>
                 </td>
             </tr>
             <tr>
