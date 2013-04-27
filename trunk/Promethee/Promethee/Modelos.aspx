@@ -52,7 +52,7 @@
                 OnRowDataBound="gvwModelo_RowDataBound">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
-                        <HeaderStyle HorizontalAlign="center" Width="15%" />
+                        <HeaderStyle HorizontalAlign="center" Width="20%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <img alt="Detalle" src="Images/Grillas/dialog-more.png" orderid="<%# Eval("idModelo") %>"
@@ -60,10 +60,9 @@
                             <asp:ImageButton ID="editModelo" runat="server" CommandName="editModelo" CommandArgument='<%# Bind("idModelo") %>'
                                 ToolTip="Editar Modelo" ImageUrl="~/Images/Grillas/edit_Model.png" />
                             <asp:ImageButton ID="addAlternativa" runat="server" CommandName="addAlternativa"
-                                CommandArgument='<%# Bind("idModelo") %>' ToolTip="Agregar Alternativa" ImageUrl="~/Images/Grillas/add_Alternative.png"
-                                Visible='<%# Eval("filename").ToString() != string.Empty ? false : true %>' />
+                                CommandArgument='<%# Bind("idModelo") %>' ToolTip="Agregar Alternativa" ImageUrl="~/Images/Grillas/add_Alternative.png" />
                             <asp:ImageButton ID="addCriterio" runat="server" CommandName="addCriterio" CommandArgument='<%# Bind("idModelo") %>'
-                                ToolTip="Agregar Criterio" ImageUrl="~/Images/Grillas/add_Criteria.png" Visible='<%# Eval("filename").ToString() != string.Empty ? false : true %>' />
+                                ToolTip="Agregar Criterio" ImageUrl="~/Images/Grillas/add_Criteria.png" />
                             <asp:ImageButton ID="btnDownload" ImageUrl="~/Images/Grillas/downloads.png" runat="server"
                                 Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>'
                                 CommandName="download" CommandArgument='<%# Bind("idModelo") %>' AlternateText="Descargar Planilla"
@@ -72,7 +71,7 @@
                                 runat="server" ToolTip="Cargar Planilla" AlternateText="Cargar Planilla" ImageUrl="~/Images/Grillas/uploads.png"
                                 Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
                             <asp:ImageButton ID="solve" runat="server" CommandName="solve" CommandArgument='<%# Bind("idModelo") %>'
-                                ToolTip="Resolver" ImageUrl="~/Images/Grillas/solve.png" />
+                                ToolTip="Resolver" ImageUrl="~/Images/Grillas/solve.png" Visible='<%# Convert.ToInt32(Eval("criterios")) >= 2 && Convert.ToInt32(Eval("alternativas")) >= 2 ? true : false %>' />
                             <asp:ImageButton ID="btnEliminar" runat="server" CommandName="eliminar" CommandArgument='<%# Bind("idModelo") %>'
                                 ToolTip="Eliminar" ImageUrl="~/Images/Grillas/trash.png" />
                         </ItemTemplate>
@@ -92,7 +91,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Nro de Alternativas">
-                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <HeaderStyle HorizontalAlign="center" Width="15%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:Label ID="lblAlternativasGrilla" runat="server" Text='<%# Bind("alternativas") %>'></asp:Label>
@@ -108,7 +107,7 @@
                                     <div style="position: relative; left: 25px;">
                                         <asp:GridView ID="gvwDetalle" runat="server" AutoGenerateColumns="true" BackColor="White"
                                             BorderStyle="Solid" CellPadding="0" ForeColor="Black" GridLines="Vertical" CssClass="DatosLista"
-                                            SkinID="gridviewSkinPagerIndicadores">
+                                            SkinID="gridviewSkinPagerSinPaginar" AllowPaging="false">
                                         </asp:GridView>
                                     </div>
                                 </td>
@@ -183,17 +182,10 @@
                                     </asp:GridView>
                                     <br />
                                 </ContentTemplate>
-                                <Triggers>
-                                    <%--<asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />--%>
-                                    <%--<asp:AsyncPostBackTrigger ControlID="btnPDF" EventName="Click" />--%>
-                                </Triggers>
                             </asp:UpdatePanel>
                         </asp:Panel>
                     </div>
                 </ContentTemplate>
-                <Triggers>
-                    <%--<asp:AsyncPostBackTrigger ControlID="gvwModelo" EventName="RowCommand" />--%>
-                </Triggers>
             </asp:UpdatePanel>
         </ContentTemplate>
     </asp:UpdatePanel>
@@ -295,7 +287,7 @@
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
             <tr>
                 <td>
-                    <cri:Criterio ID="nuevoCriterio" runat="server" nombreCriterio="" esMaximzante="false">
+                    <cri:Criterio ID="nuevoCriterio" runat="server" nombreCriterio="">
                     </cri:Criterio>
                 </td>
             </tr>

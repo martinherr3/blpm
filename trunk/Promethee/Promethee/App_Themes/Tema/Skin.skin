@@ -67,3 +67,14 @@ GridLines="None"
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
             
 </asp:GridView>
+
+<asp:GridView runat="server" SkinId="gridviewSkinPagerSinPaginar" CellPadding="5"
+              GridLines="None"
+              BorderStyle="Solid" 
+              PagerSettings-Visible="true" 
+              ShowFooter="false"
+              EmptyDataText="La consulta no produjo resultados." AllowPaging="False" Width="90%"
+			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
+              <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
+            
+</asp:GridView>
