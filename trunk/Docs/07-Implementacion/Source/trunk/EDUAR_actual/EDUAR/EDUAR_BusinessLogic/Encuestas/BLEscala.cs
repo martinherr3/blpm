@@ -204,7 +204,7 @@ namespace EDUAR_BusinessLogic.Encuestas
         /// </summary>
         /// <param name="entidad">The objFiltro.</param>
         /// <returns></returns>
-        public int GetCantidadValores(EscalaMedicion objFiltro)
+        public List<ValorEscalaMedicion> GetCantidadValores(EscalaMedicion objFiltro)
         {
             try
             {

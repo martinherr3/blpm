@@ -187,7 +187,7 @@ namespace EDUAR_DataAccess.Encuestas
         /// </summary>
         /// <param name="entidad">The entidad.</param>
         /// <returns></returns>
-        public int GetCantidadValores(EscalaMedicion entidad)
+        public List<ValorEscalaMedicion> GetCantidadValores(EscalaMedicion entidad)
         {
             try
             {
@@ -207,10 +207,11 @@ namespace EDUAR_DataAccess.Encuestas
                     objValorEscala = new ValorEscalaMedicion();
 
                     objValorEscala.idValorEscala = Convert.ToInt32(reader["idValorEscalaPonderacion"]);
+                    objValorEscala.nombre = reader["nombre"].ToString();
 
                     listaValoresEscala.Add(objValorEscala);
                 }
-                return listaValoresEscala.Count;
+                return listaValoresEscala;
             }
             catch (SqlException ex)
             {

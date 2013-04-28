@@ -579,18 +579,21 @@ namespace EDUAR_UI
 							AjaxControlToolkit.Rating rating = new AjaxControlToolkit.Rating();
 
 							rating.ID = "respuesta_" + pregunta.idPregunta.ToString();
-
+                                                        
                             objBLEscala = new BLEscala();
 
-                            rating.MaxRating = objBLEscala.GetCantidadValores(pregunta.escala);
-							//rating.MaxRating = 5;
+                            int quantity = objBLEscala.GetCantidadValores(pregunta.escala).Count;
+                            string firstValue = objBLEscala.GetCantidadValores(pregunta.escala)[0].nombre;
+                            string lastValue = objBLEscala.GetCantidadValores(pregunta.escala)[quantity-1].nombre;
+
+                            rating.MaxRating = quantity;
 
 							rating.StarCssClass = "ratingStar";
 							rating.WaitingStarCssClass = "savedRatingStar";
 							rating.FilledStarCssClass = "filledRatingStar";
 							rating.EmptyStarCssClass = "emptyRatingStar";
 							rating.AutoPostBack = false;
-
+                            
 							if (ListaRespuestas != null)
 							{
 								miRespuesta = ListaRespuestas.Find(p => p.pregunta.textoPregunta == rating.ID);
@@ -598,9 +601,11 @@ namespace EDUAR_UI
 							}
 							rating.Changed += new AjaxControlToolkit.RatingEventHandler(rating_Changed);
 
-							panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
-							panelRespuesta.Controls.Add(rating);
-							panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
+                            panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
+                            panelRespuesta.Controls.Add(new LiteralControl("<table border=0><tr><td><i>" + firstValue + "</i></td><td>"));
+                            panelRespuesta.Controls.Add(rating);
+                            panelRespuesta.Controls.Add(new LiteralControl("</td><td><i>" + lastValue + "</i></td></tr></table>"));
+
 							cantRespuestasMinimas++;
 						}
 
