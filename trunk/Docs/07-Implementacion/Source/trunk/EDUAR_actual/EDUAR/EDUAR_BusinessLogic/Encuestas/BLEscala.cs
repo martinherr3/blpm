@@ -198,6 +198,28 @@ namespace EDUAR_BusinessLogic.Encuestas
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+        /// <summary>
+        /// Cantidad de valores de la escala de ponderacion.
+        /// </summary>
+        /// <param name="entidad">The objFiltro.</param>
+        /// <returns></returns>
+        public int GetCantidadValores(EscalaMedicion objFiltro)
+        {
+            try
+            {
+                return DataAcces.GetCantidadValores(objFiltro);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCantidadValores", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }

@@ -17,6 +17,7 @@ namespace EDUAR_UI
 		BLEncuesta objBLEncuesta;
 		BLPregunta objBLPregunta;
 		BLEncuestaDisponible objBLEncuestaDisponible;
+        BLEscala objBLEscala;
 		#endregion
 
 		#region --[Propiedades]--
@@ -578,7 +579,11 @@ namespace EDUAR_UI
 							AjaxControlToolkit.Rating rating = new AjaxControlToolkit.Rating();
 
 							rating.ID = "respuesta_" + pregunta.idPregunta.ToString();
-							rating.MaxRating = 5;
+
+                            objBLEscala = new BLEscala();
+
+                            rating.MaxRating = objBLEscala.GetCantidadValores(pregunta.escala);
+							//rating.MaxRating = 5;
 
 							rating.StarCssClass = "ratingStar";
 							rating.WaitingStarCssClass = "savedRatingStar";

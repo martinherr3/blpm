@@ -145,7 +145,7 @@ namespace EDUAR_DataAccess.Encuestas
                 if (entidad != null)
                 {
                     if (entidad.idEscala > 0)
-                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEscala", DbType.Int32, entidad.idEscala);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEscalaPonderacion", DbType.Int32, entidad.idEscala);
                     if (!string.IsNullOrEmpty(entidad.nombre))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
                     if (!string.IsNullOrEmpty(entidad.descripcion))
@@ -160,7 +160,7 @@ namespace EDUAR_DataAccess.Encuestas
                 {
                     objEscala = new EscalaMedicion();
 
-                    objEscala.idEscala = Convert.ToInt32(reader["idEscalaPonderacion"]);
+                    objEscala.idEscala = Convert.ToInt32(reader["idEscala"]);
                     objEscala.nombre = reader["nombre"].ToString();
                     objEscala.descripcion = reader["descripcion"].ToString();
 
@@ -169,6 +169,48 @@ namespace EDUAR_DataAccess.Encuestas
                     listaEscalas.Add(objEscala);
                 }
                 return listaEscalas;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetEscalasMedicion()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetEscalasMedicion()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        /// <summary>
+        /// Cantidad de valores de la escala de ponderacion.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public int GetCantidadValores(EscalaMedicion entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ValorEscalaPonderacion_Select");
+                if (entidad != null)
+                {
+                    if (entidad.idEscala > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEscalaPonderacion", DbType.Int32, entidad.idEscala);
+                }
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<ValorEscalaMedicion> listaValoresEscala = new List<ValorEscalaMedicion>();
+                ValorEscalaMedicion objValorEscala;
+
+                while (reader.Read())
+                {
+                    objValorEscala = new ValorEscalaMedicion();
+
+                    objValorEscala.idValorEscala = Convert.ToInt32(reader["idValorEscalaPonderacion"]);
+
+                    listaValoresEscala.Add(objValorEscala);
+                }
+                return listaValoresEscala.Count;
             }
             catch (SqlException ex)
             {
