@@ -13,19 +13,17 @@ namespace EDUAR_Entities
 		public string textoPregunta { get; set; }
 		public int idEscalaPonderacion { get; set; }
         public decimal relevancia { get; set; }
-		public int cant1 { get; set; }
-		public int cant2 { get; set; }
-		public int cant3 { get; set; }
-		public int cant4 { get; set; }
-		public int cant5 { get; set; }
+        public string cadenaSeleccion { get; set; }
 
+        public List<int> cantidades { get; set; }
+        
 		public decimal porcentaje { get; set; }
 		public int respuestasEsperadas { get; set; }
 		public int respuestasObtenidas { get; set; }
 
 		public RespuestaPreguntaAnalisis()
 		{
-			
+            cantidades = new List<int>();
 		}
 
 		~RespuestaPreguntaAnalisis()

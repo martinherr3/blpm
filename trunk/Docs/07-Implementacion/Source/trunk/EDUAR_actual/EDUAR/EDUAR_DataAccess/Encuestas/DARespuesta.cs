@@ -128,7 +128,7 @@ namespace EDUAR_DataAccess.Encuestas
 		{
 			try
 			{
-				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_EncuestaAnalisisSumarizado");
+				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_EncuestaAnalisisSumarizado_BIS");
 
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
 
@@ -147,6 +147,8 @@ namespace EDUAR_DataAccess.Encuestas
 				List<RespuestaPreguntaAnalisis> listaRepuesta = new List<RespuestaPreguntaAnalisis>();
 				RespuestaPreguntaAnalisis objEntidad;
 
+                char[] delimitadorEscalas = {'[',']'};
+
 				while (reader.Read())
 				{
 					objEntidad = new RespuestaPreguntaAnalisis();
@@ -155,11 +157,12 @@ namespace EDUAR_DataAccess.Encuestas
 					objEntidad.textoPregunta = reader["textoPregunta"].ToString();
 					objEntidad.idEscalaPonderacion = Convert.ToInt32(reader["idEscalaPonderacion"]);
 					objEntidad.relevancia = Convert.ToDecimal(reader["relevancia"]);
-					objEntidad.cant1 = Convert.ToInt32(reader["cant1"]);
-					objEntidad.cant2 = Convert.ToInt32(reader["cant2"]);
-					objEntidad.cant3 = Convert.ToInt32(reader["cant3"]);
-					objEntidad.cant4 = Convert.ToInt32(reader["cant4"]);
-					objEntidad.cant5 = Convert.ToInt32(reader["cant5"]);
+                    objEntidad.cadenaSeleccion = reader["cadenaValores"].ToString();
+
+                    string[] quantities = objEntidad.cadenaSeleccion.Split(delimitadorEscalas);
+
+                    foreach (string valor in quantities)
+                        if(!string.IsNullOrEmpty(valor)) objEntidad.cantidades.Add(Convert.ToInt32(valor));
 
 					listaRepuesta.Add(objEntidad);
 				}
@@ -172,7 +175,7 @@ namespace EDUAR_DataAccess.Encuestas
 			}
 			catch (Exception ex)
 			{
-				throw new CustomizedException(string.Format("Fallo en {0} - GetEncuestasDisponibles()", ClassName),
+                throw new CustomizedException(string.Format("Fallo en {0} - GetRespuestaPreguntaAnalisis()", ClassName),
 									ex, enuExceptionType.DataAccesException);
 			}
 		}

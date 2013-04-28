@@ -580,72 +580,27 @@ namespace EDUAR_UI
 		{
 			List<miRespuesta> listaRespuestasLocal = new List<miRespuesta>();
 			miRespuesta laRespuesta = new miRespuesta();
-			if (respuesta.idEscalaPonderacion == 1)
-			{
-				enumRespCualitativa cant1 = (enumRespCualitativa)1;
-				laRespuesta.respuesta = cant1.ToString().Replace("_", " ");
-				laRespuesta.cantidad = respuesta.cant1;
-				listaRespuestasLocal.Add(laRespuesta);
 
-				laRespuesta = new miRespuesta();
-				enumRespCualitativa cant2 = (enumRespCualitativa)2;
-				laRespuesta.respuesta = cant2.ToString().Replace("_", " ");
-				laRespuesta.cantidad = respuesta.cant2;
-				listaRespuestasLocal.Add(laRespuesta);
+            EscalaMedicion escala = new EscalaMedicion();
+            escala.idEscala = respuesta.idEscalaPonderacion;
 
-				laRespuesta = new miRespuesta();
-				enumRespCualitativa cant3 = (enumRespCualitativa)3;
-				laRespuesta.respuesta = cant3.ToString().Replace("_", " ");
-				laRespuesta.cantidad = respuesta.cant3;
-				listaRespuestasLocal.Add(laRespuesta);
+            BLValorEscala objBLValorEscala = new BLValorEscala();
+            List<ValorEscalaMedicion> valoresEscala = objBLValorEscala.GetValoresEscalasMedicion(escala);
 
-				laRespuesta = new miRespuesta();
-				enumRespCualitativa cant4 = (enumRespCualitativa)4;
-				laRespuesta.respuesta = cant4.ToString().Replace("_", " ");
-				laRespuesta.cantidad = respuesta.cant4;
-				listaRespuestasLocal.Add(laRespuesta);
+            //EVITO PROCESAR LA ESCALA TEXTUAL
+            if (respuesta.idEscalaPonderacion != 3)
+            {
+                int index = 0;
+                foreach (int valor in respuesta.cantidades)
+                {
+                    laRespuesta.respuesta = valoresEscala[index].nombre;
+                    laRespuesta.cantidad = valor;
+                    listaRespuestasLocal.Add(laRespuesta);
+                    index++;
+                }
+            }
 
-				laRespuesta = new miRespuesta();
-				enumRespCualitativa cant5 = (enumRespCualitativa)5;
-				laRespuesta.respuesta = cant5.ToString().Replace("_", " ");
-				laRespuesta.cantidad = respuesta.cant5;
-				listaRespuestasLocal.Add(laRespuesta);
-			}
-			else
-			{
-				if (respuesta.idEscalaPonderacion == 2)
-				{
-					enumRespCuantitativa cant1 = (enumRespCuantitativa)1;
-					laRespuesta.respuesta = cant1.ToString().Replace("_", " ");
-					laRespuesta.cantidad = respuesta.cant1;
-					listaRespuestasLocal.Add(laRespuesta);
-
-					laRespuesta = new miRespuesta();
-					enumRespCuantitativa cant2 = (enumRespCuantitativa)2;
-					laRespuesta.respuesta = cant2.ToString().Replace("_", " ");
-					laRespuesta.cantidad = respuesta.cant2;
-					listaRespuestasLocal.Add(laRespuesta);
-
-					laRespuesta = new miRespuesta();
-					enumRespCuantitativa cant3 = (enumRespCuantitativa)3;
-					laRespuesta.respuesta = cant3.ToString().Replace("_", " ");
-					laRespuesta.cantidad = respuesta.cant3;
-					listaRespuestasLocal.Add(laRespuesta);
-
-					laRespuesta = new miRespuesta();
-					enumRespCuantitativa cant4 = (enumRespCuantitativa)4;
-					laRespuesta.respuesta = cant4.ToString().Replace("_", " ");
-					laRespuesta.cantidad = respuesta.cant4;
-					listaRespuestasLocal.Add(laRespuesta);
-
-					laRespuesta = new miRespuesta();
-					enumRespCuantitativa cant5 = (enumRespCuantitativa)5;
-					laRespuesta.respuesta = cant5.ToString().Replace("_", " ");
-					laRespuesta.cantidad = respuesta.cant5;
-					listaRespuestasLocal.Add(laRespuesta);
-				}
-			}
-			return listaRespuestasLocal;
+            return listaRespuestasLocal;			
 		}
 
 		/// <summary>
