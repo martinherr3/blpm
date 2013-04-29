@@ -7,44 +7,38 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <%--<table class="tablaInterna" cellpadding="0" cellspacing="0">
-        <tr>
-            <td style="width: 100%">--%>
-                <div id="divMensajes" runat="server">
-                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
-                        <tr>
-                            <td style="width: 30%">
-                                <p class="ui-widget">
-                                    <asp:Label ID="lblMensajes" Text="Tienes <MENSAJES> <MSJ_STRING> sin leer!!!" runat="server"
-                                        Font-Bold="true" /></p>
-                            </td>
-                            <td style="width: 70%">
-                                <p class="ui-widget">
-                                    <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl="~/Images/mail-new-message.gif"
-                                        OnClick="btnMensaje_Click" /></p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div id="divEncuesta" runat="server">
-                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
-                        <tr>
-                            <td style="width: 50%">
-                                <p class="ui-widget">
-                                    <asp:Label ID="lblEncuestas" Text="Tienes <ENCUESTAS> Encuestas pendiente de responder!!!"
-                                        runat="server" Font-Bold="true" /></p>
-                            </td>
-                            <td style="width: 50%">
-                                <p class="ui-widget">
-                                    <asp:ImageButton ID="btnEncuesta" runat="server" ImageUrl="~/Images/btnEncuesta.png"
-                                        OnClick="btnEncuesta_Click" /></p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-           <%-- </td>
-        </tr>
-    </table>--%>
+    <div id="divMensajes" runat="server">
+        <table width="100%" cellpadding="1" cellspacing="5" border="0">
+            <tr>
+                <td style="width: 30%">
+                    <p class="ui-widget">
+                        <asp:Label ID="lblMensajes" Text="Tienes <MENSAJES> <MSJ_STRING> sin leer!!!" runat="server"
+                            Font-Bold="true" /></p>
+                </td>
+                <td style="width: 70%">
+                    <p class="ui-widget">
+                        <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl="~/Images/mail-new-message.gif"
+                            OnClick="btnMensaje_Click" /></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="divEncuesta" runat="server">
+        <table width="100%" cellpadding="1" cellspacing="5" border="0">
+            <tr>
+                <td style="width: 50%">
+                    <p class="ui-widget">
+                        <asp:Label ID="lblEncuestas" Text="Tienes <ENCUESTAS> Encuestas pendiente de responder!!!"
+                            runat="server" Font-Bold="true" /></p>
+                </td>
+                <td style="width: 50%">
+                    <p class="ui-widget">
+                        <asp:ImageButton ID="btnEncuesta" runat="server" ImageUrl="~/Images/btnEncuesta.png"
+                            OnClick="btnEncuesta_Click" /></p>
+                </td>
+            </tr>
+        </table>
+    </div>
     <div id="divSecciones" runat="server">
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5" style="text-align: center">
             <tr>
@@ -72,7 +66,8 @@
                 </td>
                 <td>
                     <asp:ImageButton ID="btnAdministracion" ImageUrl="~/Images/Home/Administracion.png"
-                        ToolTip="Administración" runat="server" CommandArgument="Administracion" OnClick="btnPopUP_Click"  Visible="false"/>
+                        ToolTip="Administración" runat="server" CommandArgument="Administracion" OnClick="btnPopUP_Click"
+                        Visible="false" />
                 </td>
             </tr>
         </table>
