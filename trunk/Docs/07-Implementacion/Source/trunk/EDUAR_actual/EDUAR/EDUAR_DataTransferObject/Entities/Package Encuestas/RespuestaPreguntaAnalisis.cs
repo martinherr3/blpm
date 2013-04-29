@@ -15,7 +15,7 @@ namespace EDUAR_Entities
         public decimal relevancia { get; set; }
         public string cadenaSeleccion { get; set; }
 
-        public List<int> cantidades { get; set; }
+        public List<ValoresSeleccionados> valoresSeleccionados { get; set; }
         
 		public decimal porcentaje { get; set; }
 		public int respuestasEsperadas { get; set; }
@@ -23,7 +23,7 @@ namespace EDUAR_Entities
 
 		public RespuestaPreguntaAnalisis()
 		{
-            cantidades = new List<int>();
+            valoresSeleccionados = new List<ValoresSeleccionados>();
 		}
 
 		~RespuestaPreguntaAnalisis()
