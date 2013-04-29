@@ -237,10 +237,11 @@ namespace EDUAR_UI.Utilidades
                 if (HttpContext.Current != null)
                 {
                     ImgPath = "~/Images/TMP";
-                    string miruta = HttpContext.Current.Server.MapPath(ImgPath).ToString();
-                    foreach (string item in Directory.GetFiles(miruta, archivo, SearchOption.TopDirectoryOnly))
+                    if (Directory.Exists(HttpContext.Current.Server.MapPath(ImgPath)))
                     {
-                        File.Delete(item);
+                        string miruta = HttpContext.Current.Server.MapPath(ImgPath).ToString();
+                        foreach (string item in Directory.GetFiles(miruta, archivo, SearchOption.TopDirectoryOnly))
+                            File.Delete(item);
                     }
                 }
             }
