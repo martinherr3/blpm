@@ -591,10 +591,10 @@ namespace EDUAR_UI
             if (respuesta.idEscalaPonderacion != 3)
             {
                 int index = 0;
-                foreach (int valor in respuesta.cantidades)
+                foreach (ValoresSeleccionados valores in respuesta.valoresSeleccionados)
                 {
                     laRespuesta.respuesta = valoresEscala[index].nombre;
-                    laRespuesta.cantidad = valor;
+                    laRespuesta.cantidad = valores.cantidad;
                     listaRespuestasLocal.Add(laRespuesta);
                     index++;
                 }
