@@ -48,12 +48,12 @@ namespace Promethee.UserControls
             get
             {
                 decimal limite = 0;
-                decimal.TryParse(txtLimiteIndiferencia.Text, out limite);
+                decimal.TryParse(txtLimiteIndiferencia.Text.Replace('.', ','), out limite);
                 return limite;
             }
             set
             {
-                txtLimiteIndiferencia.Text = value.ToString();
+                txtLimiteIndiferencia.Text = value.ToString("####.00");
             }
         }
 
@@ -68,12 +68,12 @@ namespace Promethee.UserControls
             get
             {
                 decimal limite = 0;
-                decimal.TryParse(txtLimitePreferencia.Text, out limite);
+                decimal.TryParse(txtLimitePreferencia.Text.Replace('.', ','), out limite);
                 return limite;
             }
             set
             {
-                txtLimitePreferencia.Text = value.ToString();
+                txtLimitePreferencia.Text = value.ToString("####.00");
             }
         }
 
@@ -88,12 +88,12 @@ namespace Promethee.UserControls
             get
             {
                 decimal limite = 0;
-                decimal.TryParse(txtLimiteSigma.Text, out limite);
+                decimal.TryParse(txtLimiteSigma.Text.Replace('.', ','), out limite);
                 return limite;
             }
             set
             {
-                txtLimiteSigma.Text = value.ToString();
+                txtLimiteSigma.Text = value.ToString("####.00");
             }
         }
 
@@ -114,7 +114,7 @@ namespace Promethee.UserControls
             set
             {
                 //pesoCriterio = value;
-                txtPeso.Text = value.ToString();
+                txtPeso.Text = value.ToString("####.00");
             }
         }
 

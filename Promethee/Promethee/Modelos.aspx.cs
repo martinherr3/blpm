@@ -409,6 +409,10 @@ namespace Promethee
                 //string FileExtension = Path.GetExtension(AsyncFileUpload1.PostedFile.FileName).Substring(1);
 
                 string FileName = Guid.NewGuid().ToString() + "." + FileExtension;
+                
+                //Crea el directorio.
+                if (!System.IO.Directory.Exists(HttpContext.Current.Server.MapPath("~/Files/")))
+                    System.IO.Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/Files/"));
 
                 fuCargarArchivo.SaveAs(MapPath("~/Files/" + FileName));
                 //AsyncFileUpload1.SaveAs(MapPath("~/Files/" + FileName));
@@ -575,7 +579,10 @@ namespace Promethee
                     }
                 }
                 else
+                {
+                    //CargarGrilla();
                     mpeCriterios.Show();
+                }
             }
             catch (Exception ex)
             {
@@ -707,6 +714,9 @@ namespace Promethee
             nuevoCriterio.nombreCriterio = string.Empty;
             nuevoCriterio.pesoCriterio = 0;
             nuevoCriterio.LimpiarControles();
+            divResultado.Visible = false;
+            divExportacion.Visible = false;
+            imgPodio.Visible = false;
         }
 
         /// <summary>
@@ -765,7 +775,7 @@ namespace Promethee
         {
             listaAlternativa = AlternativasDA.Select(new AlternativaEntity() { idModelo = miModelo.idModelo });
             listaCriterio = CriteriosDA.Select(new CriterioEntity() { idModelo = miModelo.idModelo });
-            listaValores = ModelosDA.SelectValores(idModelo);
+            listaValores = ModelosDA.SelectValores(miModelo.idModelo);
         }
 
         /// <summary>
@@ -1216,6 +1226,11 @@ namespace Promethee
 
             NombrePNG = TmpPath + nombreArchivo;
             string ruta = Request.PhysicalApplicationPath + "Images\\TMP\\" + nombreArchivo;
+
+            //Crea el directorio.
+            if (!System.IO.Directory.Exists(Request.PhysicalApplicationPath + "Images\\TMP\\"))
+                System.IO.Directory.CreateDirectory(Request.PhysicalApplicationPath + "Images\\TMP\\");
+
             //Y finalmente lo guardamos
             objBitmap.Save(NombrePNG, ImageFormat.Png);
 

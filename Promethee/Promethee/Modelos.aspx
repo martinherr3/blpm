@@ -119,6 +119,7 @@
         </ContentTemplate>
         <Triggers>
             <asp:PostBackTrigger ControlID="gvwModelo" />
+            <asp:PostBackTrigger ControlID="btnGuardarCriterio" />
         </Triggers>
     </asp:UpdatePanel>
     <asp:UpdatePanel runat="server" ID="udpModelos" UpdateMode="Conditional">

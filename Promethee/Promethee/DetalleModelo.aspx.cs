@@ -606,7 +606,7 @@ namespace Promethee
         {
             listaAlternativa = AlternativasDA.Select(new AlternativaEntity() { idModelo = miModelo.idModelo });
             listaCriterio = CriteriosDA.Select(new CriterioEntity() { idModelo = miModelo.idModelo });
-            listaValores = ModelosDA.SelectValores(idModelo);
+            listaValores = ModelosDA.SelectValores(miModelo.idModelo);
         }
 
         /// <summary>
