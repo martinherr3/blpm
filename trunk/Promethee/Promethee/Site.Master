@@ -27,6 +27,8 @@
                 <asp:MenuItem NavigateUrl="~/Default2.aspx" Text="El Método" Value="Modelos"></asp:MenuItem>
                 <asp:MenuItem NavigateUrl="~/Modelos.aspx" Text="Mis Modelos" Value="Promethee">
                 </asp:MenuItem>
+                <asp:MenuItem NavigateUrl="~/Manual de Usuario.htm" Target="_blank" Text="Manual de Usuario">
+                </asp:MenuItem>
                 <asp:MenuItem NavigateUrl="~/Usuarios.aspx" Text="Usuarios" Value="Usuarios"></asp:MenuItem>
                 <asp:MenuItem Text="Salir" Value="Salir"></asp:MenuItem>
             </Items>

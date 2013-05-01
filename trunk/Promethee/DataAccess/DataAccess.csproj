@@ -87,6 +87,7 @@
     <Compile Include="Modelo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entity\UsuarioEntity.cs" />
+    <Compile Include="Usuario.cs" />
     <Compile Include="Utility\Promethee.cs" />
     <Compile Include="Utility\Utility.cs" />
   </ItemGroup>
