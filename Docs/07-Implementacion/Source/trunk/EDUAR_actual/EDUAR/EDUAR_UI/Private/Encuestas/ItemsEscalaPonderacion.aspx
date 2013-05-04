@@ -38,7 +38,7 @@
                 OnRowCommand="gvwItemsEscala_RowCommand">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
-                        <HeaderStyle HorizontalAlign="center" Width="5%" />
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarItemEscala" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idValorEscala") %>'
@@ -49,15 +49,26 @@
                             <!--OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> la pregunta seleccionada?', 'Confirmación')"-->
                         </ItemTemplate>
                     </asp:TemplateField>
-
-                                        <asp:TemplateField HeaderText="Orden">
-                        <HeaderStyle HorizontalAlign="center" Width="5%" />
-                        <ItemStyle HorizontalAlign="center" />       
-                        <ItemTemplate>    
-                        <asp:ImageButton ID="subirNivel" runat="server" CommandName="Subir" CommandArgument='<%# Bind("idValorEscala") %>'
-                                ToolTip="Subir un nivel" ImageUrl="~/Images/Grillas/view-sort-descending-2.png"
-                                Visible='<%# Convert.ToInt32(Eval("orden")) > 1 ? true : false%>' />  
-                        </ItemTemplate>   
+                    <asp:TemplateField HeaderText="Posición">
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <ItemStyle HorizontalAlign="center" />
+                        <ItemTemplate>
+                            <table class="tablaInternaSinBorde" border="0" cellpadding="0" cellspacing="0" style="border: none; border-collapse: collapse">
+                                <tr>
+                                    <td style="width: 75%; text-align: center; border: none">
+                                        <asp:ImageButton ID="subirOrden" runat="server" CommandName="Subir" CommandArgument='<%# Bind("idValorEscala") %>'
+                                            ToolTip="Subir un nivel" ImageUrl="~/Images/Grillas/view-sort-descending-2.png"
+                                            Visible='<%# Convert.ToInt32(Eval("orden")) > 1 ? true : false %>' />
+                                        <asp:ImageButton ID="bajarOrden" runat="server" CommandName="Bajar" CommandArgument='<%# Bind("idValorEscala") %>'
+                                            ToolTip="Bajar un nivel" ImageUrl="~/Images/Grillas/view-sort-ascending-2.png"
+                                            Visible='<%# Convert.ToInt32(Eval("orden")) < Convert.ToInt32(Eval("cantidadValores")) ? true : false %>' />
+                                    </td>
+                                    <td style="width: 25%; text-align: center; border: none">
+                                        <asp:Label ID="lblOrden" runat="server" Text='<%# Bind("orden")%>' Font-Bold="true" ToolTip="Posicion"></asp:Label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ItemTemplate>
                     </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="Nombre">
@@ -69,7 +80,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Descripción">
-                        <HeaderStyle HorizontalAlign="left" Width="25%" />
+                        <HeaderStyle HorizontalAlign="left" Width="50%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblDescripcion" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "descripcion").ToString())%>'
