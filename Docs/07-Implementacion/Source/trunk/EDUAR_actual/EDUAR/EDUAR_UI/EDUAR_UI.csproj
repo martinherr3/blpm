@@ -173,6 +173,8 @@
     <Content Include="Images\Grillas\mail-mark-read-2.png" />
     <Content Include="Images\Grillas\mail-reply-2.png" />
     <Content Include="Images\Grillas\ver_conversacion.png" />
+    <Content Include="Images\Grillas\view-sort-ascending-2.png" />
+    <Content Include="Images\Grillas\view-sort-descending-2.png" />
     <Content Include="Images\help.png" />
     <Content Include="Images\Home\Administracion.png" />
     <Content Include="Images\Home\Comunicacion.png" />
