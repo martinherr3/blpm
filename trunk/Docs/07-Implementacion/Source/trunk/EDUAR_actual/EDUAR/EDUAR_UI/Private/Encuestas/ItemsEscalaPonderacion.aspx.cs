@@ -295,6 +295,11 @@ namespace EDUAR_UI
                         CargarLista(escalaMedicionSesion);
                         CargarGrilla();
                         break;
+                    case "Bajar":
+                        BajarUnNivel(Convert.ToInt32(e.CommandArgument.ToString()));
+                        CargarLista(escalaMedicionSesion);
+                        CargarGrilla();
+                        break;
 				}
 			}
 			catch (Exception ex)
@@ -305,13 +310,26 @@ namespace EDUAR_UI
 
         private void SubirUnNivel(int idSeleccionado)
         {
-            //Debo obtener la instancia completa, especialmente el orden, así puedo determinar la que debo bajarle el orden
-            //Constraint 1: No se ejecuta si el orden es 1, de hecho no debería mostrarse
             ValorEscalaMedicion valorEscalaUp = listaValoresEscala.Find(c => c.idValorEscala == idSeleccionado);
-            ValorEscalaMedicion valorEscalaDown = listaValoresEscala.Find(c => c.orden == valorEscalaUp.orden -1);
+            ValorEscalaMedicion valorEscalaDown = listaValoresEscala.Find(c => c.orden == valorEscalaUp.orden - 1);
 
             valorEscalaDown.orden = valorEscalaUp.orden;
             valorEscalaUp.orden = valorEscalaUp.orden - 1;
+
+            BLValorEscala objBLValorEscalaDown = new BLValorEscala(valorEscalaDown);
+            BLValorEscala objBLValorEscalaUp = new BLValorEscala(valorEscalaUp);
+
+            objBLValorEscalaDown.Save();
+            objBLValorEscalaUp.Save();
+        }
+
+        private void BajarUnNivel(int idSeleccionado)
+        {
+            ValorEscalaMedicion valorEscalaDown = listaValoresEscala.Find(c => c.idValorEscala == idSeleccionado);
+            ValorEscalaMedicion valorEscalaUp = listaValoresEscala.Find(c => c.orden == valorEscalaDown.orden + 1);
+
+            valorEscalaDown.orden = valorEscalaUp.orden;
+            valorEscalaUp.orden = valorEscalaDown.orden - 1;
 
             BLValorEscala objBLValorEscalaDown = new BLValorEscala(valorEscalaDown);
             BLValorEscala objBLValorEscalaUp = new BLValorEscala(valorEscalaUp);
