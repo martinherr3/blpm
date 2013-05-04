@@ -160,7 +160,7 @@ namespace EDUAR_DataAccess.Encuestas
                 {
                     objEscala = new EscalaMedicion();
 
-                    objEscala.idEscala = Convert.ToInt32(reader["idEscala"]);
+                    objEscala.idEscala = Convert.ToInt32(reader["idEscalaPonderacion"]);
                     objEscala.nombre = reader["nombre"].ToString();
                     objEscala.descripcion = reader["descripcion"].ToString();
 
