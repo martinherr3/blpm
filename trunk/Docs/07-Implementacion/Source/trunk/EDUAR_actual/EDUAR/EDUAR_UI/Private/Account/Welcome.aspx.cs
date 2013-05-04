@@ -149,7 +149,7 @@ namespace EDUAR_UI
                 {
                     //Cargo en sesión los datos del usuario logueado
                     DTSeguridad propSeguridad = new DTSeguridad();
-                    propSeguridad.Usuario.Nombre = User.Identity.Name;
+                    propSeguridad.Usuario.Nombre = User.Identity.Name.Trim().ToLower();
                     objBLSeguridad = new BLSeguridad(propSeguridad);
                     objBLSeguridad.GetUsuario();
                     ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
@@ -183,9 +183,7 @@ namespace EDUAR_UI
                         ddlAlumnos.Items.Clear();
                         ddlAlumnos.DataSource = null;
                         foreach (AlumnoCursoCicloLectivo item in listaAlumnos)
-                        {
                             ddlAlumnos.Items.Insert(ddlAlumnos.Items.Count, new ListItem(item.alumno.apellido + " " + item.alumno.nombre, item.alumno.idAlumno.ToString()));
-                        }
                         UIUtilidades.SortByText(ddlAlumnos);
                         ddlAlumnos.Items.Insert(0, new ListItem("[Seleccione]", "-1"));
                         ddlAlumnos.SelectedValue = "-1";
@@ -193,6 +191,7 @@ namespace EDUAR_UI
                     if (User.IsInRole(enumRoles.Administrador.ToString()))
                     {
                         btnAdministracion.Visible = true;
+                        lnkAdministracion.Visible = true;
                     }
                     fechas.startDate = cicloLectivoActual.fechaInicio;
                     fechas.endDate = cicloLectivoActual.fechaFin;
@@ -379,7 +378,12 @@ namespace EDUAR_UI
         {
             try
             {
-                switch (((ImageButton)sender).CommandArgument)
+                string command = string.Empty;
+                if (sender is ImageButton)
+                    command = ((ImageButton)sender).CommandArgument;
+                if(sender is LinkButton)
+                    command = ((LinkButton)sender).CommandArgument;
+                switch (command)
                 {
                     case "Cursos":
                         dtlCursos.DataSource = listaCursos;
@@ -423,7 +427,12 @@ namespace EDUAR_UI
         {
             try
             {
-                switch (((ImageButton)sender).CommandArgument)
+                string command = string.Empty;
+                if (sender is ImageButton)
+                    command = ((ImageButton)sender).CommandArgument;
+                if (sender is LinkButton)
+                    command = ((LinkButton)sender).CommandArgument;
+                switch (command)
                 {
                     case "Categorias":
                         Response.Redirect("~/Private/Encuestas/ManageCategoriasPregunta.aspx", false);

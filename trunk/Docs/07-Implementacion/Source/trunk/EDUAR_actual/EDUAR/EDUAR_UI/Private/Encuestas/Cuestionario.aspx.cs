@@ -17,7 +17,6 @@ namespace EDUAR_UI
         BLEncuesta objBLEncuesta;
         BLPregunta objBLPregunta;
         BLEncuestaDisponible objBLEncuestaDisponible;
-        BLEscala objBLEscala;
         #endregion
 
         #region --[Propiedades]--

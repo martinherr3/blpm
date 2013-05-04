@@ -194,7 +194,7 @@ namespace EDUAR_UI
                     objBLSeguridad.CambiarPassword();
                     HttpContext.Current.SkipAuthorization = true;
                     AccionPagina = enumAcciones.Salir;
-                    FormsAuthentication.SetAuthCookie(objBLSeguridad.Data.Usuario.Nombre, false);
+                    FormsAuthentication.SetAuthCookie(objBLSeguridad.Data.Usuario.Nombre.Trim().ToLower(), false);
 
                     Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeNuevoPassword, enumTipoVentanaInformacion.Satisfactorio);
                 }

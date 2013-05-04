@@ -60,7 +60,7 @@ namespace EDUAR_UI
                     BLSeguridad objBLSeguridad = new BLSeguridad(propSeguridad);
                     if (Request.Params["const"] != null)
                     {
-                        string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString().Replace(' ', '+'));
+                        string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString().Replace(' ', '+')).Trim().ToLower();
                         ObjSessionDataUI.ObjDTUsuario.Nombre = user;
                         // Provisoriamnente lo guardo en una variale de sesion userName porque el Page_Load de la Master me borra si HTTP.context es igual a null
                         Session["userName"] = user;
@@ -185,11 +185,12 @@ namespace EDUAR_UI
             try
             {
                 Session.Abandon();
+                LoginUser.UserName = LoginUser.UserName.Trim().ToLower();
                 DTSeguridad objDTSeguridad = new DTSeguridad
                 {
                     Usuario =
                     {
-                        Nombre = LoginUser.UserName.Trim(),
+                        Nombre = LoginUser.UserName.Trim().ToLower(),
                         Password = BLEncriptacion.Encrypt(LoginUser.Password.Trim())
                     }
                 };
@@ -202,7 +203,7 @@ namespace EDUAR_UI
                     e.Authenticated = true;
                     FormsAuthentication.SignOut();
                     FormsAuthentication.Initialize();
-                    FormsAuthentication.SetAuthCookie(LoginUser.UserName.Trim(), false);
+                    FormsAuthentication.SetAuthCookie(LoginUser.UserName.Trim().ToLower(), false);
                     ObjSessionDataUI.ObjDTUsuario = objDTSeguridad.Usuario;
                     UIUtilidades.EliminarArchivosSession(Session.SessionID);
 

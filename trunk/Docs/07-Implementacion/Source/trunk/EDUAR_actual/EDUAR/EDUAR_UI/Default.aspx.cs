@@ -66,7 +66,7 @@ namespace EDUAR_UI
 					objBLSeguridad = new BLSeguridad(propSeguridad);
 					if (Request.Params["const"] != null)
 					{
-						string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString());
+						string user = BLEncriptacion.Decrypt(Request.Params["const"].ToString()).Trim().ToLower();
 						ObjSessionDataUI.ObjDTUsuario.EsUsuarioInicial = true;
 						ObjSessionDataUI.ObjDTUsuario.Nombre = user;
 						propSeguridad.Usuario.Nombre = user;
