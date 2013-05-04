@@ -42,12 +42,22 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarItemEscala" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idValorEscala") %>'
-                                ToolTip="Editar Pregunta" ImageUrl="~/Images/Grillas/action_edit.png" Visible='true' />
+                                ToolTip="Editar valor escala" ImageUrl="~/Images/Grillas/action_edit.png" Visible='true' />
                             <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
-                                AlternateText="Eliminar" ToolTip="Eliminar Item" CommandName="Eliminar" CommandArgument='<%# Bind("idValorEscala") %>' 
-                                Visible='<%# Bind("eliminable") %>'/>
+                                AlternateText="Eliminar" ToolTip="Eliminar Item" CommandName="Eliminar" CommandArgument='<%# Bind("idValorEscala") %>'
+                                Visible='<%# Bind("eliminable") %>' />
                             <!--OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> la pregunta seleccionada?', 'Confirmación')"-->
                         </ItemTemplate>
+                    </asp:TemplateField>
+
+                                        <asp:TemplateField HeaderText="Orden">
+                        <HeaderStyle HorizontalAlign="center" Width="5%" />
+                        <ItemStyle HorizontalAlign="center" />       
+                        <ItemTemplate>    
+                        <asp:ImageButton ID="subirNivel" runat="server" CommandName="Subir" CommandArgument='<%# Bind("idValorEscala") %>'
+                                ToolTip="Subir un nivel" ImageUrl="~/Images/Grillas/view-sort-descending-2.png"
+                                Visible='<%# Convert.ToInt32(Eval("orden")) > 1 ? true : false%>' />  
+                        </ItemTemplate>   
                     </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="Nombre">
@@ -66,7 +76,6 @@
                                 ToolTip='<%# Bind("descripcion") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                 </Columns>
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
@@ -87,14 +96,13 @@
                             </td>
                         </tr>
                     </table>
-
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD25">
                                 <asp:Label runat="server" ID="lblTNombreEdit" Text="Nombre:"></asp:Label>
                             </td>
                             <td class="TD75" colspan="3">
-                                <asp:TextBox runat="server" ID="txtNombreEdit" Width="500px" ></asp:TextBox>
+                                <asp:TextBox runat="server" ID="txtNombreEdit" Width="500px"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>

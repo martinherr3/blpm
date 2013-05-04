@@ -89,6 +89,7 @@ namespace EDUAR_DataAccess.Encuestas
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEscalaPonderacion", DbType.Int32, entidad.idEscalaMedicion);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@orden", DbType.Int32, entidad.orden);
 
                 if (Transaction.Transaction != null)
                     Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -167,6 +168,7 @@ namespace EDUAR_DataAccess.Encuestas
                     objValorEscala.nombre = reader["nombre"].ToString();
                     objValorEscala.descripcion = reader["descripcion"].ToString();
                     objValorEscala.idEscalaMedicion = Convert.ToInt32(reader["idEscalaPonderacion"]);
+                    objValorEscala.orden = Convert.ToInt32(reader["orden"]);
 
                     objValorEscala.eliminable = Convert.ToInt32(reader["cantidadEncuestas"]) == 0;
 

@@ -290,6 +290,11 @@ namespace EDUAR_UI
 						Master.MostrarMensaje("Eliminar Pregunta", "¿Desea <b>eliminar</b> el item seleccionado?", enumTipoVentanaInformacion.Confirmación);
                         BuscarValoresEscala(propFiltroValorEscala);
                         break;
+                    case "Subir":
+                        SubirUnNivel(Convert.ToInt32(e.CommandArgument.ToString()));
+                        CargarLista(escalaMedicionSesion);
+                        CargarGrilla();
+                        break;
 				}
 			}
 			catch (Exception ex)
@@ -297,6 +302,23 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+        private void SubirUnNivel(int idSeleccionado)
+        {
+            //Debo obtener la instancia completa, especialmente el orden, así puedo determinar la que debo bajarle el orden
+            //Constraint 1: No se ejecuta si el orden es 1, de hecho no debería mostrarse
+            ValorEscalaMedicion valorEscalaUp = listaValoresEscala.Find(c => c.idValorEscala == idSeleccionado);
+            ValorEscalaMedicion valorEscalaDown = listaValoresEscala.Find(c => c.orden == valorEscalaUp.orden -1);
+
+            valorEscalaDown.orden = valorEscalaUp.orden;
+            valorEscalaUp.orden = valorEscalaUp.orden - 1;
+
+            BLValorEscala objBLValorEscalaDown = new BLValorEscala(valorEscalaDown);
+            BLValorEscala objBLValorEscalaUp = new BLValorEscala(valorEscalaUp);
+
+            objBLValorEscalaDown.Save();
+            objBLValorEscalaUp.Save();
+        }
 
 		/// <summary>
 		/// Handles the PageIndexChanging event of the gvwEncuesta control.
@@ -326,7 +348,7 @@ namespace EDUAR_UI
 		/// <param name="lista">The lista.</param>
 		private void CargarGrilla()
 		{
-			gvwItemsEscala.DataSource = UIUtilidades.BuildDataTable<ValorEscalaMedicion>(listaValoresEscala).DefaultView;
+			gvwItemsEscala.DataSource = listaValoresEscala;
 			gvwItemsEscala.DataBind();
 			udpEdit.Visible = false;
 			udpGrilla.Update();
