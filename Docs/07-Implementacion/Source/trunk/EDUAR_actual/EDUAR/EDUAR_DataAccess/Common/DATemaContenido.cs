@@ -317,7 +317,7 @@ namespace EDUAR_DataAccess.Common
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle);
                     if (entidad.idContenido > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idContenido", DbType.Int32, entidad.idContenido);
-                    if (entidad.activo != null)
+                    if (entidad.activo)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 
                 }

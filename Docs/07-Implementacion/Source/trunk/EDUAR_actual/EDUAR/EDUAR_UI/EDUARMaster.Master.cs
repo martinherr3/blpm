@@ -107,7 +107,7 @@ namespace EDUAR_UI
                     if (HttpContext.Current.User != null)
                     {
                         DTSeguridad propSeguridad = new DTSeguridad();
-                        propSeguridad.Usuario.Nombre = HttpContext.Current.User.Identity.Name;
+                        propSeguridad.Usuario.Nombre = HttpContext.Current.User.Identity.Name.Trim().ToLower();
                         BLSeguridad objBLSeguridad = new BLSeguridad(propSeguridad);
                         objBLSeguridad.GetUsuario();
                         if (objBLSeguridad.Data.Usuario != null)
@@ -502,7 +502,7 @@ namespace EDUAR_UI
             //bool booResult = PageContext.CurrentMembership.ValidateUser(txtUserName.Text.Trim(), txtPassword.Text.Trim());
 
             //FormsAuthentication.SetAuthCookie("2;1;Administrator", true);
-            FormsAuthentication.SetAuthCookie(Context.User.Identity.Name, false);
+            FormsAuthentication.SetAuthCookie(Context.User.Identity.Name.Trim().ToLower(), false);
 
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, Context.User.Identity.Name, DateTime.Now, DateTime.Now.AddMinutes(30), false, "", "/");
             string strEncTicket = FormsAuthentication.Encrypt(ticket);

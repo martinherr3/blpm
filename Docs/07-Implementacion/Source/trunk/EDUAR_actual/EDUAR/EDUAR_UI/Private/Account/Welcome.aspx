@@ -43,28 +43,41 @@
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5" style="text-align: center">
             <tr>
                 <td>
+                    <asp:LinkButton ID="lnkCursos" Text="Cursos" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Cursos" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnCursos" ImageUrl="~/Images/Home/Cursos.png" ToolTip="Cursos"
                         runat="server" CommandArgument="Cursos" OnClick="btnPopUP_Click" />
                 </td>
                 <td>
+                    <asp:LinkButton ID="lnkEncuestas" Text="Encuestas" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Encuestas" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnEncuestas" ImageUrl="~/Images/Home/Encuestas.png" ToolTip="Encuestas"
                         runat="server" CommandArgument="Encuestas" OnClick="btnPopUP_Click" />
                 </td>
                 <td>
+                    <asp:LinkButton ID="lnkReportes" Text="Reportes" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Reportes" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnReportes" ImageUrl="~/Images/Home/Reportes.png" ToolTip="Reportes"
                         runat="server" CommandArgument="Reportes" OnClick="btnPopUP_Click" />
                 </td>
             </tr>
             <tr>
                 <td>
+                    <asp:LinkButton ID="lnkContenidos" Text="Contenidos" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Contenidos" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnContenidos" ImageUrl="~/Images/Home/Contenidos.png" ToolTip="Contenidos"
                         runat="server" CommandArgument="Contenidos" OnClick="btnPopUP_Click" />
                 </td>
                 <td>
+                    <asp:LinkButton ID="lnkComunicaci0n" Text="Comunicación" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Comunicacion" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnComunicacion" ImageUrl="~/Images/Home/Comunicacion.png" ToolTip="Comunicación"
                         runat="server" CommandArgument="Comunicacion" OnClick="btnPopUP_Click" />
                 </td>
                 <td>
+                    <asp:LinkButton ID="lnkAdministracion" Text="Administración" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Administracion" OnClick="btnPopUP_Click" Style="text-align: center"
+                        Visible="false" />
                     <asp:ImageButton ID="btnAdministracion" ImageUrl="~/Images/Home/Administracion.png"
                         ToolTip="Administración" runat="server" CommandArgument="Administracion" OnClick="btnPopUP_Click"
                         Visible="false" />
@@ -84,7 +97,7 @@
             <tr>
                 <td valign="top">
                     <h2>
-                        <asp:Label ID="lblTituloPrincipal" Text="Cursos del Ciclo Lectivo Actual" runat="server" /></h2>
+                        <asp:Label ID="lblTituloPrincipal" Text="Cursos - Ciclo Lectivo Actual" runat="server" /></h2>
                 </td>
                 <td align="right">
                     <asp:ImageButton ID="btnCerrarCursos" OnClick="btnCerrarPopup_Click" ImageUrl="~/Images/PopUp/botonCerrar.png"
@@ -105,8 +118,6 @@
                                 </ItemTemplate>
                             </asp:DataList>
                         </ContentTemplate>
-                        <Triggers>
-                        </Triggers>
                     </asp:UpdatePanel>
                 </td>
             </tr>
@@ -118,13 +129,13 @@
         TargetControlID="HiddenField2" RepositionMode="RepositionOnWindowResizeAndScroll"
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlEncuestas">
     </ajaxToolkit:ModalPopupExtender>
-    <asp:Panel ID="pnlEncuestas" runat="server" Width="500px" Height="250px" Style="display: none;
+    <asp:Panel ID="pnlEncuestas" runat="server" Width="350px" Height="190px" Style="display: none;
         text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+        <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
-                <td valign="top">
+                <td>
                     <h2>
-                        <asp:Label ID="Label1" Text="Encuestas" runat="server" /></h2>
+                        <asp:Label ID="lblTitulo" Text="Encuestas" runat="server" /></h2>
                 </td>
                 <td align="right">
                     <asp:ImageButton ID="btnCerrarEncuestas" OnClick="btnCerrarPopup_Click" ImageUrl="~/Images/PopUp/botonCerrar.png"
@@ -134,15 +145,21 @@
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkVerCategorias" Text="Categorías" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Categorias" OnClick="btnRedireccion_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnVerCategorias" ImageUrl="~/Images/Home/VerCategorias.png"
                         ToolTip="Categorías" runat="server" CommandArgument="Categorias" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkVerEncuestas" Text="Encuestas" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Encuestas" OnClick="btnRedireccion_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnVerEncuestas" ImageUrl="~/Images/Home/VerEncuestas.png" ToolTip="Encuestas"
                         runat="server" CommandArgument="Encuestas" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkEscalas" Text="Escalas" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Escalas" OnClick="btnRedireccion_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnEscalas" ImageUrl="~/Images/Home/VerEscalas.png" ToolTip="Escalas de Ponderación"
                         runat="server" CommandArgument="Escalas" OnClick="btnRedireccion_Click" />
                 </td>
@@ -155,11 +172,11 @@
         TargetControlID="HiddenField3" RepositionMode="RepositionOnWindowResizeAndScroll"
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlReportes">
     </ajaxToolkit:ModalPopupExtender>
-    <asp:Panel ID="pnlReportes" runat="server" Width="500px" Height="450px" Style="display: none;
+    <asp:Panel ID="pnlReportes" runat="server" Width="350px" Height="350px" Style="display: none;
         text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+        <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
-                <td valign="top">
+                <td>
                     <h2>
                         <asp:Label ID="Label2" Text="Reportes" runat="server" /></h2>
                 </td>
@@ -171,23 +188,29 @@
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkCalificaciones" Text="Calificaciones" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Calificaciones" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnCalificaciones" ImageUrl="~/Images/Home/VerCalificaciones.png"
                         ToolTip="Calificaciones" runat="server" CommandArgument="Calificaciones" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkInasistencias" Text="Inasistencias" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Inasistencias" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnInasistencias" ImageUrl="~/Images/Home/VerInasistencia.png"
                         ToolTip="Inasistencias" runat="server" CommandArgument="Inasistencias" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkSanciones" Text="Sanciones" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Sanciones" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnSanciones" ImageUrl="~/Images/Home/VerSanciones.png" ToolTip="Sanciones"
                         runat="server" CommandArgument="Sanciones" OnClick="btnRedireccion_Click" />
                 </td>
             </tr>
         </table>
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+        <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
-                <td valign="top">
+                <td>
                     <h2>
                         <asp:Label ID="Label3" Text="Consolidados" runat="server" /></h2>
                 </td>
@@ -195,15 +218,21 @@
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkConsolidado" Text="Consolidado" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Consolidado" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnConsolidado" ImageUrl="~/Images/Home/VerConsolidado.png"
                         ToolTip="Consolidado" runat="server" CommandArgument="Consolidado" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkIndicadores" Text="Indicadores" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Indicadores" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnIndicadores" ImageUrl="~/Images/Home/VerIndicadores.png"
                         ToolTip="Indicadores" runat="server" CommandArgument="Indicadores" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkHistorico" Text="Histórico" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Historico" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnHistorico" ImageUrl="~/Images/Home/VerHistorico.png" ToolTip="Histórico"
                         runat="server" CommandArgument="Historico" OnClick="btnRedireccion_Click" />
                 </td>
@@ -216,11 +245,11 @@
         TargetControlID="HiddenField4" RepositionMode="RepositionOnWindowResizeAndScroll"
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
     </ajaxToolkit:ModalPopupExtender>
-    <asp:Panel ID="pnlContenidos" runat="server" Width="500px" Height="250px" Style="display: none;
+    <asp:Panel ID="pnlContenidos" runat="server" Width="350px" Height="190px" Style="display: none;
         text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+        <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
-                <td valign="top">
+                <td>
                     <h2>
                         <asp:Label ID="Label4" Text="Contenidos y Planificacion" runat="server" /></h2>
                 </td>
@@ -232,16 +261,22 @@
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkVerCurricula" Text="Contenidos" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Contenidos" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnVerCurricula" ImageUrl="~/Images/Home/VerContenidos.png"
                         ToolTip="Contenidos Curriculares" runat="server" CommandArgument="Contenidos"
                         OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkPlanificacion" Text="Planificacion" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Planificacion" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnPlanificacion" ImageUrl="~/Images/Home/VerPlanificacion.png"
                         ToolTip="Planificacion" runat="server" CommandArgument="Planificacion" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkAprobarPlanificacion" Text="Aprobaciones" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Aprobar" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnAprobarPlanificacion" ImageUrl="~/Images/Home/VerAprobaciones.png"
                         ToolTip="Aprobar Planificaciones" runat="server" CommandArgument="Aprobar" OnClick="btnRedireccion_Click" />
                 </td>
@@ -254,11 +289,11 @@
         TargetControlID="HiddenField5" RepositionMode="RepositionOnWindowResizeAndScroll"
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlComunicacion">
     </ajaxToolkit:ModalPopupExtender>
-    <asp:Panel ID="pnlComunicacion" runat="server" Width="500px" Height="250px" Style="display: none;
+    <asp:Panel ID="pnlComunicacion" runat="server" Width="350px" Height="190px" Style="display: none;
         text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+        <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
-                <td valign="top">
+                <td>
                     <h2>
                         <asp:Label ID="Label5" Text="Comunicación" runat="server" /></h2>
                 </td>
@@ -270,15 +305,21 @@
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkMensajes" Text="Mensajes" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Mensajes" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnMensajes" ImageUrl="~/Images/Home/VerMensajes.png" ToolTip="Mensajes"
                         runat="server" CommandArgument="Mensajes" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkCitaciones" Text="Citaciones" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Citaciones" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnCitaciones" ImageUrl="~/Images/Home/VerCitaciones.png" ToolTip="Citaciones"
                         runat="server" CommandArgument="Citaciones" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkNovedades" Text="Novedades" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Novedades" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnNovedades" ImageUrl="~/Images/Home/VerNovedades.png" ToolTip="Novedades Institucionales"
                         runat="server" CommandArgument="Novedades" OnClick="btnRedireccion_Click" />
                 </td>
@@ -291,11 +332,11 @@
         TargetControlID="HiddenField6" RepositionMode="RepositionOnWindowResizeAndScroll"
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlAdministracion">
     </ajaxToolkit:ModalPopupExtender>
-    <asp:Panel ID="pnlAdministracion" runat="server" Width="500px" Height="250px" Style="display: none;
+    <asp:Panel ID="pnlAdministracion" runat="server" Width="350px" Height="190px" Style="display: none;
         text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+        <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
-                <td valign="top">
+                <td>
                     <h2>
                         <asp:Label ID="Label6" Text="Administración" runat="server" /></h2>
                 </td>
@@ -307,11 +348,15 @@
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5" style="text-align: center">
             <tr>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkVerUsuarios" Text="Usuarios" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Usuarios" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnVerUsuarios" ImageUrl="~/Images/Home/VerUsuarios.png" ToolTip="Usuarios"
                         runat="server" CommandArgument="Usuarios" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkVerConfigIndicadores" Text="Indicadores" runat="server" CssClass="loginDisplay"
+                        CommandArgument="ConfigIndicadores" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnVerConfigIndicadores" ImageUrl="~/Images/Home/VerConfigIndicadores.png"
                         ToolTip="Configuración Indicadores" runat="server" CommandArgument="ConfigIndicadores"
                         OnClick="btnRedireccion_Click" />

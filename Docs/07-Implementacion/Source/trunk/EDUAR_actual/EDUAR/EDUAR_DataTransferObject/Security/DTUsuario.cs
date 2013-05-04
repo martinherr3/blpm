@@ -14,11 +14,11 @@ namespace EDUAR_Entities.Security
         /// </summary>
         public DTUsuario(string nombre, string password)
         {
-             Nombre = nombre;
-             Password = password;
-             ListaRoles = new List<DTRol>();
+            Nombre = nombre;
+            Password = password;
+            ListaRoles = new List<DTRol>();
         }
-        
+
         /// <summary>
         /// Constructor sin parametros.
         /// </summary>
@@ -77,7 +77,7 @@ namespace EDUAR_Entities.Security
         /// Indica si el usuario fue validado para entrar en la aplicacion.
         /// </summary>
         [DataMember]
-        public Boolean UsuarioValido{ get; set; }
+        public Boolean UsuarioValido { get; set; }
 
         /// <summary>
         /// Indica si el usuario es la primera vez que accede a la aplicacion y no cambio el password.
@@ -89,7 +89,7 @@ namespace EDUAR_Entities.Security
         /// Lista con los Roles de usuario. 
         /// </summary>
         [DataMember]
-        public List<DTRol>ListaRoles { get; set; }
+        public List<DTRol> ListaRoles { get; set; }
 
         /// <summary>
         /// 
@@ -102,7 +102,7 @@ namespace EDUAR_Entities.Security
         /// </summary>
         [DataMember]
         public Boolean Aprobado { get; set; }
-        
+
         #endregion
     }
 }
