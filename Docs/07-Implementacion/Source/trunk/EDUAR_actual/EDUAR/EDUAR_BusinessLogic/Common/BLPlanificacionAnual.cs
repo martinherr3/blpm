@@ -378,6 +378,11 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
+        /// <summary>
+        /// Calculars the Cobertura Planificado vs Programado.
+        /// </summary>
+        /// <param name="idPlanificacionAnual">The id planificacion anual.</param>
+        /// <exception cref="CustomizedException"></exception>
         public void calcularCobertura(List<PlanificacionAnual> listaPlanificaciones)
         {
             BLContenido contenidoBL = new BLContenido();

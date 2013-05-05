@@ -70,10 +70,10 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Gets or sets the lista agenda.
+        /// Gets or sets the lista planificaciones.
         /// </summary>
         /// <value>
-        /// The lista agenda.
+        /// The lista planificaciones.
         /// </value>
         public List<PlanificacionAnual> listaPlanificaciones
         {
@@ -239,7 +239,7 @@ namespace EDUAR_UI
         {
             try
             {
-                
+                //TODO: Fijarne si es necesario utilizar este evento.
             }
             catch (Exception ex)
             {
@@ -371,6 +371,9 @@ namespace EDUAR_UI
             calcularCobertura();
         }
 
+        /// <summary>
+        /// Calcular cobertura de lo programado vs planificado.
+        /// </summary>
         private void calcularCobertura()
         {
             objBLPlanificacion = new BLPlanificacionAnual();
@@ -448,6 +451,9 @@ namespace EDUAR_UI
             BuscarFiltrando();
         }
 
+        /// <summary>
+        /// Editar Planificacion.
+        /// </summary>
         private void editarPlanificacion()
         {
             foreach (PlanificacionAnual unaPlanificacion in listaPlanificaciones)
