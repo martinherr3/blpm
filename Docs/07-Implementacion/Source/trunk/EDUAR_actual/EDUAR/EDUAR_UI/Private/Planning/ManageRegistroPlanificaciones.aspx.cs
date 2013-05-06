@@ -377,7 +377,7 @@ namespace EDUAR_UI
         private void calcularCobertura()
         {
             objBLPlanificacion = new BLPlanificacionAnual();
-            objBLPlanificacion.calcularCobertura(listaPlanificaciones);
+            objBLPlanificacion.CalcularCobertura(listaPlanificaciones);
         }
 
         /// <summary>
