@@ -22,9 +22,9 @@ namespace EDUAR_Entities
         public Persona usuarioBaja { get; set; }
 		public List<TemaContenido> listaContenidos { get; set; }
 
-		public Contenido(int unIdContenido)
+		public Contenido(int unIdCurricula)
 		{
-            idContenido = unIdContenido;
+            idCurricula = unIdCurricula;
             listaContenidos = new List<TemaContenido>();
             usuarioBaja = new Persona();
 		}
