@@ -387,14 +387,11 @@ namespace EDUAR_BusinessLogic.Common
         {
             BLContenido contenidoBL = new BLContenido();
             List<Contenido> ContenidosDeCurricula = new List<Contenido>();
-            //Contenido unContenido = new Contenido();
             decimal temasContenidosCubiertos = 0;
             List<TemaContenido> ListaTemasContenidosCurricula = new List<TemaContenido>();
 
             foreach (PlanificacionAnual unaPlanificacion in listaPlanificaciones)
             {
-                //unContenido.idCurricula = unaPlanificacion.curricula.idCurricula;
-                //ContenidosDeCurricula = contenidoBL.GetCurriculaAsignaturaNivel(unContenido);
                 ContenidosDeCurricula = contenidoBL.GetCurriculaAsignaturaNivel(new Contenido(unaPlanificacion.curricula.idCurricula));
                
                 foreach (Contenido unContenidoCurricula in ContenidosDeCurricula)

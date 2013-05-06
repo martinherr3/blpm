@@ -186,22 +186,7 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<Contenido> GetContenidos(Contenido entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetContenidos(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetContenidos", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+
 
         /// <summary>
         /// Gets the by asignatura ciclo lectivo.
