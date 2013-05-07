@@ -222,8 +222,8 @@ namespace EDUAR_DataAccess.Encuestas
 				{
 					if (entidad.idEncuesta > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
-					if (entidad.usuario.idPersona > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@responsable", DbType.Int32, entidad.usuario.idPersona);
+					//if (entidad.usuario.username. > 0)
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@responsable", DbType.String, entidad.usuario.username);
 					if (entidad.ambito.idAmbitoEncuesta > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAmbito", DbType.Int32, entidad.ambito.idAmbitoEncuesta);
 					if (entidad.activo)
