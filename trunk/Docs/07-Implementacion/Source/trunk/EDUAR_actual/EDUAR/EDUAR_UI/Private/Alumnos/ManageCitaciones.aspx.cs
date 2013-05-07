@@ -134,7 +134,11 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
-					BuscarCitacion(null);
+
+                    Citacion citacion = new Citacion();
+                    citacion.organizador.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+
+					BuscarCitacion(citacion);
 					//Siempre que se acceda a la página debiera existir una agenda
 					//propEvento.idAgendaActividad = propAgenda.idAgendaActividad;
 					//if (propEvento.idAgendaActividad > 0)
@@ -343,9 +347,6 @@ namespace EDUAR_UI
 				//int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
 				//if (idCicloLectivo <= 0)
 				//    ddlCurso.Items.Clear();
-				
-
-
 			}
 			catch (Exception ex)
 			{

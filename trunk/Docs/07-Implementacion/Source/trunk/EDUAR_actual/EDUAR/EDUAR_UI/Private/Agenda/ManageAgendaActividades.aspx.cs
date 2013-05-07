@@ -105,7 +105,10 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				Master.BotonAvisoAceptar += (VentanaAceptar);
+				
+                propAgenda.usuario = ObjSessionDataUI.ObjDTUsuario.Nombre;
+                
+                Master.BotonAvisoAceptar += (VentanaAceptar);
 				novControl.GuardarClick += (Guardar);
 				if (!Page.IsPostBack)
 				{

@@ -232,7 +232,7 @@ namespace EDUAR_DataAccess.Common
 					if (entidad.tutor.idTutor > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTutor", DbType.Int32, entidad.tutor.idTutor);
 					if (!string.IsNullOrEmpty(entidad.organizador.username))
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.organizador.username);
+						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuario", DbType.String, entidad.organizador.username);
                     if (ValidarFechaSQL(entidad.fecha))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
 					if (!string.IsNullOrEmpty(entidad.hora.ToShortTimeString()))

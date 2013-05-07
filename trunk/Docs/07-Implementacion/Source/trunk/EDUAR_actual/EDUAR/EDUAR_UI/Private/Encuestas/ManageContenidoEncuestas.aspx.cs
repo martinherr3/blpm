@@ -195,7 +195,10 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
-					BuscarEncuesta(null);
+
+                    encuestaSesion.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+                    
+					BuscarEncuesta(encuestaSesion);
 
 					if (Request.UrlReferrer.AbsolutePath.Contains("ContenidoEncuestas.aspx"))
 					{
