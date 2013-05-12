@@ -84,6 +84,12 @@ namespace EDUAR_UI.UserControls
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [ver grafico].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [ver grafico]; otherwise, <c>false</c>.
+        /// </value>
         public bool verGrafico
         {
             get
@@ -95,6 +101,12 @@ namespace EDUAR_UI.UserControls
             set { ViewState["verGrafico"] = value; }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [ver boton grafico].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [ver boton grafico]; otherwise, <c>false</c>.
+        /// </value>
         public bool verBotonGrafico
         {
             get
@@ -104,20 +116,6 @@ namespace EDUAR_UI.UserControls
                 return (bool)ViewState["verBotonGrafico"];
             }
             set { ViewState["verBotonGrafico"] = value; }
-        }
-
-        public string orderExpression
-        {
-            get
-            {
-                if (Session["orderExpression"] == null)
-                    orderExpression = "alumno";
-                return Session["orderExpression"].ToString();
-            }
-            set
-            {
-                Session["orderExpression"] = value;
-            }
         }
         #endregion
 
@@ -134,10 +132,10 @@ namespace EDUAR_UI.UserControls
                 btnPDF.Click += (ExportarPDF);
                 btnVolver.Click += (Volver);
                 btnGraficar.Click += (Graficar);
+                btnImprimir.Click += (Imprimir);
                 grafico.CerrarClick += (CerrarGrafico);
                 GrillaReporte.Sorting += (Ordenar);
                 GrillaReporte.PageIndexChanging += (PaginandoGrilla);
-                //gvwReporte.Sorting += (OrdenandoGrilla);
 
                 if (!Page.IsPostBack)
                 {
@@ -147,25 +145,6 @@ namespace EDUAR_UI.UserControls
                     btnGraficar.Visible = false;
                     btnVolver.Visible = false;
                     btnImprimir.Visible = false;
-                }
-
-                if (dtReporte != null && dtReporte.Rows.Count > 0)
-                {
-                    DataTable dtLocal = dtReporte.Copy();
-                    
-                    DataSet ds = new DataSet();
-                    ds.Tables.Add(dtLocal);
-
-                    //// Aqui llenamos nuestro DataSet
-                    DataView dv = ds.Tables[0].DefaultView;
-                    dv = sortDataView(dv, true);
-                    //gridSample.DataSource = dv;
-                    //gridSample.DataBind();
-
-                    GrillaReporte.DataSource = dv;
-                    //GrillaReporte.DataSource = dtReporte.DefaultView;
-                    GrillaReporte.DataBind();
-                    //udpReporte.Update();
                 }
             }
             catch (Exception ex)
@@ -187,6 +166,11 @@ namespace EDUAR_UI.UserControls
             { throw ex; }
         }
 
+        /// <summary>
+        /// Cerrars the grafico.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CerrarGrafico(object sender, EventArgs e)
         {
             OnCerrarGraficoClick(CerrarGraficoClick, e);
@@ -201,6 +185,7 @@ namespace EDUAR_UI.UserControls
         public event VentanaBotonClickHandler ExportarPDFClick;
         public event VentanaBotonClickHandler VolverClick;
         public event VentanaBotonClickHandler GraficarClick;
+        public event VentanaBotonClickHandler ImprimirClick;
         public event VentanaBotonClickHandler CerrarGraficoClick;
         public event PaginarGrillaHandler PaginarGrilla;
         public event OrdenarClickHandler OrdenarClick;
@@ -247,6 +232,25 @@ namespace EDUAR_UI.UserControls
             }
         }
 
+        /// <summary>
+        /// Called when [imprimir click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        public virtual void OnImprimirClick(VentanaBotonClickHandler sender, EventArgs e)
+        {
+            if (sender != null)
+            {
+                //Invoca el delegados
+                sender(this, e);
+            }
+        }
+
+        /// <summary>
+        /// Called when [cerrar grafico click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         public virtual void OnCerrarGraficoClick(VentanaBotonClickHandler sender, EventArgs e)
         {
             if (sender != null)
@@ -270,6 +274,11 @@ namespace EDUAR_UI.UserControls
             }
         }
 
+        /// <summary>
+        /// Called when [ordenar click].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="GridViewSortEventArgs"/> instance containing the event data.</param>
         public virtual void OnOrdenarClick(OrdenarClickHandler sender, GridViewSortEventArgs e)
         {
             if (sender != null)
@@ -293,25 +302,23 @@ namespace EDUAR_UI.UserControls
                 if (lista.Count != 0)
                 {
                     GrillaReporte = UIUtilidades.GenerarGrilla(lista, GrillaReporte);
-                    //GrillaReporte.Sorting += (OrdenandoGrilla);
                     btnVolver.Visible = true;
                     btnPDF.Visible = true;
                     btnGraficar.Visible = verBotonGrafico;
                     btnImprimir.Visible = true;
                     gvwReporte.Visible = true;
-                    //lblSinDatos.Visible = false;
                     CargarGrilla(lista);
                 }
                 else
                 {
                     lblFiltros.Text = string.Empty;
-                    //lblSinDatos.Visible = true;
                     gvwReporte.Visible = false;
                     btnVolver.Visible = true;
                     btnPDF.Visible = false;
                     btnGraficar.Visible = false;
                     btnImprimir.Visible = false;
                 }
+                lblSinDatos.Visible = (!(lista.Count != 0));
                 udpReporte.Update();
             }
             catch (Exception ex)
@@ -343,6 +350,17 @@ namespace EDUAR_UI.UserControls
         }
 
         /// <summary>
+        /// Imprimirs the specified sender.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        void Imprimir(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, GetType(), "Imprimir", "AbrirPopup();", true);
+            OnImprimirClick(ImprimirClick, e);
+        }
+
+        /// <summary>
         /// Graficars the specified sender.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -352,14 +370,17 @@ namespace EDUAR_UI.UserControls
             verGrafico = true;
             graficoReporte.TablaGrafico.Clear();
             OnGraficarClick(GraficarClick, e);
-            //divGrafico.Visible = true;
         }
 
+        /// <summary>
+        /// Ordenars the specified sender.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="GridViewSortEventArgs"/> instance containing the event data.</param>
         void Ordenar(object sender, GridViewSortEventArgs e)
         {
             GridSampleSortExpression = e.SortExpression;
             int pageIndex = GrillaReporte.PageIndex;
-            //GrillaReporte.DataSource = sortDataView(GrillaReporte.DataSource as DataView, false);
             GrillaReporte.DataSource = sortDataView(dtReporte.DefaultView, false);
             GrillaReporte.DataBind();
             GrillaReporte.PageIndex = pageIndex;
@@ -389,7 +410,7 @@ namespace EDUAR_UI.UserControls
             if (lista.Count > 0) lblFiltros.Text = filtrosAplicados.Replace("\n", "<br />");
             else lblFiltros.Text = string.Empty;
             dtReporte = UIUtilidades.BuildDataTable<T>(lista);
-            
+
             //GrillaReporte.DataSource = sortDataView(dtReporte.DefaultView, true);
 
             DataSet ds = new DataSet();
@@ -409,18 +430,34 @@ namespace EDUAR_UI.UserControls
         #endregion
 
         #region --[Ordenamiento]--
+        /// <summary>
+        /// Gets or sets the grid sample sort direction.
+        /// </summary>
+        /// <value>
+        /// The grid sample sort direction.
+        /// </value>
         private string GridSampleSortDirection
         {
             get { return ViewState["SortDirection"] as string ?? "ASC"; }
             set { ViewState["SortDirection"] = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the grid sample sort expression.
+        /// </summary>
+        /// <value>
+        /// The grid sample sort expression.
+        /// </value>
         private string GridSampleSortExpression
         {
-            get { return ViewState["SortExpression"] as string ?? orderExpression; }
+            get { return ViewState["SortExpression"] as string ?? dtReporte.Columns[0].Caption; }
             set { ViewState["SortExpression"] = value; }
         }
 
+        /// <summary>
+        /// Gets the sort direction.
+        /// </summary>
+        /// <returns></returns>
         private string getSortDirection()
         {
             switch (GridSampleSortDirection)
@@ -436,6 +473,11 @@ namespace EDUAR_UI.UserControls
             return GridSampleSortDirection;
         }
 
+        /// <summary>
+        /// Handles the PageIndexChanging event of the GrillaReporte control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridViewPageEventArgs"/> instance containing the event data.</param>
         protected void GrillaReporte_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GrillaReporte.DataSource = sortDataView(dtReporte.DefaultView, true);
@@ -443,6 +485,12 @@ namespace EDUAR_UI.UserControls
             GrillaReporte.DataBind();
         }
 
+        /// <summary>
+        /// Sorts the data view.
+        /// </summary>
+        /// <param name="dataView">The data view.</param>
+        /// <param name="isPageIndexChanging">if set to <c>true</c> [is page index changing].</param>
+        /// <returns></returns>
         protected DataView sortDataView(DataView dataView, bool isPageIndexChanging)
         {
             if (isPageIndexChanging)
@@ -458,16 +506,6 @@ namespace EDUAR_UI.UserControls
                 getSortDirection());
             }
             return dataView;
-        }
-
-        protected void gridView_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            GridSampleSortExpression = e.SortExpression;
-            int pageIndex = GrillaReporte.PageIndex;
-            //GrillaReporte.DataSource = sortDataView(GrillaReporte.DataSource as DataView, false);
-            GrillaReporte.DataSource = sortDataView(dtReporte.DefaultView, false);
-            GrillaReporte.DataBind();
-            GrillaReporte.PageIndex = pageIndex;
         }
         #endregion
     }

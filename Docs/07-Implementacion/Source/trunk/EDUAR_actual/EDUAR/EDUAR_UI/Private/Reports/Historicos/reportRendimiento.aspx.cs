@@ -170,11 +170,12 @@ namespace EDUAR_UI
         {
             try
             {
-                rptCalificaciones.orderExpression = "asignatura";
+                //rptCalificaciones.orderExpression = "asignatura";
                 rptCalificaciones.ExportarPDFClick += (ExportarPDF);
                 rptCalificaciones.VolverClick += (VolverReporte);
                 rptCalificaciones.PaginarGrilla += (PaginarGrilla);
                 rptCalificaciones.CerrarGraficoClick += (CerrarGrafico);
+                rptCalificaciones.ImprimirClick += (CerrarGrafico);
                 Master.BotonAvisoAceptar += (VentanaAceptar);
                 rptCalificaciones.GraficarClick += (btnGraficar);
                 rptCalificaciones.OrdenarClick += (OrdenarGrilla);
