@@ -170,7 +170,6 @@ namespace EDUAR_UI
         {
             try
             {
-                //rptCalificaciones.orderExpression = "asignatura";
                 rptCalificaciones.ExportarPDFClick += (ExportarPDF);
                 rptCalificaciones.VolverClick += (VolverReporte);
                 rptCalificaciones.PaginarGrilla += (PaginarGrilla);
@@ -268,16 +267,6 @@ namespace EDUAR_UI
             { Master.ManageExceptions(ex); }
         }
 
-        protected void CerrarGrafico(object sender, EventArgs e)
-        {
-            try
-            {
-                rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporteRendimiento);
-            }
-            catch (Exception ex)
-            { Master.ManageExceptions(ex); }
-        }
-
         /// <summary>
         /// BTNs the graficar.
         /// </summary>
@@ -314,7 +303,7 @@ namespace EDUAR_UI
 
                                     serie.Add(new RptRendimientoHistorico
                                     {
-                                        promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
+                                        promedio = Math.Round(sumaNotas / listaParcial.Count, 2),
                                         ciclolectivo = itemCiclo.Text
                                     });
                                 }
@@ -352,7 +341,7 @@ namespace EDUAR_UI
                             serie.Add(new RptRendimientoHistorico
                             {
                                 //promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
-                                promedio = Math.Round(item.Promedio, 2).ToString(CultureInfo.InvariantCulture),
+                                promedio = Math.Round(item.Promedio, 2),
                                 asignatura = item.CicloLectivo
                             });
                         }
@@ -397,11 +386,38 @@ namespace EDUAR_UI
             }
         }
 
-        //<summary>
-        //Handles the SelectedIndexChanged event of the ddlNivel control.
-        //</summary>
-        //<param name="sender">The source of the event.</param>
-        //<param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+
+        /// <summary>
+        /// Ordenars the grilla.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="GridViewSortEventArgs"/> instance containing the event data.</param>
+        protected void OrdenarGrilla(object sender, GridViewSortEventArgs e)
+        {
+            if (listaReporteRendimiento != null)
+                rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporteRendimiento);
+        }
+
+        /// <summary>
+        /// Cerrars the grafico.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void CerrarGrafico(object sender, EventArgs e)
+        {
+            try
+            {
+                rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporteRendimiento);
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
+        }
+
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the ddlNivel control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ddlNivel_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -416,11 +432,6 @@ namespace EDUAR_UI
             }
         }
 
-        protected void OrdenarGrilla(object sender, GridViewSortEventArgs e)
-        {
-            if (listaReporteRendimiento != null)
-                rptCalificaciones.CargarReporte<RptRendimientoHistorico>(listaReporteRendimiento);
-        }
         #endregion
 
         #region --[Métodos Privados]--

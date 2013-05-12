@@ -34,9 +34,9 @@ namespace EDUAR_DataAccess.Reports
         {
             try
             {
-               // Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoInasistenciasPeriodo");
-               //just to test:
-               Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoInasistenciasPeriodo");
+                // Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoInasistenciasPeriodo");
+                //just to test:
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoInasistenciasPeriodo");
                 if (entidad != null)
                 {
                     if (entidad.idAlumno > 0)
@@ -47,19 +47,19 @@ namespace EDUAR_DataAccess.Reports
 
                     if (entidad.idCicloLectivo > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
-                    
+
                     if (entidad.idPeriodo > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPeriodo", DbType.Int32, entidad.idPeriodo);
 
-					string asistenciasParam = string.Empty;
-					if (entidad.listaTiposAsistencia.Count > 0)
-					{
-						foreach (TipoAsistencia asistencia in entidad.listaTiposAsistencia)
-							asistenciasParam += string.Format("{0},", asistencia.idTipoAsistencia);
+                    string asistenciasParam = string.Empty;
+                    if (entidad.listaTiposAsistencia.Count > 0)
+                    {
+                        foreach (TipoAsistencia asistencia in entidad.listaTiposAsistencia)
+                            asistenciasParam += string.Format("{0},", asistencia.idTipoAsistencia);
 
-						asistenciasParam = asistenciasParam.Substring(0, asistenciasParam.Length - 1);
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaTiposAsistencia", DbType.String, asistenciasParam);
-					}
+                        asistenciasParam = asistenciasParam.Substring(0, asistenciasParam.Length - 1);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaTiposAsistencia", DbType.String, asistenciasParam);
+                    }
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -71,7 +71,7 @@ namespace EDUAR_DataAccess.Reports
 
                     objReporte.alumno = reader["Alumno"].ToString();
                     objReporte.periodo = reader["Periodo"].ToString();
-                    objReporte.inasistencias = reader["Inasistencias"].ToString();
+                    objReporte.inasistencias = Convert.ToDouble(reader["Inasistencias"]);
                     objReporte.nivel = reader["Nivel"].ToString();
                     objReporte.motivo = reader["Motivo"].ToString();
 

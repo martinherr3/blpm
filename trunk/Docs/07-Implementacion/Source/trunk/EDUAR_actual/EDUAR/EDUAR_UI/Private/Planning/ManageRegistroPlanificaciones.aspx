@@ -13,8 +13,8 @@
                 <tr>
                     <td>
                         <h2>
-                            Administrar Planificaciones de Clases
-                            <br />
+                            Administrar Planificaciones</h2>
+                        <br />
                     </td>
                 </tr>
             </table>
@@ -23,20 +23,7 @@
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td>
-                                <h3>
-                                    Buscar Planificaciones Clases</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td> 
-                                 <asp:Label ID="Label1" runat="server" Text="Nivel:" CssClass="lblCriterios"></asp:Label>
+                                <asp:Label ID="Label1" runat="server" Text="Nivel:" CssClass="lblCriterios"></asp:Label>
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlNivel" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlNivel_SelectedIndexChanged">
@@ -49,12 +36,11 @@
                             </td>
                             <td valign="top" style="width: 500px">
                                 <asp:DropDownList ID="ddlAsignatura" runat="server" Enabled="false" AutoPostBack="true"
-                                        OnSelectedIndexChanged="ddlAsignatura_SelectedIndexChanged">
-                                    </asp:DropDownList>
+                                    OnSelectedIndexChanged="ddlAsignatura_SelectedIndexChanged">
+                                </asp:DropDownList>
                             </td>
-                       </tr>
+                        </tr>
                     </table>
-
                 </ContentTemplate>
             </asp:UpdatePanel>
         </ContentTemplate>
@@ -70,46 +56,42 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarPlanificacion" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
-                                ToolTip="Editar Planificacion de Clases" ImageUrl="~/Images/Grillas/action_edit.png" />
+                                ToolTip="Ver Detalle" ImageUrl="~/Images/Grillas/action_edit.png" />
                             <asp:ImageButton ID="aprobarPlanificacion" runat="server" CommandName="Aprobar" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
-                                ToolTip="Aprobar la Planificacion de clases" ImageUrl="~/Images/Grillas/action_enable.png"
-                                 Visible='<%# DataBinder.Eval(Container.DataItem, "fechaAprobada").ToString() != String.Empty ? false: true %>' />
-                           <asp:ImageButton ID="ImageButton2" runat="server" ToolTip="La Planificación ya ha sido aprobada"
-                                ImageUrl="~/Images/Grillas/lock.png" Visible='<%# DataBinder.Eval(Container.DataItem, "fechaAprobada").ToString() == String.Empty ? false: true %>' />
-
+                                ToolTip="Aprobar" ImageUrl="~/Images/Grillas/action_enable.png" Visible='<%# DataBinder.Eval(Container.DataItem, "fechaAprobada").ToString() == String.Empty ? true: false %>' />
+                            <asp:ImageButton ID="btnLock" runat="server" ToolTip="Planificación aprobada" ImageUrl="~/Images/Grillas/lock.png"
+                                Visible='<%# DataBinder.Eval(Container.DataItem, "fechaAprobada").ToString() == String.Empty ? false: true %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Fechade Creacion">
+                    <asp:TemplateField HeaderText="Creación">
                         <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:Label ID="lblFechaGrilla" runat="server" Text='<%# Bind("fechaCreacion","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
-                      <asp:TemplateField HeaderText="Fecha de Aprobacion">
+                    <asp:TemplateField HeaderText="Aprobación">
                         <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:Label ID="lblFechaAproadaGrilla" runat="server" Text='<%# Bind("fechaAprobada","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
-                      </asp:TemplateField>
-
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Asignatura">
-                        <HeaderStyle HorizontalAlign="left" Width="15%" />
+                        <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblAsignatura" runat="server" Text='<%# Bind("curricula.asignatura.nombre") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Nivel">
-                        <HeaderStyle HorizontalAlign="left" Width="15%" />
-                        <ItemStyle HorizontalAlign="left" />
+                        <HeaderStyle HorizontalAlign="Center" Width="7%" />
+                        <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblNivel" runat="server" Text='<%# Bind("curricula.nivel.nombre") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Orientacion">
+                    <asp:TemplateField HeaderText="Orientación">
                         <HeaderStyle HorizontalAlign="left" Width="30%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
@@ -117,17 +99,17 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Creador">
-                        <HeaderStyle HorizontalAlign="left" Width="20%" />
+                        <HeaderStyle HorizontalAlign="left" Width="15%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblCreadorGrilla" runat="server" Text='<%# String.Format("{0} {1}", Eval("creador.nombre"), Eval("creador.apellido")) %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Porcentaje adecuación">
+                    <asp:TemplateField HeaderText="Adecuación">
                         <HeaderStyle HorizontalAlign="left" Width="5%" />
-                        <ItemStyle HorizontalAlign="left" />
+                        <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
-                            <asp:Label ID="lblPorcentaje" runat="server" Text='<%# Bind("porcentajeCobertura") %>'></asp:Label>
+                            <asp:Label ID="lblPorcentaje" runat="server" Text='<%# Bind("porcentajeCobertura","{0:##0} %") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

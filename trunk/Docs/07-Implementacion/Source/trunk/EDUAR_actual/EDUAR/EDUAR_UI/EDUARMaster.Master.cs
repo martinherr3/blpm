@@ -533,7 +533,12 @@ namespace EDUAR_UI
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void btnRedireccion_Click(object sender, EventArgs e)
         {
-            switch (((ImageButton)sender).CommandArgument)
+            string command = string.Empty;
+            if (sender is ImageButton)
+                command = ((ImageButton)sender).CommandArgument;
+            if(sender is LinkButton)
+                command = ((LinkButton)sender).CommandArgument;
+            switch (command)
             {
                 case "Password":
                     Response.Redirect("~/Private/Account/ChangePassword.aspx", false);

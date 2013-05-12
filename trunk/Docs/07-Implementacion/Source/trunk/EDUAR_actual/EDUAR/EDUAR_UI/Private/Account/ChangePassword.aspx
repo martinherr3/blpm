@@ -9,7 +9,7 @@
         <tr>
             <td style="width: 80%; vertical-align: text-top">
                 <h2>
-                    Modificar contraseña
+                    Modificar Contraseña
                 </h2>
                 <br />
                 <table class="tablaInterna" cellpadding="0" cellspacing="0">

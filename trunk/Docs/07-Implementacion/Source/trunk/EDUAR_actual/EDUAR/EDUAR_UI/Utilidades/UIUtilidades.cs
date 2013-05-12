@@ -306,6 +306,11 @@ namespace EDUAR_UI.Utilidades
                     case "DateTime":
                     case "Int16":
                     case "Int32":
+                    case "int":
+                    case "decimal":
+                    case "Decimal":
+                    case "double":
+                    case "Double":
                         customField.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
                         break;
                     default:
@@ -348,6 +353,11 @@ namespace EDUAR_UI.Utilidades
                     case "DateTime":
                     case "Int16":
                     case "Int32":
+                    case "int":
+                    case "decimal":
+                    case "Decimal":
+                    case "double":
+                    case "Double":
                         customField.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
                         break;
                     default:
@@ -359,7 +369,6 @@ namespace EDUAR_UI.Utilidades
                 // Add the field column to the Columns collection of the
                 // GridView control.
                 grilla.Columns.Add(customField);
-                grilla.Columns[grilla.Columns.Count - 1].SortExpression = columna.ColumnName;
             }
             grilla.AllowSorting = true;
 
@@ -583,15 +592,6 @@ namespace EDUAR_UI.Utilidades
                     // Add the controls to the Controls collection
                     // of the container.
                     container.Controls.Add(lc);
-
-                    //System.Web.UI.WebControls.Image img = new System.Web.UI.WebControls.Image();
-                    //// Ajustar dinámicamente el icono adecuado
-                    //img.ImageUrl = "~/Images/view-sort-ascending.png";
-                    //img.ImageAlign = ImageAlign.AbsMiddle;
-                    //// Le metemos un espacio delante de la imagen para que no se pegue al enlace
-                    //container.Controls.Add(new LiteralControl(" "));
-                    //container.Controls.Add(img);
-
                     break;
                 case DataControlRowType.DataRow:
                     // Create the controls to put in a data row

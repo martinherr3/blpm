@@ -452,7 +452,6 @@
     <Content Include="Private\Planning\ManageRegistroPlanificaciones.aspx" />
     <Content Include="Private\Planning\PlanificacionAnual.aspx" />
     <Content Include="Private\Planning\TemasContenido.aspx" />
-    <Content Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx" />
     <Content Include="Private\Reports\Historicos\reportRendimiento.aspx" />
     <Content Include="Private\Reports\ManageIndicadores.aspx" />
     <Content Include="Private\Reports\PrintReport.aspx" />
@@ -886,13 +885,6 @@
     </Compile>
     <Compile Include="Private\Planning\TemasContenido.aspx.designer.cs">
       <DependentUpon>TemasContenido.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx.cs">
-      <DependentUpon>reportHistoricoAlumno.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Reports\Historicos\reportHistoricoAlumno.aspx.designer.cs">
-      <DependentUpon>reportHistoricoAlumno.aspx</DependentUpon>
     </Compile>
     <Compile Include="Private\Reports\Historicos\reportRendimiento.aspx.cs">
       <DependentUpon>reportRendimiento.aspx</DependentUpon>

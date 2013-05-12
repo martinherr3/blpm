@@ -55,7 +55,7 @@
 		BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
 	</ajaxtoolkit:ModalPopupExtender>
 	<asp:Panel ID="pnlContenidos" runat="server" Width="600px" Height="550px" Style="display: none;
-		text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+		text-align: left" CssClass="CajaDialogo">
 		<asp:UpdatePanel ID="up2" runat="server">
 			<ContentTemplate>
 				<div runat="server" id="divConfig" visible="false">

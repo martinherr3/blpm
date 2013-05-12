@@ -290,8 +290,11 @@ namespace EDUAR_UI
 			{
 				rptResultado.ExportarPDFClick += (ExportarPDF);
 				rptResultado.VolverClick += (VolverReporte);
-                //rptResultado.PaginarGrilla += (PaginarGrilla);
 				rptResultado.GraficarClick += (GraficarReporte);
+                rptResultado.PaginarGrilla += (PaginarGrilla);
+                rptResultado.CerrarGraficoClick += (CerrarGrafico);
+                rptResultado.ImprimirClick += (CerrarGrafico);
+                rptResultado.OrdenarClick += (OrdenarGrilla);
 
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
@@ -305,7 +308,7 @@ namespace EDUAR_UI
 					lblAsignatura.Visible = true;
 					ddlAsignatura.Visible = true;
 				}
-				CargarGrillaResultado();
+                //CargarGrillaResultado();
 
 				ddlCicloLectivo.Attributes.Add("onchange", "onChangeCicloLectivo('" + ddlCicloLectivo.ClientID + "','" + ddlCurso.ClientID + "')");
 			}
@@ -371,7 +374,7 @@ namespace EDUAR_UI
 
 						serie.Add(new RptPromedioCalificacionesPeriodo
 						{
-							promedio = Math.Round(sumaNotas / listaParcial.Count, 2).ToString(CultureInfo.InvariantCulture),
+							promedio = Math.Round(sumaNotas / listaParcial.Count, 2),
 							asignatura = item.nombre
 							//asignatura = ""
 						});
@@ -803,39 +806,6 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-		/// Paginars the grilla.
-		/// </summary>
-		/// <param name="sender">The sender.</param>
-		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
-		protected void PaginarGrilla(object sender, GridViewPageEventArgs e)
-		{
-			try
-			{
-				int pagina = e.NewPageIndex;
-				rptResultado.GrillaReporte.PageIndex = pagina;
-
-				switch (rdlAccion.SelectedValue)
-				{
-					case "0":
-						rptResultado.CargarReporte<RptPromedioCalificacionesPeriodo>(listaReporte);
-						break;
-					case "1":
-						rptResultado.CargarReporte<RptConsolidadoInasistenciasPeriodo>(listaReporteInasistencias);
-						break;
-					case "2":
-						rptResultado.CargarReporte<RptConsolidadoSancionesPeriodo>(listaReporteSanciones);
-						break;
-					default:
-						break;
-				}
-			}
-			catch (Exception ex)
-			{
-				Master.ManageExceptions(ex);
-			}
-		}
-
-		/// <summary>
 		/// Handles the SelectedIndexChanged event of the ddlCicloLectivo control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
@@ -882,6 +852,60 @@ namespace EDUAR_UI
 				Master.ManageExceptions(ex);
 			}
 		}
+
+        /// <summary>
+        /// Paginars the grilla.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+        protected void PaginarGrilla(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                int pagina = e.NewPageIndex;
+
+                if (rptResultado.GrillaReporte.PageCount > pagina)
+                {
+                    rptResultado.GrillaReporte.PageIndex = pagina;
+
+                    CargarGrillaResultado();
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Ordenars the grilla.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="GridViewSortEventArgs"/> instance containing the event data.</param>
+        protected void OrdenarGrilla(object sender, GridViewSortEventArgs e)
+        {
+            try
+            {
+                CargarGrillaResultado();
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
+        }
+
+        /// <summary>
+        /// Cerrars the grafico.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void CerrarGrafico(object sender, EventArgs e)
+        {
+            try
+            {
+                CargarGrillaResultado();
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
+        }
 		#endregion
 
 		#region --[Métodos Privados]--

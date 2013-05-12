@@ -24,7 +24,7 @@
                             <%--<asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
                                 ImageUrl="~/Images/botonBuscar.png" />--%>
                             <asp:Panel ID="pnlNuevoContenido" runat="server" Width="500px" Style="display: none;
-                                text-align: left; min-height: 200px; z-index: 500" BorderStyle="Groove" CssClass="CajaDialogo">
+                                text-align: left; min-height: 200px; z-index: 500" CssClass="CajaDialogo">
                                 <table class="tablaInterna" cellpadding="0" cellspacing="0">
                                     <tr>
                                         <td>

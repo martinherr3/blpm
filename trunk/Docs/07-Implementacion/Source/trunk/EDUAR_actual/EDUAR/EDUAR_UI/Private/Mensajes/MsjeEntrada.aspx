@@ -1,6 +1,6 @@
-﻿<%@ Page Title="Recibidos" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="MsjeEntrada.aspx.cs" Inherits="EDUAR_UI.MsjeEntrada"
-    Theme="Tema" StylesheetTheme="Tema" %>
+﻿<%@ Page Title="Recibidos" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
+    CodeBehind="MsjeEntrada.aspx.cs" Inherits="EDUAR_UI.MsjeEntrada" Theme="Tema"
+    StylesheetTheme="Tema" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxtoolkit" %>
 <%@ Register Src="~/UserControls/Editor.ascx" TagName="Editor" TagPrefix="edi" %>
@@ -23,7 +23,7 @@
                             ImageUrl="~/Images/botonEnviarMail.png" Visible="false" />
                         <asp:ImageButton ID="btnNuevo" OnClick="btnNuevo_Click" runat="server" ToolTip="Nuevo Mensaje"
                             ImageUrl="~/Images/botonNuevoMail.png" Visible="true" />
-                            <asp:ImageButton ID="btnEnviados" OnClick="btnEnviados_Click" runat="server" ToolTip="Enviados"
+                        <asp:ImageButton ID="btnEnviados" OnClick="btnEnviados_Click" runat="server" ToolTip="Enviados"
                             ImageUrl="~/Images/botonEnviados.png" Visible="true" />
                         <asp:ImageButton ID="btnEliminar" runat="server" ToolTip="Eliminar Seleccionados"
                             AlternateText="Eliminar Seleccionados" ImageUrl="~/Images/mail-delete.png" OnClick="btnEliminar_Click" />
@@ -42,13 +42,14 @@
                 <ContentTemplate>
                     <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                         AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idMensajeDestinatario"
-                        OnRowCommand="gvwReporte_RowCommand" AllowSorting="true" OnSorting="gvwReporte_Sorting" ShowFooter="false" >
+                        OnRowCommand="gvwReporte_RowCommand" AllowSorting="true" OnSorting="gvwReporte_Sorting"
+                        ShowFooter="false">
                         <Columns>
                             <asp:TemplateField HeaderText="Acciones" HeaderStyle-VerticalAlign="Middle">
                                 <HeaderStyle HorizontalAlign="left" Width="10%" />
                                 <HeaderTemplate>
-                                    <asp:CheckBox ID="cboxhead" AutoPostBack="true" Text='Acciones' runat="server" Width="90px"
-                                        ClientIDMode="Static" OnCheckedChanged="HeaderCheckedChanged" Style="margin-bottom: 4px" />
+                                    <asp:CheckBox ID="cboxhead" AutoPostBack="true" Text='Acciones' runat="server" Width="100px"
+                                        ClientIDMode="Static" OnCheckedChanged="HeaderCheckedChanged" Style="margin-bottom: 6px" />
                                 </HeaderTemplate>
                                 <ItemStyle HorizontalAlign="left" />
                                 <ItemTemplate>

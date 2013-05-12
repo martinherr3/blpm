@@ -257,7 +257,7 @@
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
     </ajaxToolkit:ModalPopupExtender>
     <asp:Panel ID="pnlContenidos" runat="server" Width="600px" Height="510px" Style="display: none;
-        text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+        text-align: left" CssClass="CajaDialogo">
         <asp:UpdatePanel ID="udpContenidosAsociados" runat="server">
             <ContentTemplate>
                 <table class="tablaInterna" cellpadding="0" cellspacing="0">
@@ -320,7 +320,7 @@
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidosAtrasados">
     </ajaxToolkit:ModalPopupExtender>
     <asp:Panel ID="pnlContenidosAtrasados" runat="server" Width="600px" Height="510px"
-        Style="display: none; text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+        Style="display: none; text-align: left" CssClass="CajaDialogo">
         <asp:UpdatePanel ID="udpContenidosAsociadosAtrasados" runat="server">
             <ContentTemplate>
                 <table class="tablaInterna" cellpadding="0" cellspacing="0">

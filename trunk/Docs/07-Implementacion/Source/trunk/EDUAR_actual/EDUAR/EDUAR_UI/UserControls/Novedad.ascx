@@ -38,8 +38,7 @@
     }
 </script>
 <asp:Panel ID="pnlNueva" runat="server" DefaultButton="btnOcultoNovedad" Width="600px"
-    Height="400px" Style="display: none; text-align: left; z-index: 5000" BorderStyle="Groove"
-    CssClass="CajaDialogo">
+    Height="400px" Style="display: none; text-align: left; z-index: 5000" CssClass="CajaDialogo">
     <asp:UpdatePanel ID="udpNueva" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">

@@ -92,7 +92,7 @@
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlCursos">
     </ajaxToolkit:ModalPopupExtender>
     <asp:Panel ID="pnlCursos" runat="server" Width="1000px" Height="450px" Style="display: none;
-        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        text-align: left" CssClass="CajaDialogo">
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
                 <td valign="top">
@@ -130,7 +130,7 @@
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlEncuestas">
     </ajaxToolkit:ModalPopupExtender>
     <asp:Panel ID="pnlEncuestas" runat="server" Width="350px" Height="190px" Style="display: none;
-        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        text-align: left" CssClass="CajaDialogo">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
@@ -173,7 +173,7 @@
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlReportes">
     </ajaxToolkit:ModalPopupExtender>
     <asp:Panel ID="pnlReportes" runat="server" Width="350px" Height="350px" Style="display: none;
-        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        text-align: left" CssClass="CajaDialogo">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
@@ -246,7 +246,7 @@
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
     </ajaxToolkit:ModalPopupExtender>
     <asp:Panel ID="pnlContenidos" runat="server" Width="350px" Height="190px" Style="display: none;
-        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        text-align: left" CssClass="CajaDialogo">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
@@ -290,7 +290,7 @@
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlComunicacion">
     </ajaxToolkit:ModalPopupExtender>
     <asp:Panel ID="pnlComunicacion" runat="server" Width="350px" Height="190px" Style="display: none;
-        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        text-align: left" CssClass="CajaDialogo">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
@@ -333,7 +333,7 @@
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlAdministracion">
     </ajaxToolkit:ModalPopupExtender>
     <asp:Panel ID="pnlAdministracion" runat="server" Width="350px" Height="190px" Style="display: none;
-        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+        text-align: left" CssClass="CajaDialogo">
         <table class="tablaInterna" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
