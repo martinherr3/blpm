@@ -27,6 +27,13 @@
                     </td>
                 </tr>
             </table>
+           <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+                    <br />
+                    </td>
+                </tr>
+            </table>
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
@@ -52,7 +59,6 @@
 
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Nombre">
                         <HeaderStyle HorizontalAlign="left" Width="25%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -68,12 +74,11 @@
                                 ToolTip='<%# Bind("descripcion") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                 </Columns>
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+<%--                    <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
                         <tr>
                             <td colspan="2">
                                 <h3>
@@ -88,7 +93,7 @@
                                 <asp:ValidationSummary ID="validarEdit" runat="server" />
                             </td>
                         </tr>
-                    </table>
+                    </table>--%>
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TDCriterios15">

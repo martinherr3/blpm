@@ -94,15 +94,6 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpFiltrosBusqueda;
         
         /// <summary>
-        /// Control ValidarBusqueda.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidarBusqueda;
-        
-        /// <summary>
         /// Control lblAsignatura.
         /// </summary>
         /// <remarks>
@@ -173,33 +164,6 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel udpEdit;
-        
-        /// <summary>
-        /// Control litEditar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litEditar;
-        
-        /// <summary>
-        /// Control litNuevo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litNuevo;
-        
-        /// <summary>
-        /// Control validarEdit.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary validarEdit;
         
         /// <summary>
         /// Control lblAsignaturaEdit.
