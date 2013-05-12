@@ -236,6 +236,7 @@ namespace EDUAR_UI.UserControls
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		protected void Page_Load(object sender, EventArgs e)
 		{
+            btnCerrar.Click += (Cerrar);
 			string TmpPath = System.Configuration.ConfigurationManager.AppSettings["oTmpPath"];
 			//Crea el directorio.
 			if (!System.IO.Directory.Exists(TmpPath))
@@ -315,6 +316,26 @@ namespace EDUAR_UI.UserControls
 			else
 				ExportPDF.ExportarGraficoPDF(tituloReporte, ObjSessionDataUI.ObjDTUsuario.Nombre, filtrosAplicados, nombrePNG, TablaGrafico);
 		}
+
+        public delegate void VentanaBotonClickHandler(object sender, EventArgs e);
+        public event VentanaBotonClickHandler CerrarClick;
+        public virtual void OnCerrarClick(VentanaBotonClickHandler sender, EventArgs e)
+        {
+            if (sender != null)
+            {
+                //Invoca el delegados
+                sender(this, e);
+            }
+        }
+
+        void Cerrar(object sender, EventArgs e)
+        {
+            divGrafico.Attributes.Add("class", "divGraficoOcultar");
+            TDGrafico.Attributes.Add("class", "divGraficoOcultar");
+            TDBotonera.Attributes.Add("class", "BotoneraGraficoOcultar");
+            Chart1.Series.Clear();
+            OnCerrarClick(CerrarClick, e);
+        }
 		#endregion
 
 		#region --[Métodos Públicos]--

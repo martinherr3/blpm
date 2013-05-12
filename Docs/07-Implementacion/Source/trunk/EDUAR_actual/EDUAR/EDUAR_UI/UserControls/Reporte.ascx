@@ -7,7 +7,7 @@
         popup = window.open('/EDUAR_UI/Private/Reports/PrintReport.aspx', 'Impresión de Informes', 'width=800,height=600,left=50,top=100,­menubar=0,toolbar=0,status=0,scrollbars=1,resizable=0,titlebar=0');
 
         if (popup == null || typeof (popup) == 'undefined') {
-        	jAlert('Por favor deshabilita el <i>bloqueador de ventanas emergentes</i><br /> y vuelve a hacer en "Imprimir".', 'Aviso');
+            jAlert('Por favor deshabilita el <i>bloqueador de ventanas emergentes</i><br /> y vuelve a hacer en "Imprimir".', 'Aviso');
         }
         else {
             popup.focus();
@@ -44,11 +44,11 @@
             <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-                        AutoGenerateColumns="false" Width="100%" AllowPaging="true"
-                        PageSize="30">
+                        AllowPaging="true" OnPageIndexChanging="GrillaReporte_PageIndexChanging" AllowSorting="true"
+                        OnSorting="gridView_Sorting" AutoGenerateColumns="false" PageSize="30">
                     </asp:GridView>
-                    <asp:Label ID="lblSinDatos" runat="server" Text="La consulta no produjo resultados."
-                        Visible="false"></asp:Label>
+                   <%-- <asp:Label ID="lblSinDatos" runat="server" Text="La consulta no produjo resultados."
+                        Visible="false"></asp:Label>--%>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </td>

@@ -184,7 +184,7 @@ namespace EDUAR_UI
 			{
 				rptPromediosAnalizados.ExportarPDFClick += (ExportarPDF);
 				rptPromediosAnalizados.VolverClick += (VolverReporte);
-				rptPromediosAnalizados.PaginarGrilla += (PaginarGrilla);
+                //rptPromediosAnalizados.PaginarGrilla += (PaginarGrilla);
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				rptPromediosAnalizados.GraficarClick += (btnGraficar);
 
