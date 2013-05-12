@@ -27,9 +27,7 @@ GridLines="None"
               ShowFooter="false"
               EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="30" Width="100%"
 			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
-              
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
-            
 </asp:GridView>
 
 <asp:GridView runat="server" SkinId="gridviewSkinPagerListado" CellPadding="5"
@@ -41,7 +39,6 @@ GridLines="None"
               EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="20" Width="100%"
 			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">           
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
-            
 </asp:GridView>
 
 <asp:GridView runat="server" SkinId="gridviewSkinPagerIndicadores" CellPadding="5"
@@ -52,7 +49,6 @@ GridLines="None"
               EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="15" Width="100%"
 			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
-            
 </asp:GridView>
 
 <asp:GridView runat="server" SkinId="gridviewSkinPagerListadoSize10" CellPadding="5"
@@ -63,7 +59,5 @@ GridLines="None"
               ShowFooter="false"
               EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="10" Width="100%"
 			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
-              
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
-            
 </asp:GridView>

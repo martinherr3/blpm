@@ -28,7 +28,7 @@
                         <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
                             Visible="false" />
                         <asp:ImageButton ID="btnImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/Images/botonImprimir.png"
-                            Visible="false" OnClick="btnImprimir_Click" />
+                            Visible="false" /><!--OnClick="btnImprimir_Click"-->
                         <asp:ImageButton ID="btnVolver" runat="server" ToolTip="Volver" ImageUrl="~/Images/botonVolver.png"
                             Visible="false" />
                     </td>
@@ -44,11 +44,11 @@
             <asp:UpdatePanel ID="udpReporte" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
-                        AllowPaging="true" OnPageIndexChanging="GrillaReporte_PageIndexChanging" AllowSorting="true"
-                        OnSorting="gridView_Sorting" AutoGenerateColumns="false" PageSize="30">
+                        AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false" PageSize="30"
+                        OnPageIndexChanging="GrillaReporte_PageIndexChanging">
                     </asp:GridView>
-                   <%-- <asp:Label ID="lblSinDatos" runat="server" Text="La consulta no produjo resultados."
-                        Visible="false"></asp:Label>--%>
+                    <asp:Label ID="lblSinDatos" runat="server" Text="La consulta no produjo resultados."
+                        Visible="false"></asp:Label>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </td>
