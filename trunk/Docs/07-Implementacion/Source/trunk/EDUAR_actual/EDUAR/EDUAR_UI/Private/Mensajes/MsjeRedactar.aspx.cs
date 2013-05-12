@@ -257,7 +257,10 @@ namespace EDUAR_UI
 							persona.idPersona = item.idPersona;
 							persona.nombre = item.nombre;
 							persona.apellido = item.apellido;
-							lista.Add(persona);
+                            persona.username = item.username;
+
+                            if (persona.username != ObjSessionDataUI.ObjDTUsuario.Nombre)
+                                lista.Add(persona);
 						}
 						ddlDestino.Items.Add(new ListItem("Alumnos de " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));
 						CargarDestinos(lista);
@@ -275,7 +278,10 @@ namespace EDUAR_UI
 							persona.idPersona = item.idPersona;
 							persona.nombre = item.nombre;
 							persona.apellido = item.apellido;
-							lista.Add(persona);
+                            persona.username = item.username;
+
+                            if (persona.username != ObjSessionDataUI.ObjDTUsuario.Nombre)
+                                lista.Add(persona);
 						}
 						ddlDestino.Items.Add(new ListItem("Tutores " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));
 						CargarDestinos(lista);
@@ -290,7 +296,10 @@ namespace EDUAR_UI
 							persona.idPersona = item.idPersona;
 							persona.nombre = item.nombre;
 							persona.apellido = item.apellido;
-							lista.Add(persona);
+                            persona.username = item.username;
+
+                            if(persona.username != ObjSessionDataUI.ObjDTUsuario.Nombre)
+							    lista.Add(persona);
 						}
 						ddlDestino.Items.Add(new ListItem("Docentes " + ddlCurso.SelectedItem.Text, ddlCurso.SelectedItem.Value));
 						CargarDestinos(lista);

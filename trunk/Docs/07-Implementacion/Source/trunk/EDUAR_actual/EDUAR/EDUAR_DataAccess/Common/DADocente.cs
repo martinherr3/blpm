@@ -99,6 +99,7 @@ namespace EDUAR_DataAccess.Common
                         objDocente.fechaBaja = (DateTime)reader["fechaBaja"];
                     objDocente.activo = Convert.ToBoolean(reader["activo"]);
                     objDocente.idPersona = Convert.ToInt32(reader["idPersona"]);
+                    objDocente.username = reader["username"].ToString();
                     //TODO: Completar los miembros que faltan de alumno
 
                     listaDocentes.Add(objDocente);

@@ -251,7 +251,7 @@
             <tr>
                 <td valign="top">
                     <h2>
-                        <asp:Label ID="lblTituloPrincipal" Text="Admministrar Cuenta" runat="server" /></h2>
+                        <asp:Label ID="lblTituloPrincipal" Text="Administrar Cuenta" runat="server" /></h2>
                 </td>
                 <td align="right">
                     <asp:ImageButton ID="btnCerrarCursos" OnClick="btnCerrarPopup_Click" ImageUrl="~/Images/PopUp/botonCerrar.png"
