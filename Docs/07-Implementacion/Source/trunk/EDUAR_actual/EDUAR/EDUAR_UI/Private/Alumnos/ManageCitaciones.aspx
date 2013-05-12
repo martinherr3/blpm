@@ -32,7 +32,7 @@
             </table>
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td>
                                 <h3>
@@ -44,7 +44,7 @@
                                 <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
                             </td>
                         </tr>
-                    </table>
+                    </table>--%>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD140px">
@@ -168,7 +168,7 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td colspan="2">
                                 <h3>
@@ -182,7 +182,7 @@
                                 <asp:ValidationSummary ID="validarEdit" runat="server" />
                             </td>
                         </tr>
-                    </table>
+                    </table>--%>
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TDCriterios10">

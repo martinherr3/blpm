@@ -277,8 +277,8 @@ namespace EDUAR_UI
 				btnVolver.Visible = true;
 				btnNuevo.Visible = false;
 				gvwEncuestas.Visible = false;
-				litEditar.Visible = false;
-				litNuevo.Visible = true;
+                //litEditar.Visible = false;
+                //litNuevo.Visible = true;
 				udpEdit.Visible = true;
 				udpFiltrosBusqueda.Visible = false;
 				udpAsignatura.Update();
@@ -744,8 +744,8 @@ namespace EDUAR_UI
 
 			CargarValoresEnPantalla(propEncuesta.idEncuesta);
 
-			litEditar.Visible = true;
-			litNuevo.Visible = false;
+            //litEditar.Visible = true;
+            //litNuevo.Visible = false;
 			btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
 			btnVolver.Visible = true;
