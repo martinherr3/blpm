@@ -316,8 +316,9 @@ namespace EDUAR_UI.Utilidades
 
                 // Add the field column to the Columns collection of the
                 // GridView control.
+                customField.SortExpression = prop.Name;
                 grilla.Columns.Add(customField);
-                grilla.Columns[grilla.Columns.Count - 1].SortExpression = prop.Name;
+                //grilla.Columns[grilla.Columns.Count - 1].SortExpression = prop.Name;
             }
             grilla.AllowSorting = true;
             return grilla;
@@ -582,6 +583,15 @@ namespace EDUAR_UI.Utilidades
                     // Add the controls to the Controls collection
                     // of the container.
                     container.Controls.Add(lc);
+
+                    //System.Web.UI.WebControls.Image img = new System.Web.UI.WebControls.Image();
+                    //// Ajustar dinámicamente el icono adecuado
+                    //img.ImageUrl = "~/Images/view-sort-ascending.png";
+                    //img.ImageAlign = ImageAlign.AbsMiddle;
+                    //// Le metemos un espacio delante de la imagen para que no se pegue al enlace
+                    //container.Controls.Add(new LiteralControl(" "));
+                    //container.Controls.Add(img);
+
                     break;
                 case DataControlRowType.DataRow:
                     // Create the controls to put in a data row

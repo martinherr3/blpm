@@ -185,7 +185,7 @@ namespace EDUAR_UI
 			{
 				rptSanciones.ExportarPDFClick += (ExportarPDF);
 				rptSanciones.VolverClick += (VolverReporte);
-				rptSanciones.PaginarGrilla += (PaginarGrilla);
+                //rptSanciones.PaginarGrilla += (PaginarGrilla);
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				rptSanciones.GraficarClick += (btnGraficar);
 

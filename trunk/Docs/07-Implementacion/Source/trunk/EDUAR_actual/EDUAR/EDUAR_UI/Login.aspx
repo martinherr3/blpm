@@ -7,7 +7,7 @@
 <head id="Head1" runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>EDU@R 2.0</title>
-    <link rel="icon" type="image/png" href="~/favicon.ico" />
+    <link rel="icon" type="image/png" href="https://alulau.redirectme.net/EDUAR_UI/favicon.ico" />
     <link href="App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
 </head>
 <body style="background-color: White">

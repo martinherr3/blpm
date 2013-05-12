@@ -330,7 +330,7 @@ namespace EDUAR_UI
 			{
 				rptResultado.ExportarPDFClick += (ExportarPDF);
 				rptResultado.VolverClick += (VolverReporte);
-				rptResultado.PaginarGrilla += (PaginarGrilla);
+                //rptResultado.PaginarGrilla += (PaginarGrilla);
 
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)

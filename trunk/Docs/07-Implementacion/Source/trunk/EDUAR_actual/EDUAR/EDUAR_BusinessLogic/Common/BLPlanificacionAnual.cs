@@ -393,37 +393,21 @@ namespace EDUAR_BusinessLogic.Common
             foreach (PlanificacionAnual unaPlanificacion in listaPlanificaciones)
             {
                 ContenidosDeCurricula = contenidoBL.GetCurriculaAsignaturaNivel(new Contenido(unaPlanificacion.curricula.idCurricula));
-               
+
                 foreach (Contenido unContenidoCurricula in ContenidosDeCurricula)
-                {
                     foreach (TemaContenido unTemaContenidoCurricula in unContenidoCurricula.listaContenidos)
-                    {
                         ListaTemasContenidosCurricula.Add(unTemaContenidoCurricula);
-                    }
-                }
 
                 foreach (TemaPlanificacionAnual unTemaPlanificacionAnual in unaPlanificacion.listaTemasPlanificacion)
-                {
                     foreach (TemaContenido unTemaContenidoPlanificado in unTemaPlanificacionAnual.listaContenidos)
-                    {
-                            foreach (TemaContenido unTemaContenidoCurricula in ListaTemasContenidosCurricula)
-                            {
-                                if (unTemaContenidoPlanificado.idTemaContenido == unTemaContenidoCurricula.idTemaContenido)
-                                {
-                                    temasContenidosCubiertos++;
-                                }
-                            }
-                    }
+                        foreach (TemaContenido unTemaContenidoCurricula in ListaTemasContenidosCurricula)
+                            if (unTemaContenidoPlanificado.idTemaContenido == unTemaContenidoCurricula.idTemaContenido)
+                                temasContenidosCubiertos++;
 
-                }
                 if (ListaTemasContenidosCurricula.Count > 0)
-                {
                     unaPlanificacion.porcentajeCobertura = Math.Round((temasContenidosCubiertos / ListaTemasContenidosCurricula.Count) * 100, 2);
-                }
                 else
-                {
                     unaPlanificacion.porcentajeCobertura = 0;
-                }
 
                 ListaTemasContenidosCurricula = new List<TemaContenido>();
                 temasContenidosCubiertos = 0;
