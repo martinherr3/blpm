@@ -8,7 +8,7 @@ namespace EDUAR_Entities.Reports
     {
         public string periodo { get; set; }
         public string asignatura { get; set; }
-        public string promedio { get; set; }
+        public double promedio { get; set; }
 
         public RptPromedioCalificacionesAsignaturaCursoPeriodo()
         {

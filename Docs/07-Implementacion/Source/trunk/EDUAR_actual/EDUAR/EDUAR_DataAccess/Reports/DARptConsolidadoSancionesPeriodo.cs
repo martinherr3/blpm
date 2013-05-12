@@ -21,7 +21,8 @@ namespace EDUAR_DataAccess.Reports
         {
         }
 
-        public DARptConsolidadoSancionesPeriodo(DATransaction objDATransaction) : base(objDATransaction)
+        public DARptConsolidadoSancionesPeriodo(DATransaction objDATransaction)
+            : base(objDATransaction)
         {
 
         }
@@ -47,29 +48,29 @@ namespace EDUAR_DataAccess.Reports
 
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPeriodo", DbType.Int32, entidad.idPeriodo);
 
-					#region --[Tipo Sancion]--
-					string tipoSancionParam = string.Empty;
-					if (entidad.listaTipoSancion.Count > 0)
-					{
-						foreach (TipoSancion tipoSancion in entidad.listaTipoSancion)
-							tipoSancionParam += string.Format("{0},", tipoSancion.idTipoSancion);
+                    #region --[Tipo Sancion]--
+                    string tipoSancionParam = string.Empty;
+                    if (entidad.listaTipoSancion.Count > 0)
+                    {
+                        foreach (TipoSancion tipoSancion in entidad.listaTipoSancion)
+                            tipoSancionParam += string.Format("{0},", tipoSancion.idTipoSancion);
 
-						tipoSancionParam = tipoSancionParam.Substring(0, tipoSancionParam.Length - 1);
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaTiposSancion", DbType.String, tipoSancionParam);
-					}
-					#endregion
+                        tipoSancionParam = tipoSancionParam.Substring(0, tipoSancionParam.Length - 1);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaTiposSancion", DbType.String, tipoSancionParam);
+                    }
+                    #endregion
 
-					#region --[Motivo Sancion]--
-					string MotivoParam = string.Empty;
-					if (entidad.listaMotivoSancion.Count > 0)
-					{
-						foreach (MotivoSancion motivoSancion in entidad.listaMotivoSancion)
-							MotivoParam += string.Format("{0},", motivoSancion.idMotivoSancion);
+                    #region --[Motivo Sancion]--
+                    string MotivoParam = string.Empty;
+                    if (entidad.listaMotivoSancion.Count > 0)
+                    {
+                        foreach (MotivoSancion motivoSancion in entidad.listaMotivoSancion)
+                            MotivoParam += string.Format("{0},", motivoSancion.idMotivoSancion);
 
-						MotivoParam = MotivoParam.Substring(0, MotivoParam.Length - 1);
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaMotivoSancion", DbType.String, MotivoParam);
-					}
-					#endregion
+                        MotivoParam = MotivoParam.Substring(0, MotivoParam.Length - 1);
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@listaMotivoSancion", DbType.String, MotivoParam);
+                    }
+                    #endregion
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -81,7 +82,7 @@ namespace EDUAR_DataAccess.Reports
 
                     objReporte.alumno = reader["Alumno"].ToString();
                     objReporte.periodo = reader["Periodo"].ToString();
-                    objReporte.sanciones = reader["Sanciones"].ToString();
+                    objReporte.sanciones = Convert.ToInt32(reader["Sanciones"]);
                     objReporte.motivo = reader["Motivo"].ToString();
                     objReporte.tipo = reader["Tipo"].ToString();
 

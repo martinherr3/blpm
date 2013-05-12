@@ -10,7 +10,7 @@ namespace EDUAR_Entities.Reports
         public string curso { get; set; }
         public DateTime fecha { get; set; }
         public string asignatura { get; set; }
-        public string calificacion { get; set; }
+        public double calificacion { get; set; }
 		//public string instancia { get; set; }
         
         public RptCalificacionesAlumnoPeriodo()

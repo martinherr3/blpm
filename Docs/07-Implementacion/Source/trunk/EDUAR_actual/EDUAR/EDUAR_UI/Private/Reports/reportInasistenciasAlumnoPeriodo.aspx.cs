@@ -161,22 +161,20 @@ namespace EDUAR_UI
             {
                 rptInasistencias.ExportarPDFClick += (ExportarPDF);
                 rptInasistencias.VolverClick += (VolverReporte);
-                //rptInasistencias.PaginarGrilla += (PaginarGrilla);
                 Master.BotonAvisoAceptar += (VentanaAceptar);
                 rptInasistencias.GraficarClick += (btnGraficar);
+                rptInasistencias.PaginarGrilla += (PaginarGrilla);
+                rptInasistencias.CerrarGraficoClick += (CerrarGrafico);
+                rptInasistencias.ImprimirClick += (CerrarGrafico);
+                rptInasistencias.OrdenarClick += (OrdenarGrilla);
 
                 if (!Page.IsPostBack)
                 {
                     TablaGrafico = null;
                     CargarPresentacion();
-                    //BLRptInasistenciasAlumnoPeriodo objBLRptInasistencias = new BLRptInasistenciasAlumnoPeriodo();
-                    //objBLRptInasistencias.GetRptInasistenciasAlumnoPeriodo(null);
                     divFiltros.Visible = true;
                     divReporte.Visible = false;
                 }
-                //BuscarInasistencias();
-                if (listaReporte != null)
-                    rptInasistencias.CargarReporte<RptInasistenciasAlumnoPeriodo>(listaReporte);
 
 				ddlCicloLectivo.Attributes.Add("onchange", "onChangeCicloLectivo('" + ddlCicloLectivo.ClientID + "','" + ddlCurso.ClientID + "')");
             }
@@ -345,30 +343,6 @@ namespace EDUAR_UI
         }
 
         /// <summary>
-        /// Paginars the grilla.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
-        protected void PaginarGrilla(object sender, GridViewPageEventArgs e)
-        {
-            try
-            {
-                int pagina = e.NewPageIndex;
-
-                if (rptInasistencias.GrillaReporte.PageCount > pagina)
-                {
-                    rptInasistencias.GrillaReporte.PageIndex = pagina;
-
-                    rptInasistencias.CargarReporte<RptInasistenciasAlumnoPeriodo>(listaReporte);
-                }
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
-
-        /// <summary>
         /// Handles the SelectedIndexChanged event of the ddlCicloLectivo control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -426,6 +400,62 @@ namespace EDUAR_UI
         }
 
         /// <summary>
+        /// Paginars the grilla.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+        protected void PaginarGrilla(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                int pagina = e.NewPageIndex;
+
+                if (rptInasistencias.GrillaReporte.PageCount > pagina)
+                {
+                    rptInasistencias.GrillaReporte.PageIndex = pagina;
+
+                    rptInasistencias.CargarReporte<RptInasistenciasAlumnoPeriodo>(listaReporte);
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
+        /// Ordenars the grilla.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="GridViewSortEventArgs"/> instance containing the event data.</param>
+        protected void OrdenarGrilla(object sender, GridViewSortEventArgs e)
+        {
+            try
+            {
+                rptInasistencias.CargarReporte<RptInasistenciasAlumnoPeriodo>(listaReporte);
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
+        }
+
+        /// <summary>
+        /// Cerrars the grafico.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void CerrarGrafico(object sender, EventArgs e)
+        {
+            try
+            {
+                rptInasistencias.CargarReporte<RptInasistenciasAlumnoPeriodo>(listaReporte);
+            }
+            catch (Exception ex)
+            { Master.ManageExceptions(ex); }
+        }
+        #endregion
+
+        #region --[Métodos Privados]--
+        /// <summary>
         /// Cargars the alumnos.
         /// </summary>
         /// <param name="idCurso">The id curso.</param>
@@ -435,9 +465,7 @@ namespace EDUAR_UI
             UIUtilidades.BindCombo<Alumno>(ddlAlumno, objBLAlumno.GetAlumnos(new AlumnoCurso(idCurso)), "idAlumno", "apellido", "nombre", true);
             ddlAlumno.Enabled = true;
         }
-        #endregion
 
-        #region --[Métodos Privados]--
         /// <summary>
         /// Cargars the presentacion.
         /// </summary>

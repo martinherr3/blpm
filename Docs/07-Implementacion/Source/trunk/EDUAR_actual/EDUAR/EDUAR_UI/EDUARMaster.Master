@@ -76,7 +76,7 @@
     </asp:ScriptManager>
     <div class="page">
         <div class="header">
-            <table  style="width: 1020px;">
+            <table style="width: 1020px;">
                 <tr>
                     <td style="width: 25%">
                         <div class="title">
@@ -85,7 +85,7 @@
                     </td>
                     <td style="width: 40%">
                         <div id="divInfo" runat="server" visible="false" style="vertical-align: text-top">
-                            <table  style="width: 100%; text-align: center">
+                            <table style="width: 100%; text-align: center">
                                 <tr>
                                     <td>
                                         <asp:Label ID="lblTratamiento" Text="" runat="server" />
@@ -245,8 +245,8 @@
         TargetControlID="HiddenField1" RepositionMode="RepositionOnWindowResizeAndScroll"
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlCursos">
     </ajaxToolkit:ModalPopupExtender>
-    <asp:Panel ID="pnlCuenta" runat="server" Width="500px" Height="250px" Style="display: none;
-        text-align: left" BorderStyle="Outset" CssClass="CajaDialogo">
+    <asp:Panel ID="pnlCuenta" runat="server" Width="320px" Height="170px" Style="display: none;
+        text-align: left" CssClass="CajaDialogo">
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
                 <td valign="top">
@@ -261,15 +261,21 @@
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
-                <td>
-                    <asp:ImageButton ID="btnVerPassword" ImageUrl="~/Images/Home/VerPassword.png"
-                        ToolTip="Cambiar Password" runat="server" CommandArgument="Password" OnClick="btnRedireccion_Click" />
+                <td align="center">
+                    <asp:LinkButton ID="lnkVerPassword" Text="Password" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Password" OnClick="btnRedireccion_Click" Style="text-align: center" />
+                    <asp:ImageButton ID="btnVerPassword" ImageUrl="~/Images/Home/VerPassword.png" ToolTip="Cambiar Password"
+                        runat="server" CommandArgument="Password" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkVerPregunta" Text="Pregunta" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Pregunta" OnClick="btnRedireccion_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnVerPregunta" ImageUrl="~/Images/Home/VerPregunta.png" ToolTip="Pregunta Secreta"
                         runat="server" CommandArgument="Pregunta" OnClick="btnRedireccion_Click" />
                 </td>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkVerMail" Text="Email" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Mail" OnClick="btnRedireccion_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnVerMail" ImageUrl="~/Images/Home/VerMail.png" ToolTip="Email"
                         runat="server" CommandArgument="Mail" OnClick="btnRedireccion_Click" />
                 </td>

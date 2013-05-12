@@ -277,7 +277,7 @@
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlCursos">
     </ajaxtoolkit:ModalPopupExtender>
     <asp:Panel ID="pnlCursos" runat="server" Width="600px" Height="300px" Style="display: none;
-        text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+        text-align: left" CssClass="CajaDialogo">
         <asp:UpdatePanel ID="udpCursosAsociados" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
                 <table class="tablaInterna" cellpadding="0" cellspacing="0">
@@ -336,7 +336,7 @@ planificacionEditar.fechaAprobada.HasValue == true ? false : true %>' />
         BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlContenidos">
     </ajaxtoolkit:ModalPopupExtender>
     <asp:Panel ID="pnlContenidos" runat="server" Width="600px" Height="510px" Style="display: none;
-        text-align: left" BorderStyle="Groove" CssClass="CajaDialogo">
+        text-align: left" CssClass="CajaDialogo">
         <asp:UpdatePanel ID="udpContenidosAsociados" runat="server">
             <ContentTemplate>
                 <table class="tablaInterna" cellpadding="0" cellspacing="0">

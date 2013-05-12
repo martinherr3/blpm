@@ -9,7 +9,7 @@ namespace EDUAR_Entities.Reports
 	{
 		public string alumno { get; set; }
 		public string periodo { get; set; }
-		public string sanciones { get; set; }
+		public int sanciones { get; set; }
 		public string tipo { get; set; }
 		public string motivo { get; set; }
 		//public List<TipoAsistencia> listaTiposAsistencia { get; set; }

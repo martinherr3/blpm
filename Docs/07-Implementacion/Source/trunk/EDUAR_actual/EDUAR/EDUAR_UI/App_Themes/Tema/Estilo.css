@@ -952,7 +952,7 @@ TD.EncabezadoConfirmación
 
 label
 {
-    font-family: Verdana, Tahoma;
+    font-family: "Trebuchet MS" , Helvetica, sans-serif;
     font-size: small;
 }
 
@@ -1063,9 +1063,9 @@ label
 {
     background-color: #FFF;
     border-width: 5px;
-    border-style: outset;
+    border-style: ridge;
     width: 400px; /*font-weight: bold;             font-style: italic;*/
-    border-color: #87CEFA;
+    border-color: #DCDCDC;
     padding: 0px;
     z-index: 9000;
 }

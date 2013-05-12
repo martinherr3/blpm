@@ -9,7 +9,7 @@ namespace EDUAR_Entities.Reports
 	    public string asignatura { get; set; }	
         public string ciclolectivo { get; set; }
         public string curso { get; set; }
-        public string promedio { get; set; }
+        public double promedio { get; set; }
 
 		public RptRendimientoHistorico()
 		{
