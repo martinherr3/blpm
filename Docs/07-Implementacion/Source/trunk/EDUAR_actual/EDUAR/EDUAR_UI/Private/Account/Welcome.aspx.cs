@@ -130,6 +130,7 @@ namespace EDUAR_UI
                     objBLSeguridad.GetUsuario();
                     ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
                     divEncuesta.Visible = false;
+                    btnEncuesta.Visible = false;
                     divAgenda.Visible = false;
                     if (User.IsInRole(enumRoles.Alumno.ToString()))
                     {
@@ -182,9 +183,13 @@ namespace EDUAR_UI
 
                         lblMensajes.Text = lblMensajes.Text.Replace("<MENSAJES>", objMensajes.Count.ToString());
                         lblMensajes.Text = lblMensajes.Text.Replace("<MSJ_STRING>", mensaje);
+                        lblMensajesSeccion.Text = lblMensajes.Text;
                     }
                     else
+                    {
                         divMensajes.Visible = false;
+                        divMensajesSeccion.Visible = false;
+                    }
                     CargarAgenda();
                 }
                 else
@@ -587,6 +592,7 @@ namespace EDUAR_UI
                     lblEncuestas.Text = lblEncuestas.Text.Replace("Encuestas", "Encuesta");
             }
             divEncuesta.Visible = cantidad > 0;
+            btnEncuesta.Visible = cantidad > 0;
         }
         #endregion
     }

@@ -29,7 +29,7 @@
             <tr>
                 <td>
                     <h2>
-                        Consultar Sanciones</h2>
+                        Sanciones</h2>
                     <br />
                 </td>
                 <td align="right">
