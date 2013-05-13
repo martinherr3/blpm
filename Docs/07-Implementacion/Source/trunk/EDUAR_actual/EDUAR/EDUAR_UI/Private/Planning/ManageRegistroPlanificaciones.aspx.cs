@@ -110,21 +110,21 @@ namespace EDUAR_UI
         /// <value>
         /// The lista cursos.
         /// </value>
-        public List<CursoCicloLectivo> listaCursos
-        {
-            get
-            {
-                if (Session["listaCursos"] == null && cicloLectivoActual != null)
-                {
-                    BLCurso objBLCurso = new BLCurso();
-                    Nivel objFiltro = new Nivel();
-                    objFiltro.idNivel = idNivel;
-                    listaCursos = objBLCurso.GetCursosCicloLectivo(objFiltro, cicloLectivoActual);
-                }
-                return (List<CursoCicloLectivo>)Session["listaCursos"];
-            }
-            set { Session["listaCursos"] = value; }
-        }
+        //public List<CursoCicloLectivo> listaCursos
+        //{
+        //    get
+        //    {
+        //        if (Session["listaCursos"] == null && cicloLectivoActual != null)
+        //        {
+        //            BLCurso objBLCurso = new BLCurso();
+        //            Nivel objFiltro = new Nivel();
+        //            objFiltro.idNivel = idNivel;
+        //            listaCursos = objBLCurso.GetCursosCicloLectivo(objFiltro, cicloLectivoActual);
+        //        }
+        //        return (List<CursoCicloLectivo>)Session["listaCursos"];
+        //    }
+        //    set { Session["listaCursos"] = value; }
+        //}
 
 
         #endregion
@@ -235,11 +235,12 @@ namespace EDUAR_UI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void gvwReporte_SelectedIndexChanged(object sender, EventArgs e)
+        protected void gvwReporte_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
         {
             try
             {
-                //TODO: Fijarne si es necesario utilizar este evento.
+                gvwReporte.PageIndex = e.NewSelectedIndex;
+                CargarGrilla();
             }
             catch (Exception ex)
             {
@@ -263,14 +264,13 @@ namespace EDUAR_UI
                 {
                     this.idNivel = idNivel;
                     CargarComboAsignatura();
+                    BuscarFiltrando();
                 }
                 else
                 {
                     CargarPresentacion();
+                    BuscarFiltrando();
                 }
-                BuscarFiltrando();
-                listaCursos.Clear();
-                listaCursos = null;
                 ddlAsignatura.Enabled = idNivel > 0;
                 udpGrilla.Update();
             }
