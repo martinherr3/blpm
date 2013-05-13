@@ -6,8 +6,6 @@
 //  Original author: orkus
 ///////////////////////////////////////////////////////////
 
-
-
 using System;
 using EDUAR_Entities.Shared;
 namespace EDUAR_Entities

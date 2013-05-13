@@ -16,7 +16,6 @@ namespace EDUAR_Entities
         public int idTemaContenido { get; set; }
 		public string titulo { get; set; }
 		public string detalle { get; set; }
-        //public string contenido { get; set; }
 		public bool obligatorio { get; set; }
 		public int idContenido { get; set; }
         public bool activo { get; set; }
@@ -27,8 +26,7 @@ namespace EDUAR_Entities
         {
 			obligatorio = true;
             activo = true;
-            usuarioBaja = new Persona();
-            
+            usuarioBaja = new Persona();          
         }
 
         ~TemaContenido()
