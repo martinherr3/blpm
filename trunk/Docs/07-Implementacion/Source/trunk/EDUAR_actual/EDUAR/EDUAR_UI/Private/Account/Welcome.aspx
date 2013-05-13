@@ -7,45 +7,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
-        <tr>
-            <td>
-                <div id="divMensajes" runat="server">
-                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
-                        <tr>
-                            <td style="width: 30%">
-                                <p class="ui-widget">
-                                    <asp:Label ID="lblMensajes" Text="Tienes <MENSAJES> <MSJ_STRING> sin leer!!!" runat="server"
-                                        Font-Bold="true" /></p>
-                            </td>
-                            <td style="width: 70%">
-                                <p class="ui-widget">
-                                    <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl="~/Images/mail-new-message.gif"
-                                        OnClick="btnMensaje_Click" /></p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div id="divEncuesta" runat="server">
-                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
-                        <tr>
-                            <td style="width: 50%">
-                                <p class="ui-widget">
-                                    <asp:Label ID="lblEncuestas" Text="Tienes <ENCUESTAS> Encuestas pendiente de responder!!!"
-                                        runat="server" Font-Bold="true" /></p>
-                            </td>
-                            <td style="width: 50%">
-                                <p class="ui-widget">
-                                    <asp:ImageButton ID="btnEncuesta" runat="server" ImageUrl="~/Images/btnEncuesta.png"
-                                        OnClick="btnEncuesta_Click" /></p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </td>
-        </tr>
-    </table>
     <div id="divSecciones" runat="server">
+        <div id="divMensajesSeccion" runat="server">
+            <table class="tablaInterna" width="100%" cellpadding="1" cellspacing="5" border="0">
+                <tr>
+                    <td>
+                        <asp:Label ID="lblMensajesSeccion" Text="" runat="server" Font-Bold="true" /> [<asp:LinkButton
+                            Text="Mensajes Nuevos" PostBackUrl="~/Private/Mensajes/MsjeEntrada.aspx" runat="server" />]
+                    </td>
+                </tr>
+            </table>
+        </div>
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5" style="text-align: center">
             <tr>
                 <td>
@@ -387,6 +359,8 @@
                 <td align="right">
                     <asp:UpdatePanel ID="udpCampos" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
+                            <asp:ImageButton ID="btnEncuesta" runat="server" ImageUrl="~/Images/btnEncuesta.png"
+                                Visible="true" OnClick="btnEncuesta_Click" ToolTip="Responder Encuesta" AlternateText="Responder Encuesta" />
                             <asp:ImageButton ID="btnRecibidosAT" OnClick="btnRedireccion_Click" runat="server"
                                 ToolTip="Mensajes Recibidos" ImageUrl="~/Images/verMensajes.png" CommandArgument="Mensajes" />
                             <asp:ImageButton ID="btnBoletin" OnClick="btnRedireccion_Click" runat="server" ToolTip="Boletín"
@@ -400,9 +374,38 @@
                 </td>
             </tr>
         </table>
+        <table class="tablaInterna" width="100%" cellpadding="1" cellspacing="5" border="0">
+            <tr>
+                <td>
+                    <%--<br />--%>
+                </td>
+            </tr>
+        </table>
+        <div id="divMensajes" runat="server">
+            <table class="tablaInternaSinBorde" width="100%" cellpadding="1" cellspacing="5"
+                border="0">
+                <tr>
+                    <td>
+                        <asp:Label ID="lblMensajes" Text="Tienes <MENSAJES> <MSJ_STRING> sin leer!!!" runat="server"
+                            Font-Bold="true" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="divEncuesta" runat="server">
+            <table class="tablaInternaSinBorde" width="100%" cellpadding="1" cellspacing="5"
+                border="0">
+                <tr>
+                    <td>
+                        <asp:Label ID="lblEncuestas" Text="Tienes <ENCUESTAS> Encuestas pendiente de responder!!!"
+                            runat="server" Font-Bold="true" />
+                    </td>
+                </tr>
+            </table>
+        </div>
         <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
-                <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
                     <tr>
                         <td valign="top" class="TDCriterios50">
                             <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">

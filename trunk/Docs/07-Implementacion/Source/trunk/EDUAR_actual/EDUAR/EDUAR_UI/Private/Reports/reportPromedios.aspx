@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Informe consolidado" Language="C#" MasterPageFile="~/EDUARMaster.Master"
+﻿<%@ Page Title="Consolidado" Language="C#" MasterPageFile="~/EDUARMaster.Master"
     AutoEventWireup="true" CodeBehind="reportPromedios.aspx.cs" Inherits="EDUAR_UI.reportPromedios"
     EnableEventValidation="false" %>
 
@@ -28,7 +28,7 @@
             <tr>
                 <td>
                     <h2>
-                        Reportes Por Período</h2>
+                        Consolidado</h2>
                     <br />
                 </td>
                 <td align="right">

@@ -29,7 +29,7 @@
             <tr>
                 <td>
                     <h2>
-                        Consultar Calificaciones</h2>
+                        Calificaciones</h2>
                     <br />
                 </td>
                 <td align="right">
