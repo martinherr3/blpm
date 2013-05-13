@@ -751,6 +751,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnCerrarAdministracion;
         
         /// <summary>
+        /// Control lnkAccesos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkAccesos;
+        
+        /// <summary>
+        /// Control btnAccesos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnAccesos;
+        
+        /// <summary>
         /// Control lnkVerUsuarios.
         /// </summary>
         /// <remarks>

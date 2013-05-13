@@ -7,38 +7,44 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div id="divMensajes" runat="server">
-        <table width="100%" cellpadding="1" cellspacing="5" border="0">
-            <tr>
-                <td style="width: 30%">
-                    <p class="ui-widget">
-                        <asp:Label ID="lblMensajes" Text="Tienes <MENSAJES> <MSJ_STRING> sin leer!!!" runat="server"
-                            Font-Bold="true" /></p>
-                </td>
-                <td style="width: 70%">
-                    <p class="ui-widget">
-                        <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl="~/Images/mail-new-message.gif"
-                            OnClick="btnMensaje_Click" /></p>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div id="divEncuesta" runat="server">
-        <table width="100%" cellpadding="1" cellspacing="5" border="0">
-            <tr>
-                <td style="width: 50%">
-                    <p class="ui-widget">
-                        <asp:Label ID="lblEncuestas" Text="Tienes <ENCUESTAS> Encuestas pendiente de responder!!!"
-                            runat="server" Font-Bold="true" /></p>
-                </td>
-                <td style="width: 50%">
-                    <p class="ui-widget">
-                        <asp:ImageButton ID="btnEncuesta" runat="server" ImageUrl="~/Images/btnEncuesta.png"
-                            OnClick="btnEncuesta_Click" /></p>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5">
+        <tr>
+            <td>
+                <div id="divMensajes" runat="server">
+                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+                        <tr>
+                            <td style="width: 30%">
+                                <p class="ui-widget">
+                                    <asp:Label ID="lblMensajes" Text="Tienes <MENSAJES> <MSJ_STRING> sin leer!!!" runat="server"
+                                        Font-Bold="true" /></p>
+                            </td>
+                            <td style="width: 70%">
+                                <p class="ui-widget">
+                                    <asp:ImageButton ID="btnMensaje" runat="server" ImageUrl="~/Images/mail-new-message.gif"
+                                        OnClick="btnMensaje_Click" /></p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="divEncuesta" runat="server">
+                    <table width="100%" cellpadding="1" cellspacing="5" border="0">
+                        <tr>
+                            <td style="width: 50%">
+                                <p class="ui-widget">
+                                    <asp:Label ID="lblEncuestas" Text="Tienes <ENCUESTAS> Encuestas pendiente de responder!!!"
+                                        runat="server" Font-Bold="true" /></p>
+                            </td>
+                            <td style="width: 50%">
+                                <p class="ui-widget">
+                                    <asp:ImageButton ID="btnEncuesta" runat="server" ImageUrl="~/Images/btnEncuesta.png"
+                                        OnClick="btnEncuesta_Click" /></p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
     <div id="divSecciones" runat="server">
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5" style="text-align: center">
             <tr>
@@ -348,6 +354,12 @@
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5" style="text-align: center">
             <tr>
+                <td align="center">
+                    <asp:LinkButton ID="lnkAccesos" Text="Accesos" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Accesos" OnClick="btnPopUP_Click" Style="text-align: center" />
+                    <asp:ImageButton ID="btnAccesos" ImageUrl="~/Images/Home/VerAccesos.png" ToolTip="Accesos"
+                        runat="server" CommandArgument="Accesos" OnClick="btnRedireccion_Click" />
+                </td>
                 <td align="center">
                     <asp:LinkButton ID="lnkVerUsuarios" Text="Usuarios" runat="server" CssClass="loginDisplay"
                         CommandArgument="Usuarios" OnClick="btnPopUP_Click" Style="text-align: center" />

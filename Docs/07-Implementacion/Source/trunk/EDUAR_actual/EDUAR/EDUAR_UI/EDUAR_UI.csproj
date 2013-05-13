@@ -182,6 +182,7 @@
     <Content Include="Images\Home\Cursos.png" />
     <Content Include="Images\Home\Encuestas.png" />
     <Content Include="Images\Home\Reportes.png" />
+    <Content Include="Images\Home\verAccesos.png" />
     <Content Include="Images\Home\VerAprobaciones.png" />
     <Content Include="Images\Home\VerBoletin.png" />
     <Content Include="Images\Home\VerCitaciones.png" />
