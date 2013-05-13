@@ -438,7 +438,7 @@ namespace EDUAR_UI
                     if (!filtros.ToString().Contains("- Página"))
                         filtros.AppendLine("- Página");
                     filtros.AppendLine(" * " + item.Text);
-                    listaPagina.Add(new Pagina() { idPagina = Convert.ToInt16(item.Value) });
+                    listaPagina.Add(new Pagina() { idPagina = Convert.ToInt64(item.Value) });
                 }
             }
             filtroAcceso.listaPaginas = listaPagina;

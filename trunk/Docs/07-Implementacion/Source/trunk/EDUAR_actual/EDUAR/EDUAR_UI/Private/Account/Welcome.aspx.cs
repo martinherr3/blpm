@@ -491,6 +491,9 @@ namespace EDUAR_UI
                     case "CitacionTutor":
                         Response.Redirect("~/Private/Alumnos/CitacionesTutores.aspx", false);
                         break;
+                    case "Accesos":
+                        Response.Redirect("~/Private/Reports/reportAccesos.aspx", false);
+                        break;
                     default:
                         break;
                 }
