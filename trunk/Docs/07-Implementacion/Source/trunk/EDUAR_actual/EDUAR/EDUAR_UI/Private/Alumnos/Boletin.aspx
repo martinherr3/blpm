@@ -35,15 +35,11 @@
                         ImageUrl="~/Images/botonBuscar.png" />
                 </td>
             </tr>
-            <%--<tr>
-                <td align="left">
-                </td>
-            </tr>--%>
         </table>
         <table class="tablaInterna" cellpadding="1" cellspacing="5" border="0">
             <tr>
                 <td valign="top" class="TD100px">
-                    <asp:Label ID="lblAccion" runat="server" Text="Consultar:" Font-Bold="true" CssClass="lblCriterios"></asp:Label>
+                    <asp:Label ID="lblAccion" runat="server" Text="Consultar:" Font-Bold="false" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td rowspan="3">
                     <asp:RadioButtonList ID="rdlAccion" runat="server" OnSelectedIndexChanged="rdlAccion_OnSelectedIndexChanged"

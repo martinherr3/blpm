@@ -49,7 +49,8 @@
         <ContentTemplate>
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                 AutoGenerateColumns="false" AllowPaging="false" Width="80%" DataKeyNames="idPlanificacionAnual"
-                OnRowCommand="gvwReporte_RowCommand" OnSelectedIndexChanged="gvwReporte_SelectedIndexChanged">
+                OnRowCommand="gvwReporte_RowCommand" 
+                onselectedindexchanging="gvwReporte_SelectedIndexChanging">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />

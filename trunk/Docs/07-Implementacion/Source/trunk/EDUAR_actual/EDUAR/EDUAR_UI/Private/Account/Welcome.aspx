@@ -365,7 +365,7 @@
         </table>
     </asp:Panel>
     <div id="divAgenda" runat="server" visible="false">
-        <table width="100%" cellpadding="1" cellspacing="5" border="0">
+        <table class="tablaInterna" width="100%" cellpadding="1" cellspacing="5" border="0">
             <tr>
                 <td style="width: 70%; vertical-align: text-top">
                     <h2>
@@ -392,7 +392,7 @@
             <ContentTemplate>
                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                     <tr>
-                        <td valign="top" colspan="4" class="TDCriterios100">
+                        <td valign="top" class="TDCriterios50">
                             <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
                                     <cal:Calendario ID="fechas" TipoCalendario="DesdeHasta" runat="server" EtiquetaDesde="Fecha Desde:"
@@ -403,12 +403,16 @@
                                 </Triggers>
                             </asp:UpdatePanel>
                         </td>
+                        <td>
+                        </td>
                     </tr>
+                </table>
+                <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
                     <tr>
-                        <td valign="top" class="TDCriterios25">
+                        <td valign="top" style="width: 115px">
                             <asp:Label ID="lblCurso" runat="server" Text="Curso:"></asp:Label>
                         </td>
-                        <td valign="top" class="TDCriterios75" colspan="3">
+                        <td valign="top">
                             <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
                                     <asp:DropDownList ID="ddlCurso" runat="server">
@@ -421,10 +425,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td valign="top" class="TDCriterios25">
+                        <td valign="top">
                             <asp:Label ID="lblAlumnos" runat="server" Text="Alumno:"></asp:Label>
                         </td>
-                        <td valign="top" class="TDCriterios75" colspan="3">
+                        <td valign="top">
                             <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
                                 <ContentTemplate>
                                     <asp:DropDownList ID="ddlAlumnos" runat="server">

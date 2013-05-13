@@ -29,19 +29,6 @@
                 <ContentTemplate>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td>
-                                <h3>
-                                    Buscar Citaciones</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
                             <td valign="top" class="TD140px">
                                 <asp:Label ID="Label2" runat="server" Text="Motivo de Citación:"></asp:Label>
                             </td>

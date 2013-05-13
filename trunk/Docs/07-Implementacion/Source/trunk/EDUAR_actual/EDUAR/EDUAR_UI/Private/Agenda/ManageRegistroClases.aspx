@@ -41,32 +41,21 @@
             </table>
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td>
-                                <h3>
-                                    Buscar Registro De Clases</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
-                            </td>
-                        </tr>
-                    </table>--%>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" class="TD100px">
+                            <td valign="top" style="width: 140px">
                                 <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:"></asp:Label>
                             </td>
-                            <td valign="top" style="width: 500px">
+                            <td valign="top">
                                 <asp:DropDownList ID="ddlAsignatura" runat="server">
                                 </asp:DropDownList>
                             </td>
-                            <td valign="top" class="TD50px">
+                        </tr>
+                        <tr>
+                            <td valign="top" style="width: 140px">
                                 <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
                             </td>
-                            <td valign="top" class="TD50px">
+                            <td valign="top">
                                 <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
                             </td>
                         </tr>
@@ -145,22 +134,7 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td colspan="2">
-                                <h3>
-                                    <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
-                                    <asp:Literal ID="litNuevo" runat="server" Text="Nuevo "></asp:Literal>
-                                    Registro De Clases</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="validarEdit" runat="server" />
-                            </td>
-                        </tr>
-                    </table>--%>
-                    <table width="100%" cellpadding="1" cellspacing="5">
+                    <table class="tablaInterna"  width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TDCriterios20">
                                 <asp:Label ID="lblAsignaturaEdit" runat="server" Text="Asignatura:"></asp:Label>
@@ -234,7 +208,7 @@
                             </td>
                             <td class="TDCriterios80" colspan="3">
                                 <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="500px" TextMode="MultiLine"
-                                    Rows="5" CssClass="txtMultilinea" ></asp:TextBox>
+                                    Rows="5" CssClass="txtMultilinea"></asp:TextBox>
                             </td>
                         </tr>
                     </table>
