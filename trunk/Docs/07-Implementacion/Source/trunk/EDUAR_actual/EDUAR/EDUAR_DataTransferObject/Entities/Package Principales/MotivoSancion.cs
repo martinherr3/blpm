@@ -12,7 +12,6 @@ namespace EDUAR_Entities
     [Serializable]
     public class MotivoSancion: DTBase
     {
-
         public string descripcion { get; set; }
         public int idMotivoSancion { get; set; }
         public int idMotivoSancionTransaccional { get; set; }

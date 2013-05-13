@@ -25,7 +25,6 @@ namespace EDUAR_Entities
 		public bool solicitarAprobacion { get; set; }
         public decimal porcentajeCobertura { get; set; }
 
-
 		public PlanificacionAnual()
 		{
             curricula = new Curricula();

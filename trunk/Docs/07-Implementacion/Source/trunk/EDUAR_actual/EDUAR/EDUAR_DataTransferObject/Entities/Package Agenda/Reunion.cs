@@ -19,7 +19,7 @@ namespace EDUAR_Entities
 
         public Reunion()
         {
-			//evento = new EventoAgenda<Reunion>();
+
         }
 
         ~Reunion()

@@ -14,6 +14,7 @@ namespace EDUAR_Entities.Reports
         public DateTime fechaHasta { get; set; }
         public List<DTRol> listaRoles { get; set; }
 		public List<Pagina> listaPaginas { get; set; }
+
         public FilAccesos()
         {
             listaRoles = new List<DTRol>();

@@ -9,7 +9,6 @@ namespace EDUAR_Entities.Reports
     [Serializable]
     public class RptEncuestasPorEstado : DTBase
     {
-
         public string ambito { get; set; }
         public string status { get; set; }
         public int total { get; set; }

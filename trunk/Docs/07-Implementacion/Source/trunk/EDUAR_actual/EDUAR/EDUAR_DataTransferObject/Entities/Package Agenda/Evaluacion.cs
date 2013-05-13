@@ -16,12 +16,10 @@ namespace EDUAR_Entities
         public int idEvaluacion { get; set; }
 		public Asignatura asignatura { get; set; }
         public DateTime fecha { get; set; }
-		//public EventoAgenda<Evaluacion,> evento { get; set; }
 
         public Evaluacion()
         {
             asignatura = new Asignatura();
-			//evento = new EventoAgenda<Evaluacion>();
         }
 
         ~Evaluacion()

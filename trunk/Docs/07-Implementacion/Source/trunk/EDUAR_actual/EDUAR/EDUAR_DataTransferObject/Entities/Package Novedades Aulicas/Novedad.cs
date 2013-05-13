@@ -16,8 +16,6 @@ namespace EDUAR_Entities
 		public Curso curso { get; set; }
 		public DateTime fecha { get; set; }
 		public Persona usuario { get; set; }
-		//public List<Usuario> involucrados { get; set; }
-		//public Usuario usuario { get; set; }
 		public string observaciones { get; set; }
 		public TipoNovedad tipo { get; set; }
 		public EstadoNovedad estado { get; set; }

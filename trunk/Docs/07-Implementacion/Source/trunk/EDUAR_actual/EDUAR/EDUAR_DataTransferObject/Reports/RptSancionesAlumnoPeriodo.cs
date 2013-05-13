@@ -9,7 +9,6 @@ namespace EDUAR_Entities.Reports
     [Serializable]
     public class RptSancionesAlumnoPeriodo : DTBase
     {
-
         public string alumno { get; set; }
         public DateTime fecha { get; set; }
         public int cantidad { get; set; }

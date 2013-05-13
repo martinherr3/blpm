@@ -18,11 +18,10 @@ namespace EDUAR_Entities
         public string destino { get; set; }
         public DateTime horaDesde { get; set; }
         public DateTime horaHasta { get; set; }
-		//public EventoAgenda<Excursion> evento { get; set; }
 
         public Excursion()
         {
-			//evento = new EventoAgenda<Excursion>();
+
         }
 
         ~Excursion()

@@ -25,10 +25,5 @@ namespace EDUAR_Entities
 
         }
 
-        //public override void Dispose()
-        //{
-
-        //}
-
     }//end Psicopedagogo
 }

@@ -13,7 +13,6 @@ namespace EDUAR_Entities
     [Serializable]
     public class MotivoAusencia: DTBase
     {
-
         public string nombre { get; set; }
         public int idMotivo { get; set; }
         public int idMotivoTransaccional { get; set; }
