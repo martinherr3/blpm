@@ -150,7 +150,6 @@ namespace EDUAR_UI
             Response.Redirect("~/Private/Account/Welcome.aspx", false);
         }
         #endregion
-
         
     }
 }

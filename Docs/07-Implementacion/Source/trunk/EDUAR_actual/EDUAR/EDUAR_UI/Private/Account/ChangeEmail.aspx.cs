@@ -85,9 +85,6 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					lblEmailActual.Text = ObjSessionDataUI.ObjDTUsuario.Email;
-					//CargarPresentacion();
-					//CargarCamposFiltros();
-					//BuscarUsuarios(propSeguridad.Usuario);
 				}
 			}
 			catch (Exception ex)
@@ -112,8 +109,6 @@ namespace EDUAR_UI
 						GuardarUsuario();
 						AccionPagina = enumAcciones.Redirect;
 						Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
-						//LimpiarCampos();
-						//udpRoles.Visible = false;
 						break;
 					case enumAcciones.Redirect:
 						Response.Redirect("~/Private/Account/Welcome.aspx", false);
@@ -124,8 +119,6 @@ namespace EDUAR_UI
 					default:
 						break;
 				}
-				//udpRoles.Update();
-				//udpGrilla.Update();
 			}
 			catch (Exception ex)
 			{
@@ -142,8 +135,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//if (ValidarPagina())
-				//{
 				if (Page.IsValid)
 				{
 					AccionPagina = enumAcciones.Guardar;
@@ -154,7 +145,6 @@ namespace EDUAR_UI
 					AccionPagina = enumAcciones.Limpiar;
 					Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeDatosRequeridos, enumTipoVentanaInformacion.Advertencia);
 				}
-				//}
 			}
 			catch (Exception ex)
 			{

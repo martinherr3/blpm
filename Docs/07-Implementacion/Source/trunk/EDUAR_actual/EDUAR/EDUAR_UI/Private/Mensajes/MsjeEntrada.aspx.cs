@@ -426,7 +426,6 @@ namespace EDUAR_UI
 		private void BuscarMensajes()
 		{
 			Mensaje entidad = new Mensaje();
-			//entidad.destinatario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			entidad.destinatario.username = Context.User.Identity.Name;
 			CargarLista(entidad);
 			CargarGrilla();
@@ -449,7 +448,6 @@ namespace EDUAR_UI
 		/// <param name="lista">The lista.</param>
 		private void CargarGrilla()
 		{
-			//DataTable dt = UIUtilidades.BuildDataTable<Mensaje>(listaMensajes);
 			pds.DataSource = dtMensajes.DefaultView;
 
 			pds.AllowPaging = true;
@@ -526,12 +524,10 @@ namespace EDUAR_UI
 			objMensaje = listaMensajes.Find(p => p.idMensajeDestinatario == idMensajeDestinatario);
 			if (!objMensaje.leido)
 			{
-				//objMensaje.idMensajeDestinatario = idMensajeDestinatario;
 				objMensaje.leido = true;
 				BLMensaje objBLMensaje = new BLMensaje(objMensaje);
 				objBLMensaje.LeerMensaje();
 				listaMensajes.Find(p => p.idMensajeDestinatario == idMensajeDestinatario).leido = true;
-				//Master.RaiseCallbackEvent(e.ToString());
 				CargarGrilla();
 			}
 			litAsunto.Text = objMensaje.asuntoMensaje;

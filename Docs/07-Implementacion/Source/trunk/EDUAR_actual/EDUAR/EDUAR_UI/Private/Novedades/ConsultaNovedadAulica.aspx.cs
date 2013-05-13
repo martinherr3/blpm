@@ -13,32 +13,6 @@ namespace EDUAR_UI
 	public partial class ConsultaNovedadAulica : EDUARBasePage
 	{
 		#region --[Propiedades]--
-		/// <summary>
-		/// Gets or sets the lista cursos.
-		/// </summary>
-		/// <value>
-		/// The lista cursos.
-		/// </value>
-		//public List<Curso> listaCursos
-		//{
-		//    get
-		//    {
-		//        if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
-		//        {
-		//            BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-
-		//            Asignatura objFiltro = new Asignatura();
-		//            objFiltro.curso.cicloLectivo = cicloLectivoActual;
-		//            if (User.IsInRole(enumRoles.Docente.ToString()))
-		//                //nombre del usuario logueado
-		//                objFiltro.docente.username = User.Identity.Name;
-		//            listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
-		//        }
-		//        return (List<Curso>)ViewState["listaCursos"];
-		//    }
-		//    set { ViewState["listaCursos"] = value; }
-		//}
-
 		public List<Novedad> listaNovedades
 		{
 			get
@@ -98,7 +72,6 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
-					//UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
 					CargarCurso();
 					if (base.idNovedadConsulta > 0)
 					{
@@ -320,7 +293,6 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarCurso()
 		{
-			//novControl.novedadPadre = null;
 			novControl.visible = true;
 			CargarConversacion(base.idCursoCicloLectivo);
 			lblTitulo.Text = "Novedades Aulicas - " + base.cursoActual.curso.nombre; 

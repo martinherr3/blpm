@@ -79,7 +79,6 @@
         </ContentTemplate>
         <Triggers>
             <asp:AsyncPostBackTrigger ControlID="gvwUsuarios" EventName="RowCommand" />
-            <%--<asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />--%>
         </Triggers>
     </asp:UpdatePanel>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
@@ -161,7 +160,6 @@
                                 <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
                             </td>
                             <td valign="top">
-                                <%--<asp:Label ID="lblEmailUsuario" runat="server" Font-Bold="true"></asp:Label>--%>
                                 <asp:TextBox ID="txtEmailUsuario" runat="server" Font-Bold="true" />
                                 <asp:RequiredFieldValidator ID="EmailRequired" runat="server" ControlToValidate="txtEmailUsuario"
                                     CssClass="failureNotification" ErrorMessage="El correo electrónico es obligatorio."

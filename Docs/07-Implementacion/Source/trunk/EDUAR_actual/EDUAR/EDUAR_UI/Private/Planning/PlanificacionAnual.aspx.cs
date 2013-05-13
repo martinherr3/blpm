@@ -86,7 +86,6 @@ namespace EDUAR_UI
             set { ViewState["listaContenido"] = value; }
         }
 
-
         /// <summary>
         /// Lista de contenidos SELECCIONADOS
         /// </summary>
@@ -134,12 +133,6 @@ namespace EDUAR_UI
                 if (Session["listaCursos"] == null && cicloLectivoActual != null)
                 {
                     BLCurso objBLCurso = new BLCurso();
-
-                    //Asignatura objFiltro = new Asignatura();
-                    //objFiltro.curso.cicloLectivo = cicloLectivoActual;
-                    //if (User.IsInRole(enumRoles.Docente.ToString()))
-                    //    //nombre del usuario logueado
-                    //    objFiltro.docente.username = User.Identity.Name;
 
                     Nivel objFiltro = new Nivel();
                     objFiltro.idNivel = idNivel;
@@ -294,8 +287,6 @@ namespace EDUAR_UI
                     CargarCurso();
                     CargarFiltros();
                 }
-                //chkAprobada.Attributes.Add("onclick", "if(!jConfirm('¿Desea aprobar la presente planificación?','Confirmación')) {return false};");
-                //chkSolicitarAprobacion.Attributes.Add("onclick", "if(!jConfirm('¿Desea solicitar la aprobación de la presente planificación?''Confirmación')) {return false};");
             }
             catch (Exception ex)
             {
@@ -1325,9 +1316,6 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarContenidos()
         {
-            //listaContenido // tiene todos los contenidos
-            //listaSeleccionGuardar // tiene los contenidos asociados al item planificacion en curso
-            //listaPlanificacionContenido // tiene todos los contenidos qu estan asociados a una planificacion
             List<TemaContenido> listaContenidosPlanificados = getContenidosPlanificados();
 
             bool sacarContenido = false;
@@ -1518,32 +1506,6 @@ namespace EDUAR_UI
             listaSeleccionGuardarCursos.Clear();
             foreach (CursoCicloLectivo item in listaTemporal)
                 listaSeleccionGuardarCursos.Add(item.idCursoCicloLectivo);
-
-            //listaCursos = null;
-            //List<CursoCicloLectivo> listaCursosPlanificados = getCursosPlanificados();
-
-            //bool quitarCurso = false;
-
-            //List<bool> seleccionCurso = new List<bool>();
-
-            //foreach (CursoCicloLectivo contenido in listaCursos)
-            //{
-            //    foreach (CursoCicloLectivo contenidoPlanificado in listaCursosPlanificados)
-            //        if (contenido.idCursoCicloLectivo == contenidoPlanificado.idCursoCicloLectivo)
-            //            quitarCurso = true;
-
-            //    foreach (int contenidoActualPlanificacion in listaSeleccionGuardarCursos)
-            //        if (contenido.idCursoCicloLectivo == contenidoActualPlanificacion)
-            //            quitarCurso = false;
-
-            //    seleccionCurso.Add(quitarCurso);
-            //    quitarCurso = false;
-            //}
-
-            //for (int i = seleccionCurso.Count - 1; i > -1; i--)
-            //    if (seleccionCurso[i])
-            //        listaCursos.RemoveAt(i);
-            //listaCursosPlanificados.Clear();
 
             gvwCursos.DataSource = listaCursos;
             gvwCursos.DataBind();

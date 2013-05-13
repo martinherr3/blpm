@@ -158,18 +158,10 @@ namespace EDUAR_UI
 					CargarPresentacion();
 
 					BuscarCitacion(null);
-					//Siempre que se acceda a la página debiera existir una agenda
-					//propEvento.idAgendaActividad = propAgenda.idAgendaActividad;
-					//if (propEvento.idAgendaActividad > 0)
-					//{
-					//    BuscarAgenda(propEvento);
-					//}
-					//else
-					//    BuscarAgenda(null);
+	
 					calfechas.startDate = cicloLectivoActual.fechaInicio;
 					calfechas.endDate = cicloLectivoActual.fechaFin;
 				}
-				//this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
 			}
 			catch (Exception ex)
 			{
@@ -349,12 +341,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-				//if (idCicloLectivo <= 0)
-				//    ddlCurso.Items.Clear();
-				//ddlTutores.Items.Clear();
-				//ddlTutores.Enabled = false;
-				//CargarComboCursos(idCicloLectivo, ddlCurso);
 			}
 			catch (Exception ex)
 			{
@@ -371,9 +357,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//int idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-				//int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-				//CargarComboTutor(idCurso, idCicloLectivo, ddlTutores);
 			}
 			catch (Exception ex)
 			{
@@ -406,7 +389,6 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPresentacion()
 		{
-			//lblTitulo.Text = propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
 			CargarAlumnos();
 			LimpiarCampos();
 			CargarCombos();
@@ -439,11 +421,7 @@ namespace EDUAR_UI
 		{
 			chkActivo.Checked = true;
 			chkActivoEdit.Checked = false;
-			//if (ddlMeses.Items.Count > 0) ddlMeses.SelectedIndex = 0;
-			//if (ddlDia.Items.Count > 0) ddlDia.SelectedIndex = 0;
 			calfechas.LimpiarControles();
-			//ddlAsignatura.SelectedIndex = 0;
-			//ddlAsignaturaEdit.SelectedIndex = 0;
 			ddlTutorEdit.Items.Clear();
 			lblDescripcion.Text = string.Empty;
 		}
@@ -457,16 +435,11 @@ namespace EDUAR_UI
 			BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
 			listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(new CicloLectivo() { activo = true });
 
-			//UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
-
 			List<MotivoCitacion> listaMotivos = new List<MotivoCitacion>();
 			BLMotivoCitacion objBLMotivos = new BLMotivoCitacion();
 			listaMotivos = objBLMotivos.GetMotivos(new MotivoCitacion());
 			UIUtilidades.BindCombo<MotivoCitacion>(ddlMotivoCitacion, listaMotivos, "idMotivoCitacion", "nombre", false, true);
-
-			//ddlCurso.Enabled = false;
-			//ddlTutores.Enabled = false;
-		}
+        }
 
 		/// <summary>
 		/// Cargars the combos edicion.
@@ -558,7 +531,6 @@ namespace EDUAR_UI
 			entidad.fechaEventoDesde = Convert.ToDateTime(calfechas.ValorFechaDesde);
 			entidad.fechaEventoHasta = Convert.ToDateTime(calfechas.ValorFechaHasta);
 			entidad.motivoCitacion.idMotivoCitacion = Convert.ToInt32(ddlMotivoCitacion.SelectedValue);
-			//entidad.tutor.idTutor = (!string.IsNullOrEmpty(ddlTutores.SelectedValue)) ? Convert.ToInt32(ddlTutores.SelectedValue) : 0;
 			entidad.activo = chkActivo.Checked;
 			propFiltroCitacion = entidad;
 			BuscarCitacion(entidad);
@@ -602,7 +574,6 @@ namespace EDUAR_UI
 			}
 			entidad.tutor.idTutor = Convert.ToInt32(ddlTutorEdit.SelectedValue);
 			entidad.motivoCitacion.idMotivoCitacion = Convert.ToInt32(ddlMotivoEdit.SelectedValue);
-			//entidad.detalles = .Text;
 			entidad.fecha = Convert.ToDateTime(calFechaEvento.ValorFecha);
 			entidad.hora = new DateTime(entidad.fecha.Year, entidad.fecha.Month, entidad.fecha.Day, Convert.ToDateTime(txtHoraEdit.Text).Hour, Convert.ToDateTime(txtHoraEdit.Text).Minute, 0);
 			entidad.organizador.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
@@ -657,8 +628,6 @@ namespace EDUAR_UI
 			BLFeriadosYFechasEspeciales objBLFeriado = new BLFeriadosYFechasEspeciales();
 			objBLFeriado.ValidarFecha(Convert.ToDateTime(calFechaEvento.ValorFecha));
 
-			//if (txtDescripcionEdit.Text.Trim().Length == 0)
-			//    mensaje = "- Descripcion<br />";
 			if (calFechaEvento.Fecha.Text.Trim().Length == 0)
 				mensaje += "- Fecha<br />";
 			if (txtHoraEdit.Text.Trim().Length == 0)

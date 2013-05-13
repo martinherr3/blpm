@@ -219,7 +219,6 @@ namespace EDUAR_UI
 			try
 			{
 				pnlNuevoContenido.Attributes["display"] = "inherit";
-				//pnlNuevoContenido.Visible = true;
 				udpBotonera.Update();
 			}
 			catch (Exception ex)
@@ -304,10 +303,6 @@ namespace EDUAR_UI
 						idTemaContenido = Convert.ToInt32(e.CommandArgument.ToString());
 						Master.MostrarMensaje("Eliminar Tema", "¿Desea <b>eliminar</b> el tema seleccionado?", enumTipoVentanaInformacion.Confirmación);
 						break;
-					//case "Temas":
-					//    AccionPagina = enumAcciones.Redirect;
-					//    Response.Redirect("TemasContenido.aspx", false);
-					//    break;
 				}
 			}
 			catch (Exception ex)
@@ -324,9 +319,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPresentacion()
 		{
-			//UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
 			pnlNuevoContenido.Attributes["display"] = "none";
-			//pnlNuevoContenido.Visible = false;
 			lblTemas.Text = "Temas - " + contenidoEditar.descripcion;
 			CargarContenido(contenidoEditar.idContenido);
 			udpBotonera.Update();

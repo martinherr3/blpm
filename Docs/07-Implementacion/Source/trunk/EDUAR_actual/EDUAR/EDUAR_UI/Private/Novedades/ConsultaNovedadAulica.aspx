@@ -93,7 +93,6 @@
             </div>
         </ContentTemplate>
         <Triggers>
-            <%--<asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />--%>
             <asp:AsyncPostBackTrigger ControlID="btnVolver" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="novControl" EventName="GuardarClick" />
         </Triggers>
@@ -139,7 +138,6 @@
             <asp:AsyncPostBackTrigger ControlID="gvwNovedades" EventName="RowCommand" />
             <asp:AsyncPostBackTrigger ControlID="btnVolver" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="novControl" EventName="GuardarClick" />
-            <%--<asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />--%>
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

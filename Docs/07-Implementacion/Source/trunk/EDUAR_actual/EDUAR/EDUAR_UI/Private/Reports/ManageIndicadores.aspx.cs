@@ -266,7 +266,6 @@ namespace EDUAR_UI
 		private void BuscarIndicadores(Indicador entidad)
 		{
 			CargarLista(entidad);
-
 			CargarGrilla();
 		}
 

@@ -203,7 +203,6 @@ namespace EDUAR_UI
             {
                 Master.ManageExceptions(ex);
             }
-
         }
         #endregion
 
@@ -243,7 +242,6 @@ namespace EDUAR_UI
             ObjSessionDataUI.ObjDTUsuario.PaswordPregunta = objBLSeguridad.Data.Usuario.PaswordPregunta;
             lblPregunta.Text = ObjSessionDataUI.ObjDTUsuario.PaswordPregunta;
         }
-
         #endregion
     }
 }

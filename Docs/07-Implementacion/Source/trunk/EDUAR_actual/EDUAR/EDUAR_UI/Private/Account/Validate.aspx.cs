@@ -181,10 +181,6 @@ namespace EDUAR_UI
 			CargarComboTipoDocumento();
 			udpDatosValidar.Visible = true;
 			udpValidate.Update();
-			//udpEmail.Visible = false;
-			//udpRecover.Visible = true;
-			//udpNewPassword.Visible = false;
-			//udpRecover.Update();
 		}
 
 		/// <summary>
@@ -192,10 +188,6 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPresentacionNuevaPassword()
 		{
-			//udpEmail.Visible = false;
-			//udpRecover.Visible = false;
-			//udpNewPassword.Visible = true;
-			//udpForgotPassword.Update();
 		}
 
 		/// <summary>
@@ -203,13 +195,6 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarDatosUsuario()
 		{
-			//propSeguridad.Usuario.Email = txtEmail.Text.Trim();
-
-			//propSeguridad.Usuario = ObjDTSessionDataUI.ObjDTUsuario;
-			//objBLSeguridad = new BLSeguridad(propSeguridad);
-			//objBLSeguridad.GetUsuario();
-			//ObjDTSessionDataUI.ObjDTUsuario.PaswordPregunta = objBLSeguridad.Data.Usuario.PaswordPregunta;
-			//lblPregunta.Text = ObjDTSessionDataUI.ObjDTUsuario.PaswordPregunta;
 		}
 
 		/// <summary>

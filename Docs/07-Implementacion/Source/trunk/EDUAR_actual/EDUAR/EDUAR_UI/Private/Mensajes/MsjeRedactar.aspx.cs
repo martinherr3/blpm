@@ -98,7 +98,6 @@ namespace EDUAR_UI
 						Response.Redirect("MsjeEntrada.aspx", false);
 						break;
 					case enumAcciones.Error:
-						//Response.Redirect("MsjeRedactar.aspx", false);
 						break;
 					case enumAcciones.Enviar:
 						PrepararEnvioMensaje();
@@ -341,8 +340,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//if (!chkFiltrado.Checked)
-				//    CargarLista();
 				divDocente.Visible = chkFiltrado.Checked;
 			}
 			catch (Exception ex)

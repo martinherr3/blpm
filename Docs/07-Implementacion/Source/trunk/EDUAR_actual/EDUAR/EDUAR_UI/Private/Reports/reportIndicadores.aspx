@@ -39,7 +39,6 @@
                     </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
-                        <%--<asp:PostBackTrigger ControlID="ddlCurso" />--%>
                     </Triggers>
                 </asp:UpdatePanel>
             </td>
@@ -130,15 +129,6 @@
                         <ContentTemplate>
                             <asp:Image ID="imgPodio" AlternateText="Resultado" ToolTip="Resultado" runat="server"
                                 Visible="false" Style="text-align: center" />
-                            <%--<asp:Chart ID="chartPodio" runat="server" Height="300px" Width="350px" ImageType="Png"
-                                    AntiAliasing="All" Palette="SeaGreen" RenderType="ImageTag" Visible="false">
-                                    <ChartAreas>
-                                        <asp:ChartArea Name="ChartArea1" BorderColor="64, 64, 64, 64">
-                                            <Area3DStyle Rotation="35" Perspective="20" Inclination="30" IsRightAngleAxes="true"
-                                                WallWidth="0" IsClustered="False" Enable3D="true"></Area3DStyle>
-                                        </asp:ChartArea>
-                                    </ChartAreas>
-                                </asp:Chart>--%>
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="btnCalcular" EventName="Click" />

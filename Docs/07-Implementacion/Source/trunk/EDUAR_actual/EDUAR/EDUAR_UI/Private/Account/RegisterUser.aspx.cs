@@ -180,8 +180,8 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//Response.Redirect("~/Default.aspx", false);
-			}
+
+            }
 			catch (Exception ex)
 			{
 				Master.ManageExceptions(ex);
@@ -389,7 +389,6 @@ namespace EDUAR_UI
 		{
 			LimpiarCampos();
 			atrBLPersona = new BLPersona();
-			//propPersona.username = string.Empty;
 			atrBLPersona.Data = propPersona;
 			atrBLPersona.GetById();
 			Persona objPersona = atrBLPersona.Data;
@@ -473,7 +472,6 @@ namespace EDUAR_UI
 			}
 			return true;
 		}
-
 
 		#endregion
 	}

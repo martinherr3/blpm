@@ -413,7 +413,6 @@ namespace EDUAR_UI
                 if (rptInasistencias.GrillaReporte.PageCount > pagina)
                 {
                     rptInasistencias.GrillaReporte.PageIndex = pagina;
-
                     rptInasistencias.CargarReporte<RptInasistenciasAlumnoPeriodo>(listaReporte);
                 }
             }
@@ -484,7 +483,7 @@ namespace EDUAR_UI
             {
                 filtroReporte = new FilInasistenciasAlumnoPeriodo();
                 StringBuilder filtros = new StringBuilder();
-                if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 /*&& Convert.ToInt32(ddlCurso.SelectedValue) > 0*/)
+                if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0)
                 {
                     filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text);
 
@@ -636,8 +635,6 @@ namespace EDUAR_UI
                 group p by p.alumno into g
                 select new { Alumno = g.Key, Cantidad = g.Count() };
 
-            //TablaGrafico.Add("- Cantidad de Alumnos analizados: " + cantAlumnos.Count().ToString());
-
             var fechaMin =
                from p in listaReporte
                group p by p.alumno into g
@@ -647,8 +644,6 @@ namespace EDUAR_UI
                from p in listaReporte
                group p by p.alumno into g
                select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
-
-            //TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
 
             TablaGrafico = new List<TablaGrafico>();
             TablaGrafico tabla3 = new TablaGrafico();
@@ -660,9 +655,6 @@ namespace EDUAR_UI
 
             encabezado3.Add("Cantidad de Alumnos");
             fila3.Add(cantAlumnos.Count().ToString());
-
-            //encabezado3.Add("Inasistencias Totales");
-            //fila3.Add(listaReporteInasistencias.Count().ToString());
 
             tabla3.listaEncabezados = encabezado3;
             tabla3.listaCuerpo.Add(fila3);
@@ -686,10 +678,8 @@ namespace EDUAR_UI
                 encabezado2.Add("Alumno");
                 encabezado2.Add("Inasistencias");
 
-                //TablaGrafico.Add("- Top Alumnos a observar por Cantidad de Inasistencias:");
                 foreach (var item in worstAlumnos)
                 {
-                    //TablaGrafico.Add("Alumno: " + item.Alumno + " - Cantidad de Inasistencias: " + item.Faltas);
                     fila2 = new List<string>();
                     fila2.Add(item.Alumno);
                     fila2.Add(item.Faltas.ToString());
@@ -706,8 +696,6 @@ namespace EDUAR_UI
                    orderby g.Count() descending
                    select new { Motivo = g.Key, Faltas = g.Count() }).Distinct().Take(3);
 
-            //TablaGrafico.Add("- Cantidad de Inasistencias según Motivo:");
-
             TablaGrafico tabla4 = new TablaGrafico();
             tabla4.listaCuerpo = new List<List<string>>();
             List<string> encabezado4 = new List<string>();
@@ -720,7 +708,6 @@ namespace EDUAR_UI
 
             foreach (var item in FaltasPorMotivo)
             {
-                //TablaGrafico.Add("Motivo de Ausencia: " + item.Motivo + " - Cantidad de Ocurrencias: " + item.Faltas);
                 fila4 = new List<string>();
                 fila4.Add(item.Motivo);
                 fila4.Add(item.Faltas.ToString());
@@ -738,7 +725,6 @@ namespace EDUAR_UI
 
             if (worstAlumnosByMotivo.Count() > 1)
             {
-                //TablaGrafico.Add("- Top Alumnos a observar por Cantidad y Motivo de Inasistencias:");
                 TablaGrafico tabla5 = new TablaGrafico();
                 tabla5.listaCuerpo = new List<List<string>>();
                 List<string> encabezado5 = new List<string>();
@@ -752,7 +738,6 @@ namespace EDUAR_UI
 
                 foreach (var item in worstAlumnosByMotivo)
                 {
-                    //TablaGrafico.Add("Alumno: " + item.Alumno + " Motivo: " + item.Motivo + " - Cantidad de Inasistencias: " + item.Faltas);
                     fila5 = new List<string>();
                     fila5.Add(item.Alumno);
                     fila5.Add(item.Motivo);
@@ -775,8 +760,6 @@ namespace EDUAR_UI
 
             if (string.IsNullOrEmpty(ddlCicloLectivo.SelectedValue) || Convert.ToInt32(ddlCicloLectivo.SelectedValue) <= 0)
                 mensaje = "- Ciclo Lectivo<br />";
-            //if (string.IsNullOrEmpty(ddlCurso.SelectedValue) || Convert.ToInt32(ddlCurso.SelectedValue) <= 0)
-            //    mensaje += "- Curso<br />";
             return mensaje;
         }
         #endregion

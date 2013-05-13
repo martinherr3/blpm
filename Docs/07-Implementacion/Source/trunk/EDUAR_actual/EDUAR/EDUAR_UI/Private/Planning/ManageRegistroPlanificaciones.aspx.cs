@@ -103,30 +103,6 @@ namespace EDUAR_UI
             }
             set { Session["idNivel"] = value; }
         }
-
-        /// <summary>
-        /// Gets or sets the lista cursos.
-        /// </summary>
-        /// <value>
-        /// The lista cursos.
-        /// </value>
-        //public List<CursoCicloLectivo> listaCursos
-        //{
-        //    get
-        //    {
-        //        if (Session["listaCursos"] == null && cicloLectivoActual != null)
-        //        {
-        //            BLCurso objBLCurso = new BLCurso();
-        //            Nivel objFiltro = new Nivel();
-        //            objFiltro.idNivel = idNivel;
-        //            listaCursos = objBLCurso.GetCursosCicloLectivo(objFiltro, cicloLectivoActual);
-        //        }
-        //        return (List<CursoCicloLectivo>)Session["listaCursos"];
-        //    }
-        //    set { Session["listaCursos"] = value; }
-        //}
-
-
         #endregion
 
         #region --[Eventos]--
@@ -199,7 +175,6 @@ namespace EDUAR_UI
                 Master.ManageExceptions(ex);
             }
         }
-
 
         /// <summary>
         /// Handles the RowCommand event of the gvwReporte control.
@@ -308,9 +283,7 @@ namespace EDUAR_UI
                 idAsignatura = -1;
             }
         }
-
         #endregion
-
 
         #region --[Métodos Privados]--
         /// <summary>

@@ -139,14 +139,6 @@ namespace EDUAR_UI
                     citacion.organizador.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
 					BuscarCitacion(citacion);
-					//Siempre que se acceda a la página debiera existir una agenda
-					//propEvento.idAgendaActividad = propAgenda.idAgendaActividad;
-					//if (propEvento.idAgendaActividad > 0)
-					//{
-					//    BuscarAgenda(propEvento);
-					//}
-					//else
-					//    BuscarAgenda(null);
 				}
 				this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
 			}
@@ -235,8 +227,6 @@ namespace EDUAR_UI
 				btnVolver.Visible = true;
 				btnNuevo.Visible = false;
 				gvwReporte.Visible = false;
-                //litEditar.Visible = false;
-                //litNuevo.Visible = true;
 				udpEdit.Visible = true;
 				udpFiltrosBusqueda.Visible = false;
 				udpFiltros.Update();
@@ -344,9 +334,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-				//if (idCicloLectivo <= 0)
-				//    ddlCurso.Items.Clear();
 			}
 			catch (Exception ex)
 			{
@@ -364,7 +351,6 @@ namespace EDUAR_UI
 			try
 			{
 				int idCurso = Convert.ToInt32(ddlCurso.SelectedValue);
-				//int idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
 				CargarComboTutor(idCurso, cicloLectivoActual.idCicloLectivo, ddlTutores);
 			}
 			catch (Exception ex)
@@ -415,7 +401,6 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarPresentacion()
 		{
-			//lblTitulo.Text = propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
 			LimpiarCampos();
 			CargarCombos();
 			calfechas.FechaDesde.Text = cicloLectivoActual.fechaInicio.ToString("dd/MM/yyyy");
@@ -442,11 +427,7 @@ namespace EDUAR_UI
 		{
 			chkActivo.Checked = true;
 			chkActivoEdit.Checked = false;
-			//if (ddlMeses.Items.Count > 0) ddlMeses.SelectedIndex = 0;
-			//if (ddlDia.Items.Count > 0) ddlDia.SelectedIndex = 0;
 			calfechas.LimpiarControles();
-			//ddlAsignatura.SelectedIndex = 0;
-			//ddlAsignaturaEdit.SelectedIndex = 0;
 			ddlTutorEdit.Items.Clear();
 			ddlCursoEdit.Items.Clear();
 			txtAlumno.Text = "";
@@ -458,12 +439,6 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarCombos()
 		{
-			//List<CicloLectivo> listaCicloLectivo = new List<CicloLectivo>();
-			//BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-			//listaCicloLectivo = objBLCicloLectivo.GetCicloLectivos(new CicloLectivo() { activo = true });
-
-			//UIUtilidades.BindCombo<CicloLectivo>(ddlCicloLectivo, listaCicloLectivo, "idCicloLectivo", "nombre", true);
-
 			ddlTutores.Items.Clear();
 			ddlTutores.Enabled = false;
 			CargarComboCursos(cicloLectivoActual.idCicloLectivo, ddlCurso);
@@ -472,9 +447,6 @@ namespace EDUAR_UI
 			BLMotivoCitacion objBLMotivos = new BLMotivoCitacion();
 			listaMotivos = objBLMotivos.GetMotivos(new MotivoCitacion());
 			UIUtilidades.BindCombo<MotivoCitacion>(ddlMotivoCitacion, listaMotivos, "idMotivoCitacion", "nombre", false, true);
-
-			//ddlCurso.Enabled = false;
-			//ddlTutores.Enabled = false;
 		}
 
 		/// <summary>
@@ -647,8 +619,6 @@ namespace EDUAR_UI
                 AccionPagina = enumAcciones.GuardarSinVerificar;
                 Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), "El Tutor ya tiene una citación en esa fecha y horario. Desea crear la Citación?", enumTipoVentanaInformacion.Confirmación);
                 return (false);
-
-
             }
 
             objBLCitacion = new BLCitacion(entidad);
@@ -704,7 +674,6 @@ namespace EDUAR_UI
             String aux;
             String[] aux2;
 
-
             if (calFechaEvento.Fecha.Text.Trim().Length != 0 && txtHoraEdit.Text.Trim().Length != 0)
             {
                 calFechaEvento.ValidarRangoDesde(false, true);
@@ -715,10 +684,8 @@ namespace EDUAR_UI
                 aux = txtHoraEdit.Text;
                 aux2 = aux.Split(':');
                 objBLFeriado.ValidarHora(new DateTime(System.DateTime.Now.Year, System.DateTime.Now.Month, System.DateTime.Now.Day, int.Parse(aux2[0]), int.Parse(aux2[1]), 0));
-
             }
-
-
+            
             if (txtDescripcionEdit.Text.Trim().Length == 0)
 				mensaje = "- Descripcion<br />";
 			if (calFechaEvento.Fecha.Text.Trim().Length == 0)
@@ -741,17 +708,6 @@ namespace EDUAR_UI
 			string mensaje = string.Empty;
 			calfechas.ValidarRangoDesde(false, false);
 
-			//if (txtDescripcionEdit.Text.Trim().Length == 0)
-			//    mensaje = "- Descripcion<br />";
-			//if (calFechaEvento.Fecha.Text.Trim().Length == 0)
-			//    mensaje += "- Fecha<br />";
-			//if (txtHoraEdit.Text.Trim().Length == 0)
-			//    mensaje += "- Hora<br />";
-			//if (!(Convert.ToInt32(ddlTutorEdit.SelectedValue) > 0))
-			//    mensaje += "- Tutor";
-			//if (!(Convert.ToInt32(ddlMotivoEdit.SelectedValue) > 0))
-			//    mensaje += "- Motivo de Citación";
-
 			if (!string.IsNullOrEmpty(ddlCurso.SelectedValue) && Convert.ToInt32(ddlCurso.SelectedValue) > 0
 				&&
 				!string.IsNullOrEmpty(ddlTutores.SelectedValue) && Convert.ToInt32(ddlTutores.SelectedValue) <= 0)
@@ -768,9 +724,7 @@ namespace EDUAR_UI
 			AccionPagina = enumAcciones.Modificar;
 			esNuevo = false;
 			CargarValoresEnPantalla(propCitacion.idCitacion);
-            //litEditar.Visible = true;
-            //litNuevo.Visible = false;
-			btnBuscar.Visible = false;
+            btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
 			btnVolver.Visible = true;
 			btnGuardar.Visible = true;
@@ -791,7 +745,6 @@ namespace EDUAR_UI
 			AlumnosTutor = unBLTutor.GetAlumnosDeTutor(unTutor);
 
 			txtAlumno.Text = AlumnosTutor[0].nombre + " " + AlumnosTutor[0].apellido;
-
 		}
 
 		/// <summary>
@@ -808,7 +761,6 @@ namespace EDUAR_UI
 			AlumnosTutor = unBLTutor.GetAlumnosDeTutor(unTutor, propCicloLectivo.idCicloLectivo, Convert.ToInt32(ddlCursoEdit.SelectedValue));
 
 			txtAlumno.Text = AlumnosTutor[0].nombre + " " + AlumnosTutor[0].apellido;
-
 		}
 		#endregion
 	}

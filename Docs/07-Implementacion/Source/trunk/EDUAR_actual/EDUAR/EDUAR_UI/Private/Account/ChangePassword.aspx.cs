@@ -84,7 +84,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//Response.Redirect("~/Private/Account/Welcome.aspx", false);
 				DTSeguridad objDTSeguridad = new DTSeguridad
 				{
 					Usuario =

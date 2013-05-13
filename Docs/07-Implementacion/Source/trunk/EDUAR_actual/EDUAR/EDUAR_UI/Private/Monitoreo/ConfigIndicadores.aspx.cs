@@ -182,7 +182,6 @@ namespace EDUAR_UI
 				switch (e.CommandName)
 				{
 					case "Editar":
-						//lblTitulo.Text = "Editar Indicador";
 						idIndicador = Convert.ToInt32(e.CommandArgument.ToString());
 						CargarIndicador();
 						divConfig.Visible = true;

@@ -153,7 +153,6 @@ namespace EDUAR_UI
                 {
                     BLPersona objBLPersona = new BLPersona(new Persona() { username = ObjSessionDataUI.ObjDTUsuario.Nombre });
                     objBLPersona.GetPersonaByEntidad();
-                    //objSessionPersona = new Persona();
                     objSessionPersona = objBLPersona.Data;
                 }
                 return (Persona)Session["objSessionPersona"];
@@ -546,7 +545,6 @@ namespace EDUAR_UI
             switch (rdlAccion.SelectedValue)
             {
                 case "0":
-                    //ddlPeriodo.SelectedValue = (filtroReporte.idPeriodo > 0) ? filtroReporte.idPeriodo.ToString() : "-1";
                     break;
                 case "1":
                     ddlPeriodo.SelectedValue = (filtroReporteIncidencias.idPeriodo > 0) ? filtroReporteIncidencias.idPeriodo.ToString() : "-1";

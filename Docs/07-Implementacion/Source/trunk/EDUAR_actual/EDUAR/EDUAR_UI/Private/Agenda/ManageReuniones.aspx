@@ -32,19 +32,6 @@
             </table>
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td>
-                                <h3>
-                                    Buscar Reuniones</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
-                            </td>
-                        </tr>
-                    </table>--%>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD110px">
@@ -124,21 +111,6 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td colspan="2">
-                                <h3>
-                                    <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
-                                    <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
-                                    Reunión</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="validarEdit" runat="server" />
-                            </td>
-                        </tr>
-                    </table>--%>
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TDCriterios20">
@@ -147,10 +119,6 @@
                             <td valign="top" class="TDCriterios40">
                                 <cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
                             </td>
-                            <%--<td valign="top" class="TDCriterios10">
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>--%>
                             <td valign="top" class="TDCriterios10">
                                 <asp:Label runat="server" ID="lblHora" Text="Hora:"></asp:Label>
                             </td>

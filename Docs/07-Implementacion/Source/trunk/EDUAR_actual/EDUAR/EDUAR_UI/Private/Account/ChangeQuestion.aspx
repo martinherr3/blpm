@@ -52,10 +52,6 @@
             </p>
         </fieldset>
         <p class="submitButton">
-            <%--<asp:Button ID="CancelPushButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                OnClick="CancelPushButton_Click" Text="Cancelar" />
-            <asp:Button ID="btnChangeQuestion" runat="server" Text="Cambiar Pregunta" ValidationGroup="RegisterUserValidationGroup"
-                OnClick="btnChangeQuestion_Click" />--%>
             <asp:ImageButton ImageUrl="~/images/botonsiguiente.png" ID="btnChangeQuestion" ToolTip="Cambiar Pregunta"
                 ValidationGroup="RegisterUserValidationGroup" runat="server" OnClick="btnChangeQuestion_Click" />
             <asp:ImageButton ImageUrl="~/Images/botonVolver.png" ID="CancelPushButton" CausesValidation="False"

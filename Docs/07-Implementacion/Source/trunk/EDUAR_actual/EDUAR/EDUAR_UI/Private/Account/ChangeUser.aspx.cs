@@ -288,7 +288,6 @@ namespace EDUAR_UI
             CargarCombos();
         }
 
-
         /// <summary>
         /// Gets or sets the lista de usuarios.
         /// </summary>
@@ -334,7 +333,6 @@ namespace EDUAR_UI
                     usuario.Nombre = item.Text;
                 }
             }
-
 
             usuario.Aprobado = chkHabilitadoBusqueda.Checked;
 
@@ -421,7 +419,6 @@ namespace EDUAR_UI
             objBLSeguridad.Data = objDTSeguridad;
             objBLSeguridad.ActualizarUsuario();
 
-            //BuscarFiltrando();
             LimpiarCampos();
 
             udpRoles.Visible = false;
@@ -459,8 +456,6 @@ namespace EDUAR_UI
             }
             #endregion
         }
-
-
     }
         #endregion
 }

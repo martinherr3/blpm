@@ -21,8 +21,6 @@
                                 Visible="true" />
                             <asp:ImageButton ID="btnVolverContenido" OnClick="btnVolverContenido_Click" runat="server"
                                 ToolTip="Volver" ImageUrl="~/Images/botonVolver.png" />
-                            <%--<asp:ImageButton ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" ToolTip="Buscar"
-                                ImageUrl="~/Images/botonBuscar.png" />--%>
                             <asp:Panel ID="pnlNuevoContenido" runat="server" Width="500px" Style="display: none;
                                 text-align: left; min-height: 200px; z-index: 500" CssClass="CajaDialogo">
                                 <table class="tablaInterna" cellpadding="0" cellspacing="0">
@@ -98,9 +96,7 @@
                             </script>
                         </ContentTemplate>
                         <Triggers>
-                            <%--<asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />--%>
                             <asp:PostBackTrigger ControlID="btnGuardar" />
-                            <%--<asp:PostBackTrigger ControlID="btnBuscar" />--%>
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
@@ -129,7 +125,6 @@
                                 <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
                                     AlternateText="Eliminar" ToolTip="Eliminar" CommandName="Eliminar" CommandArgument='<%# Bind("idTemaContenido") %>'
                                     Visible='<%#DataBinder.Eval(Container.DataItem, "activo") %>' />
-                                <!--OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> el tema seleccionado?','Confirmación')"-->
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Título">
@@ -157,7 +152,6 @@
                 </asp:GridView>
             </ContentTemplate>
             <Triggers>
-                <%--<asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />--%>
             </Triggers>
         </asp:UpdatePanel>
     </div>

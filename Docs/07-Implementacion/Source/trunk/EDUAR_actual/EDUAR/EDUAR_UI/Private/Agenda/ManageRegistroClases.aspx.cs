@@ -241,8 +241,6 @@ namespace EDUAR_UI
 					{
 						BuscarAgenda(propEvento);
 					}
-					//else
-					//    BuscarAgenda(null);
 				}
 				calfechas.startDate = cicloLectivoActual.fechaInicio;
 				calfechas.endDate = cicloLectivoActual.fechaFin;
@@ -269,7 +267,6 @@ namespace EDUAR_UI
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
 						BuscarFiltrando();
-						//BuscarAgenda(propEvento);
 						break;
 					case enumAcciones.Guardar:
 						AccionPagina = enumAcciones.Limpiar;
@@ -319,14 +316,11 @@ namespace EDUAR_UI
 				CargarComboAsignatura();
 				ddlTipoRegistroClase.SelectedValue = enumTipoRegistroClases.ClaseNormal.GetHashCode().ToString();
 				esNuevo = true;
-				//btnContenidosPopUp.Visible = true;
 				btnGuardar.Visible = true;
 				btnBuscar.Visible = false;
 				btnVolver.Visible = true;
 				btnNuevo.Visible = false;
 				gvwReporte.Visible = false;
-                //litEditar.Visible = false;
-                //litNuevo.Visible = true;
 				udpEdit.Visible = true;
 				udpFiltrosBusqueda.Visible = false;
 				udpFiltros.Update();
@@ -381,19 +375,10 @@ namespace EDUAR_UI
 				string mensaje = ValidarPagina();
 				if (mensaje == string.Empty)
 				{
-					//DateTime fechaEvento = new DateTime(DateTime.Now.Year, Convert.ToInt32(ddlMeses.SelectedValue), Convert.ToInt32(ddlDia.SelectedValue));
-					//if (fechaEvento < DateTime.Today)
-					//{
-					//    AccionPagina = enumAcciones.Error;
-					//    Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), UIConstantesGenerales.MensajeFechaMenorActual, enumTipoVentanaInformacion.Advertencia);
-					//}
-					//else
+					if (Page.IsValid)
 					{
-						if (Page.IsValid)
-						{
-							AccionPagina = enumAcciones.Guardar;
-							Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
-						}
+						AccionPagina = enumAcciones.Guardar;
+						Master.MostrarMensaje(enumTipoVentanaInformacion.Confirmación.ToString(), UIConstantesGenerales.MensajeConfirmarCambios, enumTipoVentanaInformacion.Confirmación);
 					}
 				}
 				else
@@ -417,8 +402,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//CargarPresentacion();
-				//BuscarAgenda(propFiltroAgenda);
 				if (AccionPagina == enumAcciones.Nuevo || AccionPagina == enumAcciones.Modificar)
 				{
 					Response.Redirect("ManageRegistroClases.aspx", false);
@@ -496,7 +479,6 @@ namespace EDUAR_UI
 				if (idAsignatura > 0)
 				{
 					btnContenidosPopUp.Visible = User.IsInRole(enumRoles.Docente.ToString());
-					//btnContenidosPopUp.Enabled = true;
 					ddlMeses.Enabled = true;
 					if (DateTime.Now.Month >= 3)
 					{
@@ -514,7 +496,6 @@ namespace EDUAR_UI
 				else
 				{
 					btnContenidosPopUp.Visible = false;
-					//btnContenidosPopUp.Enabled = false;
 					ddlMeses.Enabled = false;
 					ddlDia.Enabled = false;
 				}
@@ -555,7 +536,6 @@ namespace EDUAR_UI
 				CargarContenidos();
 				listaSeleccion = listaSeleccionGuardar;
 				ProductsSelectionManager.RestoreSelection(gvwContenidos, "listaSeleccion");
-				//btnGuardarPopUp.Visible = !planificacionEditar.fechaAprobada.HasValue;
 				mpeContenido.Show();
 			}
 			catch (Exception ex)
@@ -656,7 +636,6 @@ namespace EDUAR_UI
 			}
 		}
 
-
 		/// <summary>
 		/// Handles the PageIndexChanged event of the gvwContenidos control.
 		/// </summary>
@@ -718,7 +697,6 @@ namespace EDUAR_UI
 			calfechas.LimpiarControles();
 			if (ddlAsignatura.Items.Count > 0) ddlAsignatura.SelectedIndex = 0;
 			if (ddlAsignaturaEdit.Items.Count > 0) ddlAsignaturaEdit.SelectedIndex = 0;
-			//if (listaContenido != null && listaContenido.Count > 0) listaContenido.Clear();
 			txtDescripcionEdit.Text = string.Empty;
 			listaSeleccionGuardar.Clear();
 		}
@@ -819,7 +797,6 @@ namespace EDUAR_UI
 		private void BuscarAgenda(RegistroClases entidad)
 		{
 			CargarLista(entidad);
-
 			CargarGrilla();
 		}
 
@@ -846,11 +823,9 @@ namespace EDUAR_UI
 			{
 				entidad.idAgendaActividad = propAgenda.idAgendaActividad;
 				entidad.idEventoAgenda = propEvento.idEventoAgenda;
-				//entidad.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
 			}
 			entidad.asignatura.idAsignatura = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
 			entidad.descripcion = txtDescripcionEdit.Text;
-			//entidad.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
 			entidad.fechaEvento = Convert.ToDateTime(new DateTime(propAgenda.cursoCicloLectivo.cicloLectivo.fechaInicio.Year, Convert.ToInt32(ddlMeses.SelectedValue), Convert.ToInt32(ddlDia.SelectedValue)));
 			entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			entidad.activo = chkActivoEdit.Checked;
@@ -896,7 +871,6 @@ namespace EDUAR_UI
 			{
 				txtDescripcionEdit.Text = entidad.descripcion;
 				BindComboModulos(entidad.fechaEvento.Month);
-				//calFechaEvento.Fecha.Text = entidad.fechaEvento.ToShortDateString();
 				ddlMeses.SelectedValue = entidad.fechaEvento.Month.ToString();
 				if (ddlDia.Items.FindByValue(entidad.fechaEvento.Day.ToString()) != null)
 				{
@@ -906,7 +880,6 @@ namespace EDUAR_UI
 				else
 					ddlDia.SelectedIndex = 0;
 				ddlAsignaturaEdit.SelectedValue = entidad.asignatura.idAsignatura.ToString();
-				//btnContenidosPopUp.Enabled = true;
                 btnContenidosPopUp.Visible = User.IsInRole(enumRoles.Docente.ToString()) || User.IsInRole(enumRoles.Administrador.ToString());
 				ddlAsignaturaEdit.Enabled = false;
 				ddlMeses.Enabled = true;
@@ -954,8 +927,6 @@ namespace EDUAR_UI
 			esNuevo = false;
 			CargarComboAsignatura();
 			CargarValoresEnPantalla(propEvento.idEventoAgenda);
-            //litEditar.Visible = true;
-            //litNuevo.Visible = false;
 			btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
 			btnContenidosPopUp.Visible = User.IsInRole(enumRoles.Docente.ToString()) || User.IsInRole(enumRoles.Administrador.ToString());
@@ -1003,9 +974,6 @@ namespace EDUAR_UI
 		{
 			CargarContenidosAtrasados(listaContenidoAtrasado);
 		}
-
-
-
 		#endregion
 	}
 }

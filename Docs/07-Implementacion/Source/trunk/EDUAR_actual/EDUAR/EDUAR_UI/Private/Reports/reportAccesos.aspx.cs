@@ -367,7 +367,6 @@ namespace EDUAR_UI
                 if (rptAccesos.GrillaReporte.PageCount > pagina)
                 {
                     rptAccesos.GrillaReporte.PageIndex = pagina;
-
                     rptAccesos.CargarReporte<RptAccesos>(listaAcceso);
                 }
             }
@@ -414,8 +413,6 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarComboPagina()
         {
-            //UIUtilidades.BindCombo<Pagina>(ddlDestino, listaPaginas, "idPagina", "titulo", true);
-
             foreach (Pagina item in listaPaginas)
             {
                 ddlDestino.Items.Add(new System.Web.UI.WebControls.ListItem(item.titulo, item.idPagina.ToString()));
@@ -428,8 +425,6 @@ namespace EDUAR_UI
         private void BuscarAccesos()
         {
             StringBuilder filtros = new StringBuilder();
-            //filtroAcceso.idPagina = Convert.ToInt32(ddlPagina.SelectedValue);
-            //if (filtroAcceso.idPagina > 0) filtros.AppendLine("- Página: " + ddlPagina.SelectedItem.Text);
             List<Pagina> listaPagina = new List<Pagina>();
             foreach (System.Web.UI.WebControls.ListItem item in ddlDestino.Items)
             {
@@ -493,7 +488,6 @@ namespace EDUAR_UI
             objBLSeguridad.GetRoles();
             foreach (DTRol rol in objBLSeguridad.Data.ListaRoles)
             {
-                //chkListRolesBusqueda.Items.Add(new System.Web.UI.WebControls.ListItem(rol.Nombre, rol.NombreCorto));
                 ddlRoles.Items.Add(new System.Web.UI.WebControls.ListItem(rol.Nombre, rol.NombreCorto));
             }
         }

@@ -14,7 +14,6 @@ namespace EDUAR_UI
 	public partial class ManageReuniones : EDUARBasePage
 	{
 		#region --[Atributos]--
-		//private BLReunion objBLReunion;
         private BLAgendaActividades objBLAgenda;
 		#endregion
 
@@ -165,7 +164,6 @@ namespace EDUAR_UI
 						break;
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
-                        //BuscarAgenda(propEvento);
                         BuscarFiltrando();
 						break;
 					case enumAcciones.Aceptar:
@@ -228,8 +226,6 @@ namespace EDUAR_UI
 				btnVolver.Visible = true;
 				btnNuevo.Visible = false;
 				gvwReporte.Visible = false;
-                //litEditar.Visible = false;
-                //litNuevo.Visible = true;
 				udpEdit.Visible = true;
 				udpFiltrosBusqueda.Visible = false;
 				udpFiltros.Update();
@@ -335,7 +331,6 @@ namespace EDUAR_UI
 		{
 			lblTitulo.Text = propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
 			LimpiarCampos();
-			//CargarCombos();
 			udpEdit.Visible = false;
 			btnVolver.Visible = true;
 			btnGuardar.Visible = false;
@@ -365,11 +360,9 @@ namespace EDUAR_UI
 		/// </summary>
 		private void BuscarFiltrando()
 		{
-			//calfechas.ValidarRangoDesde();
             calfechas.ValidarRangoDesdeHasta(false);
 			Reunion evento = new Reunion();
 
-			//evento.fechaEvento = Convert.ToDateTime(calfechas.ValorFecha);
 			evento.activo = chkActivo.Checked;
             evento.fechaEventoDesde = Convert.ToDateTime(calfechas.ValorFechaDesde);
             evento.fechaEventoHasta = Convert.ToDateTime(calfechas.ValorFechaHasta);
@@ -476,8 +469,6 @@ namespace EDUAR_UI
 			AccionPagina = enumAcciones.Modificar;
 			esNuevo = false;
 			CargarValoresEnPantalla(propEvento.idEventoAgenda);
-            //litEditar.Visible = true;
-            //litNuevo.Visible = false;
 			btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
 			btnVolver.Visible = true;
@@ -491,5 +482,4 @@ namespace EDUAR_UI
 		#endregion
 
 	}
-
 }
