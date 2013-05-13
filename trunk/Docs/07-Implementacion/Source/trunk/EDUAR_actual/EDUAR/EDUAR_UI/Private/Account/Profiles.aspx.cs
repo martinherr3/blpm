@@ -290,8 +290,6 @@ namespace EDUAR_UI
 			btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
             udpControlesBusqueda.Visible = true;
-			//btnNuevo.Visible = true;
-			//btnBuscar.Visible = true;
             gvwPerfiles.Visible = true;
             udpFiltros.Update();
             udpGrilla.Update();
@@ -396,7 +394,6 @@ namespace EDUAR_UI
 
             BuscarRoles(propSeguridad);
             LimpiarCampos();
-
         }
 
 		/// <summary>

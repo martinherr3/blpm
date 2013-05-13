@@ -192,15 +192,6 @@
                                     AutoSize="Limit" Height="300px" FadeTransitions="true" TransitionDuration="250"
                                     FramesPerSecond="50" RequireOpenedPane="false" SuppressHeaderPostbacks="true">
                                     <Panes>
-                                        <%--<cc1:AccordionPane runat="server" HeaderCssClass="accordionHeader" HeaderSelectedCssClass="accordionHeaderSelected"
-                                                ContentCssClass="accordionContent">
-                                                <Header>
-                                                   Verdadero Criterio
-                                                </Header>
-                                                <Content>
-                                                    Content. . .
-                                                </Content>
-                                            </cc1:AccordionPane>--%>
                                         <cc1:AccordionPane ID="acpCuasiCriterio" runat="server" HeaderCssClass="accordionHeader"
                                             HeaderSelectedCssClass="accordionHeaderSelected" ContentCssClass="accordionContent">
                                             <Header>

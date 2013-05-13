@@ -71,22 +71,15 @@
                             ControlToValidate="ConfirmNewPassword" CssClass="failureNotification" Display="Dynamic"
                             ErrorMessage="Confirmar la nueva contraseña debe coincidir con la entrada Nueva contraseña."
                             ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:CompareValidator>
-                        <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator2" ErrorMessage="La Contraseña debe tener al menos 5 caracteres, de los cuales uno debe ser numérico."
-                            ControlToValidate="ConfirmNewPassword" runat="server" Display="Dynamic" ForeColor="Red"
-                            ValidationExpression="^[a-zA-Z0-9,'+-_¿!¡=;:\.\?]\w{5,20}$" />--%>
                     </p>
                 </fieldset>
                 <p class="submitButton">
                     <table width="100%" style="text-align: right">
                         <tr>
                             <td style="width: 100%">
-                                <%--<asp:Button ID="CancelPushButton" runat="server" CausesValidation="False" CommandName="Cancel"
-                                    OnClick="CancelPushButton_Click" Text="Cancelar" />--%>
                                 <asp:ImageButton ImageUrl="~/Images/botonSiguiente.png" ID="ChangePasswordPushButton"
                                     runat="server" CommandName="ChangePassword" ToolTip="Cambiar contraseña" ValidationGroup="ChangeUserPasswordValidationGroup"
                                     OnClick="ChangePasswordPushButton_Click" />
-                                <%--<asp:Button ID="ChangePasswordPushButton" runat="server" CommandName="ChangePassword"
-                                    Text="Cambiar contraseña" ValidationGroup="ChangeUserPasswordValidationGroup" />--%>
                                 <asp:ImageButton ImageUrl="~/Images/botonVolver.png" ID="CancelPushButton" CausesValidation="false"
                                     runat="server" CommandName="Cancel" ToolTip="Volver" OnClick="CancelPushButton_Click" />
                             </td>

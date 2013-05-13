@@ -165,12 +165,6 @@ namespace EDUAR_UI
                         CargarContenido();
                     }
                 }
-                //else
-                //{
-                //    if (Request.Form["__EVENTTARGET"] == "btnGuardar")
-                //        //llamamos el metodo que queremos ejecutar, en este caso el evento onclick del boton Button2
-                //        btnGuardar_Click(this, new EventArgs());
-                //}
             }
             catch (Exception ex)
             {
@@ -253,10 +247,7 @@ namespace EDUAR_UI
         {
             try
             {
-                //pnlContenidos.Attributes["display"] = "inherit";
-                //pnlContenidos.Visible = true;
                 mpeContenido.Show();
-                //udpBotonera.Update();
             }
             catch (Exception ex)
             { Master.ManageExceptions(ex); }
@@ -274,7 +265,6 @@ namespace EDUAR_UI
                 if (!string.IsNullOrEmpty(txtDescripcion.Text))
                 {
                     EDUAR_Entities.Contenido nuevoContenido = new EDUAR_Entities.Contenido();
-                    //nuevoContenido.asignaturaCicloLectivo.idAsignaturaCicloLectivo = idAsignatura;
                     nuevoContenido.descripcion = txtDescripcion.Text;
                     nuevoContenido.idContenido = idContenido;
 
@@ -360,7 +350,6 @@ namespace EDUAR_UI
                 if (idAsignatura > 0)
                 {
                     this.idAsignatura = idAsignatura;
-                    //CargarContenido(idAsignatura);
                     CargarOrientacion();
                 }
                 else
@@ -432,7 +421,6 @@ namespace EDUAR_UI
                         AccionPagina = enumAcciones.Eliminar;
                         idContenido = Convert.ToInt32(e.CommandArgument.ToString());
                         Master.MostrarMensaje("Eliminar Contenido", "¿Desea <b>eliminar</b> el contenido seleccionado y todos sus temas asociados?", enumTipoVentanaInformacion.Confirmación);
-                        //EliminarContenido();
                         break;
                     case "Temas":
                         AccionPagina = enumAcciones.Redirect;
@@ -459,7 +447,6 @@ namespace EDUAR_UI
             UIUtilidades.BindCombo<Nivel>(ddlNivel, listaNiveles, "idNivel", "Nombre", true);
             ddlAsignatura.Items.Add("[Seleccione Nivel]");
             pnlContenidos.Attributes["display"] = "none";
-            //pnlContenidos.Visible = false;
             VerOrientacion(false);
             udpBotonera.Update();
         }

@@ -19,8 +19,6 @@
                         <ContentTemplate>
                             <asp:ImageButton ID="btnNuevo" runat="server" ToolTip="Nuevo Contenido" ImageUrl="~/Images/botonNuevo.png"
                                 Visible="false" OnClick="btnNuevo_Click" />
-                            <%--<asp:ImageButton ID="btnCurricula" runat="server" ToolTip="Nueva Curricula" ImageUrl="~/Images/botonCurricula.png"
-                                Visible="true" OnClick="btnNuevo_Click"/>--%>
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />

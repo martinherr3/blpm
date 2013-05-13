@@ -446,8 +446,6 @@ namespace EDUAR_UI
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
-
-
 		}
 
         /// <summary>
@@ -464,7 +462,6 @@ namespace EDUAR_UI
                 if (rptSanciones.GrillaReporte.PageCount > pagina)
                 {
                     rptSanciones.GrillaReporte.PageIndex = pagina;
-
                     rptSanciones.CargarReporte<RptSancionesAlumnoPeriodo>(listaReporte);
                 }
             }
@@ -535,7 +532,7 @@ namespace EDUAR_UI
 			{
 				filtroReporte = new FilSancionesAlumnoPeriodo();
 				StringBuilder filtros = new StringBuilder();
-				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0 /*&& Convert.ToInt32(ddlCurso.SelectedValue) > 0*/)
+				if (Convert.ToInt32(ddlCicloLectivo.SelectedValue) > 0)
 				{
 					filtros.AppendLine("- " + ddlCicloLectivo.SelectedItem.Text);
 
@@ -707,8 +704,7 @@ namespace EDUAR_UI
 
 			if (string.IsNullOrEmpty(ddlCicloLectivo.SelectedValue) || Convert.ToInt32(ddlCicloLectivo.SelectedValue) <= 0)
 				mensaje = "- Ciclo Lectivo<br />";
-			//if (string.IsNullOrEmpty(ddlCurso.SelectedValue) || Convert.ToInt32(ddlCurso.SelectedValue) <= 0)
-			//    mensaje += "- Curso<br />";
+
 			return mensaje;
 		}
 
@@ -746,7 +742,6 @@ namespace EDUAR_UI
             TablaGrafico.Add(tabla3);
 
             // Calcular Promedio y Desviacion Standard por tipo de Sanciones
-            //TablaGrafico.Add("- Desviacion Estandar por tipo de Sanciones: ");
             TablaGrafico tabla2 = new TablaGrafico();
             tabla2.listaCuerpo = new List<List<string>>();
             List<string> encabezado2 = new List<string>();
@@ -783,11 +778,10 @@ namespace EDUAR_UI
                         dif = (Convert.ToInt32(sancion.cantidad) - promedio);
                         sumaDifCuad += Math.Pow(dif, 2);
                     }
-                    // cociente = (sumaDifCuad / (listaParcial.Count - 1));
                     cociente = (sumaDifCuad / (listaParcial.Count));
 
                     desvStd = Math.Sqrt(cociente);
-                    //TablaGrafico.Add(item.nombre + " Promedio: " + promedio.ToString("#.##") + " , Desviacion Standard: " + desvStd.ToString("#.##"));
+                    
                     fila2 = new List<string>();
                     fila2.Add(item.nombre);
                     fila2.Add(promedio.ToString("#.##"));
@@ -812,14 +806,12 @@ namespace EDUAR_UI
                 List<string> encabezado4 = new List<string>();
                 List<List<string>> filasTabla4 = new List<List<string>>();
                 List<string> fila4 = new List<string>();
-                //TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad de Sanciones:");
                 tabla4.titulo = "Top Alumnos a observar por Cantidad de Sanciones";
                 encabezado4.Add("Alumno");
                 encabezado4.Add("Sanciones");
 
                 foreach (var item in worstAlumnos)
                 {
-                    //TablaGrafico.Add("Alumno: " + item.Alumno + " - Cantidad de Sanciones: " + item.Sanciones);
                     fila4 = new List<string>();
                     fila4.Add(item.Alumno);
                     fila4.Add(item.Sanciones.ToString());
@@ -835,7 +827,6 @@ namespace EDUAR_UI
                    orderby g.Count() descending
                    select new { Tipo = g.Key, Sanciones = g.Sum(p => p.cantidad) }).Distinct().Take(3);
 
-            //TablaGrafico.Add("- Cantidad de Sanciones según Tipo:");
             TablaGrafico tabla5 = new TablaGrafico();
             tabla5.listaCuerpo = new List<List<string>>();
             List<string> encabezado5 = new List<string>();
@@ -848,7 +839,6 @@ namespace EDUAR_UI
 
             foreach (var item in SancionesPorTipo)
             {
-                //TablaGrafico.Add("Tipo de Sancion: " + item.Tipo + " - Cantidad de Sanciones: " + item.Sanciones);
                 fila5 = new List<string>();
                 fila5.Add(item.Tipo);
                 fila5.Add(item.Sanciones.ToString());
@@ -873,10 +863,8 @@ namespace EDUAR_UI
             tabla6.titulo = "Cantidad de Sanciones según Motivo";
             encabezado6.Add("Motivo");
             encabezado6.Add("Cantidad");
-            //TablaGrafico.Add("- Cantidad de Sanciones según Motivo:");
             foreach (var item in SancionesPorMotivo)
             {
-                //TablaGrafico.Add("Motivo de Sancion: " + item.Motivo + " - Cantidad de Sanciones: " + item.Sanciones);
                 fila6 = new List<string>();
                 fila6.Add(item.Motivo);
                 fila6.Add(item.Sanciones.ToString());
@@ -893,7 +881,6 @@ namespace EDUAR_UI
 
             if (worstAlumnosByMotivo.Count() > 1)
             {
-                //TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad y Motivo de Sanciones:");
                 TablaGrafico tabla7 = new TablaGrafico();
                 tabla7.listaCuerpo = new List<List<string>>();
                 List<string> encabezado7 = new List<string>();
@@ -906,7 +893,6 @@ namespace EDUAR_UI
                 encabezado7.Add("Cantidad");
                 foreach (var item in worstAlumnosByMotivo)
                 {
-                    //TablaGrafico.Add("Alumno: " + item.Alumno + " Motivo: " + item.Motivo + " - Cantidad de Sanciones: " + item.Sanciones);
                     fila7 = new List<string>();
                     fila7.Add(item.Alumno);
                     fila7.Add(item.Motivo);
@@ -925,7 +911,6 @@ namespace EDUAR_UI
 
             if (worstAlumnosByTipo.Count() > 1)
             {
-                //TablaGrafico.Add("- Top 3 de Alumnos a observar por Cantidad y Tipo de Sanciones:");
                 TablaGrafico tabla8 = new TablaGrafico();
                 tabla8.listaCuerpo = new List<List<string>>();
                 List<string> encabezado8 = new List<string>();
@@ -938,7 +923,6 @@ namespace EDUAR_UI
                 encabezado8.Add("Cantidad");
                 foreach (var item in worstAlumnosByTipo)
                 {
-                    //TablaGrafico.Add("Alumno: " + item.Alumno + " Tipo: " + item.Tipo + " - Cantidad de Sanciones: " + item.Sanciones);
                     fila8 = new List<string>();
                     fila8.Add(item.Alumno);
                     fila8.Add(item.Tipo);

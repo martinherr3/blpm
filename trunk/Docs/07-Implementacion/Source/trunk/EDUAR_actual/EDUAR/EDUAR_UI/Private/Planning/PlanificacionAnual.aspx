@@ -30,8 +30,6 @@
                                 ImageUrl="~/Images/botonGuardar.png" Visible="false" />
                             <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                                 ImageUrl="~/Images/botonVolver.png" Visible="false" />
-                            <%--<asp:ImageButton ID="btnVolverAnterior" OnClick="btnVolverAnterior_Click" runat="server"
-                                ToolTip="Volver" ImageUrl="~/Images/botonVolver.png" Visible="true" />--%>
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlAsignatura" EventName="SelectedIndexChanged" />

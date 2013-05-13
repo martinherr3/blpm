@@ -54,7 +54,6 @@ namespace EDUAR_UI
                 if (e.CommandName == "Editar")
                 {
                     SiteMapNode currentNode = SiteMap.Provider.FindSiteMapNodeFromKey(e.CommandArgument.ToString());
-                    //SiteMapNode currentNode = SiteMap.RootNode;
                     List<Seccion> listaSecciones = new List<Seccion>();
                     Seccion objSeccion = new Seccion();
                     foreach (SiteMapNode nodo in currentNode.ChildNodes)

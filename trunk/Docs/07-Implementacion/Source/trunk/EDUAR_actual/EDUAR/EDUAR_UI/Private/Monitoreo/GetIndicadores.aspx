@@ -100,7 +100,6 @@
                                                     </asp:Repeater>
                                                 </ContentTemplate>
                                                 <Triggers>
-                                                    <%--<asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />--%>
                                                 </Triggers>
                                             </asp:UpdatePanel>
                                         </div>
@@ -113,7 +112,6 @@
             </table>
         </ContentTemplate>
         <Triggers>
-            <%--<asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />--%>
         </Triggers>
     </asp:UpdatePanel>
     <asp:HiddenField ID="HiddenField1" runat="server" />

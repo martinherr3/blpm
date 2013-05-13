@@ -101,8 +101,6 @@
                                         </p>
                                     </fieldset>
                                     <p class="submitButton">
-                                        <%--<asp:Button ID="CreateUserButton" runat="server" CommandName="MoveNext" Text="Crear usuario"
-                                            ValidationGroup="RegisterUserValidationGroup" />--%>
                                         <asp:ImageButton ImageUrl="~/Images/botonSiguiente.png" ID="CreateUserButton" runat="server"
                                             CommandName="MoveNext" ToolTip="Crear usuario" ValidationGroup="RegisterUserValidationGroup" />
                                     </p>

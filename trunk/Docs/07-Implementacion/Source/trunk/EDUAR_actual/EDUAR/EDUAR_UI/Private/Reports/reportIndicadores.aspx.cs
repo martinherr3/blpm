@@ -188,7 +188,6 @@ namespace EDUAR_UI
 					CargarPresentacion();
 					GraficarDistribucion();
 				}
-				//GraficarDistribucion();
 			}
 			catch (Exception ex)
 			{
@@ -323,7 +322,6 @@ namespace EDUAR_UI
 					else
 						Master.MostrarMensaje("Advertencia", "No se ha realizado ningún cálculo.", enumTipoVentanaInformacion.Advertencia);
 				}
-				//GraficarDistribucion();
 			}
 			catch (Exception ex)
 			{ Master.ManageExceptions(ex); }
@@ -477,18 +475,6 @@ namespace EDUAR_UI
 				string nombre = e.Row.Cells[0].Text;
 				e.Row.Cells[0].Text = nombre.Replace(" ", "<br />");
 			}
-			//if (e.Row.RowType == DataControlRowType.Footer)
-			//{
-			//    e.Row.Cells[0].Text = tablaPaso3.Rows[0][0].ToString();
-			//    e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
-			//    e.Row.Cells[0].VerticalAlign = VerticalAlign.Middle;
-			//    for (int i = 1; i < e.Row.Cells.Count - 1; i++)
-			//    {
-			//        e.Row.Cells[i].Text = tablaPaso3.Rows[0][i].ToString();
-			//        e.Row.Cells[i].HorizontalAlign = HorizontalAlign.Center;
-			//        e.Row.Cells[i].VerticalAlign = VerticalAlign.Middle;
-			//    }
-			//}
 		}
 
 		/// <summary>
@@ -502,7 +488,6 @@ namespace EDUAR_UI
 			lblResultado.Visible = false;
 			gvwResultado.DataSource = null;
 			gvwResultado.DataBind();
-			//chartPodio.Visible = false;
 			imgPodio.ImageUrl = "";
 			lnkConfig.Visible = false;
 			GraficarDistribucion();
@@ -519,11 +504,11 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//ActualizarCriterio(sender, e);
+
 			}
 			catch (Exception ex)
 			{
-				throw ex; //Master.ManageExceptions(ex);
+				throw ex;
 			}
 		}
 		#endregion
@@ -535,7 +520,6 @@ namespace EDUAR_UI
 		private void CargarPresentacion()
 		{
 			CargarComboCursos();
-			//chartPodio.Visible = false;
 			imgPodio.Visible = false;
 			if (!User.IsInRole(enumRoles.Administrador.ToString()))
 				btnExcel.Visible = false;
@@ -710,7 +694,6 @@ namespace EDUAR_UI
 							if (valorFuncPreferencia >= 0) fila["Inasistencia"] = valorFuncPreferencia;
 							else fila["Inasistencia"] = DBNull.Value;
 						}
-						//else fila["Inasistencia"] = DBNull.Value;
 						#endregion
 
 						#region --[Sanciones]--
@@ -737,7 +720,6 @@ namespace EDUAR_UI
 							if (valorFuncPreferencia >= 0) fila["Sancion"] = valorFuncPreferencia;
 							else fila["Sancion"] = DBNull.Value;
 						}
-						//else fila["Sancion"] = DBNull.Value;
 						#endregion
 						tablaPaso1.Rows.Add(fila);
 					}
@@ -849,7 +831,6 @@ namespace EDUAR_UI
 
 				// Paso 4: Obtener el Preorden Total
 				#region --[Paso 4]--
-				//tablaPaso2.DefaultView.Sort = "FlujoEntrante DESC";
 				tablaPaso2.Columns.Add("Ranking", System.Type.GetType("System.Decimal"));
 				for (int i = 0; i < tablaPaso2.Rows.Count; i++)
 				{
@@ -904,9 +885,8 @@ namespace EDUAR_UI
 			{
 				var TopAlumno = from p in lista
 								where p.alumnoApellido + " " + p.alumnoNombre == tablaResultado.Rows[i][0].ToString()
-								//orderby p.promedio descending
 								select p.alumnoApellido.Trim() + " " + p.alumnoNombre.Trim();
-				//lblResultado.Text += alumno.ElementAt(0).ToString() + "<br />";
+
 				switch (i)
 				{
 					case 0:
@@ -1252,16 +1232,13 @@ namespace EDUAR_UI
 		{
 			IFont fuenteTitulo = excelFile.CreateFont();
 			fuenteTitulo.FontName = "Calibri";
-			//fuenteTitulo.FontHeight = (short)FontSize.Large.GetHashCode();
 			fuenteTitulo.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
 
 			IFont unaFuente = excelFile.CreateFont();
 			unaFuente.FontName = "Tahoma";
-			//unaFuente.FontHeight = (short)FontSize.Medium.GetHashCode();
 
 			IFont fuenteEncabezado = excelFile.CreateFont();
 			fuenteEncabezado.FontName = "Tahoma";
-			//fuenteEncabezado.FontHeight = (short)FontSize.Medium.GetHashCode(); ;
 			fuenteEncabezado.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
 
 			ICellStyle unEstiloDecimal = excelFile.CreateCellStyle();
@@ -1382,7 +1359,6 @@ namespace EDUAR_UI
 				}
 				nuevaFila[i] = acumuladorColumna;
 			}
-			//tabla.ImportRow(nuevaFila);
 			tabla.Rows.Add(nuevaFila);
 
 			CargaHojaExcel(tabla, "Resultados Parciales", "Paso 2", false);
@@ -1396,16 +1372,13 @@ namespace EDUAR_UI
 			#region --[Estilos]--
 			IFont fuenteTitulo = excelFile.CreateFont();
 			fuenteTitulo.FontName = "Calibri";
-			//fuenteTitulo.FontHeight = (short)FontSize.Large.GetHashCode();
 			fuenteTitulo.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
 
 			IFont unaFuente = excelFile.CreateFont();
 			unaFuente.FontName = "Tahoma";
-			//unaFuente.FontHeight = (short)FontSize.Medium.GetHashCode();
 
 			IFont fuenteEncabezado = excelFile.CreateFont();
 			fuenteEncabezado.FontName = "Tahoma";
-			//fuenteEncabezado.FontHeight = (short)FontSize.Medium.GetHashCode(); ;
 			fuenteEncabezado.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
 
 			ICellStyle unEstiloDecimal = excelFile.CreateCellStyle();

@@ -25,8 +25,6 @@
                 <br />
             </td>
             <td align="right" rowspan="2">
-                <%--<asp:ImageButton ID="btnVolverAnterior" OnClick="btnVolverAnterior_Click" runat="server"
-                    ToolTip="Volver" ImageUrl="~/Images/botonVolver.png" Visible="true" />--%>
             </td>
         </tr>
     </table>

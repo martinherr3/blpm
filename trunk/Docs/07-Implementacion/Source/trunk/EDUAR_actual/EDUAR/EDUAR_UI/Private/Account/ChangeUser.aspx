@@ -6,7 +6,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
-        //<!-- WPJD37: Copiar esto-->
         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
         function EndRequestHandler(sender, args) {
             if (args.get_error() == undefined) {
@@ -140,8 +139,6 @@
                             <td valign="top">
                                 <asp:DropDownList ID="ddlListRoles" runat="server" TabIndex="7">
                                 </asp:DropDownList>
-                                <%--<asp:CheckBoxList ID="chkListRoles" TabIndex="7" runat="server">
-                                            </asp:CheckBoxList>--%>
                             </td>
                         </tr>
                     </table>

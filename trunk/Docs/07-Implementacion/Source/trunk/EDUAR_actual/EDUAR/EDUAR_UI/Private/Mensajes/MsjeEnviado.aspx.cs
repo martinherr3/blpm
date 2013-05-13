@@ -164,7 +164,6 @@ namespace EDUAR_UI
 					case enumAcciones.Eliminar:
 						AccionPagina = enumAcciones.Limpiar;
 						Mensaje objMensaje = listaMensajes.Find(p => p.idMensaje == propMensaje.idMensajeDestinatario);
-						//objMensaje.idMensaje = idMensaje;
 						objMensaje.activo = false;
 						objMensaje.idMensajeDestinatario = 0;
 						BLMensaje objBLMensaje = new BLMensaje(objMensaje);
@@ -411,7 +410,6 @@ namespace EDUAR_UI
 		/// <param name="lista">The lista.</param>
 		private void CargarGrilla()
 		{
-			//DataTable dt = UIUtilidades.BuildDataTable<Mensaje>(listaMensajes);
 			pds.DataSource = dtMensajes.DefaultView;
 			pds.AllowPaging = true;
 			pds.PageSize = Convert.ToInt16(ddlPageSize.SelectedValue);
@@ -450,7 +448,6 @@ namespace EDUAR_UI
 				objMensajesEliminar.listaIDMensaje = objMensajesEliminar.listaIDMensaje.Substring(0, objMensajesEliminar.listaIDMensaje.Length - 1);
 				objMensajesEliminar.idMensajeDestinatario = 0;
 				objMensajesEliminar.idMensaje = 1;
-				//objMensajesEliminar.leido = true;
 				objMensajesEliminar.activo = false;
 				objBLMensaje = new BLMensaje(objMensajesEliminar);
 				objBLMensaje.EliminarListaMensajes();

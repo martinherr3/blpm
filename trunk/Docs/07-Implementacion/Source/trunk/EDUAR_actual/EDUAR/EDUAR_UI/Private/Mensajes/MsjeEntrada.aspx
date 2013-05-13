@@ -178,12 +178,6 @@
             </div>
             <div id="divReply" runat="server">
                 <asp:HiddenField ID="hdfDestinatario" runat="server" />
-                <%--<table class="tablaInterna" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td align="right">
-                        </td>
-                    </tr>
-                </table>--%>
                 <table class="tablaInternaMensajes" width="100%">
                     <tr>
                         <td class="TD20">

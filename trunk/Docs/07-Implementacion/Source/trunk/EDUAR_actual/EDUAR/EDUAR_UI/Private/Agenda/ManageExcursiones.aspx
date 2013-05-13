@@ -32,19 +32,6 @@
             </table>
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td>
-                                <h3>
-                                    Buscar Excursiones</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
-                            </td>
-                        </tr>
-                    </table>--%>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD140px">
@@ -105,13 +92,6 @@
                             <asp:Label ID="lblHoraDesde" runat="server" Text='<%#String.Format("{0} - {1}", Eval("horaDesde","{0:HH:mm}"), Eval("horaHasta","{0:HH:mm}")) %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <%--<asp:TemplateField HeaderText="Hora Hasta">
-                        <HeaderStyle HorizontalAlign="Center" Width="20%" />
-                        <ItemStyle HorizontalAlign="Center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblHoraHasta" runat="server" Text='<%# Bind("horaHasta","{0:HH:mm}") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="Descripcion">
                         <HeaderStyle HorizontalAlign="left" Width="20%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -144,21 +124,6 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td colspan="2">
-                                <h3>
-                                    <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
-                                    <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
-                                    Excursión</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="validarEdit" runat="server" />
-                            </td>
-                        </tr>
-                    </table>--%>
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD100px">
@@ -187,8 +152,6 @@
                                     InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
                                 </cc1:MaskedEditValidator>
                             </td>
-                            <%--</tr>
-                        <tr>--%>
                             <td valign="top" class="TD100px">
                                 <asp:Label runat="server" ID="lblHoraHasta" Text="Hora Hasta:"></asp:Label>
                             </td>

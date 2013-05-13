@@ -72,13 +72,12 @@ namespace EDUAR_UI
 			try
 			{
 				Master.BotonAvisoAceptar += (VentanaAceptar);
-				//Master.BotonAvisoCancelar += (VentanaCancelar);
+
 				if (!Page.IsPostBack)
 				{
 					dtlCursos.DataSource = listaCursos;
 					dtlCursos.DataBind();
 					udpCursos.Update();
-					//CargarPresentacion();
 				}
 			}
 			catch (Exception ex)

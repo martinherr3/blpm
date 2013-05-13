@@ -107,13 +107,6 @@
                             <asp:Label ID="lblMotivoGrilla" runat="server" Text='<%# Bind("motivoCitacion.nombre") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <%--<asp:TemplateField HeaderText="Activo">
-                        <HeaderStyle HorizontalAlign="center" Width="10%" />
-                        <ItemStyle HorizontalAlign="Center" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblActivo" runat="server" Text='<%# Boolean.Parse(Eval("activo").ToString()) ? "Sí" : "No"  %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>--%>
                 </Columns>
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
@@ -199,8 +192,6 @@
                             </td>
                             <td colspan="3" class="TDCriterios75">
                                 <asp:Label Text="" ID="lblDescripcion" runat="server" />
-                                <%--<asp:TextBox runat="server" ID="txtDescripcionEdit" Width="600px" TextMode="MultiLine"
-                                    Rows="5" Enabled="false"></asp:TextBox>--%>
                             </td>
                         </tr>
                     </table>

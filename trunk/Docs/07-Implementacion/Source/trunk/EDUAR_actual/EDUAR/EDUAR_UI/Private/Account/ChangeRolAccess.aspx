@@ -16,8 +16,6 @@
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
-                            <%--<asp:ImageButton ID="modificarUsuario" runat="server" CommandName="Editar" CommandArgument='<%# Bind("Title") %>'
-                                ToolTip="Editar" ImageUrl="~/Images/Grillas/action_edit.png" />--%>
                             <asp:ImageButton ID="modificarSeccion" runat="server" CommandName="Editar" ToolTip="Editar" CommandArgument='<%# Bind("url") %>'
                                 ImageUrl="~/Images/Grillas/action_edit.png" />
                         </ItemTemplate>
@@ -31,7 +29,6 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-            <%--<asp:ListBox ID="lstRoles" runat="server"></asp:ListBox>--%>
 
             <asp:TextBox runat="server" ID="txtSeccion" />
             <asp:ListBox ID="lstRoles" runat="server"></asp:ListBox>

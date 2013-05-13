@@ -49,30 +49,6 @@ namespace EDUAR_UI
         /// </value>
         public List<Curso> listaCursos
         {
-            //get
-            //{
-            //if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
-            //{
-            //    BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
-
-            //    Asignatura objFiltro = new Asignatura();
-            //    objFiltro.curso.cicloLectivo = cicloLectivoActual;
-            //    //nombre del usuario logueado
-            //    if (User.IsInRole(enumRoles.Docente.ToString()))
-            //    {
-            //        objFiltro.docente.username = User.Identity.Name;
-            //        listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
-            //    }
-            //    if (User.IsInRole(enumRoles.Preceptor.ToString()))
-            //    {
-            //        Curso miCurso = new Curso();
-            //        miCurso.cicloLectivo = cicloLectivoActual;
-            //        miCurso.preceptor.username = User.Identity.Name;
-            //        listaCursos = objBLCicloLectivo.GetCursosByCicloLectivo(miCurso);
-            //    }
-            //}
-            //return (List<Curso>)ViewState["listaCursos"];
-            //}
             get
             {
                 if (ViewState["listaCursos"] == null && cicloLectivoActual != null)
@@ -169,7 +145,6 @@ namespace EDUAR_UI
                     }
                     if (User.IsInRole(enumRoles.Docente.ToString()) || User.IsInRole(enumRoles.Preceptor.ToString()))
                     {
-                        //divAgenda.Visible = true;
                         divSecciones.Visible = true;
                         habilitarAlumno(false);
                         UIUtilidades.BindCombo<Curso>(ddlCurso, listaCursos, "idCurso", "Nombre", true);
@@ -218,17 +193,14 @@ namespace EDUAR_UI
                             (fechas.ValorFechaDesde != null) ? (DateTime)fechas.ValorFechaDesde : DateTime.Now,
                             (fechas.ValorFechaHasta != null) ? (DateTime)fechas.ValorFechaHasta : DateTime.Now.AddDays(15));
                 }
-                //this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
-
-            }
+              }
             catch (Exception ex)
             {
                 AvisoMostrar = true;
                 AvisoExcepcion = ex;
             }
         }
-
-
+        
         /// <summary>
         /// Ventanas the aceptar.
         /// </summary>
@@ -238,20 +210,7 @@ namespace EDUAR_UI
         {
             try
             {
-                //switch (AccionPagina)
-                //{
-                //    case enumAcciones.Limpiar:
-                //        CargarPresentacion();
-                //        BuscarAgenda(null);
-                //        break;
-                //    case enumAcciones.Guardar:
-                //        AccionPagina = enumAcciones.Limpiar;
-                //        GuardarAgenda(ObtenerValoresDePantalla());
-                //        Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
-                //        break;
-                //    default:
-                //        break;
-                //}
+  
             }
             catch (Exception ex)
             {
@@ -409,8 +368,6 @@ namespace EDUAR_UI
                     default:
                         break;
                 }
-                //Response.Redirect("~/Private/Encuestas/Cuestionario.aspx", false);
-
             }
             catch (Exception ex)
             {
@@ -537,7 +494,6 @@ namespace EDUAR_UI
 
             if (HttpContext.Current.User.IsInRole(enumRoles.Alumno.ToString()))
             {
-
                 objCurso.cicloLectivo = cicloLectivoActual;
                 listaEventos = objBLAgenda.GetAgendaActividadesByRol(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre }, null, objCurso, fechaDesde, fechaHasta);
             }
@@ -548,7 +504,6 @@ namespace EDUAR_UI
                     objCurso.idCursoCicloLectivo = Convert.ToInt16(ddlCurso.SelectedValue);
                     listaEventos = objBLAgenda.GetAgendaActividadesByRol(null, null, objCurso, fechaDesde, fechaHasta);
                 }
-
             }
             else if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
             {

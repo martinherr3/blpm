@@ -115,8 +115,6 @@ namespace EDUAR_UI
 
                 if (!IsPostBack)
                 {
-                    //CargarCurso();
-
                     dtlIndicadores.DataSource = listaIndicadores;
                     dtlIndicadores.DataBind();
                     udpIndicadores.Update();
@@ -313,7 +311,6 @@ namespace EDUAR_UI
                             indi.RojoSecundario = miIndicador.rojoNivelSecundario;
                             indi.nombreSP = miIndicador.nombreSP;
                             indi.Título = indi.cursoIndicador + " - " + miIndicador.nombre;
-                            //indi.Título = indi.cursoIndicador;
                             indi.CargarIndicador();
                             break;
                         }

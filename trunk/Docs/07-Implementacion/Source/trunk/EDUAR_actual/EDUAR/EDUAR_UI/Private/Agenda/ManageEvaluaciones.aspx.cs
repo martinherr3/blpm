@@ -203,16 +203,13 @@ namespace EDUAR_UI
 				AccionPagina = enumAcciones.Nuevo;
 				LimpiarCampos();
 				CargarComboAsignatura();
-				//BindComboModulos(DateTime.Now.Month);
 				esNuevo = true;
 				btnGuardar.Visible = true;
 				btnBuscar.Visible = false;
 				btnVolver.Visible = true;
 				btnNuevo.Visible = false;
 				gvwReporte.Visible = false;
-                //litEditar.Visible = false;
-                //litNuevo.Visible = true;
-				udpEdit.Visible = true;
+        		udpEdit.Visible = true;
 				udpFiltrosBusqueda.Visible = false;
 				udpFiltros.Update();
 				udpGrilla.Update();
@@ -271,8 +268,6 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				//CargarPresentacion();
-				//BuscarAgenda(propFiltroAgenda);
 				Response.Redirect("ManageAgendaActividades.aspx", false);
 			}
 			catch (Exception ex)
@@ -348,9 +343,7 @@ namespace EDUAR_UI
 				else
 				{
 					ddlMeses.Enabled = false;
-					//ddlMeses.SelectedValue = "-1";
 					ddlDia.Enabled = false;
-					//ddlDia.SelectedValue = "-1";
 				}
 			}
 			catch (Exception ex)
@@ -428,10 +421,6 @@ namespace EDUAR_UI
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", false, true);
 			UIUtilidades.BindComboMeses(ddlMeses, false, DateTime.Now.Month);
 			ddlMeses.Enabled = false;
-			//BindComboModulos(DateTime.Now.Month);
-
-			//UIUtilidades.SortByText(ddlAsignatura);
-			//UIUtilidades.SortByText(ddlAsignaturaEdit);
 		}
 
 		/// <summary>
@@ -532,11 +521,9 @@ namespace EDUAR_UI
 			{
 				entidad.idAgendaActividad = propAgenda.idAgendaActividad;
 				entidad.idEventoAgenda = propEvento.idEventoAgenda;
-				//entidad.cursoCicloLectivo.idCursoCicloLectivo = propAgenda.cursoCicloLectivo.idCursoCicloLectivo;
 			}
 			entidad.asignatura.idAsignatura = Convert.ToInt32(ddlAsignaturaEdit.SelectedValue);
 			entidad.descripcion = txtDescripcionEdit.Text;
-			//entidad.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
 			entidad.fechaEvento = Convert.ToDateTime(new DateTime(propAgenda.cursoCicloLectivo.cicloLectivo.fechaInicio.Year, Convert.ToInt32(ddlMeses.SelectedValue), Convert.ToInt32(ddlDia.SelectedValue)));
 			entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 			entidad.activo = chkActivoEdit.Checked;
@@ -574,7 +561,6 @@ namespace EDUAR_UI
 			{
 				txtDescripcionEdit.Text = entidad.descripcion;
 				BindComboModulos(entidad.fechaEvento.Month);
-				//calFechaEvento.Fecha.Text = entidad.fechaEvento.ToShortDateString();
 				ddlMeses.SelectedValue = entidad.fechaEvento.Month.ToString();
 				if (ddlDia.Items.FindByValue(entidad.fechaEvento.Day.ToString()) != null)
 				{
@@ -599,8 +585,6 @@ namespace EDUAR_UI
 			string mensaje = string.Empty;
 			if (txtDescripcionEdit.Text.Trim().Length == 0)
 				mensaje = "- Descripcion<br />";
-			//if (calFechaEdit.Fecha.Text.Trim().Length == 0)
-			//    mensaje += "- Fecha<br />";
 			if (string.IsNullOrEmpty(ddlAsignaturaEdit.SelectedValue) || !(Convert.ToInt32(ddlAsignaturaEdit.SelectedValue) > 0))
 				mensaje += "- Asignatura<br />";
 			if (string.IsNullOrEmpty(ddlMeses.SelectedValue)
@@ -612,8 +596,6 @@ namespace EDUAR_UI
 			{
 
 			}
-			//if (!(Convert.ToInt32(ddlCursoEdit.SelectedValue) > 0))
-			//    mensaje += "- Curso";
 			return mensaje;
 		}
 
@@ -626,8 +608,6 @@ namespace EDUAR_UI
 			esNuevo = false;
 			CargarComboAsignatura();
 			CargarValoresEnPantalla(propEvento.idEventoAgenda);
-            //litEditar.Visible = true;
-            //litNuevo.Visible = false;
 			btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
 			btnVolver.Visible = true;
@@ -652,7 +632,6 @@ namespace EDUAR_UI
 				objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
 			UIUtilidades.BindCombo<Asignatura>(ddlAsignaturaEdit, objBLAsignatura.GetAsignaturasCurso(objAsignatura), "idAsignatura", "nombre", true);
-
 		}
 		#endregion
 	}

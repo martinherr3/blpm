@@ -228,8 +228,6 @@ namespace EDUAR_UI
                 btnVolver.Visible = true;
                 btnNuevo.Visible = false;
                 gvwReporte.Visible = false;
-                //litEditar.Visible = false;
-                //litNuevo.Visible = true;
                 udpEdit.Visible = true;
                 udpFiltrosBusqueda.Visible = false;
                 udpFiltros.Update();
@@ -332,7 +330,6 @@ namespace EDUAR_UI
         {
             lblTitulo.Text = propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
             LimpiarCampos();
-            //CargarCombos();
             udpEdit.Visible = false;
             btnVolver.Visible = true;
             btnGuardar.Visible = false;
@@ -484,8 +481,6 @@ namespace EDUAR_UI
             AccionPagina = enumAcciones.Modificar;
             esNuevo = false;
             CargarValoresEnPantalla(propEvento.idEventoAgenda);
-            //litEditar.Visible = true;
-            //litNuevo.Visible = false;
             btnBuscar.Visible = false;
             btnNuevo.Visible = false;
             btnVolver.Visible = true;

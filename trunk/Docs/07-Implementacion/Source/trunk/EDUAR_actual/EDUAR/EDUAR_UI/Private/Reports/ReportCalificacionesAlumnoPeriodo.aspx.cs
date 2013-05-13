@@ -275,7 +275,6 @@ namespace EDUAR_UI
         {
             try
             {
-                //GenerarDatosGrafico();
                 AccionPagina = enumAcciones.Limpiar;
                 float sumaNotas = 0;
                 rptCalificaciones.graficoReporte.LimpiarSeries();
@@ -293,15 +292,12 @@ namespace EDUAR_UI
                             for (int i = 1; i < 11; i++)
                             {
                                 var listaParcial = listaReporte.FindAll(p => p.calificacion == i && p.asignatura == asignatura.Text);
-                                //if (listaParcial.Count > 0)
-                                //{
+
                                 serie.Add(new RptCalificacionesAlumnoPeriodo
                                 {
                                     calificacion = (listaParcial.Count > 0) ? listaParcial.Count : 0,
                                     asignatura = i.ToString()
                                 });
-                                //}
-
                             }
                             if (serie != null && serie.Count > 0)
                             {
@@ -435,7 +431,6 @@ namespace EDUAR_UI
                 if (rptCalificaciones.GrillaReporte.PageCount > pagina)
                 {
                     rptCalificaciones.GrillaReporte.PageIndex = pagina;
-
                     rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
                 }
             }
@@ -539,7 +534,7 @@ namespace EDUAR_UI
                     filtrosAplicados = filtros.ToString();
 
                     rptCalificaciones.CargarReporte<RptCalificacionesAlumnoPeriodo>(listaReporte);
-                    //udpReporte.Update();
+
                     return true;
                 }
                 return false;
@@ -669,7 +664,6 @@ namespace EDUAR_UI
                from p in listaReporte
                group p by p.alumno into g
                select new { Alumno = g.Key, Fecha = g.Max(p => p.fecha) };
-            //TablaGrafico.Add("- Periodo de notas: " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString());
 
             tabla3.titulo = "Periodo Analizado " + fechaMin.First().Fecha.ToShortDateString() + " - " + fechaMax.First().Fecha.ToShortDateString();
 
@@ -678,11 +672,9 @@ namespace EDUAR_UI
                 group p by p.alumno into g
                 select new { Alumno = g.Key, Cantidad = g.Count() };
 
-            //TablaGrafico.Add("- Cantidad de Alumnos analiza2: " + cantAlumnos.Count().ToString());
             encabezado3.Add("Cantidad de Alumnos");
             fila3.Add(cantAlumnos.Count().ToString());
 
-            //TablaGrafico.Add("- Cantidad de Calificaciones: " + listaReporte.Count.ToString());
             encabezado3.Add("Cantidad de Calificaciones");
             fila3.Add(listaReporte.Count().ToString());
 
@@ -696,7 +688,6 @@ namespace EDUAR_UI
             List<List<string>> filasTabla2 = new List<List<string>>();
             List<string> fila2 = new List<string>();
 
-            //TablaGrafico.Add("- Desviacion Estandar por materia: ");
             tabla2.titulo = "Desviación Estandar por Asignatura";
             encabezado2.Add("Asignatura");
             encabezado2.Add("Promedio");
@@ -728,10 +719,8 @@ namespace EDUAR_UI
                         sumaDifCuad += Math.Pow(dif, 2);
                     }
                     // Revisar la formula de desviacion standard
-                    //cociente = (sumaDifCuad / (listaParcial.Count-1));
                     cociente = (sumaDifCuad / (listaParcial.Count));
                     desvStd = Math.Sqrt(cociente);
-                    //TablaGrafico.Add(item.nombre + " Promedio: " + promedio.ToString("#.##") + " , Desviacion Standard: " + desvStd.ToString("#.##"));
                     fila2 = new List<string>();
                     fila2.Add(item.nombre);
                     fila2.Add(promedio.ToString("#.##"));
@@ -759,7 +748,6 @@ namespace EDUAR_UI
 
                 if (topPromedio.Count() > 1)
                 {
-                    //TablaGrafico.Add("- Top 3 Materias con mejor desempeño:");
                     tabla4.titulo = "Top Asignaturas con mejor desempeño";
                     encabezado4.Add("Asignatura");
                     encabezado4.Add("Promedio");
@@ -769,7 +757,6 @@ namespace EDUAR_UI
 
                     foreach (var item in topPromedio)
                     {
-                        //TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString("#.##") + " - Cantidad de Evaluaciones: " + item.Cantidad.ToString());
                         fila4 = new List<string>();
                         fila4.Add(item.Asignatura);
                         fila4.Add(item.Promedio.ToString("#.##"));
@@ -799,10 +786,9 @@ namespace EDUAR_UI
                     encabezado5.Add("Asignatura");
                     encabezado5.Add("Promedio");
                     encabezado5.Add("Cantidad de Evaluaciones");
-                    //TablaGrafico.Add("- Top 3 Materias con bajo desempeño:");
+                    
                     foreach (var item in worstPromedio)
                     {
-                        //TablaGrafico.Add(item.Asignatura + " - Promedio: " + item.Promedio.ToString("#.##") + " - Cantidad de Evaluaciones: " + item.Cantidad.ToString());
                         fila5 = new List<string>();
                         fila5.Add(item.Asignatura);
                         fila5.Add(item.Promedio.ToString("#.##"));
@@ -834,10 +820,9 @@ namespace EDUAR_UI
                     tabla6.titulo = "Top Alumnos a observar";
                     encabezado6.Add("Alumno");
                     encabezado6.Add("Promedio General");
-                    //TablaGrafico.Add("- Top 3 de Alumnos a observar:");
+
                     foreach (var item in worstAlumnos)
                     {
-                        //TablaGrafico.Add(item.Alumno + " - Promedio General: " + item.Promedio.ToString("#.##"));
                         fila6 = new List<string>();
                         fila6.Add(item.Alumno);
                         fila6.Add(item.Promedio.ToString("#.##"));
@@ -869,10 +854,8 @@ namespace EDUAR_UI
                     encabezado7.Add("Alumno");
                     encabezado7.Add("Promedio General");
 
-                    //TablaGrafico.Add("- Top 3 de Alumnos con mejores notas:");
                     foreach (var item in worstAlumnos)
                     {
-                        //TablaGrafico.Add(item.Alumno + " - Promedio General: " + item.Promedio.ToString("#.##"));
                         fila7 = new List<string>();
                         fila7.Add(item.Alumno);
                         fila7.Add(item.Promedio.ToString("#.##"));

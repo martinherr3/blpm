@@ -284,7 +284,7 @@ namespace EDUAR_UI
 					indi.RojoSecundario = listaIndicadores[i - 1].rojoNivelSecundario;
 					indi.nombreSP = listaIndicadores[i - 1].nombreSP;
 					indi.Título = listaIndicadores[i - 1].nombre;
-					//indi.Filtros = dr["filtros"].ToString().Split(',');
+
 					indi.CargarIndicador();
 				}
 			}

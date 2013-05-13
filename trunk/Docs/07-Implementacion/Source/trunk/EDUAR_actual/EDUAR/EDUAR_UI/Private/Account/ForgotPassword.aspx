@@ -153,9 +153,6 @@
                                         <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="txtPassword"
                                             ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña es obligatoria."
                                             ValidationGroup="ChangeUserPasswordValidationGroup" ForeColor="Red">*</asp:RequiredFieldValidator>
-                                        <%--<asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Las contraseñas no son iguales"
-                                    ControlToCompare="txtPassword" ControlToValidate="txtPasswordConfirm" ForeColor="Red"
-                                    ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:CompareValidator>--%>
                                         <asp:RegularExpressionValidator ErrorMessage="La Contraseña debe tener al menos 5 caracteres, de los cuales uno debe ser numérico."
                                             ControlToValidate="txtPassword" runat="server" Display="Dynamic" ForeColor="Red"
                                             ValidationExpression="^[a-zA-Z0-9,'+-_¿!¡=;:\.\?]\w{5,20}$" ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:RegularExpressionValidator>
@@ -173,9 +170,6 @@
                                         <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="Las contraseñas no son iguales"
                                             ControlToCompare="txtPasswordConfirm" ControlToValidate="txtPassword" ForeColor="Red"
                                             ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:CompareValidator>
-                                        <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator1" ErrorMessage="La Contraseña debe tener al menos 5 caracteres, de los cuales uno debe ser numérico."
-                                    ControlToValidate="txtPasswordConfirm" runat="server" Display="Dynamic" ForeColor="Red"
-                                    ValidationExpression="^[a-zA-Z0-9,'+-_¿!¡=;:\.\?]\w{5,20}$" />--%>
                                     </td>
                                 </tr>
                             </table>

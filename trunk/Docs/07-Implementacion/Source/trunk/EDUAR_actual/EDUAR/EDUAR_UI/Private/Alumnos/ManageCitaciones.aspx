@@ -32,19 +32,6 @@
             </table>
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td>
-                                <h3>
-                                    Buscar Citaciones</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
-                            </td>
-                        </tr>
-                    </table>--%>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD140px">
@@ -62,13 +49,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <%--<td valign="top" class="TD140px">
-                                <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
-                            </td>
-                            <td valign="top" class="TD250px">
-                                <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </td>--%>
                            <td valign="top" class="TD140px">
                                 <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                             </td>
@@ -168,21 +148,6 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td colspan="2">
-                                <h3>
-                                    <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
-                                    <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
-                                    Citación</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="validarEdit" runat="server" />
-                            </td>
-                        </tr>
-                    </table>--%>
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TDCriterios10">
