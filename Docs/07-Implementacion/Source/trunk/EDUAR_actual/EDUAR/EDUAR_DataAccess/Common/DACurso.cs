@@ -77,19 +77,7 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Curso_Select");
                 if (entidad != null)
                 {
-                    //if (entidad.cicloLectivo.idCicloLectivo > 0)
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cicloLectivo.idCicloLectivo);
 
-                    //if (entidad.idCicloLectivo > 0)
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.idCicloLectivo);
-                    //if (entidad.pagina.idPagina > 0)
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
-                    //if (!string.IsNullOrEmpty(entidad.pagina.titulo))
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
-                    //if (ValidarFechaSQL(entidad.fecha))
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
-                    //if (ValidarFechaSQL(entidad.hora))
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -100,7 +88,6 @@ namespace EDUAR_DataAccess.Common
                     objCurso = new Curso();
 
                     objCurso.idCurso = Convert.ToInt32(reader["idCurso"]);
-                    //objCurso.division = reader["division"].ToString();
                     objCurso.nombre = reader["nombre"].ToString();
 
                     listaCursos.Add(objCurso);
@@ -133,14 +120,6 @@ namespace EDUAR_DataAccess.Common
                 {
                     if (entidad.idCursoCicloLectivo > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCursoCicloLectivo", DbType.Int32, entidad.idCursoCicloLectivo);
-                    //if (entidad.cicloLectivo != null && entidad.cicloLectivo.idCicloLectivo > 0)
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cicloLectivo.idCicloLectivo);
-                    //if (!string.IsNullOrEmpty(entidad.nombre))
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
-                    //if (entidad.preceptor != null && entidad.preceptor.idPreceptor != 0)
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPreceptor", DbType.Int32, entidad.preceptor.idPreceptor);
-                    //if (entidad.curso.nivel.idNivel != null && entidad.curso.nivel.idNivel > 0)
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32, entidad.curso.nivel.idNivel);
                 }
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
@@ -154,11 +133,6 @@ namespace EDUAR_DataAccess.Common
                     objCurso.curso.nombre = reader["nombre"].ToString();
                     objCurso.curso.nivel.nombre = reader["nivel"].ToString();
                     objCurso.curso.nivel.idNivel = Convert.ToInt32(reader["idNivel"]);
-                    // Preguntar como hacer con esto
-                    // objCurso.orientacion = (int)reader["idOrientacion"];
-                    //if (reader["idPreceptor"] != DBNull.Value)
-                    //    objCurso.preceptor.idPreceptor = Convert.ToInt32(reader["idPreceptor"]);
-
                 }
                 return objCurso;
             }
@@ -186,10 +160,6 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("CursosCicloLectivo_Select");
                 if (cicloLectivo != null && cicloLectivo.idCicloLectivo > 0)
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, cicloLectivo.idCicloLectivo);
-                //if (!string.IsNullOrEmpty(entidad.nombre))
-                //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
-                //if (entidad.preceptor != null && entidad.preceptor.idPreceptor != 0)
-                //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPreceptor", DbType.Int32, entidad.preceptor.idPreceptor);
                 if (nivel != null && nivel.idNivel > 0)
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idNivel", DbType.Int32, nivel.idNivel);
 

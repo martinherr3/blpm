@@ -87,8 +87,6 @@ namespace EDUAR_DataAccess.Encuestas
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.encuesta.idEncuesta);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.usuario.username);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaRespuesta", DbType.Date, entidad.fechaRespuesta);
-                //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@respondida", DbType.Boolean, entidad.respondida);
-                //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@expirada", DbType.Boolean, entidad.expirada);
 
                 if (Transaction.Transaction != null)
                     Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -178,30 +176,6 @@ namespace EDUAR_DataAccess.Encuestas
         {
             try
             {
-				//Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("EncuestaUsuarioRespondidas_Select");
-				//if (entidad != null)
-				//{
-				//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.encuesta.idEncuesta);
-				//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, null);
-				//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@respondida", DbType.Boolean, true);
-				//}
-				//IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-
-				//List<Respuesta> listaRespuestas = new List<Respuesta>();
-				//Respuesta rta;
-
-				//while (reader.Read())
-				//{
-				//    rta = new Respuesta();
-				//    {
-				//        rta.idRespuesta = Convert.ToInt32(reader["idRespuesta"]);
-				//        rta.respuestaSeleccion = Convert.ToInt16(reader["valorRespuestaSeleccion"]);
-				//        rta.respuestaTextual = reader["valorRespuestaTextual"].ToString();
-				//    }
-
-				//    listaRespuestas.Add(rta);
-				//}
-				//return listaRespuestas;
 				return new List<Respuesta>();
             }
             catch (SqlException ex)

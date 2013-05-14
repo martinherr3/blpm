@@ -687,7 +687,6 @@ namespace EDUAR_DataAccess.Common
 					{
 						disponible = false;
 					}
-					//disponible = true;
 				}
 
 				return disponible;

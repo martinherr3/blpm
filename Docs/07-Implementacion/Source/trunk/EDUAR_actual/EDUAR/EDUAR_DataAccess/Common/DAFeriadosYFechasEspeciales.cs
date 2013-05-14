@@ -136,7 +136,7 @@ namespace EDUAR_DataAccess.Common
                 throw new CustomizedException(string.Format("Fallo en {0} - getHorarioInicio()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
-            ////////////////////////
+
             return (retHorario);
         }
 
@@ -162,9 +162,6 @@ namespace EDUAR_DataAccess.Common
                 }
                 horaYMinutosFinalizacion = HorarioFinalizacion.Split(':');
                 retHorario = new DateTime(System.DateTime.Now.Year, System.DateTime.Now.Month, System.DateTime.Now.Day, int.Parse(horaYMinutosFinalizacion[0]), int.Parse(horaYMinutosFinalizacion[1]), 0);     
-
-
-
             }
             catch (SqlException ex)
             {
@@ -176,8 +173,6 @@ namespace EDUAR_DataAccess.Common
                 throw new CustomizedException(string.Format("Fallo en {0} - getHorarioFinalizacion()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
-            ////////////////////////
-
 
             return (retHorario);
         }

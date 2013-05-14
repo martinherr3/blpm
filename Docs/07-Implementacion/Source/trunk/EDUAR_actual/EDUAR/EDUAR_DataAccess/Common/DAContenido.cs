@@ -173,8 +173,6 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Contenido_Select");
                 if (entidad != null)
                 {
-                    //if (entidad.asignaturaCicloLectivo.idAsignaturaCicloLectivo > 0)
-                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, entidad.asignaturaCicloLectivo.idAsignaturaCicloLectivo);
                     if (entidad.idCurricula > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurricula", DbType.Int32, entidad.idCurricula);
                 }

@@ -57,7 +57,6 @@ namespace EDUAR_DataAccess.Common
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@domicilio", DbType.String, entidad.domicilio);
 				if (!string.IsNullOrEmpty(entidad.barrio))
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@barrio", DbType.String, entidad.barrio);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idLocalidad", DbType.Int32, entidad.localidad.idLocalidad);
 				if (!string.IsNullOrEmpty(entidad.sexo))
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@sexo", DbType.String, entidad.sexo);
 				if (ValidarFechaSQL(entidad.fechaNacimiento))
@@ -149,7 +148,6 @@ namespace EDUAR_DataAccess.Common
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@domicilio", DbType.String, entidad.domicilio);
 				if (!string.IsNullOrEmpty(entidad.barrio))
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@barrio", DbType.String, entidad.barrio);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idLocalidad", DbType.Int32, entidad.localidad.idLocalidad);
 				if (!string.IsNullOrEmpty(entidad.sexo))
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@sexo", DbType.String, entidad.sexo);
 				if (ValidarFechaSQL(entidad.fechaNacimiento))
@@ -221,12 +219,10 @@ namespace EDUAR_DataAccess.Common
             {
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TipoPersonaRol_Select");
 
-				//if (idTipoPersona != null)
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, idTipoPersona);
+		        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, idTipoPersona);
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
-				//Persona objPersona;
-
+		
                 while (reader.Read())
                 {
                     retList.Add(reader["nombreRol"].ToString());
@@ -376,23 +372,7 @@ namespace EDUAR_DataAccess.Common
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Personas_Username_Update");
 
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersona", DbType.Int32, entidad.idPersona);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@apellido", DbType.String, entidad.apellido);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@numeroDocumento", DbType.Int32, entidad.numeroDocumento);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoDocumento", DbType.Int32, entidad.idTipoDocumento);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@domicilio", DbType.String, entidad.domicilio);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@barrio", DbType.String, entidad.barrio);
-				//if (entidad.localidad.idLocalidad > 0)
-				//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idLocalidad", DbType.String, entidad.localidad.idLocalidad);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@sexo", DbType.String, entidad.sexo);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaNacimiento", DbType.Date, entidad.fechaNacimiento);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@telefonoFijo", DbType.String, entidad.telefonoFijo);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@telefonoCelular", DbType.String, entidad.telefonoCelular);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@telefonoCelularAlternativo", DbType.String, entidad.telefonoCelularAlternativo);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@email", DbType.String, entidad.email);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.String, entidad.activo);
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
-				//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoPersona", DbType.Int32, entidad.idTipoPersona);
 
 				if (Transaction.Transaction != null)
 					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -428,7 +408,6 @@ namespace EDUAR_DataAccess.Common
 
 				Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPersona", DbType.Int32, 0);
 
-
 				if (Transaction.Transaction != null)
 					Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
 				else
@@ -456,10 +435,6 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
          
-        
-
 		#endregion
-	}
-
-  
+	} 
 }

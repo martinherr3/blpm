@@ -180,7 +180,6 @@ namespace EDUAR_DataAccess.Common
 						objAlumnoCurso.alumno.fechaBaja = (DateTime)reader["fechaBaja"];
 					objAlumnoCurso.alumno.activo = Convert.ToBoolean(reader["activo"]);
 					objAlumnoCurso.alumno.idPersona = Convert.ToInt32(reader["idPersona"]);
-					//objAlumnoCurso.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					objAlumnoCurso.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					objAlumnoCurso.cursoCicloLectivo.curso.nombre = reader["curso"].ToString();
 					objAlumnoCurso.cursoCicloLectivo.curso.nivel.nombre = reader["nivel"].ToString();
@@ -237,7 +236,6 @@ namespace EDUAR_DataAccess.Common
 						objAlumnoCurso.alumno.fechaBaja = (DateTime)reader["fechaBaja"];
 					objAlumnoCurso.alumno.activo = Convert.ToBoolean(reader["activo"]);
 					objAlumnoCurso.alumno.idPersona = Convert.ToInt32(reader["idPersona"]);
-					//objAlumnoCurso.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					objAlumnoCurso.cursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 					objAlumnoCurso.cursoCicloLectivo.curso.nombre = reader["curso"].ToString();
 					objAlumnoCurso.cursoCicloLectivo.curso.nivel.nombre = reader["nivel"].ToString();

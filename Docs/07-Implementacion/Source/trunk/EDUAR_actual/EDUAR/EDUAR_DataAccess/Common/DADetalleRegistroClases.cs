@@ -59,7 +59,6 @@ namespace EDUAR_DataAccess.Common
 			{
 				using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("DetalleRegistroClases_Insert"))
 				{
-
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idRegistroClases", DbType.Int32, entidad.idRegistroClases);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.temaContenido.idTemaContenido);
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@porcentaje", DbType.Int32, entidad.porcentaje);
@@ -194,9 +193,6 @@ namespace EDUAR_DataAccess.Common
 					if (entidad.idDetalleRegistroClases > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idDetalleRegistroClases", DbType.Int32, entidad.idDetalleRegistroClases);
 				}
-				//if (objAsignatura != null)
-				//    if (objAsignatura.idAsignaturaCicloLectivo > 0)
-				//        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignaturaCicloLectivo", DbType.Int32, objAsignatura.idAsignaturaCicloLectivo);
 
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

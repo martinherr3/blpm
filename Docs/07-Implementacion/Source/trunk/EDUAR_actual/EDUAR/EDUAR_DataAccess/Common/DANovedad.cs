@@ -79,8 +79,6 @@ namespace EDUAR_DataAccess.Common
 					minuto = Convert.ToDateTime(reader["hora"].ToString()).Minute;
 
 					objEntidad.fecha = new DateTime(anio, mes, dia, hora, minuto, 0);
-
-					//objEntidad.fecha = Convert.ToDateTime(reader["fecha"]);
 					objEntidad.observaciones = reader["observaciones"].ToString();
 					objEntidad.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 
@@ -103,8 +101,6 @@ namespace EDUAR_DataAccess.Common
 						nombre = reader["estadoNovedad"].ToString(),
 						esFinal = Convert.ToBoolean(reader["esFinal"])
 					};
-
-					//listaEntidad.Add(objEntidad);
 				}
 				return objEntidad;
 			}
@@ -230,8 +226,6 @@ namespace EDUAR_DataAccess.Common
 					minuto = Convert.ToDateTime(reader["hora"].ToString()).Minute;
 
 					objEntidad.fecha = new DateTime(anio, mes, dia, hora, minuto, 0);
-
-					//objEntidad.fecha = Convert.ToDateTime(reader["fecha"]);
 					objEntidad.observaciones = reader["observaciones"].ToString();
 					objEntidad.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 
@@ -319,7 +313,6 @@ namespace EDUAR_DataAccess.Common
 					minuto = Convert.ToDateTime(reader["hora"].ToString()).Minute;
 
 					objEntidad.fecha = new DateTime(anio, mes, dia, hora, minuto, 0);
-					//objEntidad.fecha = Convert.ToDateTime(reader["fecha"]);
 					objEntidad.observaciones = reader["observaciones"].ToString();
 					objEntidad.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 
@@ -400,8 +393,6 @@ namespace EDUAR_DataAccess.Common
 					minuto = Convert.ToDateTime(reader["hora"].ToString()).Minute;
 
 					objEntidad.fecha = new DateTime(anio, mes, dia, hora, minuto, 0);
-
-					//objEntidad.fecha = Convert.ToDateTime(reader["fecha"]);
 					objEntidad.observaciones = reader["observaciones"].ToString();
 					objEntidad.curso.idCurso = Convert.ToInt32(reader["idCursoCicloLectivo"]);
 
@@ -441,6 +432,5 @@ namespace EDUAR_DataAccess.Common
 			}
 		}
 		#endregion
-
 	}
 }
