@@ -164,23 +164,6 @@ namespace EDUAR_BusinessLogic.Common
 		#endregion
 
 		#region --[Métodos publicos]--
-		//public List<ValoresEscalaCalificacion> GetValoresEscalaCalificacions(ValoresEscalaCalificacion entidad)
-		//{
-		//    try
-		//    {
-		//        return DataAcces.GetValoresEscalaCalificacions(entidad);
-		//    }
-		//    catch (CustomizedException ex)
-		//    {
-		//        throw ex;
-		//    }
-		//    catch (Exception ex)
-		//    {
-		//        throw new CustomizedException(string.Format("Fallo en {0} - GetValoresEscalaCalificacions", ClassName), ex,
-		//                                      enuExceptionType.BusinessLogicException);
-		//    }
-		//}
-
 		/// <summary>
 		/// Gets the nivel probacion.
 		/// </summary>

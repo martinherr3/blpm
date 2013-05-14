@@ -164,23 +164,6 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<Orientacion> GetOrientacions(Orientacion entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetOrientacions(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetOrientacions", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
-
         /// <summary>
         /// Gets the orientaciones by asignatura nivel.
         /// </summary>

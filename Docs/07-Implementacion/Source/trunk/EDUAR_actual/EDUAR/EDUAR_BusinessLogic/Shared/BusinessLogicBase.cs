@@ -50,11 +50,6 @@ namespace EDUAR_BusinessLogic.Shared
         /// </summary>
         public abstract string FieldDescription { get; }
 
-        ///// <summary>
-        ///// Propiedad para obtener/asignar la lista de DTO.
-        ///// </summary>
-        //public abstract IList<TDataTransferObject> ListaData { get; set; }
-
         #endregion
 
         #region --[Métodos Abstract]--

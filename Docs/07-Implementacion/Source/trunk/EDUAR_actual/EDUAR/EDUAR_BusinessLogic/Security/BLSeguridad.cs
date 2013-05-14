@@ -107,7 +107,6 @@ namespace EDUAR_BusinessLogic.Security
                 MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
                 if (user != null)
                 {
-                    //Data.Usuario.Password = user.GetPassword();
                     Data.Usuario.Aprobado = user.IsApproved;
                     Data.Usuario.PaswordPregunta = user.PasswordQuestion;
                     Data.Usuario.Email = user.Email;
@@ -199,8 +198,6 @@ namespace EDUAR_BusinessLogic.Security
                 //chequear que el usuario está activo
                 bool personaActiva = new BLPersona().CheckUsuario(Data.Usuario.Nombre);
                 Data.Usuario.UsuarioValido = Membership.ValidateUser(Data.Usuario.Nombre, Data.Usuario.Password);
-                //DASeguridad dataAcces = new DASeguridad();
-                //Data.Usuario.UsuarioValido = dataAcces.Autenticar(Data.Usuario.Nombre, Data.Usuario.Password);
 
                 if (!personaActiva)
                     throw new CustomizedException("No se encuentra el usuario.", null, enuExceptionType.SecurityException);
@@ -232,7 +229,6 @@ namespace EDUAR_BusinessLogic.Security
                 }
 
                 ObtenerRolesUsuario();
-                //ObtenerIntervalosActualizacionUsuario(Data.Usuario);
                 MembershipUser us = Membership.GetUser(Data.Usuario.Nombre);
 
                 if (us.CreationDate == us.LastPasswordChangedDate
@@ -317,19 +313,13 @@ namespace EDUAR_BusinessLogic.Security
             try
             {
                 //Obtener el password por defecto
-                //string passwordEncriptado = objBLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial);
                 Data.Usuario.Password = BLConfiguracionGlobal.ObtenerConfiguracion(enumConfiguraciones.PasswordInicial);
-                //Data.Usuario.Password = Desencriptar(passwordEncriptado);
                 Data.Usuario.Aprobado = Data.Usuario.Aprobado;
 
                 //Inicia la transaccion.
-                //using (TransactionScope txScope = new TransactionScope())
-                //{
-
                 //Crea el nuevo usuario
                 MembershipCreateStatus status;
                 //TODO: para guardar la password encriptada con hasH
-                //string password = EDUARUtilidades.Helper.EncodePassword(string.Concat(Data.Usuario.Nombre, Data.Usuario.Password));
                 MembershipUser newUser = Membership.CreateUser(Data.Usuario.Nombre, Data.Usuario.Password, Data.Usuario.Email, Data.Usuario.PaswordPregunta, Data.Usuario.PaswordRespuesta, Data.Usuario.Aprobado, out status);
 
                 //Valida el estado del usuario creado.
@@ -347,16 +337,6 @@ namespace EDUAR_BusinessLogic.Security
 
                         #region Excepciones no controladas
 
-                        //case MembershipCreateStatus.InvalidEmail:
-                        //    throw new Exception("The e-mail address provided is invalid. Please check the value and try again.");
-                        //case MembershipCreateStatus.InvalidAnswer:
-                        //    throw new Exception("The password retrieval answer provided is invalid. Please check the value and try again.");
-                        //case MembershipCreateStatus.InvalidQuestion:
-                        //    throw new Exception("The password retrieval question provided is invalid. Please check the value and try again.");
-                        //case MembershipCreateStatus.ProviderError:
-                        //    throw new Exception("The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.");
-                        //case MembershipCreateStatus.UserRejected:
-                        //    throw new Exception("The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.");
                         case MembershipCreateStatus.DuplicateEmail:
                             throw new CustomizedException("El email ya se encuentra registrado.", null, enuExceptionType.SecurityException);
 
@@ -365,18 +345,12 @@ namespace EDUAR_BusinessLogic.Security
                         default:
                             throw new CustomizedException("No se pudo crear el usuario.", null,
                                                           enuExceptionType.SecurityException);
-
                     }
                 }
 
                 //Agrega el usuario a los Roles que se le definieron.
                 foreach (DTRol rolUsuario in Data.Usuario.ListaRoles)
                     Roles.AddUserToRole(Data.Usuario.Nombre, rolUsuario.Nombre);
-
-
-                //    //Completa la transaccion.
-                //    txScope.Complete();
-                //}
             }
             catch (CustomizedException ex)
             { throw ex; }
@@ -397,19 +371,15 @@ namespace EDUAR_BusinessLogic.Security
             {
 
                 //Abre la transaccion que se va a utilizar
-                //dataAcces.transaction.OpenTransaction();
                 dataAcces.CrearUsuarios(objDTSeguridad);
                 //Se da el OK para la transaccion.
-                //dataAcces.transaction.CommitTransaction();
             }
             catch (CustomizedException ex)
             {
-                //dataAcces.transaction.RollbackTransaction();
                 throw ex;
             }
             catch (Exception ex)
             {
-                //dataAcces.transaction.RollbackTransaction();
                 throw new CustomizedException(string.Format("Fallo en {0} - CrearUsuarios()", ClassName), ex,
                                               enuExceptionType.BusinessLogicException);
             }
@@ -437,7 +407,6 @@ namespace EDUAR_BusinessLogic.Security
                     }
 
                     Roles.AddUserToRoles(objUsuario.Nombre, sRoles);
-                    //txScope1.Complete();
                 }
             }
             catch (Exception ex)
@@ -471,8 +440,6 @@ namespace EDUAR_BusinessLogic.Security
             try
             {
                 //Inicia la transaccion.
-                //using (TransactionScope txScope = new TransactionScope())
-                //{
                 #region Habilita o Bloquea un usuario
                 MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
                 user.IsApproved = Data.Usuario.Aprobado;
@@ -495,11 +462,6 @@ namespace EDUAR_BusinessLogic.Security
                 //Asigna los roles al usuario
                 foreach (DTRol rolUsuario in Data.Usuario.ListaRoles)
                     Roles.AddUserToRole(Data.Usuario.Nombre, rolUsuario.Nombre);
-
-
-                //    //Completa la transaccion.
-                //    txScope.Complete();
-                //}
             }
             catch (Exception ex)
             {
@@ -578,8 +540,6 @@ namespace EDUAR_BusinessLogic.Security
                     DASeguridad dataAcces = new DASeguridad();
                     if (Data.Rol.ID == 0)
                         dataAcces.CrearRol(Data);
-                    //else
-                    //    dataAcces.Update(Data);
 
                     //Completa la transaccion.
                     txScope.Complete();
@@ -725,12 +685,8 @@ namespace EDUAR_BusinessLogic.Security
 
             try
             {
-                //DASeguridad dataAcces = new DASeguridad();
-                //D = dataAcces.GetRoles(Data);
                 DAPersona dataAccessPersona = new DAPersona();
                 roles = dataAccessPersona.GetRolesByTipoPersona(tipoPersona);
-
-
             }
             catch (CustomizedException ex)
             {
@@ -750,13 +706,10 @@ namespace EDUAR_BusinessLogic.Security
                     {
                         retListRoles.Add(rol);
                     }
-
                 }
-
             }
 
             return (retListRoles);
-
         }
 
         #endregion

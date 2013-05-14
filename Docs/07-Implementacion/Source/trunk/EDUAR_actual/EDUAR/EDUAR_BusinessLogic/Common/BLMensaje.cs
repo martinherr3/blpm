@@ -305,8 +305,6 @@ namespace EDUAR_BusinessLogic.Common
 											  enuExceptionType.BusinessLogicException);
 			}
 		}
-		#endregion
-
-        
+		#endregion  
     }
 }

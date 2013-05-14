@@ -164,22 +164,7 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<Psicopedagogo> GetPsicopedagogos(Psicopedagogo entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetPsicopedagogos(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetPsicopedagogos", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+
         #endregion
     }
 }

@@ -164,22 +164,7 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<Asistencia> GetAsistencias(Asistencia entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetAsistencias(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetAsistencias", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+
         #endregion
     }
 }

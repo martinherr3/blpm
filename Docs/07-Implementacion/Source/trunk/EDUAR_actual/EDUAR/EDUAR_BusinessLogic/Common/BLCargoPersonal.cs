@@ -164,22 +164,7 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<CargoPersonal> GetCargoPersonals(CargoPersonal entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetCargoPersonals(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetCargoPersonals", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+
         #endregion
     }
 }

@@ -164,22 +164,7 @@ namespace EDUAR_BusinessLogic.Common
         #endregion
 
         #region --[Métodos publicos]--
-        //public List<BibliografiaRecomendada> GetBibliografiaRecomendadas(BibliografiaRecomendada entidad)
-        //{
-        //    try
-        //    {
-        //        return DataAcces.GetBibliografiaRecomendadas(entidad);
-        //    }
-        //    catch (CustomizedException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new CustomizedException(string.Format("Fallo en {0} - GetBibliografiaRecomendadas", ClassName), ex,
-        //                                      enuExceptionType.BusinessLogicException);
-        //    }
-        //}
+
         #endregion
     }
 }

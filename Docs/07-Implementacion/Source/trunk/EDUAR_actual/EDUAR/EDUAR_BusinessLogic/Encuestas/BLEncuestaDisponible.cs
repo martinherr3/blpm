@@ -229,7 +229,6 @@ namespace EDUAR_BusinessLogic.Encuestas
         {
             try
             {
-				//return DataAcces.GetRespuestasSumarizadas(objFiltro);
 				return new List<Respuesta>();
             }
             catch (CustomizedException ex)

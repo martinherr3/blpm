@@ -175,14 +175,7 @@ namespace EDUAR_BusinessLogic.Common
 			{
 				List<DiasHorarios> listaDias = new List<DiasHorarios>();
 				listaDias = DataAcces.GetDiasHorarios(entidad, cursoCicloLectivo);
-				//BLModulo objBLModulo = new BLModulo();
-				//Modulo objModulo ;
-				//foreach (DiasHorarios item in listaDias)
-				//{
-				//    objModulo = new Modulo();
-				//    objModulo.idDiaHorario = item.idDiaHorario;
-				//    item.modulos = objBLModulo.GetModulos(objModulo, item);
-				//}
+
 				return listaDias;
 			}
 			catch (CustomizedException ex)
