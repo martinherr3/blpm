@@ -90,8 +90,6 @@ namespace EDUAR_BusinessLogic.Common
                 if (Data.idEventoAgenda == 0)
                 {
                     DataAcces.Create(Data, out idEventoAgenda);
-                    //VerificarAgenda(Data);
-                    //VerificarAgendaReuniones(Data);
                 }
                 else
                     DataAcces.Update(Data);

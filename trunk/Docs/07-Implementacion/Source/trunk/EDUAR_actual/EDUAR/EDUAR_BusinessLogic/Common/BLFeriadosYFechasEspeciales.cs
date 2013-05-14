@@ -217,8 +217,7 @@ namespace EDUAR_BusinessLogic.Common
                 {
                     retValue = true;
                 }
-
-                
+    
             }
             catch (CustomizedException ex)
             {
@@ -230,10 +229,8 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
 
-
             return (retValue);
         }
-
 		#endregion
 	}
 }

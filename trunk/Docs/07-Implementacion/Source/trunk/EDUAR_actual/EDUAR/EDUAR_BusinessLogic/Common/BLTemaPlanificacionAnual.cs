@@ -132,7 +132,6 @@ namespace EDUAR_BusinessLogic.Common
 				if (Data.listaContenidos.Count > 0)
 					foreach (TemaContenido item in Data.listaContenidos)
 					{
-						//item.idTemaPlanificacion = idTemaPlanificacion > 0 ? idTemaPlanificacion : Data.idTemaPlanificacion;
 						DataAcces.SaveContenidos(idTemaPlanificacion > 0 ? idTemaPlanificacion : Data.idTemaPlanificacion, item.idTemaContenido);
 					}
 			}

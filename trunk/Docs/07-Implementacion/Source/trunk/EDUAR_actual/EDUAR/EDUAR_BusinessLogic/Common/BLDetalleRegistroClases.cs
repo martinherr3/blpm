@@ -184,39 +184,7 @@ namespace EDUAR_BusinessLogic.Common
 		#endregion
 
 		#region --[Métodos publicos]--
-		//public List<DetalleRegistroClases> GetTemasByContenido(DetalleRegistroClases entidad)
-		//{
-		//    try
-		//    {
-		//        return DataAcces.GetDetalleRegistroClasess(entidad);
-		//    }
-		//    catch (CustomizedException ex)
-		//    {
-		//        throw ex;
-		//    }
-		//    catch (Exception ex)
-		//    {
-		//        throw new CustomizedException(string.Format("Fallo en {0} - GetTemasByContenido", ClassName), ex,
-		//                                      enuExceptionType.BusinessLogicException);
-		//    }
-		//}
 
-		//public List<DetalleRegistroClases> GetTemasByCursoAsignatura(AsignaturaCicloLectivo objAsignatura)
-		//{
-		//    try
-		//    {
-		//        return DataAcces.GetDetalleRegistroClases(null, objAsignatura);
-		//    }
-		//    catch (CustomizedException ex)
-		//    {
-		//        throw ex;
-		//    }
-		//    catch (Exception ex)
-		//    {
-		//        throw new CustomizedException(string.Format("Fallo en {0} - GetTemasByCursoAsignatura", ClassName), ex,
-		//                                      enuExceptionType.BusinessLogicException);
-		//    }
-		//}
         #endregion
     }
 }

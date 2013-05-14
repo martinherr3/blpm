@@ -297,7 +297,6 @@ namespace EDUAR_BusinessLogic.Common
 		{
 			try
 			{
-				//return DataAcces.GetCursoAlumno(Data, cicloLectivo.idCicloLectivo);
 				return new List<AsignaturaCicloLectivo>();
 			}
 			catch (CustomizedException ex)
