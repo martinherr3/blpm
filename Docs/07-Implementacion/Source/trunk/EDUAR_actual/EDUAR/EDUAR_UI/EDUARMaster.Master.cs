@@ -98,6 +98,7 @@ namespace EDUAR_UI
             {
                 //Llama a la funcionalidad que redirecciona a la pagina de Login cuando finaliza el tiempo de session
                 ((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
+                NavigationMenu.MenuItemDataBound += (NavigationMenu_OnItemBound);
 
                 //11-3-13
                 if (HttpContext.Current.User == null || (ObjSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty))
@@ -119,6 +120,9 @@ namespace EDUAR_UI
                 if (HttpContext.Current.User == null)
                 {
                     NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
+                    //NavigationMenu.Orientation = Orientation.Horizontal;
+                    //div_Menu.Style.Clear();
+                    //NavigationMenu.CssClass = "menu";
                     SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
                     NavigationMenu.Visible = true;
 
@@ -177,13 +181,15 @@ namespace EDUAR_UI
                     else
                     {
                         NavigationMenu.DataSource = SiteMapAnonymusEDUAR;
+                        //NavigationMenu.Orientation = Orientation.Horizontal;
+                        //div_Menu.Style.Clear();
+                        //NavigationMenu.CssClass = "menu";
                         SiteMapPath1.SiteMapProvider = SiteMapAnonymusEDUAR.SiteMapProvider;
                         NavigationMenu.Visible = true;
 
                         CargarURLIniciarSesion();
                     }
                 }
-                NavigationMenu.MenuItemDataBound += (NavigationMenu_OnItemBound);
                 NavigationMenu.DataBind();
 
                 // Ocultar la ventana de información
@@ -536,7 +542,7 @@ namespace EDUAR_UI
             string command = string.Empty;
             if (sender is ImageButton)
                 command = ((ImageButton)sender).CommandArgument;
-            if(sender is LinkButton)
+            if (sender is LinkButton)
                 command = ((LinkButton)sender).CommandArgument;
             switch (command)
             {
@@ -569,7 +575,6 @@ namespace EDUAR_UI
                 string Detalle = string.Empty;
                 enumTipoVentanaInformacion tipoVentana = enumTipoVentanaInformacion.Error;
                 Detalle = ex.Message;
-
                 if (exceptionName.Contains("CustomizedException"))
                 {
                     switch (((CustomizedException)ex).ExceptionType)
