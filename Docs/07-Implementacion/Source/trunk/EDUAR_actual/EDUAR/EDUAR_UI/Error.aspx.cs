@@ -8,7 +8,7 @@ namespace EDUAR_UI
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (Application["CurrentError"] != null || HttpContext.Current.IsDebuggingEnabled)
+			if (Application["CurrentError"] != null && HttpContext.Current.IsDebuggingEnabled)
 			{
 				divDetalle.Visible = true;
 				lblError.Text = (string)Application["CurrentError"];
