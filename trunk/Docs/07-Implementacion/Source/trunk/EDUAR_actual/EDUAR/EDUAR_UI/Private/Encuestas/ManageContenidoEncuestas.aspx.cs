@@ -197,8 +197,8 @@ namespace EDUAR_UI
 					CargarPresentacion();
 
                     encuestaSesion.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-                    
-					BuscarEncuesta(encuestaSesion);
+
+                    BuscarEncuesta(encuestaSesion);
 
 					if (Request.UrlReferrer.AbsolutePath.Contains("ContenidoEncuestas.aspx"))
 					{
@@ -343,8 +343,7 @@ namespace EDUAR_UI
 			try
 			{
 				CargarPresentacion();
-				BuscarEncuesta(propFiltroEncuesta);
-				propEncuesta = new Encuesta();
+                ViewState.Clear();
 			}
 			catch (Exception ex)
 			{
@@ -816,7 +815,7 @@ namespace EDUAR_UI
 					udpAsignatura.Update();
 					BLAsignatura objBLAsignatura = new BLAsignatura();
 					Asignatura objAsignatura = new Asignatura();
-					objAsignatura.cursoCicloLectivo.idCursoCicloLectivo = idCursoSeleccionado;
+					objAsignatura.idCursoCicloLectivo = idCursoSeleccionado;
 					objAsignatura.curso.cicloLectivo.idCicloLectivo = cicloLectivoActual.idCicloLectivo;
 					if (User.IsInRole(enumRoles.Docente.ToString()))
 						objAsignatura.docente.username = ObjSessionDataUI.ObjDTUsuario.Nombre;

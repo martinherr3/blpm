@@ -21,14 +21,16 @@ namespace EDUAR_Entities
         public string nombre { get; set; }
         public int idAsignatura { get; set; }
         public int idAsignaturaTransaccional { get; set; }
-        public CursoCicloLectivo cursoCicloLectivo { get; set; }
+        public int idCursoCicloLectivo { get; set; }
+        //public CursoCicloLectivo cursoCicloLectivo { get; set; }
+
         public Asignatura()
         {
             listaContenidos = new List<Contenido>();
             curso = new Curso();
             diasHorarios = new DiasHorarios();
             docente = new Docente();
-            cursoCicloLectivo = new CursoCicloLectivo();
+            //cursoCicloLectivo = new CursoCicloLectivo();
         }
 
         public Asignatura(int idCursoCicloLectivo)
@@ -37,8 +39,8 @@ namespace EDUAR_Entities
             curso = new Curso();
             diasHorarios = new DiasHorarios();
             docente = new Docente();
-            cursoCicloLectivo = new CursoCicloLectivo();
-			cursoCicloLectivo.idCursoCicloLectivo = idCursoCicloLectivo;
+            //cursoCicloLectivo = new CursoCicloLectivo();
+			//cursoCicloLectivo.idCursoCicloLectivo = idCursoCicloLectivo;
         }
 
         ~Asignatura()
