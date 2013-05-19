@@ -720,7 +720,7 @@ namespace EDUAR_UI
 
             BLAsignatura objBLAsignatura = new BLAsignatura();
             Asignatura materia = new Asignatura();
-            materia.cursoCicloLectivo.idCursoCicloLectivo = idCursoCicloLectivo;
+            materia.idCursoCicloLectivo = idCursoCicloLectivo;
             listaAsignatura = objBLAsignatura.GetAsignaturasCurso(materia);
 
             listaAsignatura.Sort((p, q) => string.Compare(p.nombre, q.nombre));
