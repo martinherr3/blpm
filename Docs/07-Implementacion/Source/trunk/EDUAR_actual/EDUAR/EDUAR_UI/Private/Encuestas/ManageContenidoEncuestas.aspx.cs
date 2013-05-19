@@ -277,8 +277,6 @@ namespace EDUAR_UI
 				btnVolver.Visible = true;
 				btnNuevo.Visible = false;
 				gvwEncuestas.Visible = false;
-                //litEditar.Visible = false;
-                //litNuevo.Visible = true;
 				udpEdit.Visible = true;
 				udpFiltrosBusqueda.Visible = false;
 				udpAsignatura.Update();
@@ -487,9 +485,6 @@ namespace EDUAR_UI
 		/// <returns></returns>
 		protected bool CheckLanzada(object objUsername, object objFechaLanzamiento, bool editar)
 		{
-			// (DataBinder.Eval(Container.DataItem, "usuario.username").ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre &&
-			//  DataBinder.Eval(Container.DataItem, "fechaLanzamiento") == null ) ? true : false
-			//			if (object.ReferenceEquals(objGrid, DBNull.Value))
 			bool hayUsuario = false;
 			if (object.ReferenceEquals(objUsername, null))
 				return hayUsuario;

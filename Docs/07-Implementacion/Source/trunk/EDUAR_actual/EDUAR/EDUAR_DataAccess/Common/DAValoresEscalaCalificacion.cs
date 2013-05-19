@@ -73,13 +73,7 @@ namespace EDUAR_DataAccess.Common
 			try
 			{
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("NivelAprobacion_Select");
-				//if (entidad != null)
-				//{
-				//    if (!string.IsNullOrEmpty(entidad.username))
-				//        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.username);
-				//    if (entidad.activo != null)
-				//        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
-				//}
+
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
 				ValoresEscalaCalificacion valorEscala;

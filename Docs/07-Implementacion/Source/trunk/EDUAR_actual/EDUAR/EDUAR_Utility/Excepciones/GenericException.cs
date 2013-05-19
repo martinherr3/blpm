@@ -40,9 +40,6 @@ namespace EDUAR_Utility.Excepciones
         [DataMember]
         public enuExceptionType ExceptionType { get; set; }
 
-        //[DataMember]
-        //public Exception InnerExe { get; set; }
-
         #region Constructor Privado
         /// <summary>
         /// Constructor que carga la data de la Excepcion.

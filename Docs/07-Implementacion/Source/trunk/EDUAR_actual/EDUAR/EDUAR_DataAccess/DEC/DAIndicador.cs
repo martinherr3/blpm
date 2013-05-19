@@ -69,14 +69,8 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (entidad.idIndicador > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idIndicador", DbType.Int32, entidad.idIndicador);
-					//if (entidad.pagina.idPagina > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
 					if (!string.IsNullOrEmpty(entidad.nombre))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@nombre", DbType.String, entidad.nombre);
-					//if (ValidarFechaSQL(entidad.fecha))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
-					//if (ValidarFechaSQL(entidad.hora))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -139,12 +133,6 @@ namespace EDUAR_DataAccess.Common
 				using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Indicadors_Insert"))
 				{
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idIndicador", DbType.Int32, 0);
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, 0);
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha.Date.ToShortDateString());
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, entidad.hora.ToShortTimeString());
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.usuario);
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@url", DbType.String, entidad.pagina.url);
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
 
 					if (Transaction.Transaction != null)
 						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);

@@ -297,7 +297,7 @@ namespace EDUAR_DataAccess.Common
                     objEntidad.instrumentosEvaluacion = reader["instrumentosEvaluacion"].ToString();
                     objEntidad.idTemaPlanificacion = Convert.ToInt32(reader["idTemaPlanificacion"]);
                     objEntidad.observaciones = reader["observaciones"].ToString();
-                    //objEntidad.asignatura.nombre = reader["Asignatura"].ToString();
+
                     listaEntidad.Add(objEntidad);
                 }
                 return listaEntidad;
@@ -387,7 +387,6 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaPlanificacionTemaContenido_Select");
 
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaPlanificacion", DbType.Int32, entidad.idTemaPlanificacion);
-                //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTemaContenido", DbType.Int32, entidad.idTemaContenido);
 
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -398,7 +397,7 @@ namespace EDUAR_DataAccess.Common
                     objEntidad = new TemaContenido();
                     objEntidad.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
                     objEntidad.obligatorio = Convert.ToBoolean(reader["obligatorio"]);
-                    //objEntidad.activo = Convert.ToBoolean(reader["activo"]);
+
                     listaEntidad.Add(objEntidad);
                 }
                 return listaEntidad;

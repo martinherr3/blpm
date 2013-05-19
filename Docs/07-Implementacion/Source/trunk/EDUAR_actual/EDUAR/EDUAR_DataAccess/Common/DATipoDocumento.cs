@@ -227,7 +227,5 @@ namespace EDUAR_DataAccess.Common
             }
         }
         #endregion
-
-
     }
 }

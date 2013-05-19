@@ -79,7 +79,6 @@ namespace EDUAR_DataAccess.Reports
                     objReporte.asignatura = reader["Asignatura"].ToString();
                     objReporte.curso = reader["Curso"].ToString();
                     objReporte.calificacion = Convert.ToDouble(reader["Calificacion"]);
-                    //objReporte.instancia = reader["Instancia"].ToString();
                     objReporte.fecha = Convert.ToDateTime(reader["Fecha"].ToString());
 
                     listaReporte.Add(objReporte);

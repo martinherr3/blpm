@@ -42,14 +42,6 @@ namespace EDUAR_DataAccess.Common
 				{
 					if (entidad.idValorFuncionPreferencia > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idValorFuncionPreferencia", DbType.Int32, entidad.idValorFuncionPreferencia);
-					//if (entidad.pagina.idPagina > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.pagina.idPagina);
-					//if (!string.IsNullOrEmpty(entidad.pagina.titulo))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
-					//if (ValidarFechaSQL(entidad.fecha))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha);
-					//if (ValidarFechaSQL(entidad.hora))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Date, entidad.hora);
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
@@ -107,12 +99,6 @@ namespace EDUAR_DataAccess.Common
 				using (Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("ValorFuncionPreferencias_Insert"))
 				{
 					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idValorFuncionPreferencia", DbType.Int32, 0);
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, 0);
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fecha", DbType.Date, entidad.fecha.Date.ToShortDateString());
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@hora", DbType.Time, entidad.hora.ToShortTimeString());
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.usuario);
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@url", DbType.String, entidad.pagina.url);
-					// Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@titulo", DbType.String, entidad.pagina.titulo);
 
 					if (Transaction.Transaction != null)
 						Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);

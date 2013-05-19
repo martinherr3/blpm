@@ -226,17 +226,6 @@ namespace EDUAR_DataAccess.Common
             }
         }
 
-
-        ///// <summary>
-        ///// Gets the tema contenidos.
-        ///// </summary>
-        ///// <param name="entidad">The entidad.</param>
-        ///// <returns></returns>
-        //public List<TemaContenido> GetTemaContenidos(TemaContenido entidad, TemaPlanificacionAnual objTemaPlanificacion)
-        //{
-        //    return (GetTemaContenidos(entidad, null, objTemaPlanificacion));
-        //}
-
         /// <summary>
         /// Gets the tema contenidos.
         /// </summary>

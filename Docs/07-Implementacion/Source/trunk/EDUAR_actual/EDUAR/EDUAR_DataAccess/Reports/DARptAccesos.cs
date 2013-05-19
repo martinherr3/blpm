@@ -37,8 +37,6 @@ namespace EDUAR_DataAccess.Reports
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_Accesos");
 				if (entidad != null)
 				{
-					//if (entidad.idPagina > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.idPagina);
 					if (ValidarFechaSQL(entidad.fechaDesde))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaDesde);
 					if (ValidarFechaSQL(entidad.fechaHasta))
@@ -74,7 +72,6 @@ namespace EDUAR_DataAccess.Reports
 
 					objReporte.pagina = reader["titulo"].ToString();
 					objReporte.fecha = Convert.ToDateTime(reader["fecha"].ToString());
-					//objReporte.username = reader["username"].ToString();
 					if (!string.IsNullOrEmpty(reader["RoleName"].ToString()))
 						objReporte.rol = reader["RoleName"].ToString();
 					else

@@ -222,8 +222,7 @@ namespace EDUAR_DataAccess.Encuestas
 				{
 					if (entidad.idEncuesta > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.idEncuesta);
-					//if (entidad.usuario.username. > 0)
-						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@responsable", DbType.String, entidad.usuario.username);
+					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@responsable", DbType.String, entidad.usuario.username);
 					if (entidad.ambito.idAmbitoEncuesta > 0)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAmbito", DbType.Int32, entidad.ambito.idAmbitoEncuesta);
 					if (entidad.activo)
@@ -275,7 +274,6 @@ namespace EDUAR_DataAccess.Encuestas
 					{
 						objEncuesta.ambito.idAmbitoEncuesta = Convert.ToInt32(reader["idAmbito"]);
 						objEncuesta.ambito.nombre = reader["nombreAmbito"].ToString();
-						//objEncuesta.ambito.descripcion = reader["descripcionAmbito"].ToString();
 					}
 
 					objEncuesta.activo = Convert.ToBoolean(reader["activa"].ToString());
@@ -390,7 +388,6 @@ namespace EDUAR_DataAccess.Encuestas
 					{
 						objPregunta.categoria.idCategoriaPregunta = Convert.ToInt32(reader["idCategoria"]);
 						objPregunta.categoria.nombre = reader["categoria"].ToString();
-						//objPregunta.categoria.descripcion = reader["descripcionCategoria"].ToString();
 					}
 
 					objPregunta.escala = new EscalaMedicion();
