@@ -233,7 +233,6 @@ namespace EDUAR_DataAccess.Security
 		/// <returns>Lista de usuarios.</returns>
 		public DTSeguridad GetUsuarios(DTSeguridad objDTSeguridad, Boolean paginar)
 		{
-			// DSUsuarios.UsersDataTable dt = new DSUsuarios.UsersDataTable();
 			string rolesParam = string.Empty;
 			try
 			{
@@ -309,7 +308,6 @@ namespace EDUAR_DataAccess.Security
 
 		public DTUsuario GetUsuarioByEmail(string email)
 		{
-			// DSUsuarios.UsersDataTable dt = new DSUsuarios.UsersDataTable();
 			string rolesParam = string.Empty;
 			try
 			{

@@ -34,8 +34,6 @@ namespace EDUAR_DataAccess.Reports
         {
             try
             {
-                // Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoInasistenciasPeriodo");
-                //just to test:
                 Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Reporte_ConsolidadoInasistenciasPeriodo");
                 if (entidad != null)
                 {

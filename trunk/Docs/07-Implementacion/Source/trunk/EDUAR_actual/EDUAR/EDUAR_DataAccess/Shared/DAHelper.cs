@@ -38,9 +38,6 @@ namespace EDUAR_DataAccess.Shared
         {
             DataTable dtFiltrada = tablaSinPaginar.Clone();
 
-            //if(tablaSinPaginar.Rows.Count ==0)
-            //    return dtFiltrada;
-
             DataView vista = tablaSinPaginar.DefaultView;
             vista.Sort =ordenamiento ;
 
@@ -57,9 +54,6 @@ namespace EDUAR_DataAccess.Shared
 
             return dtFiltrada;
         }
-
-        
-
         #endregion
     }
 }

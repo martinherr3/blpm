@@ -98,7 +98,7 @@ namespace EDUAR_DataAccess.Common
                 //Propios de la reunión
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idReunion", DbType.Int32, 0);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horario", DbType.Time, entidad.horario);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, 0); //entidad.idEventoAgenda);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEventoAgenda", DbType.Int32, 0);
 
                 if (Transaction.Transaction != null)
                     Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);

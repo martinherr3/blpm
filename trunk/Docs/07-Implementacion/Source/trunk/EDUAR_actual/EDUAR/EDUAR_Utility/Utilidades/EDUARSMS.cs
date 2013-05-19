@@ -45,17 +45,13 @@ namespace EDUAR_Utility.Utilidades
         {
             try
             {
-               // conectarse();
-                _clsSms.sendMsg(nroDestino, cuerpo);
-               // _clsSms.ClosePort();
-                
+                _clsSms.sendMsg(nroDestino, cuerpo); 
             }
             catch (Exception ex)
             {
                 throw new CustomizedException(string.Format("Fallo en {0} - EnviarMail()", ClassName),
                                                         ex, enuExceptionType.Exception);
             }
-
         }
 
         public void Desconectarse()
@@ -63,7 +59,6 @@ namespace EDUAR_Utility.Utilidades
             try
             {
                 _clsSms.ClosePort();
-
             }
             catch (Exception ex)
             {
@@ -106,11 +101,8 @@ namespace EDUAR_Utility.Utilidades
                         _clsSms.ReadIMEI();
                         _clsSms.ReadSIMID();
                         retValue = true;
-                        //MessageBox.Show("Abrio Puerto " + puerto);
                     }
                 }
-
-
             }
             catch (Exception ex)
             {

@@ -84,8 +84,6 @@ namespace EDUAR_DataAccess.Encuestas
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idEncuesta", DbType.Int32, entidad.encuestaDisponible.encuesta.idEncuesta);
                     if (entidad.respuestaSeleccion == 0) Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@valorRespuestaTextual", DbType.String, entidad.respuestaTextual);
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@valorRespuestaSeleccion", DbType.Int32, entidad.respuestaSeleccion);
-                    //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@respondida", DbType.Boolean, true);
-                    //Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaRespuesta", DbType.DateTime, DateTime.Now);
 
                     if (Transaction.Transaction != null)
                         Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
@@ -176,8 +174,6 @@ namespace EDUAR_DataAccess.Encuestas
                             objEntidad.valoresSeleccionados.Add(values);
                         }
                     } 
-
-                    //if(!string.IsNullOrEmpty(valor)) objEntidad.cantidades.Add(Convert.ToInt32(valor));
 
                     listaRepuesta.Add(objEntidad);
                 }

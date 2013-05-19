@@ -295,26 +295,6 @@ namespace EDUAR_Utility.Enumeraciones
         Textual = 4
     }
 
-    public enum enumRespCualitativa : int
-    {
-        None = 0,
-        Muy_Malo = 1,
-        Malo = 2,
-        Regular = 3,
-        Bueno = 4,
-        Muy_Bueno = 5
-    }
-
-    public enum enumRespCuantitativa : int
-    {
-        None = 0,
-        Nulo = 1,
-        Escaso = 2,
-        Suficiente = 3,
-        Normal = 4,
-        Abundante = 5
-    }
-
 	public enum enumAmbitoEncuesta : int
 	{ 
 		None = 0,

@@ -112,12 +112,7 @@ namespace EDUAR_DataAccess.Reports
 				Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Indicadores_Select");
 				if (entidad != null)
 				{
-					//if (entidad.idPagina > 0)
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPagina", DbType.Int32, entidad.idPagina);
-					//if (ValidarFechaSQL(entidad.fechaDesde))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaDesde", DbType.Date, entidad.fechaDesde);
-					//if (ValidarFechaSQL(entidad.fechaHasta))
-					//    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaHasta);
+
 				}
 				IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 
