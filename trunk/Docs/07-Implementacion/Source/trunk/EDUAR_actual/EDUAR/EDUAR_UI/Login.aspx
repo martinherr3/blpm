@@ -7,8 +7,23 @@
 <head id="Head1" runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>EDU@R 2.0</title>
-    <link rel="icon" type="image/png" href="https://alulau.redirectme.net/EDUAR_UI/favicon.ico" />
-    <link href="App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="Stylesheet" href="/EDUAR_UI/Scripts/chosen/chosen.css" />
+    <link type="text/css" rel="Stylesheet" href="/EDUAR_UI/Scripts/jquery alerts/jquery.alerts.css" />
+    <link href="~/App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="https://localhost/EDUAR_UI/favicon.ico" />
+    <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery alerts/jquery.alerts.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("ul.level1 li").hover(function () {
+                $(this).stop().animate({ opacity: 1, width: "300px" }, "slow");
+            }, function () {
+                $(this).stop().animate({ opacity: 0.5, width: "200px" }, "fast");
+            });
+        });
+    </script>
 </head>
 <body style="background-color: White">
     <form runat="server">
@@ -16,11 +31,13 @@
         ScriptMode="Release" LoadScriptsBeforeUI="false" EnableScriptLocalization="true"
         EnableScriptGlobalization="true">
         <Scripts>
+            <asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery-1.7.2.min.js" />
+            <asp:ScriptReference Path="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js" />
         </Scripts>
     </asp:ScriptManager>
     <div class="page">
         <div class="header">
-            <table  style="width: 1020px;">
+            <table style="width: 1020px;">
                 <tr>
                     <td style="width: 25%">
                         <div class="title">
@@ -29,9 +46,10 @@
                     </td>
                     <td style="width: 40%">
                         <div id="divInfo" runat="server" visible="false" style="vertical-align: text-top">
-                            <table  style="width: 100%; text-align: center">
+                            <table style="width: 100%; text-align: center">
                                 <tr>
-                                    <td>&nbsp;
+                                    <td>
+                                        &nbsp;
                                     </td>
                                 </tr>
                             </table>
@@ -41,15 +59,18 @@
                         <div class="loginDisplay">
                             <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; text-align: center">
                                 <tr>
-                                    <td style="width: 50%">&nbsp;
+                                    <td style="width: 50%">
+                                        &nbsp;
                                     </td>
-                                    <td align="center" style="width: 50%">&nbsp;
+                                    <td align="center" style="width: 50%">
+                                        &nbsp;
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="width: 50%">
                                     </td>
-                                    <td align="center" style="width: 50%">&nbsp;
+                                    <td align="center" style="width: 50%">
+                                        &nbsp;
                                     </td>
                                 </tr>
                             </table>
@@ -58,19 +79,18 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="width: 25%">
-                        Usted está aqu&iacute;:
+                        Mi Ruta:
                         <asp:HyperLink NavigateUrl="~/" runat="server" Text="EDUAR" />
                         > Iniciar Sesión
                     </td>
                 </tr>
             </table>
-            <div class="clear hideSkiplink">
-                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
-                    RenderingMode="List" IncludeStyleBlock="true" Orientation="Horizontal" OnPreRender="NavigationMenu_PreRender"
+            <div class="clear menu" style="position: fixed; margin-left: -250px; margin-bottom: 50px;
+                overflow: visible; float: left; min-height: 1000px; margin-bottom: 50px">
+                <asp:Menu ID="NavigationMenu" runat="server" EnableViewState="false" RenderingMode="List"
+                    IncludeStyleBlock="true" Orientation="Vertical" OnPreRender="NavigationMenu_PreRender"
                     Width="100%" StaticPopOutImageUrl="~/Images/draw-arrow-down.png">
                 </asp:Menu>
-                <asp:SiteMapDataSource ID="SiteMapEDUAR" runat="server" ShowStartingNode="false"
-                    SiteMapProvider="WebXmlSiteMapProvider" />
                 <asp:SiteMapDataSource ID="SiteMapAnonymusEDUAR" runat="server" ShowStartingNode="false"
                     SiteMapProvider="AnonymusXmlSiteMapProvider" />
             </div>
