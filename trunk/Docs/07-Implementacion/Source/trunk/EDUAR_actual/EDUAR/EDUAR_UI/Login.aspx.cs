@@ -290,8 +290,8 @@ namespace EDUAR_UI
                         default:
                             break;
                     }
-                    if (Detalle != ex.Message) Detalle += " " + ex.Message;
-                    //Detalle += " " + ex.Message;
+                    if (HttpContext.Current.IsDebuggingEnabled && Detalle != ex.Message) Detalle += " " + ex.Message;
+
                     MostrarMensaje(Titulo, Detalle, tipoVentana);
                     if (tipoVentana != enumTipoVentanaInformacion.Advertencia)
                         ventanaInfoLogin.GestionExcepcionesLog(ex);
