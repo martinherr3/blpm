@@ -11,7 +11,7 @@ using EDUAR_Entities.Shared;
 namespace EDUAR_Entities
 {
     [Serializable]
-    public class TemaContenidoAtrasado
+    public class TemaContenidoAtrasado: DTBase
     {
         public int idTemaContenido { get; set; }
         public string titulo { get; set; }
