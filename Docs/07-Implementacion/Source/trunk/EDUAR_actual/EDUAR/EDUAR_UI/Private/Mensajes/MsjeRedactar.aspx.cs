@@ -287,7 +287,9 @@ namespace EDUAR_UI
 						break;
 					case "3":
 						objDocente = new BLDocente();
-						List<Docente> listaDocentes = objDocente.GetDocentes();
+                        CursoCicloLectivo objCursoCicloLectivo = new CursoCicloLectivo();
+                        objCursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
+                        List<Docente> listaDocentes = objDocente.GetDocentes(objCursoCicloLectivo.idCursoCicloLectivo);
 						lista = new List<Persona>();
 						foreach (Docente item in listaDocentes)
 						{
@@ -503,7 +505,9 @@ namespace EDUAR_UI
 						if (ddlDestino.Items.FindByValue(ddlCurso.SelectedValue).Selected)
 						{
 							objDocente = new BLDocente();
-							List<Docente> listaDocentes = objDocente.GetDocentes();
+                            CursoCicloLectivo objCursoCicloLectivo = new CursoCicloLectivo();
+                            objCursoCicloLectivo.idCursoCicloLectivo = Convert.ToInt32(ddlCurso.SelectedValue);
+                            List<Docente> listaDocentes = objDocente.GetDocentes(objCursoCicloLectivo.idCursoCicloLectivo);
 							foreach (Docente item in listaDocentes)
 							{
 								ddlDestino.Items.Add(new ListItem("", item.idPersona.ToString()));

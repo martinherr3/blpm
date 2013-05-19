@@ -160,7 +160,7 @@ namespace EDUAR_DataAccess.Common
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaHasta", DbType.Date, entidad.fechaEventoHasta);
 					if (!string.IsNullOrEmpty(entidad.tutor.username))
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@usuarioTutor", DbType.String, entidad.tutor.username);
-					Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+					//Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
 					if (entidad.vencidas)
 						Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@vencidas", DbType.Boolean, entidad.vencidas);
 				}

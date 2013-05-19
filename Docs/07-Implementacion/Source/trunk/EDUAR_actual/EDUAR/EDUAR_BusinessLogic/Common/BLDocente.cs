@@ -181,11 +181,11 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
-        public List<Docente> GetDocentes()
+        public List<Docente> GetDocentes(int entidad)
         {
             try
             {
-                return DataAcces.GetDocentes();
+                return DataAcces.GetDocentes(entidad);
             }
             catch (CustomizedException ex)
             {

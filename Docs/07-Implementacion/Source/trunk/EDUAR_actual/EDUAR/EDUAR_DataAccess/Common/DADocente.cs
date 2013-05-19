@@ -117,6 +117,55 @@ namespace EDUAR_DataAccess.Common
                                     ex, enuExceptionType.DataAccesException);
             }
         }
+
+        /// <summary>
+        /// Gets the alumnos.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<Docente> GetDocentes(int curso)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Docentes_Select");
+                if (curso > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@cursoCicloLectivo", DbType.Int32, curso);
+                
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<Docente> listaDocentes = new List<Docente>();
+                Docente objDocente;
+                while (reader.Read())
+                {
+                    objDocente = new Docente();
+
+                    objDocente.idPersonal = Convert.ToInt32(reader["idPersonal"]);
+                    objDocente.nombre = reader["nombre"].ToString();
+                    objDocente.apellido = reader["apellido"].ToString();
+                    if (!string.IsNullOrEmpty(reader["fechaAlta"].ToString()))
+                        objDocente.fechaAlta = (DateTime)reader["fechaAlta"];
+                    if (!string.IsNullOrEmpty(reader["fechaBaja"].ToString()))
+                        objDocente.fechaBaja = (DateTime)reader["fechaBaja"];
+                    objDocente.activo = Convert.ToBoolean(reader["activo"]);
+                    objDocente.idPersona = Convert.ToInt32(reader["idPersona"]);
+                    objDocente.username = reader["username"].ToString();
+                    //TODO: Completar los miembros que faltan de alumno
+
+                    listaDocentes.Add(objDocente);
+                }
+                return listaDocentes;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetDocentes()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetDocentes()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
         #endregion
     }
 }
