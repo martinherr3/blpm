@@ -12,6 +12,7 @@ import javax.swing.event.*;
 import java.util.LinkedList;
 import Objetos.PersonasAuxiliar;
 import Objetos.AlfombraPrincipal;
+import java.util.Observable;
 
 /**
  * Modelo de personas. Cada fila es una persona y las columnas son los datos de
@@ -31,7 +32,6 @@ public class ModeloTablaPersonaAuxiliar implements TableModel {
      */
 //    public static int HORAINICIO = 1;
 //    public static int NROPERS = 2;
-
     public int getColumnCount() {
         // Devuelve el n�mero de columnas del modelo, que coincide con el
         // n�mero de datos que tenemos de cada persona.
@@ -72,7 +72,7 @@ public class ModeloTablaPersonaAuxiliar implements TableModel {
 
         // Se obtiene el campo apropiado seg�n el valor de columnIndex
         switch (columnIndex) {
-           case 0:
+            case 0:
                 return aux.getNroPersona();
             case 1:
                 return aux.getTiempoLlegada();
@@ -80,9 +80,9 @@ public class ModeloTablaPersonaAuxiliar implements TableModel {
                 return aux.getEstado();
             case 3:
                 return aux.getFinLanza();
-           case 4:
+            case 4:
                 return aux.getTiempoEspera();
-           default:
+            default:
                 return null;
         }
     }
@@ -167,66 +167,79 @@ public class ModeloTablaPersonaAuxiliar implements TableModel {
         }
     }
 
-  public void setValue(Object aValue, int rowIndex, int columnIndex) {
-        EventosAuxiliares aux;
-        aux = (EventosAuxiliares) aValue;
-
-        int indexRow = this.rowAutoFIFO();
-        EventosAuxiliares ob = (EventosAuxiliares) this.get(indexRow);
-        ob.setHoraInicioPintura(aux.getHoraInicioPintura());
-
-        EventosAuxiliares obAnterior = (EventosAuxiliares) this.get(indexRow - 1);
-
-        if (ob.getHoraInicioPintura() == ob.getHoraLlegada()) {
-            ob.setTiempoEnCola(obAnterior.getSumatoriaTiempoEnCola());
-        } else {
-            if (ob.getHoraInicioPintura() < ob.getHoraLlegada()) {
-                ob.setTiempoEnCola(ob.getHoraInicioPintura() - obAnterior.getHoraInicioPintura());
-            } else {
-                ob.setTiempoEnCola(ob.getHoraInicioPintura() - ob.getHoraLlegada());
-            }
-        }
-        ob.setSumatoriaTiempoEnCola(obAnterior.getSumatoriaTiempoEnCola() + ob.getTiempoEnCola());
-        ob.setHoraInicioPinturaRE(aux.getHoraInicioPinturaRE());
-        ob.setTiempoEnColaRE(ob.getHoraInicioPinturaRE() - ob.getHoraLlegada());
-        ob.setSumatoriaTiempoEnColaRE(obAnterior.getSumatoriaTiempoEnColaRE() + ob.getTiempoEnColaRE());
-    }
-  
-  
-public void copiarSumatoria() {
-        int i = 0;
-        EventosAuxiliares aux = new EventosAuxiliares();
-        EventosAuxiliares filaDeLaTabla = new EventosAuxiliares();
-        for (i = this.getRowCount() - 1; i > -1; i--) {
-            aux = (EventosAuxiliares) this.get(i);
-            if (aux.getSumatoriaTiempoEnCola() != 0) {
-                for (int j = i + 1; j < this.getRowCount(); j++) {
-                    filaDeLaTabla = (EventosAuxiliares) this.get(j);
-                    filaDeLaTabla.setSumatoriaTiempoEnCola(aux.getSumatoriaTiempoEnCola());
-                    filaDeLaTabla.setSumatoriaTiempoEnColaRE(aux.getSumatoriaTiempoEnColaRE());
-                }
-                break;
-            }
-
-        }
-
-        for (int k = 1; k < this.getRowCount(); k++) {
-            aux = (EventosAuxiliares) this.get(k);
-            if (aux.getSumatoriaTiempoEnCola() == 0) {
-                filaDeLaTabla = (EventosAuxiliares) this.get(k - 1);
-                aux.setSumatoriaTiempoEnCola(filaDeLaTabla.getSumatoriaTiempoEnCola());
-                aux.setSumatoriaTiempoEnColaRE(filaDeLaTabla.getSumatoriaTiempoEnColaRE());
-            }
-        }
-
+//  
+    public double actualizoProximoFinalizar(int persona, double tiempoTardaLanzamiento) {
+        int indexRow = this.rowPersonaFIFO(persona) + 1;
+        PersonasAuxiliar ob = (PersonasAuxiliar) this.get(indexRow);
+        ob.setFinLanza(ob.getTiempoLlegada() + tiempoTardaLanzamiento);
+        double finPoxLanza = ob.getFinLanza();
+        return finPoxLanza;
 
     }
-    public String getColumnName(int columnIndex) 
-    {
+
+    public void cambiarEstadoFinalizado(int persona) {
+        int indexRow = this.rowPersonaFIFO(persona);
+        PersonasAuxiliar ob = (PersonasAuxiliar) this.get(indexRow);
+        ob.setEstado("Finalizado");
+        PersonasAuxiliar prox = (PersonasAuxiliar) this.get(indexRow + 1);
+        if (prox.getEstado().equals("En Espera")) {
+            for (int i = indexRow + 1; i < this.getRowCount(); i++) {
+                PersonasAuxiliar obj = (PersonasAuxiliar) this.get(i);
+                obj.setEstado("Finalizado");
+
+            }
+        }
+    }
+    
+
+    public double lanzamientoPersonasEnEspera(int persona, double tiempoTardaLanzamiento, double finLimpieza) {
+        int indexRow = this.rowPersonaFIFO(persona);
+        double maximoTiempoEspera = 0;
+        for (int i = indexRow; i < this.getRowCount(); i++) {
+            PersonasAuxiliar ob = (PersonasAuxiliar) this.get(indexRow);
+            ob.setEstado("En Lanzamiento");
+            ob.setFinLanza(finLimpieza + tiempoTardaLanzamiento);
+            ob.setTiempoEspera(finLimpieza - ob.getTiempoLlegada());
+            if (ob.getTiempoEspera() > maximoTiempoEspera) {
+                maximoTiempoEspera = ob.getTiempoEspera();
+            }
+        }
+        return maximoTiempoEspera;
+    }
+
+//    public void copiarSumatoria() {
+//        int i = 0;
+//        EventosAuxiliares aux = new EventosAuxiliares();
+//        EventosAuxiliares filaDeLaTabla = new EventosAuxiliares();
+//        for (i = this.getRowCount() - 1; i > -1; i--) {
+//            aux = (EventosAuxiliares) this.get(i);
+//            if (aux.getSumatoriaTiempoEnCola() != 0) {
+//                for (int j = i + 1; j < this.getRowCount(); j++) {
+//                    filaDeLaTabla = (EventosAuxiliares) this.get(j);
+//                    filaDeLaTabla.setSumatoriaTiempoEnCola(aux.getSumatoriaTiempoEnCola());
+//                    filaDeLaTabla.setSumatoriaTiempoEnColaRE(aux.getSumatoriaTiempoEnColaRE());
+//                }
+//                break;
+//            }
+//
+//        }
+//
+//        for (int k = 1; k < this.getRowCount(); k++) {
+//            aux = (EventosAuxiliares) this.get(k);
+//            if (aux.getSumatoriaTiempoEnCola() == 0) {
+//                filaDeLaTabla = (EventosAuxiliares) this.get(k - 1);
+//                aux.setSumatoriaTiempoEnCola(filaDeLaTabla.getSumatoriaTiempoEnCola());
+//                aux.setSumatoriaTiempoEnColaRE(filaDeLaTabla.getSumatoriaTiempoEnColaRE());
+//            }
+//        }
+//
+//
+//    }
+
+    public String getColumnName(int columnIndex) {
         // Devuelve el nombre de cada columna. Este texto aparecerá en la
         // cabecera de la tabla.
-        switch (columnIndex)
-        {
+        switch (columnIndex) {
             case 0:
                 return "nroPersona";
             case 1:
@@ -241,6 +254,7 @@ public void copiarSumatoria() {
                 return null;
         }
     }
+
     /**
      * Returns true if the cell at
      * <code>rowIndex</code> and
@@ -284,11 +298,12 @@ public void copiarSumatoria() {
         }
     }
 
- public int rowPersonaFIFO() {
+
+    public int rowPersonaFIFO(int NroPersonaFin) {
         for (int i = 1; i < this.getRowCount(); i++) {
 
-            if (((PersonasAuxiliar) this.datos.get(i)).getEstado().equals("En Lanzamiento")
-                    && ((PersonasAuxiliar) this.datos.get(i)).getFinLanza() != 0.0) {
+            //retorna fila para cambiar a estado finalizado
+            if (((PersonasAuxiliar) this.datos.get(i)).getNroPersona() == NroPersonaFin) {
                 return i;
             }
         }
