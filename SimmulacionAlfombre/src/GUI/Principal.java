@@ -390,7 +390,7 @@ public class Principal extends javax.swing.JFrame {
         auxiliar[1].setFinLanza(0);
         auxiliar[1].setTiempoEspera(0);
 
-        ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).anhadeFila(auxiliar[1]);
+        ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
 
         while (principal[1].getReloj() < this.cantidadSegundosASimular) {
             copiarDatosHistoricos();
@@ -408,9 +408,9 @@ public class Principal extends javax.swing.JFrame {
 
         }
 
-        ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).copiarSumatoria();
+        //((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).copiarSumatoria();
 
-        calcularPromedios();
+        //calcularPromedios();
 
 
     }
@@ -512,188 +512,238 @@ public class Principal extends javax.swing.JFrame {
                 double proximaLlegada = Uniforme.getRdo(desde, hasta);
                 principal[1].setRND(Uniforme.getRnd());
                 principal[1].setLLegaProxPers(proximaLlegada);
-
-                principal[1].setFinLimpieza(principal[0].getFinLimpieza());
                 principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
-                int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
-                Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 1);
-                String s = String.valueOf(o);
-                int ultimoNroPersona = Integer.valueOf(s);
+                principal[1].setFinLimpieza(principal[0].getFinLimpieza());
+
                 if (principal[0].getEstadoAlfombra() != "Suspendida") {
 
+                    if (principal[0].getCantPersEnLanz() > 0) {
+                        // Alfombra esta disponible y hay personas lanzando
+                        principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz());
+                        principal[1].setFinProxLanz(principal[0].getFinProxLanz());
+                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() + 1);
+                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                        principal[1].setMaxCola(principal[0].getMaxCola());
+                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
 
-                    auxiliar[1].setNroPersona(ultimoNroPersona + 1);
-                    auxiliar[1].setTiempoLlegada(principal[1].getReloj());
-                    auxiliar[1].setEstado("En Lanzamiento");
-                    auxiliar[1].setFinLanza(0);
-                    auxiliar[1].setTiempoEspera(0);
+                        int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
+                        Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 1);
+                        String s = String.valueOf(o);
+                        int ultimoNroPersona = Integer.valueOf(s);
+
+                        auxiliar[1].setNroPersona(ultimoNroPersona + 1);
+                        auxiliar[1].setTiempoLlegada(principal[1].getReloj());
+                        auxiliar[1].setEstado("En Lanzamiento");
+                        auxiliar[1].setFinLanza(0);
+                        auxiliar[1].setTiempoEspera(0);
+                    } else {
+                        //// Alfombra esta disponible y no hay personas lanzando
+                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() + 1);
+                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                        principal[1].setMaxCola(principal[0].getMaxCola());
+                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
+
+                        int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
+                        Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 1);
+                        String s = String.valueOf(o);
+                        int ultimoNroPersona = Integer.valueOf(s);
+
+                        auxiliar[1].setNroPersona(ultimoNroPersona + 1);
+                        auxiliar[1].setTiempoLlegada(principal[1].getReloj());
+                        auxiliar[1].setEstado("En Lanzamiento");
+                        double finLanzamiento = principal[1].getReloj() + tiempoTardaLanzamiento;
+                        auxiliar[1].setFinLanza(finLanzamiento);
+                        auxiliar[1].setTiempoEspera(0);
+                        principal[1].setNroPersProxFinLanz(auxiliar[1].getNroPersona());
+                        principal[1].setFinProxLanz(auxiliar[1].getFinLanza());
+                    }
+
+                } else { //la alfombra se encuentra suspendida y 
+                    principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() + 1);
+                    principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
                     principal[1].setMaxCola(principal[0].getMaxCola());
-                } else {
+                    principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
+                    principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz());
+                    principal[1].setFinProxLanz(principal[0].getFinProxLanz());
+
+                    int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
+                    Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 1);
+                    String s = String.valueOf(o);
+                    int ultimoNroPersona = Integer.valueOf(s);
+
                     auxiliar[1].setNroPersona(ultimoNroPersona + 1);
                     auxiliar[1].setTiempoLlegada(principal[1].getReloj());
                     auxiliar[1].setEstado("En Espera");
                     auxiliar[1].setFinLanza(0);
                     auxiliar[1].setTiempoEspera(0);
-                    principal[1].setMaxCola(principal[0].getMaxCola() + 1);
                 }
-                principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz());
-                principal[1].setFinProxLanz(principal[0].getFinProxLanz());
-                principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() + 1);
-                principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
-                principal[1].setMaxCola(principal[0].getMaxCola() + 1);
-                principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-            }
-            //fin limpieza
+                ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+                ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
+
+            break;}
+            case 7: {
+                // //Finalizo un lanzamiento de persona en alfombra
+                principal[1].setEvento("Fin Lanzamiento");
+                principal[1].setRND(principal[0].getRND());
+                principal[1].setLLegaProxPers(principal[0].getLLegaProxPers());
+
+                if (principal[0].getEstadoAlfombra() != "Suspendida") {
+                    if (principal[0].getCantPersEnLanz() > 0) {
+                        // Alfombra esta disponible y hay cola en personas lanzando - hay que recalcular prox fin lanzamiento
+                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() - 1);
+                        principal[1].setFinLimpieza(principal[0].getFinLimpieza());
+                        principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
+                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                        principal[1].setMaxCola(principal[0].getMaxCola());
+                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
+                        //cambio el estado de la persona recien finaliza 
+                        ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
+                        // actualizo el prximo fin lanzamiento
+                        double tEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).actualizoProximoFinalizar(principal[0].getNroPersProxFinLanz(), tiempoTardaLanzamiento);
+//                      
+                        principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + 1);
+                        principal[1].setFinProxLanz(tEspera);
+
+                    } else {
+                        //Alfombre esta disponible y no hay cola 
+                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() - 1);
+                        principal[1].setFinLimpieza(principal[0].getFinLimpieza());
+                        principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
+                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                        principal[1].setMaxCola(principal[0].getMaxCola());
+                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
+                        //cambio el estado de la persona recien finaliza 
+                        ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
+
+                        principal[1].setNroPersProxFinLanz(0);
+                        principal[1].setFinProxLanz(0);
+                    }
+                } else {
+                    if (principal[0].getCantPersEnLanz() > 0) {
+                        //la alfombra esta suspendida y hay cola personas en lanzamiento.
+                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() - 1);
+                        principal[1].setFinLimpieza(principal[0].getFinLimpieza());
+                        principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
+                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                        principal[1].setMaxCola(principal[0].getMaxCola());
+                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
+                        //cambio el estado de la persona recien finaliza 
+                        ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
+                        // actualizo el prximo fin lanzamiento
+                        double tEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).actualizoProximoFinalizar(principal[0].getNroPersProxFinLanz(), tiempoTardaLanzamiento);
+//                      
+                        principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + 1);
+                        principal[1].setFinProxLanz(tEspera);
+                    } else {// la alfombra suspendida y no hay cola personas el lanzamiento
+                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() - 1);
+                        principal[1].setFinLimpieza(principal[0].getFinProxLanz() + tiempoLimpieza);
+                        principal[1].setEsHoraSuspender(principal[1].getFinLimpieza() + tiempoSuspension);
+                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                        principal[1].setMaxCola(principal[0].getMaxCola());
+                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
+                        //cambio el estado de la persona recien finaliza 
+                        ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
+
+                        principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + 1);
+                        principal[1].setFinProxLanz(0);
+                    }
+//                
+                }
+
+                ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+            break;}
             case 4: {
+                //Fin Liempieza
                 principal[1].setEvento("Fin Limpieza");
                 principal[1].setRND(principal[0].getRND());
                 principal[1].setLLegaProxPers(principal[0].getLLegaProxPers());
+
                 principal[1].setFinLimpieza(0);
-                principal[1].setEsHoraSuspender(principal[0].getFinLimpieza() + 14400);
-                //necesito lanzar todos la personas en espera. 
-                double tiempoFinLanza = principal[0].getFinLimpieza() + tiempoTardaLanzamiento;
+                principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
+                int prox = principal[0].getNroPersProxFinLanz();
+                double finLimpieza = principal[0].getFinLimpieza();
+                double maxTiempoEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).lanzamientoPersonasEnEspera(prox, tiempoTardaLanzamiento, finLimpieza);
 
-//                int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
-//                Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 1);
-//                String s = String.valueOf(o);
-//                int ultimoNroPersona = Integer.valueOf(s);
-//                principal[1].setNroPersProxFinLanz(ultimoNroPersona);
-//                principal[1].setFinProxLanz(tiempoFinLanza);
-//                
-//                
-//                 int cantidadPersonas = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount()+1;
-////                for (int i = 0; i < cantidadPersonas; i++) {
-////                    Object obj = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(i, 2);
-//                    String s1 = String.valueOf(obj);
-//                    String estado = String.valueOf(s);
-//                    if(estado=="En Espera"){
-//                        
-//            auxiliar[k] = new PersonasAuxiliar();
-//        }
+                principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + principal[0].getCantPersEnLanz() - 1);
+                principal[1].setFinProxLanz(finLimpieza + tiempoTardaLanzamiento);
 
-//                    }
-//                }
-//                 
-//                
-//                
+                principal[1].setCantPersEnLanz(0);
 
-
+                principal[1].setEstadoAlfombra("Disponible");
+                if (maxTiempoEspera > principal[0].getMaxTiempoDEspera()) {
+                    principal[1].setMaxTiempoDEspera(maxTiempoEspera);
+                } else {
+                    principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
+                }
+//// FALTA VER COMO CALCULAR LA MAXIMA COLAAA!!!!!!!!!!
+                principal[1].setMaxCola(principal[0].getMaxCola());
+                ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+            break;
             }
-
-            //Es hora de suspender lanzamiento para limpiar la alfombra. 
-            case 5: {
-                principal[1].setEvento("Hora de Sunpender");
+            case 5:{// Es hora de suspender el lanzamiento de personas en alfombra
+                principal[1].setEvento("Suspende");
                 principal[1].setRND(principal[0].getRND());
                 principal[1].setLLegaProxPers(principal[0].getLLegaProxPers());
-                if (principal[0].getFinProxLanz() == 0) {
-                    principal[1].setFinLimpieza(principal[0].getEsHoraSuspender() + 900);
-                } else {
-                    principal[1].setFinLimpieza(0);
-                }
 
-                principal[1].setEsHoraSuspender(0);
+                if (principal[0].getCantPersEnLanz() > 0) {
+                    principal[1].setFinLimpieza(principal[0].getFinLimpieza());
+                    principal[1].setEsHoraSuspender(0);
+                } else {
+                    principal[1].setFinLimpieza(principal[0].getEsHoraSuspender() + tiempoLimpieza);
+                    principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
+                }
                 principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz());
                 principal[1].setFinProxLanz(principal[0].getFinProxLanz());
                 principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz());
                 principal[1].setEstadoAlfombra("Suspendida");
-                principal[1].setMaxCola(principal[0].getMaxCola());
                 principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-
+                 ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+             break;   
             }
-        
-        //Finalizo un lanzamiento de persona en alfombra
-
-case 6: {
-                principal[1].setEvento("Fin de Lanzamiento");
-                principal[1].setRND(principal[0].getRND());
-                principal[1].setLLegaProxPers(principal[0].getLLegaProxPers());
-                //calcular proximo lanzamiento retour proxLanzamiento
-               this.jTable2.setValueAt(jTable1, WIDTH, WIDTH);
-               ((ModeloTablaPersonaAuxiliar) this.jTable2.setValueAt(this.jTable2, WIDTH, WIDTH)
-                       getModel()).anhadeFila(auxiliar[1]);         
-               //principal[1].setNroPersProxFinLanz(tipoEvento);
-               principal[1].setFinProxLanz(ProxLanzamiento);
-               
-                if(principal[0].getEstadoAlfombra()== "Suspendido")
-                    {if(principal[1].getFinProxLanz() == 0) {
-                        principal[1].setFinLimpieza(principal[0].getFinProxLanz()+ 900);
-                        principal[1].setEsHoraSuspender(principal[1].getFinLimpieza()+14400);
-                       
-                        } else {
-                        principal[1].setFinLimpieza(principal[0].getFinLimpieza());
-                        principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
-                        }
-                    }else
-                    {principal[1].setFinLimpieza(principal[0].getFinLimpieza());
-                     principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
-                     
-                    }
-             principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz()-1);
-             principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
-             principal[1].setMaxCola(principal[0].getMaxCola()+1);
-             principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-                
-                }
-
-              
-                 
-            }
-
-            
-
-    }
-    
-    public public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-
-
-
-
-                
-
-}
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
     }
+
+//    public public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//
+//
+//
+//
+//
+//
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class
+//                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Principal().setVisible(true);
+//            }
+//        });
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
