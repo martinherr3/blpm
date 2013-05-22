@@ -124,9 +124,8 @@ public Principal principal=new Principal();
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(textField1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(textField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
+                    .addComponent(textField1)
+                    .addComponent(textField2, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
                     .addComponent(textField3, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
                 .addGap(34, 34, 34)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,7 +217,7 @@ public Principal principal=new Principal();
                         .addGap(22, 22, 22))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 21, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,7 +258,7 @@ public Principal principal=new Principal();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
     private boolean tomarValoresIngresados() {
-        if (!textField1.getText().trim().equals("") && Double.parseDouble(textField1.getText()) != 0) {
+        if (!textField1.getText().trim().equals("") && Double.parseDouble(textField1.getText()) != -1) {
         x0 = Double.parseDouble(textField1.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de Xo.", "Faltan datos", JOptionPane.ERROR_MESSAGE);

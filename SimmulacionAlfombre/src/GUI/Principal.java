@@ -71,7 +71,7 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable2.setModel(new ModeloTablaPersonaAuxiliar());
+        jTable2.setModel(new Estructura.ModeloTablaPersonaAuxiliar());
         jScrollPane3.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -146,7 +146,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel8.setText("Cantidad de iteraciones a simular:");
 
-        jTextField6.setText("900 ");
+        jTextField6.setText("1");
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField6ActionPerformed(evt);
@@ -233,6 +233,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jTable1.setModel(new Estructura.ModeloTablaAlfombraPrincipal());
         jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -314,41 +315,64 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void tomarValoresIngresados() {
+        try{
         if (!jTextField1.getText().equals("")) {
             mediaUniforme = Double.parseDouble(jTextField1.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de la media.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
             jTextField1.requestFocus();
+        }} catch (Exception e) {
+            System.out.println("ERROR!!!" + e.getMessage());
         }
+        try{
         if (!jTextField2.getText().equals("")) {
             desvioUniforme = Double.parseDouble(jTextField2.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial del Desvio.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
             jTextField2.requestFocus();
         }
+        } catch (Exception e) {
+            System.out.println("ERROR!!!" + e.getMessage());
+        }
+        
+        try{
         if (!jTextField3.getText().equals("")) {
             tiempoSuspension = Double.parseDouble(jTextField3.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de tiempo para que se encuentra disponible la alfonbra.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
             jTextField3.requestFocus();
+        }} catch (Exception e) {
+            System.out.println("ERROR!!!" + e.getMessage());
         }
+        
+        try{
         if (!jTextField4.getText().equals("")) {
             tiempoLimpieza = Double.parseDouble(jTextField4.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial del Tarda la limpieza.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
             jTextField4.requestFocus();
+        }} catch (Exception e) {
+            System.out.println("ERROR!!!" + e.getMessage());
         }
+        
+        try{
         if (!jTextField5.getText().equals("")) {
             cantidadSegundosASimular = Double.parseDouble(jTextField5.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de segundos a simular.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
             jTextField5.requestFocus();
+        }} catch (Exception e) {
+            System.out.println("ERROR!!!" + e.getMessage());
         }
+        try{
         if (!jTextField6.getText().equals("")) {
             cantidadIteracione = Integer.parseInt(jTextField6.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de la cantidad de simulaciones a iterar.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
             jTextField6.requestFocus();
+        }
+        } catch (Exception e) {
+            System.out.println("ERROR!!!" + e.getMessage());
         }
 
 
@@ -364,13 +388,14 @@ public class Principal extends javax.swing.JFrame {
         principal[1].setEvento("Inicio Simulación");
 
         double desde = (double) (mediaUniforme - desvioUniforme);
-        double hasta = (double) (mediaUniforme - desvioUniforme);
-        principal[1].setLLegaProxPers(Uniforme.getRdo(desde, hasta));
+        double hasta = (double) (mediaUniforme + desvioUniforme);
+        double prox= Uniforme.getRdo(desde, hasta);
+        principal[1].setLLegaProxPers(prox);
         principal[1].setRND(Uniforme.getRnd());
 
         principal[1].setFinLimpieza(0);
 
-        principal[1].setEsHoraSuspender(0);
+        principal[1].setEsHoraSuspender(tiempoSuspension);
 
         principal[1].setNroPersProxFinLanz(0);
         principal[1].setFinProxLanz(0);
@@ -381,18 +406,23 @@ public class Principal extends javax.swing.JFrame {
         principal[1].setMaxCola(0);
         principal[1].setMaxTiempoDEspera(0);
 
-        ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
-        // Component c= ((MTTablaPrincipalDeEventos)this.tablaPrincipal.getModel()).getTableCellRendererComponent(tablaPrincipal,null,false,false,0,3);
-
+        try {
+            ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+            // Component c= ((MTTablaPrincipalDeEventos)this.tablaPrincipal.getModel()).getTableCellRendererComponent(tablaPrincipal,null,false,false,0,3);
+        } catch (Exception e) {
+            System.out.println("ERROR!!!" + e.getMessage());
+        }
         auxiliar[1].setNroPersona(0);
         auxiliar[1].setTiempoLlegada(0);
         auxiliar[1].setEstado(" ");
         auxiliar[1].setFinLanza(0);
         auxiliar[1].setTiempoEspera(0);
-
-        ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
-
-        while (principal[1].getReloj() < this.cantidadSegundosASimular) {
+        try {
+            ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
+        } catch (Exception e) {
+            System.out.println("ERROR!!!" + e.getMessage());
+        }
+        while (principal[1].getReloj() < Principal.cantidadSegundosASimular) {
             copiarDatosHistoricos();
 
             principal[1] = new AlfombraPrincipal();
@@ -408,7 +438,7 @@ public class Principal extends javax.swing.JFrame {
 
         }
 
-        //((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).copiarSumatoria();
+       //((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).copiarSumatoria();
 
         //calcularPromedios();
 
@@ -427,8 +457,6 @@ public class Principal extends javax.swing.JFrame {
         principal[0].setNroPersProxFinLanz(principal[1].getNroPersProxFinLanz());
         principal[0].setFinProxLanz(principal[1].getFinProxLanz());
 
-
-
         auxiliar[0].setNroPersona(auxiliar[1].getNroPersona());
         auxiliar[0].setTiempoLlegada(auxiliar[1].getTiempoLlegada());
         auxiliar[0].setEstado(auxiliar[1].getEstado());
@@ -437,14 +465,14 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private double cualEsElProximoEvento() {
-        Double eventoHsMenor = 0.0;
+        
         Double aux = 0.0;
 
         int ultimaFila = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getRowCount() - 1;
-        Object o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, 7);
+        Object o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, 5);
         String s = String.valueOf(o);
-        eventoHsMenor = Double.valueOf(s);
-        tipoEvento = 7;
+        double eventoHsMenor = Double.valueOf(s);
+        tipoEvento = 5;
 
         for (int i = 3; i < 7; i++) {
 
@@ -473,7 +501,7 @@ public class Principal extends javax.swing.JFrame {
 
                     }
                 } else {
-                    if (i == 5) {
+                    if (i == 6) {
                         o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, i);//obtengo valor de la celda
                         s = String.valueOf(o);//paso a un string
                         aux = Double.parseDouble(s);//lo paso a un valor de double paracomparar
@@ -484,6 +512,7 @@ public class Principal extends javax.swing.JFrame {
                             }
                         }
                     } else {
+                    if (i == 7) {
                         o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, i);//obtengo valor de la celda
                         s = String.valueOf(o);//paso a un string
                         aux = Double.parseDouble(s);//lo paso a un valor de double paracomparar
@@ -497,9 +526,10 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         }
-        // }
+       }
 
         return eventoHsMenor;
+    
     }
 
     private void evaluarTipoEvento(int tipoEvento) {
@@ -577,10 +607,14 @@ public class Principal extends javax.swing.JFrame {
                     auxiliar[1].setFinLanza(0);
                     auxiliar[1].setTiempoEspera(0);
                 }
-                ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
-                ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
-
-            break;}
+                try {
+                    ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+                    ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
+                } catch (Exception e) {
+                    System.out.println("ERROR!!!" + e.getMessage());
+                }
+                break;
+            }
             case 7: {
                 // //Finalizo un lanzamiento de persona en alfombra
                 principal[1].setEvento("Fin Lanzamiento");
@@ -597,12 +631,16 @@ public class Principal extends javax.swing.JFrame {
                         principal[1].setMaxCola(principal[0].getMaxCola());
                         principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
                         //cambio el estado de la persona recien finaliza 
-                        ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
-                        // actualizo el prximo fin lanzamiento
-                        double tEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).actualizoProximoFinalizar(principal[0].getNroPersProxFinLanz(), tiempoTardaLanzamiento);
-//                      
-                        principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + 1);
-                        principal[1].setFinProxLanz(tEspera);
+                        try {
+                            ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
+                            // actualizo el prximo fin lanzamiento
+                            double tEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).actualizoProximoFinalizar(principal[0].getNroPersProxFinLanz(), tiempoTardaLanzamiento);
+                            principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + 1);
+                            principal[1].setFinProxLanz(tEspera);
+                        } catch (Exception e) {
+                            System.out.println("ERROR!!!" + e.getMessage());
+                        }
+
 
                     } else {
                         //Alfombre esta disponible y no hay cola 
@@ -613,8 +651,11 @@ public class Principal extends javax.swing.JFrame {
                         principal[1].setMaxCola(principal[0].getMaxCola());
                         principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
                         //cambio el estado de la persona recien finaliza 
-                        ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
-
+                        try {
+                            ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
+                        } catch (Exception e) {
+                            System.out.println("ERROR!!!" + e.getMessage());
+                        }
                         principal[1].setNroPersProxFinLanz(0);
                         principal[1].setFinProxLanz(0);
                     }
@@ -628,12 +669,16 @@ public class Principal extends javax.swing.JFrame {
                         principal[1].setMaxCola(principal[0].getMaxCola());
                         principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
                         //cambio el estado de la persona recien finaliza 
-                        ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
-                        // actualizo el prximo fin lanzamiento
-                        double tEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).actualizoProximoFinalizar(principal[0].getNroPersProxFinLanz(), tiempoTardaLanzamiento);
+                        try {
+                            ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
+                            // actualizo el prximo fin lanzamiento
+                            double tEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).actualizoProximoFinalizar(principal[0].getNroPersProxFinLanz(), tiempoTardaLanzamiento);
 //                      
-                        principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + 1);
-                        principal[1].setFinProxLanz(tEspera);
+                            principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + 1);
+                            principal[1].setFinProxLanz(tEspera);
+                        } catch (Exception e) {
+                            System.out.println("ERROR!!!" + e.getMessage());
+                        }
                     } else {// la alfombra suspendida y no hay cola personas el lanzamiento
                         principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() - 1);
                         principal[1].setFinLimpieza(principal[0].getFinProxLanz() + tiempoLimpieza);
@@ -642,16 +687,25 @@ public class Principal extends javax.swing.JFrame {
                         principal[1].setMaxCola(principal[0].getMaxCola());
                         principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
                         //cambio el estado de la persona recien finaliza 
-                        ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
-
+                        try {
+                            ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
+                        } catch (Exception e) {
+                            System.out.println("ERROR!!!" + e.getMessage());
+                        }
                         principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + 1);
                         principal[1].setFinProxLanz(0);
                     }
 //                
                 }
 
-                ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
-            break;}
+                try {
+                    ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+                } catch (Exception e) {
+                    System.out.println("ERROR!!!" + e.getMessage());
+                }
+
+                break;
+            }
             case 4: {
                 //Fin Liempieza
                 principal[1].setEvento("Fin Limpieza");
@@ -677,10 +731,14 @@ public class Principal extends javax.swing.JFrame {
                 }
 //// FALTA VER COMO CALCULAR LA MAXIMA COLAAA!!!!!!!!!!
                 principal[1].setMaxCola(principal[0].getMaxCola());
-                ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
-            break;
+                try {
+                    ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+                } catch (Exception e) {
+                    System.out.println("ERROR!!!" + e.getMessage());
+                }
+                break;
             }
-            case 5:{// Es hora de suspender el lanzamiento de personas en alfombra
+            case 5: {// Es hora de suspender el lanzamiento de personas en alfombra
                 principal[1].setEvento("Suspende");
                 principal[1].setRND(principal[0].getRND());
                 principal[1].setLLegaProxPers(principal[0].getLLegaProxPers());
@@ -697,12 +755,15 @@ public class Principal extends javax.swing.JFrame {
                 principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz());
                 principal[1].setEstadoAlfombra("Suspendida");
                 principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-                 ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
-             break;   
+                try {
+                    ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+                } catch (Exception e) {
+                    System.out.println("ERROR!!!" + e.getMessage());
+                }
+                break;
             }
         }
     }
-
 //    public public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
