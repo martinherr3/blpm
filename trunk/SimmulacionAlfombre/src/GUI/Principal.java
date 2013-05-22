@@ -22,13 +22,13 @@ public class Principal extends javax.swing.JFrame {
     private static double desvioUniforme;
     private static double tiempoSuspension;
     private static double tiempoLimpieza;
-    private static Double tiempoTardaLanzamiento;
-    private static Double cantidadSegundosASimular;
+    private static double tiempoTardaLanzamiento;
+    private static double cantidadSegundosASimular;
     private static Integer cantidadIteracione;
     private static AlfombraPrincipal principal[] = new AlfombraPrincipal[2];
     private static PersonasAuxiliar auxiliar[] = new PersonasAuxiliar[2];
     private int tipoEvento = 0;
-    private double cantidadSegundosSimular;
+    
 
     /**
      * Creates new form Principal
@@ -431,10 +431,10 @@ public class Principal extends javax.swing.JFrame {
 
             double eventoMenorHs = cualEsElProximoEvento();
             principal[1].setReloj(eventoMenorHs);
-            if (eventoMenorHs > this.cantidadSegundosSimular) {
-                break;
+            if (eventoMenorHs > this.cantidadSegundosASimular) {
+               break;
             }
-            evaluarTipoEvento(tipoEvento);
+            evaluarTipoEvento();
 
         }
 
@@ -456,7 +456,7 @@ public class Principal extends javax.swing.JFrame {
         principal[0].setEsHoraSuspender(principal[1].getEsHoraSuspender());
         principal[0].setNroPersProxFinLanz(principal[1].getNroPersProxFinLanz());
         principal[0].setFinProxLanz(principal[1].getFinProxLanz());
-
+        principal[0].setEstadoAlfombra(principal[1].getEstadoAlfombra());
         auxiliar[0].setNroPersona(auxiliar[1].getNroPersona());
         auxiliar[0].setTiempoLlegada(auxiliar[1].getTiempoLlegada());
         auxiliar[0].setEstado(auxiliar[1].getEstado());
@@ -469,27 +469,27 @@ public class Principal extends javax.swing.JFrame {
         Double aux = 0.0;
 
         int ultimaFila = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getRowCount() - 1;
-        Object o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, 5);
+        Object o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, 3);
         String s = String.valueOf(o);
         double eventoHsMenor = Double.valueOf(s);
-        tipoEvento = 5;
+        tipoEvento = 3;
 
-        for (int i = 3; i < 7; i++) {
+         for (int i = 3; i < 8; i++) {
 
 
-            //  if (i != 6) {
-            if (i == 3) {
-                o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, i);//obtengo valor de la celda
+             if (i != 6) {
+            if (i == 4) {
+                o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, 4);//obtengo valor de la celda
                 s = String.valueOf(o);//paso a un string
                 aux = Double.parseDouble(s);//lo paso a un valor de double paracomparar
                 if (aux != 0) {
                     if (eventoHsMenor > aux) {
                         eventoHsMenor = aux;
-                        tipoEvento = i;
+                        tipoEvento = 4;
                     }
                 }
             } else {
-                if (i == 4) {
+                if (i == 5) {
                     o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, i);//obtengo valor de la celda
                     s = String.valueOf(o);//paso a un string
                     aux = Double.parseDouble(s);//lo paso a un valor de double paracomparar
@@ -501,17 +501,6 @@ public class Principal extends javax.swing.JFrame {
 
                     }
                 } else {
-                    if (i == 6) {
-                        o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, i);//obtengo valor de la celda
-                        s = String.valueOf(o);//paso a un string
-                        aux = Double.parseDouble(s);//lo paso a un valor de double paracomparar
-                        if (aux != 0) {
-                            if (eventoHsMenor > aux) {
-                                eventoHsMenor = aux;
-                                tipoEvento = i;
-                            }
-                        }
-                    } else {
                     if (i == 7) {
                         o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, i);//obtengo valor de la celda
                         s = String.valueOf(o);//paso a un string
@@ -522,18 +511,21 @@ public class Principal extends javax.swing.JFrame {
                                 tipoEvento = i;
                             }
                         }
+                    
+                            }
+                        }
                     }
                 }
             }
-        }
-       }
+          
 
         return eventoHsMenor;
     
     }
 
-    private void evaluarTipoEvento(int tipoEvento) {
-        switch (tipoEvento) {
+    private void evaluarTipoEvento() {
+        int eve=this.tipoEvento;
+        switch (eve) {
             // Llegada de la proxima persona
             case 3: {
                 principal[1].setEvento("Llega Persona");
@@ -545,7 +537,7 @@ public class Principal extends javax.swing.JFrame {
                 principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
                 principal[1].setFinLimpieza(principal[0].getFinLimpieza());
 
-                if (principal[0].getEstadoAlfombra() != "Suspendida") {
+                if (principal[0].getEstadoAlfombra().equals("Disponible") ) {
 
                     if (principal[0].getCantPersEnLanz() > 0) {
                         // Alfombra esta disponible y hay personas lanzando
@@ -566,7 +558,9 @@ public class Principal extends javax.swing.JFrame {
                         auxiliar[1].setEstado("En Lanzamiento");
                         auxiliar[1].setFinLanza(0);
                         auxiliar[1].setTiempoEspera(0);
-                    } else {
+
+                    } 
+                    else {
                         //// Alfombra esta disponible y no hay personas lanzando
                         principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() + 1);
                         principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
@@ -609,13 +603,21 @@ public class Principal extends javax.swing.JFrame {
                 }
                 try {
                     ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+                    
+                } catch (Exception e) {
+                    System.out.println("ERROR!!!11" + e.getMessage());
+                }
+
+                try {
+
                     ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
                 } catch (Exception e) {
-                    System.out.println("ERROR!!!" + e.getMessage());
+                    System.out.println("ERROR!!!22" + e.getMessage());
                 }
                 break;
             }
-            case 7: {
+        
+    case 7: {
                 // //Finalizo un lanzamiento de persona en alfombra
                 principal[1].setEvento("Fin Lanzamiento");
                 principal[1].setRND(principal[0].getRND());
