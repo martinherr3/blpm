@@ -533,7 +533,7 @@ public class Principal extends javax.swing.JFrame {
                 double hasta = mediaUniforme + desvioUniforme;
                 double proximaLlegada = Uniforme.getRdo(desde, hasta);
                 principal[1].setRND(Uniforme.getRnd());
-                principal[1].setLLegaProxPers(proximaLlegada);
+                principal[1].setLLegaProxPers(principal[1].getReloj() + proximaLlegada);
                 principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
                 principal[1].setFinLimpieza(principal[0].getFinLimpieza());
 
@@ -549,7 +549,7 @@ public class Principal extends javax.swing.JFrame {
                         principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
 
                         int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
-                        Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 1);
+                        Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 0);
                         String s = String.valueOf(o);
                         int ultimoNroPersona = Integer.valueOf(s);
 
@@ -566,13 +566,16 @@ public class Principal extends javax.swing.JFrame {
                         principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
                         principal[1].setMaxCola(principal[0].getMaxCola());
                         principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-
+try{
                         int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
-                        Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 1);
+                        Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 0);
                         String s = String.valueOf(o);
                         int ultimoNroPersona = Integer.valueOf(s);
 
                         auxiliar[1].setNroPersona(ultimoNroPersona + 1);
+                        } catch (Exception e) {
+                    System.out.println("ERROR!!!11" + e.getMessage());
+                }
                         auxiliar[1].setTiempoLlegada(principal[1].getReloj());
                         auxiliar[1].setEstado("En Lanzamiento");
                         double finLanzamiento = principal[1].getReloj() + tiempoTardaLanzamiento;
@@ -623,7 +626,7 @@ public class Principal extends javax.swing.JFrame {
                 principal[1].setRND(principal[0].getRND());
                 principal[1].setLLegaProxPers(principal[0].getLLegaProxPers());
 
-                if (principal[0].getEstadoAlfombra() != "Suspendida") {
+                if (principal[0].getEstadoAlfombra().equals("Disponible")) {
                     if (principal[0].getCantPersEnLanz() > 0) {
                         // Alfombra esta disponible y hay cola en personas lanzando - hay que recalcular prox fin lanzamiento
                         principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() - 1);
@@ -646,7 +649,7 @@ public class Principal extends javax.swing.JFrame {
 
                     } else {
                         //Alfombre esta disponible y no hay cola 
-                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() - 1);
+                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz());
                         principal[1].setFinLimpieza(principal[0].getFinLimpieza());
                         principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
                         principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
@@ -682,7 +685,7 @@ public class Principal extends javax.swing.JFrame {
                             System.out.println("ERROR!!!" + e.getMessage());
                         }
                     } else {// la alfombra suspendida y no hay cola personas el lanzamiento
-                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() - 1);
+                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz());
                         principal[1].setFinLimpieza(principal[0].getFinProxLanz() + tiempoLimpieza);
                         principal[1].setEsHoraSuspender(principal[1].getFinLimpieza() + tiempoSuspension);
                         principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
@@ -745,12 +748,12 @@ public class Principal extends javax.swing.JFrame {
                 principal[1].setRND(principal[0].getRND());
                 principal[1].setLLegaProxPers(principal[0].getLLegaProxPers());
 
-                if (principal[0].getCantPersEnLanz() > 0) {
+                if (principal[0].getCantPersEnLanz()> 0) {
                     principal[1].setFinLimpieza(principal[0].getFinLimpieza());
                     principal[1].setEsHoraSuspender(0);
                 } else {
                     principal[1].setFinLimpieza(principal[0].getEsHoraSuspender() + tiempoLimpieza);
-                    principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
+                    principal[1].setEsHoraSuspender(principal[1].getFinLimpieza()+ tiempoSuspension);
                 }
                 principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz());
                 principal[1].setFinProxLanz(principal[0].getFinProxLanz());
