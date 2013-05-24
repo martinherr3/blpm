@@ -175,7 +175,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="180"/>
+            <Property name="text" type="java.lang.String" value="80"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -198,7 +198,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="14400 "/>
+            <Property name="text" type="java.lang.String" value="300"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>
@@ -216,7 +216,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="900 "/>
+            <Property name="text" type="java.lang.String" value="100"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField4ActionPerformed"/>
@@ -242,7 +242,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="144000"/>
+            <Property name="text" type="java.lang.String" value="10000"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField5ActionPerformed"/>
