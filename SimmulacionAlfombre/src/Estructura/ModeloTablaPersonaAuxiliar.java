@@ -35,7 +35,7 @@ public class ModeloTablaPersonaAuxiliar implements TableModel {
     public int getColumnCount() {
         // Devuelve el n�mero de columnas del modelo, que coincide con el
         // n�mero de datos que tenemos de cada persona.
-        return 5;
+        return 6;
     }
 
     /**
@@ -75,13 +75,16 @@ public class ModeloTablaPersonaAuxiliar implements TableModel {
             case 0:
                 return aux.getNroPersona();
             case 1:
-                return aux.getTiempoLlegada();
+                return aux.getHoraLlego();
             case 2:
-                return aux.getEstado();
+                return aux.getEstadoPersna();
             case 3:
-                return aux.getFinLanza();
+                return aux.getEsperoEnCola();
             case 4:
-                return aux.getTiempoEspera();
+                return aux.getFinDeslizamiento();
+            case 5:
+                return aux.getTiempoQueEspero();
+            
             default:
                 return null;
         }
@@ -159,8 +162,10 @@ public class ModeloTablaPersonaAuxiliar implements TableModel {
             case 2:
                 return String.class;
             case 3:
-                return Double.class;
+                return String.class;
             case 4:
+                return Double.class;
+            case 5:
                 return Double.class;
             default:
                 return Object.class;
@@ -168,44 +173,45 @@ public class ModeloTablaPersonaAuxiliar implements TableModel {
     }
 
 //  
-    public double actualizoProximoFinalizar(int persona, double tiempoTardaLanzamiento) {
-        int indexRow = this.rowPersonaFIFO(persona) + 1;
-        PersonasAuxiliar ob = (PersonasAuxiliar) this.get(indexRow);
-        ob.setFinLanza(ob.getTiempoLlegada() + tiempoTardaLanzamiento);
-        double finPoxLanza = ob.getFinLanza();
-        return finPoxLanza;
+//    public double actualizoProximoFinalizar(int persona, double tiempoTardaLanzamiento) {
+//        int indexRow = this.rowPersonaFIFO(persona) + 1;
+//        PersonasAuxiliar ob = (PersonasAuxiliar) this.get(indexRow);
+//        
+//        ob.setFinDeslizamiento(ob.get() + tiempoTardaLanzamiento);
+//        double finPoxLanza = ob.getFinLanza();
+//        return finPoxLanza;
 
-    }
+//    }
 
-    public void cambiarEstadoFinalizado(int persona) {
-        int indexRow = this.rowPersonaFIFO(persona);
-        PersonasAuxiliar ob = (PersonasAuxiliar) this.get(indexRow);
-        ob.setEstado("Finalizado");
-        PersonasAuxiliar prox = (PersonasAuxiliar) this.get(indexRow + 1);
-        if (prox.getEstado().equals("En Espera")) {
-            for (int i = indexRow + 1; i < this.getRowCount(); i++) {
-                PersonasAuxiliar obj = (PersonasAuxiliar) this.get(i);
-                obj.setEstado("Finalizado");
-
-            }
-        }
-    }
+//    public void cambiarEstadoFinalizado(int persona) {
+//        int indexRow = this.rowPersonaFIFO(persona);
+//        PersonasAuxiliar ob = (PersonasAuxiliar) this.get(indexRow);
+//        ob.setEstado("Finalizado");
+//        PersonasAuxiliar prox = (PersonasAuxiliar) this.get(indexRow + 1);
+//        if (prox.getEstado().equals("En Espera")) {
+//            for (int i = indexRow + 1; i < this.getRowCount(); i++) {
+//                PersonasAuxiliar obj = (PersonasAuxiliar) this.get(i);
+//                obj.setEstado("Finalizado");
+//
+//            }
+//        }
+//    }
     
 
-    public double lanzamientoPersonasEnEspera(int persona, double tiempoTardaLanzamiento, double finLimpieza) {
-        int indexRow = this.rowPersonaFIFO(persona);
-        double maximoTiempoEspera = 0;
-        for (int i = indexRow; i < this.getRowCount(); i++) {
-            PersonasAuxiliar ob = (PersonasAuxiliar) this.get(indexRow);
-            ob.setEstado("En Lanzamiento");
-            ob.setFinLanza(finLimpieza + tiempoTardaLanzamiento);
-            ob.setTiempoEspera(finLimpieza - ob.getTiempoLlegada());
-            if (ob.getTiempoEspera() > maximoTiempoEspera) {
-                maximoTiempoEspera = ob.getTiempoEspera();
-            }
-        }
-        return maximoTiempoEspera;
-    }
+//    public double lanzamientoPersonasEnEspera(int persona, double tiempoTardaLanzamiento, double finLimpieza) {
+//        int indexRow = this.rowPersonaFIFO(persona);
+//        double maximoTiempoEspera = 0;
+//        for (int i = indexRow; i < this.getRowCount(); i++) {
+//            PersonasAuxiliar ob = (PersonasAuxiliar) this.get(indexRow);
+//            ob.setEstado("En Lanzamiento");
+//            ob.setFinLanza(finLimpieza + tiempoTardaLanzamiento);
+//            ob.setTiempoEspera(finLimpieza - ob.getTiempoLlegada());
+//            if (ob.getTiempoEspera() > maximoTiempoEspera) {
+//                maximoTiempoEspera = ob.getTiempoEspera();
+//            }
+//        }
+//        return maximoTiempoEspera;
+//    }
 
 //    public void copiarSumatoria() {
 //        int i = 0;
@@ -241,15 +247,17 @@ public class ModeloTablaPersonaAuxiliar implements TableModel {
         // cabecera de la tabla.
         switch (columnIndex) {
             case 0:
-                return "nroPersona";
+                return "Numero Persona";
             case 1:
-                return "tiempoLlegada";
+                return "Hora Llegada";
             case 2:
-                return "estado";
+                return "Estado";
             case 3:
-                return "finLanza";
+                return "Espero?";
             case 4:
-                return "TiempoEspera";
+                return "Fin Deslizamiento";
+            case 5:
+                return "Total Tiempo Espero";
             default:
                 return null;
         }
@@ -297,18 +305,61 @@ public class ModeloTablaPersonaAuxiliar implements TableModel {
             ((TableModelListener) listeners.get(i)).tableChanged(evento);
         }
     }
+public void setFila(PersonasAuxiliar obj, int nroPersonaProx){
+    int nroFila=rowPersonaFIFO(nroPersonaProx);
+    setValueAt(datos, nroFila, nroFila);
+    
+}
+ public void setValue(Object aValue, int rowIndex, int columnIndex) {
+        PersonasAuxiliar aux;
+        aux = (PersonasAuxiliar) aValue;
 
+       //int indexRow = this.rowAutoFIFO();
+        PersonasAuxiliar ob = (PersonasAuxiliar) this.get(rowIndex);
+        ob.setNroPersona(aux.getNroPersona());
+        ob.setHoraLlego(aux.getHoraLlego());
+        ob.setEstadoPersna(aux.getEstadoPersna());
+        ob.setEsperoEnCola(aux.getEsperoEnCola());
+        ob.setFinDeslizamiento(aux.getFinDeslizamiento());
+        ob.setTiempoQueEspero(aux.getTiempoQueEspero());
 
+    }
+public void setEstado(Object aValue, int rowIndex) {
+        String aux;
+        aux = (String) aValue;
+
+       //int indexRow = this.rowAutoFIFO();
+        PersonasAuxiliar ob = (PersonasAuxiliar) this.get(rowIndex);
+      
+        ob.setEstadoPersna(aux);
+        
+
+    }
+
+ 
     public int rowPersonaFIFO(int NroPersonaFin) {
         for (int i = 1; i < this.getRowCount(); i++) {
 
             //retorna fila para cambiar a estado finalizado
-            if (((PersonasAuxiliar) this.datos.get(i)).getNroPersona() == NroPersonaFin) {
+            if (((PersonasAuxiliar) this.datos.get(i)).getNroPersona()== NroPersonaFin) {
                 return i;
             }
         }
         return -1;
     }
+    public int rowPersonaEspera() {
+        int h =this.getRowCount()-1;
+        int nroPMenor=0;
+        PersonasAuxiliar obj= (PersonasAuxiliar) this.datos.get(h);
+        nroPMenor= obj.getNroPersona();
+            //retorna fila para cambiar a estado finalizado
+         for (int i = 1; i < h; i++) {   
+         if (((PersonasAuxiliar) this.datos.get(i)).getEstadoPersna().equals("En espera")) {
+                if(((PersonasAuxiliar)this.datos.get(i)).getNroPersona()<nroPMenor)
+                {nroPMenor=((PersonasAuxiliar)this.datos.get(i)).getNroPersona();}
+            }}return this.rowPersonaFIFO(nroPMenor);
+     }
+    
     /**
      * Lista con los datos. Cada elemento de la lista es una instancia de
      * Persona

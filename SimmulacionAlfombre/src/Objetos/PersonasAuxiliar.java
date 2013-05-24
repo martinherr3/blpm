@@ -9,11 +9,21 @@ package Objetos;
  * @author Belén
  */
 public class PersonasAuxiliar {
-    private int nroPersona;
-    private double tiempoLlegada;
-    private String estado;
-    private double finLanza;
-    private double TiempoEspera;
+ private int nroPersona;
+ private double horaLlego;
+ private String estadoPersna;
+ private String esperoEnCola;
+ private double finDeslizamiento;
+ private double tiempoQueEspero;
+
+    public PersonasAuxiliar(int nroPersona, double horaLlego, String estadoPersna, String esperoEnCola, double finDeslizamiento, double tiempoQueEspero) {
+        this.nroPersona = nroPersona;
+        this.horaLlego = horaLlego;
+        this.estadoPersna = estadoPersna;
+        this.esperoEnCola = esperoEnCola;
+        this.finDeslizamiento = finDeslizamiento;
+        this.tiempoQueEspero = tiempoQueEspero;
+    }
 
     public int getNroPersona() {
         return nroPersona;
@@ -23,68 +33,49 @@ public class PersonasAuxiliar {
         this.nroPersona = nroPersona;
     }
 
-    public double getTiempoLlegada() {
-        return tiempoLlegada;
+    public double getHoraLlego() {
+        return horaLlego;
     }
 
-    public void setTiempoLlegada(double tiempoLlegada) {
-        this.tiempoLlegada = tiempoLlegada;
+    public void setHoraLlego(double horaLlego) {
+        this.horaLlego = horaLlego;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getEstadoPersna() {
+        return estadoPersna;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstadoPersna(String estadoPersna) {
+        this.estadoPersna = estadoPersna;
     }
 
-    public double getFinLanza() {
-        return finLanza;
+    public String getEsperoEnCola() {
+        return esperoEnCola;
     }
 
-    public void setFinLanza(double finLanza) {
-        this.finLanza = finLanza;
+    public void setEsperoEnCola(String esperoEnCola) {
+        this.esperoEnCola = esperoEnCola;
     }
 
-    public double getTiempoEspera() {
-        return TiempoEspera;
+    public double getFinDeslizamiento() {
+        return finDeslizamiento;
     }
 
-    public void setTiempoEspera(double TiempoEspera) {
-        this.TiempoEspera = TiempoEspera;
+    public void setFinDeslizamiento(double finDeslizamiento) {
+        this.finDeslizamiento = finDeslizamiento;
     }
 
-    public PersonasAuxiliar(int nroPersona, double tiempoLlegada, String estado, double finLanza, double TiempoEspera) {
-        this.nroPersona = nroPersona;
-        this.tiempoLlegada = tiempoLlegada;
-        this.estado = estado;
-        this.finLanza = finLanza;
-        this.TiempoEspera = TiempoEspera;
+    public double getTiempoQueEspero() {
+        return tiempoQueEspero;
+    }
+
+    public void setTiempoQueEspero(double tiempoQueEspero) {
+        this.tiempoQueEspero = tiempoQueEspero;
     }
 
     public PersonasAuxiliar() {
     }
-
-    public void getNroPersona(Integer integer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void getTiempoLlegada(Double aDouble) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void getEstado(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void getFinLanza(Double aDouble) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void getTiempoEspera(Double aDouble) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+ 
     
     
 }

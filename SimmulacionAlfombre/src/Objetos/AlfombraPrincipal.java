@@ -10,34 +10,75 @@ package Objetos;
  */
 public class AlfombraPrincipal {
 
-    private double Reloj;
-    private String Evento;
-    private double RND;
-    private double LLegaProxPers;
- 
+    private double reloj;
+    private String evento;
+    private String estadoAlfombra;
+    private double inicioSuspencion;
     private double finLimpieza;
-    private double esHoraSuspender;
-    private int NroPersProxFinLanz;
-    private double FinProxLanz;
-    private int CantPersEnLanz;
-    private String  EstadoAlfombra;
-    private int MaxCola;
-    private double MaxTiempoDEspera; 
+    private double RND;
+    private double llegaPersona;
+    private int nroPersona;
+    private double horaLlegoPers;
+    private String  EstadoPers;
+    private double finDeslizaPers;
+    private double tiempoEspera;
+    private int colaPesrsEspera;
+    private int colaPersDeslizan;
+    private int cantPersFinalizan;
+    private int cantPersEsperaron;
+    private int maxColaEspera;
+    private double acuTiempoEspera;
+    private double maxTiempoEspera;
 
     public double getReloj() {
-        return Reloj;
+        return reloj;
     }
 
-    public void setReloj(double Reloj) {
-        this.Reloj = Reloj;
+    public AlfombraPrincipal() {
+    }
+
+    public int getCantPersEsperaron() {
+        return cantPersEsperaron;
+    }
+
+    public void setCantPersEsperaron(int cantPersEsperaron) {
+        this.cantPersEsperaron = cantPersEsperaron;
+    }
+
+    public void setReloj(double reloj) {
+        this.reloj = reloj;
     }
 
     public String getEvento() {
-        return Evento;
+        return evento;
     }
 
-    public void setEvento(String Evento) {
-        this.Evento = Evento;
+    public void setEvento(String evento) {
+        this.evento = evento;
+    }
+
+    public String getEstadoAlfombra() {
+        return estadoAlfombra;
+    }
+
+    public void setEstadoAlfombra(String estadoAlfombra) {
+        this.estadoAlfombra = estadoAlfombra;
+    }
+
+    public double getInicioSuspencion() {
+        return inicioSuspencion;
+    }
+
+    public void setInicioSuspencion(double inicioSuspencion) {
+        this.inicioSuspencion = inicioSuspencion;
+    }
+
+    public double getFinLimpieza() {
+        return finLimpieza;
+    }
+
+    public void setFinLimpieza(double finLimpieza) {
+        this.finLimpieza = finLimpieza;
     }
 
     public double getRND() {
@@ -48,126 +89,120 @@ public class AlfombraPrincipal {
         this.RND = RND;
     }
 
-    public double getLLegaProxPers() {
-        return LLegaProxPers;
+    public double getLlegaPersona() {
+        return llegaPersona;
     }
 
-    public void setLLegaProxPers(double LLegaProxPers) {
-        this.LLegaProxPers = LLegaProxPers;
+    public void setLlegaPersona(double llegaPersona) {
+        this.llegaPersona = llegaPersona;
     }
 
- 
-
-
-    public double getFinLimpieza() {
-        return finLimpieza;
+    public int getNroPersona() {
+        return nroPersona;
     }
 
-    public void setFinLimpieza(double finLimpieza) {
+    public void setNroPersona(int nroPersona) {
+        this.nroPersona = nroPersona;
+    }
+
+    public double getHoraLlegoPers() {
+        return horaLlegoPers;
+    }
+
+    public void setHoraLlegoPers(double horaLlegoPers) {
+        this.horaLlegoPers = horaLlegoPers;
+    }
+
+    public String getEstadoPers() {
+        return EstadoPers;
+    }
+
+    public void setEstadoPers(String EstadoPers) {
+        this.EstadoPers = EstadoPers;
+    }
+
+    public double getFinDeslizaPers() {
+        return finDeslizaPers;
+    }
+
+    public void setFinDeslizaPers(double finDeslizaPers) {
+        this.finDeslizaPers = finDeslizaPers;
+    }
+
+    public double getTiempoEspera() {
+        return tiempoEspera;
+    }
+
+    public void setTiempoEspera(double tiempoEspera) {
+        this.tiempoEspera = tiempoEspera;
+    }
+
+    public int getColaPesrsEspera() {
+        return colaPesrsEspera;
+    }
+
+    public void setColaPesrsEspera(int colaPesrsEspera) {
+        this.colaPesrsEspera = colaPesrsEspera;
+    }
+
+    public int getColaPersDeslizan() {
+        return colaPersDeslizan;
+    }
+
+    public void setColaPersDeslizan(int colaPersDeslizan) {
+        this.colaPersDeslizan = colaPersDeslizan;
+    }
+
+    public int getCantPersFinalizan() {
+        return cantPersFinalizan;
+    }
+
+    public void setCantPersFinalizan(int cantPersFinalizan) {
+        this.cantPersFinalizan = cantPersFinalizan;
+    }
+
+    public int getMaxColaEspera() {
+        return maxColaEspera;
+    }
+
+    public void setMaxColaEspera(int maxColaEspera) {
+        this.maxColaEspera = maxColaEspera;
+    }
+
+    public double getAcuTiempoEspera() {
+        return acuTiempoEspera;
+    }
+
+    public void setAcuTiempoEspera(double acuTiempoEspera) {
+        this.acuTiempoEspera = acuTiempoEspera;
+    }
+
+    public double getMaxTiempoEspera() {
+        return maxTiempoEspera;
+    }
+
+    public void setMaxTiempoEspera(double maxTiempoEspera) {
+        this.maxTiempoEspera = maxTiempoEspera;
+    }
+
+    public AlfombraPrincipal(double reloj, String evento, String estadoAlfombra, double inicioSuspencion, double finLimpieza, double RND, double llegaPersona, int nroPersona, double horaLlegoPers, String EstadoPers, double finDeslizaPers, double tiempoEspera, int colaPesrsEspera, int colaPersDeslizan, int cantPersFinalizan, int maxColaEspera, double maxTiempoEspera) {
+        this.reloj = reloj;
+        this.evento = evento;
+        this.estadoAlfombra = estadoAlfombra;
+        this.inicioSuspencion = inicioSuspencion;
         this.finLimpieza = finLimpieza;
-    }
-
-    public double getEsHoraSuspender() {
-        return esHoraSuspender;
-    }
-
-    public void setEsHoraSuspender(double esHoraSuspender) {
-        this.esHoraSuspender = esHoraSuspender;
-    }
-
-    public int getNroPersProxFinLanz() {
-        return NroPersProxFinLanz;
-    }
-
-    public void setNroPersProxFinLanz(int NroPersProxFinLanz) {
-        this.NroPersProxFinLanz = NroPersProxFinLanz;
-    }
-
-    public double getFinProxLanz() {
-        return FinProxLanz;
-    }
-
-    public void setFinProxLanz(double FinProxLanz) {
-        this.FinProxLanz = FinProxLanz;
-    }
-
-    public int getCantPersEnLanz() {
-        return CantPersEnLanz;
-    }
-
-    public void setCantPersEnLanz(int CantPersEnLanz) {
-        this.CantPersEnLanz = CantPersEnLanz;
-    }
-
-    public String getEstadoAlfombra() {
-        return EstadoAlfombra;
-    }
-
-    public void setEstadoAlfombra(String EstadoAlfombra) {
-        this.EstadoAlfombra = EstadoAlfombra;
-    }
-
-    public int getMaxCola() {
-        return MaxCola;
-    }
-
-    public void setMaxCola(int MaxCola) {
-        this.MaxCola = MaxCola;
-    }
-
-    public double getMaxTiempoDEspera() {
-        return MaxTiempoDEspera;
-    }
-
-    public void setMaxTiempoDEspera(double MaxTiempoDEspera) {
-        this.MaxTiempoDEspera = MaxTiempoDEspera;
-    }
-
-    public AlfombraPrincipal() {
-    }
-
-    public AlfombraPrincipal(double Reloj, String Evento, double RND, double LLegaProxPers, double finLimpieza, double esHoraSuspender, int NroPersProxFinLanz, double FinProxLanz, int CantPersEnLanz, String EstadoAlfombra, int MaxCola, double MaxTiempoDEspera) {
-        this.Reloj = Reloj;
-        this.Evento = Evento;
         this.RND = RND;
-        this.LLegaProxPers = LLegaProxPers;
-       
-        this.finLimpieza = finLimpieza;
-        this.esHoraSuspender = esHoraSuspender;
-        this.NroPersProxFinLanz = NroPersProxFinLanz;
-        this.FinProxLanz = FinProxLanz;
-        this.CantPersEnLanz = CantPersEnLanz;
-        this.EstadoAlfombra = EstadoAlfombra;
-        this.MaxCola = MaxCola;
-        this.MaxTiempoDEspera = MaxTiempoDEspera;
-    }
-
-    public void getMaxCola(Integer integer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void getCantPersEnLanz(Integer integer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void getFinProxLanz(Double aDouble) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void getNroPersProxFinLanz(Integer integer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void getEsHoraSuspender(Double aDouble) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void getFinLimpieza(Integer integer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void getEsHoraLimpieza(Double aDouble) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.llegaPersona = llegaPersona;
+        this.nroPersona = nroPersona;
+        this.horaLlegoPers = horaLlegoPers;
+        this.EstadoPers = EstadoPers;
+        this.finDeslizaPers = finDeslizaPers;
+        this.tiempoEspera = tiempoEspera;
+        this.colaPesrsEspera = colaPesrsEspera;
+        this.colaPersDeslizan = colaPersDeslizan;
+        this.cantPersFinalizan = cantPersFinalizan;
+        this.maxColaEspera = maxColaEspera;
+        this.maxTiempoEspera = maxTiempoEspera;
     }
 
     public void getReloj(Double aDouble) {
@@ -186,12 +221,37 @@ public class AlfombraPrincipal {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public void getEsHoraSuspender(Double aDouble) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void getNroPersProxFinLanz(Integer integer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void getFinLimpieza(Integer integer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void getFinProxLanz(Double aDouble) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void getCantPersEnLanz(Integer integer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void getEstadoAlfombra(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void getMaxCola(Integer integer) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void getMaxTiempoDEspera(Double aDouble) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     
 }
