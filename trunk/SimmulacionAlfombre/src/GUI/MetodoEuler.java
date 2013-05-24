@@ -79,8 +79,12 @@ public Principal principal=new Principal();
         setTitle("Método Euler");
         setResizable(false);
 
+        jScrollPane1.setBorder(new javax.swing.border.MatteBorder(null));
+
         jTable2.setModel(new Estructura.modeloTablaEuler());
         jScrollPane1.setViewportView(jTable2);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresar Datos"));
 
         label1.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         label1.setText("Xo");

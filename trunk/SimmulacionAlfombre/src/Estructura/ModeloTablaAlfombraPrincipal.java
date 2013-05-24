@@ -29,7 +29,7 @@ public class ModeloTablaAlfombraPrincipal implements TableModel{
     public int getColumnCount() {
         // Devuelve el número de columnas del modelo, que coincide con el
         // número de datos que tenemos de cada persona.
-        return 12;
+        return 19;
     }
 
     /**
@@ -71,26 +71,42 @@ public class ModeloTablaAlfombraPrincipal implements TableModel{
             case 1:
                 return aux.getEvento();
             case 2:
-                return aux.getRND();
+                return aux.getEstadoAlfombra();
             case 3:
-                return aux.getLLegaProxPers();
+                return aux.getInicioSuspencion();
             
             case 4:
                 return aux.getFinLimpieza();
             case 5:
-                return aux.getEsHoraSuspender();
+                return aux.getRND();
             case 6:
-                return aux.getNroPersProxFinLanz();
+                return aux.getLlegaPersona();
             case 7:
-                return aux.getFinProxLanz();
+                return aux.getNroPersona();
             case 8:
-                return aux.getCantPersEnLanz();
+                return aux.getHoraLlegoPers();
             case 9:
-                return aux.getEstadoAlfombra();
+                return aux.getEstadoPers();
             case 10:
-                return aux.getMaxCola();
+                return aux.getFinDeslizaPers();
             case 11:
-                return aux.getMaxTiempoDEspera();
+                return aux.getTiempoEspera();
+            case 12:
+                return aux.getColaPesrsEspera();
+            case 13:
+                return aux.getColaPersDeslizan();
+            case 14:
+                return aux.getCantPersFinalizan();
+            case 15:
+                return aux.getCantPersEsperaron();
+            case 16:
+                return aux.getMaxColaEspera();
+            case 17:
+                return aux.getAcuTiempoEspera();
+            case 18:
+                return aux.getMaxTiempoEspera();
+                    
+                
             default:
                 return null;
         }
@@ -156,54 +172,44 @@ public class ModeloTablaAlfombraPrincipal implements TableModel{
         // Devuelve la clase que hay en cada columna.
         switch (columnIndex) {
             case 0:
-                // La columna cero contiene reloj actual, que es
-                // un Double
                 return Double.class;
             case 1:
-                // La columna uno contiene el evento, que es
-                // un String
                 return String.class;
             case 2:
-                // La columna uno contiene el RND, que es
-                // un Double
-                return Double.class;
+                return String.class;
             case 3:
-                // La columna uno contiene Legada de proxima persona, que es
-                // un Double
-                return Double.class;
+                 return Double.class;
             case 4:
-                // La columna uno contiene la hora defin la limpieza, que es
-                // un String
                 return Double.class;
-           
             case 5:
-                // La columna dos contine hora de suspencion de lanzamiento, que es un
-                // Double
                 return Double.class;
             case 6:
-                // La columna cero contiene el numero  de la persona de proximo fin de lanzamiento, que es
-                // un Integer
-                return Integer.class;
-            case 7:
-                // La columna uno contiene la hora del proximo fin de lanzamiento, que es
-                // un Double
                 return Double.class;
-            case 8:
-                // La columna uno contiene elantidad de personas en lanzamiento, que es
-                // un integer
+            case 7:
                 return Integer.class;
+            case 8:
+                return Double.class;
             case 9:
-                // La columna uno contiene el estado de la alfombra (disponible, suspendida), que es
-                // un String
                 return String.class;
             case 10:
-                // La columna dos contine la Maximo numero de personas haciendo Cola, que es un
-                // Integer 
-                return Integer.class;
-            case 11:
-                // La columna uno contiene el Maximo tiempo de Espera, que es
-                // un Double
                 return Double.class;
+            case 11:
+                 return Double.class;
+            case 12:
+                return Integer.class;
+            case 13:
+                return Integer.class;
+            case 14:
+                return Integer.class;
+            case 15:
+                return Integer.class;
+            case 16:
+                return Integer.class;
+            case 17:
+                return Double.class;
+            case 18:
+                 return Double.class;    
+                
             default:
                 // Devuelve una clase Object por defecto.
                 return Object.class;
@@ -225,32 +231,43 @@ public class ModeloTablaAlfombraPrincipal implements TableModel{
         // cabecera de la tabla.
         switch (columnIndex) {
             case 0:
-                return " Reloj";
-
+                return "Reloj";
             case 1:
                 return "Evento";
             case 2:
-                return "RND";
+                return "Estado";
             case 3:
-                return "LLegaProxPers ";
-            
+                return "SuspencionInicia";
             case 4:
-                return "finLimpieza";
+                return "LimpiezaFin";
             case 5:
-                return "esHoraSuspender	";
+                return "rndLlegaPers";
             case 6:
-                return "NroPersProxFinLanz ";
+                return "LlegaProxPers";
             case 7:
-                return "FinProxLanz	";
+                return "NroPersona";
             case 8:
-                return "CantPersEnLanz";
+                return "HoraLlegó";
             case 9:
-                return "EstadoAlfombra	";
+                return "EstadoPers";
             case 10:
-                return "MaxCola ";
+                return "DeslizamientoFin";
             case 11:
-                return "MaxTiempoDEspera";
-
+                return "TotalEspera";
+            case 12:
+                return "EsperaColaPers";
+             case 13:
+                return "DeslizColaPers";
+            case 14:
+                return "TotalDeslizamientos";
+            case 15:
+                return "AcuPersEsper";
+            case 16:
+                return "MaxColaEspera";
+            case 17:
+                return "AcuTpoEspera";
+            case 18:
+                return "MaxTpoEspera";
             default:
                 return null;
         }

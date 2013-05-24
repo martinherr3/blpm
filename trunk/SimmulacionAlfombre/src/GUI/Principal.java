@@ -46,9 +46,6 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -65,32 +62,17 @@ public class Principal extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable2.setModel(new Estructura.ModeloTablaPersonaAuxiliar());
-        jScrollPane3.setViewportView(jTable2);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(431, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
         jPanel1.setName("aaa"); // NOI18N
 
         jLabel1.setText("Llega una persona(Uniforme) Media:");
@@ -175,8 +157,16 @@ public class Principal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel6)))
+                        .addGap(0, 21, Short.MAX_VALUE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
@@ -185,54 +175,51 @@ public class Principal extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addGap(46, 46, 46))
+                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
+                        .addGap(5, 5, 5)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Simulacion Alfombra"));
+
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jTable1.setModel(new Estructura.ModeloTablaAlfombraPrincipal());
         jScrollPane2.setViewportView(jTable1);
 
@@ -241,12 +228,40 @@ public class Principal extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1036, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 14, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 22, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Personas"));
+
+        jTable2.setModel(new Estructura.ModeloTablaPersonaAuxiliar());
+        jScrollPane3.setViewportView(jTable2);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 581, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 197, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(6, 6, 6)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -255,25 +270,24 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -385,43 +399,51 @@ public class Principal extends javax.swing.JFrame {
         }
 
         principal[1].setReloj(0);
-        principal[1].setEvento("Inicio Simulación");
-
+        principal[1].setEvento("Inicio");
+        principal[1].setEstadoAlfombra("Disponible");
+        principal[1].setInicioSuspencion(tiempoSuspension);
+        principal[1].setFinLimpieza(0);
+        
         double desde = (double) (mediaUniforme - desvioUniforme);
         double hasta = (double) (mediaUniforme + desvioUniforme);
         double prox= Uniforme.getRdo(desde, hasta);
-        principal[1].setLLegaProxPers(prox);
         principal[1].setRND(Uniforme.getRnd());
-
-        principal[1].setFinLimpieza(0);
-
-        principal[1].setEsHoraSuspender(tiempoSuspension);
-
-        principal[1].setNroPersProxFinLanz(0);
-        principal[1].setFinProxLanz(0);
-
-        principal[1].setCantPersEnLanz(0);
-
-        principal[1].setEstadoAlfombra("Disponible");
-        principal[1].setMaxCola(0);
-        principal[1].setMaxTiempoDEspera(0);
-
-        try {
-            ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
-            // Component c= ((MTTablaPrincipalDeEventos)this.tablaPrincipal.getModel()).getTableCellRendererComponent(tablaPrincipal,null,false,false,0,3);
-        } catch (Exception e) {
-            System.out.println("ERROR!!!" + e.getMessage());
-        }
+        principal[1].setLlegaPersona(prox);
+        
+        principal[1].setNroPersona(0);
+        principal[1].setHoraLlegoPers(0);
+        principal[1].setEstadoPers("-");
+        principal[1].setFinDeslizaPers(0);
+        principal[1].setTiempoEspera(0);
+        principal[1].setColaPesrsEspera(0);
+        principal[1].setColaPersDeslizan(0);
+        principal[1].setCantPersFinalizan(0);
+        principal[1].setCantPersEsperaron(0);        
+        principal[1].setMaxColaEspera(0);
+        principal[1].setAcuTiempoEspera(0);
+        principal[1].setMaxTiempoEspera(0);
+        
         auxiliar[1].setNroPersona(0);
-        auxiliar[1].setTiempoLlegada(0);
-        auxiliar[1].setEstado(" ");
-        auxiliar[1].setFinLanza(0);
-        auxiliar[1].setTiempoEspera(0);
-        try {
-            ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
-        } catch (Exception e) {
-            System.out.println("ERROR!!!" + e.getMessage());
-        }
+        auxiliar[1].setHoraLlego(0);
+        auxiliar[1].setEstadoPersna("");
+        auxiliar[1].setEsperoEnCola("");
+        auxiliar[1].setFinDeslizamiento(0);
+        auxiliar[1].setTiempoQueEspero(0);
+        
+                try {
+                    ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+                    // Component c= ((MTTablaPrincipalDeEventos)this.tablaPrincipal.getModel()).getTableCellRendererComponent(tablaPrincipal,null,false,false,0,3);
+                } catch (Exception e) {
+                    System.out.println("ERROR!!!" + e.getMessage());
+                }
+
+                try {
+                    ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
+                } catch (Exception e) {
+                    System.out.println("ERROR!!!" + e.getMessage());
+                }
+        
+        
         while (principal[1].getReloj() < Principal.cantidadSegundosASimular) {
             copiarDatosHistoricos();
 
@@ -447,61 +469,60 @@ public class Principal extends javax.swing.JFrame {
 
     private void copiarDatosHistoricos() {
         principal[0].setReloj(principal[1].getReloj());
-        // no hace falta que guarde el evento
         principal[0].setEvento(principal[1].getEvento());
-        principal[0].setRND(principal[1].getRND());
-        principal[0].setLLegaProxPers(principal[1].getLLegaProxPers());
-        //No hace falta guardar los datos de si se debe repintar o no
-        principal[0].setFinLimpieza(principal[1].getFinLimpieza());
-        principal[0].setEsHoraSuspender(principal[1].getEsHoraSuspender());
-        principal[0].setNroPersProxFinLanz(principal[1].getNroPersProxFinLanz());
-        principal[0].setFinProxLanz(principal[1].getFinProxLanz());
         principal[0].setEstadoAlfombra(principal[1].getEstadoAlfombra());
+        principal[0].setInicioSuspencion(principal[1].getInicioSuspencion());
+        principal[0].setFinLimpieza(principal[1].getFinLimpieza());
+        principal[0].setRND(principal[1].getRND());
+        principal[0].setLlegaPersona(principal[1].getLlegaPersona());
+        principal[0].setNroPersona(principal[1].getNroPersona());
+        principal[0].setHoraLlegoPers(principal[1].getHoraLlegoPers());
+        principal[0].setEstadoPers(principal[1].getEstadoPers());
+        principal[0].setFinDeslizaPers(principal[1].getFinDeslizaPers());
+        principal[0].setTiempoEspera(principal[1].getTiempoEspera());
+        principal[0].setColaPesrsEspera(principal[1].getColaPesrsEspera());
+        principal[0].setColaPersDeslizan(principal[1].getColaPersDeslizan());
+        principal[0].setCantPersFinalizan(principal[1].getCantPersFinalizan());
+        principal[0].setCantPersEsperaron(principal[1].getCantPersEsperaron());        
+        principal[0].setMaxColaEspera(principal[1].getMaxColaEspera());
+        principal[0].setAcuTiempoEspera(principal[1].getAcuTiempoEspera());
+        principal[0].setMaxTiempoEspera(principal[1].getMaxTiempoEspera());
+        
         auxiliar[0].setNroPersona(auxiliar[1].getNroPersona());
-        auxiliar[0].setTiempoLlegada(auxiliar[1].getTiempoLlegada());
-        auxiliar[0].setEstado(auxiliar[1].getEstado());
-        auxiliar[0].setFinLanza(auxiliar[1].getFinLanza());
-        auxiliar[0].setTiempoEspera(auxiliar[1].getTiempoEspera());
+        auxiliar[0].setHoraLlego(auxiliar[1].getHoraLlego());
+        auxiliar[0].setEstadoPersna(auxiliar[1].getEstadoPersna());
+        auxiliar[0].setEsperoEnCola(auxiliar[1].getEsperoEnCola());
+        auxiliar[0].setFinDeslizamiento(auxiliar[1].getFinDeslizamiento());
+        auxiliar[0].setTiempoQueEspero(auxiliar[1].getTiempoQueEspero());
+                
     }
 
     private double cualEsElProximoEvento() {
-        
+
         Double aux = 0.0;
 
         int ultimaFila = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getRowCount() - 1;
-        Object o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, 3);
+        Object o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, 6);
         String s = String.valueOf(o);
         double eventoHsMenor = Double.valueOf(s);
-        tipoEvento = 3;
+        tipoEvento = 6;
 
-         for (int i = 3; i < 8; i++) {
-
-
-             if (i != 6) {
-            if (i == 4) {
-                o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, 4);//obtengo valor de la celda
-                s = String.valueOf(o);//paso a un string
-                aux = Double.parseDouble(s);//lo paso a un valor de double paracomparar
-                if (aux != 0) {
-                    if (eventoHsMenor > aux) {
-                        eventoHsMenor = aux;
-                        tipoEvento = 4;
-                    }
-                }
+        for (int i = 3; i < 11; i++) {
+            if (i == 5) {
+                i = 9;
             } else {
-                if (i == 5) {
-                    o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, i);//obtengo valor de la celda
+                if (i == 3) {
+                    o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, 3);//obtengo valor de la celda
                     s = String.valueOf(o);//paso a un string
                     aux = Double.parseDouble(s);//lo paso a un valor de double paracomparar
                     if (aux != 0) {
                         if (eventoHsMenor > aux) {
                             eventoHsMenor = aux;
-                            tipoEvento = i;
+                            tipoEvento = 3;
                         }
-
                     }
                 } else {
-                    if (i == 7) {
+                    if (i == 4) {
                         o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, i);//obtengo valor de la celda
                         s = String.valueOf(o);//paso a un string
                         aux = Double.parseDouble(s);//lo paso a un valor de double paracomparar
@@ -510,265 +531,654 @@ public class Principal extends javax.swing.JFrame {
                                 eventoHsMenor = aux;
                                 tipoEvento = i;
                             }
+
                         }
-                    
+                    } else {
+                        if (i == 10) {
+                            o = ((ModeloTablaAlfombraPrincipal) jTable1.getModel()).getValueAt(ultimaFila, 10);//obtengo valor de la celda
+                            s = String.valueOf(o);//paso a un string
+                            aux = Double.parseDouble(s);//lo paso a un valor de double paracomparar
+                            if (aux != 0) {
+                                if (eventoHsMenor > aux) {
+                                    eventoHsMenor = aux;
+                                    tipoEvento = 10;
+                                }
                             }
+
                         }
                     }
                 }
             }
-          
-
-        return eventoHsMenor;
-    
-    }
+        }
+    return eventoHsMenor;
+        }
 
     private void evaluarTipoEvento() {
         int eve=this.tipoEvento;
         switch (eve) {
             // Llegada de la proxima persona
-            case 3: {
-                principal[1].setEvento("Llega Persona");
-                double desde = mediaUniforme - desvioUniforme;
-                double hasta = mediaUniforme + desvioUniforme;
-                double proximaLlegada = Uniforme.getRdo(desde, hasta);
-                principal[1].setRND(Uniforme.getRnd());
-                principal[1].setLLegaProxPers(principal[1].getReloj() + proximaLlegada);
-                principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
-                principal[1].setFinLimpieza(principal[0].getFinLimpieza());
-
-                if (principal[0].getEstadoAlfombra().equals("Disponible") ) {
-
-                    if (principal[0].getCantPersEnLanz() > 0) {
-                        // Alfombra esta disponible y hay personas lanzando
-                        principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz());
-                        principal[1].setFinProxLanz(principal[0].getFinProxLanz());
-                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() + 1);
+            case 6: {
+                 if (principal[0].getEstadoAlfombra().equals("Disponible")) {
+                    if (principal[0].getNroPersona()!= 0) {
+                        //Laalfombra esta disponible y hay personas Deslizandose en la alfombra.
+                       
+                        principal[1].setEvento("Llega Pers");
                         principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
-                        principal[1].setMaxCola(principal[0].getMaxCola());
-                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
+                        //eventos
+                        principal[1].setInicioSuspencion(principal[0].getInicioSuspencion());
+                        principal[1].setFinLimpieza(principal[0].getFinLimpieza());
+                        double desde = mediaUniforme - desvioUniforme;
+                        double hasta = mediaUniforme + desvioUniforme;
+                        double proximaLlegada = Uniforme.getRdo(desde, hasta);
+                        
+                        principal[1].setRND(Uniforme.getRnd());
+                        principal[1].setLlegaPersona(principal[1].getReloj() + proximaLlegada);
+
+                        //Datos depersona proxima a Finalizar Deslizamiento
+                        principal[1].setNroPersona(principal[0].getNroPersona());
+                        principal[1].setHoraLlegoPers(principal[0].getHoraLlegoPers());
+                        principal[1].setEstadoPers(principal[0].getEstadoPers());
+                        principal[1].setFinDeslizaPers(principal[0].getFinDeslizaPers());
+                        principal[1].setTiempoEspera(principal[0].getTiempoEspera());
+                        //Fin de Datos pers
+                        
+                        //Datos 
+                        principal[1].setColaPesrsEspera(principal[0].getColaPesrsEspera());
+                        principal[1].setColaPersDeslizan(principal[0].getColaPersDeslizan()+1);
+                        principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan());
+                        principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron());        
+                        principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+                        principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera());
+                        principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
 
                         int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
                         Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 0);
                         String s = String.valueOf(o);
                         int ultimoNroPersona = Integer.valueOf(s);
-
+                        
                         auxiliar[1].setNroPersona(ultimoNroPersona + 1);
-                        auxiliar[1].setTiempoLlegada(principal[1].getReloj());
-                        auxiliar[1].setEstado("En Lanzamiento");
-                        auxiliar[1].setFinLanza(0);
-                        auxiliar[1].setTiempoEspera(0);
-
-                    } 
-                    else {
-                        //// Alfombra esta disponible y no hay personas lanzando
-                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() + 1);
-                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
-                        principal[1].setMaxCola(principal[0].getMaxCola());
-                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-try{
-                        int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
-                        Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 0);
-                        String s = String.valueOf(o);
-                        int ultimoNroPersona = Integer.valueOf(s);
-
-                        auxiliar[1].setNroPersona(ultimoNroPersona + 1);
-                        } catch (Exception e) {
-                    System.out.println("ERROR!!!11" + e.getMessage());
-                }
-                        auxiliar[1].setTiempoLlegada(principal[1].getReloj());
-                        auxiliar[1].setEstado("En Lanzamiento");
-                        double finLanzamiento = principal[1].getReloj() + tiempoTardaLanzamiento;
-                        auxiliar[1].setFinLanza(finLanzamiento);
-                        auxiliar[1].setTiempoEspera(0);
-                        principal[1].setNroPersProxFinLanz(auxiliar[1].getNroPersona());
-                        principal[1].setFinProxLanz(auxiliar[1].getFinLanza());
+                        auxiliar[1].setHoraLlego(principal[1].getReloj());
+                        auxiliar[1].setEstadoPersna("Deslizando");
+                        auxiliar[1].setEsperoEnCola("NO");
+                        auxiliar[1].setFinDeslizamiento(principal[1].getReloj()+tiempoTardaLanzamiento);
+                        auxiliar[1].setTiempoQueEspero(0);    
                     }
+                    else{
+                        //La alfombra esta Disponible y NO hay personas Deslizandose en la alfombra.
+                          
+                        principal[1].setEvento("Llega Pers");
+                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                        //eventos
+                        principal[1].setInicioSuspencion(principal[0].getInicioSuspencion());
+                        principal[1].setFinLimpieza(principal[0].getFinLimpieza());
+                        double desde = mediaUniforme - desvioUniforme;
+                        double hasta = mediaUniforme + desvioUniforme;
+                        double proximaLlegada = Uniforme.getRdo(desde, hasta);
+                        principal[1].setRND(Uniforme.getRnd());
+                        principal[1].setLlegaPersona(principal[1].getReloj() + proximaLlegada);
+                        
+                        int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
+                        Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 0);
+                        String s = String.valueOf(o);
+                        int ultimoNroPersona = Integer.valueOf(s);
+                        
+                        //Datos Pers
+                        principal[1].setNroPersona(ultimoNroPersona+1);
+                        principal[1].setHoraLlegoPers(principal[1].getReloj());
+                        principal[1].setEstadoPers("Deslizando");
+                        principal[1].setFinDeslizaPers(principal[1].getHoraLlegoPers()+tiempoTardaLanzamiento);
+                        principal[1].setTiempoEspera(0);
+                        
+                        principal[1].setColaPesrsEspera(principal[0].getColaPesrsEspera());
+                        principal[1].setColaPersDeslizan(principal[0].getColaPersDeslizan()+1);
+                        principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan());
+                        principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron());        
+                        principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+                        principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera());
+                        principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
 
-                } else { //la alfombra se encuentra suspendida y 
-                    principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() + 1);
-                    principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
-                    principal[1].setMaxCola(principal[0].getMaxCola());
-                    principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-                    principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz());
-                    principal[1].setFinProxLanz(principal[0].getFinProxLanz());
+                        auxiliar[1].setNroPersona(ultimoNroPersona + 1);
+                        auxiliar[1].setHoraLlego(principal[1].getReloj());
+                        auxiliar[1].setEstadoPersna("Deslizando");
+                        auxiliar[1].setEsperoEnCola("NO");
+                        auxiliar[1].setFinDeslizamiento(principal[1].getReloj()+tiempoTardaLanzamiento);
+                        auxiliar[1].setTiempoQueEspero(0);  
+                                        }
+                  }
+                 else {
+                     if (principal[0].getNroPersona()!= 0){
+                       //La alfombra esta Suspendida y hay personas Deslizandose en la alfombra.
+                        principal[1].setEvento("Llega Pers");
+                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                        //eventos
+                        principal[1].setInicioSuspencion(principal[0].getInicioSuspencion());
+                        principal[1].setFinLimpieza(principal[0].getFinLimpieza());
+                        double desde = mediaUniforme - desvioUniforme;
+                        double hasta = mediaUniforme + desvioUniforme;
+                        double proximaLlegada = Uniforme.getRdo(desde, hasta);
+                        principal[1].setRND(Uniforme.getRnd());
+                        principal[1].setLlegaPersona(principal[1].getReloj() + proximaLlegada);
+                        //Datos depersona proxima a Finalizar Deslizamiento
+                        principal[1].setNroPersona(principal[0].getNroPersona());
+                        principal[1].setHoraLlegoPers(principal[0].getHoraLlegoPers());
+                        principal[1].setEstadoPers(principal[0].getEstadoPers());
+                        principal[1].setFinDeslizaPers(principal[0].getFinDeslizaPers());
+                        principal[1].setTiempoEspera(principal[0].getTiempoEspera());
+                        //Fin de Datos pers 
+                        //Datos 
+                        principal[1].setColaPesrsEspera(principal[0].getColaPesrsEspera()+1);
+                        principal[1].setColaPersDeslizan(principal[0].getColaPersDeslizan());
+                         principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan());
+                         principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron() + 1);
+                         if (principal[0].getMaxColaEspera() > principal[1].getColaPesrsEspera()) {
+                             principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+                         } else {
+                             principal[1].setMaxColaEspera(principal[1].getColaPesrsEspera());
+                         }
+                        principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera());
+                        principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
 
-                    int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
-                    Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 1);
-                    String s = String.valueOf(o);
-                    int ultimoNroPersona = Integer.valueOf(s);
+                        int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
+                        Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 0);
+                        String s = String.valueOf(o);
+                        int ultimoNroPersona = Integer.valueOf(s);
+                        
+                        auxiliar[1].setNroPersona(ultimoNroPersona + 1);
+                        auxiliar[1].setHoraLlego(principal[1].getReloj());
+                        auxiliar[1].setEstadoPersna("En espera");
+                        auxiliar[1].setEsperoEnCola("SI");
+                        auxiliar[1].setFinDeslizamiento(0);
+                        auxiliar[1].setTiempoQueEspero(0);   
+                         
+                     }
+                     else{
+                         //La alfombra esta Suspendida y NO hay personas Deslizandose en la alfombra.
+                        principal[1].setEvento("Llega Pers");
+                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                        //eventos
+                        principal[1].setInicioSuspencion(principal[0].getInicioSuspencion());
+                        principal[1].setFinLimpieza(principal[0].getFinLimpieza());
+                        double desde = mediaUniforme - desvioUniforme;
+                        double hasta = mediaUniforme + desvioUniforme;
+                        double proximaLlegada = Uniforme.getRdo(desde, hasta);
+                        principal[1].setRND(Uniforme.getRnd());
+                        principal[1].setLlegaPersona(principal[1].getReloj() + proximaLlegada);
+                        //Datos depersona proxima a Finalizar Deslizamiento
+                        principal[1].setNroPersona(principal[0].getNroPersona());
+                        principal[1].setHoraLlegoPers(principal[0].getHoraLlegoPers());
+                        principal[1].setEstadoPers(principal[0].getEstadoPers());
+                        principal[1].setFinDeslizaPers(principal[0].getFinDeslizaPers());
+                        principal[1].setTiempoEspera(principal[0].getTiempoEspera());
+                        //Fin de Datos pers 
+                        //Datos 
+                        principal[1].setColaPesrsEspera(principal[0].getColaPesrsEspera()+1);
+                        principal[1].setColaPersDeslizan(principal[0].getColaPersDeslizan());
+                         principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan());
+                         principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron() + 1);
+                         if (principal[0].getMaxColaEspera() > principal[1].getColaPesrsEspera()) {
+                             principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+                         } else {
+                             principal[1].setMaxColaEspera(principal[1].getColaPesrsEspera());
+                         }
+                        principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera());
+                        principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
 
-                    auxiliar[1].setNroPersona(ultimoNroPersona + 1);
-                    auxiliar[1].setTiempoLlegada(principal[1].getReloj());
-                    auxiliar[1].setEstado("En Espera");
-                    auxiliar[1].setFinLanza(0);
-                    auxiliar[1].setTiempoEspera(0);
-                }
-                try {
-                    ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
-                    
-                } catch (Exception e) {
-                    System.out.println("ERROR!!!11" + e.getMessage());
-                }
+                        int ultimaFila = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getRowCount() - 1;
+                        Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(ultimaFila, 0);
+                        String s = String.valueOf(o);
+                        int ultimoNroPersona = Integer.valueOf(s);
+                        
+                        auxiliar[1].setNroPersona(ultimoNroPersona + 1);
+                        auxiliar[1].setHoraLlego(principal[1].getReloj());
+                        auxiliar[1].setEstadoPersna("En espera");
+                        auxiliar[1].setEsperoEnCola("SI");
+                        auxiliar[1].setFinDeslizamiento(0);
+                        auxiliar[1].setTiempoQueEspero(0); 
+                     }
+                 }
+                 
+                            try {
+                                ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
 
-                try {
+                            } catch (Exception e) {
+                                System.out.println("ERROR!!!11" + e.getMessage());
+                            }
 
-                    ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
-                } catch (Exception e) {
-                    System.out.println("ERROR!!!22" + e.getMessage());
-                }
-                break;
-            }
+                            try {
+
+                                ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
+                            } catch (Exception e) {
+                                System.out.println("ERROR!!!22" + e.getMessage());
+                            } 
+               break; }
+                
         
-    case 7: {
-                // //Finalizo un lanzamiento de persona en alfombra
-                principal[1].setEvento("Fin Lanzamiento");
+    case 10: {
+        
+        int filaPersonaEspera= ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).rowPersonaFIFO(principal[0].getNroPersona());
+        Object oEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersonaEspera, 3);
+        String sEspera = String.valueOf(oEspera);
+        String espero = String.valueOf(sEspera);
+        if(espero.equals("NO")){
+        // //Finalizo un lanzamiento de persona en alfombra
+        if (principal[0].getEstadoAlfombra().equals("Disponible")) {
+            if (principal[0].getColaPersDeslizan()> 1) {
+                // Alfombra esta disponible y hay cola en personas lanzando - hay que recalcular prox fin lanzamiento
+                
+                principal[1].setEvento("Fin Desliz");
+                principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                principal[1].setInicioSuspencion(principal[0].getInicioSuspencion());
+                principal[1].setFinLimpieza(principal[0].getFinLimpieza());
                 principal[1].setRND(principal[0].getRND());
-                principal[1].setLLegaProxPers(principal[0].getLLegaProxPers());
+                principal[1].setLlegaPersona(principal[0].getLlegaPersona());
+                
+                int filaPersona= ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).rowPersonaFIFO(principal[0].getNroPersona()+1);
+                Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersona, 0);
+                String s = String.valueOf(o);
+                int nroPersona = Integer.valueOf(s);
+                             
+                
+                principal[1].setNroPersona(nroPersona);
+                Object o1 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersona, 1);
+                String s1 = String.valueOf(o1);
+                double horaLlego = Double.valueOf(s1);
+                principal[1].setHoraLlegoPers(horaLlego);
+                principal[1].setEstadoPers("Deslizando");
+                principal[1].setFinDeslizaPers(principal[1].getHoraLlegoPers()+tiempoTardaLanzamiento);
+                principal[1].setTiempoEspera(0);
+                
+                auxiliar[1].setNroPersona(principal[0].getNroPersona());
+                int filaPersona1= ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).rowPersonaFIFO(principal[0].getNroPersona());
+                Object o2 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersona1, 1);
+                String s2 = String.valueOf(o2);
+                double horaLlego1 = Double.valueOf(s2);
+                
+                auxiliar[1].setHoraLlego(horaLlego1);
+                auxiliar[1].setEstadoPersna("Finaliza");
+                auxiliar[1].setEsperoEnCola("NO");
+                auxiliar[1].setFinDeslizamiento(principal[1].getReloj());
+                auxiliar[1].setTiempoQueEspero(0); 
+                //
+                principal[1].setColaPesrsEspera(principal[0].getColaPesrsEspera());
+                    principal[1].setColaPersDeslizan(principal[0].getColaPersDeslizan() - 1);
+                    principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan() + 1);
+                    principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron());
+                    principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+                    principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera());
+                    principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
+                    try {
+                        ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
 
-                if (principal[0].getEstadoAlfombra().equals("Disponible")) {
-                    if (principal[0].getCantPersEnLanz() > 0) {
-                        // Alfombra esta disponible y hay cola en personas lanzando - hay que recalcular prox fin lanzamiento
-                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() - 1);
-                        principal[1].setFinLimpieza(principal[0].getFinLimpieza());
-                        principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
-                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
-                        principal[1].setMaxCola(principal[0].getMaxCola());
-                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-                        //cambio el estado de la persona recien finaliza 
-                        try {
-                            ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
-                            // actualizo el prximo fin lanzamiento
-                            double tEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).actualizoProximoFinalizar(principal[0].getNroPersProxFinLanz(), tiempoTardaLanzamiento);
-                            principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + 1);
-                            principal[1].setFinProxLanz(tEspera);
-                        } catch (Exception e) {
-                            System.out.println("ERROR!!!" + e.getMessage());
-                        }
-
-
-                    } else {
-                        //Alfombre esta disponible y no hay cola 
-                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz());
-                        principal[1].setFinLimpieza(principal[0].getFinLimpieza());
-                        principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
-                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
-                        principal[1].setMaxCola(principal[0].getMaxCola());
-                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-                        //cambio el estado de la persona recien finaliza 
-                        try {
-                            ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
-                        } catch (Exception e) {
-                            System.out.println("ERROR!!!" + e.getMessage());
-                        }
-                        principal[1].setNroPersProxFinLanz(0);
-                        principal[1].setFinProxLanz(0);
+                    } catch (Exception e) {
+                        System.out.println("ERROR!!!11" + e.getMessage());
                     }
-                } else {
-                    if (principal[0].getCantPersEnLanz() > 0) {
-                        //la alfombra esta suspendida y hay cola personas en lanzamiento.
-                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz() - 1);
-                        principal[1].setFinLimpieza(principal[0].getFinLimpieza());
-                        principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
-                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
-                        principal[1].setMaxCola(principal[0].getMaxCola());
-                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-                        //cambio el estado de la persona recien finaliza 
-                        try {
-                            ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
-                            // actualizo el prximo fin lanzamiento
-                            double tEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).actualizoProximoFinalizar(principal[0].getNroPersProxFinLanz(), tiempoTardaLanzamiento);
-//                      
-                            principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + 1);
-                            principal[1].setFinProxLanz(tEspera);
-                        } catch (Exception e) {
-                            System.out.println("ERROR!!!" + e.getMessage());
-                        }
-                    } else {// la alfombra suspendida y no hay cola personas el lanzamiento
-                        principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz());
-                        principal[1].setFinLimpieza(principal[0].getFinProxLanz() + tiempoLimpieza);
-                        principal[1].setEsHoraSuspender(principal[1].getFinLimpieza() + tiempoSuspension);
-                        principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
-                        principal[1].setMaxCola(principal[0].getMaxCola());
-                        principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-                        //cambio el estado de la persona recien finaliza 
-                        try {
-                            ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).cambiarEstadoFinalizado(principal[0].getNroPersProxFinLanz());
-                        } catch (Exception e) {
-                            System.out.println("ERROR!!!" + e.getMessage());
-                        }
-                        principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + 1);
-                        principal[1].setFinProxLanz(0);
+
+                    try {
+
+                        ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).setValue(auxiliar[1], filaPersona1, 0);
+                    } catch (Exception e) {
+                        System.out.println("ERROR!!!22" + e.getMessage());
                     }
-//                
-                }
 
-                try {
-                    ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
-                } catch (Exception e) {
-                    System.out.println("ERROR!!!" + e.getMessage());
-                }
 
-                break;
-            }
-            case 4: {
-                //Fin Liempieza
-                principal[1].setEvento("Fin Limpieza");
-                principal[1].setRND(principal[0].getRND());
-                principal[1].setLLegaProxPers(principal[0].getLLegaProxPers());
-
-                principal[1].setFinLimpieza(0);
-                principal[1].setEsHoraSuspender(principal[0].getEsHoraSuspender());
-                int prox = principal[0].getNroPersProxFinLanz();
-                double finLimpieza = principal[0].getFinLimpieza();
-                double maxTiempoEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).lanzamientoPersonasEnEspera(prox, tiempoTardaLanzamiento, finLimpieza);
-
-                principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz() + principal[0].getCantPersEnLanz() - 1);
-                principal[1].setFinProxLanz(finLimpieza + tiempoTardaLanzamiento);
-
-                principal[1].setCantPersEnLanz(0);
-
-                principal[1].setEstadoAlfombra("Disponible");
-                if (maxTiempoEspera > principal[0].getMaxTiempoDEspera()) {
-                    principal[1].setMaxTiempoDEspera(maxTiempoEspera);
                 } else {
-                    principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
-                }
-//// FALTA VER COMO CALCULAR LA MAXIMA COLAAA!!!!!!!!!!
-                principal[1].setMaxCola(principal[0].getMaxCola());
-                try {
-                    ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
-                } catch (Exception e) {
-                    System.out.println("ERROR!!!" + e.getMessage());
-                }
-                break;
-            }
-            case 5: {// Es hora de suspender el lanzamiento de personas en alfombra
-                principal[1].setEvento("Suspende");
-                principal[1].setRND(principal[0].getRND());
-                principal[1].setLLegaProxPers(principal[0].getLLegaProxPers());
-
-                if (principal[0].getCantPersEnLanz()> 0) {
+                    //Alfombre esta disponible y no hay cola - pone en 0 los datos de pers prox a lanzar
+                    principal[1].setEvento("Fin Desliz");
+                    principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                    principal[1].setInicioSuspencion(principal[0].getInicioSuspencion());
                     principal[1].setFinLimpieza(principal[0].getFinLimpieza());
-                    principal[1].setEsHoraSuspender(0);
-                } else {
-                    principal[1].setFinLimpieza(principal[0].getEsHoraSuspender() + tiempoLimpieza);
-                    principal[1].setEsHoraSuspender(principal[1].getFinLimpieza()+ tiempoSuspension);
+                    principal[1].setRND(principal[0].getRND());
+                    principal[1].setLlegaPersona(principal[0].getLlegaPersona());
+
+
+
+                    principal[1].setNroPersona(0);
+                    principal[1].setHoraLlegoPers(0);
+                    principal[1].setEstadoPers("-");
+                    principal[1].setFinDeslizaPers(0);
+                    principal[1].setTiempoEspera(0);
+
+                    auxiliar[1].setNroPersona(principal[0].getNroPersona());
+                    int filaPersona1 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).rowPersonaFIFO(principal[0].getNroPersona());
+                    Object o2 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersona1, 1);
+                    String s2 = String.valueOf(o2);
+                    double horaLlego1 = Double.valueOf(s2);
+
+                    auxiliar[1].setHoraLlego(horaLlego1);
+                    auxiliar[1].setEstadoPersna("Finaliza");
+                    auxiliar[1].setEsperoEnCola("NO");
+                    auxiliar[1].setFinDeslizamiento(principal[1].getReloj());
+                    auxiliar[1].setTiempoQueEspero(0);
+                    //
+                    principal[1].setColaPesrsEspera(principal[0].getColaPesrsEspera());
+                    principal[1].setColaPersDeslizan(principal[0].getColaPersDeslizan() - 1);
+                    principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan() + 1);
+                    principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron());
+                    principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+                    principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera());
+                    principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
+                    try {
+                        ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+
+                    } catch (Exception e) {
+                        System.out.println("ERROR!!!11" + e.getMessage());
+                    }
+
+                    try {
+
+                        ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).setValue(auxiliar[1], filaPersona1, 0);
+                    } catch (Exception e) {
+                        System.out.println("ERROR!!!22" + e.getMessage());
+                    }
+
                 }
-                principal[1].setNroPersProxFinLanz(principal[0].getNroPersProxFinLanz());
-                principal[1].setFinProxLanz(principal[0].getFinProxLanz());
-                principal[1].setCantPersEnLanz(principal[0].getCantPersEnLanz());
-                principal[1].setEstadoAlfombra("Suspendida");
-                principal[1].setMaxTiempoDEspera(principal[0].getMaxTiempoDEspera());
+            } else {
+
+                if (principal[0].getColaPersDeslizan()> 1) {
+                    //Alfombra esta SUSPENDIDA Y hay personas deslizandose por la alfombra- sube datos de  prox lanzamiento
+                    principal[1].setEvento("Fin Desliz");
+                    principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+                    principal[1].setInicioSuspencion(principal[0].getInicioSuspencion());
+                    principal[1].setFinLimpieza(principal[0].getFinLimpieza());
+                    principal[1].setRND(principal[0].getRND());
+                    principal[1].setLlegaPersona(principal[0].getLlegaPersona());
+
+                    int filaPersona = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).rowPersonaFIFO(principal[0].getNroPersona() + 1);
+                    Object o = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersona, 0);
+                    String s = String.valueOf(o);
+                    int nroPersona = Integer.valueOf(s);
+                    principal[1].setNroPersona(nroPersona);
+                    Object o1 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersona, 1);
+                    String s1 = String.valueOf(o1);
+                    double horaLlego = Double.valueOf(s1);
+                    principal[1].setHoraLlegoPers(horaLlego);
+                    principal[1].setEstadoPers("Deslizando");
+                    principal[1].setFinDeslizaPers(principal[1].getHoraLlegoPers() + tiempoTardaLanzamiento);
+                    principal[1].setTiempoEspera(0);
+
+                    auxiliar[1].setNroPersona(principal[0].getNroPersona());
+                    int filaPersona1 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).rowPersonaFIFO(principal[0].getNroPersona());
+                    Object o2 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersona1, 1);
+                    String s2 = String.valueOf(o2);
+                    double horaLlego1 = Double.valueOf(s2);
+
+                    auxiliar[1].setHoraLlego(horaLlego1);
+                    auxiliar[1].setEstadoPersna("Finaliza");
+                    auxiliar[1].setEsperoEnCola("NO");
+                    auxiliar[1].setFinDeslizamiento(principal[1].getReloj());
+                    auxiliar[1].setTiempoQueEspero(0);
+                    //
+                    principal[1].setColaPesrsEspera(principal[0].getColaPesrsEspera());
+                    principal[1].setColaPersDeslizan(principal[0].getColaPersDeslizan() - 1);
+                    principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan() + 1);
+                    principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron());
+                    principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+                    principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera());
+                    principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
+                    try {
+                        ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+
+                    } catch (Exception e) {
+                        System.out.println("ERROR!!!11" + e.getMessage());
+                    }
+
+                    try {
+
+                        ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).setValue(auxiliar[1], filaPersona1, 0);
+                    } catch (Exception e) {
+                        System.out.println("ERROR!!!22" + e.getMessage());
+                    }
+
+                } else {
+                    // la alfombra suspendida y no hay personas deslizandose. calcula los EVENTOS PROXIMOS DE FIN LIMPIEZA Y NVA SUSPENCION
+                    principal[1].setEvento("Fin Desliz");
+                    principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+
+                    principal[1].setFinLimpieza(principal[1].getReloj() + tiempoLimpieza);
+                    principal[1].setInicioSuspencion(principal[1].getFinLimpieza() + tiempoSuspension);
+                    principal[1].setRND(principal[0].getRND());
+                    principal[1].setLlegaPersona(principal[0].getLlegaPersona());
+
+                    principal[1].setNroPersona(0);
+                    principal[1].setHoraLlegoPers(0);
+                    principal[1].setEstadoPers("-");
+                    principal[1].setFinDeslizaPers(0);
+                    principal[1].setTiempoEspera(0);
+
+                    auxiliar[1].setNroPersona(principal[0].getNroPersona());
+                    int filaPersona1 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).rowPersonaFIFO(principal[0].getNroPersona());
+                    Object o2 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersona1, 1);
+                    String s2 = String.valueOf(o2);
+                    double horaLlego1 = Double.valueOf(s2);
+
+                    auxiliar[1].setHoraLlego(horaLlego1);
+                    auxiliar[1].setEstadoPersna("Finaliza");
+                    auxiliar[1].setEsperoEnCola("NO");
+                    auxiliar[1].setFinDeslizamiento(principal[1].getReloj());
+                    auxiliar[1].setTiempoQueEspero(0);
+                    //
+                    principal[1].setColaPesrsEspera(principal[0].getColaPesrsEspera());
+                    principal[1].setColaPersDeslizan(principal[0].getColaPersDeslizan() - 1);
+                    principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan() + 1);
+                    principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron());
+                    principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+                    principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera());
+                    principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
+                    try {
+                        ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+
+                    } catch (Exception e) {
+                        System.out.println("ERROR!!!11" + e.getMessage());
+                    }
+
+                    try {
+
+                        ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).setValue(auxiliar[1], filaPersona1, 0);
+                    } catch (Exception e) {
+                        System.out.println("ERROR!!!22" + e.getMessage());
+                    }
+                }
+            }
+        } else {//Fin deslizamiento y hay 
+//        
+            int r =((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).getRowCount()-filaPersonaEspera;
+            for(int i=1;i>(r+1);i++){
+            //while (principal[0].getNroPersona()!=0 ) {
+
+                //datos eventos 
+                principal[1].setEvento("Fin Desliz");
+                principal[1].setEstadoAlfombra(principal[0].getEstadoAlfombra());
+
+                principal[1].setFinLimpieza(principal[0].getFinLimpieza());
+                principal[1].setInicioSuspencion(principal[0].getInicioSuspencion());
+                principal[1].setRND(principal[0].getRND());
+                principal[1].setLlegaPersona(principal[0].getLlegaPersona());
+
+                //recalculo cola acu..
+                principal[1].setColaPesrsEspera(principal[0].getColaPesrsEspera());
+                principal[1].setColaPersDeslizan(principal[0].getColaPersDeslizan() - 1);
+                principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan() + 1);
+                principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron());
+                principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+                principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera() + principal[0].getTiempoEspera());
+                if (principal[0].getTiempoEspera() > principal[0].getMaxTiempoEspera()) {
+                    principal[1].setMaxTiempoEspera(principal[0].getTiempoEspera());
+                } else {
+                    principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
+                }
+
+                //actualizo persona a Fin
+                ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).setEstado("Finaliza", filaPersonaEspera);
+                //tomo perspna prx y copio datos al principal
+
+                if (principal[1].getColaPersDeslizan()>0) {
+                    Object oHora = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersonaEspera + 1, 1);
+                    String sHora = String.valueOf(oHora);
+                    Double hora = Double.valueOf(sHora);
+                    principal[1].setNroPersona(principal[0].getNroPersona() + 1);
+                    principal[1].setHoraLlegoPers(hora);
+                    principal[1].setEstadoPers("En Lanzamiento");
+                    principal[1].setFinDeslizaPers(principal[1].getReloj());
+                    principal[1].setTiempoEspera(principal[1].getReloj() - tiempoTardaLanzamiento - hora);
+                    filaPersonaEspera++;
+//                    Object oEspero = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersonaEspera, 3);
+//                    String sEspero = String.valueOf(oEspero);
+//                    espero = String.valueOf(sEspero);
+                } else {
+                    principal[1].setNroPersona(0);
+                    principal[1].setHoraLlegoPers(0);
+                    principal[1].setEstadoPers("-");
+                    principal[1].setFinDeslizaPers(0);
+                    principal[1].setTiempoEspera(0);
+                    //espero = "";
+                }
+                //agrego la fla a frincipal
+                ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+
+                //crear Nvo verctores de copiar todo añ [0]; luego crear un nuevo en principal[1]  y darle valor a [1]reloj 
+                copiarDatosHistoricos();
+                principal[1] = new AlfombraPrincipal();
+                principal[1].setReloj(principal[0].getReloj());
+               
+            
+            }
+        }
+                 
+                break;
+            }
+
+            case 4: {
+                //Fin Limpieza
+
+                principal[1].setEvento("Fin Limpieza");
+                principal[1].setEstadoAlfombra("Disponible");
+                principal[1].setInicioSuspencion(principal[0].getInicioSuspencion());
+                principal[1].setFinLimpieza(0);
+                principal[1].setRND(principal[0].getRND());
+                principal[1].setLlegaPersona(principal[0].getLlegaPersona());
+                if (principal[0].getColaPesrsEspera() != 0) { // hay PERSONAS ESPERANDO PARA DESLIZARSE???
+
+                    int primerFilaEspera = ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).rowPersonaEspera();//BUSCA PRIMERA PERSONA QUE ESPERA
+                    Object o1 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(primerFilaEspera, 0);
+                    String s1 = String.valueOf(o1);
+                    int nroPers = Integer.valueOf(s1);
+                    principal[1].setNroPersona(nroPers);
+                    Object o2 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(primerFilaEspera, 1);
+                    String s2 = String.valueOf(o2);
+                    double horaLlego1 = Double.valueOf(s2);
+                    principal[1].setHoraLlegoPers(horaLlego1);
+                    principal[1].setEstadoPers("Deslizando");
+                    principal[1].setFinDeslizaPers(principal[1].getReloj() + tiempoTardaLanzamiento);
+                    principal[1].setTiempoEspera(principal[1].getReloj() - principal[1].getHoraLlegoPers());
+
+                    auxiliar[1].setNroPersona(nroPers);
+                    auxiliar[1].setHoraLlego(horaLlego1);
+                    auxiliar[1].setEstadoPersna("Deslizando");
+                    auxiliar[1].setEsperoEnCola("SI");
+                    auxiliar[1].setFinDeslizamiento(principal[1].getReloj() + tiempoTardaLanzamiento);
+                    auxiliar[1].setTiempoQueEspero(principal[1].getReloj() - auxiliar[1].getHoraLlego());
+                    try {
+
+                        ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).setValue(auxiliar[1], primerFilaEspera, 0);
+                    } catch (Exception e) {
+                        System.out.println("ERROR!!!22" + e.getMessage());
+                    }
+                    principal[1].setColaPesrsEspera(0);
+                    principal[1].setColaPersDeslizan(principal[0].getColaPesrsEspera());
+                    principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan());
+                    principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron());
+                    principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+                    principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera());
+                    principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
+                    if (principal[0].getColaPesrsEspera() > 1) {
+                        // si hay mas de una persona esperando, hay que actualizar su estado a deslizado una vez q finalizo la limpieza
+                        for (int j = 1; j < principal[0].getColaPesrsEspera(); j++) {
+                            auxiliar[1] = new PersonasAuxiliar();
+                            //int jFilaEspera = ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).rowPersonaEspera() + j;
+                            Object oj = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(primerFilaEspera + j, 0);
+                            String sj = String.valueOf(oj);
+                            int nroPersj = Integer.valueOf(sj);
+                            auxiliar[1].setNroPersona(nroPersj);
+                            Object oj1 = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(primerFilaEspera + j, 1);
+                            String sj1 = String.valueOf(oj1);
+                            double horaLLego2 = Double.valueOf(sj1);
+                            auxiliar[1].setHoraLlego(horaLLego2);
+                            auxiliar[1].setEstadoPersna("Deslizando");
+                            auxiliar[1].setEsperoEnCola("SI");
+                            auxiliar[1].setFinDeslizamiento(principal[1].getReloj() + tiempoTardaLanzamiento);
+                            auxiliar[1].setTiempoQueEspero(principal[1].getReloj() - auxiliar[1].getHoraLlego());
+                            try {
+
+                                ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).setValue(auxiliar[1], primerFilaEspera + j, 0);
+                            } catch (Exception e) {
+                                System.out.println("ERROR!!!22" + e.getMessage());
+                            }
+                        }
+                    }
+                } else {
+                    principal[1].setNroPersona(principal[0].getNroPersona());
+                    principal[1].setHoraLlegoPers(principal[0].getHoraLlegoPers());
+                    principal[1].setEstadoPers(principal[0].getEstadoPers());
+                    principal[1].setFinDeslizaPers(principal[0].getFinDeslizaPers());
+                    principal[1].setTiempoEspera(principal[0].getTiempoEspera());
+                    principal[1].setColaPesrsEspera(principal[0].getColaPesrsEspera());
+                    principal[1].setColaPersDeslizan(principal[0].getColaPersDeslizan());
+                    principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan());
+                    principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron());
+                    principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+                    principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera());
+                    principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
+                }
+                try {
+                        ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+
+                    } catch (Exception e) {
+                        System.out.println("ERROR!!!11" + e.getMessage());
+                    }
+               
+                break;
+            }
+case 3: {// Es hora de suspender el lanzamiento de personas en alfombra
+     
+        principal[1].setEvento("Suspende");
+          principal[1].setEstadoAlfombra("Suspendida");
+      
+        if (principal[0].getNroPersona() != 0) //hay gente deslizandose en la alfombra. NO se puede calcular la limpieza
+        {
+            principal[1].setFinLimpieza(0);
+              principal[1].setInicioSuspencion(0);
+        } else//No hay gente deslizandose en la alfombra. se puede calcular LIMPIEZA
+        {
+            principal[1].setFinLimpieza(principal[1].getReloj()+tiempoLimpieza);
+              principal[1].setInicioSuspencion(principal[1].getFinLimpieza()+tiempoSuspension);
+            
+        }
+        principal[1].setRND(principal[0].getRND());
+        principal[1].setLlegaPersona(principal[0].getLlegaPersona());
+
+        principal[1].setNroPersona(principal[0].getNroPersona());
+        principal[1].setHoraLlegoPers(principal[0].getHoraLlegoPers());
+        principal[1].setEstadoPers(principal[0].getEstadoPers());
+        principal[1].setFinDeslizaPers(principal[0].getFinDeslizaPers());
+        principal[1].setTiempoEspera(principal[0].getTiempoEspera());
+        
+        principal[1].setColaPesrsEspera(principal[0].getColaPesrsEspera());
+        principal[1].setColaPersDeslizan(principal[0].getColaPersDeslizan());
+        principal[1].setCantPersFinalizan(principal[0].getCantPersFinalizan());
+        principal[1].setCantPersEsperaron(principal[0].getCantPersEsperaron());        
+        principal[1].setMaxColaEspera(principal[0].getMaxColaEspera());
+        principal[1].setAcuTiempoEspera(principal[0].getAcuTiempoEspera());
+        principal[1].setMaxTiempoEspera(principal[0].getMaxTiempoEspera());
                 try {
                     ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
                 } catch (Exception e) {
                     System.out.println("ERROR!!!" + e.getMessage());
+                }
                 }
                 break;
             }
         }
-    }
+    
 //    public public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -825,6 +1235,7 @@ try{
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
