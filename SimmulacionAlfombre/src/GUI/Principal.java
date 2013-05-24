@@ -77,7 +77,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1.setText("Llega una persona(Uniforme) Media:");
 
-        jTextField1.setText("180");
+        jTextField1.setText("80");
 
         jLabel2.setText("segundos +/-");
 
@@ -90,7 +90,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel3.setText("Se suspende tiradas cada:");
 
-        jTextField3.setText("14400 ");
+        jTextField3.setText("300");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -101,7 +101,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel5.setText("Limpieza dura:");
 
-        jTextField4.setText("900 ");
+        jTextField4.setText("100");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -119,7 +119,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel7.setText("Cantidad Segundo a simular:");
 
-        jTextField5.setText("144000");
+        jTextField5.setText("10000");
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
@@ -755,7 +755,7 @@ public class Principal extends javax.swing.JFrame {
         
     case 10: {
         
-        int filaPersonaEspera= ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).rowPersonaFIFO(principal[0].getNroPersona());
+        int filaPersonaEspera= ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).rowPersonaFIFO(principal[0].getCantPersFinalizan()+1);
         Object oEspera = ((ModeloTablaPersonaAuxiliar) jTable2.getModel()).getValueAt(filaPersonaEspera, 3);
         String sEspera = String.valueOf(oEspera);
         String espero = String.valueOf(sEspera);
@@ -982,7 +982,7 @@ public class Principal extends javax.swing.JFrame {
         } else {//Fin deslizamiento y hay 
 //        
             int r =((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).getRowCount()-filaPersonaEspera;
-            for(int i=1;i>(r+1);i++){
+            for(int i=1;i<(r+1);i++){
             //while (principal[0].getNroPersona()!=0 ) {
 
                 //datos eventos 
@@ -1030,16 +1030,17 @@ public class Principal extends javax.swing.JFrame {
                     principal[1].setEstadoPers("-");
                     principal[1].setFinDeslizaPers(0);
                     principal[1].setTiempoEspera(0);
+                    filaPersonaEspera++;
                     //espero = "";
                 }
                 //agrego la fla a frincipal
                 ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
 
                 //crear Nvo verctores de copiar todo añ [0]; luego crear un nuevo en principal[1]  y darle valor a [1]reloj 
-                copiarDatosHistoricos();
+                if(principal[1].getNroPersona()!=0){copiarDatosHistoricos();
                 principal[1] = new AlfombraPrincipal();
                 principal[1].setReloj(principal[0].getReloj());
-               
+                }
             
             }
         }
