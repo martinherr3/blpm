@@ -346,7 +346,7 @@ public Principal principal=new Principal();
             java.util.logging.Logger.getLogger(MetodoEuler.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        System.out.println("Hola Mundo");
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -380,6 +380,6 @@ public Principal principal=new Principal();
      //((modeloTablaEuler) this.jTable2.getModel()).anhadeFila(aux[1]);
      this.jTable2.removeAll();
      this.jTable2.removeEditor();
-       jTable2.setModel(new Estructura.modeloTablaEuler());
+     jTable2.setModel(new Estructura.modeloTablaEuler());
              }
 }
