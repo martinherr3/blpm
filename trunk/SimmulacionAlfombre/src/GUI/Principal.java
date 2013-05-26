@@ -28,7 +28,10 @@ public class Principal extends javax.swing.JFrame {
     private static AlfombraPrincipal principal[] = new AlfombraPrincipal[2];
     private static PersonasAuxiliar auxiliar[] = new PersonasAuxiliar[2];
     private int tipoEvento = 0;
-    
+    private static double promPorc = 0;
+    private static double promMaxCola = 0;
+    private static double promMaxTiempo = 0;
+//    
 
     /**
      * Creates new form Principal
@@ -62,15 +65,19 @@ public class Principal extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SIM");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
         jPanel1.setName("aaa"); // NOI18N
@@ -143,78 +150,80 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextField4))
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)))
-                        .addGap(0, 21, Short.MAX_VALUE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGap(10, 10, 10)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(48, 48, 48))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Simulacion Alfombra"));
@@ -227,9 +236,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 14, Short.MAX_VALUE))
+            .addComponent(jScrollPane2)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,21 +254,36 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 581, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 197, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(6, 6, 6)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(265, 265, 265)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9))
+                .addContainerGap(181, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,21 +294,26 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(205, 205, 205)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -314,8 +341,16 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        limpiarValoresPrevios();
         tomarValoresIngresados();
         inicializarSimulacion();
+//       promPorc=promPorc/cantidadIteracione;
+//       promMaxCola=promMaxCola/cantidadIteracione;
+//       promMaxTiempo= promMaxTiempo/cantidadIteracione;
+        this.jLabel9.setText(String.valueOf(promPorc));
+        this.jLabel10.setText(String.valueOf(promMaxCola));
+        this.jLabel11.setText(String.valueOf(promMaxTiempo));
+        //    System.out.println("Resultado final:Promedio Pordentaje:"+promPorc+"Promedio Maxima Cola de Espera: "+promMaxCola+" Promedio de Tiempo de Espera: "+promMaxTiempo);
 
 
         // TODO add your handling code here:
@@ -329,62 +364,66 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void tomarValoresIngresados() {
-        try{
-        if (!jTextField1.getText().equals("")) {
-            mediaUniforme = Double.parseDouble(jTextField1.getText());
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de la media.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
-            jTextField1.requestFocus();
-        }} catch (Exception e) {
-            System.out.println("ERROR!!!" + e.getMessage());
-        }
-        try{
-        if (!jTextField2.getText().equals("")) {
-            desvioUniforme = Double.parseDouble(jTextField2.getText());
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial del Desvio.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
-            jTextField2.requestFocus();
-        }
+        try {
+            if (!jTextField1.getText().equals("")) {
+                mediaUniforme = Double.parseDouble(jTextField1.getText());
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de la media.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
+                jTextField1.requestFocus();
+            }
         } catch (Exception e) {
             System.out.println("ERROR!!!" + e.getMessage());
         }
-        
-        try{
-        if (!jTextField3.getText().equals("")) {
-            tiempoSuspension = Double.parseDouble(jTextField3.getText());
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de tiempo para que se encuentra disponible la alfonbra.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
-            jTextField3.requestFocus();
-        }} catch (Exception e) {
+        try {
+            if (!jTextField2.getText().equals("")) {
+                desvioUniforme = Double.parseDouble(jTextField2.getText());
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial del Desvio.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
+                jTextField2.requestFocus();
+            }
+        } catch (Exception e) {
             System.out.println("ERROR!!!" + e.getMessage());
         }
-        
-        try{
-        if (!jTextField4.getText().equals("")) {
-            tiempoLimpieza = Double.parseDouble(jTextField4.getText());
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial del Tarda la limpieza.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
-            jTextField4.requestFocus();
-        }} catch (Exception e) {
+
+        try {
+            if (!jTextField3.getText().equals("")) {
+                tiempoSuspension = Double.parseDouble(jTextField3.getText());
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de tiempo para que se encuentra disponible la alfonbra.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
+                jTextField3.requestFocus();
+            }
+        } catch (Exception e) {
             System.out.println("ERROR!!!" + e.getMessage());
         }
-        
-        try{
-        if (!jTextField5.getText().equals("")) {
-            cantidadSegundosASimular = Double.parseDouble(jTextField5.getText());
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de segundos a simular.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
-            jTextField5.requestFocus();
-        }} catch (Exception e) {
+
+        try {
+            if (!jTextField4.getText().equals("")) {
+                tiempoLimpieza = Double.parseDouble(jTextField4.getText());
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial del Tarda la limpieza.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
+                jTextField4.requestFocus();
+            }
+        } catch (Exception e) {
             System.out.println("ERROR!!!" + e.getMessage());
         }
-        try{
-        if (!jTextField6.getText().equals("")) {
-            cantidadIteracione = Integer.parseInt(jTextField6.getText());
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de la cantidad de simulaciones a iterar.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
-            jTextField6.requestFocus();
+
+        try {
+            if (!jTextField5.getText().equals("")) {
+                cantidadSegundosASimular = Double.parseDouble(jTextField5.getText());
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de segundos a simular.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
+                jTextField5.requestFocus();
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR!!!" + e.getMessage());
         }
+        try {
+            if (!jTextField6.getText().equals("")) {
+                cantidadIteracione = Integer.parseInt(jTextField6.getText());
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un valor inicial de la cantidad de simulaciones a iterar.", "Faltan datos", JOptionPane.ERROR_MESSAGE);
+                jTextField6.requestFocus();
+            }
         } catch (Exception e) {
             System.out.println("ERROR!!!" + e.getMessage());
         }
@@ -393,79 +432,104 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void inicializarSimulacion() {
-        for (int k = 0; k < 2; k++) {
-            principal[k] = new AlfombraPrincipal();
-            auxiliar[k] = new PersonasAuxiliar();
-        }
-
-        principal[1].setReloj(0);
-        principal[1].setEvento("Inicio");
-        principal[1].setEstadoAlfombra("Disponible");
-        principal[1].setInicioSuspencion(tiempoSuspension);
-        principal[1].setFinLimpieza(0);
-        
-        double desde = (double) (mediaUniforme - desvioUniforme);
-        double hasta = (double) (mediaUniforme + desvioUniforme);
-        double prox= Uniforme.getRdo(desde, hasta);
-        principal[1].setRND(Uniforme.getRnd());
-        principal[1].setLlegaPersona(prox);
-        
-        principal[1].setNroPersona(0);
-        principal[1].setHoraLlegoPers(0);
-        principal[1].setEstadoPers("-");
-        principal[1].setFinDeslizaPers(0);
-        principal[1].setTiempoEspera(0);
-        principal[1].setColaPesrsEspera(0);
-        principal[1].setColaPersDeslizan(0);
-        principal[1].setCantPersFinalizan(0);
-        principal[1].setCantPersEsperaron(0);        
-        principal[1].setMaxColaEspera(0);
-        principal[1].setAcuTiempoEspera(0);
-        principal[1].setMaxTiempoEspera(0);
-        
-        auxiliar[1].setNroPersona(0);
-        auxiliar[1].setHoraLlego(0);
-        auxiliar[1].setEstadoPersna("");
-        auxiliar[1].setEsperoEnCola("");
-        auxiliar[1].setFinDeslizamiento(0);
-        auxiliar[1].setTiempoQueEspero(0);
-        
-                try {
-                    ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
-                    // Component c= ((MTTablaPrincipalDeEventos)this.tablaPrincipal.getModel()).getTableCellRendererComponent(tablaPrincipal,null,false,false,0,3);
-                } catch (Exception e) {
-                    System.out.println("ERROR!!!" + e.getMessage());
-                }
-
-                try {
-                    ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
-                } catch (Exception e) {
-                    System.out.println("ERROR!!!" + e.getMessage());
-                }
-        
-        
-        while (principal[1].getReloj() < Principal.cantidadSegundosASimular) {
-            copiarDatosHistoricos();
-
-            principal[1] = new AlfombraPrincipal();
-            auxiliar[1] = new PersonasAuxiliar();
-
-
-            double eventoMenorHs = cualEsElProximoEvento();
-            principal[1].setReloj(eventoMenorHs);
-            if (eventoMenorHs > this.cantidadSegundosASimular) {
-               break;
+        double sumPorc = 0;
+        double sumMaxCola = 0;
+        double sumMaxTiempo = 0;
+        for (int i = 1; i < (this.cantidadIteracione + 1); i++) {
+            this.jTable1.removeAll();
+            this.jTable2.removeAll();
+            this.jTable2.removeEditor();
+            jTable2.setModel(new Estructura.ModeloTablaPersonaAuxiliar());
+            this.jTable1.removeEditor();
+            jTable1.setModel(new Estructura.ModeloTablaAlfombraPrincipal());
+            for (int k = 0; k < 2; k++) {
+                principal[k] = new AlfombraPrincipal();
+                auxiliar[k] = new PersonasAuxiliar();
             }
-            evaluarTipoEvento();
 
-        }
+            principal[1].setReloj(0);
+            principal[1].setEvento("Inicio");
+            principal[1].setEstadoAlfombra("Disponible");
+            principal[1].setInicioSuspencion(tiempoSuspension);
+            principal[1].setFinLimpieza(0);
 
+            double desde = (double) (mediaUniforme - desvioUniforme);
+            double hasta = (double) (mediaUniforme + desvioUniforme);
+            double prox = Uniforme.getRdo(desde, hasta);
+            principal[1].setRND(prox);
+            principal[1].setLlegaPersona(prox+principal[1].getReloj());
+
+            principal[1].setNroPersona(0);
+            principal[1].setHoraLlegoPers(0);
+            principal[1].setEstadoPers("-");
+            principal[1].setFinDeslizaPers(0);
+            principal[1].setTiempoEspera(0);
+            principal[1].setColaPesrsEspera(0);
+            principal[1].setColaPersDeslizan(0);
+            principal[1].setCantPersFinalizan(0);
+            principal[1].setCantPersEsperaron(0);
+            principal[1].setMaxColaEspera(0);
+            principal[1].setAcuTiempoEspera(0);
+            principal[1].setMaxTiempoEspera(0);
+
+            auxiliar[1].setNroPersona(0);
+            auxiliar[1].setHoraLlego(0);
+            auxiliar[1].setEstadoPersna("");
+            auxiliar[1].setEsperoEnCola("");
+            auxiliar[1].setFinDeslizamiento(0);
+            auxiliar[1].setTiempoQueEspero(0);
+
+            try {
+                ((ModeloTablaAlfombraPrincipal) this.jTable1.getModel()).anhadeFila(principal[1]);
+                // Component c= ((MTTablaPrincipalDeEventos)this.tablaPrincipal.getModel()).getTableCellRendererComponent(tablaPrincipal,null,false,false,0,3);
+            } catch (Exception e) {
+                System.out.println("ERROR!!!" + e.getMessage());
+            }
+
+            try {
+                ((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).agregarObjeto(auxiliar[1]);
+            } catch (Exception e) {
+                System.out.println("ERROR!!!" + e.getMessage());
+            }
+
+
+            while (principal[1].getReloj() < Principal.cantidadSegundosASimular) {
+                copiarDatosHistoricos();
+
+                principal[1] = new AlfombraPrincipal();
+                auxiliar[1] = new PersonasAuxiliar();
+
+
+                double eventoMenorHs = cualEsElProximoEvento();
+                principal[1].setReloj(eventoMenorHs);
+                if (eventoMenorHs > this.cantidadSegundosASimular) {
+                    break;
+                }
+                evaluarTipoEvento();
+
+            }
+            // sumatoria de datos finales de cada iteracion
+            double porcentajei = (double) principal[0].getCantPersEsperaron() / principal[0].getCantPersFinalizan();
+            sumPorc = sumPorc + porcentajei;
+            double maxColai = (double) principal[0].getMaxColaEspera();
+            sumMaxCola = (double) sumMaxCola + maxColai;
+            double maxTiempoi = (double) principal[0].getMaxTiempoEspera();
+            sumMaxTiempo = (double) sumMaxTiempo + maxTiempoi;
+            
+      
+//        
+//           
+//       System.out.println("Resultado final:Promedio Pordentaje:"+promPorc+"Promedio Maxima Cola de Espera: "+promMaxCola+" Promedio de Tiempo de Espera: "+promMaxTiempo);
+       }
+      promPorc=(double)sumPorc/cantidadIteracione;
+       promMaxCola=(double)sumMaxCola/cantidadIteracione;
+       promMaxTiempo=(double) sumMaxTiempo/cantidadIteracione;
        //((ModeloTablaPersonaAuxiliar) this.jTable2.getModel()).copiarSumatoria();
-
+    }
         //calcularPromedios();
 
 
-    }
+    
 
     private void copiarDatosHistoricos() {
         principal[0].setReloj(principal[1].getReloj());
@@ -1179,6 +1243,27 @@ case 3: {// Es hora de suspender el lanzamiento de personas en alfombra
                 break;
             }
         }
+    private void limpiarValoresPrevios() {
+    mediaUniforme=0;
+    desvioUniforme=0;
+    tiempoSuspension=0;
+    tiempoLimpieza=0;
+    tiempoTardaLanzamiento=0;
+    cantidadSegundosASimular=0;
+    Integer cantidadIteracione=0;
+    AlfombraPrincipal principal[] = new AlfombraPrincipal[2];
+    PersonasAuxiliar auxiliar[] = new PersonasAuxiliar[2];
+    tipoEvento = 0;
+    promPorc = 0;
+    promMaxCola = 0;
+    promMaxTiempo = 0;
+        this.jTable2.removeAll();
+        this.jTable2.removeEditor();
+    //jTable2.setModel(new Estructura.ModeloTablaPersonaAuxiliar());
+        this.jTable1.removeAll();
+        this.jTable1.removeEditor();
+        //jTable1.setModel(new Estructura.ModeloTablaAlfombraPrincipal());
+             }
     
 //    public public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
@@ -1224,6 +1309,8 @@ case 3: {// Es hora de suspender el lanzamiento de personas en alfombra
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1231,12 +1318,13 @@ case 3: {// Es hora de suspender el lanzamiento de personas en alfombra
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
