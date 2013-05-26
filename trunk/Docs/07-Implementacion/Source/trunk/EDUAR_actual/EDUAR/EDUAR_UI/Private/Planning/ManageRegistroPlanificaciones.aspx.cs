@@ -447,6 +447,7 @@ namespace EDUAR_UI
 
             cursoActual.curso.nivel.idNivel = propFiltroPlanificacion.curricula.nivel.idNivel;
             cursoActual.curso.orientacion.idOrientacion = propFiltroPlanificacion.curricula.orientacion.idOrientacion;
+            
             idAsignatura = propFiltroPlanificacion.curricula.asignatura.idAsignatura;
 
             Response.Redirect("~/Private/Planning/PlanificacionAnual.aspx", false);

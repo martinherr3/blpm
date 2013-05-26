@@ -28,8 +28,8 @@
         <siteMapNode url="" title="Contenidos" roles="Administrador,Docente,Director,Administrativo" >
             <siteMapNode url="~/Private/Planning/Contenido.aspx" title="Gestionar" roles="Administrador,Director,Docente,Administrativo" />
             <siteMapNode url="~/Private/Planning/PlanificacionAnual.aspx" title="Planificar" roles="Administrador,Director,Docente" />
-            <siteMapNode url="~/Private/Planning/ManageRegistroPlanificaciones.aspx" title="Planificaciones" roles="Administrador,Director" />
-            <siteMapNode url="~/Private/Planning/TemasContenido.aspx" title="Temas Contenidos" roles="Administrador,Director,Docente,Administrativo" />
+            <siteMapNode url="~/Private/Planning/ManageRegistroPlanificaciones.aspx" title="Aprobar Planificaciones" roles="Administrador,Director" />
+            <siteMapNode url="~/Private/Planning/TemasContenido.aspx" title="Temas Contenidos" roles="Administrador,Director,Docente,Administrativo" visible="false" />
         </siteMapNode>
 
         <siteMapNode url="" title="Comunicación" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">

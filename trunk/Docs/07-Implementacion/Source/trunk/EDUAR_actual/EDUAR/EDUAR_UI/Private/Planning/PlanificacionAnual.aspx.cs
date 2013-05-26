@@ -283,6 +283,7 @@ namespace EDUAR_UI
                 {
                     idNivel = cursoActual.curso.nivel.idNivel;
                     idOrientacion = cursoActual.curso.orientacion.idOrientacion;
+
                     CargarPresentacion();
                     CargarCurso();
                     CargarFiltros();
@@ -991,6 +992,9 @@ namespace EDUAR_UI
                 ddlOrientacion.SelectedValue = idOrientacion.ToString();
                 CargarOrientacion();
             }
+            //if (idNivel > 0) ddlNivel.SelectedValue = idNivel.ToString();
+            //if (idAsignatura > 0) ddlAsignatura.SelectedValue = idAsignatura.ToString();
+            //if (idOrientacion > 0) ddlOrientacion.SelectedValue = idOrientacion.ToString();
         }
 
         /// <summary>
@@ -1438,7 +1442,7 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarCurso()
         {
-            if (base.idCursoCicloLectivo > 0)
+            if (base.idAsignatura > 0)
             {
                 CargarComboAsignatura();
                 lblTituloPrincipal.Text = "Planificación de Contenidos - " + base.cursoActual.curso.nivel.nombre;
@@ -1448,7 +1452,7 @@ namespace EDUAR_UI
             gvwPlanificacion.DataSource = null;
             gvwPlanificacion.DataBind();
 
-            ddlAsignatura.Enabled = idCursoCicloLectivo > 0;
+            ddlAsignatura.Enabled = idAsignatura > 0;
             btnGuardar.Visible = false;
             divControles.Visible = false;
             udpAsignatura.Update();
