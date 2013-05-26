@@ -214,6 +214,7 @@ div.menu ul li a:active a:visited
 div.menu ul.level2 li
 {
     width: 150px;
+    text-align: left;
 }
 
 div.menu ul.level2 a:hover
