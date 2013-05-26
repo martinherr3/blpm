@@ -99,7 +99,7 @@ namespace EDUAR_UI
                 //Llama a la funcionalidad que redirecciona a la pagina de Login cuando finaliza el tiempo de session
                 ((EDUARBasePage)Page).DireccionamientoOnSessionEndScript();
                 NavigationMenu.MenuItemDataBound += (NavigationMenu_OnItemBound);
-
+                ventanaInfoMaster.VentanaAceptarClick += new UserControls.VentanaInfo.VentanaBotonClickHandler(ventanaInfoMaster_VentanaAceptarClick);
                 //11-3-13
                 if (HttpContext.Current.User == null || (ObjSessionDataUI.ObjDTUsuario.Nombre == null && HttpContext.Current.User.Identity.Name != string.Empty))
                 {
@@ -206,6 +206,11 @@ namespace EDUAR_UI
             {
                 ManageExceptions(ex);
             }
+        }
+
+        void ventanaInfoMaster_VentanaAceptarClick(object sender, EventArgs e)
+        {
+        
         }
 
         private void CargarURLIniciarSesion()

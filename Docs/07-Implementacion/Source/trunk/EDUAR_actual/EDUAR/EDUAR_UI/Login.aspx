@@ -18,9 +18,16 @@
     <script type="text/javascript">
         $(function () {
             $("ul.level1 li").hover(function () {
-                $(this).stop().animate({ opacity: 1, width: "300px" }, "slow");
+                $(this).stop().animate({ opacity: 1, width: "200px" }, "fast");
             }, function () {
                 $(this).stop().animate({ opacity: 0.5, width: "200px" }, "fast");
+            });
+        });
+        $(function () {
+            $("ul.level2 a").hover(function () {
+                $(this).stop().animate({ opacity: 1, width: "150px" }, "fast");
+            }, function () {
+                $(this).stop().animate({ opacity: 0.5, width: "150px" }, "fast");
             });
         });
     </script>
