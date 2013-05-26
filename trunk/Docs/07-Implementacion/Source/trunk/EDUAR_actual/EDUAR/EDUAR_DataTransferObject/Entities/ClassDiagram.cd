@@ -1,0 +1,1017 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="EDUAR_Entities.ConfigFuncionPreferencia">
+    <Position X="203.25" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAEQAAAAAAAAAAAAAAAAAAAEABAACAAAAAAAAAAAA=</HashCode>
+      <FileName>DEC\ConfigFuncionPreferencia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.FuncionPreferencia">
+    <Position X="209" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAEAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>DEC\FuncionPreferencia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.ValorFuncionPreferencia">
+    <Position X="206" Y="6.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DEC\ValorFuncionPreferencia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Configuraciones">
+    <Position X="125.75" Y="24.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAEAAAAAAAAABAAAAAAAIACAAAA=</HashCode>
+      <FileName>Entities\Configuraciones.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Localidades">
+    <Position X="110.25" Y="23.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAACAAAEAAIAAAAAAAAAACAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Localidades.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Acceso">
+    <Position X="125.75" Y="30" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAQAAAAAAAAAAAAAAARgAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Administracion\Acceso.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="pagina" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Pagina">
+    <Position X="128.5" Y="30.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Entities\Package Administracion\Pagina.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.AgendaActividades">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAgEAgAACAAAAAABAEAAoABAAAABAQAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\AgendaActividades.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="cursoCicloLectivo" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaEventos" />
+      <Property Name="listaEvaluaciones" />
+      <Property Name="listaExcursiones" />
+      <Property Name="listaReuniones" />
+      <Property Name="listaRegistroClases" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Citacion">
+    <Position X="3" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAgAATAAAAAAAAAAAQAACIABEABAAAAAIAAAAQA=</HashCode>
+      <FileName>Entities\Package Agenda\Citacion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="motivoCitacion" />
+      <Property Name="cursoCicloLectivo" />
+      <Property Name="organizador" />
+      <Property Name="tutor" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.DetalleRegistroClases">
+    <Position X="6.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAgAAAAAAgAAIACAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\DetalleRegistroClases.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="temaContenido" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Evaluacion">
+    <Position X="5.75" Y="9" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAASAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\Evaluacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.EventoAgenda">
+    <Position X="10.25" Y="0.75" Width="2.25" />
+    <AssociationLine Name="tipoEventoAgenda" Type="EDUAR_Entities.TipoEventoAgenda" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.5" Y="1.938" />
+        <Point X="12.74" Y="1.938" />
+        <Point X="12.74" Y="4.213" />
+        <Point X="12.052" Y="4.213" Type="JumpStart" />
+        <Point X="11.885" Y="4.213" Type="JumpEnd" />
+        <Point X="11.458" Y="4.213" Type="JumpStart" />
+        <Point X="11.292" Y="4.213" Type="JumpEnd" />
+        <Point X="10.833" Y="4.213" Type="JumpStart" />
+        <Point X="10.667" Y="4.213" Type="JumpEnd" />
+        <Point X="10.052" Y="4.213" Type="JumpStart" />
+        <Point X="9.885" Y="4.213" Type="JumpEnd" />
+        <Point X="9.51" Y="4.213" />
+        <Point X="9.51" Y="9.938" />
+        <Point X="9.75" Y="9.938" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAwAAAQAAAQEAAgAAAIAAAAQAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\EventoAgenda.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="tipoEventoAgenda" />
+      <Property Name="usuario" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.EventoInstitucional">
+    <Position X="0.75" Y="12.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgaAAAAAJAAAAAABAAAAAAABAAAAAOAAAAQA=</HashCode>
+      <FileName>Entities\Package Agenda\EventoInstitucional.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="organizador" />
+      <Property Name="tipoEventoInstitucional" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Excursion">
+    <Position X="5.25" Y="5.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAQAAACAAAACAI=</HashCode>
+      <FileName>Entities\Package Agenda\Excursion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.MotivoCitacion">
+    <Position X="0.75" Y="9" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAACAAAACAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\MotivoCitacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.RegistroClases">
+    <Position X="1.25" Y="5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAAAIAAAAAABAAAAgCAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\RegistroClases.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reunion">
+    <Position X="9.75" Y="5.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAACAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\Reunion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoEventoAgenda">
+    <Position X="9.75" Y="9" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\TipoEventoAgenda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoEventoInstitucional">
+    <Position X="8.5" Y="13.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAEAAAQAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\TipoEventoInstitucional.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoRegistroClases">
+    <Position X="4.75" Y="13.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACCAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\TipoRegistroClases.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Foro">
+    <Position X="28" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACABAAABAAAIAAAAAAAAAAAAAAAAQAAAAAI=</HashCode>
+      <FileName>Entities\Package Comunicaciones\Foro.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="destino" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="moderadores" />
+      <Property Name="topicos" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Mensaje">
+    <Position X="31" Y="4.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAqAACAAIAABAAMAAAAAAAEAAAAABABBIACAIAA=</HashCode>
+      <FileName>Entities\Package Comunicaciones\Mensaje.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Post">
+    <Position X="31.75" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAABAAAAAAAAAAAAAAAAAQgAAAAAAAAAEA=</HashCode>
+      <FileName>Entities\Package Comunicaciones\Post.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Topico">
+    <Position X="28" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAACAEAAAAAAAAAAAEAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Comunicaciones\Topico.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="posts" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.AmbitoEncuesta">
+    <Position X="28.25" Y="26.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAEAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Entities\Package Encuestas\AmbitoEncuesta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.CategoriaPregunta">
+    <Position X="25.25" Y="22" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAACAAAACCAAEAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Entities\Package Encuestas\CategoriaPregunta.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ambito" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Encuesta">
+    <Position X="19" Y="20.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAQAAIiAAAIECQAAACgACAAAgAAQAAAAAIAAAACA=</HashCode>
+      <FileName>Entities\Package Encuestas\Encuesta.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ambito" />
+      <Property Name="asignatura" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaRoles" />
+      <Property Name="preguntas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.EncuestaAnalisis">
+    <Position X="22" Y="20.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAIiAAAIMCQAAACgACCQAgAAYAAAAAIAAAACA=</HashCode>
+      <FileName>Entities\Package Encuestas\EncuestaAnalisis.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ambito" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaRoles" />
+      <Property Name="preguntas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.EncuestaDisponible">
+    <Position X="20.75" Y="30" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAgAAAAIAAAAAAAAAAAAAAAAAAwAAAAAAAAQAAg=</HashCode>
+      <FileName>Entities\Package Encuestas\EncuestaDisponible.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="encuesta" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaRespuestas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.EscalaMedicion">
+    <Position X="27.5" Y="22" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCAAAACAAAEAAAAAAAAAAAAABAAAAAAACAA=</HashCode>
+      <FileName>Entities\Package Encuestas\EscalaMedicion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="valoresEscalas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Pregunta">
+    <Position X="19.75" Y="26.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAACAIAgAQAAAAIAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Encuestas\Pregunta.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="escala" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Respuesta">
+    <Position X="23" Y="26.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgEIAAAAAAAAAAAAAAACAAAEAAAAAAAAAAACAg=</HashCode>
+      <FileName>Entities\Package Encuestas\Respuesta.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="encuestaDisponible" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.RespuestaPreguntaAnalisis">
+    <Position X="25.5" Y="29.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAACAAAhAQAAAgAAQAAAAEIAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Entities\Package Encuestas\RespuestaPreguntaAnalisis.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="valoresSeleccionados" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.ValorEscalaMedicion">
+    <Position X="25.75" Y="17.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ARAAAAAAACAAAECAAAEAAAAAAAAAAAAAAAAAAAAACIA=</HashCode>
+      <FileName>Entities\Package Encuestas\ValorEscalaMedicion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.ValoresSeleccionados">
+    <Position X="28.5" Y="30.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Encuestas\ValoresSeleccionados.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.EstadoNovedad">
+    <Position X="46" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAACAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Novedades Aulicas\EstadoNovedadAulica.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Novedad">
+    <Position X="48.5" Y="8.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAADAAAASAAAAEAAAwAAAAAAAAAAAQAAAQAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Novedades Aulicas\Novedad.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="estado" />
+      <Property Name="novedadPadre" />
+      <Property Name="tipo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoNovedad">
+    <Position X="46" Y="8.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Novedades Aulicas\TipoNovedadAulica.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Perfil">
+    <Position X="52.5" Y="8.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAACAAAACAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Entities\Package Perfiles\Perfil.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="permisos" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Permiso">
+    <Position X="52.75" Y="11" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAACAAAQCAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Perfiles\Permiso.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Seccion">
+    <Position X="55.25" Y="8.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAQgAEAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Perfiles\Seccion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaSecciones" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Usuario" Collapsed="true">
+    <Position X="26" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAASAFAAAAAAgAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Perfiles\Usuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.BibliografiaRecomendada">
+    <Position X="53.5" Y="17.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAACAAAAAAAIAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\BibliografiaRecomendada.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Contenido">
+    <Position X="47.75" Y="24.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAIAAAAECAQAAAAAIAACAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\Contenido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Curricula">
+    <Position X="50.75" Y="17.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAA2AAAIAAABACACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\Curricula.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="asignatura" />
+      <Property Name="nivel" />
+      <Property Name="orientacion" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.DiasHorarios">
+    <Position X="50.25" Y="24.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAIAAACAAgAAAABAAgAQIIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\DiasHorarios.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="modulos" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Modulo">
+    <Position X="53.25" Y="24.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAACAAAAAQAAAAgAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\Modulo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Orientacion">
+    <Position X="47" Y="17.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAACAAAACAAQEAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\Orientacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Plan">
+    <Position X="47.5" Y="21" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgCAAAACAAAAAAAQAQACAAAAAAAQCAABAAAAAAEAA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\Plan.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="orientacion" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="asignaturas" />
+      <Property Name="contenidos" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.PlanificacionAnual">
+    <Position X="53.5" Y="20" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAkEAAAACACACAAAAQQAgAAAAAAAAAgAAAAAAAAEAA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\PlanificacionAnual.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="curricula" />
+      <Property Name="cicloLectivo" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaTemasPlanificacion" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.TemaContenido" Collapsed="true">
+    <Position X="9.25" Y="12" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAKAAAIAAAAAAAQAAAIAEAACAAAAAMAAAAAA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\TemaContenido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TemaContenidoAtrasado">
+    <Position X="50.25" Y="28" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAKAAAAAAAAACAQAAAIAEAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\TemaContenidoAtrasado.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TemaPlanificacionAnual">
+    <Position X="52.5" Y="27.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CgAMAAAAACAAAKAAAAQgACAgAAAIAABAAAAAAAAAAEA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\TemaPlanificacionAnual.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="asignatura" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.AlumnoCurso">
+    <Position X="70.5" Y="23.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAEAAgAAAAAAEAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\AlumnoCurso.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.AlumnoCursoCicloLectivo">
+    <Position X="69.75" Y="25.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQhAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\AlumnoCursoCicloLectivo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Asignatura" Collapsed="true">
+    <Position X="47" Y="16.75" Width="3.25" />
+    <Members>
+      <Property Name="curso" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAABAACAAgAGAAAgAAAAAAAAIAAAAAAAgACAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Asignatura.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="curso" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.AsignaturaCicloLectivo" Collapsed="true">
+    <Position X="19.5" Y="19.5" Width="3.25" />
+    <Members>
+      <Property Name="listaContenidos" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAgIAAAAAAAAAAAAAIAAAAIAAgAAAAAgA=</HashCode>
+      <FileName>Entities\Package Principales\AsignaturaCicloLectivo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="listaContenidos" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.AsignaturaNivel">
+    <Position X="77.75" Y="24.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAIIAIEAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\AsignaturaNivel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Asistencia">
+    <Position X="66" Y="39.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAAAAAAAAAAAAAAEBAAAAAAQAAAAAAAAQA=</HashCode>
+      <FileName>Entities\Package Principales\Asistencia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Calificacion">
+    <Position X="66" Y="35.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAASAIAIAAAAAAAAAAAAAAAEQAACAEAAAAAEA=</HashCode>
+      <FileName>Entities\Package Principales\Calificacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.CicloLectivo" Collapsed="true">
+    <Position X="50" Y="23.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACAAAACAAAACAAAAAAAAAAAAACAAIQAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\CicloLectivo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Curso">
+    <Position X="81.25" Y="23.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AGAEAAAAACAAAACAAAAQACAIAACAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Curso.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.CursoCicloLectivo" Collapsed="true">
+    <Position X="1" Y="11.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAEAAQAQAEAAABAAAAAAAAgAAQAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\CursoCicloLectivo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.EscalaCalificacion">
+    <Position X="67.75" Y="40.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAEAAAAAAAAAAAAAIAAAIBCAAAA=</HashCode>
+      <FileName>Entities\Package Principales\EscalaCalificacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.FeriadosYFechasEspeciales">
+    <Position X="68.25" Y="37.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAgAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\FeriadosYFechasEspeciales.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Inasistencia">
+    <Position X="71.25" Y="37.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAAAAAAAAAAAAAgAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Inasistencia.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="motivo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.InstanciaCalificacion">
+    <Position X="68" Y="35.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\InstanciaCalificacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Institucion">
+    <Position X="74.5" Y="35.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAGAABAACUQIAgAAAAAAAAAAAAAgAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Institucion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="director" />
+      <Property Name="viceDirector" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.MotivoAusencia">
+    <Position X="74.5" Y="38.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAAIAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\MotivoAusencia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.MotivoSancion">
+    <Position X="73" Y="28.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAEAAAAAAAAAAAAAUAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\MotivoSancion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Nivel">
+    <Position X="50.25" Y="20.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADAAAACAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Nivel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Periodo">
+    <Position X="82.25" Y="28" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACCAAACACAASAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Periodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Sancion">
+    <Position X="69.5" Y="28.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AQAAIAAAASAAAAAQAAAAAAAAEACAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Entities\Package Principales\Sancion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="motivoSancion" />
+      <Property Name="alumno" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoAsistencia">
+    <Position X="176.25" Y="20" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAKAAAAAAAAEAAAAAAAAABAAAAAAACAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\TipoAsistencia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoSancion">
+    <Position X="169" Y="21.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAEAAAQAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\TipoSancion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.ValoresEscalaCalificacion">
+    <Position X="71" Y="39.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAACAAAACAAAEAAAAAAEAABAAAAAAAMAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\ValoresEscalaCalificacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Alumno" HideInheritanceLine="true">
+    <Position X="168.25" Y="36.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIASAAAAAAAAAAgAAAAAQAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Alumno.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.CargoPersonal">
+    <Position X="110" Y="25.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAEAAAAAAAAAAAAAAAAAIAAAgAA=</HashCode>
+      <FileName>Entities\Package Usuarios\CargoPersonal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Director" HideInheritanceLine="true">
+    <Position X="71.25" Y="35.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Director.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Docente" HideInheritanceLine="true">
+    <Position X="70.75" Y="21.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Docente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Persona" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAyUAASgAAUAAIEAACAAAAAAAAgAIJACAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Persona.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Personal" Collapsed="true" HideInheritanceLine="true">
+    <Position X="6.5" Y="12" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAAAAAAAAAACAAAAAQAAACAIAAAAQAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Personal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Preceptor" HideInheritanceLine="true">
+    <Position X="108.5" Y="23.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Preceptor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Psicopedagogo" HideInheritanceLine="true">
+    <Position X="107.5" Y="26" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Psicopedagogo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoPersona">
+    <Position X="102" Y="28.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAASAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\TipoPersona.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoTutor">
+    <Position X="110.5" Y="28.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAQAAAAAQAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\TipoTutor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Tutor" Collapsed="true" HideInheritanceLine="true">
+    <Position X="6.25" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AFAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Tutor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Paises">
+    <Position X="131.5" Y="24.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAACAAAEAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Paises.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.ProcesosAutomaticos">
+    <Position X="125.5" Y="27" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACgAAEAAAAAAAAAAAAAAAQAIAAAAAA=</HashCode>
+      <FileName>Entities\ProcesosAutomaticos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.ProcesosEjecutados">
+    <Position X="128.25" Y="27" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAQAAAAAABAAAAAAAAAAAAAwAAAAAAAA=</HashCode>
+      <FileName>Entities\ProcesosEjecutados.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Provincias">
+    <Position X="131.25" Y="27" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAACAACAAAEAAAAAAAAAAAAACAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Provincias.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoDocumento">
+    <Position X="134" Y="26.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAMAAAAAACAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\TipoDocumento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.DEC.Indicador">
+    <Position X="208.75" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAkAAAAAAIAAKAAAAAAAgAAggAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DEC\Indicador.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_DataTransferObject.Properties.Settings">
+    <Position X="203" Y="3.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAABAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.FilAccesos">
+    <Position X="173.25" Y="41.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAIQAAAAAECAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Reports\FilAccesos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.FilAnalisisAgrupados">
+    <Position X="174.5" Y="34" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEgAAAAAAAAAAAAAAAAAAAAABACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reports\FilAnalisisAgrupados.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaAlumnos" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.FilCalificacionesAlumnoPeriodo">
+    <Position X="177.75" Y="31" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAIABCAAAAIAAgAAEEAAACAAAAAAAgACQAAAAA=</HashCode>
+      <FileName>Reports\FilCalificacionesAlumnoPeriodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.FilEncuestasPorEstado">
+    <Position X="172.25" Y="24" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAEAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Reports\FilEncuestasPorEstado.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.FilInasistenciasAlumnoPeriodo">
+    <Position X="181.5" Y="20.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAKAAAAIAAAAAAEAAEAAAACAAAgACQAACAA=</HashCode>
+      <FileName>Reports\FilInasistenciasAlumnoPeriodo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaTipoSancion" />
+      <Property Name="listaTiposAsistencia" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.FilIncidenciasAlumno">
+    <Position X="172.25" Y="19.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAACAAAAAAAAAAAAAAEAAAACAAAgAAQAACAA=</HashCode>
+      <FileName>Reports\FilIncidenciasAlumno.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaTipoSancion" />
+      <Property Name="listaTiposAsistencia" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.FilPromedioCalificacionesPeriodo">
+    <Position X="165.25" Y="32.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAACAAAAAAAgAAAAAAACAAAAAAAgAAQAAAAA=</HashCode>
+      <FileName>Reports\FilPromedioCalificacionesPeriodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.FilSancionesAlumnoPeriodo">
+    <Position X="170" Y="17.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAIAAAAAAEAAAAAAACAAAgACQAACAA=</HashCode>
+      <FileName>Reports\FilSancionesAlumnoPeriodo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaTipoSancion" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.Indicador">
+    <Position X="168.25" Y="31" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>IABCEAAAACAAAACAAIAAAAAAIAAEABAAAAAAAACAgEA=</HashCode>
+      <FileName>Reports\Indicador.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.InformeIndicador">
+    <Position X="171.25" Y="31" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>IABCEAAAACAAAACAAIAAAAAAIAAEABAAAAAAAACAgEA=</HashCode>
+      <FileName>Reports\InformeIndicador.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptAccesos">
+    <Position X="168.75" Y="41.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAQAAAAQAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reports\RptAccesos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptAnalisisCicloLectivoCursoAsignaturaAlumno">
+    <Position X="170.75" Y="41.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAIEAAAAQAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reports\RptAnalisisCicloLectivoCursoAsignaturaAlumno.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptCalificacionesAlumnoPeriodo">
+    <Position X="167.75" Y="27.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAIEAAAAAAAAAEAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Reports\RptCalificacionesAlumnoPeriodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptConsolidadoInasistenciasPeriodo">
+    <Position X="169.75" Y="27.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAgAAgEAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Reports\RptConsolidadoInasistenciasPeriodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptConsolidadoSancionesPeriodo">
+    <Position X="171.75" Y="27.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAgEAAAAAAgAAAAAAAAAEA=</HashCode>
+      <FileName>Reports\RptConsolidadoSancionesPeriodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptEncuestasPorEstado">
+    <Position X="173.75" Y="27.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAACAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Reports\RptEncuestasPorEstado.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptInasistenciasAlumnoPeriodo">
+    <Position X="175.75" Y="27.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAEAAAAAAAAgEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reports\RptInasistenciasAlumnoPeriodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptIndicadores">
+    <Position X="174.5" Y="24" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABIAEAAAAAAAAAAgAAAAACAAAAgAAAAABAAAAA=</HashCode>
+      <FileName>Reports\RptIndicadores.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptPromedioCalificacionesAsignaturaCursoPeriodo">
+    <Position X="177.25" Y="24" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Reports\RptPromedioCalificacionesAsignaturaCursoPeriodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptPromedioCalificacionesPeriodo">
+    <Position X="181.25" Y="23.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAIAAAAAAAAAAEAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Reports\RptPromedioCalificacionesPeriodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptRendimientoHistorico">
+    <Position X="177.75" Y="27.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAIEAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reports\RptRendimientoHistorico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reports.RptSancionesAlumnoPeriodo">
+    <Position X="179.75" Y="27.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AQAABAAAAQAAAAAAAAAAAAAgEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reports\RptSancionesAlumnoPeriodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Security.DTRol" Collapsed="true">
+    <Position X="22.5" Y="17.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAgAAAAAAAgAABAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Security\DTRol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Security.DTSeguridad">
+    <Position X="208.25" Y="25.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAhAAAAQAAAAAAAAAAAgAgAAAAAEEAAAAAA=</HashCode>
+      <FileName>Security\DTSeguridad.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Usuario" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Security.DTUsuario">
+    <Position X="212.25" Y="25.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EAkICAAAACBAgAAAAAEAgAAAAAAAAAACAAAAAAAAAAI=</HashCode>
+      <FileName>Security\DTUsuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Shared.DTSessionDataUI">
+    <Position X="111.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Shared\DTSessionDataUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
