@@ -12,27 +12,28 @@
             <table class="tablaInterna" width="100%" cellpadding="1" cellspacing="5" border="0">
                 <tr>
                     <td>
-                        <asp:Label ID="lblMensajesSeccion" Text="" runat="server" Font-Bold="true" /> [<asp:LinkButton
-                            Text="Mensajes Nuevos" PostBackUrl="~/Private/Mensajes/MsjeEntrada.aspx" runat="server" />]
+                        <asp:Label ID="lblMensajesSeccion" Text="" runat="server" Font-Bold="true" />
+                        [<asp:LinkButton Text="Mensajes Nuevos" PostBackUrl="~/Private/Mensajes/MsjeEntrada.aspx"
+                            runat="server" />]
                     </td>
                 </tr>
             </table>
         </div>
         <table class="tablaInterna" border="0" cellpadding="1" cellspacing="5" style="text-align: center">
             <tr>
-                <td>
+                <td align="center">
+                    <asp:LinkButton ID="lnkComunicacion" Text="Comunicación" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Comunicacion" OnClick="btnPopUP_Click" Style="text-align: center" />
+                    <asp:ImageButton ID="btnComunicacion" ImageUrl="~/Images/Home/Comunicacion.png" ToolTip="Comunicación"
+                        runat="server" CommandArgument="Comunicacion" OnClick="btnPopUP_Click" />
+                </td>
+                <td align="center">
                     <asp:LinkButton ID="lnkCursos" Text="Cursos" runat="server" CssClass="loginDisplay"
                         CommandArgument="Cursos" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnCursos" ImageUrl="~/Images/Home/Cursos.png" ToolTip="Cursos"
                         runat="server" CommandArgument="Cursos" OnClick="btnPopUP_Click" />
                 </td>
-                <td>
-                    <asp:LinkButton ID="lnkEncuestas" Text="Encuestas" runat="server" CssClass="loginDisplay"
-                        CommandArgument="Encuestas" OnClick="btnPopUP_Click" Style="text-align: center" />
-                    <asp:ImageButton ID="btnEncuestas" ImageUrl="~/Images/Home/Encuestas.png" ToolTip="Encuestas"
-                        runat="server" CommandArgument="Encuestas" OnClick="btnPopUP_Click" />
-                </td>
-                <td>
+                <td align="center">
                     <asp:LinkButton ID="lnkReportes" Text="Reportes" runat="server" CssClass="loginDisplay"
                         CommandArgument="Reportes" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnReportes" ImageUrl="~/Images/Home/Reportes.png" ToolTip="Reportes"
@@ -40,19 +41,19 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td align="center">
                     <asp:LinkButton ID="lnkContenidos" Text="Contenidos" runat="server" CssClass="loginDisplay"
                         CommandArgument="Contenidos" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnContenidos" ImageUrl="~/Images/Home/Contenidos.png" ToolTip="Contenidos"
                         runat="server" CommandArgument="Contenidos" OnClick="btnPopUP_Click" />
                 </td>
-                <td>
-                    <asp:LinkButton ID="lnkComunicaci0n" Text="Comunicación" runat="server" CssClass="loginDisplay"
-                        CommandArgument="Comunicacion" OnClick="btnPopUP_Click" Style="text-align: center" />
-                    <asp:ImageButton ID="btnComunicacion" ImageUrl="~/Images/Home/Comunicacion.png" ToolTip="Comunicación"
-                        runat="server" CommandArgument="Comunicacion" OnClick="btnPopUP_Click" />
+                <td align="center">
+                    <asp:LinkButton ID="lnkEncuestas" Text="Encuestas" runat="server" CssClass="loginDisplay"
+                        CommandArgument="Encuestas" OnClick="btnPopUP_Click" Style="text-align: center" />
+                    <asp:ImageButton ID="btnEncuestas" ImageUrl="~/Images/Home/Encuestas.png" ToolTip="Encuestas"
+                        runat="server" CommandArgument="Encuestas" OnClick="btnPopUP_Click" />
                 </td>
-                <td>
+                <td align="center">
                     <asp:LinkButton ID="lnkAdministracion" Text="Administración" runat="server" CssClass="loginDisplay"
                         CommandArgument="Administracion" OnClick="btnPopUP_Click" Style="text-align: center"
                         Visible="false" />
@@ -156,7 +157,7 @@
             <tr>
                 <td>
                     <h2>
-                        <asp:Label ID="Label2" Text="Reportes" runat="server" /></h2>
+                        <asp:Label ID="lblTituloGenerales" Text="Generales" runat="server" /></h2>
                 </td>
                 <td align="right">
                     <asp:ImageButton ID="btnCerrarReportes" OnClick="btnCerrarPopup_Click" ImageUrl="~/Images/PopUp/botonCerrar.png"
@@ -164,7 +165,7 @@
                 </td>
             </tr>
         </table>
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+        <table id="tblGenerales" runat="server" class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
                 <td align="center">
                     <asp:LinkButton ID="lnkCalificaciones" Text="Calificaciones" runat="server" CssClass="loginDisplay"
@@ -190,11 +191,11 @@
             <tr>
                 <td>
                     <h2>
-                        <asp:Label ID="Label3" Text="Consolidados" runat="server" /></h2>
+                        <asp:Label ID="lblTituloConsolidados" Text="Consolidados" runat="server" /></h2>
                 </td>
             </tr>
         </table>
-        <table class="tablaInterna" cellpadding="1" cellspacing="5">
+        <table id="tblConsolidados" runat="server" class="tablaInterna" cellpadding="1" cellspacing="5">
             <tr>
                 <td align="center">
                     <asp:LinkButton ID="lnkConsolidado" Text="Consolidado" runat="server" CssClass="loginDisplay"
@@ -217,7 +218,7 @@
             </tr>
         </table>
     </asp:Panel>
-    <!-- Reportes -->
+    <!-- Contenidos -->
     <asp:HiddenField ID="HiddenField4" runat="server" />
     <ajaxToolkit:ModalPopupExtender ID="mpeContenidos" runat="server" PopupControlID="pnlContenidos"
         TargetControlID="HiddenField4" RepositionMode="RepositionOnWindowResizeAndScroll"
@@ -247,7 +248,7 @@
                         OnClick="btnRedireccion_Click" />
                 </td>
                 <td align="center">
-                    <asp:LinkButton ID="lnkPlanificacion" Text="Planificacion" runat="server" CssClass="loginDisplay"
+                    <asp:LinkButton ID="lnkPlanificacion" Text="Planificación" runat="server" CssClass="loginDisplay"
                         CommandArgument="Planificacion" OnClick="btnPopUP_Click" Style="text-align: center" />
                     <asp:ImageButton ID="btnPlanificacion" ImageUrl="~/Images/Home/VerPlanificacion.png"
                         ToolTip="Planificacion" runat="server" CommandArgument="Planificacion" OnClick="btnRedireccion_Click" />
@@ -362,7 +363,7 @@
                             <asp:ImageButton ID="btnEncuesta" runat="server" ImageUrl="~/Images/btnEncuesta.png"
                                 Visible="true" OnClick="btnEncuesta_Click" ToolTip="Responder Encuesta" AlternateText="Responder Encuesta" />
                             <asp:ImageButton ID="btnRecibidosAT" OnClick="btnRedireccion_Click" runat="server"
-                                ToolTip="Mensajes Recibidos" ImageUrl="~/Images/verMensajes.png" CommandArgument="Mensajes" />
+                                ToolTip="Mensajes" ImageUrl="~/Images/verMensajes.png" CommandArgument="Mensajes" />
                             <asp:ImageButton ID="btnBoletin" OnClick="btnRedireccion_Click" runat="server" ToolTip="Boletín"
                                 ImageUrl="~/Images/verBoletin.png" CommandArgument="Boletin" />
                             <asp:ImageButton ID="btnCitacionTutores" OnClick="btnRedireccion_Click" runat="server"
