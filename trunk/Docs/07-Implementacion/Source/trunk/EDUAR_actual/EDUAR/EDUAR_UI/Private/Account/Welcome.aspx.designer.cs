@@ -40,6 +40,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblMensajesSeccion;
         
         /// <summary>
+        /// Control lnkComunicacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkComunicacion;
+        
+        /// <summary>
+        /// Control btnComunicacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnComunicacion;
+        
+        /// <summary>
         /// Control lnkCursos.
         /// </summary>
         /// <remarks>
@@ -56,24 +74,6 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnCursos;
-        
-        /// <summary>
-        /// Control lnkEncuestas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkEncuestas;
-        
-        /// <summary>
-        /// Control btnEncuestas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnEncuestas;
         
         /// <summary>
         /// Control lnkReportes.
@@ -112,22 +112,22 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnContenidos;
         
         /// <summary>
-        /// Control lnkComunicaci0n.
+        /// Control lnkEncuestas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkComunicaci0n;
+        protected global::System.Web.UI.WebControls.LinkButton lnkEncuestas;
         
         /// <summary>
-        /// Control btnComunicacion.
+        /// Control btnEncuestas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnComunicacion;
+        protected global::System.Web.UI.WebControls.ImageButton btnEncuestas;
         
         /// <summary>
         /// Control lnkAdministracion.
@@ -337,13 +337,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Panel pnlReportes;
         
         /// <summary>
-        /// Control Label2.
+        /// Control lblTituloGenerales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lblTituloGenerales;
         
         /// <summary>
         /// Control btnCerrarReportes.
@@ -353,6 +353,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnCerrarReportes;
+        
+        /// <summary>
+        /// Control tblGenerales.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblGenerales;
         
         /// <summary>
         /// Control lnkCalificaciones.
@@ -409,13 +418,22 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnSanciones;
         
         /// <summary>
-        /// Control Label3.
+        /// Control lblTituloConsolidados.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label lblTituloConsolidados;
+        
+        /// <summary>
+        /// Control tblConsolidados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblConsolidados;
         
         /// <summary>
         /// Control lnkConsolidado.

@@ -164,11 +164,8 @@ namespace EDUAR_UI
                         ddlAlumnos.Items.Insert(0, new ListItem("[Seleccione]", "-1"));
                         ddlAlumnos.SelectedValue = "-1";
                     }
-                    if (User.IsInRole(enumRoles.Administrador.ToString()))
-                    {
-                        btnAdministracion.Visible = true;
-                        lnkAdministracion.Visible = true;
-                    }
+                    if (divSecciones.Visible)
+                        ValidarSecciones();
                     fechas.startDate = cicloLectivoActual.fechaInicio;
                     fechas.endDate = cicloLectivoActual.fechaFin;
                     fechas.setSelectedDate(DateTime.Now, DateTime.Now.AddDays(15));
@@ -198,14 +195,14 @@ namespace EDUAR_UI
                             (fechas.ValorFechaDesde != null) ? (DateTime)fechas.ValorFechaDesde : DateTime.Now,
                             (fechas.ValorFechaHasta != null) ? (DateTime)fechas.ValorFechaHasta : DateTime.Now.AddDays(15));
                 }
-              }
+            }
             catch (Exception ex)
             {
                 AvisoMostrar = true;
                 AvisoExcepcion = ex;
             }
         }
-        
+
         /// <summary>
         /// Ventanas the aceptar.
         /// </summary>
@@ -215,7 +212,7 @@ namespace EDUAR_UI
         {
             try
             {
-  
+
             }
             catch (Exception ex)
             {
@@ -345,7 +342,7 @@ namespace EDUAR_UI
                 string command = string.Empty;
                 if (sender is ImageButton)
                     command = ((ImageButton)sender).CommandArgument;
-                if(sender is LinkButton)
+                if (sender is LinkButton)
                     command = ((LinkButton)sender).CommandArgument;
                 switch (command)
                 {
@@ -378,6 +375,135 @@ namespace EDUAR_UI
             {
                 Master.ManageExceptions(ex);
             }
+        }
+
+        private void ValidarSecciones()
+        {
+            bool verSeccion;
+
+            #region "Cursos"
+            habilitarSeccion(lnkCursos, btnCursos, Master.ValidarSeccion("~/Private/AccesoCursos.aspx"));
+            #endregion
+
+            #region "Encuestas"
+            verSeccion = Master.ValidarSeccion("~/Private/Encuestas/ManageCategoriasPregunta.aspx")
+                    || Master.ValidarSeccion("~/Private/Encuestas/ManageContenidoEncuestas.aspx")
+                    || Master.ValidarSeccion("~/Private/Encuestas/ManageEscalasPonderacion.aspx");
+
+            habilitarSeccion(lnkEncuestas, btnEncuestas, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Encuestas/ManageCategoriasPregunta.aspx");
+            habilitarSeccion(lnkVerCategorias, btnVerCategorias, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Encuestas/ManageContenidoEncuestas.aspx");
+            habilitarSeccion(lnkVerEncuestas, btnVerEncuestas, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Encuestas/ManageEscalasPonderacion.aspx");
+            habilitarSeccion(lnkEscalas, btnEscalas, verSeccion);
+            #endregion
+
+            #region "Reportes"
+            verSeccion = Master.ValidarSeccion("~/Private/Reports/reportCalificacionesAlumnoPeriodo.aspx")
+                    || Master.ValidarSeccion("~/Private/Reports/reportInasistenciasAlumnoPeriodo.aspx")
+                    || Master.ValidarSeccion("~/Private/Reports/reportSancionesAlumnoPeriodo.aspx")
+                    || Master.ValidarSeccion("~/Private/Reports/reportIndicadores.aspx")
+                    || Master.ValidarSeccion("~/Private/Reports/reportPromedios.aspx")
+                    || Master.ValidarSeccion("~/Private/Monitoreo/IndicadoresGenerales.aspx");
+
+            habilitarSeccion(lnkReportes, btnReportes, verSeccion);
+
+            #region "Generales"
+            verSeccion = Master.ValidarSeccion("~/Private/Reports/reportCalificacionesAlumnoPeriodo.aspx")
+                    || Master.ValidarSeccion("~/Private/Reports/reportInasistenciasAlumnoPeriodo.aspx")
+                    || Master.ValidarSeccion("~/Private/Reports/reportSancionesAlumnoPeriodo.aspx");
+
+            verSeccion = Master.ValidarSeccion("~/Private/Reports/reportCalificacionesAlumnoPeriodo.aspx");
+            habilitarSeccion(lnkCalificaciones, btnCalificaciones, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Reports/reportInasistenciasAlumnoPeriodo.aspx");
+            habilitarSeccion(lnkInasistencias, btnInasistencias, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Reports/reportSancionesAlumnoPeriodo.aspx");
+            habilitarSeccion(lnkSanciones, btnSanciones, verSeccion);
+
+            lblTituloGenerales.Visible = verSeccion;
+            tblGenerales.Visible = verSeccion;
+            #endregion
+
+            #region "Consolidados"
+            verSeccion = Master.ValidarSeccion("~/Private/Reports/reportIndicadores.aspx")
+                    || Master.ValidarSeccion("~/Private/Reports/reportPromedios.aspx")
+                    || Master.ValidarSeccion("~/Private/Monitoreo/IndicadoresGenerales.aspx");
+
+            verSeccion = Master.ValidarSeccion("~/Private/Reports/reportPromedios.aspx");
+            habilitarSeccion(lnkConsolidado, btnConsolidado, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Monitoreo/IndicadoresGenerales.aspx");
+            habilitarSeccion(lnkIndicadores, btnIndicadores, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Reports/Historicos/reportRendimiento.aspx");
+            habilitarSeccion(lnkHistorico, btnHistorico, verSeccion);
+            lblTituloConsolidados.Visible = verSeccion;
+            tblConsolidados.Visible = verSeccion;
+            #endregion
+            #endregion
+
+            #region "Contenidos"
+            verSeccion = Master.ValidarSeccion("~/Private/Planning/Contenido.aspx")
+                    || Master.ValidarSeccion("~/Private/Planning/PlanificacionAnual.aspx")
+                    || Master.ValidarSeccion("~/Private/Planning/ManageRegistroPlanificaciones.aspx");
+
+            habilitarSeccion(lnkContenidos, btnContenidos, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Planning/Contenido.aspx");
+            habilitarSeccion(lnkVerCurricula, btnVerCurricula, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Planning/PlanificacionAnual.aspx");
+            habilitarSeccion(lnkPlanificacion, btnPlanificacion, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Planning/ManageRegistroPlanificaciones.aspx");
+            habilitarSeccion(lnkAprobarPlanificacion, btnAprobarPlanificacion, verSeccion);
+            #endregion
+
+            #region "Comunicacion"
+            verSeccion = Master.ValidarSeccion("~/Private/Mensajes/MsjeEntrada.aspx")
+                    || Master.ValidarSeccion("~/Private/Alumnos/ManageCitaciones.aspx")
+                    || Master.ValidarSeccion("~/Private/Novedades/RegNovedadInstitucion.aspx");
+
+            habilitarSeccion(lnkComunicacion, btnComunicacion, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Mensajes/MsjeEntrada.aspx");
+            habilitarSeccion(lnkMensajes, btnMensajes, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Alumnos/ManageCitaciones.aspx");
+            habilitarSeccion(lnkCitaciones, btnCitaciones, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Novedades/RegNovedadInstitucion.aspx");
+            habilitarSeccion(lnkNovedades, btnNovedades, verSeccion);
+            #endregion
+
+            #region "Administracion"
+            verSeccion = Master.ValidarSeccion("~/Private/Reports/reportAccesos.aspx")
+                    || Master.ValidarSeccion("~/Private/Account/ChangeUser.aspx")
+                    || Master.ValidarSeccion("~/Private/Monitoreo/ConfigIndicadores.aspx");
+
+            habilitarSeccion(lnkAdministracion, btnAdministracion, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Mensajes/Reports/reportAccesos.aspx");
+            habilitarSeccion(lnkAccesos, btnAccesos, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Account/ChangeUser.aspx");
+            habilitarSeccion(lnkVerUsuarios, btnVerUsuarios, verSeccion);
+
+            verSeccion = Master.ValidarSeccion("~/Private/Monitoreo/ConfigIndicadores.aspx");
+            habilitarSeccion(lnkVerConfigIndicadores, btnVerConfigIndicadores, verSeccion);
+            #endregion
+        }
+
+        private void habilitarSeccion(LinkButton link, ImageButton boton, bool visible)
+        {
+            link.Visible = visible;
+            boton.Visible = visible;
         }
 
         /// <summary>

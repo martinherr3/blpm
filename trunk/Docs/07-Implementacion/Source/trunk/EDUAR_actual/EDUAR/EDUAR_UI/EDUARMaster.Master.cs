@@ -210,7 +210,7 @@ namespace EDUAR_UI
 
         void ventanaInfoMaster_VentanaAceptarClick(object sender, EventArgs e)
         {
-        
+
         }
 
         private void CargarURLIniciarSesion()
@@ -397,24 +397,9 @@ namespace EDUAR_UI
             {
                 foreach (SiteMapNode node in SiteMapEDUAR.Provider.RootNode.ChildNodes)
                 {
-                    if (!ValidarNodo(node))
-                        continue;
-                    //trvMenu.Visible = true;
-                    MenuItem objMenuItem = new MenuItem(node.Title);
-                    if (node.Url != string.Empty)
-                        objMenuItem.NavigateUrl = node.Url;
-
-                    //Recorre los nodos hijos
-                    foreach (SiteMapNode nodeChild in node.ChildNodes)
-                    {
-                        if (!ValidarNodo(nodeChild))
-                            continue;
-
-                        MenuItem objMenuItemChild = new MenuItem(nodeChild.Title) { NavigateUrl = nodeChild.Url };
-                        objMenuItem.ChildItems.Add(objMenuItemChild);
-                    }
-                    if (objMenuItem.ChildItems.Count > 0 || objMenuItem.Text.Contains("Inicio"))
-                        NavigationMenu.Items.Add(objMenuItem);
+                    MenuItem objMenuItem = getMenuItem(node);
+                    if (objMenuItem != null)
+                        NavigationMenu.Items.Add(getMenuItem(node));
                 }
             }
             else
@@ -429,6 +414,30 @@ namespace EDUAR_UI
                         }
                     }
                 }
+        }
+
+        private MenuItem getMenuItem(SiteMapNode node)
+        {
+            if (!ValidarNodo(node))
+                return null;
+            //trvMenu.Visible = true;
+            MenuItem objMenuItem = new MenuItem(node.Title);
+            if (node.Url != string.Empty)
+                objMenuItem.NavigateUrl = node.Url;
+
+            //Recorre los nodos hijos
+            foreach (SiteMapNode nodeChild in node.ChildNodes)
+            {
+                //if (!ValidarNodo(nodeChild))
+                //    continue;
+
+                //MenuItem objMenuItemChild = new MenuItem(nodeChild.Title) { NavigateUrl = nodeChild.Url };
+                //objMenuItem.ChildItems.Add(objMenuItemChild);
+                MenuItem objMenuItemChild = getMenuItem(nodeChild);
+                if (objMenuItemChild != null)
+                    objMenuItem.ChildItems.Add(objMenuItemChild);
+            }
+            return objMenuItem;
         }
 
         /// <summary>
@@ -457,6 +466,11 @@ namespace EDUAR_UI
             return true;
         }
 
+        public bool ValidarSeccion(string urlSeccion)
+        {
+            return ValidarNodo(SiteMapEDUAR.Provider.FindSiteMapNode(urlSeccion));
+        }
+
         /// <summary>
         /// Valida si el nodo se debe mostrar. 
         /// Puede tener el atributo visible=false o puede que el perfil del usuario lo permita.
@@ -465,6 +479,8 @@ namespace EDUAR_UI
         /// <returns></returns>
         protected Boolean ValidarNodo(SiteMapNode node)
         {
+            if (node == null)
+                return false;
             return ValidarNodo(node, true);
         }
 

@@ -2,7 +2,7 @@
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
     Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<script type="text/javascript">
+<%--<script type="text/javascript">
     $(function () {
 
         if ($("#btnDatos").text() == "Ver Datos") {
@@ -21,13 +21,13 @@
             return false;
         });
     });
-</script>
+</script>--%>
 
 <div id="divGrafico" runat="server" class="MarcoGrafico">
-    <iframe runat="server" id="divSysExceptionFrame" visible="true" class="FondoNegroVentana"
-        frameborder="0" scrolling="no" width="100%" height="100%" />
+    <%--<iframe runat="server" id="divSysExceptionFrame" visible="true" class="FondoNegroVentana"
+        frameborder="0" scrolling="no" width="100%" height="100%" />--%>
     <div id="div2" runat="server" class="FondoNegroVentana" />
-    <div style="background-color: White; height: 500px">
+    <div style="background-color: White;">
         <table class="TablaExternaGrafico" border="0" cellpadding="0" cellspacing="0" visible="true"
             width="646px">
             <tr>

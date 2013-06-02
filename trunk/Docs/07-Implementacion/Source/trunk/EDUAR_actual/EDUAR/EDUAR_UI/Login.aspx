@@ -18,16 +18,23 @@
     <script type="text/javascript">
         $(function () {
             $("ul.level1 li").hover(function () {
-                $(this).stop().animate({ opacity: 1, width: "200px" }, "fast");
+                $(this).stop().animate({ opacity: 1, width: "180px" }, "fast");
             }, function () {
-                $(this).stop().animate({ opacity: 0.5, width: "200px" }, "fast");
+                $(this).stop().animate({ opacity: 0.5, width: "180px" }, "fast");
             });
         });
         $(function () {
-            $("ul.level2 a").hover(function () {
+            $("a.level2 li").hover(function () {
                 $(this).stop().animate({ opacity: 1, width: "150px" }, "fast");
             }, function () {
                 $(this).stop().animate({ opacity: 0.5, width: "150px" }, "fast");
+            });
+        });
+        $(function () {
+            $("ul.level3 li").hover(function () {
+                $(this).stop().animate({ opacity: 1, width: "150px" }, "slow");
+            }, function () {
+                $(this).stop().animate({ opacity: 0.5, width: "150px" }, "slow");
             });
         });
     </script>
