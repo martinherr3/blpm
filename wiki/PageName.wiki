@@ -8,7 +8,7 @@ Docente
 
 Nombre: Carlos Brias  (4°, 5° y 6° B)
 Username: cbrias
-Password: tesis1
+Password: Eduar1234
 
 Nombre: Melisa De Leonardis  (4°, 5° y 6° A y B)
 Username: mleonardis
