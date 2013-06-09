@@ -9,6 +9,10 @@ namespace EDUAR_UI.UserControls
 {
     public partial class Reporte : UserControl
     {
+        #region --[Atributos]--
+        PagedDataSource pds = new PagedDataSource();
+        #endregion
+
         #region --[Propiedades]--
         /// <summary>
         /// Gets or sets the grilla reporte.
@@ -18,8 +22,10 @@ namespace EDUAR_UI.UserControls
         /// </value>
         public GridView GrillaReporte
         {
-            get { return gvwReporte; }
-            set { gvwReporte = value; }
+            get
+            { return gvwReporte; }
+            set
+            { gvwReporte = value; }
         }
 
         /// <summary>
@@ -116,6 +122,31 @@ namespace EDUAR_UI.UserControls
                 return (bool)ViewState["verBotonGrafico"];
             }
             set { ViewState["verBotonGrafico"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the current page.
+        /// </summary>
+        /// <value>
+        /// The current page.
+        /// </value>
+        public int CurrentPage
+        {
+            get
+            {
+                if (this.ViewState["CurrentPage"] == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return Convert.ToInt16(this.ViewState["CurrentPage"].ToString());
+                }
+            }
+            set
+            {
+                this.ViewState["CurrentPage"] = value;
+            }
         }
         #endregion
 
@@ -284,7 +315,7 @@ namespace EDUAR_UI.UserControls
             if (sender != null)
             {
                 //Invoca el delegados
-                sender(this, e);
+                //sender(this, e);
             }
         }
         #endregion
@@ -301,23 +332,25 @@ namespace EDUAR_UI.UserControls
             {
                 if (lista.Count != 0)
                 {
-                    GrillaReporte = UIUtilidades.GenerarGrilla(lista, GrillaReporte);
+                    //GrillaReporte = UIUtilidades.GenerarGrilla(lista, GrillaReporte);
+                    dtReporte = UIUtilidades.BuildDataTable<T>(lista);
+                    GrillaReporte = UIUtilidades.GenerarGrilla(GrillaReporte, dtReporte);
                     btnVolver.Visible = true;
                     btnPDF.Visible = true;
                     btnGraficar.Visible = verBotonGrafico;
                     btnImprimir.Visible = true;
                     gvwReporte.Visible = true;
-                    CargarGrilla(lista);
                 }
                 else
                 {
                     lblFiltros.Text = string.Empty;
-                    gvwReporte.Visible = false;
+                    GrillaReporte.Visible = false;
                     btnVolver.Visible = true;
                     btnPDF.Visible = false;
                     btnGraficar.Visible = false;
                     btnImprimir.Visible = false;
                 }
+                CargarGrilla(false);
                 lblSinDatos.Visible = (!(lista.Count != 0));
                 udpReporte.Update();
             }
@@ -380,11 +413,11 @@ namespace EDUAR_UI.UserControls
         void Ordenar(object sender, GridViewSortEventArgs e)
         {
             GridSampleSortExpression = e.SortExpression;
-            int pageIndex = GrillaReporte.PageIndex;
-            GrillaReporte.DataSource = sortDataView(dtReporte.DefaultView, false);
-            GrillaReporte.DataBind();
-            GrillaReporte.PageIndex = pageIndex;
-            OnOrdenarClick(OrdenarClick, e);
+            CargarGrilla(false);
+            //GrillaReporte.DataSource = sortDataView(dtReporte.DefaultView, false);
+            //GrillaReporte.DataBind();
+            //GrillaReporte.PageIndex = pageIndex;
+            //OnOrdenarClick(OrdenarClick, e);
         }
 
         /// <summary>
@@ -411,21 +444,14 @@ namespace EDUAR_UI.UserControls
             else lblFiltros.Text = string.Empty;
             dtReporte = UIUtilidades.BuildDataTable<T>(lista);
 
-            //GrillaReporte.DataSource = sortDataView(dtReporte.DefaultView, true);
-
             DataSet ds = new DataSet();
             ds.Tables.Add(dtReporte);
 
-            //// Aqui llenamos nuestro DataSet
+            // Aqui llenamos nuestro DataSet
             DataView dv = ds.Tables[0].DefaultView;
             dv = sortDataView(dv, true);
-            //gridSample.DataSource = dv;
-            //gridSample.DataBind();
-
             GrillaReporte.DataSource = dv;
-            //GrillaReporte.DataSource = dtReporte.DefaultView;
             GrillaReporte.DataBind();
-            //udpReporte.Update();
         }
         #endregion
 
@@ -508,5 +534,95 @@ namespace EDUAR_UI.UserControls
             return dataView;
         }
         #endregion
+
+        #region --[Paginación]--
+        private void doPaging()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("PageIndex");
+            dt.Columns.Add("PageText");
+            for (int i = 0; i < pds.PageCount; i++)
+            {
+                DataRow dr = dt.NewRow();
+                dr[0] = i;
+                dr[1] = i + 1;
+                dt.Rows.Add(dr);
+            }
+            dlPaging.DataSource = dt;
+            dlPaging.DataBind();
+        }
+
+        protected void dlPaging_ItemCommand(object source, DataListCommandEventArgs e)
+        {
+            if (e.CommandName.Equals("lnkbtnPaging"))
+            {
+                CurrentPage = Convert.ToInt16(e.CommandArgument.ToString());
+                CargarGrilla(true);
+            }
+        }
+
+        protected void dlPaging_ItemDataBound(object sender, DataListItemEventArgs e)
+        {
+            LinkButton lnkbtnPage = (LinkButton)e.Item.FindControl("lnkbtnPaging");
+            if (lnkbtnPage.CommandArgument.ToString() == CurrentPage.ToString())
+            {
+                lnkbtnPage.Enabled = false;
+                lnkbtnPage.Font.Bold = true;
+            }
+        }
+
+        protected void lnkbtnPrevious_Click(object sender, EventArgs e)
+        {
+            CurrentPage -= 1;
+            CargarGrilla(true);
+        }
+
+        protected void lnkbtnNext_Click(object sender, EventArgs e)
+        {
+            CurrentPage += 1;
+            CargarGrilla(true);
+        }
+
+        protected void lnkbtnLast_Click(object sender, EventArgs e)
+        {
+            CurrentPage = dlPaging.Controls.Count - 1;
+            CargarGrilla(true);
+        }
+
+        protected void lnkbtnFirst_Click(object sender, EventArgs e)
+        {
+            CurrentPage = 0;
+            CargarGrilla(true);
+        }
+
+        protected void ddlPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CurrentPage = 0;
+            CargarGrilla(false);
+        }
+        #endregion
+
+        private void CargarGrilla(bool paginando)
+        {
+            pds.DataSource = sortDataView(dtReporte.DefaultView, paginando);
+
+            pds.AllowPaging = true;
+            pds.PageSize = Convert.ToInt16(ddlPageSize.SelectedValue);
+            pds.CurrentPageIndex = CurrentPage;
+            lnkbtnNext.Visible = !pds.IsLastPage;
+            lnkbtnLast.Visible = !pds.IsLastPage;
+            lnkbtnPrevious.Visible = !pds.IsFirstPage;
+            lnkbtnFirst.Visible = !pds.IsFirstPage;
+            GrillaReporte = UIUtilidades.GenerarGrilla(GrillaReporte, dtReporte);
+            GrillaReporte.PageSize = pds.PageSize;
+            GrillaReporte.DataSource = pds;
+            GrillaReporte.DataBind();
+            doPaging();
+            lblCantidad.Text = dtReporte.Rows.Count.ToString() + " Registros";
+            //GrillaReporte.DataSource = sortDataView(dtReporte.DefaultView, true);
+            //GrillaReporte.PageIndex = CurrentPage;
+            //GrillaReporte.DataBind();
+            udpReporte.Update();
+        }
     }
 }
