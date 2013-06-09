@@ -120,6 +120,10 @@ namespace EDUAR_UI.Shared
             {
                 return Session["nombrePNG"].ToString();
             }
+            set
+            {
+                Session["nombrePNG"] = value;
+            }
         }
 
         /// <summary>
@@ -461,5 +465,16 @@ namespace EDUAR_UI.Shared
         }
         #endregion
         #endregion
+
+        internal void LimpiarVariablesSession()
+        {
+            AccionPagina = enumAcciones.Limpiar;
+            nombrePNG = string.Empty;
+            TablaGrafico = new List<TablaGrafico>();
+            idNovedadConsulta = 0;
+            idCursoCicloLectivo = 0;
+            cursoActual = new CursoCicloLectivo();
+            idAsignatura = 0;
+        }
     }
 }
