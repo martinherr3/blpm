@@ -11,7 +11,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-class Spider implements Runnable {
+class Buscador implements Runnable {
 
     private DBHandler dbHandler;
     private HashSet<FileHandler> fileHandlers;
@@ -24,7 +24,7 @@ class Spider implements Runnable {
      * @param connection El manejador de la Base de datos
      * @param errorHandler El manejador de errores
      */
-    public Spider(final DBHandler connection, final ErrorHandler errorHandler) {
+    public Buscador(final DBHandler connection, final ErrorHandler errorHandler) {
         try {
             this.dbHandler = connection;
             this.fileHandlers = new HashSet<FileHandler>();
@@ -44,7 +44,7 @@ class Spider implements Runnable {
         try {
             this.doIndex();
         } catch (BuscadorException ex) {
-            Logger.getLogger(Spider.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Buscador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
