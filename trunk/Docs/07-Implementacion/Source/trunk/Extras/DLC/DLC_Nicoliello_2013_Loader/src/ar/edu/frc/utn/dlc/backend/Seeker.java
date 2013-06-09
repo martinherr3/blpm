@@ -8,7 +8,7 @@ import java.io.File;
 
 public class Seeker {
 
-    private Spider spiderRunnable;
+    private Buscador spiderRunnable;
     private Thread spiderThread;
     private Hunter hunter;
 
@@ -18,7 +18,7 @@ public class Seeker {
      * @param eh Implementacion del manejador de errores
      */
     public Seeker(DBHandler ch, ErrorHandler eh) {
-        this.spiderRunnable = new Spider(ch, eh);
+        this.spiderRunnable = new Buscador(ch, eh);
         this.spiderThread = new Thread(spiderRunnable);
         this.hunter = new Hunter(ch, eh);
     }
