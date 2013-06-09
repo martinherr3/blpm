@@ -596,13 +596,13 @@ namespace EDUAR_UI
 
             var Ciclos =
                 (from p in listaReporteRendimiento
-                group p by p.ciclolectivo into g
-                select new { CicloLectivo = g.Key }).Distinct();
+                 group p by p.ciclolectivo into g
+                 select new { CicloLectivo = g.Key }).Distinct();
 
             var Asignaturas =
                 (from p in listaReporteRendimiento
-                group p by p.asignatura into g
-                select new { Asignatura = g.Key }).Distinct();
+                 group p by p.asignatura into g
+                 select new { Asignatura = g.Key }).Distinct();
 
             tabla2.titulo = "Desempeño Por Ciclo Lectivo ";
             encabezado2.Add("Asignatura");
@@ -620,9 +620,9 @@ namespace EDUAR_UI
                 {
                     var Promedio =
                         (from p in listaReporteRendimiento
-                        where p.ciclolectivo == item.CicloLectivo && p.asignatura == materia.Asignatura
-                        group p by p.asignatura into g
-                        select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct();
+                         where p.ciclolectivo == item.CicloLectivo && p.asignatura == materia.Asignatura
+                         group p by p.asignatura into g
+                         select new { Asignatura = g.Key, Promedio = g.Average(p => Convert.ToDouble(p.promedio)) }).Distinct();
 
                     foreach (var itemPromedio in Promedio)
                     {

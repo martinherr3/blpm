@@ -123,6 +123,7 @@ namespace EDUAR_UI
                 Master.BotonAvisoAceptar += (VentanaAceptar);
                 if (!Page.IsPostBack)
                 {
+                    base.LimpiarVariablesSession();
                     //Cargo en sesión los datos del usuario logueado
                     DTSeguridad propSeguridad = new DTSeguridad();
                     propSeguridad.Usuario.Nombre = User.Identity.Name.Trim().ToLower();

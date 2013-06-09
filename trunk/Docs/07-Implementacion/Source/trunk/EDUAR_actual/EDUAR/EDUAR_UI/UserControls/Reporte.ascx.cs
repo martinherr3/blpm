@@ -340,6 +340,7 @@ namespace EDUAR_UI.UserControls
                     btnGraficar.Visible = verBotonGrafico;
                     btnImprimir.Visible = true;
                     gvwReporte.Visible = true;
+                    CargarGrilla(false);
                 }
                 else
                 {
@@ -350,8 +351,8 @@ namespace EDUAR_UI.UserControls
                     btnGraficar.Visible = false;
                     btnImprimir.Visible = false;
                 }
-                CargarGrilla(false);
                 lblSinDatos.Visible = (!(lista.Count != 0));
+                divPaginacion.Visible = lista.Count != 0;
                 udpReporte.Update();
             }
             catch (Exception ex)
@@ -619,9 +620,6 @@ namespace EDUAR_UI.UserControls
             GrillaReporte.DataBind();
             doPaging();
             lblCantidad.Text = dtReporte.Rows.Count.ToString() + " Registros";
-            //GrillaReporte.DataSource = sortDataView(dtReporte.DefaultView, true);
-            //GrillaReporte.PageIndex = CurrentPage;
-            //GrillaReporte.DataBind();
             udpReporte.Update();
         }
     }

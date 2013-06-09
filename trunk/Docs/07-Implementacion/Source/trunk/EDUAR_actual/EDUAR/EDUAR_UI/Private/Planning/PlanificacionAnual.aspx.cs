@@ -541,10 +541,12 @@ namespace EDUAR_UI
                 {
                     this.idNivel = idNivel;
                     CargarComboAsignatura();
+                    lblTituloPrincipal.Text = "Planificación de Contenidos - " + ddlNivel.SelectedItem.Text;
                 }
                 else
                 {
                     CargarPresentacion();
+                    lblTituloPrincipal.Text = "Planificación de Contenidos";
                     btnNuevo.Visible = false;
                     btnCursos.Visible = false;
                     btnVolver.Visible = false;
@@ -557,6 +559,7 @@ namespace EDUAR_UI
                 VerOrientacion(false);
                 udpGrilla.Update();
                 udpBotonera.Update();
+                udpTitulo.Update();
             }
             catch (Exception ex)
             {
@@ -1447,6 +1450,10 @@ namespace EDUAR_UI
                 CargarComboAsignatura();
                 lblTituloPrincipal.Text = "Planificación de Contenidos - " + base.cursoActual.curso.nivel.nombre;
             }
+            if (base.cursoActual.curso.nivel.idNivel > 0)
+                lblTituloPrincipal.Text = "Planificación de Contenidos - " + base.cursoActual.curso.nivel.nombre;
+            else
+                lblTituloPrincipal.Text = "Planificación de Contenidos";
 
             divAprobacion.Visible = false;
             gvwPlanificacion.DataSource = null;
@@ -1459,6 +1466,7 @@ namespace EDUAR_UI
             udpBotonera.Update();
             udpDivControles.Update();
             udpGrilla.Update();
+            udpTitulo.Update();
         }
 
         /// <summary>

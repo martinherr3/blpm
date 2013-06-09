@@ -12,8 +12,12 @@
             <tr>
                 <td>
                     <h2>
-                        <asp:Label ID="lblTituloPrincipal" Text="Planificación de Actividades" runat="server" /></h2>
-                    <br />
+                        <asp:UpdatePanel runat="server" ID="udpTitulo" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <asp:Label ID="lblTituloPrincipal" Text="Planificación de Actividades" runat="server" /></h2>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <br />
                 </td>
                 <td align="right" rowspan="2">
                     <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
