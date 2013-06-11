@@ -206,7 +206,7 @@ namespace EDUAR_DataAccess.Encuestas
                         objCategoriaPregunta.ambito.descripcion = reader["descripcionAmbito"].ToString();
                     }
 
-                    objCategoriaPregunta.eliminable = Convert.ToInt32(reader["cantidadEncuestas"]) == 0;
+                    objCategoriaPregunta.modificable = Convert.ToInt32(reader["cantidadEncuestas"]) == 0;
 
                     listaCategoriasPregunta.Add(objCategoriaPregunta);
                 }

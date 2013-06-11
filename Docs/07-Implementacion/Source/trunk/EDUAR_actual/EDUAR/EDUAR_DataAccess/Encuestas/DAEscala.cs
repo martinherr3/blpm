@@ -164,7 +164,7 @@ namespace EDUAR_DataAccess.Encuestas
                     objEscala.nombre = reader["nombre"].ToString();
                     objEscala.descripcion = reader["descripcion"].ToString();
 
-                    objEscala.eliminable = Convert.ToInt32(reader["cantidadEncuestas"]) == 0;
+                    objEscala.modificable = Convert.ToInt32(reader["cantidadEncuestas"]) == 0;
 
                     listaEscalas.Add(objEscala);
                 }

@@ -426,11 +426,12 @@ namespace EDUAR_UI
 		{
 			ValorEscalaMedicion objEliminar = new ValorEscalaMedicion();
 			objEliminar.idValorEscala = propValorEscala.idValorEscala;
+            objEliminar.idEscalaMedicion = escalaMedicionSesion.idEscala;
 
-			escalaMedicionSesion.valoresEscalas.Clear();
-            escalaMedicionSesion.valoresEscalas.Add(objEliminar);
+			//escalaMedicionSesion.valoresEscalas.Clear();
+            //escalaMedicionSesion.valoresEscalas.Add(objEliminar);
 
-			objBLValorEscala = new BLValorEscala(escalaMedicionSesion);
+			objBLValorEscala = new BLValorEscala(objEliminar);
 			objBLValorEscala.Delete();
 
 			CargarPresentacion();

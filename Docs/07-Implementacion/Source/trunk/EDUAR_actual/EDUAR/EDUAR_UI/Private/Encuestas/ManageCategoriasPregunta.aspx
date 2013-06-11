@@ -76,9 +76,9 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarCategoria" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idCategoriaPregunta") %>'
-                                ToolTip="Editar Categoría" ImageUrl="~/Images/Grillas/action_edit.png" />
+                                ToolTip="Editar Categoría" ImageUrl="~/Images/Grillas/action_edit.png"  Visible='<%# Bind("modificable") %>'/>
                             <asp:ImageButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Bind("idCategoriaPregunta") %>'
-                                ToolTip="Eliminar Categoría" ImageUrl="~/Images/Grillas/action_delete.png" Visible='<%# Bind("eliminable") %>'/>
+                                ToolTip="Eliminar Categoría" ImageUrl="~/Images/Grillas/action_delete.png" Visible='<%# Bind("modificable") %>'/>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Ambito">
