@@ -19,7 +19,7 @@ namespace EDUAR_Entities
         public string descripcion { get; set; }
         public int idEscalaMedicion { get; set; }
         public int orden { get; set; }
-        public bool eliminable { get; set; }
+        public bool modificable { get; set; }
         public int cantidadValores { get; set; }
 
         public ValorEscalaMedicion()

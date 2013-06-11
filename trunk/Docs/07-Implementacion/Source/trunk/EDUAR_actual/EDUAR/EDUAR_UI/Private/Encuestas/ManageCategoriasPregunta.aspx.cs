@@ -448,7 +448,7 @@ namespace EDUAR_UI
 			ddlAmbitoEdit.SelectedValue = categoria.ambito.idAmbitoEncuesta.ToString();
             txtNombreEdit.Text = categoria.nombre;
 			txtDescripcionEdit.Text = categoria.descripcion;
-            if (!categoria.eliminable) lblUtilizada.Text = "<b>Esta categoría está siendo actualmente utilizada en al menos una encuesta</b>";
+            if (!categoria.modificable) lblUtilizada.Text = "<b>Esta categoría está siendo actualmente utilizada en al menos una encuesta</b>";
             else lblUtilizada.Text = "<b>Esta categoría no está siendo actualmente utilizada en ninguna encuesta</b>";
 		}
 

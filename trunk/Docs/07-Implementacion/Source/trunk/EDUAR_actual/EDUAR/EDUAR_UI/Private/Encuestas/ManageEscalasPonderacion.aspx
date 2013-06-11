@@ -53,9 +53,9 @@
                             <asp:ImageButton ID="btnValoresEscalas" runat="server" CommandName="VerValoresEscala" CommandArgument='<%# Bind("idEscala") %>'
                                 ToolTip="Ver Valores de Escala" ImageUrl="~/Images/Grillas/action_quest.png"/>
                             <asp:ImageButton ID="btnEditarEscala" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idEscala") %>'
-                                ToolTip="Editar Escala" ImageUrl="~/Images/Grillas/action_edit.png" />
+                                ToolTip="Editar Escala" ImageUrl="~/Images/Grillas/action_edit.png"  Visible='<%# Bind("modificable") %>'/>
                             <asp:ImageButton ID="btnEliminar" runat="server" CommandName="Eliminar" CommandArgument='<%# Bind("idEscala") %>'
-                                ToolTip="Eliminar Escala" ImageUrl="~/Images/Grillas/action_delete.png" Visible='<%# Bind("eliminable") %>'/>
+                                ToolTip="Eliminar Escala" ImageUrl="~/Images/Grillas/action_delete.png" Visible='<%# Bind("modificable") %>'/>
 
                         </ItemTemplate>
                     </asp:TemplateField>

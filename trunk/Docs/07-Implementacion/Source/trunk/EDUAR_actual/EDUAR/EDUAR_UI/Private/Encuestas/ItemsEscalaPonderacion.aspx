@@ -42,10 +42,9 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarItemEscala" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idValorEscala") %>'
-                                ToolTip="Editar valor escala" ImageUrl="~/Images/Grillas/action_edit.png" Visible='true' />
+                                ToolTip="Editar valor escala" ImageUrl="~/Images/Grillas/action_edit.png" Visible='true'/>
                             <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
-                                AlternateText="Eliminar" ToolTip="Eliminar Item" CommandName="Eliminar" CommandArgument='<%# Bind("idValorEscala") %>'
-                                Visible='<%# Bind("eliminable") %>' />
+                                AlternateText="Eliminar" ToolTip="Eliminar Item" CommandName="Eliminar" CommandArgument='<%# Bind("idValorEscala") %>'/>
                             <!--OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> la pregunta seleccionada?', 'Confirmación')"-->
                         </ItemTemplate>
                     </asp:TemplateField>

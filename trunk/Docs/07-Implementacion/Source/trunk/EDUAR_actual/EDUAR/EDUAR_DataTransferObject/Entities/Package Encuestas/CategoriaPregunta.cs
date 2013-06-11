@@ -10,7 +10,7 @@ namespace EDUAR_Entities
         public AmbitoEncuesta ambito { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
-        public bool eliminable { get; set; }
+        public bool modificable { get; set; }
 
         public CategoriaPregunta()
         {
