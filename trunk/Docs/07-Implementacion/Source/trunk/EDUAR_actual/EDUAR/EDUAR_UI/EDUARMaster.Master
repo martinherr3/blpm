@@ -115,9 +115,6 @@
                                                             ToolTip="Iniciar Sesión" Style="cursor: pointer" />
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
-                                                <%--<a href="~/Login.aspx" id="A1" runat="server" style="text-decoration: none">
-                                                    <asp:Image ID="Image1" ImageUrl="~/Images/web/user-offline.png" runat="server" AlternateText="Iniciar Sesión"
-                                                        ToolTip="Iniciar Sesión" /></a>--%>
                                             </td>
                                         </tr>
                                         <tr>
@@ -132,8 +129,6 @@
                                                         ]
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
-                                                <%--<a href=''
-                                                    id="HeadLoginStatus" runat="server">Iniciar Sesión</a>--%>
                                             </td>
                                         </tr>
                                     </table>
@@ -144,10 +139,15 @@
                                             <td style="width: 50%">
                                                 <asp:HyperLink ID="linkAyuda" NavigateUrl="" ImageUrl="~/Images/help.png" runat="server"
                                                     ToolTip="Ayuda" Style="cursor: pointer" Target="_blank" />
-                                                <td align="center" style="">
-                                                    <asp:ImageButton ID="btnCuenta" ImageUrl="~/Images/verCuenta.png" OnClick="btnCuenta_Click"
-                                                        runat="server" AlternateText="Cuenta" ToolTip="Cuenta" />
-                                                </td>
+                                            </td>
+                                            <td align="center" style="">
+                                                <asp:UpdatePanel runat="server">
+                                                    <ContentTemplate>
+                                                        <asp:ImageButton ID="btnCuenta" ImageUrl="~/Images/verCuenta.png" OnClick="btnCuenta_Click"
+                                                            runat="server" AlternateText="Cuenta" ToolTip="Cuenta" />
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td style="width: 50%;">
@@ -244,46 +244,46 @@
         </ajaxToolkit:ModalPopupExtender>
         <asp:Panel ID="pnlCuenta" runat="server" Width="320px" Height="170px" Style="display: none;
             text-align: left" CssClass="CajaDialogo">
-            <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                <tr>
-                    <td valign="top">
-                        <h2>
-                            <asp:Label ID="lblTituloPrincipal" Text="Administrar Cuenta" runat="server" /></h2>
-                    </td>
-                    <td align="right">
-                        <asp:ImageButton ID="btnCerrarCursos" OnClick="btnCerrarPopup_Click" ImageUrl="~/Images/PopUp/botonCerrar.png"
-                            ToolTip="Cerrar" runat="server" />
-                    </td>
-                </tr>
-            </table>
-            <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                <tr>
-                    <td align="center">
-                        <asp:LinkButton ID="lnkVerPassword" Text="Password" runat="server" CssClass="loginDisplay"
-                            CommandArgument="Password" OnClick="btnRedireccion_Click" Style="text-align: center" />
-                        <asp:ImageButton ID="btnVerPassword" ImageUrl="~/Images/Home/VerPassword.png" ToolTip="Cambiar Password"
-                            runat="server" CommandArgument="Password" OnClick="btnRedireccion_Click" />
-                    </td>
-                    <td align="center">
-                        <asp:LinkButton ID="lnkVerPregunta" Text="Pregunta" runat="server" CssClass="loginDisplay"
-                            CommandArgument="Pregunta" OnClick="btnRedireccion_Click" Style="text-align: center" />
-                        <asp:ImageButton ID="btnVerPregunta" ImageUrl="~/Images/Home/VerPregunta.png" ToolTip="Pregunta Secreta"
-                            runat="server" CommandArgument="Pregunta" OnClick="btnRedireccion_Click" />
-                    </td>
-                    <td align="center">
-                        <asp:LinkButton ID="lnkVerMail" Text="Email" runat="server" CssClass="loginDisplay"
-                            CommandArgument="Mail" OnClick="btnRedireccion_Click" Style="text-align: center" />
-                        <asp:ImageButton ID="btnVerMail" ImageUrl="~/Images/Home/VerMail.png" ToolTip="Email"
-                            runat="server" CommandArgument="Mail" OnClick="btnRedireccion_Click" />
-                    </td>
-                </tr>
-            </table>
+            <asp:UpdatePanel runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                        <tr>
+                            <td valign="top">
+                                <h2>
+                                    <asp:Label ID="lblTituloPrincipal" Text="Administrar Cuenta" runat="server" /></h2>
+                            </td>
+                            <td align="right">
+                                <asp:ImageButton ID="btnCerrarCursos" OnClick="btnCerrarPopup_Click" ImageUrl="~/Images/PopUp/botonCerrar.png"
+                                    ToolTip="Cerrar" runat="server" />
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                        <tr>
+                            <td align="center">
+                                <asp:LinkButton ID="lnkVerPassword" Text="Password" runat="server" CssClass="loginDisplay"
+                                    CommandArgument="Password" OnClick="btnRedireccion_Click" Style="text-align: center" />
+                                <asp:ImageButton ID="btnVerPassword" ImageUrl="~/Images/Home/VerPassword.png" ToolTip="Cambiar Password"
+                                    runat="server" CommandArgument="Password" OnClick="btnRedireccion_Click" />
+                            </td>
+                            <td align="center">
+                                <asp:LinkButton ID="lnkVerPregunta" Text="Pregunta" runat="server" CssClass="loginDisplay"
+                                    CommandArgument="Pregunta" OnClick="btnRedireccion_Click" Style="text-align: center" />
+                                <asp:ImageButton ID="btnVerPregunta" ImageUrl="~/Images/Home/VerPregunta.png" ToolTip="Pregunta Secreta"
+                                    runat="server" CommandArgument="Pregunta" OnClick="btnRedireccion_Click" />
+                            </td>
+                            <td align="center">
+                                <asp:LinkButton ID="lnkVerMail" Text="Email" runat="server" CssClass="loginDisplay"
+                                    CommandArgument="Mail" OnClick="btnRedireccion_Click" Style="text-align: center" />
+                                <asp:ImageButton ID="btnVerMail" ImageUrl="~/Images/Home/VerMail.png" ToolTip="Email"
+                                    runat="server" CommandArgument="Mail" OnClick="btnRedireccion_Click" />
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </asp:Panel>
     </div>
-    <%--<script type="text/javascript">
-        //a.popout-dynamic
-        $("a.popout-dynamic").attr("src", "/EDUAR_UI/Images/draw-arrow-down.png");
-    </script>--%>
     </form>
 </body>
 </html>

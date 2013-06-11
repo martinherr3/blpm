@@ -31,20 +31,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ddlCadenaConexion = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnBajaUsuarios = new System.Windows.Forms.Button();
             this.btnDiasHorarios = new System.Windows.Forms.Button();
-            this.btnAsistencia = new System.Windows.Forms.Button();
-            this.btnSanciones = new System.Windows.Forms.Button();
             this.btnCalificaciones = new System.Windows.Forms.Button();
+            this.btnSanciones = new System.Windows.Forms.Button();
             this.btnInfoAcademica = new System.Windows.Forms.Button();
-            this.btnPersonal = new System.Windows.Forms.Button();
             this.btnTutores = new System.Windows.Forms.Button();
             this.btnAuxiliares = new System.Windows.Forms.Button();
             this.btnAlumnos = new System.Windows.Forms.Button();
+            this.btnAsistencia = new System.Windows.Forms.Button();
+            this.btnPersonal = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnSancionInasistenciaSMS = new System.Windows.Forms.Button();
             this.btnInformeSanciones = new System.Windows.Forms.Button();
             this.btnInformeInasistencia = new System.Windows.Forms.Button();
-            this.btnBajaUsuarios = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -79,10 +79,20 @@
             this.groupBox1.Controls.Add(this.btnAlumnos);
             this.groupBox1.Location = new System.Drawing.Point(18, 71);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(468, 148);
+            this.groupBox1.Size = new System.Drawing.Size(557, 148);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Importación de Datos";
+            // 
+            // btnBajaUsuarios
+            // 
+            this.btnBajaUsuarios.Location = new System.Drawing.Point(145, 106);
+            this.btnBajaUsuarios.Name = "btnBajaUsuarios";
+            this.btnBajaUsuarios.Size = new System.Drawing.Size(129, 36);
+            this.btnBajaUsuarios.TabIndex = 12;
+            this.btnBajaUsuarios.Text = "10. Baja Usuarios";
+            this.btnBajaUsuarios.UseVisualStyleBackColor = true;
+            this.btnBajaUsuarios.Click += new System.EventHandler(this.btnBajaUsuarios_Click);
             // 
             // btnDiasHorarios
             // 
@@ -94,15 +104,15 @@
             this.btnDiasHorarios.UseVisualStyleBackColor = true;
             this.btnDiasHorarios.Click += new System.EventHandler(this.btnDiasHorarios_Click);
             // 
-            // btnAsistencia
+            // btnCalificaciones
             // 
-            this.btnAsistencia.Location = new System.Drawing.Point(433, 135);
-            this.btnAsistencia.Name = "btnAsistencia";
-            this.btnAsistencia.Size = new System.Drawing.Size(129, 36);
-            this.btnAsistencia.TabIndex = 10;
-            this.btnAsistencia.Text = "8. Asistencia";
-            this.btnAsistencia.UseVisualStyleBackColor = true;
-            this.btnAsistencia.Click += new System.EventHandler(this.btnAsistencia_Click);
+            this.btnCalificaciones.Location = new System.Drawing.Point(280, 64);
+            this.btnCalificaciones.Name = "btnCalificaciones";
+            this.btnCalificaciones.Size = new System.Drawing.Size(129, 36);
+            this.btnCalificaciones.TabIndex = 8;
+            this.btnCalificaciones.Text = "7. Calificaciones";
+            this.btnCalificaciones.UseVisualStyleBackColor = true;
+            this.btnCalificaciones.Click += new System.EventHandler(this.btnCalificaciones_Click);
             // 
             // btnSanciones
             // 
@@ -114,16 +124,6 @@
             this.btnSanciones.UseVisualStyleBackColor = true;
             this.btnSanciones.Click += new System.EventHandler(this.btnSanciones_Click);
             // 
-            // btnCalificaciones
-            // 
-            this.btnCalificaciones.Location = new System.Drawing.Point(280, 64);
-            this.btnCalificaciones.Name = "btnCalificaciones";
-            this.btnCalificaciones.Size = new System.Drawing.Size(129, 36);
-            this.btnCalificaciones.TabIndex = 8;
-            this.btnCalificaciones.Text = "7. Calificaciones";
-            this.btnCalificaciones.UseVisualStyleBackColor = true;
-            this.btnCalificaciones.Click += new System.EventHandler(this.btnCalificaciones_Click);
-            // 
             // btnInfoAcademica
             // 
             this.btnInfoAcademica.Location = new System.Drawing.Point(10, 64);
@@ -133,16 +133,6 @@
             this.btnInfoAcademica.Text = "5. Info Académica";
             this.btnInfoAcademica.UseVisualStyleBackColor = true;
             this.btnInfoAcademica.Click += new System.EventHandler(this.btnInfoAcademica_Click);
-            // 
-            // btnPersonal
-            // 
-            this.btnPersonal.Location = new System.Drawing.Point(433, 93);
-            this.btnPersonal.Name = "btnPersonal";
-            this.btnPersonal.Size = new System.Drawing.Size(129, 36);
-            this.btnPersonal.TabIndex = 6;
-            this.btnPersonal.Text = "4. Personal";
-            this.btnPersonal.UseVisualStyleBackColor = true;
-            this.btnPersonal.Click += new System.EventHandler(this.btnPersonal_Click);
             // 
             // btnTutores
             // 
@@ -174,6 +164,26 @@
             this.btnAlumnos.UseVisualStyleBackColor = true;
             this.btnAlumnos.Click += new System.EventHandler(this.btnAlumnos_Click);
             // 
+            // btnAsistencia
+            // 
+            this.btnAsistencia.Location = new System.Drawing.Point(433, 135);
+            this.btnAsistencia.Name = "btnAsistencia";
+            this.btnAsistencia.Size = new System.Drawing.Size(129, 36);
+            this.btnAsistencia.TabIndex = 10;
+            this.btnAsistencia.Text = "8. Asistencia";
+            this.btnAsistencia.UseVisualStyleBackColor = true;
+            this.btnAsistencia.Click += new System.EventHandler(this.btnAsistencia_Click);
+            // 
+            // btnPersonal
+            // 
+            this.btnPersonal.Location = new System.Drawing.Point(433, 93);
+            this.btnPersonal.Name = "btnPersonal";
+            this.btnPersonal.Size = new System.Drawing.Size(129, 36);
+            this.btnPersonal.TabIndex = 6;
+            this.btnPersonal.Text = "4. Personal";
+            this.btnPersonal.UseVisualStyleBackColor = true;
+            this.btnPersonal.Click += new System.EventHandler(this.btnPersonal_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnSancionInasistenciaSMS);
@@ -181,7 +191,7 @@
             this.groupBox2.Controls.Add(this.btnInformeInasistencia);
             this.groupBox2.Location = new System.Drawing.Point(18, 225);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(468, 105);
+            this.groupBox2.Size = new System.Drawing.Size(557, 105);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Informes";
@@ -214,16 +224,6 @@
             this.btnInformeInasistencia.Text = "Informe Inasistencia";
             this.btnInformeInasistencia.UseVisualStyleBackColor = true;
             this.btnInformeInasistencia.Click += new System.EventHandler(this.btnInformeInasistencia_Click);
-            // 
-            // btnBajaUsuarios
-            // 
-            this.btnBajaUsuarios.Location = new System.Drawing.Point(145, 106);
-            this.btnBajaUsuarios.Name = "btnBajaUsuarios";
-            this.btnBajaUsuarios.Size = new System.Drawing.Size(129, 36);
-            this.btnBajaUsuarios.TabIndex = 12;
-            this.btnBajaUsuarios.Text = "10. Baja Usuarios";
-            this.btnBajaUsuarios.UseVisualStyleBackColor = true;
-            this.btnBajaUsuarios.Click += new System.EventHandler(this.btnBajaUsuarios_Click);
             // 
             // Form1
             // 

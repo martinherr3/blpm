@@ -8,41 +8,41 @@ using EDUAR_Entities;
 
 namespace EDUAR_UI.UserControls
 {
-    public partial class Exportador : UserControl
-    {
-        #region --[Atributos]--
-        private string _Titulo;
-        private DataTable _Datos;
-        #endregion
+	public partial class Exportador : UserControl
+	{
+		#region --[Atributos]--
+		private string _Titulo;
+		private DataTable _Datos;
+		#endregion
 
-        #region --[Propiedades]--
-        public DataTable Datos
-        {
-            get
-            {
-                if (_Datos == null)
-                    if (ViewState["_Datos"] != null)
-                        _Datos = (DataTable)ViewState["_Datos"];
-                return _Datos;
-            }
-            set { ViewState["_Datos"] = value; _Datos = value; }
-        }
+		#region --[Propiedades]--
+		public DataTable Datos
+		{
+			get
+			{
+				if (_Datos == null)
+					if (ViewState["_Datos"] != null)
+						_Datos = (DataTable)ViewState["_Datos"];
+				return _Datos;
+			}
+			set { ViewState["_Datos"] = value; _Datos = value; }
+		}
 
-        public string Titulo
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(_Titulo))
-                    if (ViewState["_Titulo"] != null)
-                        _Titulo = ViewState["_Titulo"].ToString();
-                return _Titulo;
-            }
-            set
-            {
-                ViewState["_Titulo"] = value;
-                _Titulo = value;
-            }
-        }
+		public string Titulo
+		{
+			get
+			{
+				if (String.IsNullOrEmpty(_Titulo))
+					if (ViewState["_Titulo"] != null)
+						_Titulo = ViewState["_Titulo"].ToString();
+				return _Titulo;
+			}
+			set
+			{
+				ViewState["_Titulo"] = value;
+				_Titulo = value;
+			}
+		}
 
 		public DateTime Desde
 		{
@@ -57,12 +57,12 @@ namespace EDUAR_UI.UserControls
 
 		public DateTime Hasta
 		{
-            get
-            {
+			get
+			{
 				if (Session["Fecha_Hasta_Indicador"] != null)
 					return Convert.ToDateTime(Session["Fecha_Hasta_Indicador"].ToString());
-                return DateTime.MinValue;
-            }
+				return DateTime.MinValue;
+			}
 			set { Session["Fecha_Hasta_Indicador"] = value; }
 		}
 
@@ -82,26 +82,26 @@ namespace EDUAR_UI.UserControls
 			}
 			set { Session["cursoActual"] = value; }
 		}
-        #endregion
+		#endregion
 
-        #region --[Eventos]--
+		#region --[Eventos]--
 		/// <summary>
 		/// Handles the Load event of the Page control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load(object sender, EventArgs e)
-        {
+		protected void Page_Load(object sender, EventArgs e)
+		{
 
-        }
+		}
 
 		/// <summary>
 		/// Handles the Click event of the btnExportar control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void btnExportar_Click(object sender, EventArgs e)
-        {
+		protected void btnExportar_Click(object sender, EventArgs e)
+		{
 			StringBuilder filtros = new StringBuilder();
 			filtros.AppendLine("- Curso: " + cursoActual.curso.nombre);
 
@@ -110,17 +110,17 @@ namespace EDUAR_UI.UserControls
 			if (Hasta > DateTime.MinValue)
 				filtros.AppendLine("- Fecha Hasta: " + Hasta.ToShortDateString());
 
-            if (Datos != null && !String.IsNullOrEmpty(Titulo))
+			if (Datos != null && !String.IsNullOrEmpty(Titulo))
 				ExportPDF.ExportarPDF(Titulo, Datos, HttpContext.Current.User.Identity.Name, filtros.ToString());
-        }
-        #endregion
+		}
+		#endregion
 
-        #region --[Métodos Públicos]--
-        public void Clean()
-        {
-            Titulo = "";
-            Datos = null;
-        }
-        #endregion
-    }
+		#region --[Métodos Públicos]--
+		public void Clean()
+		{
+			Titulo = "";
+			Datos = null;
+		}
+		#endregion
+	}
 }
