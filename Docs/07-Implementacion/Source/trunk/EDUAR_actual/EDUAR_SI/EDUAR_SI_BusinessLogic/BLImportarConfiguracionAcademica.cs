@@ -40,7 +40,7 @@ namespace EDUAR_SI_BusinessLogic
 				objDAImportarDatos = new DAImportarDatos(ConnectionString);
 
 				//objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDEVDesdeRemoto);
-                objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDEVDesdeRemoto);
+				objConfiguracion = objDAImportarDatos.ObtenerConfiguracion(enumConfiguraciones.BaseDeDatosOrigenDEVDesdeRemoto);
 
 				//Método que realmente lleva a cabo las tareas
 				ImportarDatos();
@@ -120,7 +120,7 @@ namespace EDUAR_SI_BusinessLogic
 
 				objDAImportarDatos.GrabarAsignaturaCurso(objDAObtenerDatos.obtenerAsignaturasCursoBDTransaccional(objConfiguracion), transaccion);
 
-                objDAImportarDatos.GrabarAsignaturaNivel(objDAObtenerDatos.obtenerAsignaturaNivelBDTransaccional(objConfiguracion), transaccion);
+				objDAImportarDatos.GrabarAsignaturaNivel(objDAObtenerDatos.obtenerAsignaturaNivelBDTransaccional(objConfiguracion), transaccion);
 
 				objDAImportarDatos.GrabarPeriodo(objDAObtenerDatos.obtenerPeriodosBDTransaccional(objConfiguracion), transaccion);
 			}
