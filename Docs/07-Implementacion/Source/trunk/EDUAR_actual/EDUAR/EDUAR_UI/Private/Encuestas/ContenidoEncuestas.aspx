@@ -34,19 +34,6 @@
                 <ContentTemplate>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td>
-                                <h3>
-                                    Buscar Preguntas</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
                             <td valign="top" class="TD110px">
                                 <asp:Label ID="lblCategoria" runat="server" Text="Categoría:"></asp:Label>
                             </td>
