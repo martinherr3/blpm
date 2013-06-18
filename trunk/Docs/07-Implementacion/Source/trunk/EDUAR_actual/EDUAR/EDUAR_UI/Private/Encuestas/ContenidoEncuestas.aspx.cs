@@ -224,7 +224,7 @@ namespace EDUAR_UI
 			{
 				AvisoMostrar = true;
 				AvisoExcepcion = ex;
-                
+				
 			}
 		}
 

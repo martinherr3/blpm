@@ -32,19 +32,6 @@
             </table>
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td>
-                                <h3>
-                                    Buscar Encuestas</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="ValidarBusqueda" runat="server" />
-                            </td>
-                        </tr>
-                    </table>--%>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD50px">
@@ -113,14 +100,6 @@
                             <asp:Label ID="lblNombre" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "nombreEncuesta").ToString())%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <%--<asp:TemplateField HeaderText="Objetivo">
-                        <HeaderStyle HorizontalAlign="left" Width="25%" />
-                        <ItemStyle HorizontalAlign="left" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblObjetivo" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "objetivo").ToString())%>'
-                                ToolTip='<%# Bind("objetivo") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="Creación">
                         <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="center" />
@@ -160,23 +139,7 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-<%--                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td colspan="2">
-                                <h3>
-                                    <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
-                                    <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
-                                    Encuesta
-                                </h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="TD100">
-                                <asp:ValidationSummary ID="validarEdit" runat="server" />
-                            </td>
-                        </tr>
-                    </table>--%>
-                    <table width="100%" cellpadding="1" cellspacing="5">
+                    <table class="tablaInterna" width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TDCriterios15">
                                 <asp:Label runat="server" ID="lblNombreEdit" Text="Nombre encuesta:"></asp:Label>
