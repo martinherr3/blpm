@@ -25,8 +25,10 @@
                     <td align="right">
                         <asp:ImageButton ID="btnGraficar" runat="server" ToolTip="Graficar" ImageUrl="~/Images/Graficar.png"
                             Visible="false" />
+                        <asp:ImageButton ID="btnExcel" ToolTip="Exportar a Excel" ImageUrl="~/Images/ExportarExcel.png"
+                            runat="server" Visible="true" OnClick="btnExportarExcel_Click" />
                         <asp:ImageButton ID="btnPDF" runat="server" ToolTip="Exportar a PDF" ImageUrl="~/Images/ExportarPDF.png"
-                            Visible="false" />
+                            Visible="false"  />
                         <asp:ImageButton ID="btnImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/Images/botonImprimir.png"
                             Visible="false" /><!--OnClick="btnImprimir_Click"-->
                         <asp:ImageButton ID="btnVolver" runat="server" ToolTip="Volver" ImageUrl="~/Images/botonVolver.png"
