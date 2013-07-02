@@ -4,6 +4,10 @@ using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EDUAR_UI.Utilidades;
+using NPOI.SS.UserModel;
+using NPOI.HSSF.UserModel;
+using NPOI.HPSF;
+using System.IO;
 
 namespace EDUAR_UI.UserControls
 {
@@ -11,6 +15,11 @@ namespace EDUAR_UI.UserControls
     {
         #region --[Atributos]--
         PagedDataSource pds = new PagedDataSource();
+
+        /// <summary>
+        /// The excel file
+        /// </summary>
+        HSSFWorkbook excelFile;
         #endregion
 
         #region --[Propiedades]--
@@ -198,6 +207,27 @@ namespace EDUAR_UI.UserControls
         }
 
         /// <summary>
+        /// Handles the Click event of the btnExportarExcel control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ExportarExcel();
+                Response.Clear();
+
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", "Reporte.xls"));
+                Response.BinaryWrite(WriteToStream().GetBuffer());
+                Response.Flush();
+            }
+            catch (Exception ex)
+            { throw ex; }
+        }
+
+        /// <summary>
         /// Cerrars the grafico.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -373,6 +403,71 @@ namespace EDUAR_UI.UserControls
             OnExportarPDFClick(ExportarPDFClick, e);
         }
 
+        private void ExportarExcel()
+        {
+            InitializeWorkbook();
+
+            #region --[Estilos]--
+            IFont fuenteTitulo = excelFile.CreateFont();
+            fuenteTitulo.FontName = "Calibri";
+            fuenteTitulo.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
+
+            IFont unaFuente = excelFile.CreateFont();
+            unaFuente.FontName = "Tahoma";
+
+            IFont fuenteEncabezado = excelFile.CreateFont();
+            fuenteEncabezado.FontName = "Tahoma";
+            fuenteEncabezado.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
+
+            ICellStyle unEstiloDecimal = excelFile.CreateCellStyle();
+            IDataFormat format = excelFile.CreateDataFormat();
+            unEstiloDecimal.DataFormat = format.GetFormat("0.00");
+            unEstiloDecimal.SetFont(unaFuente);
+
+            ICellStyle estiloBloqueada = excelFile.CreateCellStyle();
+            estiloBloqueada.IsLocked = true;
+            estiloBloqueada.SetFont(fuenteEncabezado);
+            #endregion
+
+            //NPOI.SS.Util.CellRangeAddress rango = new NPOI.SS.Util.CellRangeAddress(0, 0, 1, strCriterios.Length);
+
+            #region --[Hoja Datos]--
+            ISheet hojaUno = excelFile.CreateSheet("Reporte EDUAR");
+
+            IRow filaEncabezado = hojaUno.CreateRow(0);
+            int auxNumRow = 0;
+            filaEncabezado.CreateCell(1).SetCellValue("Informe");
+            filaEncabezado.Cells[0].CellStyle.SetFont(fuenteTitulo);
+            filaEncabezado.Cells[0].CellStyle.Alignment = HorizontalAlignment.CENTER;
+
+            filaEncabezado = hojaUno.CreateRow(1);
+            auxNumRow++;
+
+            for (int i = 0; i < dtReporte.Columns.Count; i++)
+            {
+                filaEncabezado.CreateCell(i).SetCellValue(dtReporte.Columns[i].ColumnName);
+                filaEncabezado.Cells[i].CellStyle.SetFont(fuenteTitulo);
+                filaEncabezado.Cells[i].CellStyle.Alignment = HorizontalAlignment.CENTER;
+            }
+
+            auxNumRow++;
+            for (int i = 0; i < dtReporte.Rows.Count; i++, auxNumRow++)
+            {
+                filaEncabezado = hojaUno.CreateRow(auxNumRow);
+
+                for (int j = 0; j < dtReporte.Columns.Count; j++)
+                {
+                    filaEncabezado.CreateCell(j).SetCellValue(dtReporte.Rows[i][j].ToString());
+                    filaEncabezado.Cells[j].CellStyle.SetFont(unaFuente);
+                }
+            }
+
+            for (int i = 0; i <= dtReporte.Columns.Count; i++)
+                hojaUno.AutoSizeColumn(i);
+
+            #endregion
+        }
+
         /// <summary>
         /// Volvers the specified sender.
         /// </summary>
@@ -453,6 +548,30 @@ namespace EDUAR_UI.UserControls
             dv = sortDataView(dv, true);
             GrillaReporte.DataSource = dv;
             GrillaReporte.DataBind();
+        }
+
+        /// <summary>
+        /// Cargars the grilla.
+        /// </summary>
+        /// <param name="paginando">if set to <c>true</c> [paginando].</param>
+        private void CargarGrilla(bool paginando)
+        {
+            pds.DataSource = sortDataView(dtReporte.DefaultView, paginando);
+
+            pds.AllowPaging = true;
+            pds.PageSize = Convert.ToInt16(ddlPageSize.SelectedValue);
+            pds.CurrentPageIndex = CurrentPage;
+            lnkbtnNext.Visible = !pds.IsLastPage;
+            lnkbtnLast.Visible = !pds.IsLastPage;
+            lnkbtnPrevious.Visible = !pds.IsFirstPage;
+            lnkbtnFirst.Visible = !pds.IsFirstPage;
+            GrillaReporte = UIUtilidades.GenerarGrilla(GrillaReporte, dtReporte);
+            GrillaReporte.PageSize = pds.PageSize;
+            GrillaReporte.DataSource = pds;
+            GrillaReporte.DataBind();
+            doPaging();
+            lblCantidad.Text = dtReporte.Rows.Count.ToString() + " Registros";
+            udpReporte.Update();
         }
         #endregion
 
@@ -603,24 +722,36 @@ namespace EDUAR_UI.UserControls
         }
         #endregion
 
-        private void CargarGrilla(bool paginando)
+        #region --[Generación de Excel]--
+        /// <summary>
+        /// Initializes the workbook.
+        /// </summary>
+        void InitializeWorkbook()
         {
-            pds.DataSource = sortDataView(dtReporte.DefaultView, paginando);
+            excelFile = new HSSFWorkbook();
 
-            pds.AllowPaging = true;
-            pds.PageSize = Convert.ToInt16(ddlPageSize.SelectedValue);
-            pds.CurrentPageIndex = CurrentPage;
-            lnkbtnNext.Visible = !pds.IsLastPage;
-            lnkbtnLast.Visible = !pds.IsLastPage;
-            lnkbtnPrevious.Visible = !pds.IsFirstPage;
-            lnkbtnFirst.Visible = !pds.IsFirstPage;
-            GrillaReporte = UIUtilidades.GenerarGrilla(GrillaReporte, dtReporte);
-            GrillaReporte.PageSize = pds.PageSize;
-            GrillaReporte.DataSource = pds;
-            GrillaReporte.DataBind();
-            doPaging();
-            lblCantidad.Text = dtReporte.Rows.Count.ToString() + " Registros";
-            udpReporte.Update();
+            //create a entry of DocumentSummaryInformation
+            DocumentSummaryInformation dsi = PropertySetFactory.CreateDocumentSummaryInformation();
+            dsi.Company = "EDU@R 2.0";
+            excelFile.DocumentSummaryInformation = dsi;
+
+            //create a entry of SummaryInformation
+            SummaryInformation si = PropertySetFactory.CreateSummaryInformation();
+            si.Subject = "Archivo generado medinte la librería NPOI";
+            excelFile.SummaryInformation = si;
         }
+
+        /// <summary>
+        /// Writes to stream.
+        /// </summary>
+        /// <returns></returns>
+        MemoryStream WriteToStream()
+        {
+            //Write the stream data of workbook to the root directory
+            MemoryStream file = new MemoryStream();
+            excelFile.Write(file);
+            return file;
+        }
+        #endregion
     }
 }
