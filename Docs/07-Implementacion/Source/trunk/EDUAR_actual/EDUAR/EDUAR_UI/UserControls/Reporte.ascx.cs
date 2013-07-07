@@ -8,6 +8,7 @@ using NPOI.SS.UserModel;
 using NPOI.HSSF.UserModel;
 using NPOI.HPSF;
 using System.IO;
+using NPOI.HSSF.Util;
 
 namespace EDUAR_UI.UserControls
 {
@@ -176,11 +177,11 @@ namespace EDUAR_UI.UserControls
                 grafico.CerrarClick += (CerrarGrafico);
                 GrillaReporte.Sorting += (Ordenar);
                 GrillaReporte.PageIndexChanging += (PaginandoGrilla);
+                tituloReporte = Page.Title;
 
                 if (!Page.IsPostBack)
                 {
                     grafico.habilitarTorta = true;
-                    tituloReporte = Page.Title;
                     btnPDF.Visible = false;
                     btnGraficar.Visible = false;
                     btnVolver.Visible = false;
@@ -219,7 +220,7 @@ namespace EDUAR_UI.UserControls
                 Response.Clear();
 
                 Response.ContentType = "application/vnd.ms-excel";
-                Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", "Reporte.xls"));
+                Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", tituloReporte.Trim().Replace(" ", string.Empty) + "-" + DateTime.Now.ToShortDateString().Replace(':', '_').Trim() + ".xls"));
                 Response.BinaryWrite(WriteToStream().GetBuffer());
                 Response.Flush();
             }
@@ -365,6 +366,7 @@ namespace EDUAR_UI.UserControls
                     //GrillaReporte = UIUtilidades.GenerarGrilla(lista, GrillaReporte);
                     dtReporte = UIUtilidades.BuildDataTable<T>(lista);
                     GrillaReporte = UIUtilidades.GenerarGrilla(GrillaReporte, dtReporte);
+                    btnExcel.Visible = true;
                     btnVolver.Visible = true;
                     btnPDF.Visible = true;
                     btnGraficar.Visible = verBotonGrafico;
@@ -378,6 +380,7 @@ namespace EDUAR_UI.UserControls
                     GrillaReporte.Visible = false;
                     btnVolver.Visible = true;
                     btnPDF.Visible = false;
+                    btnExcel.Visible = false;
                     btnGraficar.Visible = false;
                     btnImprimir.Visible = false;
                 }
@@ -421,49 +424,79 @@ namespace EDUAR_UI.UserControls
 
             ICellStyle unEstiloDecimal = excelFile.CreateCellStyle();
             IDataFormat format = excelFile.CreateDataFormat();
+            unEstiloDecimal.Alignment = HorizontalAlignment.CENTER;
             unEstiloDecimal.DataFormat = format.GetFormat("0.00");
             unEstiloDecimal.SetFont(unaFuente);
 
-            ICellStyle estiloBloqueada = excelFile.CreateCellStyle();
-            estiloBloqueada.IsLocked = true;
-            estiloBloqueada.SetFont(fuenteEncabezado);
+            ICellStyle estiloNormal = excelFile.CreateCellStyle();
+            estiloNormal.Alignment = HorizontalAlignment.LEFT;
+            estiloNormal.SetFont(unaFuente);
+
+            ICellStyle estiloFecha = excelFile.CreateCellStyle();
+            estiloFecha.Alignment = HorizontalAlignment.CENTER;
+            estiloFecha.SetFont(unaFuente);
+
+            // Pick font style settings to add to new style
+            IFont rowCellFont = excelFile.CreateFont();
+            rowCellFont.FontName = "Calibri";
+            rowCellFont.FontHeightInPoints = 12;
+            rowCellFont.Color = HSSFColor.WHITE.index;
+            rowCellFont.Boldweight = (short)FontBoldWeight.BOLD.GetHashCode();
+
+            // Create a new style, set background color, assign font style (style is created in the workbook object)
+            ICellStyle rowCellStyle = excelFile.CreateCellStyle();
+            rowCellStyle.FillForegroundColor = HSSFColor.ROYAL_BLUE.index;
+            rowCellStyle.FillPattern = FillPatternType.SOLID_FOREGROUND;
+            rowCellStyle.Alignment = HorizontalAlignment.CENTER;
+            rowCellStyle.SetFont(rowCellFont);
             #endregion
 
-            //NPOI.SS.Util.CellRangeAddress rango = new NPOI.SS.Util.CellRangeAddress(0, 0, 1, strCriterios.Length);
-
             #region --[Hoja Datos]--
-            ISheet hojaUno = excelFile.CreateSheet("Reporte EDUAR");
+            ISheet hojaUno = excelFile.CreateSheet(tituloReporte);
 
             IRow filaEncabezado = hojaUno.CreateRow(0);
             int auxNumRow = 0;
-            filaEncabezado.CreateCell(1).SetCellValue("Informe");
-            filaEncabezado.Cells[0].CellStyle.SetFont(fuenteTitulo);
-            filaEncabezado.Cells[0].CellStyle.Alignment = HorizontalAlignment.CENTER;
 
-            filaEncabezado = hojaUno.CreateRow(1);
-            auxNumRow++;
-
+            filaEncabezado = hojaUno.CreateRow(0);
             for (int i = 0; i < dtReporte.Columns.Count; i++)
             {
-                filaEncabezado.CreateCell(i).SetCellValue(dtReporte.Columns[i].ColumnName);
-                filaEncabezado.Cells[i].CellStyle.SetFont(fuenteTitulo);
-                filaEncabezado.Cells[i].CellStyle.Alignment = HorizontalAlignment.CENTER;
+                filaEncabezado.CreateCell(i).SetCellValue(dtReporte.Columns[i].ColumnName.ToUpper());
+                filaEncabezado.HeightInPoints = 16;
+                filaEncabezado.Cells[i].CellStyle = rowCellStyle;
             }
 
             auxNumRow++;
+            DateTime auxDate;
+            Double auxDec;
             for (int i = 0; i < dtReporte.Rows.Count; i++, auxNumRow++)
             {
                 filaEncabezado = hojaUno.CreateRow(auxNumRow);
 
                 for (int j = 0; j < dtReporte.Columns.Count; j++)
                 {
-                    filaEncabezado.CreateCell(j).SetCellValue(dtReporte.Rows[i][j].ToString());
-                    filaEncabezado.Cells[j].CellStyle.SetFont(unaFuente);
+                    if (Double.TryParse(dtReporte.Rows[i][j].ToString(), out auxDec))
+                    {
+                        filaEncabezado.CreateCell(j).SetCellValue(auxDec);
+                        filaEncabezado.Cells[j].CellStyle = unEstiloDecimal;
+                    }
+                    else
+                        if (DateTime.TryParse(dtReporte.Rows[i][j].ToString(), out auxDate))
+                        {
+                            filaEncabezado.CreateCell(j).SetCellValue(auxDate.ToShortDateString());
+                            filaEncabezado.Cells[j].CellStyle = estiloFecha;
+                        }
+                        else
+                        {
+                            filaEncabezado.CreateCell(j).SetCellValue(dtReporte.Rows[i][j].ToString());
+                            filaEncabezado.Cells[j].CellStyle = estiloNormal;
+                        }
                 }
             }
 
             for (int i = 0; i <= dtReporte.Columns.Count; i++)
                 hojaUno.AutoSizeColumn(i);
+
+            //hojaUno.set(new CellRangeAddress(firstCell.getRow(), lastCell.getRow(), firstCell.getCol(), lastCell.getCol()));
 
             #endregion
         }

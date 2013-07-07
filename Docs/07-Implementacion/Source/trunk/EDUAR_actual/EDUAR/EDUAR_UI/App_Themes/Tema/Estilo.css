@@ -1071,7 +1071,7 @@ label
 }
 .CajaDialogo
 {
-    position: fixed !important;
+    position: fixed !important; /*fixed*/
     background-color: #FFF;
     border-width: 5px;
     border-style: ridge; /*width: 400px; /*font-weight: bold;             font-style: italic;*/
@@ -1265,7 +1265,7 @@ label
 .divInformeIndicador
 {
     /*border: 2px solid #341010;*/
-    position: relative;
+    position: absolute; /*relative*/
     text-align: center; /*top: 5%;*/
     width: 680px;
     z-index: 951; /* Gradient */ /*background: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#988787)); 	background: -moz-linear-gradient(top, #FFFFFF, #988787);*/
