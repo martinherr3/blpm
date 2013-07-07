@@ -7,6 +7,5 @@
     </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="btnExportar" />
-        <asp:PostBackTrigger ControlID="btnExcel" />
     </Triggers>
 </asp:UpdatePanel>
