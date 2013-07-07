@@ -988,11 +988,11 @@ namespace EDUAR_UI
 			NombrePNG = TmpPath + "\\Podio_" + Session.SessionID + ".png";
 			string ruta = Request.PhysicalApplicationPath + "Images\\TMP\\Podio_" + Session.SessionID + ".png";
 
-            //Crea el directorio.
-            if (!System.IO.Directory.Exists(Request.PhysicalApplicationPath + "Images\\TMP\\"))
-                System.IO.Directory.CreateDirectory(Request.PhysicalApplicationPath + "Images\\TMP\\");
-            
-            //Y finalmente lo guardamos
+			//Crea el directorio.
+			if (!System.IO.Directory.Exists(Request.PhysicalApplicationPath + "Images\\TMP\\"))
+				System.IO.Directory.CreateDirectory(Request.PhysicalApplicationPath + "Images\\TMP\\");
+			
+			//Y finalmente lo guardamos
 			objBitmap.Save(NombrePNG, ImageFormat.Png);
 
 			File.Copy(NombrePNG, ruta);
@@ -1490,7 +1490,7 @@ namespace EDUAR_UI
 				int index = excelFile.AddPicture(ms.ToArray(), PictureType.PNG);
 				var picture = patriarch.CreatePicture(anchor, index);
 				picture.Resize();
-				picture.LineStyle = HSSFPicture.LINESTYLE_DASHDOTGEL;
+				//picture.LineStyle = HSSFPicture.LINESTYLE_DASHDOTGEL;
 				hojaExcel.ForceFormulaRecalculation = true;
 				#endregion
 			}
