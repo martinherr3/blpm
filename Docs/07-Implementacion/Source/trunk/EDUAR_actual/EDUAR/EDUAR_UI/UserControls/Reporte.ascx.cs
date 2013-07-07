@@ -9,6 +9,8 @@ using NPOI.HSSF.UserModel;
 using NPOI.HPSF;
 using System.IO;
 using NPOI.HSSF.Util;
+using NPOI.SS.Util;
+using System.Text;
 
 namespace EDUAR_UI.UserControls
 {
@@ -452,7 +454,9 @@ namespace EDUAR_UI.UserControls
             #endregion
 
             #region --[Hoja Datos]--
-            ISheet hojaUno = excelFile.CreateSheet(tituloReporte);
+            //ISheet hojaUno = excelFile.CreateSheet(tituloReporte);
+
+            HSSFSheet hojaUno = (HSSFSheet)excelFile.CreateSheet(tituloReporte);
 
             IRow filaEncabezado = hojaUno.CreateRow(0);
             int auxNumRow = 0;
@@ -491,11 +495,32 @@ namespace EDUAR_UI.UserControls
                             filaEncabezado.Cells[j].CellStyle = estiloNormal;
                         }
                 }
+
+                if (i == 1)
+                {
+                    HSSFPatriarch patr = (HSSFPatriarch)hojaUno.CreateDrawingPatriarch();
+                    IComment comment = patr.CreateCellComment(new HSSFClientAnchor(0, 0, 0, 0, 0, 0, 4, 5));
+                    StringBuilder miCadena = new StringBuilder();
+                    miCadena.AppendLine("Filtros Aplicados");
+                    miCadena.AppendLine(filtrosAplicados);
+                    comment.String = new HSSFRichTextString(miCadena.ToString());
+                    comment.Author = "EDU@R 2.0";
+                    //comment.Visible = true;
+                    comment.Column = dtReporte.Columns.Count + 1;
+                    comment.Row = 2;
+                    filaEncabezado.CreateCell(dtReporte.Columns.Count + 1).CellComment = comment;
+                }
             }
+
+            hojaUno.SetAutoFilter(new CellRangeAddress(0, dtReporte.Rows.Count, 0, dtReporte.Columns.Count - 1));
+
+            hojaUno.CreateFreezePane(0, 1, 0, 1);
 
             for (int i = 0; i <= dtReporte.Columns.Count; i++)
                 hojaUno.AutoSizeColumn(i);
 
+            
+            
             //hojaUno.set(new CellRangeAddress(firstCell.getRow(), lastCell.getRow(), firstCell.getCol(), lastCell.getCol()));
 
             #endregion
