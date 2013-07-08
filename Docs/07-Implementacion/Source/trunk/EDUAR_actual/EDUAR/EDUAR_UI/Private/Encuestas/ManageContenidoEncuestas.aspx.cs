@@ -194,7 +194,13 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
-					CargarPresentacion();
+                    if (Request.UrlReferrer.AbsolutePath.Contains("ResultadosEncuestas.aspx"))
+                    {
+                        //Lo que se hace en este bloque es hacer la encuestaSesion lo más genérica posible
+                        encuestaSesion = new Encuesta();
+                    }
+                    
+                    CargarPresentacion();
 
                     encuestaSesion.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
@@ -342,7 +348,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				CargarPresentacion();
+                CargarPresentacion();
                 ViewState.Clear();
 			}
 			catch (Exception ex)
@@ -759,6 +765,8 @@ namespace EDUAR_UI
 			lblTitulo.Text = "Encuestas";
 			Encuesta entidad = new Encuesta();
 			entidad.activo = chkActivo.Checked;
+
+            entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
 			AmbitoEncuesta ambito = new AmbitoEncuesta();
 			ambito.idAmbitoEncuesta = Convert.ToInt32(ddlAmbito.SelectedValue);
