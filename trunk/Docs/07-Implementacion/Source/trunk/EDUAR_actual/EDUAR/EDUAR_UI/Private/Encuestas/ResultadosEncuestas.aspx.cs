@@ -257,7 +257,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				Response.Redirect("ManageContenidoEncuestas.aspx", false);
+                Response.Redirect("ManageContenidoEncuestas.aspx", false);
 			}
 			catch (Exception ex)
 			{
