@@ -194,7 +194,8 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
-                    if (Request.UrlReferrer.AbsolutePath.Contains("ResultadosEncuestas.aspx"))
+                    if (Request.UrlReferrer.AbsolutePath.Contains("ResultadosEncuestas.aspx") ||
+                        Request.UrlReferrer.AbsolutePath.Contains("ContenidoEncuestas.aspx"))
                     {
                         //Lo que se hace en este bloque es hacer la encuestaSesion lo más genérica posible
                         encuestaSesion = new Encuesta();
@@ -242,12 +243,13 @@ namespace EDUAR_UI
 						break;
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
-						BuscarEncuesta(null);
+						BuscarEncuesta(encuestaSesion);
 						break;
 					case enumAcciones.Guardar:
 						AccionPagina = enumAcciones.Limpiar;
 						GuardarEncuesta(ObtenerValoresDePantalla());
 						Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
+                        //BuscarFiltrando();
 						break;
 					default:
 						break;
