@@ -273,23 +273,58 @@ namespace EDUAR_BusinessLogic.Security
         }
 
         /// <summary>
+        /// Cambiars the password.
+        /// </summary>
+        /// <param name="validarPassword">if set to <c>true</c> [validar password].</param>
+        public void CambiarPassword(bool validarPassword)
+        {
+            try
+            {
+                if (validarPassword)
+                {
+                    if (Membership.ValidateUser(Data.Usuario.Nombre, Data.Usuario.Password))
+                    {
+                        MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
+
+                        if (!user.ChangePassword(user.GetPassword(), Data.Usuario.PasswordNuevo))
+                            throw new CustomizedException("La contraseña indicada no es correcta.", null,
+                                                                              enuExceptionType.SecurityException);
+                    }
+                    else
+                        throw new CustomizedException("La contraseña indicada no es correcta.", null,
+                                                                          enuExceptionType.SecurityException);
+                }
+                else
+                {
+                    MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
+
+                    if (user == null || !user.ChangePassword(user.GetPassword(), Data.Usuario.PasswordNuevo))
+                        throw new CustomizedException("La contraseña indicada no es correcta.", null,
+                                                                          enuExceptionType.SecurityException);
+                }
+            }
+            catch (CustomizedException ex)
+            { throw ex; }
+            catch (ArgumentException)
+            {
+                throw new CustomizedException("La Contraseña debe tener al menos 5 caracteres, de los cuales uno debe ser numérico.", null,
+                                                              enuExceptionType.SecurityException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - CambiarPassword", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
+        /// <summary>
         /// Método que cambia el password de un usuario. 
         /// </summary>
         public void CambiarPassword()
         {
             try
             {
-                if (Membership.ValidateUser(Data.Usuario.Nombre, Data.Usuario.Password))
-                {
-                    MembershipUser user = Membership.GetUser(Data.Usuario.Nombre);
-
-                    if (!user.ChangePassword(user.GetPassword(), Data.Usuario.PasswordNuevo))
-                        throw new CustomizedException("La contraseña indicada no es correcta.", null,
-                                                                          enuExceptionType.SecurityException);
-                }
-                else
-                    throw new CustomizedException("La contraseña indicada no es correcta.", null,
-                                                                      enuExceptionType.SecurityException);
+                CambiarPassword(true);
             }
             catch (CustomizedException ex)
             { throw ex; }
@@ -713,5 +748,6 @@ namespace EDUAR_BusinessLogic.Security
         }
 
         #endregion
+
     }
 }
