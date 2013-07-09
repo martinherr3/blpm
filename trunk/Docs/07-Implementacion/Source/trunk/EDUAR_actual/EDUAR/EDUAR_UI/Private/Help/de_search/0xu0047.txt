@@ -1,0 +1,3 @@
+GENERAR; 7;
+GESTIÓN; 13;
+GUÍA; 1;

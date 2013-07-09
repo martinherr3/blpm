@@ -155,11 +155,14 @@ namespace EDUAR_UI
                         if (HttpContext.Current.User.IsInRole(enumRoles.Tutor.ToString()))
                             rol = enumRoles.Tutor.ToString();
 
-                        if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")) != null)
-                            ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")).NavigateUrl = string.Format("~/Private/Manuales/help_{0}.aspx", rol);
+                        //if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")) != null)
+                        //    ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")).NavigateUrl = string.Format("~/Private/Manuales/help_{0}.aspx", rol);
 
-                        if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")) != null)
-                            ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")).NavigateUrl = string.Format("~/Private/Manuales/help_{0}.aspx", rol);
+                        //if (!string.IsNullOrEmpty(rol) && ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")) != null)
+                        //    ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")).NavigateUrl = string.Format("~/Private/Manuales/help_{0}.aspx", rol);
+
+                        ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyuda")).NavigateUrl = string.Format("~/Private/Help/index.html");
+                        ((HyperLink)Page.Master.FindControl("HeadLoginView").FindControl("linkAyudaText")).NavigateUrl = string.Format("~/Private/Help/index.html");
 
                         #region --[Mensajes en header]--
                         //StringBuilder s = new StringBuilder();
