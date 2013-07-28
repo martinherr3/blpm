@@ -1,0 +1,2 @@
+ACCIONES; 2;
+AYUDA; 1;

@@ -1,0 +1,5 @@
+EDU; 1;
+EDU@R; 1;
+EJECUTAR; 2;
+EL; 1;
+EN; 2;
