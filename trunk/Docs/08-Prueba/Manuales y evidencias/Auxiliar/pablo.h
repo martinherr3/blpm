@@ -1,0 +1,4 @@
+
+#define IDH_TOPIC_EDU_R                      1
+#define IDH_TOPIC_COMUNICACION___MENSAJES    110
+#define IDH_CONTROL_SELECCION_DE_UN_MENSAJE  111
