@@ -1,3 +1,0 @@
-UN; 2;
-UNA; 2;
-USUARIO; 1;
