@@ -215,6 +215,13 @@ namespace EDUAR_DataAccess.Common
 
                     objEvento.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividades"]);
 
+                    //Descartamos mostrar las reuniones que han acontecido en el pasado (se desactivan)
+                    if (objEvento.fechaEvento < DateTime.Now && objEvento.activo == true)
+                    {
+                        objEvento.activo = false;
+                        Update(objEvento);
+                    }
+                    
                     listReuniones.Add(objEvento);
 				}
 				return listReuniones;
