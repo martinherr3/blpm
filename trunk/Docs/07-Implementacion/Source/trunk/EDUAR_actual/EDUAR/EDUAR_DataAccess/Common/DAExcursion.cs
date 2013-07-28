@@ -133,12 +133,12 @@ namespace EDUAR_DataAccess.Common
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAgendaActividades", DbType.Int32, entidad.idAgendaActividad);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@username", DbType.String, entidad.usuario.username);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idTipoEvento", DbType.Int32, (int)enumEventoAgendaType.Excursion);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaAlta", DbType.Date, entidad.fechaAlta);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaModificacion", DbType.Date, DateTime.Now);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaEvento", DbType.Date, entidad.fechaEvento);
-                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@fechaAlta", DbType.Date, entidad.fechaAlta);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@descripcion", DbType.String, entidad.descripcion);
-
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+                
                 //Propios de la excursión
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idExcursion", DbType.Int32, entidad.idExcursion);
                 Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@horaDesde", DbType.Time, entidad.horaDesde);
@@ -214,8 +214,7 @@ namespace EDUAR_DataAccess.Common
                         objEvento.horaHasta = Convert.ToDateTime(reader["horaHasta"].ToString());
                     objEvento.idEventoAgenda = Convert.ToInt32(reader["idEvento"]);
                     objEvento.destino = reader["destino"].ToString();
-
-
+                    
                     objEvento.activo = Convert.ToBoolean(reader["activo"]);
                     objEvento.descripcion = reader["descripcion"].ToString();
                     objEvento.fechaEvento = Convert.ToDateTime(reader["fechaEvento"]);
@@ -224,7 +223,7 @@ namespace EDUAR_DataAccess.Common
                     objEvento.usuario = new Persona() { idPersona = Convert.ToInt32(reader["idOrganizador"]), nombre = reader["nombreOrganizador"].ToString(), apellido = reader["apellidoOrganizador"].ToString() };
 
                     objEvento.idAgendaActividad = Convert.ToInt32(reader["idAgendaActividades"]);
-
+                    
                     listExcursiones.Add(objEvento);
                 }
                 return listExcursiones;
