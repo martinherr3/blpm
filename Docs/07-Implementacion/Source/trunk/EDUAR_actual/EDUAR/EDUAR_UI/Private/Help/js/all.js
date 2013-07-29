@@ -1287,10 +1287,10 @@ InputSync.prototype ={
 DR_EXPLAIN.namespace( 'DR_EXPLAIN.data_menu' );
 DR_EXPLAIN.data_menu = {
 	// menu
-	DREX_NODE_NAMES: ["EDU@R","Acceso al Sistema","Controles","Secciones","Iniciar Sesión","Registrarme","Crear Nueva Cuenta","Olvidé Mi Clave","Tipos de Documento","Fecha","Encabezado","Menú Lateral Privado","Menú Lateral Público","Validación","Nueva Clave de Acceso"],
-	DREX_NODE_LINKS: ["eduar.html","acceso_al_sistema.html","controles.html","secciones.html","iniciar_sesion.html","registrarme.html","crear_nueva_cuenta.html","olvide_mi_clave.html","tipos_de_documento.html","fecha.html","encabezado.html","menu_lateral_privado.html","menu_lateral_publico.html","validacion.html","nueva_clave_de_acceso.html"],
-	DREX_NODE_CHILD_START: [1,4,8,10,13,13,13,13,15,15,15,15,15,15,15],
-	DREX_NODE_CHILD_END: [4,8,10,13,13,13,13,15,15,15,15,15,15,15,15],
+	DREX_NODE_NAMES: ["EDU@R","Acceso al Sistema","Controles","Secciones","Módulos","Iniciar Sesión","Registrarme","Crear Nueva Cuenta","Olvidé Mi Clave","Tipos de Documento","Fecha","Cerrar","Encabezado","Menú Lateral Privado","Menú Lateral Público","Comunicación","Cursos","Reportes","Validación","Nueva Clave de Acceso","Mensajería","Mensajes Recibidos","Mensajes Enviados","Lectura de mensajes"],
+	DREX_NODE_LINKS: ["eduar.html","acceso_al_sistema.html","controles.html","secciones.html","modulos.html","iniciar_sesion.html","registrarme.html","crear_nueva_cuenta.html","olvide_mi_clave.html","tipos_de_documento.html","fecha.html","cerrar.html","encabezado.html","menu_lateral_privado.html","menu_lateral_publico.html","comunicacion.html","cursos.html","reportes.html","validacion.html","nueva_clave_de_acceso.html","mensajeria.html","mensajes_recibidos.html","mensajes_enviados.html","lectura_de_mensajes.html"],
+	DREX_NODE_CHILD_START: [1,5,9,12,15,18,18,18,18,20,20,20,20,20,20,20,21,21,21,21,21,24,24,24],
+	DREX_NODE_CHILD_END: [5,9,12,15,18,18,18,18,20,20,20,20,20,20,20,21,21,21,21,21,24,24,24,24],
 	DREX_MENU_TYPE: 2,
 	DREX_HAS_ROOT_NODE: 1};
 /*js/drexplain/drexplain.data.index.js*/

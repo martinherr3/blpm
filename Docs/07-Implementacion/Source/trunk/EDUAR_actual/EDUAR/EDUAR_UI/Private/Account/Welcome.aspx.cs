@@ -490,7 +490,7 @@ namespace EDUAR_UI
 
             habilitarSeccion(lnkAdministracion, btnAdministracion, verSeccion);
 
-            verSeccion = Master.ValidarSeccion("~/Mensajes/Reports/reportAccesos.aspx");
+            verSeccion = Master.ValidarSeccion("~/Private/Reports/reportAccesos.aspx");
             habilitarSeccion(lnkAccesos, btnAccesos, verSeccion);
 
             verSeccion = Master.ValidarSeccion("~/Private/Account/ChangeUser.aspx");

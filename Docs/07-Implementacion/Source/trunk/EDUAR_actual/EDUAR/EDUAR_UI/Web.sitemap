@@ -27,7 +27,7 @@
             <siteMapNode url="~/Private/Encuestas/ManageContenidoEncuestas.aspx" title="Administrar" roles="Administrador,Director,Docente" />
             <siteMapNode url="~/Private/Encuestas/ResultadosEncuestas.aspx" title="Resultados" roles="Administrador,Docente,Director" visible="false" />
             <siteMapNode url="~/Private/Encuestas/ManageEscalasPonderacion.aspx" title="Escalas de Ponderación" roles="Administrador,Director,Docente" />
-          <siteMapNode url="~/Private/Encuestas/ItemsEscalaPonderacion.aspx" title="Valores de Escalas" roles="Administrador,Director,Docente" />
+          <siteMapNode url="~/Private/Encuestas/ItemsEscalaPonderacion.aspx" title="Valores de Escalas" roles="Administrador,Director,Docente" visible="false" />
 
         </siteMapNode>
 
