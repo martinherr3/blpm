@@ -32,14 +32,41 @@
  Fecha
  fecha.html
 12
+ Cerrar
+ cerrar.html
+13
  Secciones
  secciones.html
-13
+14
  Encabezado
  encabezado.html
-14
+15
  Menú Lateral Privado
  menu_lateral_privado.html
-15
+16
  Menú Lateral Público
  menu_lateral_publico.html
+17
+ Módulos
+ modulos.html
+18
+ Comunicación
+ comunicacion.html
+19
+ Mensajería
+ mensajeria.html
+20
+ Mensajes Recibidos
+ mensajes_recibidos.html
+21
+ Mensajes Enviados
+ mensajes_enviados.html
+22
+ Lectura de mensajes
+ lectura_de_mensajes.html
+23
+ Cursos
+ cursos.html
+24
+ Reportes
+ reportes.html
