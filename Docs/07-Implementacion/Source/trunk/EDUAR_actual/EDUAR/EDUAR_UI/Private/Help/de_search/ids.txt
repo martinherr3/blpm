@@ -35,38 +35,71 @@
  Cerrar
  cerrar.html
 13
+ Volver
+ volver.html
+14
  Secciones
  secciones.html
-14
+15
  Encabezado
  encabezado.html
-15
+16
  Menú Lateral Privado
  menu_lateral_privado.html
-16
+17
  Menú Lateral Público
  menu_lateral_publico.html
-17
+18
  Módulos
  modulos.html
-18
+19
  Comunicación
  comunicacion.html
-19
+20
  Mensajería
  mensajeria.html
-20
+21
  Mensajes Recibidos
  mensajes_recibidos.html
-21
+22
  Mensajes Enviados
  mensajes_enviados.html
-22
+23
  Lectura de mensajes
  lectura_de_mensajes.html
-23
+24
+ Docente - Editar un nuevo mensaje
+ docente___editar_un_nuevo_mensaje.html
+25
+ Alumno - Editar un nuevo mensaje
+ alumno___editar_un_nuevo_mensaje.html
+26
+ Director - Editar un nuevo mensaje
+ director___editar_un_nuevo_mensaje.html
+27
+ Respuesta a un mensaje
+ respuesta_a_un_mensaje.html
+28
+ Citaciones
+ citaciones.html
+29
  Cursos
  cursos.html
-24
+30
+ Agenda
+ agenda.html
+31
+ Registro de Clases
+ registro_de_clases.html
+32
  Reportes
  reportes.html
+33
+ Contenidos
+ contenidos.html
+34
+ Encuestas
+ encuestas.html
+35
+ Administración
+ administracion.html
