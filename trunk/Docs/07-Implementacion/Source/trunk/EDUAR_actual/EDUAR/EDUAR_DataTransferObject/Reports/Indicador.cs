@@ -22,8 +22,8 @@ namespace EDUAR_Entities.Reports
 		public int rojoNivelSecundario { get; set; }
 
 		public Indicador()
-        {
-        }
+		{
+		}
 
 		~Indicador()
 		{ }

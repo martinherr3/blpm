@@ -112,12 +112,7 @@ namespace EDUAR_UI.UserControls
                 filtros.AppendLine("- Fecha Hasta: " + Hasta.ToShortDateString());
 
             if (Datos != null && !String.IsNullOrEmpty(Titulo))
-            {
-                if (((ImageButton)sender).CommandArgument == "ExportPDF")
-                    ExportPDF.ExportarPDF(Titulo, Datos, HttpContext.Current.User.Identity.Name, filtros.ToString());
-                if (((ImageButton)sender).CommandArgument == "ExportEXL")
-                    ExportarExcel();        
-            }
+                ExportPDF.ExportarPDF(Titulo, Datos, HttpContext.Current.User.Identity.Name, filtros.ToString());
         }
         #endregion
 
@@ -126,13 +121,6 @@ namespace EDUAR_UI.UserControls
         {
             Titulo = "";
             Datos = null;
-        }
-        #endregion
-
-        #region --[Métodos Privados]--
-        private void ExportarExcel()
-        {
-            //throw new NotImplementedException();
         }
         #endregion
     }

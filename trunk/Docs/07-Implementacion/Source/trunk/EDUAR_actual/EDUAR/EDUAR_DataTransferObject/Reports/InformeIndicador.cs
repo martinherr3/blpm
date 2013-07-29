@@ -22,10 +22,10 @@ namespace EDUAR_Entities.Reports
 		public int rojoNivelSecundario { get; set; }
 
 		public InformeIndicador()
-        {
-        }
+		{
+		}
 
-        ~InformeIndicador()
+		~InformeIndicador()
 		{ }
 
 		public virtual void Dispose()
