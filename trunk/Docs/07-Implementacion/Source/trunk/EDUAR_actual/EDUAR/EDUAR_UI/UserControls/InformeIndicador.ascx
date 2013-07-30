@@ -29,8 +29,8 @@
 											<uc1:Exportador ID="exp" runat="server"></uc1:Exportador>
 										</td>
 										<td style="width: 10%" align="right">
-											<asp:ImageButton ID="btnSalir" OnClick="btnSalir_Click" runat="server" ToolTip="Volver"
-												ImageUrl="~/Images/PopUp/botonVolver.png" />
+											<asp:ImageButton ID="btnSalir" OnClick="btnSalir_Click" runat="server" ToolTip="Cerrar"
+												ImageUrl="~/Images/PopUp/botonCerrar.png" />
 										</td>
 									</table>
 								</td>
