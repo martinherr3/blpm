@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -257,7 +258,7 @@ namespace EDUAR_UI
                                 {
                                     serie.Add(new RptAccesos
                                     {
-                                        accesos = listaParcial.Count,
+                                        accesos = listaParcial.Sum(p => p.accesos),
                                         pagina = pagina.Text
                                     });
                                 }
