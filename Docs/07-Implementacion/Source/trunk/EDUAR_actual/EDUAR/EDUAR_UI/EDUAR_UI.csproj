@@ -297,133 +297,6 @@
     <Content Include="Private\Help\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Private\Manuales\help_Administrador.aspx" />
-    <Content Include="Private\Manuales\Administrador\Administrar Usuarios.jpg" />
-    <Content Include="Private\Manuales\Administrador\advertenciaVerificar.jpg" />
-    <Content Include="Private\Manuales\Administrador\barra de menu.jpg" />
-    <Content Include="Private\Manuales\Administrador\boton exporta a PDF.jpg" />
-    <Content Include="Private\Manuales\Administrador\cambio de contraseña.jpg" />
-    <Content Include="Private\Manuales\Administrador\Cambio de pregunta secreta.jpg" />
-    <Content Include="Private\Manuales\Administrador\cambiosSatisfactorio.jpg" />
-    <Content Include="Private\Manuales\Administrador\Confirmacion de guarda.jpg" />
-    <Content Include="Private\Manuales\Administrador\Confirmacion.jpg" />
-    <Content Include="Private\Manuales\Administrador\confirmarEliminacion.jpg" />
-    <Content Include="Private\Manuales\Administrador\Consultar Acceso.jpg" />
-    <Content Include="Private\Manuales\Administrador\crear perfil.jpg" />
-    <Content Include="Private\Manuales\Administrador\crear usuario.jpg" />
-    <Content Include="Private\Manuales\Administrador\Datos a Modificar.jpg" />
-    <Content Include="Private\Manuales\Administrador\distribucion de pantalla.jpg" />
-    <Content Include="Private\Manuales\Administrador\distribucion de pantalla1.jpg" />
-    <Content Include="Private\Manuales\Administrador\editar Perfil.jpg" />
-    <Content Include="Private\Manuales\Administrador\EliminarPerfil.jpg" />
-    <Content Include="Private\Manuales\Administrador\error de integridad.jpg" />
-    <Content Include="Private\Manuales\Administrador\errorSeguridad.jpg" />
-    <Content Include="Private\Manuales\Administrador\filtro registrar usuario.jpg" />
-    <Content Include="Private\Manuales\Administrador\grafico de barra.jpg" />
-    <Content Include="Private\Manuales\Administrador\grafico de linea.jpg" />
-    <Content Include="Private\Manuales\Administrador\grafico de torta.jpg" />
-    <Content Include="Private\Manuales\Administrador\grafico en PDF.jpg" />
-    <Content Include="Private\Manuales\Administrador\iconoGrafico.jpg" />
-    <Content Include="Private\Manuales\Administrador\iconoImprimir.jpg" />
-    <Content Include="Private\Manuales\Administrador\iconoPDF.jpg" />
-    <Content Include="Private\Manuales\Administrador\listadesplegableUsuarios.jpg" />
-    <Content Include="Private\Manuales\Administrador\Logo_chico.png" />
-    <Content Include="Private\Manuales\Administrador\Modificar email.jpg" />
-    <Content Include="Private\Manuales\Administrador\modificar Perfil.jpg" />
-    <Content Include="Private\Manuales\Administrador\Modificar Perfiles.jpg" />
-    <Content Include="Private\Manuales\Administrador\ModificarUsuario.jpg" />
-    <Content Include="Private\Manuales\Administrador\registraDatosUser.jpg" />
-    <Content Include="Private\Manuales\Administrador\RegistrarUsuario.jpg" />
-    <Content Include="Private\Manuales\Administrador\Repor-Acceso.jpg" />
-    <Content Include="Private\Manuales\Administrador\resultado Acceso.jpg" />
-    <Content Include="Private\Manuales\Administrador\resultado en PDF.jpg" />
-    <Content Include="Private\Manuales\Administrador\roles.jpg" />
-    <Content Include="Private\Manuales\Administrador\satisfactorio.jpg" />
-    <Content Include="Private\Manuales\Administrador\selecccioneFecha.jpg" />
-    <Content Include="Private\Manuales\Administrador\Seleccionar Rol.jpg" />
-    <Content Include="Private\Manuales\Administrador\seleccionarPagina.jpg" />
-    <Content Include="Private\Manuales\Administrador\seleccionarRoles.jpg" />
-    <Content Include="Private\Manuales\Alumno\Boletin\AccesoBoletin.jpg" />
-    <Content Include="Private\Manuales\Alumno\Boletin\ConsultarBoletin.jpg" />
-    <Content Include="Private\Manuales\Alumno\Boletin\ResultadoDConsulta.jpg" />
-    <Content Include="Private\Manuales\Alumno\Boletin\SelecionPeriodo.jpg" />
-    <Content Include="Private\Manuales\Alumno\elementos.jpg" />
-    <Content Include="Private\Manuales\Alumno\Logo_chico.png" />
-    <Content Include="Private\Manuales\help_Administrativo.aspx" />
-    <Content Include="Private\Manuales\help_Alumno.aspx" />
-    <Content Include="Private\Manuales\help_Tutor.aspx" />
-    <Content Include="Private\Manuales\help_Psicopedagogo.aspx" />
-    <Content Include="Private\Manuales\help_Preceptor.aspx" />
-    <Content Include="Private\Manuales\help_Docente.aspx" />
-    <Content Include="Private\Manuales\help_Director.aspx" />
-    <Content Include="Private\Manuales\Director\Cuenta\barra de menu.jpg" />
-    <Content Include="Private\Manuales\Director\Cuenta\cambio de contraseña.jpg" />
-    <Content Include="Private\Manuales\Director\Cuenta\Cambio de pregunta secreta.jpg" />
-    <Content Include="Private\Manuales\Director\Cuenta\Modificar email.jpg" />
-    <Content Include="Private\Manuales\Director\elementos.jpg" />
-    <Content Include="Private\Manuales\Director\Logo_chico.png" />
-    <Content Include="Private\Manuales\Director\Mensaje\AccesoMensaje.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\BandejaMensajes.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\BandejaMensajesEnviados.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\BandejaMensajesEnviados2.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\BandejaRecibido.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\ConfirmacinEliminarMensaje.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\EjemploRedactarMensaje.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\eliminaMasDUno.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\eliminar.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\EVIDENCIA1.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\leer.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\LeerMensaje.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\nuevoEnviadoExito.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\Redactar mensaje.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\responder.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\responderMensaje.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\RespuestaEnviada.jpg" />
-    <Content Include="Private\Manuales\Director\Mensaje\SeleccionaTodosMensajes.jpg" />
-    <Content Include="Private\Manuales\Images\administracion.png" />
-    <Content Include="Private\Manuales\Images\configurarIndicador.png" />
-    <Content Include="Private\Manuales\Images\confirmar.png" />
-    <Content Include="Private\Manuales\Images\contrasenia.png" />
-    <Content Include="Private\Manuales\Images\editarRol.png" />
-    <Content Include="Private\Manuales\Images\elementosBasicos.png" />
-    <Content Include="Private\Manuales\Images\email.png" />
-    <Content Include="Private\Manuales\Images\indicadores.png" />
-    <Content Include="Private\Manuales\Images\miCuenta.png" />
-    <Content Include="Private\Manuales\Images\preguntaSecreta.png" />
-    <Content Include="Private\Manuales\Images\roles.png" />
-    <Content Include="Private\Manuales\Images\satisfactorio.png" />
-    <Content Include="Private\Manuales\Reportes\botonBuscar.jpg" />
-    <Content Include="Private\Manuales\Reportes\ConsultarCalificaciones.jpg" />
-    <Content Include="Private\Manuales\Reportes\criterioReporte3.jpg" />
-    <Content Include="Private\Manuales\Reportes\criterioReporte4.jpg" />
-    <Content Include="Private\Manuales\Reportes\criteriosReporte2.jpg" />
-    <Content Include="Private\Manuales\Reportes\CriteriosReporte4.jpg" />
-    <Content Include="Private\Manuales\Reportes\Curso.jpg" />
-    <Content Include="Private\Manuales\Reportes\evidencia1.jpg" />
-    <Content Include="Private\Manuales\Reportes\GraficoReporte2.jpg" />
-    <Content Include="Private\Manuales\Reportes\GraficoReporte3.jpg" />
-    <Content Include="Private\Manuales\Reportes\GraficoReporte4.jpg" />
-    <Content Include="Private\Manuales\Reportes\ingresarCalificaciones.jpg" />
-    <Content Include="Private\Manuales\Reportes\PDF2Reporte2.jpg" />
-    <Content Include="Private\Manuales\Reportes\PDF2Reporte3.jpg" />
-    <Content Include="Private\Manuales\Reportes\PDF2Reporte4.jpg" />
-    <Content Include="Private\Manuales\Reportes\PDFreporte2.jpg" />
-    <Content Include="Private\Manuales\Reportes\PDFReporte3.jpg" />
-    <Content Include="Private\Manuales\Reportes\PDFReporte4.jpg" />
-    <Content Include="Private\Manuales\Reportes\reporte1.jpg" />
-    <Content Include="Private\Manuales\Reportes\reporte1grafico.jpg" />
-    <Content Include="Private\Manuales\Reportes\reporte2.jpg" />
-    <Content Include="Private\Manuales\Reportes\reportes3.jpg" />
-    <Content Include="Private\Manuales\Reportes\resultado1.jpg" />
-    <Content Include="Private\Manuales\Reportes\ResultadoReporte2.jpg" />
-    <Content Include="Private\Manuales\Reportes\resultadoReporte3.jpg" />
-    <Content Include="Private\Manuales\Reportes\resultadosCalifica.jpg" />
-    <Content Include="Private\Manuales\Reportes\ResultadosReporte4.jpg" />
-    <Content Include="Private\Manuales\Reportes\SelecAlumno.jpg" />
-    <Content Include="Private\Manuales\Reportes\selecAsignatura.jpg" />
-    <Content Include="Private\Manuales\Reportes\SelecCicloLectivo.jpg" />
-    <Content Include="Private\Manuales\Reportes\seleccionarFecha.jpg" />
-    <Content Include="Private\Manuales\Reportes\unCursoTodas Asig1.jpg" />
     <Content Include="Private\Monitoreo\IndicadoresGenerales.aspx" />
     <Content Include="Private\Novedades\ConsultaNovedadAulica.aspx" />
     <Content Include="Private\Novedades\RegNovedadInstitucion.aspx" />
@@ -433,14 +306,6 @@
     <Content Include="Private\Alumnos\Boletin.aspx" />
     <Content Include="Private\Encuestas\ContenidoEncuestas.aspx" />
     <Content Include="Private\Encuestas\ManageContenidoEncuestas.aspx" />
-    <Content Include="Private\Manuales\Administrador\index.htm" />
-    <Content Include="Private\Manuales\Administrativo\index.htm" />
-    <Content Include="Private\Manuales\Alumno\index.htm" />
-    <Content Include="Private\Manuales\Director\index.htm" />
-    <Content Include="Private\Manuales\Docente\index.htm" />
-    <Content Include="Private\Manuales\Preceptor\index.htm" />
-    <Content Include="Private\Manuales\Psicopedagogo\index.htm" />
-    <Content Include="Private\Manuales\Tutor\index.htm" />
     <Content Include="Private\Mensajes\MsjeEntrada.aspx" />
     <Content Include="Private\Mensajes\MsjeEnviado.aspx" />
     <Content Include="Private\Mensajes\MsjeRedactar.aspx" />
@@ -689,69 +554,6 @@
     </Compile>
     <Compile Include="Private\Encuestas\ResultadosEncuestas.aspx.designer.cs">
       <DependentUpon>ResultadosEncuestas.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Administrador.aspx.cs">
-      <DependentUpon>help_Administrador.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Administrador.aspx.designer.cs">
-      <DependentUpon>help_Administrador.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Administrativo.aspx.cs">
-      <DependentUpon>help_Administrativo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Administrativo.aspx.designer.cs">
-      <DependentUpon>help_Administrativo.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Alumno.aspx.cs">
-      <DependentUpon>help_Alumno.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Alumno.aspx.designer.cs">
-      <DependentUpon>help_Alumno.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Tutor.aspx.cs">
-      <DependentUpon>help_Tutor.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Tutor.aspx.designer.cs">
-      <DependentUpon>help_Tutor.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Psicopedagogo.aspx.cs">
-      <DependentUpon>help_Psicopedagogo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Psicopedagogo.aspx.designer.cs">
-      <DependentUpon>help_Psicopedagogo.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Preceptor.aspx.cs">
-      <DependentUpon>help_Preceptor.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Preceptor.aspx.designer.cs">
-      <DependentUpon>help_Preceptor.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Docente.aspx.cs">
-      <DependentUpon>help_Docente.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Docente.aspx.designer.cs">
-      <DependentUpon>help_Docente.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Director.aspx.cs">
-      <DependentUpon>help_Director.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Manuales\help_Director.aspx.designer.cs">
-      <DependentUpon>help_Director.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Private\Manuales\Help.Master.cs">
-      <DependentUpon>Help.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Private\Manuales\Help.Master.designer.cs">
-      <DependentUpon>Help.Master</DependentUpon>
     </Compile>
     <Compile Include="Private\Monitoreo\IndicadoresGenerales.aspx.cs">
       <DependentUpon>IndicadoresGenerales.aspx</DependentUpon>
@@ -1202,7 +1004,6 @@
     <Content Include="Private\Monitoreo\web.config" />
     <Content Include="Private\Novedades\web.config" />
     <Content Include="Private\Encuestas\web.config" />
-    <Content Include="Private\Manuales\Help.Master" />
     <Content Include="packages.config" />
     <Content Include="WebAnonymus.sitemap">
       <SubType>Designer</SubType>
