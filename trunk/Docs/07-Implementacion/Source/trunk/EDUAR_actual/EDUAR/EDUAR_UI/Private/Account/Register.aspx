@@ -6,7 +6,8 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <asp:CreateUserWizard ID="RegisterUser" runat="server" EnableViewState="false" OnCreatedUser="RegisterUser_CreatedUser"
-        ContinueDestinationPageUrl="~/Private/Account/Welcome.aspx">
+        ContinueDestinationPageUrl="~/Private/Account/Welcome.aspx" 
+        InvalidPasswordErrorMessage="Longitud mínima de la contraseña: {0}.">
         <LayoutTemplate>
             <asp:PlaceHolder ID="wizardStepPlaceholder" runat="server"></asp:PlaceHolder>
             <asp:PlaceHolder ID="navigationPlaceholder" runat="server"></asp:PlaceHolder>
@@ -74,6 +75,10 @@
                                             <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"
                                                 CssClass="failureNotification" ErrorMessage="La contraseña es obligatoria." ToolTip="La contraseña es obligatoria."
                                                 ValidationGroup="RegisterUserValidationGroup">*</asp:RequiredFieldValidator>
+                                            <asp:RegularExpressionValidator ErrorMessage="La contraseña debe contener caracteres alfanuméricos"
+                                                ToolTip="La contraseña debe contener caracteres alfanuméricos" ControlToValidate="Password"
+                                                Display="Dynamic" runat="server" ValidationExpression="(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{2,10})$"
+                                                ValidationGroup="RegisterUserValidationGroup" CssClass="failureNotification">*</asp:RegularExpressionValidator>
                                         </p>
                                         <p class="ui-widget">
                                             <asp:Label ID="ConfirmPasswordLabel" runat="server" AssociatedControlID="ConfirmPassword">Confirmar contraseña:</asp:Label>
@@ -89,20 +94,20 @@
                                             <asp:Label runat="server" AssociatedControlID="Question" ID="QuestionLabel">Pregunta Secreta:</asp:Label>
                                             <asp:TextBox runat="server" ID="Question" CssClass="textEntry"></asp:TextBox>
                                             <asp:RequiredFieldValidator runat="server" ControlToValidate="Question" CssClass="failureNotification"
-                                                ToolTip="Pregunta Secreta requerida." ID="QuestionRequired" ValidationGroup="Createuserwizard1"
+                                                ToolTip="Pregunta Secreta requerida." ID="QuestionRequired" ValidationGroup="RegisterUserValidationGroup"
                                                 ErrorMessage="La Pregunta Secreta es Requerida.">*</asp:RequiredFieldValidator>
                                         </p>
                                         <p class="ui-widget">
                                             <asp:Label runat="server" AssociatedControlID="Answer" ID="AnswerLabel">Respuesta Secreta:</asp:Label>
                                             <asp:TextBox runat="server" ID="Answer" CssClass="textEntry" ViewStateMode="Disabled"></asp:TextBox>
                                             <asp:RequiredFieldValidator runat="server" ControlToValidate="Answer" CssClass="failureNotification"
-                                                ToolTip="Respuesta Secreta requerida." ID="AnswerRequired" ValidationGroup="Createuserwizard1"
+                                                ToolTip="Respuesta Secreta requerida." ID="AnswerRequired" ValidationGroup="RegisterUserValidationGroup"
                                                 ErrorMessage="La Respuesta Secreta es Requerida.">*</asp:RequiredFieldValidator>
                                         </p>
                                     </fieldset>
                                     <p class="submitButton">
                                         <asp:ImageButton ImageUrl="~/Images/botonSiguiente.png" ID="CreateUserButton" runat="server"
-                                            CommandName="MoveNext" ToolTip="Crear usuario" ValidationGroup="RegisterUserValidationGroup" />
+                                            CommandName="MoveNext" ToolTip="Crear usuario" CausesValidation="true" ValidationGroup="RegisterUserValidationGroup" />
                                     </p>
                                 </div>
                             </td>

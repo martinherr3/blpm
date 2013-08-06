@@ -260,14 +260,17 @@ namespace EDUAR_UI.Shared
                 {
                     base.OnLoadComplete(e);
                     Acceso nuevoAcceso = new Acceso();
-                    nuevoAcceso.pagina.url = Page.Request.Path;
+                    string ruta = Page.Request.Path;
+                    if (ruta.EndsWith("/"))
+                        ruta = ruta.Substring(0, ruta.Length - 1);
+                    nuevoAcceso.pagina.url = ruta;
                     nuevoAcceso.pagina.titulo = Page.Title;
                     nuevoAcceso.fecha = DateTime.Now.Date;
                     nuevoAcceso.hora = DateTime.Now;
                     nuevoAcceso.usuario = "Anonimo";
                     if (string.IsNullOrEmpty(Page.Title))
                     {
-                        string[] path = Page.Request.Path.Split('/');
+                        string[] path = ruta.Split('/');
                         string[] file = path[path.Length - 1].Split('.');
                         string title = file[0].ToString();
                     }
