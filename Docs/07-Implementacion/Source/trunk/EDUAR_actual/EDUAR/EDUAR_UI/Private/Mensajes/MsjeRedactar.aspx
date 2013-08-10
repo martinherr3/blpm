@@ -51,11 +51,10 @@
                         <asp:Label ID="lblFiltrado" Text="Filtrado por Curso" runat="server" Visible="false" />
                     </td>
                     <td class="TD50px">
-                        <asp:CheckBox ID="chkFiltrado" runat="server" OnCheckedChanged="chkFiltrado_CheckedChanged1"
+                        <asp:CheckBox ID="chkFiltrado" runat="server" OnCheckedChanged="chkFiltrado_CheckedChanged"
                             AutoPostBack="true" Text="" Visible="False" />
                     </td>
-                    <td>
-                    </td>
+                    <td></td>
                 </tr>
             </table>
             <div id="divDocente" runat="server" visible="false">
