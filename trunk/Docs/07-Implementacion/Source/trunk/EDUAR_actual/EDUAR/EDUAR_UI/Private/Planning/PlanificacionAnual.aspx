@@ -292,8 +292,8 @@
                         <td align="right">
                             <asp:ImageButton ID="btnGuardarCursos" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
                                 OnClick="btnGuardarCursos_Click" />
-                            <asp:ImageButton ID="btnVolverCursos" runat="server" ToolTip="Volver - Descartar Cambios"
-                                ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverPopUp_Click" />
+                            <asp:ImageButton ID="btnVolverCursos" runat="server" ToolTip="Cerrar"
+                                ImageUrl="~/Images/PopUp/botonCerrar.png" OnClick="btnVolverPopUp_Click" />
                         </td>
                     </tr>
                     <tr>

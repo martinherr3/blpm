@@ -307,12 +307,6 @@ namespace EDUAR_UI
             {
                 switch (AccionPagina)
                 {
-                    case enumAcciones.Buscar:
-                        break;
-                    case enumAcciones.Nuevo:
-                        break;
-                    case enumAcciones.Modificar:
-                        break;
                     case enumAcciones.Eliminar:
                         EliminarPlanificacion();
                         AsignaturaNivel objFiltro = new AsignaturaNivel();
@@ -321,26 +315,6 @@ namespace EDUAR_UI
                         objFiltro.orientacion.idOrientacion = idOrientacion;
                         ObtenerPlanificacion(objFiltro);
                         idTemaPlanificacion = 0;
-                        break;
-                    case enumAcciones.Seleccionar:
-                        break;
-                    case enumAcciones.Limpiar:
-                        break;
-                    case enumAcciones.Aceptar:
-                        break;
-                    case enumAcciones.Salir:
-                        break;
-                    case enumAcciones.Redirect:
-                        break;
-                    case enumAcciones.Guardar:
-                        break;
-                    case enumAcciones.Ingresar:
-                        break;
-                    case enumAcciones.Desbloquear:
-                        break;
-                    case enumAcciones.Error:
-                        break;
-                    case enumAcciones.Enviar:
                         break;
                     case enumAcciones.AprobarPlanificacion:
                         AprobarPlanificacion();
@@ -733,8 +707,17 @@ namespace EDUAR_UI
             {
                 if (chkSolicitarAprobacion.Checked)
                 {
-                    AccionPagina = enumAcciones.SolicitarAprobacion;
-                    Master.MostrarMensaje("Solicitar Aprobación", "¿Desea solicitar la aprobación de la presente planificación?", enumTipoVentanaInformacion.Confirmación);
+                    if (getCursosPlanificados().Count > 0)
+                    {
+                        AccionPagina = enumAcciones.SolicitarAprobacion;
+                        Master.MostrarMensaje("Solicitar Aprobación", "¿Desea solicitar la aprobación de la presente planificación?", enumTipoVentanaInformacion.Confirmación);
+                    }
+                    else
+                    {
+                        AccionPagina = enumAcciones.Error;
+                        chkSolicitarAprobacion.Checked = false;
+                        Master.MostrarMensaje("Solicitar Aprobación", "Para solicitar la aprobación debe asignar al menos un curso a la misma.", enumTipoVentanaInformacion.Advertencia);
+                    }
                 }
             }
             catch (Exception ex)
