@@ -330,7 +330,7 @@ namespace EDUAR_UI
                 ventanaInfoLogin.TipoVentana = tipoventana;
                 ventanaInfoLogin.Titulo = titulo;
                 ventanaInfoLogin.Detalle = detalle;
-                ventanaInfoLogin.MostrarMensaje();
+                ventanaInfoLogin.MostrarMensaje(false);
 
                 // Refrescar updatepanel
                 updVentaneMensajes.Update();

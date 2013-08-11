@@ -151,12 +151,12 @@ namespace EDUAR_UI
 					InformeIndicador1.SP = "DatosIndicador_" + indi.nombreSP;
 					InformeIndicador1.Hasta = DateTime.Today;
 
-                    if (btn.CommandName == "Principal")
-                        InformeIndicador1.Desde = DateTime.Today.AddDays(indi.HastaPrincipal * -1);
-                    else if (btn.CommandName == "Intermedio")
-                        InformeIndicador1.Desde = DateTime.Today.AddDays(indi.HastaIntermedio * -1);
-                    else if (btn.CommandName == "Secundario")
-                        InformeIndicador1.Desde = DateTime.Today.AddDays(indi.HastaSecundario * -1);
+					if (btn.CommandName == "Principal")
+						InformeIndicador1.Desde = DateTime.Today.AddDays(indi.HastaPrincipal * -1);
+					else if (btn.CommandName == "Intermedio")
+						InformeIndicador1.Desde = DateTime.Today.AddDays(indi.HastaIntermedio * -1);
+					else if (btn.CommandName == "Secundario")
+						InformeIndicador1.Desde = DateTime.Today.AddDays(indi.HastaSecundario * -1);
 
 					InformeIndicador1.Show();
 				}
@@ -264,19 +264,19 @@ namespace EDUAR_UI
 					indi.Visible = true;
 					indi.InvertirEscala = Convert.ToBoolean(listaIndicadores[i - 1].invertirEscala.ToString());
 
-                    indi.HastaPrincipal = listaIndicadores[i - 1].diasHastaPrincipal;
-                    if (DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days < indi.HastaPrincipal)
-                        indi.HastaPrincipal = DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days;
+					indi.HastaPrincipal = listaIndicadores[i - 1].diasHastaPrincipal;
+					if (DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days < indi.HastaPrincipal)
+						indi.HastaPrincipal = DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days;
 
-                    indi.HastaIntermedio = listaIndicadores[i - 1].diasHastaIntermedio;
-                    if (DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days < indi.HastaIntermedio)
-                        indi.HastaIntermedio = DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days;
+					indi.HastaIntermedio = listaIndicadores[i - 1].diasHastaIntermedio;
+					if (DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days < indi.HastaIntermedio)
+						indi.HastaIntermedio = DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days;
 					
-                    indi.HastaSecundario = listaIndicadores[i - 1].diasHastaSecundario;
-                    if (DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days < indi.HastaSecundario)
-                        indi.HastaSecundario = DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days;
-                    
-                    indi.VerdePrincipal = listaIndicadores[i - 1].verdeNivelPrincipal;
+					indi.HastaSecundario = listaIndicadores[i - 1].diasHastaSecundario;
+					if (DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days < indi.HastaSecundario)
+						indi.HastaSecundario = DateTime.Today.Subtract(cicloLectivoActual.fechaInicio).Days;
+					
+					indi.VerdePrincipal = listaIndicadores[i - 1].verdeNivelPrincipal;
 					indi.RojoPrincipal = listaIndicadores[i - 1].rojoNivelPrincipal;
 					indi.VerdeIntermedio = listaIndicadores[i - 1].verdeNivelIntermedio;
 					indi.RojoSecundario = listaIndicadores[i - 1].rojoNivelIntermedio;

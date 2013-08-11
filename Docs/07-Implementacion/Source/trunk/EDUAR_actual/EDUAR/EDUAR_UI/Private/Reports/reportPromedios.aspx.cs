@@ -291,10 +291,10 @@ namespace EDUAR_UI
 				rptResultado.ExportarPDFClick += (ExportarPDF);
 				rptResultado.VolverClick += (VolverReporte);
 				rptResultado.GraficarClick += (GraficarReporte);
-                rptResultado.PaginarGrilla += (PaginarGrilla);
-                rptResultado.CerrarGraficoClick += (CerrarGrafico);
-                rptResultado.ImprimirClick += (CerrarGrafico);
-                rptResultado.OrdenarClick += (OrdenarGrilla);
+				rptResultado.PaginarGrilla += (PaginarGrilla);
+				rptResultado.CerrarGraficoClick += (CerrarGrafico);
+				rptResultado.ImprimirClick += (CerrarGrafico);
+				rptResultado.OrdenarClick += (OrdenarGrilla);
 
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
@@ -845,59 +845,59 @@ namespace EDUAR_UI
 			}
 		}
 
-        /// <summary>
-        /// Paginars the grilla.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
-        protected void PaginarGrilla(object sender, GridViewPageEventArgs e)
-        {
-            try
-            {
-                int pagina = e.NewPageIndex;
+		/// <summary>
+		/// Paginars the grilla.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
+		protected void PaginarGrilla(object sender, GridViewPageEventArgs e)
+		{
+			try
+			{
+				int pagina = e.NewPageIndex;
 
-                if (rptResultado.GrillaReporte.PageCount > pagina)
-                {
-                    rptResultado.GrillaReporte.PageIndex = pagina;
+				if (rptResultado.GrillaReporte.PageCount > pagina)
+				{
+					rptResultado.GrillaReporte.PageIndex = pagina;
 
-                    CargarGrillaResultado();
-                }
-            }
-            catch (Exception ex)
-            {
-                Master.ManageExceptions(ex);
-            }
-        }
+					CargarGrillaResultado();
+				}
+			}
+			catch (Exception ex)
+			{
+				Master.ManageExceptions(ex);
+			}
+		}
 
-        /// <summary>
-        /// Ordenars the grilla.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="GridViewSortEventArgs"/> instance containing the event data.</param>
-        protected void OrdenarGrilla(object sender, GridViewSortEventArgs e)
-        {
-            try
-            {
-                CargarGrillaResultado();
-            }
-            catch (Exception ex)
-            { Master.ManageExceptions(ex); }
-        }
+		/// <summary>
+		/// Ordenars the grilla.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="GridViewSortEventArgs"/> instance containing the event data.</param>
+		protected void OrdenarGrilla(object sender, GridViewSortEventArgs e)
+		{
+			try
+			{
+				CargarGrillaResultado();
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
+		}
 
-        /// <summary>
-        /// Cerrars the grafico.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void CerrarGrafico(object sender, EventArgs e)
-        {
-            try
-            {
-                CargarGrillaResultado();
-            }
-            catch (Exception ex)
-            { Master.ManageExceptions(ex); }
-        }
+		/// <summary>
+		/// Cerrars the grafico.
+		/// </summary>
+		/// <param name="sender">The sender.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		protected void CerrarGrafico(object sender, EventArgs e)
+		{
+			try
+			{
+				CargarGrillaResultado();
+			}
+			catch (Exception ex)
+			{ Master.ManageExceptions(ex); }
+		}
 		#endregion
 
 		#region --[Métodos Privados]--

@@ -59,9 +59,11 @@
                             <asp:ImageButton ID="editarPlanificacion" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
                                 ToolTip="Ver Detalle" ImageUrl="~/Images/Grillas/action_edit.png" />
                             <asp:ImageButton ID="aprobarPlanificacion" runat="server" CommandName="Aprobar" CommandArgument='<%# Bind("idPlanificacionAnual") %>'
-                                ToolTip="Aprobar" ImageUrl="~/Images/Grillas/action_enable.png" Visible='<%# DataBinder.Eval(Container.DataItem, "fechaAprobada").ToString() == String.Empty ? true: false %>' />
+                                ToolTip="Aprobar" ImageUrl="~/Images/Grillas/action_enable.png" 
+                                Visible='<%# ((DataBinder.Eval(Container.DataItem, "fechaAprobada").ToString() == String.Empty) && 
+                                                ((bool)DataBinder.Eval(Container.DataItem, "solicitarAprobacion") == true )) ? true : false %>' />
                             <asp:ImageButton ID="btnLock" runat="server" ToolTip="Planificación aprobada" ImageUrl="~/Images/Grillas/lock.png"
-                                Visible='<%# DataBinder.Eval(Container.DataItem, "fechaAprobada").ToString() == String.Empty ? false: true %>' />
+                                Visible='<%# DataBinder.Eval(Container.DataItem, "fechaAprobada").ToString() == String.Empty ? false : true %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Creación">

@@ -687,12 +687,30 @@ namespace EDUAR_UI
         }
 
         /// <summary>
+        /// Mostrars the mensaje.
+        /// </summary>
+        /// <param name="titulo">The titulo.</param>
+        /// <param name="detalle">The detalle.</param>
+        /// <param name="tipoventana">The tipoventana.</param>
+        public void MostrarMensaje(string titulo, string detalle, enumTipoVentanaInformacion tipoventana)
+        {
+            try
+            {
+                MostrarMensaje(titulo, detalle, tipoventana, false);
+            }
+            catch (Exception ex)
+            {
+                ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
         /// Metodo que se encarga de mostrar mensajes en la aplicacion.
         /// </summary>
         /// <param name="titulo"></param>
         /// <param name="detalle"></param>
         /// <param name="tipoventana"></param>
-        public void MostrarMensaje(string titulo, string detalle, enumTipoVentanaInformacion tipoventana)
+        public void MostrarMensaje(string titulo, string detalle, enumTipoVentanaInformacion tipoventana, bool verCancelar)
         {
             try
             {
@@ -700,7 +718,7 @@ namespace EDUAR_UI
                 ventanaInfoMaster.TipoVentana = tipoventana;
                 ventanaInfoMaster.Titulo = titulo;
                 ventanaInfoMaster.Detalle = detalle;
-                ventanaInfoMaster.MostrarMensaje();
+                ventanaInfoMaster.MostrarMensaje(verCancelar);
 
                 // Refrescar updatepanel
                 updVentaneMensajes.Update();

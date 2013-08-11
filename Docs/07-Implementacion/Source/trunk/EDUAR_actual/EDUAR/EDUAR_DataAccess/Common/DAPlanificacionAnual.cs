@@ -161,7 +161,8 @@ namespace EDUAR_DataAccess.Common
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCicloLectivo", DbType.Int32, entidad.cicloLectivo.idCicloLectivo);
                     if (entidad.curricula.asignatura.idAsignatura > 0)
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idAsignatura", DbType.Int32, entidad.curricula.asignatura.idAsignatura);
-
+                    //if(entidad.pendienteAprobacion && entidad.solicitarAprobacion)
+                    //    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@PendienteAprobacion", DbType.Boolean, true);
                 }
                 IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
 

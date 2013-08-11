@@ -122,7 +122,7 @@ namespace EDUAR_UI
 			try
 			{
 				Master.BotonAvisoAceptar += (VentanaAceptar);
-                btnNuevo.Visible = contenidoEditar.activo;
+				btnNuevo.Visible = contenidoEditar.activo;
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
@@ -152,38 +152,8 @@ namespace EDUAR_UI
 			{
 				switch (AccionPagina)
 				{
-					case enumAcciones.Buscar:
-						break;
-					case enumAcciones.Nuevo:
-						break;
-					case enumAcciones.Modificar:
-						break;
 					case enumAcciones.Eliminar:
 						EliminarContenido();
-						break;
-					case enumAcciones.Seleccionar:
-						break;
-					case enumAcciones.Limpiar:
-						break;
-					case enumAcciones.Aceptar:
-						break;
-					case enumAcciones.Salir:
-						break;
-					case enumAcciones.Redirect:
-						break;
-					case enumAcciones.Guardar:
-						break;
-					case enumAcciones.Ingresar:
-						break;
-					case enumAcciones.Desbloquear:
-						break;
-					case enumAcciones.Error:
-						break;
-					case enumAcciones.Enviar:
-						break;
-					case enumAcciones.AprobarPlanificacion:
-						break;
-					case enumAcciones.SolicitarAprobacion:
 						break;
 					default:
 						break;
@@ -361,7 +331,7 @@ namespace EDUAR_UI
 		{
 			TemaContenido objEliminar = new TemaContenido();
 			objEliminar.idTemaContenido = idTemaContenido;
-            objEliminar.usuarioBaja.username = User.Identity.Name;
+			objEliminar.usuarioBaja.username = User.Identity.Name;
 			BLTemaContenido ojbBLContenido = new BLTemaContenido(objEliminar);
 			ojbBLContenido.Delete();
 
