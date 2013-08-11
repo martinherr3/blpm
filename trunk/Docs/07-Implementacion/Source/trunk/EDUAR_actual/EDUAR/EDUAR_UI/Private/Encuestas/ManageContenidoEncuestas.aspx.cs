@@ -194,18 +194,18 @@ namespace EDUAR_UI
 				Master.BotonAvisoAceptar += (VentanaAceptar);
 				if (!Page.IsPostBack)
 				{
-                    if (Request.UrlReferrer.AbsolutePath.Contains("ResultadosEncuestas.aspx") ||
-                        Request.UrlReferrer.AbsolutePath.Contains("ContenidoEncuestas.aspx"))
-                    {
-                        //Lo que se hace en este bloque es hacer la encuestaSesion lo más genérica posible
-                        encuestaSesion = new Encuesta();
-                    }
-                    
-                    CargarPresentacion();
+					if (Request.UrlReferrer.AbsolutePath.Contains("ResultadosEncuestas.aspx") ||
+						Request.UrlReferrer.AbsolutePath.Contains("ContenidoEncuestas.aspx"))
+					{
+						//Lo que se hace en este bloque es hacer la encuestaSesion lo más genérica posible
+						encuestaSesion = new Encuesta();
+					}
+					
+					CargarPresentacion();
 
-                    encuestaSesion.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+					encuestaSesion.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
-                    BuscarEncuesta(encuestaSesion);
+					BuscarEncuesta(encuestaSesion);
 
 					if (Request.UrlReferrer.AbsolutePath.Contains("ContenidoEncuestas.aspx"))
 					{
@@ -249,7 +249,7 @@ namespace EDUAR_UI
 						AccionPagina = enumAcciones.Limpiar;
 						GuardarEncuesta(ObtenerValoresDePantalla());
 						Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
-                        //BuscarFiltrando();
+						//BuscarFiltrando();
 						break;
 					default:
 						break;
@@ -350,8 +350,8 @@ namespace EDUAR_UI
 		{
 			try
 			{
-                CargarPresentacion();
-                ViewState.Clear();
+				CargarPresentacion();
+				ViewState.Clear();
 			}
 			catch (Exception ex)
 			{
@@ -746,8 +746,8 @@ namespace EDUAR_UI
 
 			CargarValoresEnPantalla(propEncuesta.idEncuesta);
 
-            //litEditar.Visible = true;
-            //litNuevo.Visible = false;
+			//litEditar.Visible = true;
+			//litNuevo.Visible = false;
 			btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
 			btnVolver.Visible = true;
@@ -768,7 +768,7 @@ namespace EDUAR_UI
 			Encuesta entidad = new Encuesta();
 			entidad.activo = chkActivo.Checked;
 
-            entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+			entidad.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
 			AmbitoEncuesta ambito = new AmbitoEncuesta();
 			ambito.idAmbitoEncuesta = Convert.ToInt32(ddlAmbito.SelectedValue);

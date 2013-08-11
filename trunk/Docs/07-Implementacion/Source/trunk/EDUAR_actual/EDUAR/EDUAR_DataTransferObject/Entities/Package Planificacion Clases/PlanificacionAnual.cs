@@ -20,18 +20,20 @@ namespace EDUAR_Entities
 		public DateTime? fechaAprobada { get; set; }
 		public string observaciones { get; set; }
 		public List<TemaPlanificacionAnual> listaTemasPlanificacion {get; set;}
-        public List<CursoCicloLectivo> listaCursos { get; set; }
-        public CicloLectivo cicloLectivo { get; set; }
+		public List<CursoCicloLectivo> listaCursos { get; set; }
+		public CicloLectivo cicloLectivo { get; set; }
 		public bool solicitarAprobacion { get; set; }
-        public decimal porcentajeCobertura { get; set; }
+		public decimal porcentajeCobertura { get; set; }
+		public bool pendienteAprobacion { get; set; }
 
 		public PlanificacionAnual()
 		{
-            curricula = new Curricula();
+			pendienteAprobacion = false;
+			curricula = new Curricula();
 			creador = new Persona();
-            cicloLectivo = new CicloLectivo();
+			cicloLectivo = new CicloLectivo();
 			listaTemasPlanificacion = new List<TemaPlanificacionAnual>();
-            listaCursos = new List<CursoCicloLectivo>();
+			listaCursos = new List<CursoCicloLectivo>();
 		}
 
 		~PlanificacionAnual()

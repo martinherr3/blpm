@@ -9,6 +9,7 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using EDUAR_BusinessLogic.Shared;
 
 
 
@@ -164,6 +165,9 @@ namespace EDUAR_UI
                         CargarPresentacion();
                         BuscarFiltrando();
                         break;
+                    case enumAcciones.AprobarPlanificacion:
+                        AprobarPlanificacion();
+                        break;
                     case enumAcciones.Error:
                         break;
                     default:
@@ -193,7 +197,20 @@ namespace EDUAR_UI
                         break;
                     case "Aprobar":
                         propFiltroPlanificacion.idPlanificacionAnual = Convert.ToInt32(e.CommandArgument.ToString());
-                        AprobarPlanificacion();
+                        decimal porcentaje = listaPlanificaciones.Find(p => p.idPlanificacionAnual == propFiltroPlanificacion.idPlanificacionAnual).porcentajeCobertura;
+                        decimal alertaPlanificacion = 0;
+                        decimal.TryParse(BLConfiguracionGlobal.ObtenerConfiguracion(EDUAR_Utility.Enumeraciones.enumConfiguraciones.AlertaAprobacion), out alertaPlanificacion);
+                        AccionPagina = enumAcciones.AprobarPlanificacion;
+                        string mensaje = "";
+                        enumTipoVentanaInformacion tipoVentana = enumTipoVentanaInformacion.Confirmación;
+                        if (porcentaje < alertaPlanificacion)
+                        {
+                            mensaje = "La planificación no cubre el <b>" + alertaPlanificacion.ToString() + "%</b> de los contenidos.<br />";
+                            tipoVentana = enumTipoVentanaInformacion.Advertencia;
+                        }
+                        mensaje += "¿Desea aprobar la presente planificación?";
+
+                        Master.MostrarMensaje("Aprobar Planificación", mensaje, tipoVentana, true);
                         break;
                     case "Default":
                         break;
@@ -340,6 +357,8 @@ namespace EDUAR_UI
                 entidad.curricula.asignatura.idAsignatura = this.idAsignatura;
             }
             entidad.cicloLectivo = cicloLectivoActual;
+            entidad.solicitarAprobacion = true;
+            entidad.pendienteAprobacion = true;
             listaPlanificaciones = objBLPlanificacion.GetPlanificacion(entidad);
             calcularCobertura();
         }
@@ -395,7 +414,6 @@ namespace EDUAR_UI
         /// </summary>
         private void AprobarPlanificacion()
         {
-
             foreach (PlanificacionAnual unaPlanificacion in listaPlanificaciones)
             {
                 if (propFiltroPlanificacion.idPlanificacionAnual == unaPlanificacion.idPlanificacionAnual)
@@ -447,7 +465,7 @@ namespace EDUAR_UI
 
             cursoActual.curso.nivel.idNivel = propFiltroPlanificacion.curricula.nivel.idNivel;
             cursoActual.curso.orientacion.idOrientacion = propFiltroPlanificacion.curricula.orientacion.idOrientacion;
-            
+
             idAsignatura = propFiltroPlanificacion.curricula.asignatura.idAsignatura;
 
             Response.Redirect("~/Private/Planning/PlanificacionAnual.aspx", false);

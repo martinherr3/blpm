@@ -450,8 +450,8 @@ namespace EDUAR_UI
             int idCursoCicloLectivo = 0;
             AlumnoCurso objCurso;
             //Docente: a personas o cursos
-            if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString())
-             || HttpContext.Current.User.IsInRole(enumRoles.Director.ToString()))
+            //if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString())
+            // || HttpContext.Current.User.IsInRole(enumRoles.Director.ToString()))
             {
                 switch (rdlDestinatarios.SelectedValue)
                 {

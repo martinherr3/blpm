@@ -70,9 +70,9 @@ namespace EDUAR_UI.UserControls
         /// <summary>
         /// Mostrar la ventana.
         /// </summary>
-        public void MostrarMensaje()
+        public void MostrarMensaje(bool verCancelar)
         {
-            try { CargarPresentacion(); }
+            try { CargarPresentacion(verCancelar); }
             catch (Exception ex) { GestionExcepciones(ex); }
         }
 
@@ -187,7 +187,7 @@ namespace EDUAR_UI.UserControls
                 EDUARLog objLog = new EDUARLog(oLogPath, true);
                 objLog.write(msgLog.ToString());
                 #endregion
-                CargarPresentacion();
+                CargarPresentacion(false);
             }
             catch (Exception) { }
         }
@@ -251,7 +251,7 @@ namespace EDUAR_UI.UserControls
         /// <summary>
         /// Método que dependiendo el tipo de ventana presentará los controles adecuados.
         /// </summary>
-        private void CargarPresentacion()
+        private void CargarPresentacion(bool verCancelar)
         {
             try
             {
@@ -266,7 +266,7 @@ namespace EDUAR_UI.UserControls
                         TDEtiquetas2.Attributes.Add("class", string.Format("Eti{0}", TipoVentana));
                         TDEtiquetas3.Attributes.Add("class", string.Format("Eti{0}", TipoVentana));
                         imgIconoVentana.ImageUrl = string.Format("~/Images/ventana{0}.png", TipoVentana);
-                        btnCancelar.Visible = false;
+                        btnCancelar.Visible = verCancelar;
                         btnAceptar.Visible = true;
                         imgIconoVentana.Visible = true;
                         break;

@@ -184,30 +184,8 @@ namespace EDUAR_UI
             {
                 switch (AccionPagina)
                 {
-                    case enumAcciones.Buscar:
-                        break;
-                    case enumAcciones.Nuevo:
-                        break;
-                    case enumAcciones.Modificar:
-                        break;
                     case enumAcciones.Eliminar:
                         EliminarContenido();
-                        break;
-                    case enumAcciones.Seleccionar:
-                        break;
-                    case enumAcciones.Limpiar:
-                        break;
-                    case enumAcciones.Aceptar:
-                        break;
-                    case enumAcciones.Salir:
-                        break;
-                    case enumAcciones.Redirect:
-                        break;
-                    case enumAcciones.Guardar:
-                        break;
-                    case enumAcciones.Ingresar:
-                        break;
-                    case enumAcciones.Desbloquear:
                         break;
                     case enumAcciones.Error:
                         AccionPagina = enumAcciones.Limpiar;

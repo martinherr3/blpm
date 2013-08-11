@@ -100,13 +100,13 @@
                                 <asp:Label ID="lblDescripcionGrilla" runat="server" Text='<%# Bind("descripcion") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Activo">
+                        <%--<asp:TemplateField HeaderText="Activo">
                             <HeaderStyle HorizontalAlign="center" Width="10%" />
                             <ItemStyle HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblActivo" runat="server" Text='<%# Boolean.Parse(Eval("activo").ToString()) ? "Sí" : "No"  %>'></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                     </Columns>
                 </asp:GridView>
             </ContentTemplate>
