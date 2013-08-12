@@ -12,7 +12,7 @@
     <link type="text/css" rel="Stylesheet" href="/EDUAR_UI/Scripts/chosen/chosen.css" />
     <link type="text/css" rel="Stylesheet" href="/EDUAR_UI/Scripts/jquery alerts/jquery.alerts.css" />
     <link href="~/App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
-    <link rel="icon" type="image/png" href="https://alulau.redirectme.net/EDUAR_UI/favicon.ico" />
+    <link rel="icon" type="image/png" href="https://eduar.redirectme.net/EDUAR_UI/favicon.ico" />
     <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/EDUAR_UI/Scripts/chosen/chosen.jquery.min.js"></script>
