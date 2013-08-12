@@ -192,14 +192,16 @@
                             Asunto
                         </td>
                         <td class="TD80">
-                            <asp:TextBox ID="txtAsunto" runat="server" Style="width: 595px; background-color: #FFFFFF;
+                            <asp:TextBox ID="txtAsunto" runat="server" Style="width: 710px; background-color: #FFFFFF;
                                 background-image: -moz-linear-gradient(center bottom , white 85%, #EEEEEE 99%);
                                 border: 1px solid #AAAAAA; cursor: text; height: 26px !important; margin: 0;
                                 overflow: hidden; padding: 0; position: relative; font-family: sans-serif; font-size: 1em" />
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="width: 100%">
+                        <td class="TD20">
+                        </td>
+                        <td class="TD80">
                             <edi:Editor ID="textoMensaje" runat="server" />
                         </td>
                     </tr>
