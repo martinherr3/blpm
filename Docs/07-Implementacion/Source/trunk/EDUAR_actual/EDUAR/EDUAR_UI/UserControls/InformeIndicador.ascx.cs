@@ -144,7 +144,7 @@ namespace EDUAR_UI.UserControls
             BLInformeIndicador objBLInforme = new BLInformeIndicador();
             DateTime desde = Convert.ToDateTime(calFechaDesde.ValorFecha);
             DateTime hasta = Convert.ToDateTime(calFechaHasta.ValorFecha);
-            DataTable dt = objBLInforme.GetInformeIndicador(SP, idCursoCicloLectivo, desde, hasta);
+            DataTable dt = objBLInforme.GetInformeIndicador(SP, idCursoIndicador, desde, hasta);
             grvInforme.DataSource = dt;
             grvInforme.DataBind();
         }
@@ -154,7 +154,7 @@ namespace EDUAR_UI.UserControls
             BLInformeIndicador objBLInforme = new BLInformeIndicador();
             DateTime desde = Convert.ToDateTime(calFechaDesde.ValorFecha);
             DateTime hasta = Convert.ToDateTime(calFechaHasta.ValorFecha);
-            DataTable dt = objBLInforme.GetInformeIndicador(SP, idCursoCicloLectivo, desde, hasta);
+            DataTable dt = objBLInforme.GetInformeIndicador(SP, idCursoIndicador, desde, hasta);
 
             if (dt != null)
             {
