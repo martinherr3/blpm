@@ -11,7 +11,7 @@ using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
-    public partial class ManageEscalasPonderacion : EDUARBasePage
+	public partial class ManageEscalasPonderacion : EDUARBasePage
 	{
 		#region --[Atributos]--
 		private BLEscala objBLEscalaPonderacion;
@@ -28,25 +28,25 @@ namespace EDUAR_UI
 		{
 			get
 			{
-                if (ViewState["propEscala"] == null)
-                    propEscala = new EscalaMedicion();
+				if (ViewState["propEscala"] == null)
+					propEscala = new EscalaMedicion();
 
-                return (EscalaMedicion)ViewState["propEscala"];
+				return (EscalaMedicion)ViewState["propEscala"];
 			}
-            set { ViewState["propEscala"] = value; }
+			set { ViewState["propEscala"] = value; }
 		}
 
-        public EscalaMedicion propFiltroEscala
-        {
-            get
-            {
-                if (ViewState["propFiltroEscala"] == null)
-                    propFiltroEscala = new EscalaMedicion();
+		public EscalaMedicion propFiltroEscala
+		{
+			get
+			{
+				if (ViewState["propFiltroEscala"] == null)
+					propFiltroEscala = new EscalaMedicion();
 
-                return (EscalaMedicion)ViewState["propFiltroEscala"];
-            }
-            set { ViewState["propFiltroEscala"] = value; }
-        }
+				return (EscalaMedicion)ViewState["propFiltroEscala"];
+			}
+			set { ViewState["propFiltroEscala"] = value; }
+		}
 
 		/// <summary>
 		/// Gets or sets the lista encuesta.
@@ -54,29 +54,29 @@ namespace EDUAR_UI
 		/// <value>
 		/// The lista agenda.
 		/// </value>
-        public List<EscalaMedicion> listaEscalas
+		public List<EscalaMedicion> listaEscalas
 		{
 			get
 			{
-                if (ViewState["listaEscalas"] == null)
-                {
-                    listaEscalas = new List<EscalaMedicion>();
-                    listaEscalas = objBLEscalaPonderacion.GetEscalasMedicion(null);
-                }
-                return (List<EscalaMedicion>)ViewState["listaEscalas"];
+				if (ViewState["listaEscalas"] == null)
+				{
+					listaEscalas = new List<EscalaMedicion>();
+					listaEscalas = objBLEscalaPonderacion.GetEscalasMedicion(null);
+				}
+				return (List<EscalaMedicion>)ViewState["listaEscalas"];
 			}
-            set { ViewState["listaEscalas"] = value; }
+			set { ViewState["listaEscalas"] = value; }
 		}
 
 		public int idEscala
 		{
 			get
 			{
-                if (ViewState["idEscala"] == null) idEscala = 0;
+				if (ViewState["idEscala"] == null) idEscala = 0;
 
-                return (int)ViewState["idEscala"];
+				return (int)ViewState["idEscala"];
 			}
-            set { ViewState["idEscala"] = value; }
+			set { ViewState["idEscala"] = value; }
 		}
 
 		/// <summary>
@@ -85,16 +85,16 @@ namespace EDUAR_UI
 		/// <value>
 		/// The encuesta sesion.
 		/// </value>
-        public EscalaMedicion escalaMedicionSesion
+		public EscalaMedicion escalaMedicionSesion
 		{
 			get
 			{
-                if (Session["escalaMedicionSesion"] == null)
-                    escalaMedicionSesion = new EscalaMedicion();
+				if (Session["escalaMedicionSesion"] == null)
+					escalaMedicionSesion = new EscalaMedicion();
 
-                return (EscalaMedicion)Session["escalaMedicionSesion"];
+				return (EscalaMedicion)Session["escalaMedicionSesion"];
 			}
-            set { Session["escalaMedicionSesion"] = value; }
+			set { Session["escalaMedicionSesion"] = value; }
 		}
 		#endregion
 
@@ -132,7 +132,7 @@ namespace EDUAR_UI
 				if (!Page.IsPostBack)
 				{
 					CargarPresentacion();
-                    //CargarLista(null);
+					//CargarLista(null);
 					BuscarEscalaPonderacion(null);
 
 					if (Request.UrlReferrer.AbsolutePath.Contains("ItemsEscalaPonderacion.aspx"))
@@ -162,13 +162,13 @@ namespace EDUAR_UI
 					case enumAcciones.Eliminar:
 						AccionPagina = enumAcciones.Limpiar;
 						EliminarEscala();
-                        BuscarEscalaPonderacion(propFiltroEscala);
-                        //CargarLista(null);
+						BuscarEscalaPonderacion(propFiltroEscala);
+						//CargarLista(null);
 						//BuscarFiltrando();
 						break;
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
-                        CargarLista(null);
+						CargarLista(null);
 						BuscarEscalaPonderacion(propFiltroEscala);
 						break;
 					case enumAcciones.Guardar:
@@ -202,9 +202,9 @@ namespace EDUAR_UI
 				//btnBuscar.Visible = false;
 				btnVolver.Visible = true;
 				btnNuevo.Visible = false;
-                gvwEscalasPonderacion.Visible = false;
-                //litEditar.Visible = false;
-                //litNuevo.Visible = true;
+				gvwEscalasPonderacion.Visible = false;
+				//litEditar.Visible = false;
+				//litNuevo.Visible = true;
 				udpEdit.Visible = true;
 				//udpFiltrosBusqueda.Visible = false;
 				udpFiltros.Update();
@@ -253,7 +253,7 @@ namespace EDUAR_UI
 			try
 			{
 				CargarPresentacion();
-                //CargarLista(new EscalaMedicion());
+				//CargarLista(new EscalaMedicion());
 				BuscarEscalaPonderacion(propFiltroEscala);
 				propEscala = new EscalaMedicion();
 			}
@@ -268,7 +268,7 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
-        protected void gvwEscalasPonderacion_RowCommand(object sender, GridViewCommandEventArgs e)
+		protected void gvwEscalasPonderacion_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
 			try
 			{
@@ -279,9 +279,9 @@ namespace EDUAR_UI
 						CargaEscala();
 						break;
 					case "Eliminar":
-                        propEscala.idEscala = Convert.ToInt32(e.CommandArgument.ToString());
+						propEscala.idEscala = Convert.ToInt32(e.CommandArgument.ToString());
 						AccionPagina = enumAcciones.Eliminar;
-						Master.MostrarMensaje("Eliminar Escala", "¿Desea <b>eliminar</b> la escala?", enumTipoVentanaInformacion.Confirmación);
+						Master.MostrarMensaje("Eliminar Escala", "¿Desea <b>eliminar</b> la escala seleccionada?", enumTipoVentanaInformacion.Confirmación);
 						break;
 					case "VerValoresEscala":
 						AccionPagina = enumAcciones.Redirect;
@@ -302,15 +302,15 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
-        protected void gvwEscalasPonderacion_PageIndexChanging(object sender, GridViewPageEventArgs e)
+		protected void gvwEscalasPonderacion_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 			try
 			{
-                gvwEscalasPonderacion.PageIndex = e.NewPageIndex;
+				gvwEscalasPonderacion.PageIndex = e.NewPageIndex;
 				CargarGrilla();
 				//btnBuscar.Visible = false;
 				btnVolver.Visible = true;
-                gvwEscalasPonderacion.Visible = false;
+				gvwEscalasPonderacion.Visible = false;
 				//udpFiltrosBusqueda.Visible = false;
 				udpEdit.Visible = true;
 				udpEdit.Update();
@@ -327,8 +327,8 @@ namespace EDUAR_UI
 		/// <param name="lista">The lista.</param>
 		private void CargarGrilla()
 		{
-            gvwEscalasPonderacion.DataSource = UIUtilidades.BuildDataTable<EscalaMedicion>(listaEscalas).DefaultView;
-            gvwEscalasPonderacion.DataBind();
+			gvwEscalasPonderacion.DataSource = UIUtilidades.BuildDataTable<EscalaMedicion>(listaEscalas).DefaultView;
+			gvwEscalasPonderacion.DataBind();
 			udpEdit.Visible = false;
 			udpGrilla.Update();
 		}
@@ -346,7 +346,7 @@ namespace EDUAR_UI
 			//udpFiltrosBusqueda.Visible = true;
 			//btnBuscar.Visible = true;
 			btnNuevo.Visible = true;
-            gvwEscalasPonderacion.Visible = true;
+			gvwEscalasPonderacion.Visible = true;
 			udpFiltros.Update();
 			udpGrilla.Update();
 		}
@@ -367,7 +367,7 @@ namespace EDUAR_UI
 		/// <returns></returns>
 		private EscalaMedicion ObtenerValoresDePantalla()
 		{
-            EscalaMedicion entidad = new EscalaMedicion();
+			EscalaMedicion entidad = new EscalaMedicion();
 			entidad = propEscala;
 
 			if (!esNuevo)
@@ -396,7 +396,7 @@ namespace EDUAR_UI
 		/// </summary>
 		private void CargarValoresEnPantalla(int idEntidad)
 		{
-            EscalaMedicion escala = listaEscalas.Find(c => c.idEscala == idEntidad);
+			EscalaMedicion escala = listaEscalas.Find(c => c.idEscala == idEntidad);
 
 			txtNombreEdit.Text = escala.nombre;
 			txtDescripcionEdit.Text = escala.descripcion;
@@ -413,21 +413,21 @@ namespace EDUAR_UI
 			if (string.IsNullOrEmpty(txtNombreEdit.Text))
 				mensaje += "- Nombre Escala<br />";
 
-            if (string.IsNullOrEmpty(txtDescripcionEdit.Text))
-                mensaje += "- Descripción Escala<br />";
+			if (string.IsNullOrEmpty(txtDescripcionEdit.Text))
+				mensaje += "- Descripción Escala<br />";
 
 			return mensaje;
 		}
 
-        /// <summary>
-        /// Buscars the entidads.
-        /// </summary>
-        /// <param name="entidad">The entidad.</param>
-        private void BuscarEscalaPonderacion(EscalaMedicion entidad)
-        {
-            CargarLista(entidad);
-            CargarGrilla();
-        }
+		/// <summary>
+		/// Buscars the entidads.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		private void BuscarEscalaPonderacion(EscalaMedicion entidad)
+		{
+			CargarLista(entidad);
+			CargarGrilla();
+		}
 
 		/// <summary>
 		/// Cargas the agenda.
@@ -439,13 +439,13 @@ namespace EDUAR_UI
 
 			CargarValoresEnPantalla(propEscala.idEscala);
 
-            //litEditar.Visible = true;
-            //litNuevo.Visible = false;
+			//litEditar.Visible = true;
+			//litNuevo.Visible = false;
 			//btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
 			btnVolver.Visible = true;
 			btnGuardar.Visible = true;
-            gvwEscalasPonderacion.Visible = false;
+			gvwEscalasPonderacion.Visible = false;
 			//udpFiltrosBusqueda.Visible = false;
 			udpEdit.Visible = true;
 			udpFiltros.Update();
