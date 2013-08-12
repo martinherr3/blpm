@@ -47,20 +47,27 @@
             </table>
             <table class="tablaInterna" width="100%">
                 <tr>
-                    <td class="TD110px">
+                    <td>
+                    </td>
+                </tr>
+            </table>
+            <table class="tablaInternaSinBorde" width="100%">
+                <tr>
+                    <td class="TD110px" valign="middle">
                         <asp:Label ID="lblFiltrado" Text="Filtrado por Curso" runat="server" Visible="false" />
                     </td>
                     <td class="TD50px">
                         <asp:CheckBox ID="chkFiltrado" runat="server" OnCheckedChanged="chkFiltrado_CheckedChanged"
                             AutoPostBack="true" Text="" Visible="False" />
                     </td>
-                    <td></td>
+                    <td>
+                    </td>
                 </tr>
             </table>
             <div id="divDocente" runat="server" visible="false">
                 <table class="tablaInternaSinBorde" width="100%">
                     <tr>
-                        <td class="TD110px">
+                        <td class="TD110px" valign="middle">
                             Curso:
                         </td>
                         <td class="TD80">
@@ -86,15 +93,15 @@
                     </tr>
                 </table>
             </div>
-            <table class="tablaInterna" width="100%">
+            <table class="tablaInternaSinBorde" width="100%">
                 <tr>
-                    <td class="TD20">
+                    <td class="TD20" valign="middle">
                         Destinatarios
                     </td>
                     <td class="TD80">
                         <asp:UpdatePanel runat="server">
                             <ContentTemplate>
-                                <select data-placeholder="Seleccione los destinatarios" style="width: 600px;" multiple="true"
+                                <select data-placeholder="Seleccione los destinatarios" style="width: 714px;" multiple="true"
                                     class="chzn-select" runat="server" id="ddlDestino" enableviewstate="true">
                                 </select>
                             </ContentTemplate>
@@ -109,14 +116,16 @@
                         Asunto
                     </td>
                     <td class="TD80">
-                        <input id="txtAsunto" type="text" runat="server" style="width: 595px; background-color: #FFFFFF;
+                        <input id="txtAsunto" type="text" runat="server" style="width: 710px; background-color: #FFFFFF;
                             background-image: -moz-linear-gradient(center bottom , white 85%, #EEEEEE 99%);
                             border: 1px solid #AAAAAA; cursor: text; height: 26px !important; margin: 0;
                             overflow: hidden; padding: 0; position: relative; font-family: sans-serif; font-size: 1em" />
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="width: 100%">
+                    <td class="TD20">
+                    </td>
+                    <td class="TD80">
                         <edi:Editor ID="textoMensaje" runat="server" />
                     </td>
                 </tr>

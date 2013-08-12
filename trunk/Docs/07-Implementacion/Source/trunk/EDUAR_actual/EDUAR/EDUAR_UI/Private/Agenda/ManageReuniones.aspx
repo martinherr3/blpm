@@ -30,9 +30,15 @@
                     </td>
                 </tr>
             </table>
+            <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+            </table>
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                    <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD110px">
                                 <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
@@ -113,16 +119,19 @@
                 <ContentTemplate>
                     <table width="100%" cellpadding="1" cellspacing="5">
                         <tr>
-                            <td valign="top" class="TDCriterios20">
+                            <td valign="top" class="TDCriterios15">
                                 <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios40">
+                            <td valign="top" class="TDCriterios20">
                                 <cal:Calendario ID="calFechaEvento" runat="server" TipoCalendario="SoloFecha" TipoAlineacion="Izquierda" />
                             </td>
-                            <td valign="top" class="TDCriterios10">
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="TDCriterios15">
                                 <asp:Label runat="server" ID="lblHora" Text="Hora:"></asp:Label>
                             </td>
-                            <td valign="top" class="TDCriterios40">
+                            <td valign="top" class="TDCriterios20">
                                 <asp:TextBox runat="server" ID="txtHoraEdit" MaxLength="5" CssClass="EstiloTxtCorto80"></asp:TextBox>
                                 <cc1:MaskedEditExtender ID="MaskedEditExtender2" runat="server" AcceptAMPM="false"
                                     MaskType="Time" Mask="99:99" ErrorTooltipEnabled="true" InputDirection="LeftToRight"
@@ -133,27 +142,26 @@
                                     InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
                                 </cc1:MaskedEditValidator>
                             </td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TDCriterios25">
+                            <td valign="top" class="TDCriterios15">
                                 <asp:Label ID="lblActivoBusqueda" runat="server" Text="Activo:"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios25">
                                 <asp:CheckBox ID="chkActivoEdit" runat="server" Checked="false" />
                             </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
-                            <td valign="top" class="TDCriterios25">
-                            </td>
+                            <td></td>
                         </tr>
                         <tr>
-                            <td valign="top" class="TD25">
+                            <td valign="top" class="TDCriterios15">
                                 <asp:Label runat="server" ID="Label9" Text="Descripción:"></asp:Label>
                             </td>
-                            <td class="TD75" colspan="3">
+                            <td class="TDCriterios75">
                                 <asp:TextBox runat="server" ID="txtDescripcionEdit" Width="500px" TextMode="MultiLine"
                                     Rows="5" CssClass="txtMultilinea"></asp:TextBox>
                             </td>
+                            <td></td>
                         </tr>
                     </table>
                 </ContentTemplate>

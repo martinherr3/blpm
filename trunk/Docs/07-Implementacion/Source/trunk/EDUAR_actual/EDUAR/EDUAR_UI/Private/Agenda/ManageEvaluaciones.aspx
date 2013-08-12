@@ -30,9 +30,15 @@
                     </td>
                 </tr>
             </table>
+            <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+            </table>
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                    <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD100px">
                                 <asp:Label ID="lblAsignatura" runat="server" Text="Asignatura:"></asp:Label>
