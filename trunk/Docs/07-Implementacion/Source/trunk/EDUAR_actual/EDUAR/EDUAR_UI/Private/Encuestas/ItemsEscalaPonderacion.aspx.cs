@@ -12,7 +12,7 @@ using EDUAR_Utility.Enumeraciones;
 
 namespace EDUAR_UI
 {
-    public partial class ItemsEscalaPonderacion : EDUARBasePage
+	public partial class ItemsEscalaPonderacion : EDUARBasePage
 	{
 		#region --[Atributos]--
 		private BLValorEscala objBLValorEscala;
@@ -20,23 +20,23 @@ namespace EDUAR_UI
 
 		#region --[Propiedades]--
 
-        /// <summary>
-        /// Gets or sets the escala de medicion sesion.
-        /// </summary>
-        /// <value>
-        /// The escala de medicion sesion.
-        /// </value>
-        public EscalaMedicion escalaMedicionSesion
-        {
-            get
-            {
-                if (Session["escalaMedicionSesion"] == null)
-                    escalaMedicionSesion = new EscalaMedicion();
+		/// <summary>
+		/// Gets or sets the escala de medicion sesion.
+		/// </summary>
+		/// <value>
+		/// The escala de medicion sesion.
+		/// </value>
+		public EscalaMedicion escalaMedicionSesion
+		{
+			get
+			{
+				if (Session["escalaMedicionSesion"] == null)
+					escalaMedicionSesion = new EscalaMedicion();
 
-                return (EscalaMedicion)Session["escalaMedicionSesion"];
-            }
-            set { Session["escalaMedicionSesion"] = value; }
-        }
+				return (EscalaMedicion)Session["escalaMedicionSesion"];
+			}
+			set { Session["escalaMedicionSesion"] = value; }
+		}
 
 		/// <summary>
 		/// Gets or sets the id escala medicion.
@@ -56,7 +56,7 @@ namespace EDUAR_UI
 		}
 
 		/// <summary>
-        /// Gets or sets the valor escala editar.
+		/// Gets or sets the valor escala editar.
 		/// </summary>
 		/// <value>
 		/// The valor escala editar.
@@ -65,11 +65,11 @@ namespace EDUAR_UI
 		{
 			get
 			{
-                if (Session["valorEscalaEditar"] == null)
-                    Session["valorEscalaEditar"] = new ValorEscalaMedicion();
-                return (ValorEscalaMedicion)Session["valorEscalaEditar"];
+				if (Session["valorEscalaEditar"] == null)
+					Session["valorEscalaEditar"] = new ValorEscalaMedicion();
+				return (ValorEscalaMedicion)Session["valorEscalaEditar"];
 			}
-            set { Session["valorEscalaEditar"] = value; }
+			set { Session["valorEscalaEditar"] = value; }
 		}
 
 		/// <summary>
@@ -82,25 +82,25 @@ namespace EDUAR_UI
 		{
 			get
 			{
-                if (ViewState["propValorEscala"] == null)
-                    propValorEscala = new ValorEscalaMedicion();
+				if (ViewState["propValorEscala"] == null)
+					propValorEscala = new ValorEscalaMedicion();
 
-                return (ValorEscalaMedicion)ViewState["propValorEscala"];
+				return (ValorEscalaMedicion)ViewState["propValorEscala"];
 			}
-            set { ViewState["propValorEscala"] = value; }
+			set { ViewState["propValorEscala"] = value; }
 		}
 
-        public ValorEscalaMedicion propFiltroValorEscala
-        {
-            get
-            {
-                if (ViewState["propFiltroValorEscala"] == null)
-                    propFiltroValorEscala = new ValorEscalaMedicion();
+		public ValorEscalaMedicion propFiltroValorEscala
+		{
+			get
+			{
+				if (ViewState["propFiltroValorEscala"] == null)
+					propFiltroValorEscala = new ValorEscalaMedicion();
 
-                return (ValorEscalaMedicion)ViewState["propFiltroValorEscala"];
-            }
-            set { ViewState["propFiltroValorEscala"] = value; }
-        }
+				return (ValorEscalaMedicion)ViewState["propFiltroValorEscala"];
+			}
+			set { ViewState["propFiltroValorEscala"] = value; }
+		}
 
 		/// <summary>
 		/// Gets or sets the lista encuesta.
@@ -112,11 +112,11 @@ namespace EDUAR_UI
 		{
 			get
 			{
-                if (ViewState["listaValoresEscala"] == null) listaValoresEscala = new List<ValorEscalaMedicion>();
+				if (ViewState["listaValoresEscala"] == null) listaValoresEscala = new List<ValorEscalaMedicion>();
 
-                return (List<ValorEscalaMedicion>)ViewState["listaValoresEscala"];
+				return (List<ValorEscalaMedicion>)ViewState["listaValoresEscala"];
 			}
-            set { ViewState["listaValoresEscala"] = value; }
+			set { ViewState["listaValoresEscala"] = value; }
 		}
 		#endregion
 
@@ -151,15 +151,15 @@ namespace EDUAR_UI
 			}
 		}
 
-        /// <summary>
-        /// Buscars the entidads.
-        /// </summary>
-        /// <param name="entidad">The entidad.</param>
-        private void BuscarValoresEscala(ValorEscalaMedicion entidad)
-        {
-            CargarLista(escalaMedicionSesion);
-            CargarGrilla();
-        }
+		/// <summary>
+		/// Buscars the entidads.
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		private void BuscarValoresEscala(ValorEscalaMedicion entidad)
+		{
+			CargarLista(escalaMedicionSesion);
+			CargarGrilla();
+		}
 
 		/// <summary>
 		/// Ventanas the aceptar.
@@ -174,7 +174,7 @@ namespace EDUAR_UI
 				{
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
-                        BuscarValoresEscala(null);
+						BuscarValoresEscala(null);
 						break;
 					case enumAcciones.Guardar:
 						AccionPagina = enumAcciones.Limpiar;
@@ -274,7 +274,7 @@ namespace EDUAR_UI
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewCommandEventArgs"/> instance containing the event data.</param>
-        protected void gvwItemsEscala_RowCommand(object sender, GridViewCommandEventArgs e)
+		protected void gvwItemsEscala_RowCommand(object sender, GridViewCommandEventArgs e)
 		{
 			try
 			{
@@ -287,19 +287,19 @@ namespace EDUAR_UI
 					case "Eliminar":
 						AccionPagina = enumAcciones.Eliminar;
 						propValorEscala.idValorEscala = Convert.ToInt32(e.CommandArgument.ToString());
-						Master.MostrarMensaje("Eliminar Pregunta", "¿Desea <b>eliminar</b> el item seleccionado?", enumTipoVentanaInformacion.Confirmación);
-                        BuscarValoresEscala(propFiltroValorEscala);
-                        break;
-                    case "Subir":
-                        SubirUnNivel(Convert.ToInt32(e.CommandArgument.ToString()));
-                        CargarLista(escalaMedicionSesion);
-                        CargarGrilla();
-                        break;
-                    case "Bajar":
-                        BajarUnNivel(Convert.ToInt32(e.CommandArgument.ToString()));
-                        CargarLista(escalaMedicionSesion);
-                        CargarGrilla();
-                        break;
+						Master.MostrarMensaje("Eliminar Valor de Escala", "¿Desea <b>eliminar</b> el valor de escala seleccionado?", enumTipoVentanaInformacion.Confirmación);
+						BuscarValoresEscala(propFiltroValorEscala);
+						break;
+					case "Subir":
+						SubirUnNivel(Convert.ToInt32(e.CommandArgument.ToString()));
+						CargarLista(escalaMedicionSesion);
+						CargarGrilla();
+						break;
+					case "Bajar":
+						BajarUnNivel(Convert.ToInt32(e.CommandArgument.ToString()));
+						CargarLista(escalaMedicionSesion);
+						CargarGrilla();
+						break;
 				}
 			}
 			catch (Exception ex)
@@ -308,42 +308,42 @@ namespace EDUAR_UI
 			}
 		}
 
-        private void SubirUnNivel(int idSeleccionado)
-        {
-            ValorEscalaMedicion valorEscalaUp = listaValoresEscala.Find(c => c.idValorEscala == idSeleccionado);
-            ValorEscalaMedicion valorEscalaDown = listaValoresEscala.Find(c => c.orden == valorEscalaUp.orden - 1);
+		private void SubirUnNivel(int idSeleccionado)
+		{
+			ValorEscalaMedicion valorEscalaUp = listaValoresEscala.Find(c => c.idValorEscala == idSeleccionado);
+			ValorEscalaMedicion valorEscalaDown = listaValoresEscala.Find(c => c.orden == valorEscalaUp.orden - 1);
 
-            valorEscalaDown.orden = valorEscalaUp.orden;
-            valorEscalaUp.orden = valorEscalaUp.orden - 1;
+			valorEscalaDown.orden = valorEscalaUp.orden;
+			valorEscalaUp.orden = valorEscalaUp.orden - 1;
 
-            BLValorEscala objBLValorEscalaDown = new BLValorEscala(valorEscalaDown);
-            BLValorEscala objBLValorEscalaUp = new BLValorEscala(valorEscalaUp);
+			BLValorEscala objBLValorEscalaDown = new BLValorEscala(valorEscalaDown);
+			BLValorEscala objBLValorEscalaUp = new BLValorEscala(valorEscalaUp);
 
-            objBLValorEscalaDown.Save();
-            objBLValorEscalaUp.Save();
-        }
+			objBLValorEscalaDown.Save();
+			objBLValorEscalaUp.Save();
+		}
 
-        private void BajarUnNivel(int idSeleccionado)
-        {
-            ValorEscalaMedicion valorEscalaDown = listaValoresEscala.Find(c => c.idValorEscala == idSeleccionado);
-            ValorEscalaMedicion valorEscalaUp = listaValoresEscala.Find(c => c.orden == valorEscalaDown.orden + 1);
+		private void BajarUnNivel(int idSeleccionado)
+		{
+			ValorEscalaMedicion valorEscalaDown = listaValoresEscala.Find(c => c.idValorEscala == idSeleccionado);
+			ValorEscalaMedicion valorEscalaUp = listaValoresEscala.Find(c => c.orden == valorEscalaDown.orden + 1);
 
-            valorEscalaDown.orden = valorEscalaUp.orden;
-            valorEscalaUp.orden = valorEscalaDown.orden - 1;
+			valorEscalaDown.orden = valorEscalaUp.orden;
+			valorEscalaUp.orden = valorEscalaDown.orden - 1;
 
-            BLValorEscala objBLValorEscalaDown = new BLValorEscala(valorEscalaDown);
-            BLValorEscala objBLValorEscalaUp = new BLValorEscala(valorEscalaUp);
+			BLValorEscala objBLValorEscalaDown = new BLValorEscala(valorEscalaDown);
+			BLValorEscala objBLValorEscalaUp = new BLValorEscala(valorEscalaUp);
 
-            objBLValorEscalaDown.Save();
-            objBLValorEscalaUp.Save();
-        }
+			objBLValorEscalaDown.Save();
+			objBLValorEscalaUp.Save();
+		}
 
 		/// <summary>
 		/// Handles the PageIndexChanging event of the gvwEncuesta control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.Web.UI.WebControls.GridViewPageEventArgs"/> instance containing the event data.</param>
-        protected void gvwItemsEscala_PageIndexChanging(object sender, GridViewPageEventArgs e)
+		protected void gvwItemsEscala_PageIndexChanging(object sender, GridViewPageEventArgs e)
 		{
 			try
 			{
@@ -394,8 +394,8 @@ namespace EDUAR_UI
 		/// <param name="entidad">The entidad.</param>
 		private void CargarLista(EscalaMedicion entidad)
 		{
-            objBLValorEscala = new BLValorEscala(propValorEscala);
-            listaValoresEscala = objBLValorEscala.GetValoresEscalasMedicion(entidad);
+			objBLValorEscala = new BLValorEscala(propValorEscala);
+			listaValoresEscala = objBLValorEscala.GetValoresEscalasMedicion(entidad);
 		}
 
 		/// <summary>
@@ -406,7 +406,7 @@ namespace EDUAR_UI
 		{
 			ValorEscalaMedicion entidad = new ValorEscalaMedicion();
 			entidad = propValorEscala;
-            entidad.idEscalaMedicion = escalaMedicionSesion.idEscala;
+			entidad.idEscalaMedicion = escalaMedicionSesion.idEscala;
 
 			if (!esNuevo)
 			{
@@ -426,10 +426,10 @@ namespace EDUAR_UI
 		{
 			ValorEscalaMedicion objEliminar = new ValorEscalaMedicion();
 			objEliminar.idValorEscala = propValorEscala.idValorEscala;
-            objEliminar.idEscalaMedicion = escalaMedicionSesion.idEscala;
+			objEliminar.idEscalaMedicion = escalaMedicionSesion.idEscala;
 
 			//escalaMedicionSesion.valoresEscalas.Clear();
-            //escalaMedicionSesion.valoresEscalas.Add(objEliminar);
+			//escalaMedicionSesion.valoresEscalas.Add(objEliminar);
 
 			objBLValorEscala = new BLValorEscala(objEliminar);
 			objBLValorEscala.Delete();
@@ -444,11 +444,11 @@ namespace EDUAR_UI
 		/// <param name="entidad">The entidad.</param>
 		private void GuardarValorEscala(ValorEscalaMedicion entidad)
 		{
-            entidad.idEscalaMedicion = escalaMedicionSesion.idEscala;
+			entidad.idEscalaMedicion = escalaMedicionSesion.idEscala;
 			BLValorEscala objBLValorEscala = new BLValorEscala(entidad);
 
-            objBLValorEscala.Save();
- 		}
+			objBLValorEscala.Save();
+		}
 
 		/// <summary>
 		/// Cargars the entidad.
@@ -458,7 +458,7 @@ namespace EDUAR_UI
 			ValorEscalaMedicion valorEscala = listaValoresEscala.Find(c => c.idValorEscala == idEntidad);
 
 			txtNombreEdit.Text = valorEscala.nombre;
-            txtDescripcionEdit.Text = valorEscala.descripcion;
+			txtDescripcionEdit.Text = valorEscala.descripcion;
 		}
 
 		/// <summary>
@@ -472,9 +472,9 @@ namespace EDUAR_UI
 			if (txtNombreEdit.Text.Trim().Length == 0)
 				message.Append("- Nombre Valor Escala<br/>");
 			if (txtDescripcionEdit.Text.Trim().Length == 0)
-                message.Append("- Descripción Valor Escala<br/>");
+				message.Append("- Descripción Valor Escala<br/>");
 
-            return message.ToString();
+			return message.ToString();
 		}
 
 		/// <summary>
