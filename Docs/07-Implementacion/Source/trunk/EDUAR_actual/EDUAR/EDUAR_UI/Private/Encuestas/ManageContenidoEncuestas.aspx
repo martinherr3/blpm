@@ -80,8 +80,8 @@
                             <asp:ImageButton ID="btnLanzar" runat="server" CommandName="Lanzar" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ToolTip="Enviar Encuesta a Usuarios" ImageUrl="~/Images/Grillas/action_Lanzar.png"
                                 Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), true) %>' />
-                            <asp:ImageButton ID="btnLanzada" runat="server" Enabled="false" ToolTip="Encuesta Enviada a Usuarios"
-                                ImageUrl="~/Images/Grillas/action_run.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), false) %>' />
+                            <%--<asp:ImageButton ID="btnLanzada" runat="server" Enabled="false" ToolTip="Encuesta Enviada a Usuarios"
+                                ImageUrl="~/Images/Grillas/action_run.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), false) %>' />--%>
                             <asp:ImageButton ID="btnResultados" runat="server" ToolTip="Resultados" CommandName="Resultados" CommandArgument='<%# Bind("idEncuesta") %>'
                                 ImageUrl="~/Images/Grillas/action_results.png" Visible='<%# CheckLanzada(Eval("usuario.username"), Eval("fechaLanzamiento"), false) %>' />
                         </ItemTemplate>
@@ -98,6 +98,13 @@
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
                             <asp:Label ID="lblNombre" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "nombreEncuesta").ToString())%>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Estado">
+                        <HeaderStyle HorizontalAlign="center" Width="10%" />
+                        <ItemStyle HorizontalAlign="center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblEstado" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "estado").ToString())%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Creación">
