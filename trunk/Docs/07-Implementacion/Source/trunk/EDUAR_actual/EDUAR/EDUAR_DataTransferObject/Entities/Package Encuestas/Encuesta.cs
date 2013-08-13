@@ -23,6 +23,7 @@ namespace EDUAR_Entities
 		public CursoCicloLectivo curso { get; set; }
 		public AsignaturaCicloLectivo asignatura { get; set; }
 		public int nroRespuestas { get; set; }
+		public string estado { get; set; }
 
 		public Encuesta()
 		{

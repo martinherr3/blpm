@@ -247,6 +247,7 @@ namespace EDUAR_DataAccess.Encuestas
 					objEncuesta.nombreEncuesta = reader["nombreEncuesta"].ToString();
 					objEncuesta.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"].ToString());
 					objEncuesta.objetivo = reader["objetivo"].ToString();
+					objEncuesta.estado = reader["estado"].ToString();
 
 					fechaModificacion = reader["fechaModificacion"].ToString();
 
