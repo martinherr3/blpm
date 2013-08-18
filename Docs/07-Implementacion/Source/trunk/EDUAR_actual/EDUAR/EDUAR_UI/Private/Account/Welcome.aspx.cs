@@ -131,7 +131,7 @@ namespace EDUAR_UI
                     objBLSeguridad.GetUsuario();
                     ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
                     divEncuesta.Visible = false;
-                    btnEncuesta.Visible = false;
+                    //btnEncuesta.Visible = false;
                     divAgenda.Visible = false;
                     if (User.IsInRole(enumRoles.Alumno.ToString()))
                     {
@@ -237,6 +237,31 @@ namespace EDUAR_UI
         }
 
         /// <summary>
+        /// Handles the RowCommand event of the gvwEncuestas control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="GridViewCommandEventArgs"/> instance containing the event data.</param>
+        protected void gvwEncuestas_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                switch (e.CommandName)
+                {
+                    case "Responder":
+                        base.idEncuesta = Convert.ToInt32(e.CommandArgument);
+                        Response.Redirect("~/Private/Encuestas/Cuestionario.aspx", false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Master.ManageExceptions(ex);
+            }
+        }
+
+        /// <summary>
         /// Handles the Click event of the btnBuscar control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -322,6 +347,9 @@ namespace EDUAR_UI
                     case "Administracion":
                         mpeAdministracion.Hide();
                         break;
+                    case "ResponderEncuesta":
+                        mpeResponderEncuesta.Hide();
+                        break;
                     default:
                         break;
                 }
@@ -367,6 +395,9 @@ namespace EDUAR_UI
                         break;
                     case "Administracion":
                         mpeAdministracion.Show();
+                        break;
+                    case "ResponderEncuesta":
+                        mpeResponderEncuesta.Show();
                         break;
                     default:
                         break;
@@ -711,15 +742,17 @@ namespace EDUAR_UI
 
             EncuestaDisponible encuestaSkeleton = new EncuestaDisponible();
             encuestaSkeleton.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-            int cantidad = objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton).Count;
-            if (cantidad > 0)
+            List<Encuesta> listaEncuestas = objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton);
+            if (listaEncuestas.Count > 0)
             {
-                lblEncuestas.Text = lblEncuestas.Text.Replace("<ENCUESTAS>", cantidad.ToString());
-                if (cantidad == 1)
-                    lblEncuestas.Text = lblEncuestas.Text.Replace("Encuestas", "Encuesta");
+                gvwEncuestas.DataSource = listaEncuestas;
+                gvwEncuestas.DataBind();
+                //lblEncuestas.Text = lblEncuestas.Text.Replace("<ENCUESTAS>", cantidad.ToString());
+                //if (cantidad == 1)
+                //    lblEncuestas.Text = lblEncuestas.Text.Replace("Encuestas", "Encuesta");
             }
-            divEncuesta.Visible = cantidad > 0;
-            btnEncuesta.Visible = cantidad > 0;
+            divEncuesta.Visible = listaEncuestas.Count > 0;
+            //btnEncuesta.Visible = cantidad > 0;
         }
         #endregion
     }

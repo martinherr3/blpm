@@ -157,6 +157,7 @@
     <Content Include="Images\Grillas\action_lookup.png" />
     <Content Include="Images\Grillas\action_new.png" />
     <Content Include="Images\Grillas\action_quest.png" />
+    <Content Include="Images\Grillas\action_response.png" />
     <Content Include="Images\Grillas\action_results.png" />
     <Content Include="Images\Grillas\action_run.png" />
     <Content Include="Images\Grillas\grd_alt.png" />
