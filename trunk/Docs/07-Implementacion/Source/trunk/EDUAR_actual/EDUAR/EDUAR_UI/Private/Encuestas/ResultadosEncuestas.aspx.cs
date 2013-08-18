@@ -257,7 +257,7 @@ namespace EDUAR_UI
 		{
 			try
 			{
-                Response.Redirect("ManageContenidoEncuestas.aspx", false);
+				Response.Redirect("ManageContenidoEncuestas.aspx", false);
 			}
 			catch (Exception ex)
 			{
@@ -329,7 +329,13 @@ namespace EDUAR_UI
 			if (encuestaSesion.fechaVencimiento.HasValue)
 				lblFechaExpiracion.Text = Convert.ToDateTime(encuestaSesion.fechaVencimiento).ToShortDateString();
 
-			lblCurso.Text = encuestaSesion.curso.curso.nombre;
+			lblAmbito.Text = encuestaSesion.ambito.nombre;
+			//lblCurso.Text = (string.IsNullOrEmpty(encuestaSesion.curso.curso.nombre)) ? "Todos" : encuestaSesion.curso.curso.nombre;
+			if (!string.IsNullOrEmpty(encuestaSesion.curso.curso.nombre))
+			{
+				lblCurso.Visible = true;
+				lblCursoNombre.Text = encuestaSesion.curso.curso.nombre;
+			}
 			if (!string.IsNullOrEmpty(encuestaSesion.asignatura.asignatura.nombre))
 			{
 				lblAsignatura.Visible = true;
@@ -581,26 +587,26 @@ namespace EDUAR_UI
 			List<miRespuesta> listaRespuestasLocal = new List<miRespuesta>();
 			miRespuesta laRespuesta = new miRespuesta();
 
-            EscalaMedicion escala = new EscalaMedicion();
-            escala.idEscala = respuesta.idEscalaPonderacion;
+			EscalaMedicion escala = new EscalaMedicion();
+			escala.idEscala = respuesta.idEscalaPonderacion;
 
-            BLValorEscala objBLValorEscala = new BLValorEscala();
-            List<ValorEscalaMedicion> valoresEscala = objBLValorEscala.GetValoresEscalasMedicion(escala);
+			BLValorEscala objBLValorEscala = new BLValorEscala();
+			List<ValorEscalaMedicion> valoresEscala = objBLValorEscala.GetValoresEscalasMedicion(escala);
 
-            //EVITO PROCESAR LA ESCALA TEXTUAL
-            if (respuesta.idEscalaPonderacion != 3)
-            {
-                int index = 0;
-                foreach (ValoresSeleccionados valores in respuesta.valoresSeleccionados)
-                {
-                    laRespuesta.respuesta = valoresEscala[index].nombre;
-                    laRespuesta.cantidad = valores.cantidad;
-                    listaRespuestasLocal.Add(laRespuesta);
-                    index++;
-                }
-            }
+			//EVITO PROCESAR LA ESCALA TEXTUAL
+			if (respuesta.idEscalaPonderacion != 3)
+			{
+				int index = 0;
+				foreach (ValoresSeleccionados valores in respuesta.valoresSeleccionados)
+				{
+					laRespuesta.respuesta = valoresEscala[index].nombre;
+					laRespuesta.cantidad = valores.cantidad;
+					listaRespuestasLocal.Add(laRespuesta);
+					index++;
+				}
+			}
 
-            return listaRespuestasLocal;			
+			return listaRespuestasLocal;
 		}
 
 		/// <summary>

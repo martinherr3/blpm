@@ -49,6 +49,15 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnVolver;
         
         /// <summary>
+        /// Control lblAmbito.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAmbito;
+        
+        /// <summary>
         /// Control lblCurso.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,15 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCurso;
+        
+        /// <summary>
+        /// Control lblCursoNombre.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCursoNombre;
         
         /// <summary>
         /// Control lblAsignatura.

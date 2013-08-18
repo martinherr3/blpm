@@ -47,16 +47,19 @@
     <table class="tablaInterna" cellpadding="0" cellspacing="0">
         <tr>
             <td class="TD25">
-                <asp:Label Text="Curso: " runat="server" />
-                <asp:Label ID="lblCurso" Text="" runat="server" Font-Bold="true" /><br />
+                <asp:Label Text="Ámbito: " runat="server" />
+                <asp:Label ID="lblAmbito" Text="" runat="server" Font-Bold="true" /><br />
                 <br />
             </td>
             <td class="TD25">
+                <asp:Label ID="lblCurso" Text="Curso: " runat="server" Visible="false" />
+                <asp:Label ID="lblCursoNombre" Text="" runat="server" Font-Bold="true" /><br />
+                <br />
+            </td>
+            <td>
                 <asp:Label ID="lblAsignatura" Text="Asignatura: " runat="server" Visible="false" />
                 <asp:Label ID="lblAsignaturaNombre" Text="" runat="server" Font-Bold="true" /><br />
                 <br />
-            </td>
-            <td class="TD50">
             </td>
         </tr>
         <tr>
@@ -76,30 +79,29 @@
     </table>
     <%--<asp:UpdatePanel ID="udpIndicadores" runat="server" UpdateMode="Conditional">
         <ContentTemplate>--%>
-            <table class="tablaInternaSinBorde" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td class="TD25">
-                        <asp:Label ID="Label1" Text="Encuestas Enviadas: " runat="server" />
-                        <asp:Label ID="lblEnviadas" Text="" runat="server" Font-Bold="true" /><br />
-                        <br />
-                    </td>
-                    <td class="TD25">
-                        <asp:Label ID="Label2" Text="Encuestas Respondidas: " runat="server" />
-                        <asp:Label ID="lblRespondidas" Text="" runat="server" Font-Bold="true" /><br />
-                        <br />
-                    </td>
-                    <td class="TD50">
-                        <asp:Label ID="lblEncuestasPendientes" Text="Encuestas Pendientes: " runat="server" />
-                        <asp:Label ID="lblPendientes" Text="" runat="server" Font-Bold="true" /><br />
-                        <br />
-                    </td>
-                </tr>
-            </table>
-       <%-- </ContentTemplate>
+    <table class="tablaInternaSinBorde" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="TD25">
+                <asp:Label ID="Label1" Text="Encuestas Enviadas: " runat="server" />
+                <asp:Label ID="lblEnviadas" Text="" runat="server" Font-Bold="true" /><br />
+                <br />
+            </td>
+            <td class="TD25">
+                <asp:Label ID="Label2" Text="Encuestas Respondidas: " runat="server" />
+                <asp:Label ID="lblRespondidas" Text="" runat="server" Font-Bold="true" /><br />
+                <br />
+            </td>
+            <td class="TD50">
+                <asp:Label ID="lblEncuestasPendientes" Text="Encuestas Pendientes: " runat="server" />
+                <asp:Label ID="lblPendientes" Text="" runat="server" Font-Bold="true" /><br />
+                <br />
+            </td>
+        </tr>
+    </table>
+    <%-- </ContentTemplate>
         <Triggers>--%>
-            <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
-        </Triggers>
-    </asp:UpdatePanel>
+    <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
+    </Triggers> </asp:UpdatePanel>
     <table class="tablaInternaSinBorde" cellpadding="0" cellspacing="0">
         <tr>
             <td class="TD10" style="vertical-align: top">

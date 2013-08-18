@@ -159,11 +159,12 @@ namespace EDUAR_UI
             try
             {
                 Master.BotonAvisoAceptar += (VentanaAceptar);
+                if(idEncuesta == 0)
+                    Response.Redirect("~/Private/Account/Welcome.aspx", true);
                 if (!Page.IsPostBack)
                 {
                     //cargarEncabezado();
                     LimpiarPantalla();
-                    idEncuesta = base.idEncuesta;
                     CargarEncuesta(idEncuesta);
                     AccionPagina = enumAcciones.Buscar;
                     udpFormulario.Visible = true;
