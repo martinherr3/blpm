@@ -245,6 +245,23 @@ namespace EDUAR_UI.Shared
             }
             set { Session["idAsignatura"] = value; }
         }
+
+        /// <summary>
+        /// Gets or sets the id encuesta.
+        /// </summary>
+        /// <value>
+        /// The id encuesta.
+        /// </value>
+        public int idEncuesta
+        {
+            get
+            {
+                if (Session["idEncuesta"] == null)
+                    idEncuesta = 0;
+                return (int)Session["idEncuesta"];
+            }
+            set { Session["idEncuesta"] = value; }
+        }
         #endregion
 
         #region --[Eventos]--

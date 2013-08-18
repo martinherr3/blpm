@@ -349,6 +349,70 @@
             </tr>
         </table>
     </asp:Panel>
+    <!-- Encuestas: Tutor y Alumno -->
+    <asp:HiddenField ID="HiddenField7" runat="server" />
+    <ajaxToolkit:ModalPopupExtender ID="mpeResponderEncuesta" runat="server" PopupControlID="pnlResponderEncuesta"
+        TargetControlID="HiddenField7" RepositionMode="RepositionOnWindowResizeAndScroll"
+        BackgroundCssClass="modalBackground" DropShadow="false" PopupDragHandleControlID="pnlResponderEncuesta">
+    </ajaxToolkit:ModalPopupExtender>
+    <asp:Panel ID="pnlResponderEncuesta" runat="server" Width="600px" Height="400px"
+        Style="display: none; text-align: left" CssClass="CajaDialogo">
+        <table class="tablaInterna" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <h2>
+                        <asp:Label ID="Label1" Text="Encuestas Disponibles" runat="server" /></h2>
+                </td>
+                <td align="right">
+                    <asp:ImageButton ID="btnCerrarResponderEncuesta" OnClick="btnCerrarPopup_Click" ImageUrl="~/Images/PopUp/botonCerrar.png"
+                        ToolTip="Cerrar" runat="server" CommandArgument="ResponderEncuesta" />
+                </td>
+            </tr>
+        </table>
+        <table class="tablaInterna" cellpadding="1" cellspacing="5" style="text-align: center">
+            <tr>
+                <td align="center">
+                    <asp:GridView ID="gvwEncuestas" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListadoSize10"
+                        AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idEncuesta"
+                        OnRowCommand="gvwEncuestas_RowCommand">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Acciones">
+                                <HeaderStyle HorizontalAlign="center" Width="10%" />
+                                <ItemStyle HorizontalAlign="center" />
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="btnResponder" runat="server" CommandName="Responder" CommandArgument='<%# Bind("idEncuesta") %>'
+                                        ToolTip="Responder Encuesta" ImageUrl="~/Images/Grillas/action_response.png" />
+                                    <%--&nbsp; [<asp:LinkButton ID="lnkResponder" runat="server" CommandName="Responder"
+                                        CommandArgument='<%# Bind("idEncuesta") %>' Text="Responder" ToolTip="Responder Encuesta" />]--%>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Ambito">
+                                <HeaderStyle HorizontalAlign="center" Width="10%" />
+                                <ItemStyle HorizontalAlign="center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblAmbito" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "ambito.nombre").ToString())%>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Nombre">
+                                <HeaderStyle HorizontalAlign="left" Width="50%" />
+                                <ItemStyle HorizontalAlign="left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNombre" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "nombreEncuesta").ToString())%>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Fecha Límite">
+                                <HeaderStyle HorizontalAlign="center" Width="15%" />
+                                <ItemStyle HorizontalAlign="center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblExpiracion" runat="server" Text='<%# Bind("fechaVencimiento","{0:d}")%>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
     <div id="divAgenda" runat="server" visible="false">
         <table class="tablaInterna" width="100%" cellpadding="1" cellspacing="5" border="0">
             <tr>
@@ -360,8 +424,8 @@
                 <td align="right">
                     <asp:UpdatePanel ID="udpCampos" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <asp:ImageButton ID="btnEncuesta" runat="server" ImageUrl="~/Images/btnEncuesta.png"
-                                Visible="true" OnClick="btnEncuesta_Click" ToolTip="Responder Encuesta" AlternateText="Responder Encuesta" />
+                            <%--<asp:ImageButton ID="btnEncuesta" runat="server" ImageUrl="~/Images/btnEncuesta.png"
+                                Visible="true" OnClick="btnEncuesta_Click" ToolTip="Responder Encuesta" AlternateText="Responder Encuesta" />--%>
                             <asp:ImageButton ID="btnRecibidosAT" OnClick="btnRedireccion_Click" runat="server"
                                 ToolTip="Mensajes" ImageUrl="~/Images/verMensajes.png" CommandArgument="Mensajes" />
                             <asp:ImageButton ID="btnBoletin" OnClick="btnRedireccion_Click" runat="server" ToolTip="Boletín"
@@ -394,12 +458,20 @@
             </table>
         </div>
         <div id="divEncuesta" runat="server">
-            <table class="tablaInternaSinBorde" width="100%" cellpadding="1" cellspacing="5"
+            <table class="tablaInternaSinBorde" width="100%" cellpadding="0" cellspacing="0"
                 border="0">
                 <tr>
+                    <td width="30px">
+                        Tienes
+                    </td>
+                    <td width="40px">
+                        <asp:LinkButton ID="lnkHayEncuestas" Text="Encuestas" runat="server" CssClass="loginDisplay"
+                            CommandArgument="ResponderEncuesta" OnClick="btnPopUP_Click" Style="text-align: center" />
+                    </td>
                     <td>
-                        <asp:Label ID="lblEncuestas" Text="Tienes <ENCUESTAS> Encuestas pendiente de responder!!!"
-                            runat="server" Font-Bold="true" />
+                        para responder!!!
+                        <%--<asp:Label ID="lblEncuestas" Text="Tienes <ENCUESTAS> Encuestas pendiente de responder!!!"
+                            runat="server" Font-Bold="true" />--%>
                     </td>
                 </tr>
             </table>

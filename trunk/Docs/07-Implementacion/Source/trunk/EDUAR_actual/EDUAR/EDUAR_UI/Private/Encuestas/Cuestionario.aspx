@@ -17,14 +17,19 @@
         <ContentTemplate>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td class="">
+                    <td>
+                        <h2>
+                            <asp:Label ID="lblNombreEncuesta" runat="server" CssClass="lblTitulo" /></h2>
+                            <br />
+                    </td>
+                    <%--<td class="">
                         <h2>
                             Encuesta(s) disponible(s)</h2>
                          <br />
                     </td>
                     <td align="left" rowspan="2" style="width: 75%">
                         <asp:DropDownList ID="ddlEncuesta" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlEncuesta_SelectedIndexChanged" />
-                    </td>
+                    </td>--%>
                 </tr>
             </table>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
@@ -38,7 +43,7 @@
                     <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
                         <tr>
                             <td>
-                                <asp:Label ID="lblNombreEncuesta" runat="server" CssClass="lblTitulo" />
+                                <%--<asp:Label ID="lblNombreEncuesta" runat="server" CssClass="lblTitulo" />--%>
                             </td>
                         </tr>
                     </table>
@@ -48,7 +53,8 @@
                         <Panes>
                             <%--LOS COMPONENTES DEL ACCORDION SON AGREGADOS DINÁMICAMENTE DESDE CÓDIGO--%>
                         </Panes>
-                    </cc1:Accordion><br />
+                    </cc1:Accordion>
+                    <br />
                     <table class="tablaInterna" cellpadding="0" cellspacing="0">
                         <tr>
                             <td align="center">

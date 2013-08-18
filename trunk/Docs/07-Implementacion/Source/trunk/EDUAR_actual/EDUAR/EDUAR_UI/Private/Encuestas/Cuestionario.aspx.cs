@@ -161,21 +161,24 @@ namespace EDUAR_UI
                 Master.BotonAvisoAceptar += (VentanaAceptar);
                 if (!Page.IsPostBack)
                 {
-                    cargarEncabezado();
+                    //cargarEncabezado();
                     LimpiarPantalla();
+                    idEncuesta = base.idEncuesta;
+                    CargarEncuesta(idEncuesta);
+                    AccionPagina = enumAcciones.Buscar;
+                    udpFormulario.Visible = true;
                 }
                 else
                 {
-                    int idEncuestaSeleccionada;
-
-                    if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada))
+                    //if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada))
+                    if (idEncuesta > 0)
                     {
                         if (AccionPagina == enumAcciones.Buscar
                             ||
                             AccionPagina == enumAcciones.Responder
                             ||
                             AccionPagina == enumAcciones.Error)
-                            CargarEncuesta(idEncuestaSeleccionada);
+                            CargarEncuesta(idEncuesta);
                         else
                             if (Request.Params["__EVENTTARGET"] == "GuardarRespuesta")
                                 text_Changed(this, new EventArgs());
@@ -198,20 +201,23 @@ namespace EDUAR_UI
         {
             try
             {
-                int idEncuestaSeleccionada;
+                //int idEncuestaSeleccionada;
                 switch (AccionPagina)
                 {
                     case enumAcciones.Buscar:
                     case enumAcciones.Responder:
-                        if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada))
-                            CargarEncuesta(idEncuestaSeleccionada);
+                        //if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada))
+                        //    CargarEncuesta(idEncuestaSeleccionada);
+                        CargarEncuesta(idEncuesta);
                         break;
                     case enumAcciones.Guardar:
                         AccionPagina = enumAcciones.Limpiar;
-                        CargarCombos();
+                        //CargarCombos();
                         LimpiarPantalla();
-                        udpFormulario.Update();
-                        udpSeleccionEncuesta.Update();
+                        //udpFormulario.Update();
+                        //udpSeleccionEncuesta.Update();
+                        idEncuesta = 0;
+                        Response.Redirect("~/Private/Account/Welcome.aspx", true);
                         break;
                     default:
                         break;
@@ -233,8 +239,9 @@ namespace EDUAR_UI
             try
             {
                 LimpiarPantalla();
-                int idEncuesta = 0;
-                if (int.TryParse(ddlEncuesta.SelectedValue, out idEncuesta) && idEncuesta > 0)
+                //int idEncuesta = 0;
+                //if (int.TryParse(ddlEncuesta.SelectedValue, out idEncuesta) && idEncuesta > 0)
+                if (idEncuesta > 0)
                 {
                     CargarEncuesta(idEncuesta);
                     AccionPagina = enumAcciones.Buscar;
@@ -316,9 +323,11 @@ namespace EDUAR_UI
         {
             try
             {
-                ddlEncuesta.SelectedIndex = 0;
+                //ddlEncuesta.SelectedIndex = 0;
                 LimpiarPantalla();
+                idEncuesta = 0;
                 udpFormulario.Update();
+                Response.Redirect("~/Private/Account/Welcome.aspx", true);
             }
             catch (Exception ex)
             {
@@ -432,9 +441,9 @@ namespace EDUAR_UI
             encuestaSkeleton.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
             List<Encuesta> listaEncuesta = objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton);
-            if (listaEncuesta.Count > 0)
-                UIUtilidades.BindCombo<Encuesta>(ddlEncuesta, listaEncuesta, "idEncuesta", "nombreEncuesta", true);
-            else
+            if (listaEncuesta.Count == 0)
+                //    UIUtilidades.BindCombo<Encuesta>(ddlEncuesta, listaEncuesta, "idEncuesta", "nombreEncuesta", true);
+                //else
                 Response.Redirect("~/Private/Account/Welcome.aspx", true);
         }
 
@@ -661,8 +670,9 @@ namespace EDUAR_UI
             try
             {
                 LimpiarPantalla();
-                int idEncuesta = 0;
-                if (int.TryParse(ddlEncuesta.SelectedValue, out idEncuesta) && idEncuesta > 0)
+                //int idEncuesta = 0;
+                //if (int.TryParse(ddlEncuesta.SelectedValue, out idEncuesta) && idEncuesta > 0)
+                if (idEncuesta > 0)
                 {
                     CargarEncuesta(idEncuesta);
                     AccionPagina = enumAcciones.Buscar;
@@ -676,26 +686,6 @@ namespace EDUAR_UI
                 Master.ManageExceptions(ex);
             }
         }
-
-        /// <summary>
-        /// Finds the control recursive.
-        /// </summary>
-        /// <param name="container">The container.</param>
-        /// <param name="name">The name.</param>
-        /// <returns></returns>
-        //private static Control FindControlRecursive(Control container, string name)
-        //{
-        //    if ((container.ID != null) && (container.ID.Equals(name)))
-        //        return container;
-
-        //    foreach (Control ctrl in container.Controls)
-        //    {
-        //        Control foundCtrl = FindControlRecursive(ctrl, name);
-        //        if (foundCtrl != null)
-        //            return foundCtrl;
-        //    }
-        //    return null;
-        //}
         #endregion
     }
 }

@@ -787,6 +787,60 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnVerConfigIndicadores;
         
         /// <summary>
+        /// Control HiddenField7.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField7;
+        
+        /// <summary>
+        /// Control mpeResponderEncuesta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender mpeResponderEncuesta;
+        
+        /// <summary>
+        /// Control pnlResponderEncuesta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlResponderEncuesta;
+        
+        /// <summary>
+        /// Control Label1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// Control btnCerrarResponderEncuesta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnCerrarResponderEncuesta;
+        
+        /// <summary>
+        /// Control gvwEncuestas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvwEncuestas;
+        
+        /// <summary>
         /// Control divAgenda.
         /// </summary>
         /// <remarks>
@@ -803,15 +857,6 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel udpCampos;
-        
-        /// <summary>
-        /// Control btnEncuesta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnEncuesta;
         
         /// <summary>
         /// Control btnRecibidosAT.
@@ -877,13 +922,13 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divEncuesta;
         
         /// <summary>
-        /// Control lblEncuestas.
+        /// Control lnkHayEncuestas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEncuestas;
+        protected global::System.Web.UI.WebControls.LinkButton lnkHayEncuestas;
         
         /// <summary>
         /// Control udpGrilla.
