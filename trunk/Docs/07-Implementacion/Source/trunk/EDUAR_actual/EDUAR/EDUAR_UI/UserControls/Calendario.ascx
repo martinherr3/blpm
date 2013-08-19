@@ -4,7 +4,7 @@
 <div id="DivDesdeHasta" runat="server">
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td style="vertical-align: middle; width: 25%">
+            <td style="vertical-align: middle; width: 20%">
                 <asp:HiddenField runat="server" ID="hndMensajeErrorValidacion" Value="" />
                 <div id="divEtiquetaDesdeDA" runat="server">
                     <asp:Label ID="lblFechaDesde_DA" runat="server" CssClass="lblCriterios"></asp:Label>
@@ -12,7 +12,7 @@
             </td>
             <td style="width: 25%">
                 <div style="vertical-align: middle; overflow: visible">
-                    <asp:TextBox ID="txtFechaDesde_DA" runat="server" CssClass="EstiloTxtCorto80" />
+                    <asp:TextBox ID="txtFechaDesde_DA" runat="server" CssClass="EstiloTxtCorto85" />
                     <cc1:MaskedEditExtender ID="maskEditFechaDesde_DA" runat="server" Mask="99/99/9999"
                         MaskType="Date" TargetControlID="txtFechaDesde_DA" UserDateFormat="DayMonthYear"
                         Enabled="True" ClearTextOnInvalid="True">
@@ -24,14 +24,14 @@
                     </cc1:CalendarExtender>
                 </div>
             </td>
-            <td style="vertical-align: middle; width: 25%">
+            <td style="vertical-align: middle; width: 20%">
                 <div id="divEtiquetaHastaDA" runat="server">
                     <asp:Label ID="lblFechaHasta_DA" runat="server" CssClass="lblCriterios"></asp:Label>
                 </div>
             </td>
             <td style="width: 25%">
                 <div style="vertical-align: middle; overflow: visible">
-                    <asp:TextBox ID="txtFechaHasta_DA" runat="server" CssClass="EstiloTxtCorto80" />
+                    <asp:TextBox ID="txtFechaHasta_DA" runat="server" CssClass="EstiloTxtCorto85" />
                     <cc1:MaskedEditExtender ID="maskEditFechaHasta_DA" runat="server" Mask="99/99/9999"
                         MaskType="Date" TargetControlID="txtFechaHasta_DA" UserDateFormat="DayMonthYear"
                         Enabled="True" ClearTextOnInvalid="True">
@@ -56,7 +56,7 @@
             </td>
             <td style="vertical-align: middle; width: 60%">
                 <div style="vertical-align: middle; overflow: visible">
-                    <asp:TextBox ID="txtFechaDesde" runat="server" CssClass="EstiloTxtCorto80"></asp:TextBox>
+                    <asp:TextBox ID="txtFechaDesde" runat="server" CssClass="EstiloTxtCorto85"></asp:TextBox>
                     <cc1:MaskedEditExtender ID="txtFechaDesde_MaskedEditExtender" runat="server" Mask="99/99/9999"
                         MaskType="Date" TargetControlID="txtFechaDesde" UserDateFormat="DayMonthYear"
                         Enabled="True" ClearTextOnInvalid="True">
@@ -72,7 +72,7 @@
     </table>
 </div>
 <div id="DivSoloFecha" runat="server">
-    <asp:TextBox ID="txtFecha" runat="server" CssClass="EstiloTxtCorto80"></asp:TextBox>
+    <asp:TextBox ID="txtFecha" runat="server" CssClass="EstiloTxtCorto85"></asp:TextBox>
     <cc1:MaskedEditExtender ID="txtFecha_MaskedEditExtender" runat="server" Mask="99/99/9999"
         MaskType="Date" TargetControlID="txtFecha" UserDateFormat="DayMonthYear" Enabled="True"
         ClearTextOnInvalid="True">

@@ -247,7 +247,10 @@ namespace EDUAR_UI
             {
                 BLAlumno objBLAlumno = new BLAlumno(new Alumno() { username = ObjSessionDataUI.ObjDTUsuario.Nombre });
                 AlumnoCursoCicloLectivo objCurso = objBLAlumno.GetCursoActualAlumno(cicloLectivoActual);
-                lblCursosAsignados.Text = "Curso Actual: " + objCurso.cursoCicloLectivo.curso.nivel.nombre + "  " + objCurso.cursoCicloLectivo.curso.nombre;
+                if (objCurso != null)
+                    lblCursosAsignados.Text = "Curso Actual: " + objCurso.cursoCicloLectivo.curso.nivel.nombre + "  " + objCurso.cursoCicloLectivo.curso.nombre;
+                else
+                    lblCursosAsignados.Text = "Curso Actual: Desconocido";
             }
             if (HttpContext.Current.User.IsInRole(enumRoles.Docente.ToString()))
             {
