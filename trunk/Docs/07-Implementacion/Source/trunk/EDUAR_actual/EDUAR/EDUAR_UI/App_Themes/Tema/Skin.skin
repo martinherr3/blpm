@@ -15,18 +15,18 @@ no se permite que haya varios SkinId por tipo de control en el mismo tema.
 
 
 GridLines="None"
-			  PageSize="15" Width="100%" CssClass="mGrid" PagerStyle-CssClass="pgr"
-				AlternatingRowStyle-CssClass="alt"  
+              PageSize="15" Width="100%" CssClass="mGrid" PagerStyle-CssClass="pgr"
+                AlternatingRowStyle-CssClass="alt"  
 
 --%>
 <asp:GridView runat="server" SkinId="gridviewSkinPagerReporte" CellPadding="5"
               AutoGenerateColumns="false"
-			  GridLines="None"
+              GridLines="None"
               BorderStyle="Solid" 
               PagerSettings-Visible="true" 
               ShowFooter="false"
               EmptyDataText="La consulta no produjo resultados." AllowPaging="True" Width="100%"
-			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
+              CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
 </asp:GridView>
 
@@ -37,7 +37,7 @@ GridLines="None"
               PagerSettings-Visible="true" 
               ShowFooter="false"
               EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="20" Width="100%"
-			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">           
+              CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">           
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
 </asp:GridView>
 
@@ -47,7 +47,7 @@ GridLines="None"
               PagerSettings-Visible="true" 
               ShowFooter="false"
               EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="15" Width="100%"
-			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
+              CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
 </asp:GridView>
 
@@ -58,6 +58,6 @@ GridLines="None"
               PagerSettings-Visible="true" 
               ShowFooter="false"
               EmptyDataText="La consulta no produjo resultados." AllowPaging="True" PageSize="10" Width="100%"
-			  CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
+              CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt">
               <EmptyDataRowStyle CssClass="DatosListaNormal" HorizontalAlign="left" />
 </asp:GridView>

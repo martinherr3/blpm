@@ -62,7 +62,7 @@
                                 <asp:ImageButton ID="btnExportar" runat="server" OnClick="btnExportar_Click" ImageUrl="/EDUAR_UI/Images/ExportarGrafico.png"
                                     ToolTip="Exportar a PDF" AlternateText="Exportar a PDF" />
                                 <asp:ImageButton ID="btnCerrar" runat="server"  ImageUrl="/EDUAR_UI/Images/botonCancel.png"
-                                    ToolTip="Cerrar" AlternateText="Cerrar" /><!--OnClick="btnCerrar_Click"-->
+                                    ToolTip="Cerrar" AlternateText="Cerrar" />
                             </td>
                         </tr>
                     </table>
@@ -98,7 +98,7 @@
                                 </asp:ChartArea>
                             </ChartAreas>
                         </asp:Chart>
-                        <cc1:AnimationExtender ID="AnimationExtender2" runat="server" TargetControlID="Chart1">
+                        <%--<cc1:AnimationExtender ID="AnimationExtender2" runat="server" TargetControlID="Chart1">
                             <Animations>
                             <OnLoad>  
                                 <Sequence>       
@@ -112,7 +112,7 @@
                                 </Sequence>
                             </OnLoad>
                             </Animations>
-                        </cc1:AnimationExtender>
+                        </cc1:AnimationExtender>--%>
                         <table width="646px" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;
                             background-color: White; text-align: left; margin-top: -5px; vertical-align: middle">
                             <tr>
