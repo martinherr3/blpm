@@ -6,7 +6,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>EDU@R 2.0</title>
     <link rel="icon" type="image/png" href="~/favicon.ico" />
-    <link href="~/App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
+    <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="Content/bootstrap-responsive.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">

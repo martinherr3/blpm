@@ -93,6 +93,7 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\Tema\Estilo.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -344,7 +345,6 @@
     <Content Include="Images\ventanaAdvertencia.png" />
     <Content Include="Images\ventanaError.png" />
     <Content Include="Images\ventanaSatisfactorio.png" />
-    <Content Include="App_Themes\Tema\Estilo.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Private\Account\Validate.aspx" />
