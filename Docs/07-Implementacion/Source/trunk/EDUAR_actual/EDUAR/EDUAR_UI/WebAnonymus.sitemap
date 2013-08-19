@@ -2,19 +2,19 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode url="~/" title="EDUAR" description="Portal EDUAR">
         <siteMapNode url="~/Default.aspx" title="Inicio" ImageUrl="~/Images/web/go-home-6.png" />
-        <siteMapNode url="" title="Institución" ImageUrl="~/Images/web/Internal.png" >
+        <siteMapNode url="#1" title="Institución" ImageUrl="~/Images/web/Internal.png" >
             <siteMapNode url="~/Public/General/Historia.aspx" title="Historia" ImageUrl="~/Images/web/historia.png" />
             <siteMapNode url="~/Public/General/Ideario.aspx" title="Visión" ImageUrl="~/Images/web/vision.png"/>
             <siteMapNode url="~/Public/General/Localizacion.aspx" title="Localización" ImageUrl="~/Images/web/localizacion.png"/>
         </siteMapNode>
-        <siteMapNode url="" title="Equipo" ImageUrl="~/Images/web/equipo.png">
+        <siteMapNode url="#2" title="Equipo" ImageUrl="~/Images/web/equipo.png">
             <siteMapNode url="~/Public/General/Organizacion.aspx" title="Organización" ImageUrl="~/Images/web/organizacion.png"/>
             <siteMapNode url="~/Public/General/Docentes.aspx" title="Docentes" ImageUrl="~/Images/web/docentes-menu.png"/>
         </siteMapNode>
         <siteMapNode url="~/Public/General/Novedades.aspx" title="Novedades" ImageUrl="~/Images/web/novedades.png"/>
         <siteMapNode url="~/Public/General/Contactos.aspx" title="Contacto" ImageUrl="~/Images/web/contacto.png"/>
         <siteMapNode url="~/About.aspx" title="Acerca De" ImageUrl="~/Images/web/about.png"/>
-        <siteMapNode url="" title="Usuarios" visible="false">
+        <siteMapNode url="#3" title="Usuarios" visible="false">
             <siteMapNode url="~/Private/Account/Register.aspx" title="Registrar"/>
             <siteMapNode url="~/Private/Account/ForgotPassword.aspx" title="Olvidé Mi Clave"/>
             <siteMapNode url="~/Private/Account/Validate.aspx" title="Validar Usuario"/>
