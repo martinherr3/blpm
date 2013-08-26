@@ -244,8 +244,8 @@
                         <td align="right">
                             <asp:ImageButton ID="btnGuardarPopUp" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
                                 OnClick="btnGuardarPopUp_Click" />
-                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver - Descartar Cambios"
-                                ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverPopUp_Click" />
+                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Cerrar"
+                                ImageUrl="~/Images/PopUp/botonCerrar.png" OnClick="btnVolverPopUp_Click" />
                         </td>
                     </tr>
                     <tr>
@@ -306,8 +306,8 @@
                             <br />
                         </td>
                         <td align="right">
-                            <asp:ImageButton ID="btnVolverContenidoAtrasadoPopUp" runat="server" ToolTip="Volver - Descartar Cambios"
-                                ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverContenidosAtrasadosPopUp_Click" />
+                            <asp:ImageButton ID="btnVolverContenidoAtrasadoPopUp" runat="server" ToolTip="Cerrar"
+                                ImageUrl="~/Images/PopUp/botonCerrar.png" OnClick="btnVolverContenidosAtrasadosPopUp_Click" />
                         </td>
                     </tr>
                     <tr>

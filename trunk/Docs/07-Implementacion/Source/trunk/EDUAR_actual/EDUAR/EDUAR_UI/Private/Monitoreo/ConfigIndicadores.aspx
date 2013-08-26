@@ -68,8 +68,8 @@
 							<td align="right">
 								<asp:ImageButton ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" ToolTip="Guardar"
 									ImageUrl="~/Images/PopUp/botonGuardar.png" CausesValidation="true" />
-								<asp:ImageButton ID="btnCancelar" OnClick="btnCancelar_Click" runat="server" ToolTip="Volver"
-									ImageUrl="~/Images/PopUp/botonVolver.png" CausesValidation="false" />
+								<asp:ImageButton ID="btnCancelar" OnClick="btnCancelar_Click" runat="server" ToolTip="Cerrar"
+									ImageUrl="~/Images/PopUp/botonCerrar.png" CausesValidation="false" />
 							</td>
 						</tr>
 					</table>

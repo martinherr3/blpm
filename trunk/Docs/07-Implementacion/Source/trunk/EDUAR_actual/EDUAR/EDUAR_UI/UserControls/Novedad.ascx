@@ -54,8 +54,8 @@
                         <asp:ImageButton ID="btnGuardar" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
                             Visible="true" ValidationGroup="Novedad" CausesValidation="true" OnClientClick="DoPostBack();" />
                         <!-- OnClick="btnOcultoNovedad_Click"-->
-                        <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
-                            ImageUrl="~/Images/PopUp/botonVolver.png" />
+                        <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Cerrar"
+                            ImageUrl="~/Images/PopUp/botonCerrar.png" />
                     </td>
                 </tr>
             </table>
