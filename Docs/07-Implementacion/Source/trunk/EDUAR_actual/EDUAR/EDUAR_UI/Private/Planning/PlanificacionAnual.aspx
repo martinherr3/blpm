@@ -351,8 +351,8 @@ planificacionEditar.fechaAprobada.HasValue == true ? false : true %>' />
                         <td align="right">
                             <asp:ImageButton ID="btnGuardarPopUp" runat="server" ToolTip="Guardar" ImageUrl="~/Images/PopUp/botonGuardar.png"
                                 OnClick="btnGuardarPopUp_Click" />
-                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Volver - Descartar Cambios"
-                                ImageUrl="~/Images/PopUp/botonVolver.png" OnClick="btnVolverPopUp_Click" />
+                            <asp:ImageButton ID="btnVolverPopUp" runat="server" ToolTip="Cerrar"
+                                ImageUrl="~/Images/PopUp/botonCerrar.png" OnClick="btnVolverPopUp_Click" />
                         </td>
                     </tr>
                     <tr>
