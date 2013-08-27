@@ -238,10 +238,11 @@ namespace EDUAR_UI.UserControls
         protected void CerrarGrafico(object sender, EventArgs e)
         {
             OnCerrarGraficoClick(CerrarGraficoClick, e);
+            CargarGrilla(false);
         }
         #endregion
 
-        #region --[Delegados ]--
+        #region --[Delegados]--
         public delegate void VentanaBotonClickHandler(object sender, EventArgs e);
         public delegate void PaginarGrillaHandler(object sender, GridViewPageEventArgs e);
         public delegate void OrdenarClickHandler(object sender, GridViewSortEventArgs e);
@@ -253,6 +254,7 @@ namespace EDUAR_UI.UserControls
         public event VentanaBotonClickHandler CerrarGraficoClick;
         public event PaginarGrillaHandler PaginarGrilla;
         public event OrdenarClickHandler OrdenarClick;
+
 
         /// <summary>
         /// Called when [exportar PDF click].
@@ -557,6 +559,7 @@ namespace EDUAR_UI.UserControls
             verGrafico = true;
             graficoReporte.TablaGrafico.Clear();
             OnGraficarClick(GraficarClick, e);
+            CargarGrilla(true);
         }
 
         /// <summary>
@@ -811,5 +814,6 @@ namespace EDUAR_UI.UserControls
             return file;
         }
         #endregion
+
     }
 }
