@@ -31,6 +31,33 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.UpdatePanel udpNovedades;
         
         /// <summary>
+        /// Control lnkFiltrado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkFiltrado;
+        
+        /// <summary>
+        /// Control rptNovedades.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptNovedades;
+        
+        /// <summary>
+        /// Control lnkFiltrado2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkFiltrado2;
+        
+        /// <summary>
         /// Propiedad Master.
         /// </summary>
         /// <remarks>

@@ -8,6 +8,7 @@ using EDUAR_UI.Shared;
 using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
+using System.Text.RegularExpressions;
 
 namespace EDUAR_UI
 {
@@ -87,7 +88,7 @@ namespace EDUAR_UI
             set { ViewState["propEvento"] = value; }
         }
         #endregion
-        
+
         #region --[Eventos]--
         /// <summary>
         /// Método que se ejecuta al dibujar los controles de la página.
@@ -121,6 +122,7 @@ namespace EDUAR_UI
                 Master.BotonAvisoAceptar += (VentanaAceptar);
                 if (!Page.IsPostBack)
                 {
+                    calFechaEvento.startDate = DateTime.Now;
                     CargarPresentacion();
                     //Siempre que se acceda a la página debiera existir una agenda
                     propEvento.idAgendaActividad = propAgenda.idAgendaActividad;
@@ -129,10 +131,9 @@ namespace EDUAR_UI
                         BuscarAgenda(propEvento);
                     }
                 }
-				calfechas.startDate = cicloLectivoActual.fechaInicio;
-				calfechas.endDate = cicloLectivoActual.fechaFin;
-				calFechaEvento.startDate = cicloLectivoActual.fechaInicio;
-				calFechaEvento.endDate = cicloLectivoActual.fechaFin;
+                calfechas.startDate = cicloLectivoActual.fechaInicio;
+                calfechas.endDate = cicloLectivoActual.fechaFin;
+                calFechaEvento.endDate = cicloLectivoActual.fechaFin;
                 this.txtDescripcionEdit.Attributes.Add("onkeyup", " ValidarCaracteres(this, 4000);");
             }
             catch (Exception ex)
@@ -297,6 +298,7 @@ namespace EDUAR_UI
                 switch (e.CommandName)
                 {
                     case "Editar":
+                        calFechaEvento.startDate = cicloLectivoActual.fechaInicio;
                         propEvento.idEventoAgenda = Convert.ToInt32(e.CommandArgument.ToString());
                         CargarEvento();
                         break;
@@ -330,6 +332,7 @@ namespace EDUAR_UI
         {
             lblTitulo.Text = propAgenda.cursoCicloLectivo.curso.nombre + " - " + propAgenda.cursoCicloLectivo.cicloLectivo.nombre;
             LimpiarCampos();
+            calFechaEvento.startDate = DateTime.Now;
             udpEdit.Visible = false;
             btnVolver.Visible = true;
             btnGuardar.Visible = false;
@@ -435,7 +438,7 @@ namespace EDUAR_UI
             objBLAgenda = new BLAgendaActividades(propAgenda);
             objBLAgenda.GetById();
             evento.tipoEventoAgenda.idTipoEventoAgenda = (int)enumEventoAgendaType.Excursion;
-            if (objBLAgenda.VerificarAgendaExcursion(evento) && objBLAgenda.VerificarAgendaEvaluacion(evento,0))
+            if (objBLAgenda.VerificarAgendaExcursion(evento) && objBLAgenda.VerificarAgendaEvaluacion(evento, 0))
             {
                 objBLAgenda.Data.listaExcursiones.Add((Excursion)evento);
                 objBLAgenda.Save();
@@ -451,8 +454,8 @@ namespace EDUAR_UI
 
             txtDescripcionEdit.Text = propEvento.descripcion;
             txtDestinoEdit.Text = propEvento.destino;
-			txtHoraDesdeEdit.Text = Convert.ToDateTime(propEvento.horaDesde).ToString("HH:mm");
-			txtHoraHastaEdit.Text = Convert.ToDateTime(propEvento.horaHasta).ToString("HH:mm");
+            txtHoraDesdeEdit.Text = Convert.ToDateTime(propEvento.horaDesde).ToString("HH:mm");
+            txtHoraHastaEdit.Text = Convert.ToDateTime(propEvento.horaHasta).ToString("HH:mm");
             calFechaEvento.Fecha.Text = Convert.ToDateTime(propEvento.fechaEvento).ToShortDateString();
             chkActivoEdit.Checked = propEvento.activo;
         }
@@ -463,10 +466,28 @@ namespace EDUAR_UI
             string mensaje = string.Empty;
             if (txtDescripcionEdit.Text.Trim().Length == 0)
                 mensaje = "- Descripcion<br />";
-            if (txtHoraDesdeEdit.Text.Trim().Length == 0)
-                mensaje += "- Hora Desde<br />";
-            if (txtHoraHastaEdit.Text.Trim().Length == 0)
-                mensaje += "- Hora Hasta<br />";
+
+            Regex r = new Regex(@"([0-1][0-9]|2[0-3]):[0-5][0-9]");
+            Match h1 = r.Match(txtHoraDesdeEdit.Text.Trim());
+            Match h2 = r.Match(txtHoraHastaEdit.Text.Trim());
+            if (h1.Success && h2.Success)
+            {
+                string[] hora = txtHoraDesdeEdit.Text.Trim().Split(':');
+                TimeSpan hora1 = new TimeSpan(Convert.ToInt16(hora[0]), Convert.ToInt16(hora[1]), 0);
+
+                hora = txtHoraHastaEdit.Text.Trim().Split(':');
+                TimeSpan hora2 = new TimeSpan(Convert.ToInt16(hora[0]), Convert.ToInt16(hora[1]), 0);
+
+                if (hora1.Subtract(hora2).TotalMinutes > 0)
+                    mensaje += "- Hora Desde debe ser MENOR a Hora Hasta<br />";
+            }
+            else
+            {
+                if (txtHoraDesdeEdit.Text.Trim().Length == 0)
+                    mensaje += "- Hora Desde<br />";
+                if (txtHoraHastaEdit.Text.Trim().Length == 0)
+                    mensaje += "- Hora Hasta<br />";
+            }
             if (calFechaEvento.Fecha.Text.Trim().Length == 0)
                 mensaje += "- Fecha<br />";
 

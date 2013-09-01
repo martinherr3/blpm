@@ -30,9 +30,15 @@
                     </td>
                 </tr>
             </table>
+            <table class="tablaInterna" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+            </table>
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                    <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD140px">
                                 <asp:Label ID="Label12" runat="server" Text="Activos:"></asp:Label>
@@ -124,7 +130,7 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-                    <table width="100%" cellpadding="1" cellspacing="5">
+                    <table class="tablaInternaSinBorde" width="100%" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD100px">
                                 <asp:Label ID="lblFecha" runat="server" Text="Fecha:"></asp:Label>
@@ -141,7 +147,7 @@
                             <td valign="top" class="TD100px">
                                 <asp:Label runat="server" ID="lblHoraDesde" Text="Hora Desde:"></asp:Label>
                             </td>
-                            <td valign="top" class="TD100px">
+                            <td valign="top" class="TD250px">
                                 <asp:TextBox runat="server" ID="txtHoraDesdeEdit" MaxLength="5" CssClass="EstiloTxtCorto80"></asp:TextBox>
                                 <cc1:MaskedEditExtender ID="MaskedEditExtender2" runat="server" AcceptAMPM="false"
                                     MaskType="Time" Mask="99:99" ErrorTooltipEnabled="true" InputDirection="LeftToRight"
@@ -149,7 +155,8 @@
                                 </cc1:MaskedEditExtender>
                                 <cc1:MaskedEditValidator ID="MaskedEditValidator2" runat="server" ToolTip="Hora Inválida"
                                     ErrorMessage="*" ControlExtender="MaskedEditExtender2" ControlToValidate="txtHoraDesdeEdit"
-                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
+                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit"
+                                    Display="Dynamic" ForeColor="Red">
                                 </cc1:MaskedEditValidator>
                             </td>
                             <td valign="top" class="TD100px">
@@ -163,7 +170,8 @@
                                 </cc1:MaskedEditExtender>
                                 <cc1:MaskedEditValidator ID="MaskedEditValidator1" runat="server" ToolTip="Hora Inválida"
                                     ErrorMessage="*" ControlExtender="MaskedEditExtender2" ControlToValidate="txtHoraHastaEdit"
-                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
+                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit"
+                                    ForeColor="Red">
                                 </cc1:MaskedEditValidator>
                             </td>
                         </tr>

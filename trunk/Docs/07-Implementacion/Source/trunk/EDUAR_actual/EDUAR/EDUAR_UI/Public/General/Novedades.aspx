@@ -31,7 +31,44 @@
             <td style="width: 100%">
                 <asp:UpdatePanel ID="udpNovedades" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
+                        <table class="tablaInternaSinBorde" border="0" cellpadding="1" cellspacing="5">
+                            <tr>
+                                <td align="right">
+                                    [<asp:LinkButton ID="lnkFiltrado" Text="Mostrar Todos" runat="server" CommandArgument="Todo"
+                                        OnCommand="lnkFiltrado_Command" />]
+                                </td>
+                            </tr>
+                        </table>
+                        <asp:Repeater ID="rptNovedades" runat="server">
+                            <ItemTemplate>
+                                <div style="text-align: left">
+                                    <h3>
+                                        <asp:Label ID="lblFecha" Text='<%# Bind("fecha","{0:d}") %>' runat="server" Font-Italic="true" />
+                                        -
+                                        <asp:Label ID="lblTitulo" Text='<%# Bind("titulo") %>' runat="server" Font-Italic="true" /></h3>
+                                    <br />
+                                </div>
+                                <div style="text-align: left">
+                                    <asp:Label ID="lblLugar" Text='<%# Bind("lugar") %>' runat="server" Font-Bold="false" />
+                                </div>
+                                <div style="text-align: left">
+                                    <asp:Label ID="lblDetalle" Text='<%# Bind("detalle") %>' runat="server" /><br />
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                        <table class="tablaInternaSinBorde" border="0" cellpadding="1" cellspacing="5">
+                            <tr>
+                                <td align="right">
+                                    [<asp:LinkButton ID="lnkFiltrado2" Text="Mostrar Todos" runat="server" CommandArgument="Todo"
+                                        OnCommand="lnkFiltrado_Command" />]
+                                </td>
+                            </tr>
+                        </table>
                     </ContentTemplate>
+                    <Triggers>
+                        <asp:PostBackTrigger ControlID="lnkFiltrado" />
+                        <asp:PostBackTrigger ControlID="lnkFiltrado2" />
+                    </Triggers>
                 </asp:UpdatePanel>
             </td>
         </tr>
