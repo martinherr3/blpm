@@ -258,11 +258,11 @@ namespace EDUAR_DataAccess.Common
                     objEvento.activo = (bool)(reader["activo"]);
 
                     //Descartamos mostrar eventos institucionales que han acontecido en el pasado (se desactivan)
-                    if (objEvento.fecha < DateTime.Now && objEvento.activo == true)
-                        {
-                            objEvento.activo = false;
-                            Update(objEvento);
-                        }
+                    //if (objEvento.fecha < DateTime.Now && objEvento.activo == true)
+                    //    {
+                    //        objEvento.activo = false;
+                    //        Update(objEvento);
+                    //    }
 
                     listEventoInstitucional.Add(objEvento);
                 }

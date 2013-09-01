@@ -205,8 +205,8 @@ namespace EDUAR_DataAccess.Common
 						objEvento.usuario.apellido = reader["apellido"].ToString();
 					}
 
-                    if(objEvento.fechaEvento >= DateTime.Now)
-					    listEventoAgenda.Add(objEvento);
+					//if(objEvento.fechaEvento >= DateTime.Now)
+					  listEventoAgenda.Add(objEvento);
 				}
 				return listEventoAgenda;
 			}

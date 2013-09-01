@@ -225,7 +225,7 @@ namespace EDUAR_DataAccess.Common
 					objAgendaActividades.activo = Convert.ToBoolean(reader["activo"].ToString());
 					objAgendaActividades.fechaCreacion = Convert.ToDateTime(reader["fechaCreacion"].ToString());
 
-                    listaAgendaActividades.Add(objAgendaActividades);
+					listaAgendaActividades.Add(objAgendaActividades);
 				}
 				return listaAgendaActividades;
 			}
@@ -293,15 +293,15 @@ namespace EDUAR_DataAccess.Common
 					if (!string.IsNullOrEmpty(reader["usernameOrganizador"].ToString()))
 						objEvento.usuario.username = reader["usernameOrganizador"].ToString();
 
-                    //Descartamos mostrar las evaluaciones que han acontecido en el pasado (se desactivan)
-                    if (objEvento.fechaEvento < DateTime.Now && objEvento.activo == true)
-                    {
-                        objEvento.activo = false;
-                        DAEvaluacion objDA = new DAEvaluacion();
-                        objDA.Update(objEvento);
-                    }
-                    
-                    listaEventos.Add(objEvento);
+					//Descartamos mostrar las evaluaciones que han acontecido en el pasado (se desactivan)
+					//if (objEvento.fechaEvento < DateTime.Now && objEvento.activo == true)
+					//{
+					//    objEvento.activo = false;
+					//    DAEvaluacion objDA = new DAEvaluacion();
+					//    objDA.Update(objEvento);
+					//}
+					
+					listaEventos.Add(objEvento);
 				}
 				return listaEventos;
 			}
@@ -366,15 +366,15 @@ namespace EDUAR_DataAccess.Common
 					if (!string.IsNullOrEmpty(reader["usernameOrganizador"].ToString()))
 						objEvento.usuario.username = reader["usernameOrganizador"].ToString();
 
-                    //Descartamos mostrar las reuniones que han acontecido en el pasado (se desactivan)
-                    if (objEvento.fechaEvento < DateTime.Now && objEvento.activo == true)
-                    {
-                        objEvento.activo = false;
-                        DAReunion objDA = new DAReunion();
-                        objDA.Update(objEvento);
-                    }
+					//Descartamos mostrar las reuniones que han acontecido en el pasado (se desactivan)
+					//if (objEvento.fechaEvento < DateTime.Now && objEvento.activo == true)
+					//{
+					//    objEvento.activo = false;
+					//    DAReunion objDA = new DAReunion();
+					//    objDA.Update(objEvento);
+					//}
 
-                    listaEventos.Add(objEvento);
+					listaEventos.Add(objEvento);
 				}
 				return listaEventos;
 			}
@@ -442,15 +442,15 @@ namespace EDUAR_DataAccess.Common
 					if (!string.IsNullOrEmpty(reader["usernameOrganizador"].ToString()))
 						objEvento.usuario.username = reader["usernameOrganizador"].ToString();
 
-                    //Descartamos mostrar las excursiones que han acontecido en el pasado (se desactivan)
-                    if (objEvento.fechaEvento < DateTime.Now && objEvento.activo == true)
-                    {
-                        objEvento.activo = false;
-                        DAExcursion objDA = new DAExcursion();
-                        objDA.Update(objEvento);
-                    }
+					//Descartamos mostrar las excursiones que han acontecido en el pasado (se desactivan)
+					//if (objEvento.fechaEvento < DateTime.Now && objEvento.activo == true)
+					//{
+					//    objEvento.activo = false;
+					//    DAExcursion objDA = new DAExcursion();
+					//    objDA.Update(objEvento);
+					//}
 
-                    listaEventos.Add(objEvento);
+					listaEventos.Add(objEvento);
 				}
 				return listaEventos;
 			}
@@ -594,10 +594,10 @@ namespace EDUAR_DataAccess.Common
 					objEvento.descripcion = reader["descripcion"].ToString();
 					objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
 
-                    if (objEvento.fechaEvento >= DateTime.Now && objEvento.activo == true)
-                    {
-                        listaEventos.Add(objEvento);
-                    }
+					if (objEvento.fechaEvento >= DateTime.Now && objEvento.activo == true)
+					{
+						listaEventos.Add(objEvento);
+					}
 				}
 				return listaEventos;
 			}

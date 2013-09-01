@@ -49,13 +49,14 @@
                             </td>
                         </tr>
                         <tr>
-                           <td valign="top" class="TD140px">
+                            <td valign="top" class="TD140px">
                                 <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
                             </td>
-                           <td valign="top" class="TD100px">
+                            <td valign="top" class="TD100px">
                                 <asp:DropDownList ID="ddlCurso" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCurso_SelectedIndexChanged">
                                 </asp:DropDownList>
-                            </td> <td valign="top" class="TD100px">
+                            </td>
+                            <td valign="top" class="TD100px">
                                 <asp:Label ID="Label8" runat="server" Text="Vencidas:"></asp:Label>
                             </td>
                             <td valign="top">
@@ -105,8 +106,8 @@
                         <ItemTemplate>
                             <asp:ImageButton ID="editarEvento" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idCitacion") %>'
                                 ToolTip="Editar Citación" ImageUrl="~/Images/Grillas/action_edit.png" Visible='<%#DataBinder.Eval(Container.DataItem, "organizador.username").ToString().ToString() ==  ObjSessionDataUI.ObjDTUsuario.Nombre.ToLower() ? true : false %>' />
-                            <asp:ImageButton ID="ImageButton1" runat="server" ToolTip="Consultar Citación" ImageUrl="~/Images/Grillas/lock.png" Enabled="false"
-                                Visible='<%#DataBinder.Eval(Container.DataItem, "organizador.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre.ToLower() ? false : true %>' />
+                            <asp:ImageButton ID="ImageButton1" runat="server" ToolTip="Consultar Citación" ImageUrl="~/Images/Grillas/lock.png"
+                                Enabled="false" Visible='<%#DataBinder.Eval(Container.DataItem, "organizador.username").ToString().ToString() == ObjSessionDataUI.ObjDTUsuario.Nombre.ToLower() ? false : true %>' />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fecha">
@@ -167,7 +168,8 @@
                                 </cc1:MaskedEditExtender>
                                 <cc1:MaskedEditValidator ID="MaskedEditValidator2" runat="server" ToolTip="Hora Inválida"
                                     ErrorMessage="*" ControlExtender="MaskedEditExtender2" ControlToValidate="txtHoraEdit"
-                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
+                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit"
+                                    ForeColor="Red">
                                 </cc1:MaskedEditValidator>
                             </td>
                         </tr>

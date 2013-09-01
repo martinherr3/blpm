@@ -122,9 +122,7 @@ namespace EDUAR_BusinessLogic.Common
                 if (Data.idReunion == 0)
                     DataAcces.Create(Data);
                 else
-                {
                     DataAcces.Update(Data);
-                }
             }
             catch (CustomizedException ex)
             {
