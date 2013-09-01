@@ -74,9 +74,9 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-                    <asp:GridView ID="gvwAgenda" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
+                    <asp:GridView ID="gvwAgenda" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerReporte"
                         AutoGenerateColumns="false" AllowPaging="true" Width="100%" DataKeyNames="idEventoAgenda"
-                        OnPageIndexChanging="gvwAgenda_PageIndexChanging">
+                        OnPageIndexChanging="gvwAgenda_PageIndexChanging" PageSize="45">
                         <Columns>
                             <asp:TemplateField HeaderText="Evento">
                                 <HeaderStyle HorizontalAlign="left" Width="10%" />
