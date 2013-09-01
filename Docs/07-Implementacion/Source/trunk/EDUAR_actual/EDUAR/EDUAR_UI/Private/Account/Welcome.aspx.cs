@@ -131,7 +131,6 @@ namespace EDUAR_UI
                     objBLSeguridad.GetUsuario();
                     ObjSessionDataUI.ObjDTUsuario = objBLSeguridad.Data.Usuario;
                     divEncuesta.Visible = false;
-                    //btnEncuesta.Visible = false;
                     divAgenda.Visible = false;
                     if (User.IsInRole(enumRoles.Alumno.ToString()))
                     {
@@ -157,6 +156,7 @@ namespace EDUAR_UI
                         divSecciones.Visible = false;
                         habilitarCurso(false);
                         BuscarEncuestas();
+
                         ddlAlumnos.Items.Clear();
                         ddlAlumnos.DataSource = null;
                         foreach (AlumnoCursoCicloLectivo item in listaAlumnos)
@@ -164,6 +164,14 @@ namespace EDUAR_UI
                         UIUtilidades.SortByText(ddlAlumnos);
                         ddlAlumnos.Items.Insert(0, new ListItem("[Seleccione]", "-1"));
                         ddlAlumnos.SelectedValue = "-1";
+
+                        if (listaAlumnos.Count == 1)
+                        {
+                            ddlAlumnos.SelectedIndex = 1;
+                            habilitarAlumno(false);
+                            CargarAgenda();
+                        }
+
                     }
                     if (divSecciones.Visible)
                         ValidarSecciones();
