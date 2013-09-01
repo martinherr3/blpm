@@ -139,7 +139,7 @@
                                 </cc1:MaskedEditExtender>
                                 <cc1:MaskedEditValidator ID="MaskedEditValidator2" runat="server" ToolTip="Hora Inválida"
                                     ErrorMessage="*" ControlExtender="MaskedEditExtender2" ControlToValidate="txtHoraEdit"
-                                    InvalidValueMessage="Hora Inválida" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
+                                    InvalidValueMessage="Hora Inválida" ForeColor="Red" TooltipMessage="00:00 - 23:59" ValidationGroup="validarEdit">
                                 </cc1:MaskedEditValidator>
                             </td>
                             <td></td>
