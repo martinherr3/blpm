@@ -310,6 +310,24 @@ namespace EDUAR_UI {
         protected global::EDUAR_UI.UserControls.Hora txtHoraEdit;
         
         /// <summary>
+        /// Control MaskedEditExtender2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.MaskedEditExtender MaskedEditExtender2;
+        
+        /// <summary>
+        /// Control MaskedEditValidator2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.MaskedEditValidator MaskedEditValidator2;
+        
+        /// <summary>
         /// Control Label9.
         /// </summary>
         /// <remarks>
