@@ -411,7 +411,6 @@ namespace EDUAR_UI
                 {
                     Response.Redirect("ManageAgendaActividades.aspx", false);
                 }
-
             }
             catch (Exception ex)
             {

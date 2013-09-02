@@ -278,7 +278,15 @@ namespace EDUAR_UI
         {
             try
             {
-                Response.Redirect("ManageAgendaActividades.aspx", false);
+                if (AccionPagina == enumAcciones.Nuevo || AccionPagina == enumAcciones.Modificar)
+                {
+                    Response.Redirect("ManageExcursiones.aspx", false);
+
+                }
+                else
+                {
+                    Response.Redirect("ManageAgendaActividades.aspx", false);
+                }
             }
             catch (Exception ex)
             {
