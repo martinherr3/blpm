@@ -14,7 +14,7 @@ namespace EDUAR_UI
 	public partial class ManageReuniones : EDUARBasePage
 	{
 		#region --[Atributos]--
-        private BLAgendaActividades objBLAgenda;
+		private BLAgendaActividades objBLAgenda;
 		#endregion
 
 		#region --[Propiedades]--
@@ -60,7 +60,7 @@ namespace EDUAR_UI
 		{
 			get
 			{
-                if (ViewState["listaEventos"] == null)
+				if (ViewState["listaEventos"] == null)
 					listaEventos = new List<Reunion>();
 
 				return (List<Reunion>)ViewState["listaEventos"];
@@ -164,7 +164,7 @@ namespace EDUAR_UI
 						break;
 					case enumAcciones.Limpiar:
 						CargarPresentacion();
-                        BuscarFiltrando();
+						BuscarFiltrando();
 						break;
 					case enumAcciones.Aceptar:
 						break;
@@ -278,7 +278,15 @@ namespace EDUAR_UI
 		{
 			try
 			{
-				Response.Redirect("ManageAgendaActividades.aspx", false);
+				if (AccionPagina == enumAcciones.Nuevo || AccionPagina == enumAcciones.Modificar)
+				{
+					Response.Redirect("ManageReuniones.aspx", false);
+
+				}
+				else
+				{
+					Response.Redirect("ManageAgendaActividades.aspx", false);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -349,10 +357,10 @@ namespace EDUAR_UI
 		{
 			txtHoraEdit.Text = string.Empty;
 			chkActivo.Checked = true;
-            chkActivoEdit.Checked = false;
-            calFechaEvento.LimpiarControles();
-            calfechas.LimpiarControles();
-            txtDescripcionEdit.Text = string.Empty;
+			chkActivoEdit.Checked = false;
+			calFechaEvento.LimpiarControles();
+			calfechas.LimpiarControles();
+			txtDescripcionEdit.Text = string.Empty;
 		}
 
 		/// <summary>
@@ -360,18 +368,18 @@ namespace EDUAR_UI
 		/// </summary>
 		private void BuscarFiltrando()
 		{
-            calfechas.ValidarRangoDesdeHasta(false);
+			calfechas.ValidarRangoDesdeHasta(false);
 			Reunion evento = new Reunion();
 
 			evento.activo = chkActivo.Checked;
-            evento.fechaEventoDesde = Convert.ToDateTime(calfechas.ValorFechaDesde);
-            evento.fechaEventoHasta = Convert.ToDateTime(calfechas.ValorFechaHasta);
+			evento.fechaEventoDesde = Convert.ToDateTime(calfechas.ValorFechaDesde);
+			evento.fechaEventoHasta = Convert.ToDateTime(calfechas.ValorFechaHasta);
 
 			if (txtHoraEdit.Text.Trim().Length > 1)
 				evento.horario = Convert.ToDateTime(txtHoraEdit.Text);
 			
-            propFiltroEvento = evento;
-            BuscarAgenda(evento);
+			propFiltroEvento = evento;
+			BuscarAgenda(evento);
 		}
 
 		/// <summary>
@@ -391,7 +399,7 @@ namespace EDUAR_UI
 		private void CargarLista(Reunion evento)
 		{
 			objBLAgenda = new BLAgendaActividades();
-            evento.idAgendaActividad = propAgenda.idAgendaActividad;
+			evento.idAgendaActividad = propAgenda.idAgendaActividad;
 			listaEventos = objBLAgenda.GetReunionesAgenda(evento);
 		}
 
@@ -402,12 +410,12 @@ namespace EDUAR_UI
 		private Reunion ObtenerValoresDePantalla()
 		{
 			Reunion evento = new Reunion();
-            evento = propEvento;
+			evento = propEvento;
 
 			if (!esNuevo)
 			{
-                evento.idAgendaActividad = propAgenda.idAgendaActividad;
-                evento.idEventoAgenda = propEvento.idEventoAgenda;
+				evento.idAgendaActividad = propAgenda.idAgendaActividad;
+				evento.idEventoAgenda = propEvento.idEventoAgenda;
 			}
 
 			evento.fechaEvento = Convert.ToDateTime(calFechaEvento.ValorFecha);
@@ -415,9 +423,9 @@ namespace EDUAR_UI
 			evento.descripcion = txtDescripcionEdit.Text.Trim();
 			evento.activo = chkActivoEdit.Checked;
 			evento.usuario.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
-            evento.fechaAlta = DateTime.Now;
+			evento.fechaAlta = DateTime.Now;
 
-            return evento;
+			return evento;
 		}
 
 		/// <summary>
@@ -426,12 +434,12 @@ namespace EDUAR_UI
 		/// <param name="evento">The evento.</param>
 		private void GuardarEvento(Reunion evento)
 		{
-            objBLAgenda = new BLAgendaActividades(propAgenda);
-            objBLAgenda.GetById();
-            objBLAgenda.VerificarAgendaReuniones(evento);
+			objBLAgenda = new BLAgendaActividades(propAgenda);
+			objBLAgenda.GetById();
+			objBLAgenda.VerificarAgendaReuniones(evento);
 
-            objBLAgenda.Data.listaReuniones.Add(evento);
-            objBLAgenda.Save();
+			objBLAgenda.Data.listaReuniones.Add(evento);
+			objBLAgenda.Save();
 		}
 
 		/// <summary>
@@ -440,11 +448,11 @@ namespace EDUAR_UI
 		private void CargarValoresEnPantalla(int idEventoAgenda)
 		{
 			propEvento = listaEventos.Find(c => c.idEventoAgenda == idEventoAgenda);
-            
-            txtDescripcionEdit.Text = propEvento.descripcion;
-            txtHoraEdit.Text = Convert.ToDateTime(propEvento.horario).ToString("HH:mm");
-            calFechaEvento.Fecha.Text = Convert.ToDateTime(propEvento.fechaEvento).ToShortDateString();
-            chkActivoEdit.Checked = propEvento.activo;
+			
+			txtDescripcionEdit.Text = propEvento.descripcion;
+			txtHoraEdit.Text = Convert.ToDateTime(propEvento.horario).ToString("HH:mm");
+			calFechaEvento.Fecha.Text = Convert.ToDateTime(propEvento.fechaEvento).ToShortDateString();
+			chkActivoEdit.Checked = propEvento.activo;
 		}
 
 		private string ValidarPagina()
