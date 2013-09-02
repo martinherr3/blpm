@@ -1,76 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
-    <siteMapNode url="~/Private/Account/Welcome.aspx" title="Inicio" description="Inicio" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
-        
-        <siteMapNode url="#1" title="Comunicación" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
-            <siteMapNode url="~/Private/Mensajes/MsjeEntrada.aspx" title="Mensajes" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
-                <siteMapNode url="~/Private/Mensajes/MsjeRedactar.aspx" title="Nuevo Mensaje" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false"/>
-                <siteMapNode url="~/Private/Mensajes/MsjeEnviado.aspx" title="Enviados" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false"/>
-            </siteMapNode>
-            <siteMapNode url="~/Private/Alumnos/ManageCitaciones.aspx" title="Citaciones" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor"/>
-            <siteMapNode url="~/Private/Novedades/RegNovedadInstitucion.aspx" title="Novedades" roles="Administrador,Director,Administrativo" />
-        </siteMapNode>
+  <siteMapNode url="~/Private/Account/Welcome.aspx" title="Inicio" description="Inicio" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
 
-        <siteMapNode url="#2" title="Contenidos" roles="Administrador,Docente,Director,Administrativo" >
-            <siteMapNode url="~/Private/Planning/Contenido.aspx" title="Contenidos" roles="Administrador,Director,Docente,Administrativo" />
-            <siteMapNode url="~/Private/Planning/PlanificacionAnual.aspx" title="Planificación" roles="Administrador,Director,Docente" />
-            <siteMapNode url="~/Private/Planning/ManageRegistroPlanificaciones.aspx" title="Aprobaciones" roles="Administrador,Director" />
-            <siteMapNode url="~/Private/Planning/TemasContenido.aspx" title="Temas Contenidos" roles="Administrador,Director,Docente,Administrativo" visible="false" />
-        </siteMapNode>
+    <siteMapNode url="#1" title="Comunicación" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
+      <siteMapNode url="~/Private/Mensajes/MsjeEntrada.aspx" title="Mensajes" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor">
+        <siteMapNode url="~/Private/Mensajes/MsjeRedactar.aspx" title="Nuevo Mensaje" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false"/>
+        <siteMapNode url="~/Private/Mensajes/MsjeEnviado.aspx" title="Enviados" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false"/>
+      </siteMapNode>
+      <siteMapNode url="~/Private/Alumnos/ManageCitaciones.aspx" title="Citaciones" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor"/>
+      <siteMapNode url="~/Private/Novedades/RegNovedadInstitucion.aspx" title="Novedades" roles="Administrador,Director,Administrativo" />
+    </siteMapNode>
 
-        <siteMapNode url="~/Private/AccesoCursos.aspx" title="Cursos" description="Cursos" roles="Administrador,Docente,Director,Psicopedagogo,Preceptor" />
+    <siteMapNode url="#2" title="Contenidos" roles="Administrador,Docente,Director,Administrativo" >
+      <siteMapNode url="~/Private/Planning/Contenido.aspx" title="Contenidos" roles="Administrador,Director,Docente,Administrativo" />
+      <siteMapNode url="~/Private/Planning/PlanificacionAnual.aspx" title="Planificación" roles="Administrador,Director,Docente" />
+      <siteMapNode url="~/Private/Planning/ManageRegistroPlanificaciones.aspx" title="Aprobaciones" roles="Administrador,Director" />
+      <siteMapNode url="~/Private/Planning/TemasContenido.aspx" title="Temas Contenidos" roles="Administrador,Director,Docente,Administrativo" visible="false" />
+    </siteMapNode>
+
+    <siteMapNode url="~/Private/AccesoCursos.aspx" title="Cursos" description="Cursos" roles="Administrador,Docente,Director,Psicopedagogo,Preceptor" />
 
 
-        <siteMapNode url="#3" title="Encuestas" description="Encuestas" roles="Administrador,Director,Docente">
-            <siteMapNode url="~/Private/Encuestas/ManageCategoriasPregunta.aspx" title="Categorías de Preguntas" roles="Administrador,Director,Docente" />
-            <siteMapNode url="~/Private/Encuestas/ManageContenidoEncuestas.aspx" title="Administrar" roles="Administrador,Director,Docente" />
-            <siteMapNode url="~/Private/Encuestas/ResultadosEncuestas.aspx" title="Resultados" roles="Administrador,Docente,Director" visible="false" />
-            <siteMapNode url="~/Private/Encuestas/ManageEscalasPonderacion.aspx" title="Escalas de Ponderación" roles="Administrador,Director,Docente" />
-          <siteMapNode url="~/Private/Encuestas/ItemsEscalaPonderacion.aspx" title="Valores de Escalas" roles="Administrador,Director,Docente" visible="false" />
-
-        </siteMapNode>
-
-        <siteMapNode url="#4" title="Reportes" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo,Preceptor" >
-          <!--<siteMapNode url="#5" title="Generales" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo,Preceptor" >
-          </siteMapNode>-->
-          <siteMapNode url="~/Private/Reports/reportCalificacionesAlumnoPeriodo.aspx" title="General - Calificaciones" roles="Administrador,Director,Docente,Psicopedagogo" />
-          <siteMapNode url="~/Private/Reports/reportInasistenciasAlumnoPeriodo.aspx" title="General - Inasistencias" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" />
-          <siteMapNode url="~/Private/Reports/reportSancionesAlumnoPeriodo.aspx" title="General - Sanciones" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" />
-
-          <!--<siteMapNode url="#6" title="Consolidados" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo" >
-          </siteMapNode>-->
-          <siteMapNode url="~/Private/Reports/reportPromedios.aspx" title="Consolidado" roles="Administrador,Director,Docente,Psicopedagogo" />
-                <siteMapNode url="~/Private/Monitoreo/IndicadoresGenerales.aspx" title="Indicadores" roles="Administrador,Director,Psicopedagogo" />
-                <siteMapNode url="~/Private/Reports/Historicos/reportRendimiento.aspx" title="Histórico" roles="Administrador,Director,Psicopedagogo" />
-            </siteMapNode>
-
-        <siteMapNode url="#7" title="Administración" roles="Administrador">
-            <siteMapNode url="~/Private/Reports/reportAccesos.aspx" title="Accesos" roles="Administrador" />
-            <siteMapNode url="~/Private/Account/ChangeUser.aspx" title="Usuarios" roles="Administrador" />
-            <siteMapNode url="~/Private/Monitoreo/ConfigIndicadores.aspx" title="Indicadores" roles="Administrador"/>
-            <siteMapNode url="~/Private/Account/Profiles.aspx" title="Roles" roles="Administrador" visible="false"/>
-            <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar Usuario" roles="Administrador" visible="false"/>
-        </siteMapNode>
-
-        <siteMapNode url="~/Private/Alumnos/Boletin.aspx" title="Boletín" roles="Alumno,Tutor" />
-        <siteMapNode url="~/Private/Alumnos/CitacionesTutores.aspx" title="Citaciones" roles="Tutor"/>
-        <siteMapNode url="~/Private/Encuestas/Cuestionario.aspx" title="Encuesta" roles="Administrador,Tutor,Alumno" visible="false"/>
-        <siteMapNode url="~/Private/Monitoreo/GetIndicadores.aspx" title="Indicadores" roles="Administrador,Director" visible="false"/>
-        <siteMapNode url="~/Private/Novedades/ConsultaNovedadAulica.aspx" title="Novedades" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" visible="false"/>
-
-        <siteMapNode url="#8" title="Cuenta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false">
-            <siteMapNode url="~/Private/Account/ChangePassword.aspx" title="Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
-            <siteMapNode url="~/Private/Account/ChangeEmail.aspx" title="Email" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
-            <siteMapNode url="~/Private/Account/ChangeQuestion.aspx" title="Pregunta Secreta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
-            <siteMapNode url="~/Private/Account/ForgotPassword.aspx" title="Recuperar Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false"/>
-        </siteMapNode>
-
-        <siteMapNode url="~/Private/Agenda/ManageAgendaActividades.aspx" title="Actividades" roles="Administrador,Docente,Director,Preceptor" visible="false" >
-            <siteMapNode url="~/Private/Agenda/ManageRegistroClases.aspx" title="Registro De Clases" roles="Administrador,Director,Docente,Preceptor" />
-            <siteMapNode url="~/Private/Agenda/ManageEvaluaciones.aspx" title="Evaluaciones" roles="Administrador,Director,Docente,Preceptor" />
-            <siteMapNode url="~/Private/Agenda/ManageExcursiones.aspx" title="Excursiones" roles="Administrador,Director,Docente,Preceptor" />
-            <siteMapNode url="~/Private/Agenda/ManageReuniones.aspx" title="Reuniones" roles="Administrador,Director,Docente,Preceptor" />
-        </siteMapNode>
+    <siteMapNode url="#3" title="Encuestas" description="Encuestas" roles="Administrador,Director,Docente">
+      <siteMapNode url="~/Private/Encuestas/ManageCategoriasPregunta.aspx" title="Categorías de Preguntas" roles="Administrador,Director,Docente" />
+      <siteMapNode url="~/Private/Encuestas/ManageContenidoEncuestas.aspx" title="Administrar" roles="Administrador,Director,Docente" />
+      <siteMapNode url="~/Private/Encuestas/ResultadosEncuestas.aspx" title="Resultados" roles="Administrador,Docente,Director" visible="false" />
+      <siteMapNode url="~/Private/Encuestas/ManageEscalasPonderacion.aspx" title="Escalas de Ponderación" roles="Administrador,Director,Docente" />
+      <siteMapNode url="~/Private/Encuestas/ItemsEscalaPonderacion.aspx" title="Valores de Escalas" roles="Administrador,Director,Docente" visible="false" />
 
     </siteMapNode>
+
+    <siteMapNode url="#4" title="Reportes" roles="Administrador,Administrativo,Director,Docente,Psicopedagogo,Preceptor" >
+      <siteMapNode url="~/Private/Reports/reportCalificacionesAlumnoPeriodo.aspx" title="General - Calificaciones" roles="Administrador,Director,Docente,Psicopedagogo" />
+      <siteMapNode url="~/Private/Reports/reportInasistenciasAlumnoPeriodo.aspx" title="General - Inasistencias" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" />
+      <siteMapNode url="~/Private/Reports/reportSancionesAlumnoPeriodo.aspx" title="General - Sanciones" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" />
+
+      <siteMapNode url="~/Private/Reports/reportPromedios.aspx" title="Consolidado" roles="Administrador,Director,Docente,Psicopedagogo" />
+      <siteMapNode url="~/Private/Monitoreo/IndicadoresGenerales.aspx" title="Indicadores" roles="Administrador,Director,Psicopedagogo" />
+      <siteMapNode url="~/Private/Reports/Historicos/reportRendimiento.aspx" title="Histórico" roles="Administrador,Director,Psicopedagogo" />
+    </siteMapNode>
+
+    <siteMapNode url="#7" title="Administración" roles="Administrador">
+      <siteMapNode url="~/Private/Reports/reportAccesos.aspx" title="Accesos" roles="Administrador" />
+      <siteMapNode url="~/Private/Account/ChangeUser.aspx" title="Usuarios" roles="Administrador" />
+      <siteMapNode url="~/Private/Monitoreo/ConfigIndicadores.aspx" title="Indicadores" roles="Administrador"/>
+      <siteMapNode url="~/Private/Account/Profiles.aspx" title="Roles" roles="Administrador" visible="false"/>
+      <siteMapNode url="~/Private/Account/RegisterUser.aspx" title="Registrar Usuario" roles="Administrador" visible="false"/>
+    </siteMapNode>
+
+    <siteMapNode url="~/Private/Alumnos/Boletin.aspx" title="Boletín" roles="Alumno,Tutor" />
+    <siteMapNode url="~/Private/Alumnos/CitacionesTutores.aspx" title="Citaciones" roles="Tutor"/>
+    <siteMapNode url="~/Private/Encuestas/Cuestionario.aspx" title="Encuesta" roles="Administrador,Tutor,Alumno" visible="false"/>
+    <siteMapNode url="~/Private/Monitoreo/GetIndicadores.aspx" title="Indicadores" roles="Administrador,Director" visible="false"/>
+    <siteMapNode url="~/Private/Novedades/ConsultaNovedadAulica.aspx" title="Novedades" roles="Administrador,Director,Docente,Psicopedagogo,Preceptor" visible="false"/>
+
+    <siteMapNode url="#8" title="Cuenta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false">
+      <siteMapNode url="~/Private/Account/ChangePassword.aspx" title="Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
+      <siteMapNode url="~/Private/Account/ChangeEmail.aspx" title="Email" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
+      <siteMapNode url="~/Private/Account/ChangeQuestion.aspx" title="Pregunta Secreta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
+      <siteMapNode url="~/Private/Account/ForgotPassword.aspx" title="Recuperar Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false"/>
+    </siteMapNode>
+
+    <siteMapNode url="~/Private/Agenda/ManageAgendaActividades.aspx" title="Actividades" roles="Administrador,Docente,Director,Preceptor" visible="false" >
+      <siteMapNode url="~/Private/Agenda/ManageRegistroClases.aspx" title="Registro De Clases" roles="Administrador,Director,Docente,Preceptor" />
+      <siteMapNode url="~/Private/Agenda/ManageEvaluaciones.aspx" title="Evaluaciones" roles="Administrador,Director,Docente,Preceptor" />
+      <siteMapNode url="~/Private/Agenda/ManageExcursiones.aspx" title="Excursiones" roles="Administrador,Director,Docente,Preceptor" />
+      <siteMapNode url="~/Private/Agenda/ManageReuniones.aspx" title="Reuniones" roles="Administrador,Director,Docente,Preceptor" />
+    </siteMapNode>
+
+  </siteMapNode>
 </siteMap>

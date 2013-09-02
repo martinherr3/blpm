@@ -16,7 +16,7 @@
             <td align="right" rowspan="2">
                 <asp:UpdatePanel ID="udpBotonera" runat="server" UpdateMode="Conditional">
                     <ContentTemplate>
-                        <nov:Novedad ID="novControl" runat="server" visible="false" ToolTip="Responder" />
+                        <nov:Novedad ID="novControl" runat="server" visible="false" ToolTip="Registrar" />
                         <asp:ImageButton ID="btnVolver" OnClick="btnVolver_Click" runat="server" ToolTip="Volver"
                             ImageUrl="~/Images/botonVolver.png" Visible="false" />
                         <asp:ImageButton ID="btnVolverAnterior" OnClick="btnVolverAnterior_Click" runat="server"
