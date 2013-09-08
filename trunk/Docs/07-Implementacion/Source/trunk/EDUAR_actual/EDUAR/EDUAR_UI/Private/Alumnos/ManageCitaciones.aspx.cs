@@ -135,8 +135,8 @@ namespace EDUAR_UI
 				{
 					CargarPresentacion();
 
-                    Citacion citacion = new Citacion();
-                    citacion.organizador.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
+					Citacion citacion = new Citacion();
+					citacion.organizador.username = ObjSessionDataUI.ObjDTUsuario.Nombre;
 
 					BuscarCitacion(citacion);
 				}
@@ -167,18 +167,18 @@ namespace EDUAR_UI
 					case enumAcciones.Guardar:
 						AccionPagina = enumAcciones.Limpiar;
 
-                        if (GuardarEntidad(ObtenerValoresDePantalla()))
-                        {
-                            Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
-                        }
-                        break;
-                    case enumAcciones.GuardarSinVerificar:
-                        AccionPagina = enumAcciones.Limpiar;
-                        if (GuardarEntidadSinVerificar(ObtenerValoresDePantalla()))
-                        {
-                            Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
-                        }
-                        break;
+						if (GuardarEntidad(ObtenerValoresDePantalla()))
+						{
+							Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
+						}
+						break;
+					case enumAcciones.GuardarSinVerificar:
+						AccionPagina = enumAcciones.Limpiar;
+						if (GuardarEntidadSinVerificar(ObtenerValoresDePantalla()))
+						{
+							Master.MostrarMensaje(enumTipoVentanaInformacion.Satisfactorio.ToString(), UIConstantesGenerales.MensajeGuardadoOk, enumTipoVentanaInformacion.Satisfactorio);
+						}
+						break;
 
 
 					default:
@@ -231,7 +231,8 @@ namespace EDUAR_UI
 				udpFiltrosBusqueda.Visible = false;
 				udpFiltros.Update();
 				udpGrilla.Update();
-				txtAlumno.Visible = true;
+				//txtAlumno.Visible = true;
+				txtAlumno.Visible = false;
 			}
 			catch (Exception ex)
 			{
@@ -608,33 +609,33 @@ namespace EDUAR_UI
 			BLCitacion objBLCitacion = new BLCitacion();
 			objBLCitacion.VerificarDisponibilidad(entidad);
 
-            if (!objBLCitacion.VerificarDisponibilidadDocente(entidad))
-            {
-                AccionPagina = enumAcciones.GuardarSinVerificar;
-                Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), "El Docente ya tiene una citación en esa fecha y horario. Desea crear la Citación?", enumTipoVentanaInformacion.Confirmación);
-                return (false);
-            }
-            else if(!objBLCitacion.VerificarDisponibilidadTutor(entidad))
-            {
-                AccionPagina = enumAcciones.GuardarSinVerificar;
-                Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), "El Tutor ya tiene una citación en esa fecha y horario. Desea crear la Citación?", enumTipoVentanaInformacion.Confirmación);
-                return (false);
-            }
+			if (!objBLCitacion.VerificarDisponibilidadDocente(entidad))
+			{
+				AccionPagina = enumAcciones.GuardarSinVerificar;
+				Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), "El Docente ya tiene una citación en esa fecha y horario. Desea crear la Citación?", enumTipoVentanaInformacion.Confirmación);
+				return (false);
+			}
+			else if(!objBLCitacion.VerificarDisponibilidadTutor(entidad))
+			{
+				AccionPagina = enumAcciones.GuardarSinVerificar;
+				Master.MostrarMensaje(enumTipoVentanaInformacion.Advertencia.ToString(), "El Tutor ya tiene una citación en esa fecha y horario. Desea crear la Citación?", enumTipoVentanaInformacion.Confirmación);
+				return (false);
+			}
 
-            objBLCitacion = new BLCitacion(entidad);
-            objBLCitacion.Save();
+			objBLCitacion = new BLCitacion(entidad);
+			objBLCitacion.Save();
 
-            return (true);
+			return (true);
 		}
 
-        private bool GuardarEntidadSinVerificar(Citacion entidad)
-        {
-            BLCitacion objBLCitacion = new BLCitacion();
-            objBLCitacion = new BLCitacion(entidad);
-            objBLCitacion.Save();
+		private bool GuardarEntidadSinVerificar(Citacion entidad)
+		{
+			BLCitacion objBLCitacion = new BLCitacion();
+			objBLCitacion = new BLCitacion(entidad);
+			objBLCitacion.Save();
 
-            return (true);
-        }
+			return (true);
+		}
 
 
 		/// <summary>
@@ -671,31 +672,31 @@ namespace EDUAR_UI
 		private string ValidarPagina()
 		{
 			string mensaje = string.Empty;
-            String aux;
-            String[] aux2;
+			String aux;
+			String[] aux2;
 
-            if (calFechaEvento.Fecha.Text.Trim().Length != 0 && txtHoraEdit.Text.Trim().Length != 0)
-            {
-                calFechaEvento.ValidarRangoDesde(false, true);
+			if (calFechaEvento.Fecha.Text.Trim().Length != 0 && txtHoraEdit.Text.Trim().Length != 0)
+			{
+				calFechaEvento.ValidarRangoDesde(false, true);
 
-                BLFeriadosYFechasEspeciales objBLFeriado = new BLFeriadosYFechasEspeciales();
-                objBLFeriado.ValidarFecha(Convert.ToDateTime(calFechaEvento.ValorFecha));
+				BLFeriadosYFechasEspeciales objBLFeriado = new BLFeriadosYFechasEspeciales();
+				objBLFeriado.ValidarFecha(Convert.ToDateTime(calFechaEvento.ValorFecha));
 
-                aux = txtHoraEdit.Text;
-                aux2 = aux.Split(':');
-                objBLFeriado.ValidarHora(new DateTime(System.DateTime.Now.Year, System.DateTime.Now.Month, System.DateTime.Now.Day, int.Parse(aux2[0]), int.Parse(aux2[1]), 0));
-            }
-            
-            if (txtDescripcionEdit.Text.Trim().Length == 0)
+				aux = txtHoraEdit.Text;
+				aux2 = aux.Split(':');
+				objBLFeriado.ValidarHora(new DateTime(System.DateTime.Now.Year, System.DateTime.Now.Month, System.DateTime.Now.Day, int.Parse(aux2[0]), int.Parse(aux2[1]), 0));
+			}
+			
+			if (txtDescripcionEdit.Text.Trim().Length == 0)
 				mensaje = "- Descripcion<br />";
 			if (calFechaEvento.Fecha.Text.Trim().Length == 0)
 				mensaje += "- Fecha<br />";
 			if (txtHoraEdit.Text.Trim().Length == 0)
 				mensaje += "- Hora<br />";
-            if (string.IsNullOrEmpty(ddlTutorEdit.SelectedValue) || !(Convert.ToInt32(ddlTutorEdit.SelectedValue) > 0))
-            {
-                mensaje += "- Tutor<br />";
-            }
+			if (string.IsNullOrEmpty(ddlTutorEdit.SelectedValue) || !(Convert.ToInt32(ddlTutorEdit.SelectedValue) > 0))
+			{
+				mensaje += "- Tutor<br />";
+			}
 			if (!string.IsNullOrEmpty(ddlMotivoEdit.SelectedValue) && !(Convert.ToInt32(ddlMotivoEdit.SelectedValue) > 0))
 				mensaje += "- Motivo de Citación";
 
@@ -724,7 +725,7 @@ namespace EDUAR_UI
 			AccionPagina = enumAcciones.Modificar;
 			esNuevo = false;
 			CargarValoresEnPantalla(propCitacion.idCitacion);
-            btnBuscar.Visible = false;
+			btnBuscar.Visible = false;
 			btnNuevo.Visible = false;
 			btnVolver.Visible = true;
 			btnGuardar.Visible = true;
