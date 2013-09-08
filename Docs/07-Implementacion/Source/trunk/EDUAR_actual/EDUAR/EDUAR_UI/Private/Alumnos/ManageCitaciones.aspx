@@ -1,6 +1,6 @@
-﻿<%@ Page Title="Administrar Citaciones" Language="C#" MasterPageFile="~/EDUARMaster.Master"
-    AutoEventWireup="true" CodeBehind="ManageCitaciones.aspx.cs" Inherits="EDUAR_UI.ManageCitaciones"
-    Theme="Tema" StylesheetTheme="Tema" %>
+﻿<%@ Page Title="Administrar Citaciones" Language="C#" MasterPageFile="~/EDUARMaster.Master" AutoEventWireup="true"
+    CodeBehind="ManageCitaciones.aspx.cs" Inherits="EDUAR_UI.ManageCitaciones" Theme="Tema"
+    StylesheetTheme="Tema" %>
 
 <%@ MasterType VirtualPath="~/EDUARMaster.Master" %>
 <%@ Register Src="~/UserControls/Calendario.ascx" TagName="Calendario" TagPrefix="cal" %>
@@ -30,9 +30,15 @@
                     </td>
                 </tr>
             </table>
+            <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+            </table>
             <asp:UpdatePanel ID="udpFiltrosBusqueda" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                    <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
                         <tr>
                             <td valign="top" class="TD140px">
                                 <asp:Label ID="Label2" runat="server" Text="Motivo de Citación:"></asp:Label>
@@ -211,10 +217,10 @@
                                 </asp:DropDownList>
                             </td>
                             <td valign="top" class="TDCriterios10">
-                                <asp:Label ID="Label4" runat="server" CssClass="lblTutor" Text="Alumno:"></asp:Label>
+                                <asp:Label ID="Label4" runat="server" CssClass="lblTutor" Text="Alumno: " Visible="false"></asp:Label>
                             </td>
                             <td valign="top" class="TDCriterios40" colspan="1">
-                                <asp:TextBox ID="txtAlumno" runat="server" Enabled="False"></asp:TextBox>
+                                <asp:TextBox ID="txtAlumno" runat="server" Enabled="False" Visible="false"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
