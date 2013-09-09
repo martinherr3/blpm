@@ -39,6 +39,18 @@
                                 </table>
                                 <table class="tablaInterna" cellpadding="1" cellspacing="5">
                                     <tr>
+                                        <td>
+                                            <asp:Label ID="lblTituloContenido" Text="Contenido:" runat="server" />
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblContenido" Text="" runat="server" />
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td class="TD50px">
                                             <asp:Label ID="lblTituloTema" Text="Título:" runat="server" />
                                         </td>
@@ -141,13 +153,13 @@
                                 <asp:Label ID="lblObligatorioGrilla" runat="server" Text='<%# Boolean.Parse(Eval("obligatorio").ToString()) ? "Sí" : "No"  %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Activo">
+                        <%--<asp:TemplateField HeaderText="Activo">
                             <HeaderStyle HorizontalAlign="center" Width="10%" />
                             <ItemStyle HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblActivo" runat="server" Text='<%# Boolean.Parse(Eval("activo").ToString()) ? "Sí" : "No"  %>'></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                     </Columns>
                 </asp:GridView>
             </ContentTemplate>
