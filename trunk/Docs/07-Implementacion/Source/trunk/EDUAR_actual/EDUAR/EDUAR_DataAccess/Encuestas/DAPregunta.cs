@@ -145,7 +145,27 @@ namespace EDUAR_DataAccess.Encuestas
 
 		public override void Delete(Pregunta entidad)
 		{
-			throw new NotImplementedException();
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Pregunta_Delete");
+
+                Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPregunta", DbType.Int32, entidad.idPregunta);
+
+                if (Transaction.Transaction != null)
+                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand, Transaction.Transaction);
+                else
+                    Transaction.DataBase.ExecuteNonQuery(Transaction.DBcomand);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - Delete()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
 		}
 		#endregion
 

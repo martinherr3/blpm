@@ -16,6 +16,7 @@ namespace EDUAR_UI
     {
         #region --[Atributos]--
         private BLEncuesta objBLEncuesta;
+        private BLPregunta objBLPregunta;
         #endregion
 
         #region --[Propiedades]--
@@ -531,11 +532,14 @@ namespace EDUAR_UI
             Pregunta objEliminar = new Pregunta();
             objEliminar.idPregunta = propPregunta.idPregunta;
 
-            encuestaSesion.preguntas.Clear();
-            encuestaSesion.preguntas.Add(objEliminar);
+            objBLPregunta = new BLPregunta(objEliminar);
+            objBLPregunta.Delete();
 
-            objBLEncuesta = new BLEncuesta(encuestaSesion);
-            objBLEncuesta.Delete();
+            //encuestaSesion.preguntas.Clear();
+            //encuestaSesion.preguntas.Add(objEliminar);
+
+            //objBLEncuesta = new BLEncuesta(encuestaSesion);
+            //objBLEncuesta.Delete();
 
             CargarPresentacion();
             BuscarPregunta(encuestaSesion, null);
@@ -547,7 +551,7 @@ namespace EDUAR_UI
         /// <param name="entidad">The entidad.</param>
         private void GuardarPregunta(Pregunta entidad)
         {
-            BLPregunta objBLPregunta = new BLPregunta(entidad);
+            objBLPregunta = new BLPregunta(entidad);
 
             objBLPregunta.Guardar(encuestaSesion.idEncuesta);
         }
