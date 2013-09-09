@@ -243,6 +243,39 @@ namespace EDUAR_BusinessLogic.Common
             return (listaContenidos);
         }
 
+        /// <summary>
+        /// Gets the curricula asignatura nivel.
+        /// </summary>
+        /// <param name="objFiltro">The obj filtro.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public List<Contenido> GetCurriculaFullAsignaturaNivel(Contenido objFiltro)
+        {
+            BLTemaContenido TemaContenidoBL = new BLTemaContenido();
+
+            List<Contenido> listaContenidos = new List<Contenido>();
+            try
+            {
+                listaContenidos = DataAcces.GetContenidos(objFiltro);
+
+                foreach (Contenido unContenido in listaContenidos)
+                {
+                    unContenido.listaContenidos = TemaContenidoBL.GetTemasByContenidoCalc(unContenido);
+                }
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCurriculaFullAsignaturaNivel", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+
+            return (listaContenidos);
+        }
+
 
         public void EliminarContenidos()
         {

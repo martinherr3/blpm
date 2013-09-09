@@ -245,7 +245,7 @@ namespace EDUAR_BusinessLogic.Common
                     objContenido.idCurricula = miCurricula.idCurricula;
                     objContenido.activo = true;
                     BLContenido objBLContenido = new BLContenido();
-                    return objBLContenido.GetCurriculaAsignaturaNivel(objContenido);
+                    return objBLContenido.GetCurriculaFullAsignaturaNivel(objContenido);
                 }
                 return new List<Contenido>();
             }
