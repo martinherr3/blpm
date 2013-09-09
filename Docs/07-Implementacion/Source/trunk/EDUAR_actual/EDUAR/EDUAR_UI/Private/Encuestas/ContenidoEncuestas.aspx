@@ -12,7 +12,7 @@
                 <tr>
                     <td>
                         <h2>
-                            Contenido
+                            Preguntas Encuesta:
                             <asp:Label Text="" runat="server" ID="lblTitulo" /></h2>
                         <br />
                     </td>
@@ -82,7 +82,7 @@
                             <asp:Label ID="lblCategoria" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "categoria.nombre").ToString())%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Texto">
+                    <asp:TemplateField HeaderText="Pregunta">
                         <HeaderStyle HorizontalAlign="left" Width="25%" />
                         <ItemStyle HorizontalAlign="left" />
                         <ItemTemplate>
@@ -98,15 +98,15 @@
                                 ToolTip='<%# Bind("objetivoPregunta") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Ponderación">
+                    <asp:TemplateField HeaderText="Peso">
                         <HeaderStyle HorizontalAlign="Center" Width="5%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblPonderacion" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ponderacion").ToString()%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Escala">
-                        <HeaderStyle HorizontalAlign="Center" Width="5%" />
+                    <asp:TemplateField HeaderText="Escala de Ponderación">
+                        <HeaderStyle HorizontalAlign="Center" Width="15%" />
                         <ItemStyle HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblEscala" runat="server" Text='<%# TruncateString(DataBinder.Eval(Container.DataItem, "escala.nombre").ToString())%>'
@@ -118,15 +118,6 @@
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
                     <table class="tablaInterna" cellpadding="1" cellspacing="5">
-                        <tr>
-                            <td colspan="2">
-                                <h3>
-                                    <asp:Literal ID="litEditar" runat="server" Text="Editar "></asp:Literal>
-                                    <asp:Literal ID="litNuevo" runat="server" Text="Nueva "></asp:Literal>
-                                    Encuesta
-                                </h3>
-                            </td>
-                        </tr>
                         <tr>
                             <td class="TD100">
                                 <asp:ValidationSummary ID="validarEdit" runat="server" />
