@@ -94,6 +94,24 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnVolver;
         
         /// <summary>
+        /// Control lblTituloContenido.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTituloContenido;
+        
+        /// <summary>
+        /// Control lblContenido.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblContenido;
+        
+        /// <summary>
         /// Control lblTituloTema.
         /// </summary>
         /// <remarks>

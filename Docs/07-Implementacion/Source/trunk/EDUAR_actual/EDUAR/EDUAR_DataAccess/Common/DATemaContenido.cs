@@ -230,7 +230,7 @@ namespace EDUAR_DataAccess.Common
         /// Gets the tema contenidos.
         /// </summary>
         /// <param name="entidad">The entidad.</param>
-        ///         /// <param name="objCurricula">The Curricula.</param>
+        /// <param name="objCurricula">The Curricula.</param>
         /// <returns></returns>
         public List<TemaContenido> GetTemaContenidos(TemaContenido entidad, Curricula objCurricula)
         {
@@ -246,9 +246,7 @@ namespace EDUAR_DataAccess.Common
                     if (!string.IsNullOrEmpty(entidad.detalle))
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@detalle", DbType.String, entidad.detalle);
                     if (entidad.idContenido > 0)
-                    {
                         Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idContenido", DbType.Int32, entidad.idContenido);
-                    }
                     Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
                 }
                 if (objCurricula != null)
@@ -291,7 +289,7 @@ namespace EDUAR_DataAccess.Common
         /// </summary>
         /// <param name="entidad">The entidad.</param>
         /// <returns></returns>
-        public List<TemaContenido> GetTemaContenidos(TemaContenido entidad,TemaPlanificacionAnual objTemaPlanificacionAnual)
+        public List<TemaContenido> GetTemaContenidos(TemaContenido entidad, TemaPlanificacionAnual objTemaPlanificacionAnual)
         {
             try
             {
@@ -383,6 +381,59 @@ namespace EDUAR_DataAccess.Common
             catch (Exception ex)
             {
                 throw new CustomizedException(string.Format("Fallo en {0} - GetContenidosPlanificados()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        /// <summary>
+        /// Gets the tema contenidos.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException">
+        /// </exception>
+        public Contenido GetTemaContenidos(int idContenido)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaContenido_Select");
+                if (idContenido > 0)
+                    Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idContenido", DbType.Int32, idContenido);
+
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                Contenido contenidoRetorno = new Contenido();
+                contenidoRetorno.idContenido = idContenido;
+                List<TemaContenido> listaContenidos = new List<TemaContenido>();
+                TemaContenido objContenido;
+                bool esPrimero = true;
+                while (reader.Read())
+                {
+                    if (esPrimero)
+                    {
+                        contenidoRetorno.descripcion = reader["contenido"].ToString();
+                        esPrimero = false;
+                    }
+                    objContenido = new TemaContenido();
+                    objContenido.idContenido = Convert.ToInt32(reader["idContenido"]);
+                    objContenido.idTemaContenido = Convert.ToInt32(reader["idTemaContenido"]);
+                    objContenido.detalle = reader["detalle"].ToString();
+                    objContenido.titulo = reader["titulo"].ToString();
+                    objContenido.activo = Convert.ToBoolean(reader["activo"]);
+                    objContenido.obligatorio = Convert.ToBoolean(reader["obligatorio"]);
+                    listaContenidos.Add(objContenido);
+                }
+                contenidoRetorno.listaContenidos = listaContenidos;
+                return contenidoRetorno;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemaContenidos()", ClassName),
                                     ex, enuExceptionType.DataAccesException);
             }
         }

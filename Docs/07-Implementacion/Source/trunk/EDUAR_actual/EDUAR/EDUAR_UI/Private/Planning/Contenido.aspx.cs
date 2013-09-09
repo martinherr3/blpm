@@ -26,7 +26,15 @@ namespace EDUAR_UI
                 if (ViewState["listaNiveles"] == null && cicloLectivoActual != null)
                 {
                     BLNivel objBLNivel = new BLNivel();
-                    listaNiveles = objBLNivel.GetNiveles();
+                    if (User.IsInRole(enumRoles.Docente.ToString()))
+                    {
+                        AsignaturaCicloLectivo asignatura = new AsignaturaCicloLectivo();
+                        asignatura.docente.username = User.Identity.Name;
+                        asignatura.cursoCicloLectivo.cicloLectivo = cicloLectivoActual;
+                        listaNiveles = objBLNivel.GetNiveles(asignatura);
+                    }
+                    else
+                        listaNiveles = objBLNivel.GetNiveles();
                 }
                 return (List<Nivel>)ViewState["listaNiveles"];
             }
@@ -154,7 +162,7 @@ namespace EDUAR_UI
                 if (!Page.IsPostBack)
                 {
                     CargarPresentacion();
-                    if (Request.UrlReferrer.AbsolutePath.Contains("TemasContenido.aspx"))
+                    if (Request.UrlReferrer.AbsolutePath.Contains("TemasContenido.aspx") && contenidoEditar.idContenido > 0)
                     {
                         ddlNivel.SelectedValue = idNivel.ToString();
                         ddlAsignatura.Enabled = true;
@@ -163,6 +171,12 @@ namespace EDUAR_UI
                         ddlAsignatura.Enabled = idNivel > 0;
                         btnNuevo.Visible = idAsignatura > 0;
                         CargarContenido();
+                    }
+                    else
+                    {
+                        gvwContenido.DataSource = null;
+                        gvwContenido.DataBind();
+
                     }
                 }
             }
@@ -291,6 +305,7 @@ namespace EDUAR_UI
                 int.TryParse(ddlNivel.SelectedValue, out idNivel);
                 gvwContenido.DataSource = null;
                 gvwContenido.DataBind();
+                btnNuevo.Visible = false;
                 if (idNivel > 0)
                 {
                     this.idNivel = idNivel;
@@ -307,6 +322,7 @@ namespace EDUAR_UI
                 udpAsignatura.Update();
                 VerOrientacion(false);
                 udpGrilla.Update();
+                udpBotonera.Update();
             }
             catch (Exception ex)
             {
@@ -331,9 +347,14 @@ namespace EDUAR_UI
                     CargarOrientacion();
                 }
                 else
+                {
                     VerOrientacion(false);
-
+                    gvwContenido.DataSource = null;
+                    gvwContenido.DataBind();
+                    btnNuevo.Visible = false;
+                }
                 udpBotonera.Update();
+                udpGrilla.Update();
             }
             catch (Exception ex)
             {
@@ -358,6 +379,8 @@ namespace EDUAR_UI
                     this.idOrientacion = idOrientacion;
                     CargarGrilla();
                 }
+                else
+                    btnNuevo.Visible = false;
                 udpBotonera.Update();
             }
             catch (Exception ex)
@@ -434,19 +457,27 @@ namespace EDUAR_UI
         /// </summary>
         private void CargarComboAsignatura(int idNivel)
         {
+            ddlAsignatura.Items.Clear();
             List<Asignatura> listaAsignaturas = new List<Asignatura>();
             BLAsignatura objBLAsignatura = new BLAsignatura();
-            Nivel Nivel = new Nivel();
-            Docente docente = null;
+            AsignaturaCicloLectivo asignatura = new AsignaturaCicloLectivo();
+
             if (User.IsInRole(enumRoles.Docente.ToString()))
-            {
-                docente = new Docente();
-                docente.username = User.Identity.Name;
-            }
-            Nivel.idNivel = idNivel;
-            listaAsignaturas = objBLAsignatura.GetAsignaturasNivel(Nivel);
+                asignatura.docente.username = User.Identity.Name;
+            asignatura.cursoCicloLectivo.curso.nivel.idNivel = idNivel;
+            asignatura.cursoCicloLectivo.cicloLectivo = cicloLectivoActual;
+
+            listaAsignaturas = objBLAsignatura.GetAsignaturasNivel(asignatura);
             if (listaAsignaturas != null && listaAsignaturas.Count > 0)
+            {
                 UIUtilidades.BindCombo<Asignatura>(ddlAsignatura, listaAsignaturas, "idAsignatura", "nombre", true);
+                if (listaAsignaturas.Count == 1)
+                {
+                    ddlAsignatura.SelectedIndex = 1;
+                    idAsignatura = listaAsignaturas[0].idAsignatura;
+                    CargarOrientacion();
+                }
+            }
         }
 
         /// <summary>
