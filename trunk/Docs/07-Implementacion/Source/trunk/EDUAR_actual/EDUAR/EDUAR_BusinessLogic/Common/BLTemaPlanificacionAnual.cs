@@ -232,6 +232,38 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
 
+
+        /// <summary>
+        /// Gets the temas planificacion anual. Información minima para realizar calculos
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<TemaPlanificacionAnual> GetTemasPlanificacionAnualCalc(PlanificacionAnual entidad)
+        {
+            BLTemaContenido TemaContenidoBL = new BLTemaContenido();
+            try
+            {
+                List<TemaPlanificacionAnual> listaTemasPlanificacionAnual = DataAcces.GetTemasPlanificacionAnualCalc(entidad);
+
+                foreach (TemaPlanificacionAnual unTemaPlanificacionAnual in listaTemasPlanificacionAnual)
+                {
+                    unTemaPlanificacionAnual.listaContenidos = TemaContenidoBL.GetTemasByTemaPlanificacionAnualCalc(unTemaPlanificacionAnual);
+                }
+
+                return (listaTemasPlanificacionAnual);
+
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnual", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
 		/// <summary>
 		/// Gets the temas planificacion anual.
 		/// </summary>

@@ -223,11 +223,11 @@ namespace EDUAR_BusinessLogic.Common
             List<Contenido> listaContenidos = new List<Contenido>();
             try
             {
-                listaContenidos = DataAcces.GetContenidos(objFiltro);
+                listaContenidos = DataAcces.GetContenidosCalc(objFiltro);
 
                 foreach (Contenido unContenido in listaContenidos)
                 {
-                    unContenido.listaContenidos = TemaContenidoBL.GetTemasByContenido(unContenido);
+                    unContenido.listaContenidos = TemaContenidoBL.GetTemasByContenidoCalc(unContenido);
                 }
             }
             catch (CustomizedException ex)
