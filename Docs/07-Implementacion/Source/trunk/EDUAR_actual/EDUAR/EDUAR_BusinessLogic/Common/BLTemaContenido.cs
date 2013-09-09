@@ -254,6 +254,32 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+        /// <summary>
+        /// Gets the temas by contenido. Info minima para realizar calculos.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public List<TemaContenido> GetTemasByContenidoCalc(Contenido entidad)
+        {
+            TemaContenido unTemaContenido = new TemaContenido();
+            unTemaContenido.idContenido = entidad.idContenido;
+            try
+            {
+                return DataAcces.GetTemaContenidosCalc(unTemaContenido, new Curricula());
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasByContenido", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
+
         /// <summary>
         /// Gets the temas by curso asignatura.
         /// </summary>
@@ -302,6 +328,30 @@ namespace EDUAR_BusinessLogic.Common
             }
         }
 
+
+        /// <summary>
+        /// Gets the temas by Tema Planificacion Anual.
+        /// </summary>
+        /// <param name="objAsignatura">The obj TemaPlanificacionAnual.</param>
+        /// <returns></returns>
+        public List<TemaContenido> GetTemasByTemaPlanificacionAnualCalc(TemaPlanificacionAnual objTemaPlanificacionAnual)
+        {
+            try
+            {
+                TemaContenido filtro = new TemaContenido();
+                filtro.activo = true;
+                return DataAcces.GetTemaContenidosCalc(filtro, objTemaPlanificacionAnual);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasByTemaPlanificacionAnual", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
 
         /// <summary>
         /// Gets the contenidos planificados.

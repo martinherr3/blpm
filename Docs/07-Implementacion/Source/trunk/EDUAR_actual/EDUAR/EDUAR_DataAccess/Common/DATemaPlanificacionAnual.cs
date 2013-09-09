@@ -257,6 +257,47 @@ namespace EDUAR_DataAccess.Common
         }
 
         /// <summary>
+        /// Gets the temas planificacion anual. Información minima para realizar calculos.
+        /// </summary>
+        /// <param name="entidad">The entidad.</param>
+        /// <returns></returns>
+        public List<TemaPlanificacionAnual> GetTemasPlanificacionAnualCalc(PlanificacionAnual entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("TemaPlanificacionAnual_Select");
+                if (entidad != null)
+                {
+                    if (entidad.idPlanificacionAnual > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idPlanificacionAnual", DbType.Int32, entidad.idPlanificacionAnual);
+                }
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<TemaPlanificacionAnual> listaEntidad = new List<TemaPlanificacionAnual>();
+                TemaPlanificacionAnual objEntidad;
+                while (reader.Read())
+                {
+                    objEntidad = new TemaPlanificacionAnual();
+                    objEntidad.idPlanificacionAnual = Convert.ToInt32(reader["idPlanificacionAnual"]);
+                    objEntidad.idTemaPlanificacion = Convert.ToInt32(reader["idTemaPlanificacion"]);
+                    listaEntidad.Add(objEntidad);
+                }
+                reader.Close();
+                return listaEntidad;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnual()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnual()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
+        /// <summary>
         /// Gets the temas planificacion anual which are behind the schedule.
         /// </summary>
         /// <param name="entidad">The entidad.</param>

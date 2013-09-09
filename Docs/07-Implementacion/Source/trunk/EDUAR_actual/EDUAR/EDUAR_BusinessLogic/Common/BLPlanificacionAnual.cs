@@ -200,7 +200,7 @@ namespace EDUAR_BusinessLogic.Common
                 BLTemaPlanificacionAnual objBLTemas = new BLTemaPlanificacionAnual();
                 foreach (PlanificacionAnual item in lista)
                 {
-                    item.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnual(item);
+                    item.listaTemasPlanificacion = objBLTemas.GetTemasPlanificacionAnualCalc(item);
                     item.listaCursos = DataAcces.GetCursos(item);
                 }
                 return lista;

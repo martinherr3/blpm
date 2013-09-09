@@ -205,6 +205,50 @@ namespace EDUAR_DataAccess.Common
                                     ex, enuExceptionType.DataAccesException);
             }
         }
+
+        /// <summary>
+        /// Gets the contenidos.
+        /// </summary>
+        /// <param name="objFiltro">The obj filtro.</param>
+        /// <returns></returns>
+        public List<Contenido> GetContenidosCalc(Contenido entidad)
+        {
+            try
+            {
+                Transaction.DBcomand = Transaction.DataBase.GetStoredProcCommand("Contenido_Select");
+                if (entidad != null)
+                {
+                    if (entidad.idCurricula > 0)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@idCurricula", DbType.Int32, entidad.idCurricula);
+                    if (entidad.activo)
+                        Transaction.DataBase.AddInParameter(Transaction.DBcomand, "@activo", DbType.Boolean, entidad.activo);
+                }
+                IDataReader reader = Transaction.DataBase.ExecuteReader(Transaction.DBcomand);
+
+                List<Contenido> listaContenidos = new List<Contenido>();
+                Contenido objContenido;
+                while (reader.Read())
+                {
+                    objContenido = new Contenido();
+                    objContenido.idContenido = Convert.ToInt32(reader["idContenido"]);
+                    objContenido.idCurricula = Convert.ToInt32(reader["idCurricula"]);
+
+                    listaContenidos.Add(objContenido);
+                }
+                return listaContenidos;
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetContenidos()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetContenidos()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+        }
+
         #endregion
 
     }
