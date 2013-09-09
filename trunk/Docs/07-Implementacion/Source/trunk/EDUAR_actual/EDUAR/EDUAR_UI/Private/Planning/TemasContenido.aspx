@@ -27,7 +27,7 @@
                                     <tr>
                                         <td>
                                             <h2>
-                                                <asp:Label ID="lblTitulo" Text="Nuevo Tema" runat="server" /></h2>
+                                                <asp:Label ID="lblTitulo" Text="Crear/Editar Tema" runat="server" /></h2>
                                             <br />
                                         </td>
                                         <td align="right">

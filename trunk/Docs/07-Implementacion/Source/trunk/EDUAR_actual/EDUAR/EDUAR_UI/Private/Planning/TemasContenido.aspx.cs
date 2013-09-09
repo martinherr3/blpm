@@ -128,6 +128,7 @@ namespace EDUAR_UI
                 if (!Page.IsPostBack)
                 {
                     CargarPresentacion();
+                    lblContenido.Text = contenidoEditar.descripcion;
                 }
                 else
                 {
@@ -294,6 +295,7 @@ namespace EDUAR_UI
         {
             pnlNuevoContenido.Attributes["display"] = "none";
             lblTemas.Text = "Temas - " + contenidoEditar.descripcion;
+            lblContenido.Text = string.Empty;
             CargarContenido(contenidoEditar.idContenido);
             udpBotonera.Update();
         }
