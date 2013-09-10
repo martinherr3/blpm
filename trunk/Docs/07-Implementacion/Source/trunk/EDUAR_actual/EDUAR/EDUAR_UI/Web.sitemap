@@ -23,7 +23,7 @@
 
     <siteMapNode url="" title="Encuestas" description="Encuestas" roles="Administrador,Director,Docente">
       <siteMapNode url="~/Private/Encuestas/ManageCategoriasPregunta.aspx" title="Categorías de Preguntas" roles="Administrador,Director,Docente" />
-      <siteMapNode url="~/Private/Encuestas/ContenidoEncuestas.aspx" title="Preguntas" roles="Administrador,Director,Docente" />
+      <siteMapNode url="~/Private/Encuestas/ContenidoEncuestas.aspx" title="Preguntas" roles="Administrador,Director,Docente" visible="false" />
       <siteMapNode url="~/Private/Encuestas/ManageContenidoEncuestas.aspx" title="Administrar" roles="Administrador,Director,Docente" />
       <siteMapNode url="~/Private/Encuestas/ResultadosEncuestas.aspx" title="Resultados" roles="Administrador,Docente,Director" visible="false" />
       <siteMapNode url="~/Private/Encuestas/ManageEscalasPonderacion.aspx" title="Escalas de Ponderación" roles="Administrador,Director,Docente" />
