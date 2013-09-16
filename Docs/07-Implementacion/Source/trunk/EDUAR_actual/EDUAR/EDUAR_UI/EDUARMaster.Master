@@ -6,7 +6,7 @@
 <html lang="es">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>EDU@R 2.0</title>
+    <title> EDU@R 2.0 </title>
     <link href="App_Themes/Tema/Estilo.css" rel="stylesheet" type="text/css" />
     <link href="/EDUAR_UI/Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="/EDUAR_UI/Content/bootstrap-responsive.css" rel="stylesheet" type="text/css" />

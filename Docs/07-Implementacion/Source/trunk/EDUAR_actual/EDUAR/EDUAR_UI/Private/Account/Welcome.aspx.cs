@@ -456,6 +456,9 @@ namespace EDUAR_UI
             verSeccion = Master.ValidarSeccion("~/Private/Reports/reportCalificacionesAlumnoPeriodo.aspx")
                     || Master.ValidarSeccion("~/Private/Reports/reportInasistenciasAlumnoPeriodo.aspx")
                     || Master.ValidarSeccion("~/Private/Reports/reportSancionesAlumnoPeriodo.aspx");
+            
+            lblTituloGenerales.Visible = verSeccion;
+            tblGenerales.Visible = verSeccion;
 
             verSeccion = Master.ValidarSeccion("~/Private/Reports/reportCalificacionesAlumnoPeriodo.aspx");
             habilitarSeccion(lnkCalificaciones, btnCalificaciones, verSeccion);
@@ -465,15 +468,15 @@ namespace EDUAR_UI
 
             verSeccion = Master.ValidarSeccion("~/Private/Reports/reportSancionesAlumnoPeriodo.aspx");
             habilitarSeccion(lnkSanciones, btnSanciones, verSeccion);
-
-            lblTituloGenerales.Visible = verSeccion;
-            tblGenerales.Visible = verSeccion;
             #endregion
 
             #region "Consolidados"
             verSeccion = Master.ValidarSeccion("~/Private/Reports/reportIndicadores.aspx")
                     || Master.ValidarSeccion("~/Private/Reports/reportPromedios.aspx")
                     || Master.ValidarSeccion("~/Private/Monitoreo/IndicadoresGenerales.aspx");
+
+            lblTituloConsolidados.Visible = verSeccion;
+            tblConsolidados.Visible = verSeccion;
 
             verSeccion = Master.ValidarSeccion("~/Private/Reports/reportPromedios.aspx");
             habilitarSeccion(lnkConsolidado, btnConsolidado, verSeccion);
@@ -483,8 +486,6 @@ namespace EDUAR_UI
 
             verSeccion = Master.ValidarSeccion("~/Private/Reports/Historicos/reportRendimiento.aspx");
             habilitarSeccion(lnkHistorico, btnHistorico, verSeccion);
-            lblTituloConsolidados.Visible = verSeccion;
-            tblConsolidados.Visible = verSeccion;
             #endregion
             #endregion
 
