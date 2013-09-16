@@ -303,9 +303,7 @@
     <Content Include="Private\Encuestas\ManageEscalasPonderacion.aspx" />
     <Content Include="Private\Encuestas\VerRespuestas.aspx" />
     <Content Include="Private\Encuestas\ResultadosEncuestas.aspx" />
-    <Content Include="Private\Help\web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Private\Manuales\favicon.ico" />
     <Content Include="Private\Monitoreo\IndicadoresGenerales.aspx" />
     <Content Include="Private\Novedades\ConsultaNovedadAulica.aspx" />
     <Content Include="Private\Novedades\RegNovedadInstitucion.aspx" />
