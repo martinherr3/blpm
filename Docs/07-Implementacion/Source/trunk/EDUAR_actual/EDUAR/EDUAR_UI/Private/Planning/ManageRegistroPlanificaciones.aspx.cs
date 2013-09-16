@@ -360,7 +360,7 @@ namespace EDUAR_UI
             entidad.solicitarAprobacion = true;
             entidad.pendienteAprobacion = true;
             listaPlanificaciones = objBLPlanificacion.GetPlanificacion(entidad);
-            calcularCobertura();
+           // calcularCobertura();
         }
 
         /// <summary>

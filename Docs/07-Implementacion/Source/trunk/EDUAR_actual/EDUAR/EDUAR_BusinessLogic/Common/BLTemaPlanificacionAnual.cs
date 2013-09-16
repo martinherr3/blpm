@@ -208,17 +208,17 @@ namespace EDUAR_BusinessLogic.Common
 		/// <returns></returns>
 		public List<TemaPlanificacionAnual> GetTemasPlanificacionAnual(PlanificacionAnual entidad)
 		{
-            BLTemaContenido TemaContenidoBL = new BLTemaContenido();
+			BLTemaContenido TemaContenidoBL = new BLTemaContenido();
 			try
 			{
-                List<TemaPlanificacionAnual> listaTemasPlanificacionAnual = DataAcces.GetTemasPlanificacionAnual(entidad);
+				List<TemaPlanificacionAnual> listaTemasPlanificacionAnual = DataAcces.GetTemasPlanificacionAnual(entidad);
 				
-                foreach(TemaPlanificacionAnual unTemaPlanificacionAnual in listaTemasPlanificacionAnual)
-                {
-                    unTemaPlanificacionAnual.listaContenidos = TemaContenidoBL.GetTemasByTemaPlanificacionAnual(unTemaPlanificacionAnual);
-                }
-                            
-                return (listaTemasPlanificacionAnual);
+				foreach(TemaPlanificacionAnual unTemaPlanificacionAnual in listaTemasPlanificacionAnual)
+				{
+					unTemaPlanificacionAnual.listaContenidos = TemaContenidoBL.GetTemasByTemaPlanificacionAnual(unTemaPlanificacionAnual);
+				}
+							
+				return (listaTemasPlanificacionAnual);
 
 			}
 			catch (CustomizedException ex)
@@ -233,36 +233,36 @@ namespace EDUAR_BusinessLogic.Common
 		}
 
 
-        /// <summary>
-        /// Gets the temas planificacion anual. Información minima para realizar calculos
-        /// </summary>
-        /// <param name="entidad">The entidad.</param>
-        /// <returns></returns>
-        public List<TemaPlanificacionAnual> GetTemasPlanificacionAnualCalc(PlanificacionAnual entidad)
-        {
-            BLTemaContenido TemaContenidoBL = new BLTemaContenido();
-            try
-            {
-                List<TemaPlanificacionAnual> listaTemasPlanificacionAnual = DataAcces.GetTemasPlanificacionAnualCalc(entidad);
+		/// <summary>
+		/// Gets the temas planificacion anual. Información minima para realizar calculos
+		/// </summary>
+		/// <param name="entidad">The entidad.</param>
+		/// <returns></returns>
+		public List<TemaPlanificacionAnual> GetTemasPlanificacionAnualCalc(PlanificacionAnual entidad)
+		{
+			BLTemaContenido TemaContenidoBL = new BLTemaContenido();
+			try
+			{
+				List<TemaPlanificacionAnual> listaTemasPlanificacionAnual = DataAcces.GetTemasPlanificacionAnualCalc(entidad);
 
-                foreach (TemaPlanificacionAnual unTemaPlanificacionAnual in listaTemasPlanificacionAnual)
-                {
-                    unTemaPlanificacionAnual.listaContenidos = TemaContenidoBL.GetTemasByTemaPlanificacionAnualCalc(unTemaPlanificacionAnual);
-                }
+				foreach (TemaPlanificacionAnual unTemaPlanificacionAnual in listaTemasPlanificacionAnual)
+				{
+					unTemaPlanificacionAnual.listaContenidos = TemaContenidoBL.GetTemasByTemaPlanificacionAnualCalc(unTemaPlanificacionAnual);
+				}
 
-                return (listaTemasPlanificacionAnual);
+				return (listaTemasPlanificacionAnual);
 
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnual", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - GetTemasPlanificacionAnual", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
 
 		/// <summary>
 		/// Gets the temas planificacion anual.
@@ -315,30 +315,30 @@ namespace EDUAR_BusinessLogic.Common
 			}
 		}
 
-        /// <summary>
-        /// Obteners the contenidos desactivados.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public List<TemaContenido> ObtenerContenidosDesactivados()
-        {
-            try
-            {
-                TemaPlanificacionAnual filtro = new TemaPlanificacionAnual();
-                filtro = Data;
+		/// <summary>
+		/// Obteners the contenidos desactivados.
+		/// </summary>
+		/// <returns></returns>
+		/// <exception cref="System.NotImplementedException"></exception>
+		public List<TemaContenido> ObtenerContenidosDesactivados()
+		{
+			try
+			{
+				TemaPlanificacionAnual filtro = new TemaPlanificacionAnual();
+				filtro = Data;
 
-                return DataAcces.GetContenidosDesactivados(filtro);
-            }
-            catch (CustomizedException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CustomizedException(string.Format("Fallo en {0} - ObtenerContenidosDesactivados", ClassName), ex,
-                                              enuExceptionType.BusinessLogicException);
-            }
-        }
-        #endregion
-    }
+				return DataAcces.GetContenidosDesactivados(filtro);
+			}
+			catch (CustomizedException ex)
+			{
+				throw ex;
+			}
+			catch (Exception ex)
+			{
+				throw new CustomizedException(string.Format("Fallo en {0} - ObtenerContenidosDesactivados", ClassName), ex,
+											  enuExceptionType.BusinessLogicException);
+			}
+		}
+		#endregion
+	}
 }
