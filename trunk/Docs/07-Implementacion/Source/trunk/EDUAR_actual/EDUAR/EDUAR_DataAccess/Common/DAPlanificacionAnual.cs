@@ -195,6 +195,7 @@ namespace EDUAR_DataAccess.Common
                     objEntidad.curricula.nivel.nombre = reader["Nivel"].ToString();
                     objEntidad.curricula.orientacion.idOrientacion = Convert.ToInt32(reader["idOrientacion"]);
                     objEntidad.curricula.orientacion.nombre = reader["Orientacion"].ToString();
+                    objEntidad.porcentajeCobertura = Convert.ToInt32(reader["porcentaje"]);
                     listaEntidad.Add(objEntidad);
                 }
                 return listaEntidad;
