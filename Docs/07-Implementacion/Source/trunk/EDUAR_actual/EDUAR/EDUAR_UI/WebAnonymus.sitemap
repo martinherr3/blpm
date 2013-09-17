@@ -2,6 +2,7 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
     <siteMapNode url="~/" title="EDUAR" description="Portal EDUAR">
         <siteMapNode url="~/Default.aspx" title="Inicio" ImageUrl="~/Images/web/go-home-6.png" />
+      <siteMapNode url="~/Login.aspx" title="Iniciar sesión" visible="false" />
         <siteMapNode url="#1" title="Institución" ImageUrl="~/Images/web/Internal.png" >
             <siteMapNode url="~/Public/General/Historia.aspx" title="Historia" ImageUrl="~/Images/web/historia.png" />
             <siteMapNode url="~/Public/General/Ideario.aspx" title="Visión" ImageUrl="~/Images/web/vision.png"/>
