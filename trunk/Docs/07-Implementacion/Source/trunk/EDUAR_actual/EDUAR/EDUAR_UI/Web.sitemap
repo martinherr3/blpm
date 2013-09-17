@@ -57,6 +57,7 @@
 
     <siteMapNode url="" title="Cuenta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false">
       <siteMapNode url="~/Private/Account/ChangePassword.aspx" title="Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
+      <siteMapNode url="~/Private/Account/ChangePasswordSuccess.aspx" title="Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
       <siteMapNode url="~/Private/Account/ChangeEmail.aspx" title="Email" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
       <siteMapNode url="~/Private/Account/ChangeQuestion.aspx" title="Pregunta Secreta" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor"/>
       <siteMapNode url="~/Private/Account/ForgotPassword.aspx" title="Recuperar Contraseña" roles="Administrador,Administrativo,Alumno,Director,Docente,Psicopedagogo,Preceptor,Tutor" visible="false"/>
