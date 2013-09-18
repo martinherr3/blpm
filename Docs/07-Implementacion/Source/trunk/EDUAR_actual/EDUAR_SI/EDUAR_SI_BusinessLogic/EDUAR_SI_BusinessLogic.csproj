@@ -53,6 +53,7 @@
     <Compile Include="BLImportarTutores.cs" />
     <Compile Include="BLNotificarInasistencia.cs" />
     <Compile Include="BLNotificarInasistenciaSancionSMS.cs" />
+    <Compile Include="BLProcesarDatos.cs" />
     <Compile Include="BLProcesoBase.cs" />
     <Compile Include="BLNotificarSancion.cs" />
     <Compile Include="BLImportarDiasHorarios.cs" />

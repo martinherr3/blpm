@@ -55,6 +55,7 @@
     <Compile Include="DANotificarInasistencia.cs" />
     <Compile Include="DAObtenerDatos.cs" />
     <Compile Include="DAProcesosEjecutados.cs" />
+    <Compile Include="DAStoreDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

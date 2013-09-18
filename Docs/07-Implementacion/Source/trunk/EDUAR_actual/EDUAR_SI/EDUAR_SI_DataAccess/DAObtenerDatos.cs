@@ -1899,6 +1899,135 @@ namespace EDUAR_SI_DataAccess
                                     ex, enuExceptionType.DataAccesException);
             }
         }
+
+        public List<Alumno> obtenerAlumnosCursoCicloLectivoActual(Configuraciones configuracion, int selectedCurso)
+        {
+            List<Alumno> listaAlumnos = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    command.CommandText = @"sp_alumnos_curso";
+                    command.Parameters.Add(new MySqlParameter("param_curso", MySqlDbType.Int32)).Value = selectedCurso;
+
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    listaAlumnos = new List<Alumno>();
+                    Alumno alumno = null;
+                    while (reader.Read())
+                    {
+                        alumno = new Alumno()
+                        {
+                            idPersona = 0,
+                            idAlumnoTransaccional = Convert.ToInt32(reader["id"]),
+                            nombre = reader["nombre"].ToString(),
+                            apellido = reader["apellido"].ToString(),
+                            fechaNacimiento = Convert.ToDateTime(reader["fecha_nacimiento"]),
+                            numeroDocumento = Convert.ToInt32(reader["nro_documento"].ToString().Replace("M", "")),
+                            idTipoDocumento = Convert.ToInt32(reader["fk_tipodocumento_id"]),
+                            domicilio = reader["direccion"].ToString(),
+                            sexo = reader["sexo"].ToString(),
+                            telefonoFijo = reader["telefono"].ToString(),
+                            email = reader["email"].ToString(),
+                            activo = Convert.ToBoolean(reader["activo"]),
+                            localidad = new Localidades() { nombre = reader["ciudad"].ToString() }
+                        };
+
+                        listaAlumnos.Add(alumno);
+                    }
+                    command.Connection.Close();
+                    return listaAlumnos;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAlumnosCursoCicloLectivoActual()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAlumnosCursoCicloLectivoActual()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAlumnosCursoCicloLectivoActual()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
+
+
+
+
+
+
+        public List<Asignatura> obtenerAsignaturaCursoCicloLectivoActual(Configuraciones configuracion, int selectedCurso)
+        {
+            List<Asignatura> listaAsignatura = null;
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    conMySQL = new MySqlConnection(configuracion.valor);
+                    command.Connection = conMySQL;
+
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    command.CommandText = @"sp_asignatura_curso";
+                    command.Parameters.Add(new MySqlParameter("param_curso", MySqlDbType.Int32)).Value = selectedCurso;
+
+                    conMySQL.Open();
+
+                    MySqlDataReader reader = command.ExecuteReader();
+                    listaAsignatura = new List<Asignatura>();
+                    Asignatura asignatura = null;
+                    while (reader.Read())
+                    {
+                        asignatura = new Asignatura()
+                        {
+                            idAsignatura = 0,
+                            idAsignaturaTransaccional = Convert.ToInt32(reader["id"]),
+                            nombre = reader["nombre"].ToString(),
+                        };
+
+                        listaAsignatura.Add(asignatura);
+                    }
+                    command.Connection.Close();
+                    return listaAsignatura;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsignaturaCursoCicloLectivoActual()", ClassName),
+                                        ex, enuExceptionType.MySQLException);
+            }
+            catch (SqlException ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsignaturaCursoCicloLectivoActual()", ClassName),
+                                    ex, enuExceptionType.SqlException);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(String.Format("Fallo en {0} - obtenerAsignaturaCursoCicloLectivoActual()", ClassName),
+                                    ex, enuExceptionType.DataAccesException);
+            }
+            finally
+            {
+                //if (sqlConnectionConfig.State == ConnectionState.Open)
+                //    sqlConnectionConfig.Close();
+            }
+        }
         #endregion
 
     }
