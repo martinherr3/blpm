@@ -45,8 +45,13 @@
             this.btnSancionInasistenciaSMS = new System.Windows.Forms.Button();
             this.btnInformeSanciones = new System.Windows.Forms.Button();
             this.btnInformeInasistencia = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnAltaSanciones = new System.Windows.Forms.Button();
+            this.btnAltaInasistencias = new System.Windows.Forms.Button();
+            this.btnAltaCalificaciones = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -225,11 +230,54 @@
             this.btnInformeInasistencia.UseVisualStyleBackColor = true;
             this.btnInformeInasistencia.Click += new System.EventHandler(this.btnInformeInasistencia_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnAltaCalificaciones);
+            this.groupBox3.Controls.Add(this.btnAltaSanciones);
+            this.groupBox3.Controls.Add(this.btnAltaInasistencias);
+            this.groupBox3.Location = new System.Drawing.Point(17, 347);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(558, 163);
+            this.groupBox3.TabIndex = 11;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Carga de Notificaciones";
+            // 
+            // btnAltaSanciones
+            // 
+            this.btnAltaSanciones.Location = new System.Drawing.Point(267, 43);
+            this.btnAltaSanciones.Name = "btnAltaSanciones";
+            this.btnAltaSanciones.Size = new System.Drawing.Size(250, 41);
+            this.btnAltaSanciones.TabIndex = 1;
+            this.btnAltaSanciones.Text = "Alta Sanciones";
+            this.btnAltaSanciones.UseVisualStyleBackColor = true;
+            this.btnAltaSanciones.Click += new System.EventHandler(this.btnAltaSanciones_Click);
+            // 
+            // btnAltaInasistencias
+            // 
+            this.btnAltaInasistencias.Location = new System.Drawing.Point(11, 43);
+            this.btnAltaInasistencias.Name = "btnAltaInasistencias";
+            this.btnAltaInasistencias.Size = new System.Drawing.Size(250, 41);
+            this.btnAltaInasistencias.TabIndex = 0;
+            this.btnAltaInasistencias.Text = "Alta Inasistencias";
+            this.btnAltaInasistencias.UseVisualStyleBackColor = true;
+            this.btnAltaInasistencias.Click += new System.EventHandler(this.btnAltaInasistencias_Click);
+            // 
+            // btnAltaCalificaciones
+            // 
+            this.btnAltaCalificaciones.Location = new System.Drawing.Point(11, 105);
+            this.btnAltaCalificaciones.Name = "btnAltaCalificaciones";
+            this.btnAltaCalificaciones.Size = new System.Drawing.Size(250, 41);
+            this.btnAltaCalificaciones.TabIndex = 2;
+            this.btnAltaCalificaciones.Text = "Alta Calificaciones";
+            this.btnAltaCalificaciones.UseVisualStyleBackColor = true;
+            this.btnAltaCalificaciones.Click += new System.EventHandler(this.btnAltaCalificaciones_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(606, 357);
+            this.ClientSize = new System.Drawing.Size(606, 522);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnAsistencia);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnPersonal);
@@ -242,6 +290,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,6 +316,10 @@
         private System.Windows.Forms.Button btnDiasHorarios;
         private System.Windows.Forms.Button btnSancionInasistenciaSMS;
         private System.Windows.Forms.Button btnBajaUsuarios;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button btnAltaSanciones;
+        private System.Windows.Forms.Button btnAltaInasistencias;
+        private System.Windows.Forms.Button btnAltaCalificaciones;
     }
 }
 

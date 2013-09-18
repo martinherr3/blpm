@@ -30,9 +30,9 @@ namespace EDUAR_SI_Prueba
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ddlCadenaConexion.Items.Add(@"Data Source=LAURA-PORTATIL\SQLEXPRESS;Initial Catalog=EDUAR_DEV;Persist Security Info=True;User ID=sa;Password=tesis");
-            ddlCadenaConexion.Items.Add(@"Data Source=SOFIA;Initial Catalog=EDUAR_DEV;Persist Security Info=True;User ID=sa;Password=tesis");
-            ddlCadenaConexion.Items.Add(@"Data Source=alulau.redirectme.net,1433;Initial Catalog=EDUAR_DEV;Persist Security Info=True;User ID=sa;Password=tesis");
+            ddlCadenaConexion.Items.Add(@EntidadConfiguracion.configDecisionalLaura);
+            ddlCadenaConexion.Items.Add(@EntidadConfiguracion.configDecisionalEduar);
+            ddlCadenaConexion.Items.Add(@EntidadConfiguracion.configDecisionalSofia);
             ddlCadenaConexion.SelectedIndex = 1;
         }
 
@@ -259,6 +259,24 @@ namespace EDUAR_SI_Prueba
             }
             finally
             { btnSancionInasistenciaSMS.Enabled = true; }
+        }
+
+        private void btnAltaInasistencias_Click(object sender, EventArgs e)
+        {
+            FormAltaInasistencias frmInasistencias = new FormAltaInasistencias();
+            frmInasistencias.Show();
+        }
+
+        private void btnAltaSanciones_Click(object sender, EventArgs e)
+        {
+            FormAltaSanciones frmSanciones = new FormAltaSanciones();
+            frmSanciones.Show();
+        }
+
+        private void btnAltaCalificaciones_Click(object sender, EventArgs e)
+        {
+            FormAltaCalificaciones frmCalificaciones = new FormAltaCalificaciones();
+            frmCalificaciones.Show();
         }
     }
 }
