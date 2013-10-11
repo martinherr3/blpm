@@ -1,0 +1,9 @@
+Pasos de ejecución
+
+(1) Eduar DB Creation
+(2) Eduar Aspnet Services DB Creation
+(3) Eduar Structure
+(4) Eduar Aspnet Services Structure
+(5) User Creation [opcional]
+(6) Carga tablas Eduar
+(7) Carga tablas Eduar Aspnet Services
