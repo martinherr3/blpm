@@ -1,13 +1,22 @@
+SET NOCOUNT ON
+GO
+
 USE [master]
 GO
 
-/****** Object:  Database [EDUAR_aspnet_services]    Script Date: 09/10/2013 20:07:15 ******/
-CREATE DATABASE [EDUAR_aspnet_services]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'EDUAR_aspnet_services', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\EDUAR_aspnet_services.mdf' , SIZE = 11392KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
- LOG ON 
-( NAME = N'EDUAR_DEV_aspnet_services_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\EDUAR_DEV_aspnet_services_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+if exists (select * from sysdatabases where name=N'EDUAR_aspnet_services')
+        drop database EDUAR
+GO
+DECLARE @device_directory NVARCHAR(520)
+
+SELECT @device_directory = SUBSTRING(filename, 1, CHARINDEX(N'master.mdf', LOWER(filename)) - 1)
+FROM master.dbo.sysaltfiles WHERE dbid = 1 AND fileid = 1
+
+/****** Object:  Database [EDUAREDUAR_aspnet_services    Script Date: 09/10/2013 19:51:43 ******/
+EXECUTE (N'CREATE DATABASE [EDUAR_aspnet_services]
+  ON PRIMARY (NAME = N''EDUAR_aspnet_services'', FILENAME = N''' + @device_directory + 'EDUAR_aspnet_services.mdf'', SIZE = 11392KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB)
+  LOG ON (NAME = N''EDUAR_aspnet_services_log'',  FILENAME = N''' + @device_directory + 'EDUAR_aspnet_services_log.ldf'' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)')
+
 GO
 
 ALTER DATABASE [EDUAR_aspnet_services] SET COMPATIBILITY_LEVEL = 100

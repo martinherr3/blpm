@@ -1,3 +1,7 @@
+USE [EDUAR]
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[ConfiguracionesEstablecimiento] ON
+
 INSERT INTO [ConfiguracionesEstablecimiento] ([idConfiguracionEstablecimiento], [nombre], [descripcion], [valor], [activo]) VALUES (1, 'Nombre', 'Nombre Completo del Establecimiento', 'Ingeniero Cassaffousth', '1');
 GO
 INSERT INTO [ConfiguracionesEstablecimiento] ([idConfiguracionEstablecimiento], [nombre], [descripcion], [valor], [activo]) VALUES (2, 'Dirreccion', 'Direccion Postal Completa del establecimiento educativo', 'Dean Funes 1808', '1');
@@ -6,3 +10,5 @@ INSERT INTO [ConfiguracionesEstablecimiento] ([idConfiguracionEstablecimiento], 
 GO
 INSERT INTO [ConfiguracionesEstablecimiento] ([idConfiguracionEstablecimiento], [nombre], [descripcion], [valor], [activo]) VALUES (4, 'HorarioFinalizacion', 'Horario de Finalizacion de Actividades', '23:00', '1');
 GO
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[ConfiguracionesEstablecimiento] OFF

@@ -1,3 +1,7 @@
+USE [EDUAR]
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[EstadoNovedadAulica] ON
+
 INSERT INTO [EstadoNovedadAulica] ([idEstadoNovedadAulica], [nombre], [esFinal]) VALUES ('3', 'Abierta', '0');
 GO
 INSERT INTO [EstadoNovedadAulica] ([idEstadoNovedadAulica], [nombre], [esFinal]) VALUES ('4', 'Cerrada', '1');
@@ -6,3 +10,5 @@ INSERT INTO [EstadoNovedadAulica] ([idEstadoNovedadAulica], [nombre], [esFinal])
 GO
 INSERT INTO [EstadoNovedadAulica] ([idEstadoNovedadAulica], [nombre], [esFinal]) VALUES ('6', 'Descartada', '1');
 GO
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[EstadoNovedadAulica] OFF

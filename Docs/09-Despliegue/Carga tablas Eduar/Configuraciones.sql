@@ -1,3 +1,7 @@
+USE [EDUAR]
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[Configuraciones] ON
+
 INSERT INTO [Configuraciones] ([idConfiguracion], [nombre], [descripcion], [valor], [activo]) VALUES (1, 'BaseDeDatosOrigen', 'Devuelve la cadena de conexión a la base de datos transaccional', 'Server=sofia;Database=alba;Uid=sa;Pwd=tesis;', '1');
 GO
 INSERT INTO [Configuraciones] ([idConfiguracion], [nombre], [descripcion], [valor], [activo]) VALUES (3, 'PasswordInicial', 'Password Inicial para los usuarios generados por el administrador', 'h4d/w+B6jR76h4/XHzxtQw==', '1');
@@ -30,3 +34,5 @@ INSERT INTO [Configuraciones] ([idConfiguracion], [nombre], [descripcion], [valo
 GO
 INSERT INTO [Configuraciones] ([idConfiguracion], [nombre], [descripcion], [valor], [activo]) VALUES (31, 'AlertaAprobacion', 'Se utiliza para mostrar un mensaje cuando se aprueba una planificación con un porcentaje de cobertura menor al valor', '60', '1');
 GO
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[Configuraciones] OFF
