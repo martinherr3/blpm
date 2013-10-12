@@ -1,13 +1,23 @@
+SET NOCOUNT ON
+GO
+
 USE [master]
 GO
 
+if exists (select * from sysdatabases where name=N'EDUAR')
+        drop database EDUAR
+GO
+DECLARE @device_directory NVARCHAR(520)
+DECLARE @DB_Name NVARCHAR(50) = 'EDUAR'
+
+SELECT @device_directory = SUBSTRING(filename, 1, CHARINDEX(N'master.mdf', LOWER(filename)) - 1)
+FROM master.dbo.sysaltfiles WHERE dbid = 1 AND fileid = 1
+
 /****** Object:  Database [EDUAR]    Script Date: 09/10/2013 19:51:43 ******/
-CREATE DATABASE [EDUAR]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'EDUAR', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\EDUAR.mdf' , SIZE = 11328KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
- LOG ON 
-( NAME = N'EDUAR_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\EDUAR_DEV_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+EXECUTE (N'CREATE DATABASE [EDUAR]
+  ON PRIMARY (NAME = N''EDUAR'', FILENAME = N''' + @device_directory + 'EDUAR.mdf'', SIZE = 11328KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB)
+  LOG ON (NAME = N''EDUAR_log'',  FILENAME = N''' + @device_directory + 'EDUAR_log.ldf'' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)')
+
 GO
 
 ALTER DATABASE [EDUAR] SET COMPATIBILITY_LEVEL = 100

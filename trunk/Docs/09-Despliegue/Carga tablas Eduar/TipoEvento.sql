@@ -1,3 +1,7 @@
+USE [EDUAR]
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[TipoEvento] ON
+
 INSERT INTO [TipoEvento] ([idTipoEvento], [descripcion]) VALUES ('1', 'Evaluación');
 GO
 INSERT INTO [TipoEvento] ([idTipoEvento], [descripcion]) VALUES ('2', 'Reunión');
@@ -6,3 +10,6 @@ INSERT INTO [TipoEvento] ([idTipoEvento], [descripcion]) VALUES ('3', 'Excursió
 GO
 INSERT INTO [TipoEvento] ([idTipoEvento], [descripcion]) VALUES ('4', 'Clase Diaria');
 GO
+
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[TipoEvento] OFF

@@ -1,4 +1,8 @@
-INSERT INTO [TipoPersonaRol] ([idTipoPersonaRol], [idTipoPersona], [nombreRol]) VALUES ('1', '1', 'Docente   ');
+USE [EDUAR]
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[TipoPersonaRol] ON
+
+INSERT INTO [TipoPersonaRol] ([idTipoPersonaRol], [idTipoPersona], [nombreRol]) VALUES ('1', '1', 'Docente');
 GO
 INSERT INTO [TipoPersonaRol] ([idTipoPersonaRol], [idTipoPersona], [nombreRol]) VALUES ('2', '1', 'Psicopedagogo');
 GO
@@ -12,3 +16,5 @@ INSERT INTO [TipoPersonaRol] ([idTipoPersonaRol], [idTipoPersona], [nombreRol]) 
 GO
 INSERT INTO [TipoPersonaRol] ([idTipoPersonaRol], [idTipoPersona], [nombreRol]) VALUES ('7', '4', 'Administrador');
 GO
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[TipoPersonaRol] OFF

@@ -1,3 +1,7 @@
+USE [EDUAR]
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[ProcesosAutomaticos] ON
+
 INSERT INTO [ProcesosAutomaticos] ([idProcesoAutomatico], [nombre], [descripcion], [activo], [emailNotificacion]) VALUES ('1', 'InformeInasistencias', 'Informe que se envia a los tutores semanalmente', '1', 'tesis_blpm@googlegroups.com');
 GO
 INSERT INTO [ProcesosAutomaticos] ([idProcesoAutomatico], [nombre], [descripcion], [activo], [emailNotificacion]) VALUES ('4', 'InformeSanciones', 'Informe que se envia a los tutores semanalmente', '1', 'tesis_blpm@googlegroups.com');
@@ -18,3 +22,5 @@ INSERT INTO [ProcesosAutomaticos] ([idProcesoAutomatico], [nombre], [descripcion
 GO
 INSERT INTO [ProcesosAutomaticos] ([idProcesoAutomatico], [nombre], [descripcion], [activo], [emailNotificacion]) VALUES ('15', 'ImportarSanciones', 'Ejecuta el proceso de importación de Sanciones', '1', 'tesis_blpm@googlegroups.com');
 GO
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[ProcesosAutomaticos] OFF

@@ -1,3 +1,7 @@
+USE [EDUAR]
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[TipoRegistroClases] ON
+
 INSERT INTO [TipoRegistroClases] ([idTipoRegistroClases], [nombre]) VALUES ('1', 'Clase Normal');
 GO
 INSERT INTO [TipoRegistroClases] ([idTipoRegistroClases], [nombre]) VALUES ('2', 'Ausencia Docente Con Aviso');
@@ -12,3 +16,5 @@ INSERT INTO [TipoRegistroClases] ([idTipoRegistroClases], [nombre]) VALUES ('6',
 GO
 INSERT INTO [TipoRegistroClases] ([idTipoRegistroClases], [nombre]) VALUES ('7', 'Feriado');
 GO
+
+SET IDENTITY_INSERT [EDUAR].[dbo].[TipoRegistroClases] OFF
