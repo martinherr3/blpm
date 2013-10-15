@@ -1,6 +1,6 @@
 USE [EDUAR_aspnet_services]
 
-INSERT INTO  ([UserId], [RoleId]) VALUES (
+INSERT INTO aspnet_UsersInRoles ([UserId], [RoleId]) VALUES (
 '379AA002-D108-4F26-9597-24CE888FFAEB', 
 '41AA295B-7655-4D6D-8ED2-919F6EE6A02A');
 GO
