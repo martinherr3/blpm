@@ -1,0 +1,40 @@
+USE [EDUAR_aspnet_services]
+GO
+
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Smiley] ON
+
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(21,1,'[angry]','msp_angry.gif','Angry',1)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(22,1,'[biggrin]','msp_biggrin.gif','BigGrin',2)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(23,1,'[blink]','msp_blink.gif','Blink',3)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(24,1,'[blush]','msp_blushing.gif','Blushing',4)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(25,1,'[bored]','msp_bored.gif','Bored',5)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(26,1,'[confused]','msp_confused.gif','Confused',6)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(27,1,'[cool]','msp_cool.gif','Cool',7)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(28,1,'[crying]','msp_crying.gif','Crying',8)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(29,1,'[cursing]','msp_cursing.gif','Cursing',9)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(30,1,'[drool]','msp_drool.gif','Drool',10)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(31,1,'[flapper]','msp_flapper.gif','Flapper',11)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(32,1,'[glare]','msp_glare.gif','Glare',12)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(33,1,'[huh]','msp_huh.gif','Huh',13)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(34,1,'[laugh]','msp_laugh.gif','Laugh',14)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(35,1,'[lol]','msp_lol.gif','LOL',15)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(36,1,'[love]','msp_love.gif','Love',16)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(37,1,'[mad]','msp_mad.gif','Mad',17)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(38,1,'[mellow]','msp_mellow.gif','Mellow',18)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(39,1,'[omg]','msp_ohmy.gif','OhMyGod',19)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(40,1,'[rolleyes]','msp_rolleyes.gif','RollEyes',20)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(41,1,'[sad]','msp_sad.gif','Sad',21)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(42,1,'[scared]','msp_scared.gif','Scared',22)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(43,1,'[sleep]','msp_sleep.gif','Sleep',23)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(44,1,'[smile]','msp_smile.gif','Smile',24)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(45,1,'[sneaky]','msp_sneaky.gif','Sneaky',25)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(46,1,'[thumbdn]','msp_thumbdn.gif','ThumbDown',26)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(47,1,'[thumbup]','msp_thumbup.gif','ThumpUp',27)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(48,1,'[tongue]','msp_tongue.gif','Tongue',28)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(49,1,'[razz]','msp_razz.gif','Razz',29)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(50,1,'[unsure]','msp_unsure.gif','Unsure',30)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(51,1,'[woot]','msp_w00t.gif','Woot',31)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(52,1,'[wink]','msp_wink.gif','Wink',32)
+INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(53,1,'[wub]','msp_wub.gif','Wub',33)
+
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Smiley] ON
