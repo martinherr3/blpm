@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUAR_Entities", "..\EDUAR\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSapplication", "SMSapplication\SMSapplication.csproj", "{668635D8-4F39-4A78-9929-7DEBB881559C}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Instalacion DLL", "Instalacion DLL\Instalacion DLL.vdproj", "{B5EBED63-F4A3-4B47-B039-9E4CCCFF1FCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,12 @@ Global
 		{668635D8-4F39-4A78-9929-7DEBB881559C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{668635D8-4F39-4A78-9929-7DEBB881559C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{668635D8-4F39-4A78-9929-7DEBB881559C}.Release|x86.ActiveCfg = Release|Any CPU
+		{B5EBED63-F4A3-4B47-B039-9E4CCCFF1FCB}.Debug|Any CPU.ActiveCfg = Debug
+		{B5EBED63-F4A3-4B47-B039-9E4CCCFF1FCB}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{B5EBED63-F4A3-4B47-B039-9E4CCCFF1FCB}.Debug|x86.ActiveCfg = Debug
+		{B5EBED63-F4A3-4B47-B039-9E4CCCFF1FCB}.Release|Any CPU.ActiveCfg = Release
+		{B5EBED63-F4A3-4B47-B039-9E4CCCFF1FCB}.Release|Mixed Platforms.ActiveCfg = Release
+		{B5EBED63-F4A3-4B47-B039-9E4CCCFF1FCB}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
