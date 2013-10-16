@@ -1,0 +1,66 @@
+vw_turno
+	id, hora_inicio, hora_fin, descripción
+
+vw_tipos_sancion
+	id, nombre, descripcion
+
+vw_motivo_sancion
+	id, descripcion
+
+vw_tipo_documento
+	id, nombre, descripcion
+	
+vw_tipos_asistencia
+	id, nombre, descripcion, valor
+	
+vw_rol_responsable
+	id, nombre, descripcion, activo
+	
+vw_cargo
+	id, nombre, descripcion, activo	
+	
+vw_pais
+	id, nombreCorto, nombreLargo
+	
+vw_provincia
+	id, nombreCorto, nombreLargo, fk_pais_id
+
+vw_orientacion
+	id, nombre, descripcion
+	
+vw_nivel
+	id, descripcion
+	
+vw_nivelTipo
+	id, nombre, descripcion
+
+vw_asignatura
+	id, nombre, descripcion
+
+vw_escalanota
+	id, nombre, descripcion, orden, aprobado
+
+vw_diasemana
+	id, descripcion
+
+vw_horario
+	id, titulo, fecha_inicio, fecha_fin, tipo, frecuencia, frecuencia_intervalo, recurrencia_fin, recurrencia_dias, estado, fk_diasemana_id
+	recurrencia_fin = fin del ciclo lectivo
+	recurrencia_dias = semanas del ciclo lectivo
+	tipo y frecuencia_intervalo vale siempre 1, mientras que frecuencia vale siempre 5
+
+vw_ciclolectivo
+	id, fecha_inicio, fecha_fin, descripcion, actual
+
+vw_personal
+	id, apellido, nombre, fk_tipodocumento_id, nro_documento, fk_cargo_id, fechaIngreso, activo
+	
+vw_alumno
+	id, apellido, nombre, fecha_nacimiento, direccion, ciudad, codigo_postal, fk_provincia_id, telefono, lugar_nacimiento, fk_tipodocumento_id, nro_documento, sexo, email, activo
+	
+vw_docente
+	id, apellido, nombre, fecha_nacimiento, fk_tipodocumento_id, nro_documento, lugar_nacimiento, direccion, ciudad, codigo_postal, email, telefono, celular, titulo, activo, fk_provincia_id 
+	
+	
+	
+	
