@@ -61,6 +61,30 @@ vw_alumno
 vw_docente
 	id, apellido, nombre, fecha_nacimiento, fk_tipodocumento_id, nro_documento, lugar_nacimiento, direccion, ciudad, codigo_postal, email, telefono, celular, titulo, activo, fk_provincia_id 
 	
+vw_curso
+	id, fk_nivel_id, descripcion, fk_turno_id, fk_orientacion_id
+
+****vw_rel_curso_ciclolectivo
+	id, fk_curso, fk_ciclolectivo
 	
+****vw_rel_nivel_asignatura
+	id, fk_nivel_id, fk_asignatura_id, fk_orientacion_id
 	
+vw_rel_nivel_asignatura_docente
+	id, fk_nivel_asignatura_id, fk_docente_id
+
+vw_rel_asignatura_cursociclolectivo
+	id, fk_asignatura_id, fk_cursociclolectivo_id
+	
+****vw_rel_docente_asignatura_curso_cl	
+	id, fk_docente_id, fk_asignatura_id, fk_cursociclolectivo_id
+	
+****vw_rel_alumno_curso_ciclolectivo
+	id, fk_cursociclolectivo_id, fk_alumno_id
+	
+****vw_rel_responsable_rolresponsable
+	id, fk_rolresponsable_id, fk_responsable_id, fk_alumno_id, descripcion
+
+****vw_rel_diashorarios
+	id, fecha_inicio, fecha_fin, fk_asignatura_id, fk_curso_id, fk_nivel_id, fk_diasemana_id
 	
