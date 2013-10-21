@@ -12,6 +12,7 @@ vw_tipo_documento
 	
 vw_tipos_asistencia
 	id, nombre, descripcion, valor
+	(valor: [0,0.5,1])
 	
 vw_rol_responsable
 	id, nombre, descripcion, activo
@@ -39,6 +40,8 @@ vw_asignatura
 
 vw_escalanota
 	id, nombre, descripcion, orden, aprobado
+	(aprobado: booleano;
+	 orden: brinda un orden estricto, más aplicable a calificaciones no numéricas)
 
 vw_diasemana
 	id, descripcion
@@ -46,8 +49,10 @@ vw_diasemana
 vw_horario
 	id, titulo, fecha_inicio, fecha_fin, tipo, frecuencia, frecuencia_intervalo, recurrencia_fin, recurrencia_dias, estado, fk_diasemana_id
 	recurrencia_fin = fin del ciclo lectivo
-	recurrencia_dias = semanas del ciclo lectivo
-	tipo y frecuencia_intervalo vale siempre 1, mientras que frecuencia vale siempre 5
+	(recurrencia_dias = semanas del ciclo lectivo
+	 tipo y frecuencia_intervalo 
+	 frecuencia_intervalo: vale siempre 1, mientras que frecuencia vale siempre 5
+	)
 
 vw_ciclolectivo
 	id, fecha_inicio, fecha_fin, descripcion, actual
@@ -64,27 +69,21 @@ vw_docente
 vw_curso
 	id, fk_nivel_id, descripcion, fk_turno_id, fk_orientacion_id
 
-****vw_rel_curso_ciclolectivo
+vw_rel_curso_ciclolectivo
 	id, fk_curso, fk_ciclolectivo
 	
-****vw_rel_nivel_asignatura
+vw_rel_nivel_asignatura
 	id, fk_nivel_id, fk_asignatura_id, fk_orientacion_id
 	
-vw_rel_nivel_asignatura_docente
-	id, fk_nivel_asignatura_id, fk_docente_id
-
-vw_rel_asignatura_cursociclolectivo
-	id, fk_asignatura_id, fk_cursociclolectivo_id
-	
-****vw_rel_docente_asignatura_curso_cl	
+vw_rel_docente_asignatura_curso_cl	
 	id, fk_docente_id, fk_asignatura_id, fk_cursociclolectivo_id
 	
-****vw_rel_alumno_curso_ciclolectivo
+vw_rel_alumno_curso_ciclolectivo
 	id, fk_cursociclolectivo_id, fk_alumno_id
 	
-****vw_rel_responsable_rolresponsable
+vw_rel_responsable_rolresponsable
 	id, fk_rolresponsable_id, fk_responsable_id, fk_alumno_id, descripcion
 
-****vw_rel_diashorarios
+vw_rel_diashorarios
 	id, fecha_inicio, fecha_fin, fk_asignatura_id, fk_curso_id, fk_nivel_id, fk_diasemana_id
 	
