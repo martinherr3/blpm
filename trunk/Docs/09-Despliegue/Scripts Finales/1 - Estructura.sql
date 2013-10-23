@@ -116,8 +116,9 @@ GO
 ALTER DATABASE [EDUAR] SET TARGET_RECOVERY_TIME = 0 SECONDS 
 GO
 
-ALTER DATABASE [EDUAR] SET  READ_WRITE 
-GO﻿SET NOCOUNT ON
+ALTER DATABASE [EDUAR] SET READ_WRITE 
+--GO﻿ 
+SET NOCOUNT ON
 GO
 
 USE [master]
@@ -234,8 +235,10 @@ GO
 ALTER DATABASE [EDUAR_aspnet_services] SET TARGET_RECOVERY_TIME = 0 SECONDS 
 GO
 
-ALTER DATABASE [EDUAR_aspnet_services] SET  READ_WRITE 
-GO﻿USE [EDUAR_aspnet_services]
+ALTER DATABASE [EDUAR_aspnet_services] SET READ_WRITE
+GO
+
+USE [EDUAR_aspnet_services]
 GO
 /****** Object:  DatabaseRole [aspnet_Membership_BasicAccess]    Script Date: 09/10/2013 20:12:43 ******/
 CREATE ROLE [aspnet_Membership_BasicAccess]
@@ -274,7 +277,7 @@ GO
 CREATE SCHEMA [aspnet_Roles_ReportingAccess]
 GO
 /****** Object:  FullTextCatalog [YafSearch]    Script Date: 09/10/2013 20:12:43 ******/
-CREATE FULLTEXT CATALOG [YafSearch]WITH ACCENT_SENSITIVITY = ON
+CREATE FULLTEXT CATALOG [YafSearch] WITH ACCENT_SENSITIVITY = ON
 
 GO
 /****** Object:  StoredProcedure [dbo].[aspnet_AnyDataInTables]    Script Date: 09/10/2013 20:12:43 ******/
@@ -17032,8 +17035,9 @@ ALTER TABLE [dbo].[yaf_WatchTopic]  WITH CHECK ADD  CONSTRAINT [FK_yaf_WatchTopi
 REFERENCES [dbo].[yaf_User] ([UserID])
 GO
 ALTER TABLE [dbo].[yaf_WatchTopic] CHECK CONSTRAINT [FK_yaf_WatchTopic_yaf_User]
-GO
-﻿USE [EDUAR]
+go
+
+use [EDUAR]
 GO
 /****** Object:  StoredProcedure [dbo].[(TBR)Reporte_ConsolidadoInasistenciasPeriodo2]    Script Date: 09/10/2013 19:34:18 ******/
 SET ANSI_NULLS ON
@@ -34262,12 +34266,12 @@ Begin DesignProperties =
          Or = 1350
       End
    End
-End
-' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vw_StatusEncuestas'
+End' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vw_StatusEncuestas'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'vw_StatusEncuestas'
 GO
-﻿USE [master]
+
+USE [master]
 GO
 EXEC xp_instance_regwrite N'HKEY_LOCAL_MACHINE', N'Software\Microsoft\MSSQLServer\MSSQLServer', N'LoginMode', REG_DWORD, 2
 GO
