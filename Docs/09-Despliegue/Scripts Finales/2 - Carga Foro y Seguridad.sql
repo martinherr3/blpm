@@ -2,6 +2,11 @@ USE [EDUAR_aspnet_services]
 
 INSERT INTO [aspnet_Applications] ([ApplicationName], [LoweredApplicationName], [ApplicationId], [Description]) VALUES ('EDUAR_UI', 'eduar_ui', '340DD3A1-F04E-427C-8851-07EBECA2417A', NULL);
 GO
+
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Board] ON
+INSERT INTO [yaf_Board]([BoardID],[Name],[AllowThreaded],[MembershipAppName],[RolesAppName]) VALUES (1,'EDU@R',0,'','')
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Board] OFF
+
 USE [EDUAR_aspnet_services]
 GO
 
@@ -252,7 +257,9 @@ INSERT INTO [yaf_Registry] ([RegistryID],[Name],[Value],[BoardID]) VALUES (230,'
 INSERT INTO [yaf_Registry] ([RegistryID],[Name],[Value],[BoardID]) VALUES (231,'copyrightremovaldomainkey','',1)
 INSERT INTO [yaf_Registry] ([RegistryID],[Name],[Value],[BoardID]) VALUES (232,'jqueryuitheme','smoothness',1)
 
-SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Registry] OFFUSE [EDUAR_aspnet_services]
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Registry] OFF
+
+USE [EDUAR_aspnet_services]
 GO
 
 SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Smiley] ON
@@ -291,7 +298,9 @@ INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrde
 INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(52,1,'[wink]','msp_wink.gif','Wink',32)
 INSERT INTO [yaf_Smiley]([SmileyID],[BoardID],[Code],[Icon],[Emoticon],[SortOrder]) VALUES(53,1,'[wub]','msp_wub.gif','Wub',33)
 
-SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Smiley] ONUSE [EDUAR_aspnet_services]
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Smiley] OFF
+
+USE [EDUAR_aspnet_services]
 GO
 
 SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_TopicStatus] ON
@@ -303,7 +312,9 @@ INSERT INTO [yaf_TopicStatus] ([TopicStatusID],[TopicStatusName],[BoardID],[Defa
 INSERT INTO [yaf_TopicStatus] ([TopicStatusID],[TopicStatusName],[BoardID],[DefaultDescription]) VALUES (10,'FIXED',1,'Corregido')
 
 
-SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_TopicStatus] OFFINSERT INTO [aspnet_SchemaVersions] ([Feature], [CompatibleSchemaVersion], [IsCurrentVersion]) VALUES ('common', '1', '1');
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_TopicStatus] OFF
+
+INSERT INTO [aspnet_SchemaVersions] ([Feature], [CompatibleSchemaVersion], [IsCurrentVersion]) VALUES ('common', '1', '1');
 GO
 INSERT INTO [aspnet_SchemaVersions] ([Feature], [CompatibleSchemaVersion], [IsCurrentVersion]) VALUES ('membership', '1', '1');
 GO
@@ -335,10 +346,6 @@ INSERT INTO [vw_aspnet_Roles] ([ApplicationId],[RoleId],[RoleName],[LoweredRoleN
 INSERT INTO [vw_aspnet_Roles] ([ApplicationId],[RoleId],[RoleName],[LoweredRoleName],[Description]) VALUES ('340DD3A1-F04E-427C-8851-07EBECA2417A','21949D8D-0EB9-496E-9B29-86A5370EA802','Tutor','tutor','NULL')USE [EDUAR_aspnet_services]
 GO
 
-SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Board] ON
-INSERT INTO [yaf_Board]([BoardID],[Name],[AllowThreaded],[MembershipAppName],[RolesAppName]) VALUES (1,'EDU@R',0,'','')
-SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Board] OFF
-
 SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Group] ON
 
 INSERT INTO [yaf_Group]([GroupID],[BoardID],[Name],[Flags],[PMLimit],[Style],[SortOrder],[Description],[UsrSigChars],[UsrSigBBCodes],[UsrSigHTMLTags],[UsrAlbums],[UsrAlbumImages]) VALUES(2,1,'Guests',2,0,'default!font-size: 8pt; font-style: italic; font-weight: bold; color: #0c7333/yafpro!font-size: 8pt; color: #6e1987',1,NULL,0,NULL,NULL,0,0)
@@ -351,7 +358,9 @@ INSERT INTO [yaf_Group]([GroupID],[BoardID],[Name],[Flags],[PMLimit],[Style],[So
 INSERT INTO [yaf_Group]([GroupID],[BoardID],[Name],[Flags],[PMLimit],[Style],[SortOrder],[Description],[UsrSigChars],[UsrSigBBCodes],[UsrSigHTMLTags],[UsrAlbums],[UsrAlbumImages]) VALUES(10,1,'Preceptor',8,0,'',0,'',0,'','',0,0)
 INSERT INTO [yaf_Group]([GroupID],[BoardID],[Name],[Flags],[PMLimit],[Style],[SortOrder],[Description],[UsrSigChars],[UsrSigBBCodes],[UsrSigHTMLTags],[UsrAlbums],[UsrAlbumImages]) VALUES(11,1,'Administrativo',8,0,'',0,'',0,'','',0,0)
 
-SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Group] OFFUSE [EDUAR_aspnet_services]
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Group] OFF
+
+USE [EDUAR_aspnet_services]
 
 SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_AccessMask] ON
 
@@ -380,7 +389,9 @@ INSERT INTO [yaf_Category]([CategoryID],[BoardID],[Name],[CategoryImage],[SortOr
 INSERT INTO [yaf_Category]([CategoryID],[BoardID],[Name],[CategoryImage],[SortOrder],[PollGroupID]) VALUES(11,1,'[6to Año A]','categoryImageSample.gif',11,NULL)
 INSERT INTO [yaf_Category]([CategoryID],[BoardID],[Name],[CategoryImage],[SortOrder],[PollGroupID]) VALUES(12,1,'[6to Año B]','categoryImageSample.gif',12,NULL)
 
-SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Category] OFFUSE [EDUAR_aspnet_services]
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Category] OFF
+
+USE [EDUAR_aspnet_services]
 
 SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Forum] ON
 
@@ -503,7 +514,9 @@ INSERT INTO [yaf_Forum]([ForumID],[CategoryID],[ParentID],[Name],[Description],[
 INSERT INTO [yaf_Forum]([ForumID],[CategoryID],[ParentID],[Name],[Description],[SortOrder],[LastPosted],[LastTopicID],[LastMessageID],[LastUserID],[LastUserName],[NumTopics],[NumPosts],[RemoteURL],[Flags],[ThemeURL],[PollGroupID],[UserID],[ImageURL],[Styles]) VALUES(117,12,NULL,'[General]','Foro con informaciòn General del Curso',2,NULL,NULL,NULL,NULL,NULL,0,0,NULL,6,NULL,NULL,NULL,NULL,'')
 INSERT INTO [yaf_Forum]([ForumID],[CategoryID],[ParentID],[Name],[Description],[SortOrder],[LastPosted],[LastTopicID],[LastMessageID],[LastUserID],[LastUserName],[NumTopics],[NumPosts],[RemoteURL],[Flags],[ThemeURL],[PollGroupID],[UserID],[ImageURL],[Styles]) VALUES(118,12,117,'Inasistencias','Información General',2,NULL,NULL,NULL,NULL,NULL,0,0,NULL,2,NULL,NULL,NULL,'forumImageSample.gif','')
 
-SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Forum] OFFUSE [EDUAR_aspnet_services]
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_Forum] OFF
+
+USE [EDUAR_aspnet_services]
 
 INSERT INTO [yaf_ForumAccess]([GroupID],[ForumID],[AccessMaskID]) VALUES (2,1,5)
 INSERT INTO [yaf_ForumAccess]([GroupID],[ForumID],[AccessMaskID]) VALUES (2,2,5)
@@ -1570,4 +1583,4 @@ INSERT INTO [yaf_ForumAccess]([GroupID],[ForumID],[AccessMaskID]) VALUES (11,118
 GO
 
 INSERT INTO [yaf_prov_Application] ([ApplicationID],[ApplicationName],[ApplicationNameLwd],[Description]) VALUES ('2E42A11D-7CCD-4EA6-923C-DFB1EE5ACDFF','
-YetAnotherForum','yetanotherforum','NULL')
+YetAnotherForum','yetanotherforum','NULL')

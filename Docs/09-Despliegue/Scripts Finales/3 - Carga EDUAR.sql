@@ -68,7 +68,9 @@ GO
 INSERT INTO [TipoPersonaRol] ([idTipoPersonaRol], [idTipoPersona], [nombreRol]) VALUES ('7', '4', 'Administrador');
 GO
 
-SET IDENTITY_INSERT [EDUAR].[dbo].[TipoPersonaRol] OFFUSE [EDUAR]
+SET IDENTITY_INSERT [EDUAR].[dbo].[TipoPersonaRol] OFF
+
+USE [EDUAR]
 
 SET IDENTITY_INSERT [EDUAR].[dbo].[TipoRegistroClases] ON
 
@@ -87,7 +89,9 @@ GO
 INSERT INTO [TipoRegistroClases] ([idTipoRegistroClases], [nombre]) VALUES ('7', 'Feriado');
 GO
 
-SET IDENTITY_INSERT [EDUAR].[dbo].[TipoRegistroClases] OFFUSE [EDUAR]
+SET IDENTITY_INSERT [EDUAR].[dbo].[TipoRegistroClases] OFF
+
+USE [EDUAR]
 
 SET IDENTITY_INSERT [EDUAR].[dbo].[Configuraciones] ON
 
@@ -124,7 +128,9 @@ GO
 INSERT INTO [Configuraciones] ([idConfiguracion], [nombre], [descripcion], [valor], [activo]) VALUES (31, 'AlertaAprobacion', 'Se utiliza para mostrar un mensaje cuando se aprueba una planificación con un porcentaje de cobertura menor al valor', '60', '1');
 GO
 
-SET IDENTITY_INSERT [EDUAR].[dbo].[Configuraciones] OFFUSE [EDUAR]
+SET IDENTITY_INSERT [EDUAR].[dbo].[Configuraciones] OFF
+
+USE [EDUAR]
 
 SET IDENTITY_INSERT [EDUAR].[dbo].[ConfiguracionesEstablecimiento] ON
 
@@ -137,7 +143,9 @@ GO
 INSERT INTO [ConfiguracionesEstablecimiento] ([idConfiguracionEstablecimiento], [nombre], [descripcion], [valor], [activo]) VALUES (4, 'HorarioFinalizacion', 'Horario de Finalizacion de Actividades', '23:00', '1');
 GO
 
-SET IDENTITY_INSERT [EDUAR].[dbo].[ConfiguracionesEstablecimiento] OFFUSE [EDUAR]
+SET IDENTITY_INSERT [EDUAR].[dbo].[ConfiguracionesEstablecimiento] OFF
+
+USE [EDUAR]
 
 SET IDENTITY_INSERT [EDUAR].[dbo].[EstadoNovedadAulica] ON
 
@@ -150,7 +158,9 @@ GO
 INSERT INTO [EstadoNovedadAulica] ([idEstadoNovedadAulica], [nombre], [esFinal]) VALUES ('6', 'Descartada', '1');
 GO
 
-SET IDENTITY_INSERT [EDUAR].[dbo].[EstadoNovedadAulica] OFFUSE [EDUAR]
+SET IDENTITY_INSERT [EDUAR].[dbo].[EstadoNovedadAulica] OFF
+
+USE [EDUAR]
 
 SET IDENTITY_INSERT [EDUAR].[dbo].[Indicadores] ON
 
@@ -168,7 +178,9 @@ INSERT INTO [Indicadores] ([idIndicador], [nombre], [nombreSP], [invertirEscala]
 GO
 
 
-SET IDENTITY_INSERT [EDUAR].[dbo].[Indicadores] OFFUSE [EDUAR]
+SET IDENTITY_INSERT [EDUAR].[dbo].[Indicadores] OFF
+
+USE [EDUAR]
 
 SET IDENTITY_INSERT [EDUAR].[dbo].[MotivoCitacion] ON
 
@@ -178,7 +190,9 @@ INSERT INTO [MotivoCitacion] ([idMotivoCitacion], [descripcion]) VALUES ('2', 'D
 GO
 
 
-SET IDENTITY_INSERT [EDUAR].[dbo].[MotivoCitacion] OFFUSE [EDUAR]
+SET IDENTITY_INSERT [EDUAR].[dbo].[MotivoCitacion] OFF
+
+USE [EDUAR]
 
 SET IDENTITY_INSERT [EDUAR].[dbo].[ProcesosAutomaticos] ON
 
@@ -232,4 +246,3 @@ GO
 
 
 SET IDENTITY_INSERT [EDUAR].[dbo].[TipoEvento] OFF
-

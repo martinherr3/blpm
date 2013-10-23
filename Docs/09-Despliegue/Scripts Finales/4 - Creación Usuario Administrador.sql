@@ -28,7 +28,9 @@ GO
 
 ALTER TABLE Personas CHECK CONSTRAINT FK_Personas_Localidades
 ALTER TABLE Personas CHECK CONSTRAINT FK_Personas_TiposDocumentos 
-SET IDENTITY_INSERT [EDUAR].[dbo].Personas OFFUSE [EDUAR_aspnet_services]
+SET IDENTITY_INSERT [EDUAR].[dbo].Personas OFF
+
+USE [EDUAR_aspnet_services]
 
 INSERT INTO aspnet_Users ([ApplicationId], [UserId], [UserName], [LoweredUserName], [MobileAlias], [IsAnonymous], [LastActivityDate]) VALUES ('340DD3A1-F04E-427C-8851-07EBECA2417A', 
 '379AA002-D108-4F26-9597-24CE888FFAEB', 
@@ -37,7 +39,9 @@ INSERT INTO aspnet_Users ([ApplicationId], [UserId], [UserName], [LoweredUserNam
 NULL, 
 0, 
 GETDATE());
-GOUSE [EDUAR_aspnet_services]
+GO
+
+USE [EDUAR_aspnet_services]
 
 INSERT INTO aspnet_Membership([ApplicationId], [UserId], [Password], [PasswordFormat], [PasswordSalt], [MobilePIN], [Email], [LoweredEmail], [PasswordQuestion], [PasswordAnswer], [IsApproved], [IsLockedOut], [CreateDate], [LastLoginDate], [LastPasswordChangedDate], [LastLockoutDate], [FailedPasswordAttemptCount], [FailedPasswordAttemptWindowStart], [FailedPasswordAnswerAttemptCount], [FailedPasswordAnswerAttemptWindowStart], [Comment]) VALUES ('340DD3A1-F04E-427C-8851-07EBECA2417A', 
 '379AA002-D108-4F26-9597-24CE888FFAEB', 
@@ -61,10 +65,10 @@ getdate(),
 0, 
 NULL);
 GO
+
 USE [EDUAR_aspnet_services]
 
 INSERT INTO aspnet_UsersInRoles ([UserId], [RoleId]) VALUES (
 '379AA002-D108-4F26-9597-24CE888FFAEB', 
 '41AA295B-7655-4D6D-8ED2-919F6EE6A02A');
 GO
-
