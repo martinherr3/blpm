@@ -1584,3 +1584,92 @@ GO
 
 INSERT INTO [yaf_prov_Application] ([ApplicationID],[ApplicationName],[ApplicationNameLwd],[Description]) VALUES ('2E42A11D-7CCD-4EA6-923C-DFB1EE5ACDFF','
 YetAnotherForum','yetanotherforum','NULL')
+
+USE [EDUAR_aspnet_services]
+GO
+
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_User] ON
+
+INSERT INTO [yaf_User]
+           (
+		    [UserID]
+		   ,[BoardID]
+           ,[ProviderUserKey]
+           ,[Name]
+           ,[DisplayName]
+           ,[Password]
+           ,[Email]
+           ,[Joined]
+           ,[LastVisit]
+           ,[IP]
+           ,[NumPosts]
+           ,[TimeZone]
+           ,[Avatar]
+           ,[Signature]
+           ,[AvatarImage]
+           ,[AvatarImageType]
+           ,[RankID]
+           ,[Suspended]
+           ,[LanguageFile]
+           ,[ThemeFile]
+           ,[UseSingleSignOn]
+           ,[TextEditor]
+           ,[OverrideDefaultThemes]
+           ,[PMNotification]
+           ,[AutoWatchTopics]
+           ,[DailyDigest]
+           ,[NotificationType]
+           ,[Flags]
+           ,[Points]
+           ,[Culture]
+           ,[IsFacebookUser]
+           ,[IsTwitterUser]
+           ,[UserStyle]
+           ,[StyleFlags])
+     VALUES
+           (
+		    1
+		   ,1
+           ,NULL
+           ,'Guest'
+           ,'Guest'
+           ,'-'
+           ,'proyecto.eduar2.0@gmail.com'
+           ,getdate()
+           ,getdate()
+           ,NULL
+           ,0
+           ,-180
+           ,NULL
+           ,NULL
+           ,NULL
+           ,NULL
+           ,2
+           ,NULL
+           ,NULL
+           ,NULL
+           ,0
+           ,NULL
+           ,1
+           ,1
+           ,0
+           ,0
+           ,10
+           ,6
+           ,0
+           ,NULL
+           ,0
+           ,0
+           ,'default!font-size: 8pt; font-style: italic; font-weight: bold; color: #0c7333/yafpro!font-size: 8pt; color: #6e1987'
+           ,0)
+GO
+
+SET IDENTITY_INSERT [EDUAR_aspnet_services].[dbo].[yaf_User] OFF
+
+INSERT INTO [dbo].[yaf_UserGroup]
+           ([UserID]
+           ,[GroupID])
+     VALUES
+           (1
+           ,2)
+GO
