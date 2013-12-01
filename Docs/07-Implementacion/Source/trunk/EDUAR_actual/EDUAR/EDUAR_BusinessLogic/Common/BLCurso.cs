@@ -229,6 +229,30 @@ namespace EDUAR_BusinessLogic.Common
                                               enuExceptionType.BusinessLogicException);
             }
         }
+
+        /// <summary>
+        /// Gets the cursos ciclo lectivo.
+        /// </summary>
+        /// <param name="nivel">The nivel.</param>
+        /// <param name="cicloLectivo">The ciclo lectivo.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomizedException"></exception>
+        public List<CursoCicloLectivo> GetCursosCicloLectivo(Curso curso, CicloLectivo cicloLectivo)
+        {
+            try
+            {
+                return DataAcces.GetCursosCicloLectivo(curso, cicloLectivo);
+            }
+            catch (CustomizedException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomizedException(string.Format("Fallo en {0} - GetCursosCicloLectivo", ClassName), ex,
+                                              enuExceptionType.BusinessLogicException);
+            }
+        }
         #endregion
     }
 }

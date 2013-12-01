@@ -133,10 +133,22 @@ namespace EDUAR_UI
                 if (Session["listaCursos"] == null && cicloLectivoActual != null)
                 {
                     BLCurso objBLCurso = new BLCurso();
-
-                    Nivel objFiltro = new Nivel();
-                    objFiltro.idNivel = idNivel;
+                    //Nivel objFiltro = new Nivel();
+                    Curso objFiltro = new Curso();
+                    objFiltro.nivel.idNivel = idNivel;
+                    if (User.IsInRole(enumRoles.Docente.ToString()))
+                        //nombre del usuario logueado
+                        objFiltro.nombre = User.Identity.Name;
                     listaCursos = objBLCurso.GetCursosCicloLectivo(objFiltro, cicloLectivoActual);
+
+                    //BLCicloLectivo objBLCicloLectivo = new BLCicloLectivo();
+                    //Asignatura objFiltro2 = new Asignatura();
+                    //objFiltro2.curso.cicloLectivo = cicloLectivoActual;
+                    //if (User.IsInRole(enumRoles.Docente.ToString()))
+                    //    //nombre del usuario logueado
+                    //    objFiltro2.docente.username = User.Identity.Name;
+                    //listaCursos = objBLCicloLectivo.GetCursosByAsignatura(objFiltro);
+
                 }
                 return (List<CursoCicloLectivo>)Session["listaCursos"];
             }
