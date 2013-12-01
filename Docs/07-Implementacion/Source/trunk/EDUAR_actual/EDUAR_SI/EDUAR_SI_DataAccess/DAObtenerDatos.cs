@@ -1108,7 +1108,8 @@ namespace EDUAR_SI_DataAccess
                                                 ,fk_alumnocursociclolectivo_id
                                                 ,fk_tipoasistencia_id
                                                 ,fecha 
-                                            FROM asistencia";
+                                            FROM asistencia
+                                            WHERE fk_tipoasistencia_id<>1";
                     conMySQL.Open();
 
                     MySqlDataReader reader = command.ExecuteReader();
