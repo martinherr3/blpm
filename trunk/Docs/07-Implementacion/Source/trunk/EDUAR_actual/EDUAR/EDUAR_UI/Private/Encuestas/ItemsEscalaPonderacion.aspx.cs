@@ -282,6 +282,7 @@ namespace EDUAR_UI
 				{
 					case "Editar":
 						propValorEscala.idValorEscala = Convert.ToInt32(e.CommandArgument.ToString());
+                        propValorEscala = listaValoresEscala.Find(p => p.idValorEscala == Convert.ToInt32(e.CommandArgument.ToString()));
 						CargaValorEscala();
 						break;
 					case "Eliminar":
@@ -407,11 +408,10 @@ namespace EDUAR_UI
 			ValorEscalaMedicion entidad = new ValorEscalaMedicion();
 			entidad = propValorEscala;
 			entidad.idEscalaMedicion = escalaMedicionSesion.idEscala;
-
-			if (!esNuevo)
-			{
+            entidad.orden = propValorEscala.orden;
+			
+            if (!esNuevo)
 				entidad.idValorEscala = propValorEscala.idValorEscala;
-			}
 
 			entidad.nombre = txtNombreEdit.Text.Trim();
 			entidad.descripcion = txtDescripcionEdit.Text.Trim();
