@@ -173,7 +173,7 @@ namespace EDUAR_UI
                     divReporte.Visible = false;
                 }
 
-                ddlCicloLectivo.Attributes.Add("onchange", "onChangeCicloLectivo('" + ddlCicloLectivo.ClientID + "','" + ddlCurso.ClientID + "')");
+                //ddlCicloLectivo.Attributes.Add("onchange", "onChangeCicloLectivo('" + ddlCicloLectivo.ClientID + "','" + ddlCurso.ClientID + "')");
             }
             catch (Exception ex)
             {

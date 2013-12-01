@@ -50,19 +50,20 @@
                     <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="top" class="TD160px">
-                    <asp:UpdatePanel ID="udpCicloLectivo" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged"
-                                CausesValidation="true" ValidationGroup="vlsValidador" CssClass="TD140px">
-                            </asp:DropDownList>
-                            <asp:CompareValidator ID="CompareValidator1" ErrorMessage="El campo Ciclo Lectivo es requerido"
-                                ControlToValidate="ddlCicloLectivo" Operator="GreaterThan" Type="Integer" ValidationGroup="vlsValidador"
-                                ValueToCompare="0" runat="server" Display="Dynamic" Font-Bold="true" ForeColor="Red">*</asp:CompareValidator>
+                    <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged"
+                        CssClass="TD140px" CausesValidation="false">
+                    </asp:DropDownList>
+                    <%--<asp:CompareValidator ID="CompareValidator1" ErrorMessage="El campo Ciclo Lectivo es requerido"
+                        ControlToValidate="ddlCicloLectivo" Operator="GreaterThan" Type="Integer" ValidationGroup="vlsValidador"
+                        ValueToCompare="0" runat="server" Display="Dynamic" Font-Bold="true" ForeColor="Red">*</asp:CompareValidator>--%>
+                    <%--<asp:UpdatePanel ID="udpCicloLectivo" runat="server" UpdateMode="Conditional">
+                       <ContentTemplate>
+                            
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
                         </Triggers>
-                    </asp:UpdatePanel>
+                    </asp:UpdatePanel>--%>
                 </td>
                 <td valign="top" class="TD160px">
                     <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
@@ -92,6 +93,7 @@
                         </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>
