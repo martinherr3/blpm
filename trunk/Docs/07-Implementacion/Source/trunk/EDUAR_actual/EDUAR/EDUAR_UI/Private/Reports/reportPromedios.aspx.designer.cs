@@ -76,15 +76,6 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.Label lblCicloLectivo;
         
         /// <summary>
-        /// Control udpCicloLectivo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel udpCicloLectivo;
-        
-        /// <summary>
         /// Control ddlCicloLectivo.
         /// </summary>
         /// <remarks>
@@ -92,15 +83,6 @@ namespace EDUAR_UI {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCicloLectivo;
-        
-        /// <summary>
-        /// Control CompareValidator1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
         
         /// <summary>
         /// Control lblCurso.

@@ -309,7 +309,7 @@ namespace EDUAR_UI
 					ddlAsignatura.Visible = true;
 				}
 
-				ddlCicloLectivo.Attributes.Add("onchange", "onChangeCicloLectivo('" + ddlCicloLectivo.ClientID + "','" + ddlCurso.ClientID + "')");
+                //ddlCicloLectivo.Attributes.Add("onchange", "onChangeCicloLectivo('" + ddlCicloLectivo.ClientID + "','" + ddlCurso.ClientID + "')");
 			}
 			catch (Exception ex)
 			{
@@ -1312,10 +1312,25 @@ namespace EDUAR_UI
 		{
 			int idCicloLectivo = 0;
 			idCicloLectivo = Convert.ToInt32(ddlCicloLectivo.SelectedValue);
-			CargarComboCursos(idCicloLectivo, ddlCurso);
-			CargarComboPeriodos(idCicloLectivo, ddlPeriodo);
-			ddlCurso.Enabled = true;
-			ddlPeriodo.Enabled = true;
+            if (idCicloLectivo > 0)
+            {
+                CargarComboCursos(idCicloLectivo, ddlCurso);
+                CargarComboPeriodos(idCicloLectivo, ddlPeriodo);
+            }
+            else
+            {
+                if (ddlCurso.Items.Count > 0)
+                {
+                    ddlCurso.Items.Clear();
+                    ddlCurso.Enabled = false;
+                }
+                ddlAlumno.Items.Clear();
+                ddlAsignatura.Items.Clear();
+                ddlPeriodo.Items.Clear();
+            }
+			
+            ddlCurso.Enabled = (idCicloLectivo > 0);
+            ddlPeriodo.Enabled = (idCicloLectivo > 0);
 			udpCurso.Update();
 			udpPeriodo.Update();
 		}

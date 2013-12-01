@@ -50,16 +50,16 @@
                     <asp:Label ID="lblCicloLectivo" runat="server" Text="Ciclo Lectivo:" CssClass="lblCriterios"></asp:Label>
                 </td>
                 <td valign="middle" class="TD160px">
-                    <asp:UpdatePanel ID="udpCicloLectivo" runat="server" UpdateMode="Conditional">
+                    <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged"
+                        CssClass="TD140px" CausesValidation="false">
+                    </asp:DropDownList>
+                    <%-- <asp:UpdatePanel ID="udpCicloLectivo" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <asp:DropDownList ID="ddlCicloLectivo" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCicloLectivo_SelectedIndexChanged"
-                                CausesValidation="true"  CssClass="TD140px"> <%--ValidationGroup="vlsValidador"--%>
-                            </asp:DropDownList>
                         </ContentTemplate>
                         <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
                         </Triggers>
-                    </asp:UpdatePanel>
+                    </asp:UpdatePanel>--%>
                 </td>
                 <td valign="middle" class="TD160px">
                     <asp:Label ID="lblCurso" runat="server" Text="Curso:" CssClass="lblCriterios"></asp:Label>
@@ -91,6 +91,7 @@
                             </asp:DropDownList>
                         </ContentTemplate>
                         <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
                             <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
                         </Triggers>
                     </asp:UpdatePanel>
@@ -108,6 +109,7 @@
                             </select>
                         </ContentTemplate>
                         <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="ddlCicloLectivo" EventName="SelectedIndexChanged" />
                             <asp:AsyncPostBackTrigger ControlID="ddlCurso" EventName="SelectedIndexChanged" />
                         </Triggers>
                     </asp:UpdatePanel>
