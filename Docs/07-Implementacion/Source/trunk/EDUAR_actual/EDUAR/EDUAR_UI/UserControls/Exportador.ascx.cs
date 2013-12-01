@@ -104,7 +104,8 @@ namespace EDUAR_UI.UserControls
         protected void btnExportar_Click(object sender, EventArgs e)
         {
             StringBuilder filtros = new StringBuilder();
-            filtros.AppendLine("- Curso: " + cursoActual.curso.nombre);
+            if (cursoActual.curso != null && cursoActual.curso.nombre != null && !string.IsNullOrEmpty(cursoActual.curso.nombre))
+                filtros.AppendLine("- Curso: " + cursoActual.curso.nombre);
 
             if (Desde > DateTime.MinValue)
                 filtros.AppendLine("- Fecha Desde: " + Desde.ToShortDateString());

@@ -31,6 +31,12 @@
             <asp:AsyncPostBackTrigger ControlID="btnNuevo" EventName="Click" />
         </Triggers>
     </asp:UpdatePanel>
+    <table class="tablaInterna" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+            </td>
+        </tr>
+    </table>
     <asp:UpdatePanel ID="udpGrilla" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
             <asp:GridView ID="gvwItemsEscala" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
@@ -42,9 +48,9 @@
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
                             <asp:ImageButton ID="editarItemEscala" runat="server" CommandName="Editar" CommandArgument='<%# Bind("idValorEscala") %>'
-                                ToolTip="Editar valor escala" ImageUrl="~/Images/Grillas/action_edit.png" Visible='true'/>
+                                ToolTip="Editar valor escala" ImageUrl="~/Images/Grillas/action_edit.png" Visible='true' />
                             <asp:ImageButton ImageUrl="~/Images/Grillas/action_delete.png" runat="server" ID="btnEliminar"
-                                AlternateText="Eliminar" ToolTip="Eliminar Item" CommandName="Eliminar" CommandArgument='<%# Bind("idValorEscala") %>'/>
+                                AlternateText="Eliminar" ToolTip="Eliminar Item" CommandName="Eliminar" CommandArgument='<%# Bind("idValorEscala") %>' />
                             <!--OnClientClick="javascript:return jConfirm('¿Desea <b>eliminar</b> la pregunta seleccionada?', 'Confirmación')"-->
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -52,7 +58,8 @@
                         <HeaderStyle HorizontalAlign="center" Width="10%" />
                         <ItemStyle HorizontalAlign="center" />
                         <ItemTemplate>
-                            <table class="tablaInternaSinBorde" border="0" cellpadding="0" cellspacing="0" style="border: none; border-collapse: collapse">
+                            <table class="tablaInternaSinBorde" border="0" cellpadding="0" cellspacing="0" style="border: none;
+                                border-collapse: collapse">
                                 <tr>
                                     <td style="width: 75%; text-align: center; border: none">
                                         <asp:ImageButton ID="subirOrden" runat="server" CommandName="Subir" CommandArgument='<%# Bind("idValorEscala") %>'
@@ -63,13 +70,13 @@
                                             Visible='<%# Convert.ToInt32(Eval("orden")) < Convert.ToInt32(Eval("cantidadValores")) ? true : false %>' />
                                     </td>
                                     <td style="width: 25%; text-align: center; border: none">
-                                        <asp:Label ID="lblOrden" runat="server" Text='<%# Bind("orden")%>' Font-Bold="true" ToolTip="Posicion"></asp:Label>
+                                        <asp:Label ID="lblOrden" runat="server" Text='<%# Bind("orden")%>' Font-Bold="true"
+                                            ToolTip="Posicion"></asp:Label>
                                     </td>
                                 </tr>
                             </table>
                         </ItemTemplate>
                     </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Nombre">
                         <HeaderStyle HorizontalAlign="left" Width="25%" />
                         <ItemStyle HorizontalAlign="left" />
@@ -90,7 +97,7 @@
             </asp:GridView>
             <asp:UpdatePanel ID="udpEdit" runat="server" UpdateMode="Conditional" Visible="false">
                 <ContentTemplate>
-                    <table class="tablaInterna" cellpadding="1" cellspacing="5">
+                    <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
                         <tr>
                             <td colspan="2">
                                 <h3>
