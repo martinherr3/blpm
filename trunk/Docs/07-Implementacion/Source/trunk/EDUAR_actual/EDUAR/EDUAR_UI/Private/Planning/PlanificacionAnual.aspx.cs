@@ -338,6 +338,7 @@ namespace EDUAR_UI
                         break;
                     case enumAcciones.SolicitarAprobacion:
                         SolicitarAprobacion();
+                        chkSolicitarAprobacion.Enabled = false;
                         udpAprobacion.Update();
                         break;
                     default:
@@ -448,14 +449,14 @@ namespace EDUAR_UI
                     ddlAsignatura.Enabled = true;
                     ddlNivel.Enabled = true;
 
-                    chkAprobada.Enabled = false;
-                    chkSolicitarAprobacion.Enabled = false;
-                    chkAprobada.Checked = false;
-                    chkSolicitarAprobacion.Checked = false;
+                    //chkAprobada.Enabled = false;
+                    //chkSolicitarAprobacion.Enabled = false;
+                    //chkAprobada.Checked = false;
+                    //chkSolicitarAprobacion.Checked = false;
 
                     divFiltros.Visible = true;
                     divControles.Visible = false;
-                    divAprobacion.Visible = false;
+                    divAprobacion.Visible = planificacionEditar.listaTemasPlanificacion.Count > 0;
 
                     udpBotonera.Update();
                     udpDivControles.Update();
