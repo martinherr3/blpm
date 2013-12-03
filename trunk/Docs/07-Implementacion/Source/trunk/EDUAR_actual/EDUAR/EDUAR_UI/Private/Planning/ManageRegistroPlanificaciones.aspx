@@ -50,7 +50,8 @@
             <asp:GridView ID="gvwReporte" runat="server" CssClass="DatosLista" SkinID="gridviewSkinPagerListado"
                 AutoGenerateColumns="false" AllowPaging="true" Width="80%" DataKeyNames="idPlanificacionAnual"
                 OnRowCommand="gvwReporte_RowCommand" 
-                onselectedindexchanging="gvwReporte_SelectedIndexChanging">
+                onselectedindexchanging="gvwReporte_SelectedIndexChanging" 
+                onrowdatabound="gvwReporte_RowDataBound">
                 <Columns>
                     <asp:TemplateField HeaderText="Acciones">
                         <HeaderStyle HorizontalAlign="center" Width="5%" />
@@ -94,6 +95,13 @@
                             <asp:Label ID="lblNivel" runat="server" Text='<%# Bind("curricula.nivel.nombre") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <%--<asp:TemplateField HeaderText="Cursos">
+                        <HeaderStyle HorizontalAlign="Center" Width="7%" />
+                        <ItemStyle HorizontalAlign="Center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblCurso" runat="server" Text='<%# Bind("listaCursos") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="Orientación">
                         <HeaderStyle HorizontalAlign="left" Width="30%" />
                         <ItemStyle HorizontalAlign="left" />

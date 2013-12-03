@@ -10,6 +10,7 @@ using EDUAR_UI.Utilidades;
 using EDUAR_Utility.Constantes;
 using EDUAR_Utility.Enumeraciones;
 using EDUAR_BusinessLogic.Shared;
+using System.Data;
 
 
 
@@ -349,18 +350,15 @@ namespace EDUAR_UI
             objBLPlanificacion = new BLPlanificacionAnual();
             PlanificacionAnual entidad = new PlanificacionAnual();
             if (this.idNivel > 0)
-            {
                 entidad.curricula.nivel.idNivel = this.idNivel;
-            }
             if (this.idAsignatura > 0)
-            {
                 entidad.curricula.asignatura.idAsignatura = this.idAsignatura;
-            }
             entidad.cicloLectivo = cicloLectivoActual;
             entidad.solicitarAprobacion = true;
             entidad.pendienteAprobacion = true;
             listaPlanificaciones = objBLPlanificacion.GetPlanificacion(entidad);
-           // calcularCobertura();
+            // calcularCobertura();
+
         }
 
         /// <summary>
@@ -471,5 +469,25 @@ namespace EDUAR_UI
             Response.Redirect("~/Private/Planning/PlanificacionAnual.aspx", false);
         }
         #endregion
+
+        protected void gvwReporte_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //        If e.Row.RowType = DataControlRowType.DataRow Then
+            //    e.Row.ToolTip = TryCast(e.Row.DataItem, DataRowView)("Description").ToString()
+            //End If
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                PlanificacionAnual Plan = listaPlanificaciones[e.Row.RowIndex];
+
+                //string lista = objeto.Row.Table.Columns["listaCursos"].ToString();
+                //PlanificacionAnual Plan = (PlanificacionAnual)objeto.Row.;
+                e.Row.ToolTip = "Cursos: ";
+                if (Plan != null && Plan.listaCursos != null)
+                {
+                    foreach (CursoCicloLectivo item in Plan.listaCursos)
+                        e.Row.ToolTip += "\n" + item.curso.nombre + " ";
+                }
+            }
+        }
     }
 }

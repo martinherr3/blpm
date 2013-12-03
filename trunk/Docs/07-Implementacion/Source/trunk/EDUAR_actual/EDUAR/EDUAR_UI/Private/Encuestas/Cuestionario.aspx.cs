@@ -159,11 +159,10 @@ namespace EDUAR_UI
             try
             {
                 Master.BotonAvisoAceptar += (VentanaAceptar);
-                if(idEncuesta == 0)
+                if (idEncuesta == 0)
                     Response.Redirect("~/Private/Account/Welcome.aspx", true);
                 if (!Page.IsPostBack)
                 {
-                    //cargarEncabezado();
                     LimpiarPantalla();
                     CargarEncuesta(idEncuesta);
                     AccionPagina = enumAcciones.Buscar;
@@ -171,14 +170,14 @@ namespace EDUAR_UI
                 }
                 else
                 {
-                    //if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada))
                     if (idEncuesta > 0)
                     {
                         if (AccionPagina == enumAcciones.Buscar
                             ||
                             AccionPagina == enumAcciones.Responder
                             ||
-                            AccionPagina == enumAcciones.Error)
+                            AccionPagina == enumAcciones.Error
+                            )
                             CargarEncuesta(idEncuesta);
                         else
                             if (Request.Params["__EVENTTARGET"] == "GuardarRespuesta")
@@ -202,21 +201,17 @@ namespace EDUAR_UI
         {
             try
             {
-                //int idEncuestaSeleccionada;
                 switch (AccionPagina)
                 {
                     case enumAcciones.Buscar:
                     case enumAcciones.Responder:
-                        //if (Int32.TryParse(ddlEncuesta.SelectedValue, out idEncuestaSeleccionada))
-                        //    CargarEncuesta(idEncuestaSeleccionada);
                         CargarEncuesta(idEncuesta);
+                        udpFormulario.Visible = true;
+                        udpFormulario.Update();
                         break;
                     case enumAcciones.Guardar:
                         AccionPagina = enumAcciones.Limpiar;
-                        //CargarCombos();
                         LimpiarPantalla();
-                        //udpFormulario.Update();
-                        //udpSeleccionEncuesta.Update();
                         idEncuesta = 0;
                         Response.Redirect("~/Private/Account/Welcome.aspx", true);
                         break;
@@ -240,8 +235,6 @@ namespace EDUAR_UI
             try
             {
                 LimpiarPantalla();
-                //int idEncuesta = 0;
-                //if (int.TryParse(ddlEncuesta.SelectedValue, out idEncuesta) && idEncuesta > 0)
                 if (idEncuesta > 0)
                 {
                     CargarEncuesta(idEncuesta);
@@ -272,47 +265,17 @@ namespace EDUAR_UI
                     AccionPagina = enumAcciones.Guardar;
                     Master.MostrarMensaje("Gracias", "Muchas Gracias por contestar nuestra encuesta.", enumTipoVentanaInformacion.Satisfactorio);
                 }
-                else
-                {
-                    AccionPagina = enumAcciones.Error;
-                    Master.MostrarMensaje("Error de Validación", "Existen preguntas sin responder.", enumTipoVentanaInformacion.Advertencia);
-                }
+                //else
+                //{
+                //    AccionPagina = enumAcciones.Error;
+                //    Master.MostrarMensaje("Error de Validación", "Existen preguntas sin responder.", enumTipoVentanaInformacion.Advertencia);
+                //}
             }
             catch (Exception ex)
             {
                 AccionPagina = enumAcciones.Limpiar;
                 Master.ManageExceptions(ex);
             }
-        }
-
-        /// <summary>
-        /// Guardars the respuestas.
-        /// </summary>
-        private void GuardarRespuestas()
-        {
-            // REGISTRAR QUE LA ENCUESTA DISPONIBLE HA SIDO RESPONDIDA
-            encuestaSeleccionada.respondida = true;
-            encuestaSeleccionada.fechaRespuesta = DateTime.Now;
-
-            encuestaSeleccionada.listaRespuestas = ListaRespuestas;
-
-            objBLEncuestaDisponible = new BLEncuestaDisponible(encuestaSeleccionada);
-            objBLEncuestaDisponible.Save();
-
-        }
-
-        /// <summary>
-        /// Validars the pagina.
-        /// </summary>
-        /// <returns></returns>
-        private bool ValidarPagina()
-        {
-            int contRespuestas = 0;
-            foreach (Respuesta item in ListaRespuestas)
-            {
-                if (item.respuestaSeleccion > 0) contRespuestas++;
-            }
-            return contRespuestas == cantRespuestasMinimas;
         }
 
         /// <summary>
@@ -324,7 +287,6 @@ namespace EDUAR_UI
         {
             try
             {
-                //ddlEncuesta.SelectedIndex = 0;
                 LimpiarPantalla();
                 idEncuesta = 0;
                 udpFormulario.Update();
@@ -336,42 +298,22 @@ namespace EDUAR_UI
             }
         }
 
-        /// <summary>
-        /// Handles the Changed event of the rating control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="AjaxControlToolkit.RatingEventArgs"/> instance containing the event data.</param>
-        protected void rating_Changed(object sender, RatingEventArgs e)
+        protected void ddlEncuesta_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                AccionPagina = enumAcciones.Responder;
-                Respuesta respuestaPuntual = new Respuesta();
-
-                respuestaPuntual.pregunta.textoPregunta = ((Panel)sender).ID;
-
-                string[] aux = ((Panel)sender).ID.Split('_');
-                int auxIdPregunta = 0;
-                if (aux.Length == 2)
-                    int.TryParse(aux[1], out auxIdPregunta);
-
-                Respuesta miRespuesta = ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((Panel)sender).ID);
-                if (miRespuesta != null)
+                LimpiarPantalla();
+                if (idEncuesta > 0)
                 {
-                    ListaRespuestas.Find(p => p.pregunta.textoPregunta == ((Panel)sender).ID).respuestaSeleccion = Convert.ToInt16(e.Value);
+                    CargarEncuesta(idEncuesta);
+                    AccionPagina = enumAcciones.Buscar;
+                    udpFormulario.Visible = true;
                 }
-                else
-                {
-                    respuestaPuntual = respuestaSkeleton;
-
-                    respuestaPuntual.pregunta.idPregunta = auxIdPregunta;
-                    respuestaPuntual.pregunta.textoPregunta = ((Panel)sender).ID;
-                    respuestaPuntual.respuestaSeleccion = Convert.ToInt16(e.Value);
-                    ListaRespuestas.Add(respuestaPuntual);
-                }
+                udpFormulario.Update();
             }
             catch (Exception ex)
             {
+                AccionPagina = enumAcciones.Limpiar;
                 Master.ManageExceptions(ex);
             }
         }
@@ -420,6 +362,30 @@ namespace EDUAR_UI
             }
         }
 
+        protected void botonera_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RadioButtonList boton = (RadioButtonList)sender;
+            AccionPagina = enumAcciones.Responder;
+            Respuesta respuestaPuntual = new Respuesta();
+
+            string[] aux = boton.ID.Split('_');
+            int auxIdPregunta = 0;
+            if (aux.Length == 2)
+                int.TryParse(aux[1], out auxIdPregunta);
+
+            Respuesta miRespuesta = ListaRespuestas.Find(p => p.pregunta.idPregunta == auxIdPregunta);
+            if (miRespuesta != null)
+            {
+                ListaRespuestas.Find(p => p.pregunta.idPregunta == auxIdPregunta).respuestaSeleccion = Convert.ToInt16(boton.SelectedValue);
+            }
+            else
+            {
+                respuestaPuntual = respuestaSkeleton;
+                respuestaPuntual.pregunta.idPregunta = auxIdPregunta;
+                respuestaPuntual.respuestaSeleccion = Convert.ToInt16(boton.SelectedValue);
+                ListaRespuestas.Add(respuestaPuntual);
+            }
+        }
         #endregion
 
         #region --[Métodos Privados]--
@@ -443,8 +409,6 @@ namespace EDUAR_UI
 
             List<Encuesta> listaEncuesta = objBLEncuestaDisponible.GetEncuestasDisponibles(encuestaSkeleton);
             if (listaEncuesta.Count == 0)
-                //    UIUtilidades.BindCombo<Encuesta>(ddlEncuesta, listaEncuesta, "idEncuesta", "nombreEncuesta", true);
-                //else
                 Response.Redirect("~/Private/Account/Welcome.aspx", true);
         }
 
@@ -453,7 +417,6 @@ namespace EDUAR_UI
         /// </summary>
         private void LimpiarPantalla()
         {
-            //ddlEncuesta.SelectedIndex = 0;
             cantRespuestasMinimas = 0;
             encuestaPuntual = new Encuesta();
             listaCategorias = new List<CategoriaPregunta>();
@@ -496,16 +459,11 @@ namespace EDUAR_UI
         {
             objBLEncuesta = new BLEncuesta();
 
-            //objBLEncuestaDisponible = new BLEncuestaDisponible();
-
             objBLPregunta = new BLPregunta();
-
-            //List<CategoriaPregunta> listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(encuestaSeleccionada.encuesta);
 
             if (listaCategorias.Count == 0)
                 listaCategorias = objBLEncuesta.GetCategoriasPorEncuesta(entidad);
 
-            //lblNombreEncuesta.Text = encuestaSeleccionada.encuesta.nombreEncuesta;
             lblNombreEncuesta.Text = entidad.nombreEncuesta;
 
             Label lblCategoria;
@@ -594,36 +552,6 @@ namespace EDUAR_UI
                             foreach (ValorEscalaMedicion item in lista)
                                 botonera.Items.Add(new ListItem(item.nombre, item.idValorEscala.ToString()));
 
-                            //AjaxControlToolkit.Rating rating = new AjaxControlToolkit.Rating();
-
-                            //rating.ID = "respuesta_" + pregunta.idPregunta.ToString();
-
-                            //objBLEscala = new BLEscala();
-
-                            //int quantity = objBLEscala.GetCantidadValores(pregunta.escala).Count;
-                            //string firstValue = objBLEscala.GetCantidadValores(pregunta.escala)[0].nombre;
-                            //string lastValue = objBLEscala.GetCantidadValores(pregunta.escala)[quantity - 1].nombre;
-
-                            //rating.MaxRating = quantity;
-
-                            //rating.StarCssClass = "ratingStar";
-                            //rating.WaitingStarCssClass = "savedRatingStar";
-                            //rating.FilledStarCssClass = "filledRatingStar";
-                            //rating.EmptyStarCssClass = "emptyRatingStar";
-                            //rating.AutoPostBack = false;
-
-                            //if (ListaRespuestas != null)
-                            //{
-                            //    miRespuesta = ListaRespuestas.Find(p => p.pregunta.textoPregunta == rating.ID);
-                            //    if (miRespuesta != null) rating.CurrentRating = miRespuesta.respuestaSeleccion;
-                            //}
-                            //rating.Changed += new AjaxControlToolkit.RatingEventHandler(rating_Changed);
-
-                            //panelRespuesta.Controls.Add(new LiteralControl("<br/>"));
-                            //panelRespuesta.Controls.Add(new LiteralControl("<table border=0><tr><td><i>" + firstValue + "</i></td><td>"));
-                            //panelRespuesta.Controls.Add(rating);
-                            //panelRespuesta.Controls.Add(new LiteralControl("</td><td><i>" + lastValue + "</i></td></tr></table>"));
-
                             panelRespuesta.Controls.Add(botonera);
                             cantRespuestasMinimas++;
                         }
@@ -637,55 +565,32 @@ namespace EDUAR_UI
             }
         }
 
-        void botonera_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Guardars the respuestas.
+        /// </summary>
+        private void GuardarRespuestas()
         {
-            RadioButtonList boton = (RadioButtonList)sender;
-            AccionPagina = enumAcciones.Responder;
-            Respuesta respuestaPuntual = new Respuesta();
+            // REGISTRAR QUE LA ENCUESTA DISPONIBLE HA SIDO RESPONDIDA
+            encuestaSeleccionada.respondida = true;
+            encuestaSeleccionada.fechaRespuesta = DateTime.Now;
 
-            //respuestaPuntual.pregunta.textoPregunta = ((Panel)sender).ID;
+            encuestaSeleccionada.listaRespuestas = ListaRespuestas;
 
-            string[] aux = boton.ID.Split('_');
-            int auxIdPregunta = 0;
-            if (aux.Length == 2)
-                int.TryParse(aux[1], out auxIdPregunta);
+            objBLEncuestaDisponible = new BLEncuestaDisponible(encuestaSeleccionada);
+            objBLEncuestaDisponible.Save();
 
-            Respuesta miRespuesta = ListaRespuestas.Find(p => p.pregunta.idPregunta == auxIdPregunta);
-            if (miRespuesta != null)
-            {
-                ListaRespuestas.Find(p => p.pregunta.idPregunta == auxIdPregunta).respuestaSeleccion = Convert.ToInt16(boton.SelectedValue);
-            }
-            else
-            {
-                respuestaPuntual = respuestaSkeleton;
-
-                respuestaPuntual.pregunta.idPregunta = auxIdPregunta;
-                //respuestaPuntual.pregunta.textoPregunta = ((Panel)sender).ID;
-                respuestaPuntual.respuestaSeleccion = Convert.ToInt16(boton.SelectedValue);
-                ListaRespuestas.Add(respuestaPuntual);
-            }
         }
 
-        protected void ddlEncuesta_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Validars the pagina.
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidarPagina()
         {
-            try
-            {
-                LimpiarPantalla();
-                //int idEncuesta = 0;
-                //if (int.TryParse(ddlEncuesta.SelectedValue, out idEncuesta) && idEncuesta > 0)
-                if (idEncuesta > 0)
-                {
-                    CargarEncuesta(idEncuesta);
-                    AccionPagina = enumAcciones.Buscar;
-                    udpFormulario.Visible = true;
-                }
-                udpFormulario.Update();
-            }
-            catch (Exception ex)
-            {
-                AccionPagina = enumAcciones.Limpiar;
-                Master.ManageExceptions(ex);
-            }
+            int contRespuestas = 0;
+            foreach (Respuesta item in ListaRespuestas)
+                if (item.respuestaSeleccion > 0) contRespuestas++;
+            return contRespuestas >= cantRespuestasMinimas;
         }
         #endregion
     }
