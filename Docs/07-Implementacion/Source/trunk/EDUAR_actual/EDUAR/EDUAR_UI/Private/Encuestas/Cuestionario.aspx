@@ -22,14 +22,6 @@
                             <asp:Label ID="lblNombreEncuesta" runat="server" CssClass="lblTitulo" /></h2>
                             <br />
                     </td>
-                    <%--<td class="">
-                        <h2>
-                            Encuesta(s) disponible(s)</h2>
-                         <br />
-                    </td>
-                    <td align="left" rowspan="2" style="width: 75%">
-                        <asp:DropDownList ID="ddlEncuesta" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlEncuesta_SelectedIndexChanged" />
-                    </td>--%>
                 </tr>
             </table>
             <table class="tablaInterna" cellpadding="0" cellspacing="0">
@@ -43,7 +35,6 @@
                     <table class="tablaInternaSinBorde" cellpadding="1" cellspacing="5">
                         <tr>
                             <td>
-                                <%--<asp:Label ID="lblNombreEncuesta" runat="server" CssClass="lblTitulo" />--%>
                             </td>
                         </tr>
                     </table>
@@ -69,12 +60,10 @@
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
                     <asp:AsyncPostBackTrigger ControlID="btnCancelar" EventName="Click" />
-                    <%--<asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />--%>
                 </Triggers>
             </asp:UpdatePanel>
         </ContentTemplate>
         <Triggers>
-            <%--<asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />--%>
             <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
             <asp:AsyncPostBackTrigger ControlID="btnCancelar" EventName="Click" />
         </Triggers>

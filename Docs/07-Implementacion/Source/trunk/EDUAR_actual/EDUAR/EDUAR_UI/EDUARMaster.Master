@@ -202,7 +202,7 @@
                 </asp:ContentPlaceHolder>
             </div>
             <div class="clear">
-                <table style="width: 1020px">
+                <table style="width: 100%">
                     <tr>
                         <td style="width: 100%; text-align: center">
                             Copyright (c)
