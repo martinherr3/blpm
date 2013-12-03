@@ -352,6 +352,7 @@ namespace EDUAR_UI
                         respuestaPuntual.pregunta.idPregunta = auxIdPregunta;
                         respuestaPuntual.pregunta.textoPregunta = ((TextBox)sender).ID;
                         respuestaPuntual.respuestaTextual = valor;
+                        respuestaPuntual.respuestaSeleccion = 0;
                         ListaRespuestas.Add(respuestaPuntual);
                     }
                 }
