@@ -296,10 +296,10 @@ namespace EDUAR_BusinessLogic.Common
 		/// <returns></returns>
 		public bool VerificarAgenda(EventoAgenda entidad, int idAsignatura)
 		{
-			return (DataAcces.VerificarAgendaEvaluacion(entidad, idAsignatura)
-				&& DataAcces.VerificarAgendaExcursiones(entidad)
-				&& DataAcces.VerificarAgendaReuniones(entidad)
-				&& DataAcces.VerificarAgendaRegistroClases(entidad, idAsignatura));
+			return (VerificarAgendaEvaluacion(entidad, idAsignatura)
+                && VerificarAgendaExcursion(entidad)
+				///&& VerificarAgendaReuniones(entidad)
+				&& VerificarAgendaRegistroClases(entidad, idAsignatura));
 		}
 
 		/// <summary>

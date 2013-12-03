@@ -591,7 +591,7 @@ namespace EDUAR_UI
             int contRespuestas = 0;
             foreach (Respuesta item in ListaRespuestas)
                 if (item.respuestaSeleccion > 0) contRespuestas++;
-            return contRespuestas >= cantRespuestasMinimas;
+            return contRespuestas == cantRespuestasMinimas;
         }
         #endregion
     }
