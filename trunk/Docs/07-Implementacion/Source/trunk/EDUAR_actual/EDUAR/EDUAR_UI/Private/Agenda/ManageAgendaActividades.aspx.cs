@@ -114,6 +114,7 @@ namespace EDUAR_UI
 				{
 					base.idNovedadConsulta = 0;
 					CargarPresentacion();
+
 					if (propAgenda.idAgendaActividad > 0)
 					{
 						CargarLista(propAgenda);
@@ -471,7 +472,8 @@ namespace EDUAR_UI
 		/// <summary>
 		/// Cargars the lista.
 		/// </summary>
-		/// <param name="entidad">The entidad.</param>
+		/// <param name="entidad">The entidad.</
+        /// param>
 		private void CargarLista(AgendaActividades entidad)
 		{
 			entidad.activo = true;

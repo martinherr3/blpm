@@ -594,10 +594,13 @@ namespace EDUAR_DataAccess.Common
 					objEvento.descripcion = reader["descripcion"].ToString();
 					objEvento.tipoEventoAgenda.descripcion = reader["tipoEvento"].ToString();
 
-					if (objEvento.fechaEvento >= DateTime.Now && objEvento.activo == true)
-					{
-						listaEventos.Add(objEvento);
-					}
+                    //COMENTADO PARA LA PRESENTACIÓN... NO DEJABA CONSULTAR HACIA ATRAS EN LAS FECHAS
+                    //if (objEvento.fechaEvento >= DateTime.Now && objEvento.activo == true)
+                    //{
+                    //    listaEventos.Add(objEvento);
+                    //}
+                    if (objEvento.activo == true)
+                        listaEventos.Add(objEvento);
 				}
 				return listaEventos;
 			}
