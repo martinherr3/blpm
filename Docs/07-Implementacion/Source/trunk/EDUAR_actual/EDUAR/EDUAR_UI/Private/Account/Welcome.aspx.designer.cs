@@ -787,6 +787,33 @@ namespace EDUAR_UI {
         protected global::System.Web.UI.WebControls.ImageButton btnVerConfigIndicadores;
         
         /// <summary>
+        /// Control divCitacionTutor.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCitacionTutor;
+        
+        /// <summary>
+        /// Control lblCitacionTutor.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCitacionTutor;
+        
+        /// <summary>
+        /// Control lnkCitacionTutor.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkCitacionTutor;
+        
+        /// <summary>
         /// Control HiddenField7.
         /// </summary>
         /// <remarks>

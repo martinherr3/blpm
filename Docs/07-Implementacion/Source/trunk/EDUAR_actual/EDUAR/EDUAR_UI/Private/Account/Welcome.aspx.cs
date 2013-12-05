@@ -157,6 +157,7 @@ namespace EDUAR_UI
                         habilitarCurso(false);
                         BuscarEncuestas();
 
+                        BuscarCitaciones();
                         ddlAlumnos.Items.Clear();
                         ddlAlumnos.DataSource = null;
                         foreach (AlumnoCursoCicloLectivo item in listaAlumnos)
@@ -210,6 +211,18 @@ namespace EDUAR_UI
                 AvisoMostrar = true;
                 AvisoExcepcion = ex;
             }
+        }
+
+        private void BuscarCitaciones()
+        {
+            BLCitacion objBLCitacion = new BLCitacion();
+            Citacion entidad = new Citacion();
+            entidad.tutor.username = User.Identity.Name;
+            entidad.activo = true;
+            entidad.fechaEventoDesde = DateTime.Now;
+            entidad.fechaEventoHasta = cicloLectivoActual.fechaFin;
+            if (objBLCitacion.GetCitaciones(entidad).Count > 0)
+                divCitacionTutor.Visible = true;
         }
 
         /// <summary>

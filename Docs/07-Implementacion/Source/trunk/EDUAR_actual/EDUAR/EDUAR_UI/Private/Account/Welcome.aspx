@@ -349,6 +349,18 @@
             </tr>
         </table>
     </asp:Panel>
+    <!--div Citaciones SOLO TUTOR-->
+    <div id="divCitacionTutor" runat="server" visible="false">
+        <table class="tablaInterna" width="100%" cellpadding="1" cellspacing="5" border="0">
+            <tr>
+                <td>
+                    <asp:Label ID="lblCitacionTutor" Text="Por favor, ingresa en la sección de " runat="server" Font-Bold="true" />
+                    [<asp:LinkButton ID="lnkCitacionTutor" Text="Citaciones" PostBackUrl="~/Private/Alumnos/CitacionesTutores.aspx"
+                        runat="server" />]
+                </td>
+            </tr>
+        </table>
+    </div>
     <!-- Encuestas: Tutor y Alumno -->
     <asp:HiddenField ID="HiddenField7" runat="server" />
     <ajaxToolkit:ModalPopupExtender ID="mpeResponderEncuesta" runat="server" PopupControlID="pnlResponderEncuesta"
