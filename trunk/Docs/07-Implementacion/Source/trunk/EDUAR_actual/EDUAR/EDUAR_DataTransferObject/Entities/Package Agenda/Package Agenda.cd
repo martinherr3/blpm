@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EDUAR_Entities.AgendaActividades" Collapsed="true">
+    <Position X="11.5" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAgEAgAACAAAAAABAEAAoABAAAABAQAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\AgendaActividades.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="cursoCicloLectivo" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaEventos" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.MotivoCitacion" Collapsed="true">
+    <Position X="14.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAACAAAACAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\MotivoCitacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Citacion" Collapsed="true">
+    <Position X="16.25" Y="6" Width="1.5" />
+    <AssociationLine Name="organizador" Type="EDUAR_Entities.Personal">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.153" Y="0.075" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="tutor" Type="EDUAR_Entities.Tutor" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.25" Y="6.375" />
+        <Point X="13.846" Y="6.375" />
+        <Point X="13.846" Y="2.938" />
+        <Point X="12.75" Y="2.938" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgAgAATAAAAAAAAAAAQAACIABEABAAAAAIAAAAQA=</HashCode>
+      <FileName>Entities\Package Agenda\Citacion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="cursoCicloLectivo" />
+      <Property Name="motivoCitacion" />
+      <Property Name="organizador" />
+      <Property Name="tutor" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.DetalleRegistroClases" Collapsed="true">
+    <Position X="3" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAgAAAAAAgAAIACAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\DetalleRegistroClases.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Evaluacion" Collapsed="true">
+    <Position X="9.25" Y="4.25" Width="1.75" />
+    <InheritanceLine Type="EDUAR_Entities.EventoAgenda" FixedFromPoint="true">
+      <Path>
+        <Point X="7.938" Y="3.691" />
+        <Point X="7.938" Y="3.875" />
+        <Point X="10.125" Y="3.875" />
+        <Point X="10.125" Y="4.25" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="asignatura" Type="EDUAR_Entities.Asignatura">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.923" Y="0.804" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAASAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\Evaluacion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="asignatura" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.EventoAgenda" Collapsed="true">
+    <Position X="6.5" Y="3" Width="1.75" />
+    <AssociationLine Name="tipoEventoAgenda" Type="EDUAR_Entities.TipoEventoAgenda" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.5" Y="3.188" />
+        <Point X="6.125" Y="3.188" />
+        <Point X="6.125" Y="2.621" />
+        <Point X="5" Y="2.621" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="usuario" Type="EDUAR_Entities.Persona">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.032" Y="0.179" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAwAAAQAAAQEAAgAAAIAAAAQAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\EventoAgenda.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="tipoEventoAgenda" />
+      <Property Name="usuario" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.EventoInstitucional" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="2" />
+    <AssociationLine Name="tipoEventoInstitucional" Type="EDUAR_Entities.TipoEventoInstitucional">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.927" Y="0.065" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgaAAAAAJAAAAAABAAAAAAABAAAAAOAAAAQA=</HashCode>
+      <FileName>Entities\Package Agenda\EventoInstitucional.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="organizador" />
+      <Property Name="tipoEventoInstitucional" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Excursion" Collapsed="true">
+    <Position X="5.5" Y="0.75" Width="1.5" />
+    <InheritanceLine Type="EDUAR_Entities.EventoAgenda" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.812" Y="3" />
+        <Point X="6.812" Y="2.926" />
+        <Point X="6.812" Y="1.441" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAQAAACAAAACAI=</HashCode>
+      <FileName>Entities\Package Agenda\Excursion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.RegistroClases" Collapsed="true">
+    <Position X="6.5" Y="5" Width="1.75" />
+    <InheritanceLine Type="EDUAR_Entities.EventoAgenda" FixedFromPoint="true">
+      <Path>
+        <Point X="7.375" Y="3.691" />
+        <Point X="7.375" Y="5" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="tipoRegistro" Type="EDUAR_Entities.TipoRegistroClases">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.368" Y="0.11" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="listaDetalleRegistro" Type="EDUAR_Entities.DetalleRegistroClases">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.104" Y="0.11" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="asignatura" Type="EDUAR_Entities.Asignatura" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.812" Y="5.691" />
+        <Point X="9.25" Y="5.691" />
+        <Point X="9.25" Y="6.875" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.095" Y="0.7" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAAAIAAAAAABAAAAgCAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\RegistroClases.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="tipoRegistro" />
+      <Property Name="asignatura" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaDetalleRegistro" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoRegistroClases" Collapsed="true">
+    <Position X="3" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACCAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\TipoRegistroClases.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoEventoInstitucional" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAEAAAQAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\TipoEventoInstitucional.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoEventoAgenda" Collapsed="true">
+    <Position X="3" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\TipoEventoAgenda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Reunion" Collapsed="true">
+    <Position X="3" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAACAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Agenda\Reunion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Asignatura" Collapsed="true">
+    <Position X="9.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAACAAgAGAAAgAAAAAAAAIAAAAAAAgACAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Asignatura.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Persona" Collapsed="true">
+    <Position X="7.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAyUAASgAAUAAIEAACAAAAAAAAgAIJACAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Persona.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.CursoCicloLectivo" Collapsed="true">
+    <Position X="16.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAEAAQAQAEAAABAAAAAAAAgAAQAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\CursoCicloLectivo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Personal" Collapsed="true">
+    <Position X="14" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAAAAAAAAAACAAAAAQAAACAIAAAAQAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Personal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Tutor" Collapsed="true">
+    <Position X="11.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AFAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Tutor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

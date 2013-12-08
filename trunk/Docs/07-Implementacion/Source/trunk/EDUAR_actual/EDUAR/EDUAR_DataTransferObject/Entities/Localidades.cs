@@ -12,5 +12,16 @@ namespace EDUAR_Entities
         public string descripcion { get; set; }
         public decimal idProvincia { get; set; }
         public bool activo { get; set; }
+
+        public Provincias provincia
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
     }
 }

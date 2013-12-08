@@ -49,10 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DEC\ConfigFuncionPreferencia.cs" />
-    <Compile Include="DEC\FuncionPreferencia.cs" />
-    <Compile Include="DEC\Indicador.cs" />
-    <Compile Include="DEC\ValorFuncionPreferencia.cs" />
     <Compile Include="Entities\Package Administracion\Pagina.cs" />
     <Compile Include="Entities\Package Agenda\AgendaActividades.cs" />
     <Compile Include="Entities\Package Agenda\DetalleRegistroClases.cs" />
@@ -178,7 +174,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="EDUAR_snk.snk" />
-    <None Include="Entities\ClassDiagram.cd" />
+    <None Include="Entities\Package Administracion\Package Administracion.cd" />
+    <None Include="Entities\Package Agenda\Package Agenda.cd" />
+    <None Include="Entities\Package Comunicaciones\Package Comunicaciones.cd" />
+    <None Include="Entities\Package Encuestas\Package Encuestas.cd" />
+    <None Include="Entities\Package Novedades Aulicas\Package Novedades Aulicas.cd" />
+    <None Include="Entities\Package Planificacion Clases\Package Planificacion Clases.cd" />
+    <None Include="Entities\Package Principales\Package Principales.cd" />
+    <None Include="Entities\Package Usuarios\Package Usuarios.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

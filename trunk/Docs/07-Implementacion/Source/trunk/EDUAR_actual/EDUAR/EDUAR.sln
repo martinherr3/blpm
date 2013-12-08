@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDUAR_Entities", "EDUAR_Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMSapplication", "..\EDUAR_SI\SMSapplication\SMSapplication.csproj", "{668635D8-4F39-4A78-9929-7DEBB881559C}"
 EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Modelos", "Modelos\Modelos.modelproj", "{A89F3FC8-05FB-4E27-8CD1-11BD8269C126}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{DD942AD1-FFE6-4EBF-B12A-5083237D67D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{668635D8-4F39-4A78-9929-7DEBB881559C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{668635D8-4F39-4A78-9929-7DEBB881559C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A89F3FC8-05FB-4E27-8CD1-11BD8269C126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A89F3FC8-05FB-4E27-8CD1-11BD8269C126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A89F3FC8-05FB-4E27-8CD1-11BD8269C126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A89F3FC8-05FB-4E27-8CD1-11BD8269C126}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

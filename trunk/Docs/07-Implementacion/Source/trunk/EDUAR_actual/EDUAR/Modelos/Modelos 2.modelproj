@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{a89f3fc8-05fb-4e27-8cd1-11bd8269c126}</ProjectGuid>
+    <ArchitectureToolsVersion>1.0.0.0</ArchitectureToolsVersion>
+    <Name>Modelos 2</Name>
+    <RootNamespace>Modelos</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" />
+  <ItemGroup>
+    <Content Include="Diagrama de Componentes Web.componentdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Diagrama de Componentes Web.componentdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>Diagrama de Componentes Web.componentdiagram</DependentUpon>
+    </Content>
+    <Folder Include="ModelDefinition\" />
+    <Content Include="ModelDefinition\Modelos.uml">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EDUAR_BusinessLogic\EDUAR_BusinessLogic.csproj">
+      <Name>EDUAR_BusinessLogic</Name>
+      <Project>{3c565e7b-1be2-4bd7-9927-1a5af7c66e3c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\EDUAR_DataAccess\EDUAR_DataAccess.csproj">
+      <Name>EDUAR_DataAccess</Name>
+      <Project>{bdd87c31-320a-4d62-8dda-09071cfbc405}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\EDUAR_DataTransferObject\EDUAR_Entities.csproj">
+      <Name>EDUAR_Entities</Name>
+      <Project>{dd942ad1-ffe6-4ebf-b12a-5083237d67d0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\EDUAR_UI\EDUAR_UI.csproj">
+      <Name>EDUAR_UI</Name>
+      <Project>{6e1cffd1-54d7-419a-896b-c59dbf4eab15}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\EDUAR_Utility\EDUAR_Utility.csproj">
+      <Name>EDUAR_Utility</Name>
+      <Project>{ad230a87-fe0f-4621-bc67-a035a22f9d3a}</Project>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
