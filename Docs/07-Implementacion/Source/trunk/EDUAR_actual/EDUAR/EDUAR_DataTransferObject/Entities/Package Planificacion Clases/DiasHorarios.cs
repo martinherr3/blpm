@@ -23,7 +23,7 @@ namespace EDUAR_Entities
 		public List<Modulo> modulos { get; set; }
 		public int idCursoTransaccional { get; set; }
 		public int idAsignaturaTransaccional { get; set; }
-		public int idNivelTransaccional { get; set; }
+        public int idNivelTransaccional { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DiasHorarios"/> class.

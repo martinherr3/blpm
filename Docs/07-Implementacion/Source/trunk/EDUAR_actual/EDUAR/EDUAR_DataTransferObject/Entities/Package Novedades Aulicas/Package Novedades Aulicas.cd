@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EDUAR_Entities.EstadoNovedad" Collapsed="true">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAACAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Novedades Aulicas\EstadoNovedadAulica.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Novedad" Collapsed="true">
+    <Position X="5.25" Y="1" Width="1.5" />
+    <AssociationLine Name="novedadPadre" Type="EDUAR_Entities.Novedad">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.048" Y="0.31" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAADAAAASAAAAEAAAwAAAAAAAAAAAQAAAQAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Novedades Aulicas\Novedad.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="curso" />
+      <Property Name="estado" />
+      <Property Name="novedadPadre" />
+      <Property Name="tipo" />
+      <Property Name="usuario" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoNovedad" Collapsed="true">
+    <Position X="2.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Novedades Aulicas\TipoNovedadAulica.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Curso" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGAEAAAAACAAAACAAAAQACAIAACAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Curso.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="cicloLectivo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Persona" Collapsed="true">
+    <Position X="6" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAyUAASgAAUAAIEAACAAAAQAAAgAIJACAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Persona.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="usuario" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Usuario" Collapsed="true">
+    <Position X="6" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAASAFAAAAAAgAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Perfiles\Usuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.CicloLectivo" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACAAAACAAAACAAAAAAAAAAAAACAAIQAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\CicloLectivo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

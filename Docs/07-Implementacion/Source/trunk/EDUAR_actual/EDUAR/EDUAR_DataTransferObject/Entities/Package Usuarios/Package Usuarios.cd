@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EDUAR_Entities.Alumno" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="EDUAR_Entities.Persona" FixedFromPoint="true">
+      <Path>
+        <Point X="6.062" Y="2.941" />
+        <Point X="6.062" Y="3.375" />
+        <Point X="1.25" Y="3.375" />
+        <Point X="1.25" Y="3.75" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="listaTutores" Type="EDUAR_Entities.Tutor">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.189" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIASAAAAAAAAAAgAAAAAQAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Alumno.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaTutores" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Tutor" Collapsed="true">
+    <Position X="3.5" Y="4" Width="1.5" />
+    <InheritanceLine Type="EDUAR_Entities.Persona" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="6.438" Y="2.941" />
+        <Point X="6.438" Y="3.687" />
+        <Point X="4.25" Y="3.687" />
+        <Point X="4.25" Y="4" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AFAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Tutor.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="tipoTutor" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.CargoPersonal" Collapsed="true">
+    <Position X="10.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAEAAAAAAAAAAAAAAAAAIAAAgAA=</HashCode>
+      <FileName>Entities\Package Usuarios\CargoPersonal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Director" Collapsed="true">
+    <Position X="8.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Director.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Docente" Collapsed="true">
+    <Position X="5.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Docente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Persona" Collapsed="true">
+    <Position X="6" Y="2.25" Width="1.5" />
+    <AssociationLine Name="usuario" Type="EDUAR_Entities.Usuario">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.582" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="localidad" Type="EDUAR_Entities.Localidades" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.5" Y="2.938" />
+        <Point X="10.125" Y="2.938" />
+        <Point X="10.125" Y="2.691" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAyUAASgAAUAAIEAACAAAAQAAAwAIJACAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Persona.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="tipoPersona" />
+      <Property Name="usuario" />
+      <Property Name="localidad" />
+      <Property Name="tipoDocumento" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Personal" Collapsed="true">
+    <Position X="8" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="EDUAR_Entities.Persona" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="2.941" />
+        <Point X="6.75" Y="4.062" />
+        <Point X="8" Y="4.062" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAAAAAAAAAACAAAAAQAAACAIAAAAQAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Personal.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="cargo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Preceptor" Collapsed="true">
+    <Position X="10" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Preceptor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Psicopedagogo" Collapsed="true">
+    <Position X="6.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Psicopedagogo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoPersona" Collapsed="true">
+    <Position X="3" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAASAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\TipoPersona.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoTutor" Collapsed="true">
+    <Position X="3.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAQAAAAAQAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\TipoTutor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Usuario" Collapsed="true">
+    <Position X="8.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAASAFAAAAAAgAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Perfiles\Usuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Localidades" Collapsed="true">
+    <Position X="10" Y="2" Width="1.5" />
+    <AssociationLine Name="provincia" Type="EDUAR_Entities.Provincias">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.527" Y="0.018" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAACAAAEIAIAAAAAAAAAACAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Localidades.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="provincia" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoDocumento" Collapsed="true">
+    <Position X="6.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAMAAAAAACAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\TipoDocumento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Provincias" Collapsed="true">
+    <Position X="13" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAACAACEAAEAAAAAAAAAAAAACAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Provincias.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="pais" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Paises" Collapsed="true">
+    <Position X="13" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAACAAAEAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Paises.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

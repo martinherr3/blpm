@@ -11,5 +11,16 @@ namespace EDUAR_Entities
         public string descripcion { get; set; }
         public decimal idPais { get; set; }
         public bool activo { get; set; }
+
+        public Paises pais
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
     }
 }

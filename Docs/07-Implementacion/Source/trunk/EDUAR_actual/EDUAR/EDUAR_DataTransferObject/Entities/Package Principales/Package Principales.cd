@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EDUAR_Entities.ValoresEscalaCalificacion" Collapsed="true">
+    <Position X="8" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAACAAAACAAAEAAAAAAEAABAAAAAAAMAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\ValoresEscalaCalificacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.AlumnoCursoCicloLectivo" Collapsed="true">
+    <Position X="1.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQhAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\AlumnoCursoCicloLectivo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Asignatura" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAACAAgAGAAAgAAAAAAAAIAAAAAAAgACAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Asignatura.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Asistencia" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <AssociationLine Name="tipoAsistencia" Type="EDUAR_Entities.TipoAsistencia">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.221" Y="0.089" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAASAAAAAAAAAAAAAAEBAAAAAAQAAAAAAAAQA=</HashCode>
+      <FileName>Entities\Package Principales\Asistencia.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="tipoAsistencia" />
+      <Property Name="alumno" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Calificacion" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <AssociationLine Name="periodo" Type="EDUAR_Entities.Periodo">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.192" Y="0.383" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAASAIAIAAAAAAAAAAAAAAAEQAACAEAAAAAEA=</HashCode>
+      <FileName>Entities\Package Principales\Calificacion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="alumnoCurso" />
+      <Property Name="asignatura" />
+      <Property Name="escala" />
+      <Property Name="periodo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.CicloLectivo" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACAAAACAAAACAAAAAAAAAAAAACAAIQAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\CicloLectivo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Curso" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <AssociationLine Name="cicloLectivo" Type="EDUAR_Entities.CicloLectivo" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.875" Y="3.25" />
+        <Point X="10.875" Y="1.566" />
+        <Point X="11.75" Y="1.566" />
+        <Point X="11.75" Y="1.191" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="listaAlumnos" Type="EDUAR_Entities.Alumno" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11" Y="3.625" />
+        <Point X="11.375" Y="3.625" />
+        <Point X="11.375" Y="2.688" />
+        <Point X="12.5" Y="2.688" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="orientacion" Type="EDUAR_Entities.Orientacion">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.266" Y="-0.305" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="preceptor" Type="EDUAR_Entities.Preceptor" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9.812" Y="3.941" />
+        <Point X="9.812" Y="5.312" />
+        <Point X="9.25" Y="5.312" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.286" Y="0.393" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AGAEAAAAACAAAACAAAAQACAIAACAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Curso.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="cicloLectivo" />
+      <Property Name="nivel" />
+      <Property Name="orientacion" />
+      <Property Name="preceptor" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaAlumnos" />
+      <Property Name="listaAsignaturas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.CursoCicloLectivo" Collapsed="true">
+    <Position X="7" Y="2" Width="1.5" />
+    <AssociationLine Name="curso" Type="EDUAR_Entities.Curso" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.5" Y="2.375" />
+        <Point X="9.625" Y="2.375" />
+        <Point X="9.625" Y="3.25" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.216" Y="0.568" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="cicloLectivo" Type="EDUAR_Entities.CicloLectivo" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.5" Y="2.156" />
+        <Point X="10.409" Y="2.156" />
+        <Point X="10.409" Y="1" />
+        <Point X="11" Y="1" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.716" Y="-1.109" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAEAAQAQAEAAABAAAAAAAAgAAQAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\CursoCicloLectivo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="curso" />
+      <Property Name="cicloLectivo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.MotivoSancion" Collapsed="true">
+    <Position X="6" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAEAAAAAAAAAAAAAUAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\MotivoSancion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Nivel" Collapsed="true">
+    <Position X="10.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAADAAAACAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Nivel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Periodo" Collapsed="true">
+    <Position X="3.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACCAAACACAASAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\Periodo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Sancion" Collapsed="true">
+    <Position X="3.25" Y="4.5" Width="1.5" />
+    <AssociationLine Name="motivoSancion" Type="EDUAR_Entities.MotivoSancion" FixedToPoint="true">
+      <Path>
+        <Point X="4.75" Y="4.938" />
+        <Point X="6" Y="4.938" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.091" Y="0.058" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="tipoSancion" Type="EDUAR_Entities.TipoSancion">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.018" Y="0.131" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AQAAIAAAASAAAAAQAAAAAAAAEACAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Entities\Package Principales\Sancion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="alumno" />
+      <Property Name="motivoSancion" />
+      <Property Name="tipoSancion" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoAsistencia" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAKAAAAAAAAEAAAAAAAAABAAAAAAACAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\TipoAsistencia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.TipoSancion" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAEAAAQAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\TipoSancion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Alumno" Collapsed="true">
+    <Position X="12.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIASAAAAAAAAAAgAAAAAQAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Alumno.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Orientacion" Collapsed="true">
+    <Position X="12.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAACAAAACAAQEAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Planificacion Clases\Orientacion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Preceptor" Collapsed="true">
+    <Position X="7.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Preceptor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

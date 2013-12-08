@@ -34,6 +34,28 @@ namespace EDUAR_Entities
 				tipoPersona.idTipoPersona = value;
 			}
 		}
+
+        public Usuario usuario
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public TipoDocumento tipoDocumento
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
 		
 		public Persona()
 		{

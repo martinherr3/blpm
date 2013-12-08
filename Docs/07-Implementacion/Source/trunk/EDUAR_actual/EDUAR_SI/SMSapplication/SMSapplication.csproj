@@ -19,7 +19,7 @@
     <ManifestCertificateThumbprint>EDDA9CBB8AD661832452A4E7DD92033191FBD793</ManifestCertificateThumbprint>
     <ManifestKeyFile>SMSapplication_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <PublishUrl>C:\Documents and Settings\willy\Escritorio\Copy of WS\</PublishUrl>
     <Install>true</Install>
@@ -57,7 +57,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>EDUAR_snk.snk</AssemblyOriginatorKeyFile>

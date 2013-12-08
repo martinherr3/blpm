@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EDUAR_Entities.AmbitoEncuesta" Collapsed="true">
+    <Position X="7" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAACAAAEAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Entities\Package Encuestas\AmbitoEncuesta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.CategoriaPregunta" Collapsed="true">
+    <Position X="9.25" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAACAAAACCAAEAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Entities\Package Encuestas\CategoriaPregunta.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ambito" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Encuesta" Collapsed="true">
+    <Position X="4.75" Y="2.5" Width="1.5" />
+    <AssociationLine Name="asignatura" Type="EDUAR_Entities.AsignaturaCicloLectivo">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.19" Y="0.044" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="usuario" Type="EDUAR_Entities.Persona" FixedFromPoint="true">
+      <Path>
+        <Point X="4.75" Y="3" />
+        <Point X="3" Y="3" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAgCQAAIiAAAIECQAAACgACAAAgAAQAAAAAIAAAACA=</HashCode>
+      <FileName>Entities\Package Encuestas\Encuesta.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ambito" />
+      <Property Name="asignatura" />
+      <Property Name="curso" />
+      <Property Name="usuario" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="preguntas" />
+      <Property Name="listaRoles" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.EncuestaDisponible" Collapsed="true">
+    <Position X="2" Y="0.5" Width="2" />
+    <AssociationLine Name="encuesta" Type="EDUAR_Entities.Encuesta" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.531" Y="1.191" />
+        <Point X="3.531" Y="2.562" />
+        <Point X="4.812" Y="2.562" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="usuario" Type="EDUAR_Entities.Persona">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.775" Y="0.206" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AQAAAAgAAAAIAAAAAAAAAAAAAAAAAAwAAAAAAAAQAAg=</HashCode>
+      <FileName>Entities\Package Encuestas\EncuestaDisponible.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="encuesta" />
+      <Property Name="usuario" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="listaRespuestas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.EscalaMedicion" Collapsed="true">
+    <Position X="11.75" Y="2.75" Width="1.75" />
+    <AssociationLine Name="valoresEscalas" Type="EDUAR_Entities.ValorEscalaMedicion">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.159" Y="0.131" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCAAAACAAAEAAAAAAAAAAAAABAAAAAAAQAA=</HashCode>
+      <FileName>Entities\Package Encuestas\EscalaMedicion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="valoresEscalas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Pregunta" Collapsed="true">
+    <Position X="9.75" Y="2" Width="1.5" />
+    <AssociationLine Name="escala" Type="EDUAR_Entities.EscalaMedicion" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.25" Y="2.438" />
+        <Point X="12.625" Y="2.438" />
+        <Point X="12.625" Y="2.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.091" Y="0.12" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAACAIAgAQAAAAIAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Encuestas\Pregunta.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="categoria" />
+      <Property Name="escala" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Respuesta" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <AssociationLine Name="pregunta" Type="EDUAR_Entities.Pregunta" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.969" Y="1.191" />
+        <Point X="8.969" Y="1.566" />
+        <Point X="10.5" Y="1.566" />
+        <Point X="10.5" Y="2" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAgEIAAAAAAAAAAAAAAACAAAEAAAAAAAAAAACAg=</HashCode>
+      <FileName>Entities\Package Encuestas\Respuesta.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="pregunta" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.ValorEscalaMedicion" Collapsed="true">
+    <Position X="11.75" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ARAAAAAAACAAAECAAAEAAAAAAAAAAAAAAAAAAAAAQIA=</HashCode>
+      <FileName>Entities\Package Encuestas\ValorEscalaMedicion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.AsignaturaCicloLectivo" Collapsed="true">
+    <Position X="7.5" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAgIAAAAAAAAAAAAAIAAAAIAAgAAAAAgA=</HashCode>
+      <FileName>Entities\Package Principales\AsignaturaCicloLectivo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.CursoCicloLectivo" Collapsed="true">
+    <Position X="7" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAEAAQAQAEAAABAAAAAAAAgAAQAAAAA=</HashCode>
+      <FileName>Entities\Package Principales\CursoCicloLectivo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Persona" Collapsed="true">
+    <Position X="1.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAyUAASgAAUAAIEAACAAAAQAAAgAIJACAAA=</HashCode>
+      <FileName>Entities\Package Usuarios\Persona.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="usuario" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EDUAR_Entities.Security.DTRol" Collapsed="true">
+    <Position X="6.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAgAAAAAAAgAABAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Security\DTRol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EDUAR_Entities.Usuario" Collapsed="true">
+    <Position X="1.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAASAFAAAAAAgAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Package Perfiles\Usuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

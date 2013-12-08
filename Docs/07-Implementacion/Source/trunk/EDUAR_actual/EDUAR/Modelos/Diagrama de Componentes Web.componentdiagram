@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<componentModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="600dacd1-f14e-49e3-954e-9f146a6a6d3b" name="UML Diagrama de Componentes" linkedPackageId="4fb9ab62-5cf4-47e8-bf86-584cb1956695" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner">
+  <packagedElements>
+    <componentModelHasComponents>
+      <component Id="87b3448c-edc0-4600-be09-54bc97d7771a" name="EDUAR_UI.dll" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="77160efb-0459-467f-9878-dde549012df2" name="buildComponent" profile="StandardProfileL3">
+            <elementDefinition Id="beb1eee7-af1a-4faa-8094-4ea1a5c4142e" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="36a957a1-ac8d-4eee-9de1-c0e50ca74ff3" />
+        <suppliersInternal>
+          <dependency Id="aa7de260-30f9-4ebd-b389-ccc903a88663">
+            <componentMoniker Id="783a7dc8-f0d0-4f42-8e9f-20e93dc2647d" LastKnownName="EDUAR_BusinessLogic.dll" />
+            <elementDefinition Id="a2d890d6-6480-49cd-9d00-b14f7c09b230" />
+          </dependency>
+          <dependency Id="81b79e6a-a6d5-4f2d-b7ea-7ff566194511">
+            <componentMoniker Id="f1371b17-a4cc-40d9-bb98-c80e6aa4e79a" LastKnownName="EDUAR_DataTransferObject.dll" />
+            <elementDefinition Id="c1aabb32-beb5-4d27-bbc7-fcbeb4aeedf7" />
+          </dependency>
+          <dependency Id="5666010b-2264-47c3-988e-2b0458084bdf">
+            <componentMoniker Id="6d843566-f506-483e-93f6-12b690a71513" LastKnownName="EDUAR_Utilidades.dll" />
+            <elementDefinition Id="2de5017b-26d4-468c-929b-add569fa45dd" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="783a7dc8-f0d0-4f42-8e9f-20e93dc2647d" name="EDUAR_BusinessLogic.dll" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="32c17790-12c5-418e-96e0-bbe40cf2038d" name="buildComponent" profile="StandardProfileL3">
+            <elementDefinition Id="ad8ac986-6b2a-4e47-abe8-7b18f05f7e1a" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="de3b1e14-c48c-4838-9867-46e69201c10d" />
+        <suppliersInternal>
+          <dependency Id="a1b0e2e7-30c6-4ef1-9ddf-3cb489a5faf8">
+            <componentMoniker Id="af0ae512-6175-431f-a16a-d0a99f491986" LastKnownName="EDUAR_DataAccess.dll" />
+            <elementDefinition Id="ca3fee4b-2414-43d7-9717-4f559f6ea913" />
+          </dependency>
+          <dependency Id="d21f6264-19f9-4e57-b8f6-fddf54c9d974">
+            <componentMoniker Id="6d843566-f506-483e-93f6-12b690a71513" LastKnownName="EDUAR_Utilidades.dll" />
+            <elementDefinition Id="74833d7c-190f-4010-9f3f-ed535ed6f7b5" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="af0ae512-6175-431f-a16a-d0a99f491986" name="EDUAR_DataAccess.dll" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="8ac3a7f6-cd77-45cd-aac9-cb041b2afa40" name="buildComponent" profile="StandardProfileL3">
+            <elementDefinition Id="ec0b170a-b10b-49ef-b9a1-a499c5fd4be5" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="06df9adf-1f06-44b6-8c8b-9e90c6284277" />
+        <suppliersInternal>
+          <dependency Id="726bda5e-f30c-4a03-bd19-f3e71e6b394c">
+            <componentMoniker Id="6d843566-f506-483e-93f6-12b690a71513" LastKnownName="EDUAR_Utilidades.dll" />
+            <elementDefinition Id="bbcd4fa0-9242-4678-b19a-264e44008169" />
+          </dependency>
+          <dependency Id="02a66136-7256-456b-b071-f1a0707a95c9">
+            <componentMoniker Id="f1371b17-a4cc-40d9-bb98-c80e6aa4e79a" LastKnownName="EDUAR_DataTransferObject.dll" />
+            <elementDefinition Id="4676f956-146c-4831-8848-7a397be4b7d0" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="f1371b17-a4cc-40d9-bb98-c80e6aa4e79a" name="EDUAR_DataTransferObject.dll" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="2411b05f-1197-4c41-968a-49ea0f17ccdf" name="buildComponent" profile="StandardProfileL3">
+            <elementDefinition Id="6c929239-7fa6-45f4-bdc8-a032ee137c08" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="c86ba7a9-2df4-4b87-8e3b-6965ee306e65" />
+        <suppliersInternal>
+          <dependency Id="534b9d4c-02ae-4ca8-866d-0312e9f74f1e">
+            <componentMoniker Id="6d843566-f506-483e-93f6-12b690a71513" LastKnownName="EDUAR_Utilidades.dll" />
+            <elementDefinition Id="7f2e4395-c66d-42d9-a70e-4420d22c1a22" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="6d843566-f506-483e-93f6-12b690a71513" name="EDUAR_Utilidades.dll" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="f66e8f10-182c-41d9-8be8-4a25eb55612c" name="buildComponent" profile="StandardProfileL3">
+            <elementDefinition Id="12898ec6-6653-4728-b8ef-39d95396a6e1" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="fbbfd7b5-1995-4753-992b-5496ea436c9a" />
+      </component>
+    </componentModelHasComponents>
+    <componentModelHasComponents>
+      <component Id="daf4b204-271a-4a32-8afc-d61fdee66c9c" name="Paginas .aspx" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance Id="be298729-f51f-4069-9fd1-2730a9e026a3" name="entity" profile="StandardProfileL2">
+            <elementDefinition Id="c5b6c86b-8c76-4656-a070-521caf3a8b24" />
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <elementDefinition Id="17b793c3-d815-4d9b-b2b6-a71226fc6294" />
+        <suppliersInternal>
+          <dependency Id="833ecee1-e37f-4f45-8da7-34a35728fab5">
+            <componentMoniker Id="87b3448c-edc0-4600-be09-54bc97d7771a" LastKnownName="EDUAR_UI.dll" />
+            <elementDefinition Id="a829a61e-2680-43c7-863c-3017524d98e1" />
+          </dependency>
+        </suppliersInternal>
+      </component>
+    </componentModelHasComponents>
+  </packagedElements>
+  <package Id="4fb9ab62-5cf4-47e8-bf86-584cb1956695" name="Modelos">
+    <elementDefinition Id="a465cb89-bc04-4bf0-b10c-2ad6032b0895" />
+    <profileInstances>
+      <packageHasProfileInstances Id="9882eaec-95a3-4156-b8db-d87824c24b82">
+        <profileInstance Id="980f62cc-3dce-4010-8e37-f5f0719c0480" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="3b06e99c-d6be-41b7-8ea9-6a91c52c24fd">
+        <profileInstance Id="33fdb074-3f17-420f-94bf-1add5e9cb39b" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</componentModel>
